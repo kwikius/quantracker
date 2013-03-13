@@ -1,0 +1,15 @@
+DIY Antenna Tracker using an STM32F4 discovery board.
+
+Uses a Pololu style servo motor with encoder to give continuous Azimuth rotation
+Uses a standard RC Servo for elevation.
+Version 1 uses an Frsky Telemetry receiver and an Ardupilot to acquire the GPS data.
+(See my mavlink_to_frsky project on Github for details)
+
+I plan to incorporate other options for telemetry soon.
+
+see my website http://www.softpainter.org for more info about the project
+
+Written in C++11, requires gcc4.7 or higher to compile
+
+Also requires my quan/ library also on Github.
+
