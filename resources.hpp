@@ -36,7 +36,9 @@ typedef quan::stm32f4::tim3 azimuth_qdrt_counter;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,0>    user_switch_pin;  
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,1>    elev_servo_pwm_out_pin;                // SF: TIM2_CH2:AF1
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,2>    rc_tx_out_pin;                         // SF: TIM2_CH3:AF1
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,3>    switch_set_zero_pin;                        
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,3>    switch_set_zero_pin;   
+// PA4 DAC out x?
+// PA5 DAC out xx?                   
 
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,8>    not_azimuth_motor_direction_out_pin;   //( H-bridge blue wire in1, in4)
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
@@ -46,8 +48,10 @@ typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,1>    switch_set_home_pin;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,2>    switch_tracking_pin;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,4>    button_left_pin;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,5>    azimuth_encoder_a_pin;                 // SF: TIM3_CH2:AF2  ( encoder yellow 6th from left) 
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,6>    eeprom_scl;              
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,7>    button_right_pin;
 // pb8 free
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    eeprom_sda;
 // pb11 free
 // pb12 free
 // pb13 free
