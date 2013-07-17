@@ -49,12 +49,12 @@ void telemetry::recalc()
    quan::angle_<double>::deg  dlon = filtered_position.lon - m_home_position.lon;
 
   // static_assert(std::is_same<decltype(dlat),quan::angle::deg>::value , "odd");
-   quan::length_<double>::m  rlat = cos(quan::angle_<double>::rad{abs(m_home_position.lat)}) * radius_of_world;
+   quan::length_<double>::m  rlat = cos(quan::angle_<double>::rad{abs(m_home_position.lat)}) * radius_of_world();
    
    quan::length_<double>::m  dx = (dlon * rlat) / quan::angle_<double>::rad{1};
  //  quan::length_<double>::m  dx = quan::angle_<double>::rad{dlon} * rlat;
    //quan::length_<double>::m  dy = quan::angle_<double>::rad{dlat} * radius_of_world;
-   quan::length_<double>::m dy =  (dlat * radius_of_world ) / quan::angle_<double>::rad{1};
+   quan::length_<double>::m dy =  (dlat * radius_of_world() ) / quan::angle_<double>::rad{1};
    quan::length_<double>::m  distance = quan::sqrt(dx * dx + dy * dy);
    quan::angle_<double>::deg elevation{90};
    quan::angle_<double>::deg bearing{0};

@@ -10,7 +10,7 @@ struct telemetry{
    typedef quan::length::mm     altitude_type;
 
    typedef quan::uav::position<lat_lon_type,altitude_type> gps_position;
-   static constexpr quan::length::m  			  radius_of_world{6371000};
+   static constexpr quan::length::m  			  radius_of_world(){ return quan::length::m{6371000};};
 
    static gps_position m_home_position;
    static gps_position m_aircraft_position;
