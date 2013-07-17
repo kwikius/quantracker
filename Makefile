@@ -15,13 +15,50 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
+
 ############################################################
-# **** you will need to modify these to your own paths ***
-TOOLCHAIN_PREFIX = /home/andy/arm/arm-cortex-m4-hardfloat-toolchain/
+# **** you will need modify the paths in this section to the paths you saved the libraries in***
+
+
+# the STM32F4 librraies are available from 
+# http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
+# Change this to the path where you saved the STM32F4 standard Peripheral libraries
 STM32F4_INCLUDE_PATH = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/
+
+# The quan libraries are available from 
+# https://github.com/kwikius/quan-trunk
+# Change this to the the path twhere you saved the quan libraries
 QUAN_INCLUDE_PATH = /home/andy/website/quan-trunk/
-INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)lib/gcc/arm-none-eabi/4.7.1/thumb/cortex-m4/float-abi-hard/fpuv4-sp-d16/
-############################################################
+
+# The GCC ARM embedded toolchain (recommended) is available from
+#  https://launchpad.net/gcc-arm-embedded
+# If using this toolchain, the TOOLCHAIN_ID should be set to GCC_Arm_Embedded (The default)
+TOOLCHAIN_ID = GCC_Arm_Embedded
+# Otherwise if you are using the toolchain from
+# https://github.com/prattmic/arm-cortex-m4-hardfloat-toolchain
+# set the TOOLCHAIN_ID as follows
+#TOOLCHAIN_ID = Michael_Pratt
+
+# Change this to the path where you installed the  arm gcc compiler toolchain
+TOOLCHAIN_PREFIX = /opt/gcc-arm-none-eabi-4_7-2013q2/
+
+# Change this to your version of gcc. 
+# (You can find the gcc version by invoking arm-noe-eabi-gcc --version in the $(TOOLCHAIN_PREFIX)/bin/ directory)
+TOOLCHAIN_GCC_VERSION = 4.7.4
+
+# otherwise you are on your own ... !
+###################################################################
+
+ifeq ($(strip $(TOOLCHAIN_ID)),GCC_Arm_Embedded)
+	INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
+else
+ifeq ($(strip $(TOOLCHAIN_ID)), Michael_Pratt)
+	INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/thumb/cortex-m4/float-abi-hard/fpuv4-sp-d16/
+else
+   INIT_LIB_PREFIX = ???
+endif
+endif
+
 
 CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc

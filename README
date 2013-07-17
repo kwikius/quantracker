@@ -2,14 +2,60 @@ DIY Antenna Tracker using an STM32F4 discovery board.
 
 Uses a Pololu style servo motor with encoder to give continuous Azimuth rotation
 Uses a standard RC Servo for elevation.
-Version 1 uses an Frsky Telemetry receiver and an Ardupilot to acquire the GPS data.
-(See my mavlink_to_frsky project on Github for details)
 
-I plan to incorporate other options for telemetry soon.
+see my website http://www.softpainter.org/fpv/antenna_tracker/index.html for more info about the project.
 
-see my website http://www.softpainter.org for more info about the project
+See the Changelog file in this directory for changes after 16/07/2013
 
-Written in C++11, requires gcc4.7 or higher to compile
+Dependencies
 
-Also requires my quan/ library also on Github.
+   The GNU gcc compiler. The source code is written in C++11, requires gcc4.7  higher to compile
+   	You can get a suitable gcc compiler for your platform from
+
+         https://launchpad.net/gcc-arm-embedded
+
+   The STM32F4 standard peripherals library
+   	available from
+
+         http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
+      
+   My quan library 
+  		available from
+         
+         ttps://github.com/kwikius/quan-trunk
+
+
+Once these are installed you will need to modify the paths in Makefile to suit your configuration.
+
+-----
+
+You will also need an airborne option to send the data to the tracker from the aircraft.
+
+   So far there are 2 airborne options using Arduino Pro Mini microcontroller
+
+   1)
+      Use an Frsky Telemetry receiver and an Ardupilot to acquire the GPS data.
+       The source code for this option can be downloaded from
+
+         https://github.com/kwikius/mavlink_to_frsky
+
+   2)
+      GPS module attached direct to the Arduino and sending data down the FrSky telemetry link
+      The source code for this option is available at
+         
+         https://github.com/kwikius/quantracker_air
+
+----
+
+   There are various other applications associated with the project. 
+
+      See https://github.com/kwikius?tab=repositories for more details 
+
+      
+
+
+
+
+
+
 
