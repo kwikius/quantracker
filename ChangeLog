@@ -1,6 +1,12 @@
-17th July 2013
-
-Changed to using the gcc_arm_embedded arm gcc compiler toolchain from the Michael Pratt one. 
-Though the resulting binary image is much larger than previously, I hope that is down to inexperience. 
-There are other link options, for example, a "nano" version of newlib, which I havent yet tested.
+-------------------------------------------------
+18th July 2013
+   I have moved the code and Makefile for the ground part of the tracker into the subdirectory ground/tracker/v1/
+   as a prelude to moving all the other associated github projects into subdirectories of this project
+   so that there will only be one Github project active.
+   
+-------------------------------------------------------------------
+17th July 2013 
+   Changed to using the gcc_arm_embedded arm gcc compiler toolchain from the Michael Pratt one. 
+   Though the resulting binary image is much larger than previously, I hope that is down to inexperience. 
+   There are other link options, for example, a "nano" version of newlib, which I havent yet tested.
 
