@@ -131,7 +131,13 @@ namespace {
 
    quan::fifo<unsigned char,3> telem_input_buffer;
 
-}// nmespace
+}// namespace
+
+void telemetry_input1()
+{
+   
+
+}
 
 void telemetry::parse_input()
 {
