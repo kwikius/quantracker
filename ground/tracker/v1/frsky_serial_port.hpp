@@ -19,8 +19,12 @@
 */
 
 #include <quan/uav/frsky2wsp/protocol.hpp>
+#include <quan/uav/cobs/protocol.hpp>
 #include "serial_ports.hpp"
 
 typedef  FrSky2WSP::protocol<rctx::serial_port> frsky_serial_port;
+
+// length is 1 byte for  message id, 4 for data, 1 for checksum = 6
+
 
 #endif // FRSKY_DATA_FRSKY_SERIAL_PORT_HPP_INCLUDED

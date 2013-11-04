@@ -23,6 +23,10 @@ struct telemetry{
    static bool state_changed;
    static void set_home();
    static void filter_pos();
+
+   private:
+        static void parse_input_from_FrSky_with_high_level_escape_protocol();
+        static void parse_input_from_FrSky_with_cobs_protocol();
    
 };
 
