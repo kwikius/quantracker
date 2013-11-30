@@ -18,7 +18,6 @@
 
 #include "switch_input.hpp"
 #include "events.hpp"
-//#include "leds.hpp"
 #include "telemetry.hpp"
 #include "azimuth.hpp"
 
