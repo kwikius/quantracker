@@ -3,7 +3,7 @@ DIY Antenna Tracker using an STM32F4 discovery board.
 Uses a Pololu style servo motor with encoder to give continuous Azimuth rotation
 Uses a standard RC Servo for elevation.
 
-see my website http://www.softpainter.org/fpv/antenna_tracker/index.html for more info about the project.
+see my website http://www.zoomworks.org/fpv/antenna_tracker/index.html for more info about the project.
 
 See the Changelog file in this directory for changes after 16/07/2013
 
