@@ -76,6 +76,9 @@ namespace{
 
    void update_duty_cycle(float val)
    {
+      // to raise duty cycle
+      // set a direction value for irq to update at next end of cycle
+      // and a flag
       auto const direction = (val < 0) ? false:true;
       float const abs_val = fabs(val);
       float const max_capped_val = fminf( abs_val, azimuth::motor::m_max_duty_cycle_percent);
