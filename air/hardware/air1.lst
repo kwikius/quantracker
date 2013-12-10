@@ -1,4 +1,4 @@
-eeschema (2011-05-25)-stable  >> Creation date: Fri 06 Dec 2013 14:44:47 GMT
+eeschema (2011-05-25)-stable  >> Creation date: Mon 09 Dec 2013 10:00:03 GMT
 
 #Cmp ( order = Reference )
 | C1         1nF         
@@ -14,22 +14,18 @@ eeschema (2011-05-25)-stable  >> Creation date: Fri 06 Dec 2013 14:44:47 GMT
 | C11        1nF         
 | C12        0.1uF       
 | C13        0.1uF       
+| C14        0.1uF       
 | D1         Blue LED    
 | D2         ZENER       
 | D3         Red LED     
-| P1         CONN_1      
-| P2         CONN_1      
-| P3         CONN_1      
-| P4         CONN_1      
+| P1         CONN_4      
+| P2         CONN_2      
+| P3         CONN_2      
 | P5         CONN_1      
 | P6         CONN_1      
 | P7         CONN_1      
 | P8         CONN_1      
 | P9         CONN_1      
-| P10        CONN_1      
-| P11        CONN_1      
-| P12        CONN_1      
-| P13        CONN_1      
 | R1         1K          
 | R2         100R        
 | R3         100R        
@@ -41,9 +37,12 @@ eeschema (2011-05-25)-stable  >> Creation date: Fri 06 Dec 2013 14:44:47 GMT
 | R9         4k7         
 | R10        100R        
 | R11        100R        
+| R12        R           
+| R13        R           
 | U1         LD1117      
 | U2         STM32F051   
 | U3         MCP6L01     
+| U4         24LC01      
 | X1         8MHz        
 #End Cmp
 
@@ -53,6 +52,7 @@ eeschema (2011-05-25)-stable  >> Creation date: Fri 06 Dec 2013 14:44:47 GMT
 | 0.1uF        C10       
 | 0.1uF        C12       
 | 0.1uF        C13       
+| 0.1uF        C14       
 | 100R         R2        
 | 100R         R3        
 | 100R         R10       
@@ -68,27 +68,25 @@ eeschema (2011-05-25)-stable  >> Creation date: Fri 06 Dec 2013 14:44:47 GMT
 | 1nF          C8        
 | 1nF          C9        
 | 1nF          C11       
+| 24LC01       U4        
 | 470R         R5        
 | 470R         R7        
 | 4k7          R8        
 | 4k7          R9        
 | 8MHz         X1        
 | Blue LED     D1        
-| CONN_1       P1        
-| CONN_1       P2        
-| CONN_1       P3        
-| CONN_1       P4        
 | CONN_1       P5        
 | CONN_1       P6        
 | CONN_1       P7        
 | CONN_1       P8        
 | CONN_1       P9        
-| CONN_1       P10       
-| CONN_1       P11       
-| CONN_1       P12       
-| CONN_1       P13       
+| CONN_2       P2        
+| CONN_2       P3        
+| CONN_4       P1        
 | LD1117       U1        
 | MCP6L01      U3        
+| R            R12       
+| R            R13       
 | Red LED      D3        
 | STM32F051    U2        
 | ZENER        D2        

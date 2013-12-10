@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Sun 08 Dec 2013 10:50:07 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 10 Dec 2013 16:06:22 GMT
 
 BeginCmp
 TimeStamp = /52A06B01;
@@ -52,14 +52,7 @@ EndCmp
 BeginCmp
 TimeStamp = /529F2C94;
 Reference = C8;
-ValeurCmp = 1nF;
-IdModule  = SM0805;
-EndCmp
-
-BeginCmp
-TimeStamp = /52A1D053;
-Reference = C9;
-ValeurCmp = 1nF;
+ValeurCmp = 2nF;
 IdModule  = SM0805;
 EndCmp
 
@@ -106,13 +99,6 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /52A191ED;
-Reference = D2;
-ValeurCmp = ZENER;
-IdModule  = SM0805;
-EndCmp
-
-BeginCmp
 TimeStamp = /52A194CE;
 Reference = D3;
 ValeurCmp = Red_LED;
@@ -120,31 +106,24 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /529F1F84;
+TimeStamp = /52A58B19;
 Reference = P1;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
+ValeurCmp = CONN_4;
+IdModule  = SIL-4;
 EndCmp
 
 BeginCmp
-TimeStamp = /529F1FAD;
+TimeStamp = /52A590F6;
 Reference = P2;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
+ValeurCmp = CONN_2;
+IdModule  = SIL-2;
 EndCmp
 
 BeginCmp
-TimeStamp = /529F1F89;
+TimeStamp = /52A5909E;
 Reference = P3;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
-EndCmp
-
-BeginCmp
-TimeStamp = /529F1F8D;
-Reference = P4;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
+ValeurCmp = CONN_2;
+IdModule  = SIL-2;
 EndCmp
 
 BeginCmp
@@ -183,31 +162,10 @@ IdModule  = SIL-1;
 EndCmp
 
 BeginCmp
-TimeStamp = /529F1FC5;
-Reference = P10;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
-EndCmp
-
-BeginCmp
-TimeStamp = /529F1FD5;
-Reference = P11;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
-EndCmp
-
-BeginCmp
-TimeStamp = /529F1FD8;
-Reference = P12;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
-EndCmp
-
-BeginCmp
-TimeStamp = /529F1FDE;
-Reference = P13;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
+TimeStamp = /52A738F1;
+Reference = Q1;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT23GDS;
 EndCmp
 
 BeginCmp

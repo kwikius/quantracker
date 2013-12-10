@@ -1,8 +1,6 @@
-update=Sat 07 Dec 2013 09:05:11 GMT
+update=Tue 10 Dec 2013 16:59:36 GMT
 version=1
-last_client=pcbnew
-[general]
-version=1
+last_client=kicad
 [eeschema]
 version=1
 LibDir=/home/andy/electronics/kicad/lib
@@ -102,3 +100,5 @@ LibName8=valves
 LibName9=led
 LibName10=dip_sockets
 LibName11=/home/andy/electronics/kicad/modules/SOT223_1_to_pad
+[general]
+version=1
