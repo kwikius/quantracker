@@ -1,0 +1,9 @@
+
+The 3 values that are sent are Latitude, longtitude and altitude
+
+Latitude and longtitude are sent in an int32_t which has units of deg10e7
+( one degree is 10^7 of these units)
+
+Altitude is sent in an int32_t which has units of meters
+
+
