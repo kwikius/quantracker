@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 10 Dec 2013 16:06:22 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 11 Dec 2013 08:09:01 GMT
 
 BeginCmp
 TimeStamp = /52A06B01;
@@ -124,6 +124,13 @@ TimeStamp = /52A5909E;
 Reference = P3;
 ValeurCmp = CONN_2;
 IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A81D0E;
+Reference = P4;
+ValeurCmp = CONN_1;
+IdModule  = SIL-1;
 EndCmp
 
 BeginCmp
