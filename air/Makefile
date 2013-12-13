@@ -56,7 +56,7 @@ ODFLAGS = -d
 all: test
 
 objects = main.o setup.o spbrk.o $(SYSTEM_INIT).o serial_port.o dac.o \
-frsky.o aircraft.o mavlink.o timer.o gps.o on_gps.o
+frsky.o frsky_zapp1.o aircraft.o mavlink.o timer.o gps.o on_gps.o settings.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
