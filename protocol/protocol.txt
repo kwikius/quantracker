@@ -6,4 +6,45 @@ Latitude and longtitude are sent in an int32_t which has units of deg10e7
 
 Altitude is sent in an int32_t which has units of meters
 
+transport protocol
+
+For sending down the FrSky telem link
+For FrSky 2 layer protocol. First the data must be unwrapped from the FrSky protocol.
+
+The original tracker aircraft position protocol (ATAPP1) for data was as follows
+
+It is a variable length protocol, using byte stuffing and escapes. 
+
+The raw output stream uses one character(0x5E) as a framing character to signify the beginning of a new packet
+Another character(0x5D) is used as an escape signifier. When either the framing character or the escape character c is encountered in the raw input stream then an escape character is inserted and that c is replaced by (c xor 0x60) in the output stream.
+
+The latitude longtitude and altitude data is each sent in a separate packet.
+Before byte stuffing and framing each packet consists of an array ar of 6 bytes
+ar[0] is an id discriminating which value is in the packet
+ar[1:4] is the value of the data
+ar[5] is a 1 byte checksum 
+
+The protocol is very reliable, however I dont really like the unpredictability of the variable length byts stuffing. 
+The final packet may end up nearly twice the length of the original data.
+Also a 1 byte checksum is quite weak with one error in 255 getting through
+
+**The new protocol ATAPP2 **
+
+In the new protocol The latitude longtitude and altitude data is each sent in a separate packet as before.
+Before encoding each packet consists of an array of 7 bytes
+ar[0] is an id discriminating which value is in the packet
+ar[1:4] is the value of the data
+ar[5:6] is a 2 byte checksum using Fletcher16 algorithm for genericity.
+
+The raw output stream uses zero as a framing character and each packet including frame is 9 bytes long exactly.
+
+
+
+
+
+
+
+
+
+
 
