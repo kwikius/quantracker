@@ -86,18 +86,15 @@ void telemetry::recalc()
 namespace {
 
    unsigned char telem_message [7];
-//   constexpr auto filter_k = 0.75f;
-//
-//   template <typename T>
-//   T filter (T const & value, T const & new_value){
-//      return value * filter_k + new_value * ( 1 - filter_k);
-//   }
 
+//ATAPP1 specific
    void eval_telem_message()
    {
+      // If checksum failed we got junk so discard it
       if (quan::uav::do_checksum(telem_message) != telem_message[6]){
          return;
       }
+      // format indices 
       int32_t rawdata = (int32_t)(
          static_cast<uint32_t>( telem_message[2])
          + (static_cast<uint32_t>(telem_message[3]) << 8U) 
@@ -131,12 +128,17 @@ namespace {
 
    quan::fifo<unsigned char,3> telem_input_buffer;
 
-}// nmespace
+}// namespace
 
 void telemetry::parse_input()
 {
+   // stateful message index
+   // on each call if this idx reaches the magic number the eval function is called
    static uint32_t msg_idx = 0;
+   
+   // a buffer to hold the FrSky protocol encoded frame.
    unsigned char buf[9];
+   // Filter out only the user data messages. The others are just dumped currently
    if ( telemetry::serial_port.get_frame(buf) && ( buf[0] == FrSky2WSP::CommandID::UserData)){
       uint32_t num_bytes = buf[1];
       if (( num_bytes == 0) || ( num_bytes > 6 )) {
@@ -159,10 +161,12 @@ void telemetry::parse_input()
                         telem_input_buffer.get( telem_message[msg_idx]) ;
                         telem_message[msg_idx] ^= 0x60;
                      }
+// The 7 is ATAPP1 specific
                      if ( ++msg_idx == 7){
                         msg_idx = 0;
                         eval_telem_message();
                      }
+// ~ ATAPP1 specific
                   }
                }
             }
