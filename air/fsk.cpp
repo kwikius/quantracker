@@ -221,16 +221,13 @@ namespace {
 
 }// namespace
 
-void dac_setup()
+void setup_fsk_event()
 {
-#if 0
-   output_fifo.init();
-   cur_dac_value_idx=0;
-   bit_pos = 0;
-   output_byte =0;
-   sample_idx = 0;
-   opt_state cur_state = opt_state::idle;
-#endif
+  // nothing needed yet, but will need an event to push data for fsk
+}
+
+void fsk_setup()
+{
    // set up dac pin
    dac_port_setup();
    // enable the dac module

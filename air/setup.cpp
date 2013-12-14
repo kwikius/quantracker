@@ -17,48 +17,48 @@
 */
 
 #include "serial_ports.hpp"
-#include "dac.hpp"
-#include "resources.hpp"
+#include "fsk.hpp"
+
+#include "events.hpp"
 
 extern "C" void __cxa_pure_virtual() { while (1); }
 void *__dso_handle;
 
 void operator delete (void*p){ ;}
 
-void dac_setup();
-
-using namespace quan::stm32;
-
-extern "C" void setup()
+void setup_outputs()
 {
-
-  SysTick_Config(SystemCoreClock / 1000);
-
-  module_enable<heartbeat_led_pin::port_type>();
-
-   apply<
-      heartbeat_led_pin
-      , gpio::mode::output
-      , gpio::otype::push_pull
-      , gpio::pupd::none
-      , gpio::ospeed::slow
-      , gpio::ostate::high
-   >();
-
-//   set dac priority ( highest)
-//   posdata::serial_port::set_irq_priority(interrupt_priority::pos_data_serial_port); (2nd highest)
-//   frsky::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port); 
-// TODO check for settings input via sp
-
    frsky_sp::serial_port::init();
 //TODO : invert tx output according to eeprom
    frsky_sp::serial_port::set_baudrate<9600,false>();
 
+   fsk_setup();
+}
+
+void setup_events()
+{
+   setup_frsky_event();
+   setup_fsk_event();
+   setup_heartbeat_event();
+
+   SysTick_Config(SystemCoreClock / 1000);
+}
+
+void setup_inputs()
+{
    posdata_sp::serial_port::init();
 //TODO : invert tx output due to transistor inverter on output
    posdata_sp::serial_port::set_baudrate<57600,false>();
+}
 
-   dac_setup();
-   
+
+extern "C" void setup()
+{
+  // first check if user wants to dialog
+  // if not then ..
+  // read config
+  setup_outputs();
+  setup_events();
+  setup_inputs(); 
 }
 

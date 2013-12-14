@@ -8,9 +8,13 @@ struct settings{
    static altitude_t altitude_src;
 
    // protocol to use for sending data down the telemetry link
-   enum class protocol_t {none,zapp1, zapp2};
-   static protocol_t frsky_protocol;
-   static protocol_t fsk_protocol;
+   enum class output_protocol_t {none,zapp1, zapp2};
+   static output_protocol_t frsky_protocol;
+   static output_protocol_t fsk_protocol;
+
+   // what is the data source
+   enum class data_source_t {mavlink, gps};
+   static data_source_t  data_source;
 
 };
 

@@ -16,80 +16,36 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 #include <cstdint>
-#include "resources.hpp"
 
-//#include "timer.hpp"
-//#include "led.hpp"
 #include "mavlink.hpp"
-#include "frsky.hpp"
-#include "serial_ports.hpp"
-
-//#include "serial_ports.hpp"
-#include "dac.hpp"
+#include "gps.hpp"
+#include "settings.hpp"
 #include "events.hpp"
 
-#include "gps.hpp"
-
-#if 0 
-/* change BOOT1 option to allow use of serial port to program.
-If one is written then all must be rewritten
-*/
-#if defined QUAN_STM32F0
-extern uint32_t const user_options1 __attribute__ ((section ("processor_options1")))  = 0x10EF55AA;
-extern uint32_t const user_options2 __attribute__ ((section ("processor_options2")))  = 0x00FF00FF;
-extern uint32_t const user_options3 __attribute__ ((section ("processor_options3")))  = 0x00FF00FF;
-#endif
-#endif
-//todo
-
 namespace {
-  void read_gps()
-{ 
-      the_gps.parse();
-}
 
-
-   void update_leds()
-   {
-      static uint32_t heartbeat_timer = 0;
-      static uint32_t cur_num_heartbeats = 0;
-      static bool heartbeat_led_on = false;
-      uint32_t num_heartbeats = get_num_heartbeats();
-      if ( num_heartbeats > cur_num_heartbeats){
-         // new heartbeat
-         cur_num_heartbeats = num_heartbeats;
-         heartbeat_timer = millis();
-         quan::stm32::set<heartbeat_led_pin>();
-         heartbeat_led_on = true;
-      }else{
-         //turn off heartbeat led after a one shot pulse of 1/4 sec 
-         if ( heartbeat_led_on && (( millis() - heartbeat_timer ) >= 250)){
-           quan::stm32::clear<heartbeat_led_pin>();
-           heartbeat_led_on = false;
-         }
-      }
+   void read_gps()
+   { 
+         the_gps.parse();
    }
-//true if want to get mavllink data
-   bool want_mavlink = true;
+
    void read_data()
    {
-      if (want_mavlink){
-         read_mavlink();
-      }else{
-         read_gps();
+      switch( settings::data_source){
+         case settings::data_source_t::mavlink:
+            read_mavlink();
+            break;
+         default:
+            read_gps();
+            break;
       }
    }
 }
-
 
 int main()
 {
    for(;;){
       read_data();
-      if( ms20_event.signalled()){
-         ms20_event.clear();
-         update_leds();
-         FrSky_send_message();
-      }
+      service_events();
    }
 }

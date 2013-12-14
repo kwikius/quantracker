@@ -25,6 +25,9 @@ INCLUDES = /opt/stm32f0/STM32F0xx_StdPeriph_Lib_V1.1.0/Libraries/CMSIS/Include \
 INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv6-m/
 
 DEFINES = QUAN_STM32F0 QUAN_NO_EXCEPTIONS QUAN_STM32_SUBFAMILY_05X HSE_VALUE=8000000
+
+DEFINES += QUAN_DISCOVERY
+
 STARTUP = startupf0.s
 LINKER_SCRIPT = stm32f0.ld
 SYSTEM_INIT = system_initf0
@@ -55,8 +58,9 @@ ODFLAGS = -d
 
 all: test
 
-objects = main.o setup.o spbrk.o $(SYSTEM_INIT).o serial_port.o dac.o \
-frsky.o frsky_zapp1.o aircraft.o mavlink.o timer.o gps.o on_gps.o settings.o
+objects = main.o setup.o spbrk.o $(SYSTEM_INIT).o serial_port.o fsk.o \
+frsky.o frsky_zapp1.o aircraft.o mavlink.o timer.o gps.o on_gps.o settings.o \
+events.o heartbeat.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst

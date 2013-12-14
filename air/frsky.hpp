@@ -20,4 +20,19 @@
 
 void FrSky_send_message();
 
+void setup_frsky_event();
+
+namespace zapp1{
+
+   void frsky_send_message();
+   void setup_frsky_event();
+}
+
+namespace zapp2{
+   void frsky_send_message();
+   void setup_frsky_event();
+}
+
+
+
 #endif // QUANTRACKER_AIR_FRSKY_HPP_INCLUDED

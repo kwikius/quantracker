@@ -4,10 +4,16 @@
 #include "frsky.hpp"
 #include "aircraft.hpp"
 #include "serial_ports.hpp"
-#include "dac.hpp"
 #include "settings.hpp"
+#include "events.hpp"
+
+/*
+ The FrSky ZAPP1 protocol
+
+*/
 
 namespace {
+
 
    namespace zapp1_impl{
 
@@ -224,6 +230,7 @@ namespace {
     }
   }
  } // zapp1_impl
+
 }//namespace
 
 namespace zapp1{
@@ -231,5 +238,16 @@ namespace zapp1{
    void frsky_send_message()
    {
       zapp1_impl::send_message();
+   }
+}
+
+namespace {
+   periodic_event FrSkyZapp1_event{quan::time_<uint32_t>::ms{20U},zapp1::frsky_send_message,true};
+}
+
+namespace zapp1{
+   void setup_frsky_event()
+   {
+      set_event(event_index::frsky,&FrSkyZapp1_event);
    }
 }
