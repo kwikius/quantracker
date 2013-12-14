@@ -12,14 +12,12 @@ namespace {
    namespace zapp1_impl{
 
    struct FrSky_msgID {
-       static const char header_value =   0x5e;
-       static const char escape_value =   0x5d;
+      static const char header_value =   0x5e;
+      static const char escape_value =   0x5d;
 
-       static const char Latitude   =    0x1; // deg10e7 to int32_t
-       static const char Longtitude   =  0x2; // deg10e7 to int32_t
-
-       static const char Altitude =      0x8; // altitude in m 
-
+      static const char Latitude     =    0x1; // deg10e7 to int32_t
+      static const char Longtitude   =    0x2; // deg10e7 to int32_t
+      static const char Altitude     =    0x8; // altitude in m 
    };
 
    template<typename T>
@@ -122,7 +120,6 @@ namespace {
        // asynch_tx_write_byte( FrSky_msgID::header_value);
         // frsky_tx_write_byte(FrSky_msgID::header_value);
        frsky_sp::serial_port::put(FrSky_msgID::header_value);
-      // fsk_put(FrSky_msgID::header_value);
         ++pos;
         ++count;
       }
@@ -131,11 +128,9 @@ namespace {
           if ( (ch == FrSky_msgID::header_value) || (ch == FrSky_msgID::escape_value) ){
              char ar[2]= {FrSky_msgID::escape_value, static_cast<char>(ch ^ 0x60)};
              frsky_sp::serial_port::write(ar,2);
-           //  fsk_write(ar,2);
              count += 2;
           }else{
              frsky_sp::serial_port::put(ch);
-            // fsk_put(ch);
              ++count;
           }
       }
@@ -208,7 +203,7 @@ namespace {
 
   void send_message()
   {
-       static uint8_t idx = 0;
+    static uint8_t idx = 0;
     static uint8_t byte_idx = 0;
     static int16_t write_count = 0;
     

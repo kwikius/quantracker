@@ -14,17 +14,28 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-
+#include "settings.hpp"
 
 // call functions to output data in sequence
 // called at 1 call every 1/50th sec
 namespace zapp1{
-   
    void frsky_send_message();
+}
 
+namespace zapp2{
+    void frsky_send_message(){}
 }
 
 void FrSky_send_message()
 {
-   zapp1::frsky_send_message();
+   switch (settings::frsky_protocol){
+      case settings::protocol_t::zapp1:
+         zapp1::frsky_send_message();
+         break;
+      case settings::protocol_t::zapp2:
+         zapp2::frsky_send_message();
+         break;
+      default:
+         break;
+   }
 }
