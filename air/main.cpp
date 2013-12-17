@@ -21,6 +21,7 @@
 #include "gps.hpp"
 #include "settings.hpp"
 #include "events.hpp"
+#include "resources.hpp"
 
 extern "C" void setup();
 
@@ -44,11 +45,46 @@ namespace {
    }
 }
 
+namespace {
+   bool want_commandline()
+   {
+     
+      quan::stm32::module_enable<posdata_txo_pin::port_type>();
+      quan::stm32::apply<
+         posdata_txo_pin,
+         quan::stm32::gpio::mode::input,
+         quan::stm32::gpio::pupd::pullup
+      >();
+      // delay so pullup can act.
+      for ( uint32_t i =0; i < 1000; ++i){
+         asm("nop");
+      }
+      bool result = quan::stm32::get<posdata_txo_pin>();
+      // turn off pullup
+       quan::stm32::apply<
+         posdata_txo_pin,
+         quan::stm32::gpio::pupd::none
+      >();
+      return result;
+
+   }
+   void do_command_line(){}
+}
+
 int main()
 {
-   setup();
-   for(;;){
-      read_data();
-      service_events();
+
+   /*
+    Set TXO pin as input with pullup. Then read it.
+    if it reads low then go into command line mode
+   */
+   if (! want_commandline() ){
+      setup();
+      for(;;){
+         read_data();
+         service_events();
+      }
+   }else{
+      do_command_line();
    }
 }
