@@ -16,34 +16,79 @@
 */
 #include "settings.hpp"
 #include "frsky.hpp"
+#include "zapp2.hpp"
+#include "serial_ports.hpp"
+#include "events.hpp"
 
-// call functions to output data in sequence
-// called at 1 call every 1/50th sec
+namespace {
 
-void FrSky_send_message()
-{
-   switch (settings::frsky_protocol){
-      case settings::output_protocol_t::zapp1:
-         zapp1::frsky_send_message();
-         break;
-      case settings::output_protocol_t::zapp2:
-       //  zapp2::frsky_send_message();
-         break;
-      default:
-         break;
+   int16_t output (uint8_t const * buf, int16_t len)
+   {
+      ::frsky_sp::serial_port::write(reinterpret_cast<char const *>(buf),len);
+      return len;
    }
 }
 
-void setup_frsky_event()
-{
-   switch (settings::frsky_protocol){
-      case settings::output_protocol_t::zapp1:
-         zapp1::setup_frsky_event();
-         break;
-      case settings::output_protocol_t::zapp2:
-       //  zapp2::setup_frsky_event();
-         break;
-      default:
-         break;
+namespace frsky{ namespace zapp2 {
+   
+   void send_message()
+   {
+      ::zapp2::send_message(output);
    }
+}} // frsky::zapp2
+
+namespace {
+
+   periodic_event zapp2_event{
+      ::zapp2::get_update_event_timing(),
+      ::frsky::zapp2::send_message,true
+   };
 }
+
+namespace frsky{ namespace zapp2{
+
+   void setup_event()
+   {
+      ::set_event(::event_index::frsky,&zapp2_event);
+   }
+
+}}
+
+namespace frsky{
+
+   void setup()
+   {
+      frsky_sp::serial_port::init();
+   //TODO : invert tx output according to eeprom
+      frsky_sp::serial_port::set_baudrate<9600,false>();
+   }
+
+   void send_message()
+   {
+      switch (settings::frsky_protocol){
+         case settings::output_protocol_t::zapp1:
+         //   zapp1::frsky_send_message();
+            break;
+         case settings::output_protocol_t::zapp2:
+            frsky::zapp2::send_message();
+            break;
+         default:
+            break;
+      }
+   }
+
+   void setup_event()
+   {
+      switch (settings::frsky_protocol){
+         case settings::output_protocol_t::zapp1:
+         //   zapp1::setup_frsky_event();
+            break;
+         case settings::output_protocol_t::zapp2:
+            frsky::zapp2::setup_event();
+            break;
+         default:
+            break;
+      }
+   }
+
+}//frsky

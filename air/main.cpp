@@ -22,11 +22,13 @@
 #include "settings.hpp"
 #include "events.hpp"
 
+extern "C" void setup();
+
 namespace {
 
    void read_gps()
    { 
-         the_gps.parse();
+      the_gps.parse();
    }
 
    void read_data()
@@ -34,16 +36,17 @@ namespace {
       switch( settings::data_source){
          case settings::data_source_t::mavlink:
             read_mavlink();
-            break;
+         break;
          default:
             read_gps();
-            break;
+         break;
       }
    }
 }
 
 int main()
 {
+   setup();
    for(;;){
       read_data();
       service_events();

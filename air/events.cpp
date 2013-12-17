@@ -8,12 +8,6 @@ namespace zapp1{
 namespace{
    periodic_event* events[3] = {nullptr, nullptr,nullptr};
 }
-#if 0
-periodic_event * get_event(uint32_t i)
-{
-   return events[i];
-}
-#endif
 
 void set_event(uint32_t i, periodic_event * ev)
 {

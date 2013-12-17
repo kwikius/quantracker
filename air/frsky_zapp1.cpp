@@ -14,7 +14,6 @@
 
 namespace {
 
-
    namespace zapp1_impl{
 
    struct FrSky_msgID {

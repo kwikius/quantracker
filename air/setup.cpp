@@ -18,7 +18,7 @@
 
 #include "serial_ports.hpp"
 #include "fsk.hpp"
-
+#include "frsky.hpp"
 #include "events.hpp"
 
 extern "C" void __cxa_pure_virtual() { while (1); }
@@ -28,17 +28,15 @@ void operator delete (void*p){ ;}
 
 void setup_outputs()
 {
-   frsky_sp::serial_port::init();
-//TODO : invert tx output according to eeprom
-   frsky_sp::serial_port::set_baudrate<9600,false>();
 
-   fsk_setup();
+   frsky::setup();
+   fsk::setup();
 }
 
 void setup_events()
 {
-   setup_frsky_event();
-   setup_fsk_event();
+   frsky::setup_event();
+   fsk::setup_event();
    setup_heartbeat_event();
 
    SysTick_Config(SystemCoreClock / 1000);
@@ -50,7 +48,6 @@ void setup_inputs()
 //TODO : invert tx output due to transistor inverter on output
    posdata_sp::serial_port::set_baudrate<57600,false>();
 }
-
 
 extern "C" void setup()
 {

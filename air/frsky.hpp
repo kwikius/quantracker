@@ -17,21 +17,16 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
+namespace frsky {
 
-void FrSky_send_message();
-
-void setup_frsky_event();
-
-namespace zapp1{
-
-   void frsky_send_message();
-   void setup_frsky_event();
+   void setup_event();
+   void send_message();
+   void setup();
 }
-
-namespace zapp2{
-   void frsky_send_message();
-   void setup_frsky_event();
-}
+//namespace zapp2{
+//   void frsky_send_message();
+//   void setup_frsky_event();
+//}
 
 
 

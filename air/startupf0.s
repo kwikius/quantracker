@@ -105,7 +105,7 @@ LoopFillZerobss:
   bl  SystemInit
 /* set up regs etc */
   bl __libc_init_array
-  bl  setup
+ /* bl  setup */
 /* Call the application's entry point.*/
   bl main
   
