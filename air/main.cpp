@@ -46,38 +46,37 @@ namespace {
 }
 
 namespace {
+    /*
+    Set TXO pin as input with pullup. Then read it.
+    if it reads low then want command line mode return true
+   */
    bool want_commandline()
    {
-     
       quan::stm32::module_enable<posdata_txo_pin::port_type>();
       quan::stm32::apply<
          posdata_txo_pin,
          quan::stm32::gpio::mode::input,
-         quan::stm32::gpio::pupd::pullup
+         quan::stm32::gpio::pupd::pull_up
       >();
       // delay so pullup can act.
-      for ( uint32_t i =0; i < 1000; ++i){
+      for ( uint32_t i =0; i < 200; ++i){
          asm("nop");
       }
       bool result = quan::stm32::get<posdata_txo_pin>();
-      // turn off pullup
+      //  put things back
        quan::stm32::apply<
          posdata_txo_pin,
          quan::stm32::gpio::pupd::none
       >();
+      quan::stm32::module_disable<posdata_txo_pin::port_type>();
       return result;
-
    }
+
    void do_command_line(){}
 }
 
 int main()
 {
-
-   /*
-    Set TXO pin as input with pullup. Then read it.
-    if it reads low then go into command line mode
-   */
    if (! want_commandline() ){
       setup();
       for(;;){

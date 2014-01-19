@@ -147,6 +147,4 @@ SECTIONS
       libgcc.a(*)
    }
 
-  
-
 }

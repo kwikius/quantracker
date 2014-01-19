@@ -1,0 +1,7 @@
+in settings.hpp
+
+altitude type to send down the link can be either from baro or from gps
+or combo maybe?
+
+simple parser?
+
