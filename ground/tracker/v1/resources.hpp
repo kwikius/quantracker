@@ -36,7 +36,7 @@ typedef quan::stm32f4::tim3 azimuth_qdrt_counter;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,0>    user_switch_pin;  
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,1>    elev_servo_pwm_out_pin;                // SF: TIM2_CH2:AF1
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,2>    rc_tx_out_pin;                         // SF: TIM2_CH3:AF1
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,3>    switch_set_zero_pin;   
+//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,3>    switch_set_zero_pin;   //UNUSED
 // PA4 DAC out x?
 // PA5 DAC out xx?                   
 
@@ -44,15 +44,16 @@ typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,8>    not_azimuth_motor_di
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,0>    azimuth_motor_direction_out_pin;       // (H-bridge white in2,in3)
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,1>    switch_set_home_pin;
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,2>    switch_tracking_pin;
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,4>    button_left_pin;
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,5>    azimuth_encoder_a_pin;                 // SF: TIM3_CH2:AF2  ( encoder yellow 6th from left) 
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,6>    eeprom_scl;              
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,7>    button_right_pin;
+//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,1>    switch_set_home_pin;  // UNUSED
+//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,2>    switch_tracking_pin;  // UNUSED
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,4>    button_left_pin;       // UNUSED
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,5>    azimuth_encoder_a_pin; // SF: TIM3_CH2:AF2  ( encoder yellow 6th from left) 
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,6>    eeprom_scl;   // already connected to SDL on Discovery           
+//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,7>    button_right_pin;  // UNUSED ( can use for USART1 RX
 // pb8 free
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    eeprom_sda;
-// pb11 free
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    eeprom_sda;  // already connected to SDA on Discovery
+
+// pb11 free  use for USART 1 RX
 // pb12 free
 // pb13 free
 // pb14 free
@@ -65,7 +66,10 @@ typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    eeprom_sda;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioc,6>    azimuth_encoder_b_pin;                 // SF: TIM3_CH1:AF2 ( encoder white, 5th from left)
 // pc8 free
 // pc9 free
-// pc11 free
+// pc11 free use for UART4 RX
+
+// pd1 free
+// pd2 free use for UART5 RX
 
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiod,5>    frsky_txo_pin;                         // SF:USART2_TX:AF7(!!!remove R50 on Discovery!!!)
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiod,6>    frsky_rxi_pin;                         // SF:USART2_RX:AF7
