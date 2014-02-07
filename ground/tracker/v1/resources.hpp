@@ -36,7 +36,7 @@ typedef quan::stm32f4::tim3 azimuth_qdrt_counter;
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,0>    user_switch_pin;  
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,1>    elev_servo_pwm_out_pin;                // SF: TIM2_CH2:AF1
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,2>    rc_tx_out_pin;                         // SF: TIM2_CH3:AF1
-//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,3>    switch_set_zero_pin;   //UNUSED
+//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,3>    switch_set_zero_pin;   //UNUSED could be USART2 RX or various TIMERS
 // PA4 DAC out x?
 // PA5 DAC out xx?                   
 
@@ -44,14 +44,14 @@ typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,8>    not_azimuth_motor_di
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,0>    azimuth_motor_direction_out_pin;       // (H-bridge white in2,in3)
-//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,1>    switch_set_home_pin;  // UNUSED
-//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,2>    switch_tracking_pin;  // UNUSED
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,1>    i2c1_mag_rdy_exti_pin;  // mag new conv ready
+//typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,2>      // UNUSED (BOOT1)
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,4>    button_left_pin;       // UNUSED
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,5>    azimuth_encoder_a_pin; // SF: TIM3_CH2:AF2  ( encoder yellow 6th from left) 
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,6>    eeprom_scl;   // already connected to SDL on Discovery           
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,6>    i2c1_scl;   // already connected to SDL on Discovery           
 //typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,7>    button_right_pin;  // UNUSED ( can use for USART1 RX
 // pb8 free
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    eeprom_sda;  // already connected to SDA on Discovery
+typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    i2c1_sda;  // already connected to SDA on Discovery
 
 // pb11 free  use for USART 1 RX
 // pb12 free

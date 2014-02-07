@@ -17,30 +17,33 @@ include <MCAD/nuts_and_bolts.scad>
    
    
 */
+// smb part S6707-2RS
 ballrace_inner_dia = 35;
 ballrace_outer_dia = 44;
 ballrace_thickness = 5;
 gear_thickness = 6;
 
+// next up 40x52x7 available on ebay
+
 flange_thickness = 3;
 ballrace_clearance = 0.1;
 
 show_ballrace = true;
-show_inner_bearing_holder = true;
-show_inner_bearing_bracket = true;
-show_inner_bearing_holder_p2 = true;
-show_outer_bearing_holder = true;
-show_circlip = true;
-show_outer_bearing_holder_p2 = true;
-show_motor = true;
+show_inner_bearing_holder = false;
+show_inner_bearing_bracket = false;
+show_inner_bearing_holder_p2 = false;
+show_outer_bearing_holder = false;
+show_circlip = false;
+show_outer_bearing_holder_p2 = false;
+show_motor = false;
 show_main_gear = false;
-show_pinion = true;
-show_pinion_as_cylinder = true;
-show_pinion_as_gear = true;
-show_section = true;
-show_motor_mount = true;
+show_pinion = false;
+show_pinion_as_cylinder = false;
+show_pinion_as_gear = false;
+show_section = false;
+show_motor_mount =false;
 
-do_print_transform = false ;//true;
+do_print_transform = true;// false;
 
 module main_gear(){
    shroud_height = 2;
@@ -150,10 +153,10 @@ module motor_mount()
          }//difference
          // screw mounts
          translate([-9,1+slot_width/2,0]){
-            cube([5,2,16], center = true);
+            cube([5,2,16.5], center = true);
          }
          translate([-9,-1-slot_width/2,0]){
-            cube([5,2,16],center = true);
+            cube([5,2,16.5],center = true);
          }
       }//union
    }
@@ -437,10 +440,50 @@ if ( do_print_transform){
             }else{
 
 					if(show_inner_bearing_holder_p2){
-                   translate([0,0,-.1]){
+                 rotate([180,0,0]){
+                   translate([0,0,-4.5]){
+      
 							inner_bearing_holder_p2();
 						}
+                  }
 					}
+               else{
+                  if (show_circlip){
+                     translate([0,0,.9]){
+                        circlip();
+                     }
+                  }else {
+                    
+                     if(show_inner_bearing_bracket){
+                        translate([0,0,-4.5]){
+                           inner_bearing_bracket();
+                        }
+                     }else{
+                        if (show_motor_mount){
+                           translate([0,0,-16.8]){
+                              motor_mount();
+                           }
+                        }else {
+                           if (show_ballrace){
+                                /*
+                                  radial_ball_bearing(
+                                    ballrace_outer_dia,
+                                    ballrace_inner_dia,
+                                    ballrace_thickness
+                                 );
+                              
+                                    */
+                              translate([0,0,ballrace_thickness/2]){
+                                 difference(){
+                                    cylinder(h = ballrace_thickness,d = ballrace_outer_dia, $fn = 100, center = true);
+                                    cylinder(h = ballrace_thickness +1,d = ballrace_inner_dia, $fn = 100, center = true);
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
 				}
          }
       }

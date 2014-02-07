@@ -1,0 +1,31 @@
+-- used on v1 ---
+tim2
+tim3
+
+usart2
+usart3
+
+systick
+
+---------reqd for future 
+
+serial 4
+gps usart  tx rx
+telem1 usart  rx
+telem2 usart  rx
+handset cmds   rx
+
+i2c eeprom
+i2c mag
+
+exti interrupt for mag
+
+
+usart1? rx  PB7 avail
+usart4? rx  PC11 avail
+
+
+usart5? rx PD2 avail
+usart6? rx
+
+
