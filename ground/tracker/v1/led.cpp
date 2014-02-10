@@ -16,12 +16,13 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#include <quan/meta/type_sequence.hpp>
+#include <quan/concepts/meta/type_sequence/for_each.hpp>
 #include "tracker_states.hpp"
 #include "leds.hpp"
-#include <tuple>
-#include <quan/fun/for_each.hpp>
 
 using namespace quan::stm32f4;
+
 
 Led<green_led_pin>     tracking_led;
 Led<orange_led_pin>       error_led;
@@ -29,26 +30,16 @@ Led<blue_led_pin>      startup_led;
 Led<red_led_pin>    heartbeat_led;
 
 namespace {
-
-   // make a list of refs to leds for ease of use
-   auto leds = std::make_tuple(
-       std::ref(heartbeat_led)
-      ,std::ref(tracking_led)
-      ,std::ref(startup_led)
-      ,std::ref(error_led)
-   );
-   
-   struct setup
+      
+   struct do_led_pin_setup
    {
-      template <typename LedRef>
-      void operator()(LedRef led)const
+      template <typename Pin>
+      void operator()()const
       {
-         typedef typename decltype(led)::pin_type pin_type;
-
-         module_enable<typename pin_type::port_type>();
+         module_enable< typename Pin::port_type>();
 
          apply<
-            pin_type
+            Pin
             , gpio::mode::output
             , gpio::otype::push_pull
             , gpio::pupd::none
@@ -57,23 +48,34 @@ namespace {
          >();
       }
    };
-   
-    struct update{
-      template <typename LedRef>
-      void operator()(LedRef led)const
-      {
-         led.update();
-      }
-   };
+}
 
-} //~namespace
+namespace  quan{ namespace impl{
+   template<> struct is_model_of_impl<quan::meta::PolymorphicFunctor<1,0>,do_led_pin_setup > : quan::meta::true_{};
+}}
 
 void setup_leds()
 {
-    quan::fun::for_each(leds,setup{});
+   typedef quan::meta::type_sequence<
+      red_led_pin
+      ,blue_led_pin     
+      ,green_led_pin  
+      ,orange_led_pin 
+   > led_pins;
+  
+   quan::meta::for_each<led_pins,do_led_pin_setup>{}();
+
+   heartbeat_led.switch_off();
+   tracking_led.switch_off();
+   startup_led.switch_off();
+   error_led.switch_off();
+   
 }
 
 void update_leds()
 {
-    quan::fun::for_each(leds,update{});
+   heartbeat_led.update();
+   tracking_led.update();
+   startup_led.update();
+   error_led.update();
 }
