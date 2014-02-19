@@ -1,6 +1,7 @@
 #include "switch_input.hpp"
 #include "events.hpp"
 #include <stm32f4xx.h>
+#include <quan/stm32/systick.hpp>
 
 quan::time_<int32_t>::us 
 basic_switch_input::m_max_debounce_time{50000};// 1/20th sec
@@ -52,11 +53,13 @@ void setup_switches()
   NVIC_SetPriority(SysTick_IRQn,interrupt_priority::systick_timer);
 }
 
+/* done in systick.cpp
 // every 1 ms
 extern "C" void SysTick_Handler()
 {
    ms1_event.set();
 }
+*/
 
 
 

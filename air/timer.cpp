@@ -8,7 +8,8 @@ namespace {
     uint32_t tickcount;
 }
 
-//quan::time_<uint32_t>::ms millis(){ return quan::time_<uint32_t>::ms{tickcount};}
+quan::time_<uint32_t>::ms millis()
+{ return quan::time_<uint32_t>::ms{tickcount};}
 
 extern "C" void SysTick_Handler()
 {

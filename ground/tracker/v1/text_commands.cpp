@@ -47,7 +47,10 @@
 */
 namespace {
 
-   bool parse_position(const char* cbuf, size_t len, quan::uav::position& pos)
+   typedef rctx::serial_port cl_sp;
+   typedef telemetry::gps_position uav_pos_type;
+
+   bool parse_position(const char* cbuf, size_t len, uav_pos_type& pos)
    {
       if ( len > 99){return false;}
       
@@ -69,7 +72,7 @@ namespace {
       }
       typedef quan::angle::deg deg;
       typedef quan::length::m m;
-      pos = quan::uav::position{deg{ar[0]},deg{ar[1]},m{ar[2]}};
+      pos = uav_pos_type{deg{ar[0]},deg{ar[1]},m{ar[2]}};
       return true;
    }
 
@@ -78,176 +81,208 @@ namespace {
       return parse_position(buf,len,telemetry::m_home_position);
    }
 
-}
+   // buf is a zero terminated string
+   void parse_text_command(const char * buf)
+   {
+       size_t const len = strlen(buf);
+       if ( len == 0) {
+         return;
+       }
+       switch (buf[0]){
 
-// buf is a zero terminated string
-void parse_text_command(const char * buf)
-{
-    size_t const len = strlen(buf);
-    if ( len == 0) {
-      return;
-    }
-    switch (buf[0]){
+         case '$' :
+               if (! parse_home_position(buf+1,len-1) ){
+                  cl_sp::write("set home position failed\n");
+               }
+               else{
+                 char buf1[200];
+                 sprintf(buf1,"home pos set lat= %f , lon= %f, height= %f\n",
+                      static_cast<double>(quan::angle::deg{telemetry::m_home_position.lat}.numeric_value()),
+                      static_cast<double>(quan::angle::deg{telemetry::m_home_position.lon}.numeric_value()),
+                      static_cast<double>(telemetry::m_home_position.alt.numeric_value())
+                  );
+                 cl_sp::write(buf1);
+               }
+               break;
 
-      case '$' :
-            if (! parse_home_position(buf+1,len-1) ){
-               rctx::serial_port::write("set home position failed\n");
+         case '~' : {
+               uav_pos_type aircraft_position;
+               if(!parse_position(buf+1,len-1,aircraft_position)){
+                  cl_sp::write("set aircraft position failed\n");
+               }else{
+                 char buf1[250];
+                 sprintf(buf1,"aircraft pos set lat= %f deg, lon= %f deg, height= %f mm\n",
+                     static_cast<double>(quan::angle::deg{aircraft_position.lat}.numeric_value()),
+                      static_cast<double>(quan::angle::deg{aircraft_position.lon}.numeric_value()),
+                      static_cast<double>(aircraft_position.alt.numeric_value())
+                  );
+                 telemetry::m_aircraft_position = aircraft_position;
+                 telemetry::recalc();
+                 
+                 cl_sp::write(buf1);
+               }
+               break;
+         }
+         case 'Z' :{
+               azimuth::encoder::zero();
+               cl_sp::write("zeroed\n");
+         }
+         break;
+         case 'E' :{
+               azimuth::motor::enable();
+               cl_sp::write("Azimuth Enabled\n");
+         }
+         break;
+
+         case 'D' :{
+               azimuth::motor::disable();
+               cl_sp::write("Azimuth Disabled\n");
+         }
+         break;
+        
+         case 'P' :
+            if ( len > 1){
+               uint32_t const pos = atoi(buf+1);
+               azimuth::motor::set_target_position(pos);
+               char buf1[50];
+               sprintf(buf1,"T <~ %d : OK!\n",azimuth::motor::get_target_position());
+               cl_sp::write(buf1);
             }
             else{
-              char buf1[200];
-              sprintf(buf1,"home pos set lat= %f , lon= %f, height= %f\n",
-                   static_cast<double>(quan::angle::deg{telemetry::m_home_position.lat}.numeric_value()),
-                   static_cast<double>(quan::angle::deg{telemetry::m_home_position.lon}.numeric_value()),
-                   static_cast<double>(telemetry::m_home_position.alt.numeric_value())
-               );
-              rctx::serial_port::write(buf1);
-            }
-            break;
+               cl_sp::write("expected uint");
+            } 
+         break;
 
-      case '~' : {
-            quan::uav::position aircraft_position;
-            if(!parse_position(buf+1,len-1,aircraft_position)){
-               rctx::serial_port::write("set aircraft position failed\n");
-            }else{
-              char buf1[200];
-              sprintf(buf1,"aircraft pos set lat= %f, lon= %f, height= %f\n",
-                  static_cast<double>(quan::angle::deg{aircraft_position.lat}.numeric_value()),
-                   static_cast<double>(quan::angle::deg{aircraft_position.lon}.numeric_value()),
-                   static_cast<double>(aircraft_position.alt.numeric_value())
-               );
-              telemetry::recalc(aircraft_position);
-              
-              rctx::serial_port::write(buf1);
-            }
-            break;
-      }
-      case 'Z' :{
-            azimuth::encoder::zero();
-            rctx::serial_port::write("zeroed\n");
-      }
-      break;
-      case 'E' :{
-            azimuth::motor::enable();
-            rctx::serial_port::write("Azimuth Enabled\n");
-      }
-      break;
-
-      case 'D' :{
-            azimuth::motor::disable();
-            rctx::serial_port::write("Azimuth Disabled\n");
-      }
-      break;
-     
-      case 'P' :
-         if ( len > 1){
-            uint32_t const pos = atoi(buf+1);
-            azimuth::motor::set_target_position(pos);
-            char buf1[50];
-            sprintf(buf1,"T <~ %d : OK!\n",azimuth::motor::get_target_position());
-            rctx::serial_port::write(buf1);
-         }
-         else{
-            rctx::serial_port::write("expected uint");
-         } 
-      break;
-
-      case 'H' :
-         if ( len > 1){
-            uint32_t pos = atoi(buf+1);
-            if ( pos < 1000){
-               pos = 1000;
-            }else{
-               if ( pos > 2000){
-                   pos = 2000;
+         case 'H' :
+            if ( len > 1){
+               uint32_t pos = atoi(buf+1);
+               if ( pos < 1000){
+                  pos = 1000;
+               }else{
+                  if ( pos > 2000){
+                      pos = 2000;
+                  }
                }
+               main_loop::set_elevation_servo(quan::time_<uint32_t>::us{pos});
+               char buf1[50];
+               sprintf(buf1,"H <~ %d : OK!\n",main_loop::get_elevation_servo().numeric_value());
+               cl_sp::write(buf1);
             }
-            main_loop::set_elevation_servo(quan::time_<uint32_t>::us{pos});
-            char buf1[50];
-            sprintf(buf1,"H <~ %d : OK!\n",main_loop::get_elevation_servo().numeric_value());
-            rctx::serial_port::write(buf1);
-         }
-         else{
-            rctx::serial_port::write("expected uint");
-         } 
-      break;
-      case 'k': 
-         if ( len > 3){
-            switch (buf[1]){
-               case 'P' : 
-               case 'D' : {
-                 quan::detail::converter<float,char*> conv;
-                 float const v = conv(buf + 2);
-                 if (conv.get_errno() ==0){
-                     switch (buf[1]){
-                        case 'P' : {
-                           azimuth::motor::set_kP(v);
-                           char buf1[50];
-                           sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
-                           rctx::serial_port::write(buf1);
+            else{
+               cl_sp::write("expected uint");
+            } 
+         break;
+         case 'k': 
+            if ( len > 3){
+               switch (buf[1]){
+                  case 'P' : 
+                  case 'D' : {
+                    quan::detail::converter<float,char*> conv;
+                    float const v = conv(buf + 2);
+                    if (conv.get_errno() ==0){
+                        switch (buf[1]){
+                           case 'P' : {
+                              azimuth::motor::set_kP(v);
+                              char buf1[50];
+                              sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
+                              cl_sp::write(buf1);
+                           }
+                           break;
+                           case 'D':
+                              azimuth::motor::set_kD(v);
+                              char buf1[50];
+                              sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
+                              cl_sp::write(buf1);
+                           break;
+                           default:
+                              cl_sp::write("internal error\n");
+                           break;
                         }
-                        break;
-                        case 'D':
-                           azimuth::motor::set_kD(v);
-                           char buf1[50];
-                           sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
-                           rctx::serial_port::write(buf1);
-                        break;
-                        default:
-                           rctx::serial_port::write("internal error\n");
-                        break;
-                     }
-                 }else{
-                     rctx::serial_port::write("float conv error\n");
-                 }
+                    }else{
+                        cl_sp::write("float conv error\n");
+                    }
+                  }
+                  break;
+                  default :
+                     cl_sp::write("unknown command\n");
+                  break;
                }
-               break;
-               default :
-                  rctx::serial_port::write("unknown command\n");
+            }
+            else{
+               cl_sp::write("expected kP or kD + float\n");
+            } 
+         break;
+         case 'G' :
+             if ( len > 1){
+               switch (buf[1]){
+                     case 'T':{
+                        char buf1[60];
+                        sprintf(buf1,"Pt = %u\n",azimuth::motor::get_target_position());
+                        cl_sp::write(buf1);
+                     }
+                     break;
+                     case 'A':{
+                        char buf1[50];
+                        sprintf(buf1,"Pa = %u\n",azimuth::motor::get_actual_position());
+                        cl_sp::write(buf1);
+                     }
+                     break;
+                     case 'p':{
+                        char buf1[50];
+                        sprintf(buf1,"kP = %f\n",static_cast<double>(azimuth::motor::get_kP()));
+                        cl_sp::write(buf1);
+                     }
+                     break;
+                     case 'd': {
+                        char buf1[50];
+                        sprintf(buf1,"kD = %f\n",static_cast<double>(azimuth::motor::get_kD()));
+                        cl_sp::write(buf1);
+                     }
+                     default:
+                      cl_sp::write("unknown get param\n");
+                     break;
+               }
+             }
+             else{
+               cl_sp::write("expected get param\n");
+             }
+         break;
+         default:
+            cl_sp::write("cmd not found\n");
+         break;
+
+       }
+   }
+}
+
+void parse_commandline()
+{
+   constexpr uint32_t bufsize = 255;
+   static char buffer[bufsize];
+   static uint32_t index =0;
+   if(cl_sp::in_avail()){
+      if(index == bufsize){
+         while(cl_sp::in_avail()){
+            char ch = cl_sp::get();
+            if(ch =='\n'){
                break;
             }
          }
-         else{
-            rctx::serial_port::write("expected kP or kD + float\n");
-         } 
-      break;
-      case 'G' :
-          if ( len > 1){
-            switch (buf[1]){
-                  case 'T':{
-                     char buf1[60];
-                     sprintf(buf1,"Pt = %u\n",azimuth::motor::get_target_position());
-                     rctx::serial_port::write(buf1);
-                  }
-                  break;
-                  case 'A':{
-                     char buf1[50];
-                     sprintf(buf1,"Pa = %u\n",azimuth::motor::get_actual_position());
-                     rctx::serial_port::write(buf1);
-                  }
-                  break;
-                  case 'p':{
-                     char buf1[50];
-                     sprintf(buf1,"kP = %f\n",static_cast<double>(azimuth::motor::get_kP()));
-                     rctx::serial_port::write(buf1);
-                  }
-                  break;
-                  case 'd': {
-                     char buf1[50];
-                     sprintf(buf1,"kD = %f\n",static_cast<double>(azimuth::motor::get_kD()));
-                     rctx::serial_port::write(buf1);
-                  }
-                  default:
-                   rctx::serial_port::write("unknown get param\n");
-                  break;
-            }
-          }
-          else{
-            rctx::serial_port::write("expected get param\n");
-          }
-      break;
-      default:
-         rctx::serial_port::write("cmd not found\n");
-      break;
-
-    }
+         index = 0;
+         cl_sp::write("command too long\n");
+      }else{
+         char ch = cl_sp::get();
+         cl_sp::put(ch);
+          
+         if(ch == '\r'){
+            cl_sp::write("#\n");
+            buffer[index] = '\0';
+            index = 0;
+            parse_text_command(buffer);
+         }else{
+            
+            buffer[index++] = ch;
+         }
+      }
+   }
 }

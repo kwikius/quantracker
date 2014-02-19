@@ -21,6 +21,9 @@
 #include "serial_ports.hpp"
 #include "leds.hpp"
 #include "switch_input.hpp"
+#include "compass.hpp"
+
+void setup_systick();
 
 // blink error led forever???
 extern "C" void __cxa_pure_virtual() { while (1); }
@@ -34,6 +37,7 @@ extern "C" void setup()
   
    setup_leds();
    setup_switches();
+   setup_systick();
    main_loop::elevation_servo_setup_ports();
    azimuth::motor::setup_ports();
 
@@ -45,6 +49,7 @@ extern "C" void setup()
    rctx::serial_port::init();
 
    azimuth::encoder::setup();
+   setup_compass();
    main_loop::setup();
 
 }

@@ -48,8 +48,6 @@ private:
    bool m_enabled;
 };
 
-//quan::time_<uint32_t>::ms millis();
-
 // indexes into the events array
 struct event_index{
    static constexpr uint32_t frsky = 0;

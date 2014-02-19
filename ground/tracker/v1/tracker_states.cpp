@@ -81,11 +81,21 @@ namespace {
    {
      static int32_t state = 0;
      if ( state == 0){
-         pf_on_button_down = initial_on_button_down;
-         pf_on_button_up = initial_on_button_up;
-         azimuth::motor::disable();
-         error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
-         state = 1;
+          azimuth::motor::disable();
+         // check for user holding down user button
+         if(user_button.get_instant_state() == false){
+           // command line mode
+           telemetry::set_protocol(telemetry::protocol_t::command_line);
+            // do lights to suit
+            error_led.set_flashing(quan::time_<int32_t>::ms{100},quan::time_<int32_t>::ms{900} );
+            state = 3;
+         }else{
+            pf_on_button_down = initial_on_button_down;
+            pf_on_button_up = initial_on_button_up;
+           
+            error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
+            state = 1;
+         }
 #ifdef DEBUG
          debug::serial_port::write("quan_tracker V1.1 startup");
 #endif

@@ -20,7 +20,13 @@
 #include "events.hpp"
 #include "telemetry.hpp"
 #include "azimuth.hpp"
+#include <quan/three_d/vect.hpp>
 
+int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap);
+
+void on_new_mag( quan::three_d::vect<int16_t> const & result_in);
+
+int32_t get_mag_strap();
 
 int main()
 {
@@ -42,8 +48,14 @@ int main()
       }
 
       if ( telemetry::serial_port.in_avail()){
+         
          telemetry::parse_input();
       }
+      quan::three_d::vect<int16_t> mag_result;
+      if( update_mag(mag_result,get_mag_strap()) == 1){
+          on_new_mag(mag_result);
+      }
+
    }
 }
 

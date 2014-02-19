@@ -21,6 +21,7 @@
 #include <quan/stm32f4/usart.hpp>
 #include <quan/stm32f4/gpio.hpp>
 #include <quan/stm32f4/tim.hpp>
+#include <quan/stm32/i2c_port.hpp>
 
 typedef quan::stm32f4::tim2 main_loop_timer;
 typedef quan::stm32f4::tim3 azimuth_qdrt_counter;
@@ -44,15 +45,18 @@ typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,8>    not_azimuth_motor_di
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,0>    azimuth_motor_direction_out_pin;       // (H-bridge white in2,in3)
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,1>    i2c1_mag_rdy_exti_pin;  // mag new conv ready
+typedef quan::mcu::pin<quan::stm32::gpiob,1>    mag_rdy_exti_pin;  // mag new conv ready
 //typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,2>      // UNUSED (BOOT1)
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,4>    button_left_pin;       // UNUSED
 typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,5>    azimuth_encoder_a_pin; // SF: TIM3_CH2:AF2  ( encoder yellow 6th from left) 
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,6>    i2c1_scl;   // already connected to SDL on Discovery           
+
+// HMC5883
+typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl;   // already connected to SDL on Discovery           
 //typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,7>    button_right_pin;  // UNUSED ( can use for USART1 RX
 // pb8 free
-typedef quan::stm32f4::gpio::pin<quan::stm32f4::gpiob,9>    i2c1_sda;  // already connected to SDA on Discovery
+typedef quan::mcu::pin<quan::stm32::gpiob,9>    i2c1_sda;  // already connected to SDA on Discovery
 
+typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
 // pb11 free  use for USART 1 RX
 // pb12 free
 // pb13 free
@@ -86,9 +90,11 @@ typedef quan::stm32f4::usart2 frsky_usart;
 
 struct interrupt_priority{
    static constexpr uint32_t systick_timer = 15;
-   static constexpr uint32_t frsky_serial_port= 14;
-   static constexpr uint32_t rctx_serial_port = 13;
-   static constexpr uint32_t loop_timer = 12;
+   static constexpr uint32_t exti_mag_rdy = 14;
+   static constexpr uint32_t frsky_serial_port= 13;
+   static constexpr uint32_t rctx_serial_port = 12;
+   static constexpr uint32_t i2c_mag_evt  = 11;
+   static constexpr uint32_t loop_timer = 10;
 };
 
 #endif // QUANTRACKER_RESOURCES_HPP_INCLUDED

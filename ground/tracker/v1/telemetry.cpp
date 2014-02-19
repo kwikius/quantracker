@@ -20,6 +20,7 @@ telemetry::gps_position telemetry::m_home_position{quan::angle::deg{0},quan::ang
 telemetry::gps_position  telemetry::m_aircraft_position{quan::angle::deg{0},quan::angle::deg{0},quan::length::m{0}};
 frsky_serial_port telemetry::serial_port; 
 bool telemetry::state_changed = false;
+telemetry::protocol_t telemetry::m_protocol = telemetry::protocol_t::zapp1;
 
 void telemetry::set_home()
 {
@@ -314,7 +315,17 @@ namespace {
 // protocol to use?
 void telemetry::parse_input()
 {
-   parse_input_from_FrSky_with_high_level_escape_protocol();
+   switch (get_protocol()){
+   case protocol_t::command_line:
+      parse_commandline();
+      break;
+   case protocol_t::zapp2:
+      parse_input_from_FrSky_with_cobs_protocol();
+      break;
+   default:
+      parse_input_from_FrSky_with_high_level_escape_protocol();
+      break;
+   }
  //  parse_input_from_FrSky_with_cobs_protocol();
 }
 
