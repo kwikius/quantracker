@@ -16,7 +16,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include <quan/stm32f4/tim.hpp>
+#include <quan/stm32/tim.hpp>
 #include "azimuth.hpp"
 
 void azimuth::motor::enable()
@@ -70,7 +70,7 @@ quan::angle::deg azimuth::motor::get_target_azimuth()
    return raw_angle - quan::angle::deg{360};
 }
 
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 namespace{
 

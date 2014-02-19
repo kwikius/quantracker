@@ -29,14 +29,15 @@ Andy Little
  modified to use the quan system pll constants
 */
 #include <stm32f4xx.h>
-#include <quan/stm32f4/detail/system_pll_constants.hpp>
+#include <quan/stm32/f4/config.hpp>
+#include <quan/stm32/f4/detail/system_pll_constants.hpp>
 
 #define VECT_TAB_OFFSET  0x00 /*!< Vector Table base offset field. 
                                    This value must be a multiple of 0x200. */
 
 static void SetSysClock(void);
 
-uint32_t SystemCoreClock = QUAN_STM32F4_SYSCLK_Hz;
+uint32_t SystemCoreClock = QUAN_STM32_SYSCLK_Hz;
 
 extern "C" void SystemInit(void)
 {
@@ -123,7 +124,7 @@ static void SetSysClock(void)
     /* PCLK1 = HCLK / 4*/ //.... APB1?
     RCC->CFGR |= RCC_CFGR_PPRE1_DIV4;
 
-    typedef quan::stm32f4::detail::system_pll_constants pll;
+    typedef quan::stm32::detail::system_pll_constants pll;
     /* Configure the main PLL */
 //    RCC->PLLCFGR = PLL_M | (PLL_N << 6) | (((PLL_P >> 1) -1) << 16) |
 //                   (RCC_PLLCFGR_PLLSRC_HSE) | (PLL_Q << 24);

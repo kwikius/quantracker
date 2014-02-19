@@ -31,13 +31,13 @@ struct Led{
    { 
       m_on_period = quan::time_<int32_t>::ms{1};
       m_off_period = quan::time_<int32_t>::ms{0};
-      quan::stm32f4::set<Pin>();
+      quan::stm32::set<Pin>();
    }
    void switch_off()
    { 
       m_off_period = quan::time_<int32_t>::ms{1};
       m_on_period = quan::time_<int32_t>::ms{0};
-      quan::stm32f4::clear<Pin>();
+      quan::stm32::clear<Pin>();
    }
    void set_flashing(
          quan::time_<int32_t>::ms on_period, 
@@ -45,7 +45,7 @@ struct Led{
    ){
       m_count = m_on_period = on_period;
       m_off_period = off_period;
-      quan::stm32f4::set<Pin>();
+      quan::stm32::set<Pin>();
    }
 
    // in 20 ms event
@@ -55,12 +55,12 @@ struct Led{
             && (m_off_period > quan::time_<int32_t>::ms{0}) ){
          m_count -= quan::time_<int32_t>::ms{50};
          if ( m_count <= quan::time_<int32_t>::ms{0}){
-            if (quan::stm32f4::get<Pin>() == true){
+            if (quan::stm32::get<Pin>() == true){
                m_count = m_off_period;
-               quan::stm32f4::clear<Pin>();
+               quan::stm32::clear<Pin>();
             }else{
                m_count = m_on_period;
-               quan::stm32f4::set<Pin>();
+               quan::stm32::set<Pin>();
             }
          }
       }

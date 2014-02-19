@@ -23,8 +23,8 @@
 #include <quan/frequency.hpp>
 #include <quan/meta/integer_max.hpp>
 
-#include <quan/stm32f4/tim/detail/get_bus.hpp>
-#include <quan/stm32f4/sys_freq.hpp>
+#include <quan/stm32/detail/get_bus.hpp>
+#include <quan/stm32/sys_freq.hpp>
 
 #include "resources.hpp"
 
@@ -38,8 +38,8 @@ struct main_loop{
  //  static bool toggle_led;
 
    static constexpr quan::frequency::Hz bus_frequency{
-      quan::stm32f4::get_bus_frequency<
-         quan::stm32f4::detail::get_bus<main_loop::timer
+      quan::stm32::get_bus_frequency<
+         quan::stm32::detail::get_bus<main_loop::timer
       >::type>() 
    };
    static constexpr quan::time::ms period{20};

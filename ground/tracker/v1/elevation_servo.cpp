@@ -8,7 +8,7 @@
 /*
   elev servo pwm is on loop_timer::cc2
 */
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 void main_loop::elevation_servo_setup_ports()
 {

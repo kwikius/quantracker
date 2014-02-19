@@ -18,10 +18,10 @@
 
 #include "azimuth.hpp"
 
-#include <quan/stm32f4/gpio.hpp>
-#include <quan/stm32f4/tim.hpp>
+#include <quan/stm32/gpio.hpp>
+#include <quan/stm32/tim.hpp>
 
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 void azimuth::encoder::zero()
 {
