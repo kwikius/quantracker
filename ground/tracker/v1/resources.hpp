@@ -34,14 +34,21 @@ typedef quan::stm32::tim3 azimuth_qdrt_counter;
   loop_timer.CC4 used to gen interrupt to do calc b4 looptimer overrflow
 */
 
+// coudl use pa0 for usart4 tx if removed jumper
+// need to move elev servo pwm from pa1 for usart4 rx
 typedef quan::mcu::pin<quan::stm32::gpioa,0>    user_switch_pin;  
+
 typedef quan::mcu::pin<quan::stm32::gpioa,1>    elev_servo_pwm_out_pin;                // SF: TIM2_CH2:AF1
 typedef quan::mcu::pin<quan::stm32::gpioa,2>    rc_tx_out_pin;                         // SF: TIM2_CH3:AF1
 //typedef quan::mcu::pin<quan::stm32::gpioa,3>    switch_set_zero_pin;   //UNUSED could be USART2 RX or various TIMERS
 // PA4 DAC out x?
 // PA5 DAC out xx?                   
-
+// PA6
+//PA7
 typedef quan::mcu::pin<quan::stm32::gpioa,8>    not_azimuth_motor_direction_out_pin;   //( H-bridge blue wire in1, in4)
+// requires removal of Discovery cap C49
+typedef quan::mcu::pin<quan::stm32::gpioa,9>    gps_txo;
+typedef quan::mcu::pin<quan::stm32::gpioa,10>   gps_rxi;
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
 typedef quan::mcu::pin<quan::stm32::gpiob,0>    azimuth_motor_direction_out_pin;       // (H-bridge white in2,in3)
@@ -52,11 +59,10 @@ typedef quan::mcu::pin<quan::stm32::gpiob,5>    azimuth_encoder_a_pin; // SF: TI
 
 // HMC5883
 typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl;   // already connected to SDL on Discovery           
-//typedef quan::mcu::pin<quan::stm32::gpiob,7>    button_right_pin;  // UNUSED ( can use for USART1 RX
+typedef quan::mcu::pin<quan::stm32::gpiob,7>    ac_telem_cdto;  // AV audio telem data carrier detect input
 // pb8 free
 typedef quan::mcu::pin<quan::stm32::gpiob,9>    i2c1_sda;  // already connected to SDA on Discovery
 
-typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
 // pb11 free  use for USART 1 RX
 // pb12 free
 // pb13 free
@@ -65,13 +71,14 @@ typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
 
 // pc1 free
 // pc2 free
-// pc4 free
-// pc5 free
-typedef quan::mcu::pin<quan::stm32::gpioc,6>    azimuth_encoder_b_pin;                 // SF: TIM3_CH1:AF2 ( encoder white, 5th from left)
-// pc8 free
-// pc9 free
-// pc11 free use for UART4 RX
 
+typedef quan::mcu::pin<quan::stm32::gpioc,4>    azimuth_motor_v_A;//(ADC12_IN14) for reading azimuth motor speed
+typedef quan::mcu::pin<quan::stm32::gpioc,5>    azimuth_motor_v_B;//(ADC12_IN15) for reading azimuth motor speed
+typedef quan::mcu::pin<quan::stm32::gpioc,6>    azimuth_encoder_b_pin; // SF: TIM3_CH1:AF2 ( encoder white, 5th from left)
+// pc8 free
+typedef quan::mcu::pin<quan::stm32::gpioc,11>   av_telem_rx_pin;
+// pc11 free use for UART4 RX
+typedef quan::mcu::pin<quan::stm32::gpiod,2>    free_rx_in_pin; 
 // pd1 free
 // pd2 free use for UART5 RX
 
@@ -85,8 +92,13 @@ typedef quan::mcu::pin<quan::stm32::gpiod,13>   orange_led_pin;       // orange 
 typedef quan::mcu::pin<quan::stm32::gpiod,14>   red_led_pin;  // red led on Discover
 typedef quan::mcu::pin<quan::stm32::gpiod,15>   blue_led_pin;       // blue led on Discover
 
-typedef quan::stm32::usart3 rctx_usart;
-typedef quan::stm32::usart2 frsky_usart;
+typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
+
+typedef quan::stm32::usart1 gps_usart;   //tx & rx
+typedef quan::stm32::usart2 frsky_usart;  // tx & rx
+typedef quan::stm32::usart3 rctx_usart;  // tx & rx
+typedef quan::stm32::uart4  av_telem_uart; // rx only
+typedef quan::stm32::uart5  free_usart_rx; // rx only
 
 struct interrupt_priority{
    static constexpr uint32_t systick_timer = 15;
