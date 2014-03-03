@@ -80,7 +80,7 @@ CFLAG_EXTRAS += -Wall
 
 PROCESSOR_FLAGS = -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -Os -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
+CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -O3 -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 

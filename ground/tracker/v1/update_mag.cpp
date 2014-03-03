@@ -129,7 +129,8 @@ int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
    switch (update_state){
       case update_state_t::transfer_done:
         if(strap == oldstrap){
-            mag_rdy_event.clear();
+           // serial_port1::write("+\n");
+            
             request_new_measurement();
             timepoint = quan::stm32::millis(); // record time to exti
             update_state = update_state_t::looking_for_exti_event;
@@ -151,16 +152,22 @@ int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
             update_state = update_state_t::new_strap;
          }
       return 0;
+      break;
       case update_state_t::new_strap:
          update_state = update_state_t::transfer_done;
       return 0;
+      break;
       case update_state_t::looking_for_exti_event:
          if(mag_rdy_event.signalled()){
+          //  serial_port1::write("evt sigd\n");
+            mag_rdy_event.clear();
             send_x_reg_address();
             update_state = update_state_t::x_address_sent;
+            
          }else{
-            if ( ( quan::stm32::millis() - timepoint) > quan::time_<int64_t>::ms{100} ){
-               serial_port1::write("no exti\n");
+            if ( ( quan::stm32::millis() - timepoint) > quan::time_<int64_t>::ms{200} ){
+             //  serial_port1::write("no exti\n");
+               // reset
                return -1;    // failed  to get exti
             }
          }
@@ -171,6 +178,7 @@ int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
       return 0;
       case update_state_t::transfer_in_progress:
          copy_new_values(result_out);
+        // serial_port1::write("tx\n");
          update_state = update_state_t::transfer_done;
       return 1; // new data
       default:
