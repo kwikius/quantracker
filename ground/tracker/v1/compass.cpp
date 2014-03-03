@@ -11,7 +11,8 @@
 
 namespace {
 
-   uint32_t strap_value;
+   // 1 for + strap, -1 for neg strap, 0 for no strap
+   uint32_t strap_value = 0;
    void null_mag_fun(quan::three_d::vect<int16_t> const & result_in){};
    void (*pfn_mag)(quan::three_d::vect<int16_t> const &)=null_mag_fun;
 }
