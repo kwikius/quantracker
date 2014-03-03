@@ -48,7 +48,6 @@ int main()
       }
 
       if ( telemetry::serial_port.in_avail()){
-         
          telemetry::parse_input();
       }
       quan::three_d::vect<int16_t> mag_result;
