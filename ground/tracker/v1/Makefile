@@ -116,3 +116,8 @@ $(objects): %.o : %.cpp
 
 startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
+
+
+upload : test
+	st-flash write main.bin 0x8000000
+
