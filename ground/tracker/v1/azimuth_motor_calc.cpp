@@ -144,7 +144,8 @@ void azimuth::motor::do_calc()
    static float kI_incr = 0.00002;
    constexpr int32_t min_dist = 5;
    constexpr int32_t min_speed = 1;
-     //  integral term
+     //  integral term should only be incred when enables
+     // and should be capped
     if ( ( abs(dist) > min_dist ) &&  ( abs(speed) < min_speed )  ){
       kI +=  kI_incr * dist;
     }else {
