@@ -8,29 +8,82 @@
 #include "resources.hpp"
 #include "events.hpp"
 #include <quan/three_d/vect.hpp>
+#include <quan/constrain.hpp>
+#include "compass.hpp"
 
-namespace {
+quan::three_d::vect<float> raw_compass ::value = {0.f,0.f,0.f};
+int32_t raw_compass::strap_value = 0;
+float raw_compass::filter_value = 0.1f;
+bool raw_compass::m_request_disable_updating = false;
+bool raw_compass::m_updating_enabled = true;
 
-   // 1 for + strap, -1 for neg strap, 0 for no strap
-   uint32_t strap_value = 0;
-   void null_mag_fun(quan::three_d::vect<int16_t> const & result_in){};
-   void (*pfn_mag)(quan::three_d::vect<int16_t> const &)=null_mag_fun;
-}
-void set_mag_strap(int32_t val){ strap_value = val;}
-
-void set_mag_fun( void (*pfn)(quan::three_d::vect<int16_t> const &))
+void raw_compass::set_strap(int32_t val)
 {
-   pfn_mag = pfn;
+   switch(val){
+      case 0:
+      case 1:
+      case -1:
+      strap_value = val;
+      break;
+      default:
+      break;
+   }
 }
 
-int32_t get_mag_strap()
+int32_t raw_compass::get_strap()
 {
    return strap_value;
 }
 
-void on_new_mag( quan::three_d::vect<int16_t> const & result_in)
+void raw_compass::set_filter(float const & val)
 {
-   pfn_mag(result_in);
+   filter_value = quan::constrain(val,0.f,1.f);
+}
+
+void raw_compass::clear()
+{
+   value = {0.f,0.f,0.f};
+}
+
+quan::three_d::vect<float> const& raw_compass::get()
+{
+   return value;
+}
+
+int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap);
+
+void raw_compass::request_disable_updating()
+{
+   if ( m_updating_enabled){
+      m_request_disable_updating = true;
+   }
+}
+
+void raw_compass::enable_updating()
+{
+   m_request_disable_updating = false;
+   m_updating_enabled = true;
+}
+
+int32_t raw_compass::update()
+{
+   if (m_updating_enabled){
+      quan::three_d::vect<int16_t> result;
+      int res = ::ll_update_mag(result,raw_compass::get_strap());
+      if ( res == 1){
+         raw_compass::value 
+            = raw_compass::value * (1.f - raw_compass::filter_value) 
+               + result * raw_compass::filter_value;
+         // Disable updating here because its the end of a cycle so nice and neat
+         if ( m_request_disable_updating){
+            m_request_disable_updating = false;
+            m_updating_enabled = false;
+         }
+      }
+      return res;
+   }else{
+      return false;
+   }
 }
 
 namespace {
@@ -46,19 +99,19 @@ namespace {
       quan::stm32::apply<
          mag_rdy_exti_pin
          , quan::stm32::gpio::mode::input
-         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::pupd::none // make this pullup ok as mag is on 3v?
       >();
       
       quan::stm32::enable_exti_interrupt<mag_rdy_exti_pin>();
    }
 }
 
-void setup_compass()
+void raw_compass::init()
 {
    setup_mag_ready_irq();
    NVIC_SetPriority(I2C1_EV_IRQn,interrupt_priority::i2c_mag_evt);
-   i2c_mag_port::init(true,false);
-   
+   // use at 100kHz I2C. At 400 kHz on 500 mm long lines get errors
+   i2c_mag_port::init(false,false);
 }
 
 extern "C" void I2C1_EV_IRQHandler() __attribute__ ((interrupt ("IRQ")));

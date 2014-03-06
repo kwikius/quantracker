@@ -49,7 +49,7 @@ extern "C" void setup()
    rctx::serial_port::init();
 
    azimuth::encoder::setup();
-   setup_compass();
+   raw_compass::init();
    main_loop::setup();
 
 }

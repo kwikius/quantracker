@@ -26,6 +26,7 @@ namespace{
    static uint8_t no_pulse_string[] =       {configA,0b00000000};
    static uint8_t msb_x_ar[] = {msb_x};
    uint8_t local_values[6];
+
 /*
    remenber state must persist while transfer in progress!
 */
@@ -76,9 +77,6 @@ namespace{
       transfer_done
    };
    update_state_t update_state = update_state_t::transfer_done;
-}
-
-namespace {
 
    void request_positive_strap()
    {
@@ -112,11 +110,17 @@ namespace {
 // will return a measurement using the previous strap settings.
 // This isnt stated in the data sheet except it does state similar in relation to
 // changing gain.
+// Therefore when strap is changed we dump the first one we get and return 0
+// just means waiting a bit longer for result
 //#############################################################
-int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
+
+
+int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
 {
+   
    if (i2c_mag_port::addr_timeout()){
-      serial_port1::write("i2c addr timeout\n");
+     // TODO do error message
+     // serial_port1::write("i2c addr timeout\n");
       return -1;
    }
    if (i2c_mag_port::busy()){
@@ -125,16 +129,21 @@ int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
    // used for checking exti timeout
    static quan::time_<int64_t>::ms timepoint{0};
    static int32_t oldstrap = -2; // want a strap to start so put out of range here
+   static bool different_strap = false;
 
    switch (update_state){
       case update_state_t::transfer_done:
+#if 0
+        if (!i2c1_bus_lock.acquire()){
+            return 0;
+        }
+#endif
         if(strap == oldstrap){
-           // serial_port1::write("+\n");
-            
             request_new_measurement();
             timepoint = quan::stm32::millis(); // record time to exti
             update_state = update_state_t::looking_for_exti_event;
          }else{   
+            different_strap = true;
             oldstrap = strap;
             switch(strap){
                case 0:
@@ -152,21 +161,27 @@ int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
             update_state = update_state_t::new_strap;
          }
       return 0;
-      break;
       case update_state_t::new_strap:
          update_state = update_state_t::transfer_done;
       return 0;
-      break;
       case update_state_t::looking_for_exti_event:
          if(mag_rdy_event.signalled()){
-          //  serial_port1::write("evt sigd\n");
             mag_rdy_event.clear();
             send_x_reg_address();
             update_state = update_state_t::x_address_sent;
-            
          }else{
+            /*
+               was failing here with 400 kHz rate on long lines > 500 mm say
+               But seems ok at 100 kHz. Dunno wht max line length is though..
+            */
             if ( ( quan::stm32::millis() - timepoint) > quan::time_<int64_t>::ms{200} ){
+              // timepoint = quan::stm32::millis();
              //  serial_port1::write("no exti\n");
+                // TODO do error message
+#if 0
+               i2c1_bus_lock.release();
+#endif
+               update_state = update_state_t::transfer_done;
                // reset
                return -1;    // failed  to get exti
             }
@@ -177,12 +192,28 @@ int32_t  update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
          update_state = update_state_t::transfer_in_progress;
       return 0;
       case update_state_t::transfer_in_progress:
-         copy_new_values(result_out);
-        // serial_port1::write("tx\n");
+// transfer done
+/* if strap mode has just been changed then dump 
+   the first result we got as its for a different mode
+   so just dump it rather than confusing matters
+   The caller will just have to wait to gp round again
+   and do another conversion
+*/ 
+#if 0
+         i2c1_bus_lock.release();
+#endif
          update_state = update_state_t::transfer_done;
-      return 1; // new data
-      default:
-      serial_port1::write("shouldnt get here\n");
-      return -1; // shoulnt get here!
+         
+         if (different_strap == true){
+            different_strap = false;
+            return 0; // no new data
+         }else{
+            copy_new_values(result_out);
+            return 1; // new data
+         }
+
    }
 }
+
+
+
