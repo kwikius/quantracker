@@ -1,0 +1,55 @@
+
+#Cmp ( order = Reference )
+#far| C1         1nF         SM0805;  
+           
+| C2         15 pF       SM0805;             
+| C3         15 pF       SM0805; 
+ #far           
+| C4         0.1uF       SM0805;             
+| C7         0.1uF       SM0805;                      
+| C10        0.1uF       SM0805;                    
+| C12        0.1uF       SM0805;             
+| C13        0.1uF       SM0805;             
+| C14        0.1uF       SM0805;
+             
+| D1         Blue LED    SM0805;             
+| D3         Red LED     SM0805;
+
+| C11        1nF         SM0805; 
+| C8         2nF         SM0805; (stack 2 1nF) 
+
+| C5         10uF        SM1206;             
+| C6         10uF        SM1206;
+
+| Q1         MOSFET_N    SOT23GDS;
+           
+| P1         CONN_4      SIL4;             
+| P2         CONN_2      SIL2;             
+| P3         CONN_2      SIL2;             
+| P4         CONN_1      SIL1;             
+| P5         CONN_1      SIL1;             
+| P6         CONN_1      SIL1;             
+| P7         CONN_1      SIL1;             
+| P8         CONN_1      SIL1;             
+| P9         CONN_1      SIL1;             
+             
+| R1         1K          SM0805;             
+| R2         100R        SM0805;             
+| R3         100R        SM0805;             
+| R4         1K          SM0805;             
+| R5         470R        SM0805;             
+| R6         1K          SM0805;             
+| R7         470R        SM0805;             
+| R8         4k7         SM0805;             
+| R9         4k7         SM0805;             
+| R10        100R        SM0805;             
+| R11        100R        SM0805;             
+| R12        4k7R        SM0805;             
+| R13        4k7R        SM0805;             
+| U1         LD1117      SOT223;             
+| U2         STM32F051   LQFP32;             
+| U3         MCP6L01     SOT23-5;             
+| U4         24LC01      SOT23-5;             
+| X1         8MHz        Xtal5x3.2;             
+#End Cmp
+

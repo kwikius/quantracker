@@ -53,7 +53,7 @@
 // to do 
    "GM" --> get mag reading x,y,z
    "GE" --> get elevation servo pos;
-    M!  --> request compass reading disabled (want i2c bus for eeprom access)
+    M!  --> request compass reading disabled (e.g want i2c bus for eeprom access)
     M?   --> is compass reading enabled ( disabling takes a bit to release bus transaction neds to complete)
     M*   --> enable compass reading
     Rd%s 
@@ -279,6 +279,12 @@ namespace {
                   case '-':
                      raw_compass::set_strap(-1);
                      cl_sp::write("set mag -strp\n");
+                  break;
+                  case '!':
+                  break;
+                  case '?':
+                  break;
+                  case '*':
                   break;
                   case 'f':{
                      quan::detail::converter<float,char*> conv;
