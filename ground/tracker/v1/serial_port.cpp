@@ -15,12 +15,9 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-/*typedef quan::stm32f4::usart3 rctx_usart;
-typedef quan::stm32f4::usart2 frsky_usart;
-*/
-
-#include <quan/stm32f4/usart/irq_handler.hpp>
+#include <quan/stm32/usart/irq_handler.hpp>
 #include "serial_ports.hpp"
+
 extern "C" void USART3_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART2_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 
@@ -28,22 +25,22 @@ extern "C" void USART3_IRQHandler()
 {
    static_assert(
    std::is_same<
-      rctx::serial_port::usart_type,quan::stm32f4::usart3
+      rctx::serial_port::usart_type,quan::stm32::usart3
    >::value
    ,"invalid usart for serial_port irq");
 
-   quan::stm32f4::usart::irq_handler<rctx::serial_port>();
+   quan::stm32::usart::irq_handler<rctx::serial_port>();
 }
 
 extern "C" void USART2_IRQHandler()
 {
    static_assert(
    std::is_same<
-      frsky::serial_port::usart_type,quan::stm32f4::usart2
+      frsky::serial_port::usart_type,quan::stm32::usart2
    >::value
    ,"invalid usart for serial_port irq");
 
-   quan::stm32f4::usart::irq_handler<frsky::serial_port>();
+   quan::stm32::usart::irq_handler<frsky::serial_port>();
 }
 
 

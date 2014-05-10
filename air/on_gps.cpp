@@ -1,9 +1,9 @@
 
 #include "gps.hpp"
 #include "aircraft.hpp"
-#include "events.hpp"
+#include "flag.hpp"
 
-quan::event new_gps_data;
+flag new_gps_data;
 
 namespace {
    static bool new_data = false;

@@ -30,8 +30,12 @@ typedef quan::mcu::pin<quan::stm32::gpioa,10>   posdata_rxi_pin;
 
 typedef quan::mcu::pin<quan::stm32::gpioa,2>    frsky_txo_pin;
 typedef quan::mcu::pin<quan::stm32::gpioa,3>    frsky_rxi_pin;
-                    
-typedef quan::mcu::pin<quan::stm32::gpioa,0>  heartbeat_led_pin;   
+ 
+#if defined QUAN_DISCOVERY
+typedef quan::mcu::pin<quan::stm32::gpioc,8> heartbeat_led_pin; // stm32F0 Discovery blue led
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,0>  heartbeat_led_pin; 
+#endif
 
 typedef quan::stm32::usart1  posdata_usart;
 typedef quan::stm32::usart2  frsky_usart;

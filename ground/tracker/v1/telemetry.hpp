@@ -23,8 +23,18 @@ struct telemetry{
    static bool state_changed;
    static void set_home();
    static void filter_pos();
+   enum class protocol_t {zapp1,zapp2,command_line};
+   static void set_protocol (protocol_t prot){m_protocol = prot;}
+   static protocol_t get_protocol(){return m_protocol;}
+   private:
+        static void parse_input_from_FrSky_with_high_level_escape_protocol();
+        static void parse_input_from_FrSky_with_cobs_protocol();
+        static void parse_command_line();
+        static protocol_t m_protocol;
    
 };
+
+void parse_commandline();
 
 
 #endif // TELEMETRY_HPP_INCLUDED

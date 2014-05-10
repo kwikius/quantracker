@@ -16,7 +16,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include <quan/stm32f4/tim.hpp>
+#include <quan/stm32/tim.hpp>
 #include "azimuth.hpp"
 
 void azimuth::motor::enable()
@@ -70,12 +70,15 @@ quan::angle::deg azimuth::motor::get_target_azimuth()
    return raw_angle - quan::angle::deg{360};
 }
 
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 namespace{
 
    void update_duty_cycle(float val)
    {
+      // to raise duty cycle
+      // set a direction value for irq to update at next end of cycle
+      // and a flag
       auto const direction = (val < 0) ? false:true;
       float const abs_val = fabs(val);
       float const max_capped_val = fminf( abs_val, azimuth::motor::m_max_duty_cycle_percent);
@@ -141,7 +144,8 @@ void azimuth::motor::do_calc()
    static float kI_incr = 0.00002;
    constexpr int32_t min_dist = 5;
    constexpr int32_t min_speed = 1;
-     //  integral term
+     //  integral term should only be incred when enables
+     // and should be capped
     if ( ( abs(dist) > min_dist ) &&  ( abs(speed) < min_speed )  ){
       kI +=  kI_incr * dist;
     }else {

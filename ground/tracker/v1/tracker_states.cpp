@@ -8,9 +8,9 @@
 
 namespace {
 
-   bool home_set_flag = false;
-   bool error_flag = false;
-   bool awaiting_tracker_data = true;
+  // bool home_set_flag = false;
+  // bool error_flag = false;
+  // bool awaiting_tracker_data = true;
 
    void initial_20_ms_event();
 
@@ -73,22 +73,34 @@ namespace {
 
    void initial_on_button_up()
    {
-         error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
+        error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
    }
-
 
    void initial_20_ms_event()
    {
      static int32_t state = 0;
      if ( state == 0){
-         pf_on_button_down = initial_on_button_down;
-         pf_on_button_up = initial_on_button_up;
-         azimuth::motor::disable();
-         error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
-         state = 1;
+          azimuth::motor::disable();
+         // check for user holding down user button (n.b should be true for holding down button!
+         if(user_button.get_instant_state() == false){
 #ifdef DEBUG
-         debug::serial_port::write("quan_tracker V1.1 startup");
+            debug::serial_port::write("quan_tracker V1.1 startup");
 #endif
+            // command line mode
+            telemetry::set_protocol(telemetry::protocol_t::command_line);
+            // do lights to suit
+            error_led.set_flashing(quan::time_<int32_t>::ms{100},quan::time_<int32_t>::ms{900} );
+            state = 3;
+         }else{
+            //TODO
+            // ADD setup compass to point to normal readings
+            // init eeprom etc..
+            pf_on_button_down = initial_on_button_down;
+            pf_on_button_up = initial_on_button_up;
+           
+            error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
+            state = 1;
+         }
      };
      
      if ( (state==1) && telemetry::state_changed ){

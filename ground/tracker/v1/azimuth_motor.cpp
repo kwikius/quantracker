@@ -26,7 +26,7 @@ int32_t azimuth::motor::m_last_recorded_position = 0;
 float azimuth::motor::m_kP = 0.0045;
 float azimuth::motor::m_kD = 0.01; // 0.001
 
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 void azimuth::motor::setup_ports()
 {

@@ -1,0 +1,7 @@
+#ifndef QUANTRACKER_AIR_HEARTBEAT_HPP_INCLUDED
+#define QUANTRACKER_AIR_HEARTBEAT_HPP_INCLUDED
+
+void on_new_heartbeat();
+void on_heartbeat_done();
+
+#endif // QUANTRACKER_AIR_HEARTBEAT_HPP_INCLUDED

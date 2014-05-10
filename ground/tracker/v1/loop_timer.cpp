@@ -17,10 +17,9 @@
 */
 
 #include <stm32f4xx.h>
-#include <quan/stm32f4/gpio.hpp>
-#include <quan/stm32f4/tim.hpp>
-#include <quan/stm32f4/tim/detail/get_bus.hpp>
-#include <quan/stm32f4/sys_freq.hpp>
+#include <quan/stm32/gpio.hpp>
+#include <quan/stm32/tim.hpp>
+#include <quan/stm32/sys_freq.hpp>
 #include <quan/meta/integer_max.hpp>
 #include <quan/frequency.hpp>
 #include "main_loop.hpp"
@@ -43,7 +42,7 @@ void main_loop::set_elevation(quan::angle::deg angle_in)
    set_elevation_servo(pulse_time);
 }
 
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 void main_loop::setup()
 {

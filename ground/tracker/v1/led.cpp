@@ -21,7 +21,7 @@
 #include "tracker_states.hpp"
 #include "leds.hpp"
 
-using namespace quan::stm32f4;
+using namespace quan::stm32;
 
 
 Led<green_led_pin>     tracking_led;

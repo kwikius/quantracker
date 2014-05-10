@@ -17,7 +17,17 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
+namespace frsky {
 
-void FrSky_send_message();
+   void setup_event();
+   void send_message();
+   void setup();
+}
+//namespace zapp2{
+//   void frsky_send_message();
+//   void setup_frsky_event();
+//}
+
+
 
 #endif // QUANTRACKER_AIR_FRSKY_HPP_INCLUDED

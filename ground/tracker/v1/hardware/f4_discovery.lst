@@ -1,0 +1,93 @@
+eeschema (2011-05-25)-stable  >> Creation date: Mon 24 Feb 2014 17:12:11 GMT
+
+#Cmp ( order = Reference )
+| C1         C           
+| C2         CP1         
+| C3         0.1uF       
+| C4         470uF       
+| C5         0.1uF       
+| C6         10uF        
+| D1         DIODE       
+| K1         TiltServo   
+| K2         CONN_3      
+| P1         OUTPUT_CONN 
+| P2         CONN_6      
+| P3         CONN_1      
+| P4         CONN_1      
+| P5         CONN_1      
+| P6         CONN_1      
+| P7         OUTPUT_CONN 
+| P8         MAGGPS      
+| P9         RCOUT       
+| P10        AZ H-Bridge 
+| P11        Vrx         
+| P12        Sliprings   
+| R1         100R        
+| R2         R           
+| R3         R           
+| R4         R           
+| R5         R           
+| R6         R           
+| R7         R           
+| R8         R           
+| R9         R           
+| R10        R           
+| R11        R           
+| R12        R           
+| R13        R           
+| R14        R           
+| R15        R           
+| R16        R           
+| R17        R           
+| U1         F4DL        
+| U2         F4DR        
+| U3         BEC         
+| U4         7805        
+#End Cmp
+
+#Cmp ( order = Value )
+| 0.1uF        C3        
+| 0.1uF        C5        
+| 100R         R1        
+| 10uF         C6        
+| 470uF        C4        
+| 7805         U4        
+| AZ H-Bridge  P10       
+| BEC          U3        
+| C            C1        
+| CONN_1       P3        
+| CONN_1       P4        
+| CONN_1       P5        
+| CONN_1       P6        
+| CONN_3       K2        
+| CONN_6       P2        
+| CP1          C2        
+| DIODE        D1        
+| F4DL         U1        
+| F4DR         U2        
+| MAGGPS       P8        
+| OUTPUT_CONN  P1        
+| OUTPUT_CONN  P7        
+| R            R2        
+| R            R3        
+| R            R4        
+| R            R5        
+| R            R6        
+| R            R7        
+| R            R8        
+| R            R9        
+| R            R10       
+| R            R11       
+| R            R12       
+| R            R13       
+| R            R14       
+| R            R15       
+| R            R16       
+| R            R17       
+| RCOUT        P9        
+| Sliprings    P12       
+| TiltServo    K1        
+| Vrx          P11       
+#End Cmp
+
+#End List

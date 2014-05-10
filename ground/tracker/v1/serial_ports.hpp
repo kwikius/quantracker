@@ -18,7 +18,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include <quan/stm32f4/serial_port.hpp>
+#include <quan/stm32/serial_port.hpp>
 #include "resources.hpp"
 
 struct rctx{
@@ -30,7 +30,7 @@ struct rctx{
 #else
   static constexpr uint32_t out_buf_size = 25;
 #endif
-   typedef quan::stm32f4::serial_port<
+   typedef quan::stm32::serial_port<
    rctx_usart,out_buf_size,in_buf_size,txo_pin,rxi_pin
    > serial_port;
 };
@@ -40,7 +40,7 @@ struct frsky{
    typedef frsky_rxi_pin rxi_pin;
    static constexpr uint32_t in_buf_size = 1000;
    static constexpr uint32_t out_buf_size = 25;
-   typedef quan::stm32f4::serial_port<
+   typedef quan::stm32::serial_port<
    frsky_usart,out_buf_size,in_buf_size,txo_pin,rxi_pin
    > serial_port;
 };

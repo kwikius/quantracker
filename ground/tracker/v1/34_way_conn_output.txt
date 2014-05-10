@@ -1,0 +1,73 @@
+řpins on 34 way output connector
+
+--------------
+*Mag gps* 
+ 1 GPSGND
+ 2 GPSRXI
+ 3 GPS5V
+ 4 GPSTXO
+ 5 MAGGND
+ 6 MAGRDY -->(100R) PB1
+ 7 MAG5V
+ 8 MAGSDA <--(50R) PB9
+ 9 MAGSCL <--(50R) PB6
+10 NC
+*RCOutput*
+ 11  RCGnd
+ 12  RCPWM
+ 13  RC12Vout
+ 14  RCTXO
+ 15  RCRXI
+*azimuth motor sense*
+ 16  AZSENS
+ 17  5VfromH
+ 18  AZGND
+*azimuth_motor ctrl*
+ 19  AZPWM     <--(100R) PA15
+ 20  AZNDIR    <--(100R) PA8
+ 21  AZDIR     <--(100R) PB0
+*VrxIn*
+ 22  VrxGnd
+ 23  Videoin
+ 24  12Vout
+ 25  AudioLin
+ 26  AudioRin
+*sliprings lower deck*
+ 27  VideoGnd
+ 28  Avout
+ 29  12Vout
+ 30  AudioLout
+ 31  AudioRout
+ 32  SLSPGND
+ 33  SLSPRXI      -->(100R) PD8
+ 34  SLSPTXO      <--(100R) PD9
+
+
+-----------------------------------------
+offboard
+*encoder*
+ 1  MotorA 
+ 2  MotorB
+ 3  Gnd
+ 4  ENC5Vout
+ 5  EncoderB   (100R)--> PC6
+ 6  EncoderA   (100R)--> PB5
+
+*TiltServo*
+ 1  TSGND
+ 2  TSBEC5V
+ 3  TSSIG           <-->(100R) PA1
+
+
+
+
+
+
+
+
+
+
+
+
+
+

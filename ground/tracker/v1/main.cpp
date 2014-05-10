@@ -18,9 +18,11 @@
 
 #include "switch_input.hpp"
 #include "events.hpp"
-//#include "leds.hpp"
 #include "telemetry.hpp"
 #include "azimuth.hpp"
+#include "compass.hpp"
+#include <quan/three_d/vect.hpp>
+
 
 
 int main()
@@ -45,6 +47,9 @@ int main()
       if ( telemetry::serial_port.in_avail()){
          telemetry::parse_input();
       }
+
+      raw_compass::update();
+
    }
 }
 

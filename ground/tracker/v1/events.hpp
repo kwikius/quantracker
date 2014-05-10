@@ -11,11 +11,12 @@ struct event{
    void clear(){m_flag = false;}
 
 private:
-   bool m_flag;
+   volatile bool m_flag;
 };
 
 extern event ms20_event;
 extern event ms1_event;
 extern event azimuth_pwm_calc_event;
+extern event mag_rdy_event;
 
 #endif // QUANTRACKER_EVENT_HPP_INCLUDED

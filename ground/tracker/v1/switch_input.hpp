@@ -65,7 +65,7 @@ private:
 template <typename Pin>
 struct input_button : switch_input<bool>
 {
-    bool get_instant_state() const { return quan::stm32f4::get<Pin>();}
+    bool get_instant_state() const { return quan::stm32::get<Pin>();}
     input_button(typename switch_input<bool>::callback_t callback) : switch_input{false,callback}{}
 };
 

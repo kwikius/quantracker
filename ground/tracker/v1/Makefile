@@ -76,14 +76,15 @@ INCLUDES = -I$(STM32F4_INCLUDE_PATH)CMSIS/Include/ \
 CFLAG_EXTRAS = -fno-math-errno -DQUAN_STM32F4 -DQUAN_NO_EXCEPTIONS 
 CFLAG_EXTRAS += -Wl,-u,vsprintf -lm
 CFLAG_EXTRAS += -DDEBUG
+CFLAG_EXTRAS += -Wall
 
 PROCESSOR_FLAGS = -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -O2 -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
+CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -O3 -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-LFLAGS = -T$(STM32F4_LINKER_SCRIPT) -O2 $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) $(INIT_LIBS) -nodefaultlibs -nostartfiles
+LFLAGS = -T$(STM32F4_LINKER_SCRIPT) -Os $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) $(INIT_LIBS) -nodefaultlibs -nostartfiles
 
 CPFLAGS = -Obinary
 ODFLAGS = -d
@@ -95,7 +96,8 @@ all: test
 Debug : test
 
 objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o azimuth_motor_calc.o loop_timer.o \
- elevation_servo.o telemetry.o frsky_serial_port.o led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o  
+ elevation_servo.o telemetry.o frsky_serial_port.o led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o \
+ text_commands.o compass.o update_mag.o systick.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -114,3 +116,8 @@ $(objects): %.o : %.cpp
 
 startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
+
+
+upload : test
+	st-flash write main.bin 0x8000000
+

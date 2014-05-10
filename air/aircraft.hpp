@@ -61,7 +61,7 @@ struct attitude_t{
    quan::angle_<float>::deg            pitch;                  
    quan::angle_<float>::deg            roll;                   
    quan::angle_<float>::deg            yaw; 
-  attitude_t():pitch{0},roll{0},yaw{0}{}
+   attitude_t():pitch{0},roll{0},yaw{0}{}
 };
 
 struct aircraft{

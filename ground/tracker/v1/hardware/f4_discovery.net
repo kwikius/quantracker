@@ -1,0 +1,703 @@
+# EESchema Netlist Version 1.1 created  Mon 24 Feb 2014 17:22:26 GMT
+(
+ ( /530B532D $noname  R2 R {Lib=R}
+  (    1 /MAGSCL )
+  (    2 /DiMAGSCL )
+ )
+ ( /530B5268 $noname  R17 R {Lib=R}
+  (    1 /MAGSDA )
+  (    2 /DiMAGSDA )
+ )
+ ( /530B514A $noname  R8 R {Lib=R}
+  (    1 /MAGRDY )
+  (    2 /DiMAGRDY )
+ )
+ ( /530B4FC2 $noname  R10 R {Lib=R}
+  (    1 /GPSTXO )
+  (    2 /DiGPSTXO )
+ )
+ ( /530B4F85 $noname  R7 R {Lib=R}
+  (    1 /GPSRXI )
+  (    2 /DiGPSRXI )
+ )
+ ( /530B2F65 $noname  R14 R {Lib=R}
+  (    1 /DiAZMOTBV )
+  (    2 GND )
+ )
+ ( /530B2F62 $noname  R12 R {Lib=R}
+  (    1 /DiAZMOTAV )
+  (    2 GND )
+ )
+ ( /530B2F5E $noname  R13 R {Lib=R}
+  (    1 /AXMOTBV )
+  (    2 /DiAZMOTBV )
+ )
+ ( /530B2EE0 $noname  R11 R {Lib=R}
+  (    1 /AZMOTAV )
+  (    2 /DiAZMOTAV )
+ )
+ ( /530B23DC $noname  P2 CONN_6 {Lib=CONN_6}
+  (    1 /AZMOTAV )
+  (    2 /AXMOTBV )
+  (    3 GND )
+  (    4 +5V )
+  (    5 /AZENCB )
+  (    6 /AZENCA )
+ )
+ ( /530AF936 $noname  P8 MAGGPS {Lib=CONN_9}
+  (    1 /GPSGND )
+  (    2 /GPSRXI )
+  (    3 /GPS5V )
+  (    4 /GPSTXO )
+  (    5 /MAGGND )
+  (    6 /MAGRDY )
+  (    7 /MAG5V )
+  (    8 /MAGSDA )
+  (    9 /MAGSCL )
+ )
+ ( /530AF8BF $noname  K2 CONN_3 {Lib=CONN_3}
+  (    1 /AZGND )
+  (    2 ? )
+  (    3 ? )
+ )
+ ( /5309F2F1 $noname  P5 CONN_1 {Lib=CONN_1}
+  (    1 GND )
+ )
+ ( /5309F2B2 $noname  P6 CONN_1 {Lib=CONN_1}
+  (    1 /VIN+ )
+ )
+ ( /5309F298 $noname  C1 C {Lib=C}
+  (    1 ? )
+  (    2 ? )
+ )
+ ( /5309F25B $noname  C2 CP1 {Lib=CP1}
+  (    1 ? )
+  (    2 ? )
+ )
+ ( /5309EB07 $noname  R6 R {Lib=R}
+  (    1 /DiSLSPTXO )
+  (    2 /SLSPTXO )
+ )
+ ( /5309EB04 $noname  R5 R {Lib=R}
+  (    1 /DiSLSPRXI )
+  (    2 /SLSPRXI )
+ )
+ ( /5309E8DD $noname  R16 R {Lib=R}
+  (    1 /AZENCA )
+  (    2 /DiAZENCA )
+ )
+ ( /5309E832 $noname  R15 R {Lib=R}
+  (    1 /AZENCB )
+  (    2 /DiAZENCB )
+ )
+ ( /5309E5F5 $noname  R4 R {Lib=R}
+  (    1 /AZDIR )
+  (    2 /DiAZDIR )
+ )
+ ( /5309E32E $noname  R9 R {Lib=R}
+  (    1 /DiAZNDIR )
+  (    2 /AZNDIR )
+ )
+ ( /5309E270 $noname  R3 R {Lib=R}
+  (    1 /DiAZPWM )
+  (    2 /AZPWM )
+ )
+ ( /5309E10E $noname  R1 100R {Lib=R}
+  (    1 /DiTSSIG )
+  (    2 /TSSIG )
+ )
+ ( /5308BE13 $noname  D1 DIODE {Lib=DIODE}
+  (    1 /VIN+ )
+  (    2 +12V )
+ )
+ ( /5309E030 $noname  U3 BEC {Lib=7805}
+  (  GND GND )
+  (   VI /VIN+ )
+  (   VO +6V )
+ )
+ ( /5309ACC3 $noname  P9 RCOUT {Lib=CONN_5}
+  (    1 ? )
+  (    2 ? )
+  (    3 ? )
+  (    4 ? )
+  (    5 ? )
+ )
+ ( /5308A8BE $noname  P10 AZ_H-Bridge {Lib=CONN_6}
+  (    1 /AZPWM )
+  (    2 /AZNDIR )
+  (    3 /AZDIR )
+  (    4 /AZDIR )
+  (    5 /AZNDIR )
+  (    6 /AZPWM )
+ )
+ ( /53090696 $noname  P1 OUTPUT_CONN {Lib=OUTPUT_CONN}
+  (    1 GND )
+  (    2 /GPSRXI )
+  (    3 +5V )
+  (    4 /GPSTXO )
+  (    5 GND )
+  (    6 /MAGRDY )
+  (    7 +5V )
+  (    8 /MAGSDA )
+  (    9 /MAGSCL )
+  (   10 ? )
+  (   11 GND )
+  (   12 ? )
+  (   13 ? )
+  (   14 +5V )
+  (   15 ? )
+  (   16 ? )
+  (   17 ? )
+  (   18 ? )
+  (   19 /AZPWM )
+  (   20 /AZNDIR )
+  (   21 /AZDIR )
+  (   22 GND )
+  (   23 ? )
+  (   24 +12V )
+  (   25 ? )
+  (   26 ? )
+  (   27 GND )
+  (   28 ? )
+  (   29 +12V )
+  (   30 ? )
+  (   31 ? )
+  (   32 GND )
+  (   33 /SLSPRXI )
+  (   34 /SLSPTXO )
+ )
+ ( /5308D713 $noname  P12 Sliprings {Lib=CONN_8}
+  (    1 /VIDEOGND )
+  (    2 /VIDEOUT )
+  (    3 /SLIPR12V )
+  (    4 /AUDIOLOUT )
+  (    5 /AUDIOROUT )
+  (    6 /SLSPGND )
+  (    7 /SLSPRXI )
+  (    8 /SLSPTXO )
+ )
+ ( /5308C768 $noname  P11 Vrx {Lib=CONN_5}
+  (    1 /VRXGND )
+  (    2 /VIDEOIN )
+  (    3 /VRX12V )
+  (    4 /AUDIOLIN )
+  (    5 /AUDIORIN )
+ )
+ ( /5308BE95 $noname  P3 CONN_1 {Lib=CONN_1}
+  (    1 GND )
+ )
+ ( /5308BE8A $noname  P4 CONN_1 {Lib=CONN_1}
+  (    1 /VIN+ )
+ )
+ ( /5308A70A $noname  K1 TiltServo {Lib=CONN_3}
+  (    1 GND )
+  (    2 +6V )
+  (    3 /TSSIG )
+ )
+ ( /530766EC $noname  C3 0.1uF {Lib=C}
+  (    1 +12V )
+  (    2 GND )
+ )
+ ( /530766E8 $noname  C5 0.1uF {Lib=C}
+  (    1 +5V )
+  (    2 GND )
+ )
+ ( /530766DF $noname  C6 10uF {Lib=CP1}
+  (    1 +5V )
+  (    2 GND )
+ )
+ ( /530766D6 $noname  C4 470uF {Lib=CP1}
+  (    1 +12V )
+  (    2 GND )
+ )
+ ( /530766B3 $noname  U4 7805 {Lib=7805}
+  (  GND GND )
+  (   VI +12V )
+  (   VO +5V )
+ )
+ ( /530633E1 $noname  P7 OUTPUT_CONN {Lib=OUTPUT_CONN}
+  (    1 /GPSGND )
+  (    2 /GPSRXI )
+  (    3 /GPS5V )
+  (    4 /GPSTXO )
+  (    5 /MAGGND )
+  (    6 /MAGRDY )
+  (    7 /MAG5V )
+  (    8 /MAGSDA )
+  (    9 /MAGSCL )
+  (   10 ? )
+  (   11 ? )
+  (   12 ? )
+  (   13 ? )
+  (   14 ? )
+  (   15 ? )
+  (   16 ? )
+  (   17 ? )
+  (   18 /AZGND )
+  (   19 ? )
+  (   20 /AZNDIR )
+  (   21 /AZDIR )
+  (   22 /VRXGND )
+  (   23 /VIDEOIN )
+  (   24 /VRX12V )
+  (   25 /AUDIOLIN )
+  (   26 /AUDIORIN )
+  (   27 /VIDEOGND )
+  (   28 /VIDEOUT )
+  (   29 /SLIPR12V )
+  (   30 /AUDIOLOUT )
+  (   31 /AUDIOROUT )
+  (   32 /SLSPGND )
+  (   33 /SLSPRXI )
+  (   34 /SLSPTXO )
+ )
+ ( /53062C9F $noname  U2 F4DR {Lib=F4DR}
+  (    1 ? )
+  (    2 ? )
+  (    3 ? )
+  (    4 ? )
+  (    5 ? )
+  (    6 ? )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+  (   10 ? )
+  (   11 ? )
+  (   12 ? )
+  (   13 ? )
+  (   14 ? )
+  (   15 ? )
+  (   16 ? )
+  (   17 ? )
+  (   18 ? )
+  (   19 ? )
+  (   20 /DiMAGSDA )
+  (   21 ? )
+  (   22 ? )
+  (   23 /DiMAGSCL )
+  (   24 ? )
+  (   25 ? )
+  (   26 /DiAZENCA )
+  (   27 ? )
+  (   28 ? )
+  (   29 ? )
+  (   30 ? )
+  (   31 ? )
+  (   32 ? )
+  (   33 ? )
+  (   34 ? )
+  (   35 ? )
+  (   36 ? )
+  (   37 ? )
+  (   38 ? )
+  (   39 ? )
+  (   40 /DiAZPWM )
+  (   41 /DiGPSRXI )
+  (   42 /DiGPSTXO )
+  (   43 /DiAZNDIR )
+  (   44 ? )
+  (   45 ? )
+  (   46 ? )
+  (   47 /DiAZENCB )
+  (   48 ? )
+  (   49 ? )
+  (   50 GND )
+ )
+ ( /53062C95 $noname  U1 F4DL {Lib=F4DL}
+  (    1 ? )
+  (    2 ? )
+  (    3 ? )
+  (    4 ? )
+  (    5 ? )
+  (    6 ? )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+  (   10 ? )
+  (   11 /DiTSSIG )
+  (   12 ? )
+  (   13 ? )
+  (   14 ? )
+  (   15 ? )
+  (   16 ? )
+  (   17 ? )
+  (   18 ? )
+  (   19 /DiAZMOTBV )
+  (   20 /DiAZMOTAV )
+  (   21 /DiMAGRDY )
+  (   22 /DiAZDIR )
+  (   23 ? )
+  (   24 ? )
+  (   25 ? )
+  (   26 ? )
+  (   27 ? )
+  (   28 ? )
+  (   29 ? )
+  (   30 ? )
+  (   31 ? )
+  (   32 ? )
+  (   33 ? )
+  (   34 ? )
+  (   35 ? )
+  (   36 ? )
+  (   37 ? )
+  (   38 ? )
+  (   39 ? )
+  (   40 /DiSLSPRXI )
+  (   41 /DiSLSPTXO )
+  (   42 ? )
+  (   43 ? )
+  (   44 ? )
+  (   45 ? )
+  (   46 ? )
+  (   47 ? )
+  (   48 ? )
+  (   49 ? )
+  (   50 ? )
+ )
+)
+*
+{ Allowed footprints by component:
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R17
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R10
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R14
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R12
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R13
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R11
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ CP*
+ SM*
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R16
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R15
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R9
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component D1
+ D?
+ S*
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ CP*
+ SM*
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 8 "+6V" "+6V"
+ K1 2
+ U3 VO
+Net 9 "GND" "GND"
+ P1 27
+ U2 50
+ U4 GND
+ P1 11
+ U3 GND
+ C3 2
+ P3 1
+ P1 32
+ P1 22
+ K1 1
+ C4 2
+ P1 1
+ P5 1
+ P1 5
+ P2 3
+ C6 2
+ R12 2
+ R14 2
+ C5 2
+Net 14 "/AZDIR" "AZDIR"
+ P7 21
+ R4 1
+ P1 21
+ P10 3
+ P10 4
+Net 15 "/AZNDIR" "AZNDIR"
+ R9 2
+ P7 20
+ P1 20
+ P10 5
+ P10 2
+Net 16 "/VIDEOIN" "VIDEOIN"
+ P7 23
+ P11 2
+Net 17 "/AUDIOLIN" "AUDIOLIN"
+ P11 4
+ P7 25
+Net 25 "/AUDIOROUT" "AUDIOROUT"
+ P7 31
+ P12 5
+Net 26 "/GPSGND" "GPSGND"
+ P8 1
+ P7 1
+Net 27 "/GPS5V" "GPS5V"
+ P8 3
+ P7 3
+Net 28 "/MAG5V" "MAG5V"
+ P8 7
+ P7 7
+Net 29 "/AZENCA" "AZENCA"
+ P2 6
+ R16 1
+Net 30 "+12V" "+12V"
+ D1 2
+ P1 29
+ C4 1
+ C3 1
+ P1 24
+ U4 VI
+Net 37 "/SLIPR12V" "SLIPR12V"
+ P12 3
+ P7 29
+Net 48 "/DiAZENCB" "DiAZENCB"
+ R15 2
+ U2 47
+Net 94 "/DiMAGRDY" "DiMAGRDY"
+ R8 2
+ U1 21
+Net 97 "/DiAZDIR" "DiAZDIR"
+ R4 2
+ U1 22
+Net 108 "/MAGSDA" "MAGSDA"
+ P1 8
+ R17 1
+ P7 8
+ P8 8
+Net 109 "/GPSRXI" "GPSRXI"
+ P1 2
+ P8 2
+ P7 2
+ R7 1
+Net 110 "/GPSTXO" "GPSTXO"
+ P7 4
+ P1 4
+ P8 4
+ R10 1
+Net 111 "/MAGGND" "MAGGND"
+ P8 5
+ P7 5
+Net 112 "/MAGRDY" "MAGRDY"
+ P8 6
+ R8 1
+ P7 6
+ P1 6
+Net 114 "/AUDIOLOUT" "AUDIOLOUT"
+ P12 4
+ P7 30
+Net 117 "/VRXGND" "VRXGND"
+ P11 1
+ P7 22
+Net 118 "/SLSPGND" "SLSPGND"
+ P7 32
+ P12 6
+Net 119 "/DiAZPWM" "DiAZPWM"
+ U2 40
+ R3 1
+Net 135 "/AUDIORIN" "AUDIORIN"
+ P11 5
+ P7 26
+Net 138 "/VRX12V" "VRX12V"
+ P7 24
+ P11 3
+Net 142 "/AZGND" "AZGND"
+ K2 1
+ P7 18
+Net 143 "/VIDEOUT" "VIDEOUT"
+ P7 28
+ P12 2
+Net 147 "/SLSPTXO" "SLSPTXO"
+ R6 2
+ P12 8
+ P7 34
+ P1 34
+Net 148 "/VIDEOGND" "VIDEOGND"
+ P7 27
+ P12 1
+Net 149 "/DiSLSPTXO" "DiSLSPTXO"
+ U1 41
+ R6 1
+Net 150 "/MAGSCL" "MAGSCL"
+ P1 9
+ P8 9
+ P7 9
+ R2 1
+Net 151 "/DiSLSPRXI" "DiSLSPRXI"
+ U1 40
+ R5 1
+Net 152 "/DiMAGSCL" "DiMAGSCL"
+ R2 2
+ U2 23
+Net 153 "/DiMAGSDA" "DiMAGSDA"
+ R17 2
+ U2 20
+Net 154 "/AZMOTAV" "AZMOTAV"
+ P2 1
+ R11 1
+Net 155 "/TSSIG" "TSSIG"
+ R1 2
+ K1 3
+Net 156 "/DiAZMOTAV" "DiAZMOTAV"
+ R12 1
+ R11 2
+ U1 20
+Net 157 "/DiAZMOTBV" "DiAZMOTBV"
+ R13 2
+ U1 19
+ R14 1
+Net 158 "+5V" "+5V"
+ P1 3
+ C5 1
+ P1 14
+ P1 7
+ C6 1
+ P2 4
+ U4 VO
+Net 159 "/AXMOTBV" "AXMOTBV"
+ R13 1
+ P2 2
+Net 160 "/DiAZNDIR" "DiAZNDIR"
+ U2 43
+ R9 1
+Net 161 "/AZENCB" "AZENCB"
+ P2 5
+ R15 1
+Net 162 "/DiAZENCA" "DiAZENCA"
+ U2 26
+ R16 2
+Net 163 "/DiGPSTXO" "DiGPSTXO"
+ U2 42
+ R10 2
+Net 164 "/DiGPSRXI" "DiGPSRXI"
+ R7 2
+ U2 41
+Net 165 "/SLSPRXI" "SLSPRXI"
+ R5 2
+ P7 33
+ P12 7
+ P1 33
+Net 166 "/VIN+" "VIN+"
+ P4 1
+ U3 VI
+ D1 1
+ P6 1
+Net 167 "/DiTSSIG" "DiTSSIG"
+ U1 11
+ R1 1
+Net 168 "/AZPWM" "AZPWM"
+ P10 1
+ R3 2
+ P1 19
+ P10 6
+}
+#End
