@@ -1,6 +1,8 @@
-update=Thu 12 Dec 2013 10:53:33 GMT
+update=Fri 06 Jun 2014 10:51:54 BST
 version=1
-last_client=kicad
+last_client=pcbnew
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=/home/andy/electronics/kicad/lib
@@ -89,16 +91,15 @@ MSegLar=150
 LastNetListRead=air1.net
 [pcbnew/libraries]
 LibDir=
-LibName1=sockets
-LibName2=connect
-LibName3=discret
-LibName4=pin_array
-LibName5=divers
-LibName6=libcms
-LibName7=display
-LibName8=valves
-LibName9=led
-LibName10=dip_sockets
-LibName11=/home/andy/electronics/kicad/modules/SOT223_1_to_pad
-[general]
-version=1
+LibName1=/home/andy/electronics/kicad/modules/SOT223
+LibName2=sockets
+LibName3=connect
+LibName4=discret
+LibName5=pin_array
+LibName6=divers
+LibName7=libcms
+LibName8=display
+LibName9=valves
+LibName10=led
+LibName11=dip_sockets
+LibName12=/home/andy/electronics/kicad/modules/SOT223_1_to_pad

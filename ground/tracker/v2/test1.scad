@@ -29,11 +29,11 @@ flange_thickness = 3;
 ballrace_clearance = 0.1;
 
 show_ballrace = true;
-show_inner_bearing_holder = false;
-show_inner_bearing_bracket = false;
-show_inner_bearing_holder_p2 = false;
-show_outer_bearing_holder = false;
-show_circlip = false;
+show_inner_bearing_holder = true;
+show_inner_bearing_bracket = true;
+show_inner_bearing_holder_p2 = true;
+show_outer_bearing_holder = true;
+show_circlip = true;
 show_outer_bearing_holder_p2 = false;
 show_motor = false;
 show_main_gear = false;

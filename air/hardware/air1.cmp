@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 11 Dec 2013 08:09:01 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Fri 06 Jun 2014 10:50:15 BST
 
 BeginCmp
 TimeStamp = /52A06B01;
@@ -281,9 +281,9 @@ IdModule  = TQFP32;
 EndCmp
 
 BeginCmp
-TimeStamp = /529F2BE9;
+TimeStamp = /53918899;
 Reference = U3;
-ValeurCmp = MCP6L01;
+ValeurCmp = MCP601R;
 IdModule  = SOT23-5;
 EndCmp
 
