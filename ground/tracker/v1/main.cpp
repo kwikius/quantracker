@@ -47,6 +47,7 @@ int main()
       if ( telemetry::serial_port.in_avail()){
          telemetry::parse_input();
       }
+      // ad look for FSK input
 
       raw_compass::update();
 
