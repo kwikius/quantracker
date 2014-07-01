@@ -36,8 +36,8 @@ quan::time_<uint32_t>::us main_loop::elevation_servo_pulse_len{1500U} ;
 void main_loop::set_elevation(quan::angle::deg angle_in)
 {  
    auto angle = quan::max(quan::min(angle_in, quan::angle::deg{90}),quan::angle::deg{0});
-   auto const pulse_90 = quan::time_<uint32_t>::us{1900};
-   auto const pulse_0 = quan::time_<uint32_t>::us{1000};
+   auto const pulse_90 = quan::time_<uint32_t>::us{1900U};
+   auto const pulse_0 = quan::time_<uint32_t>::us{1000U};
    auto pulse_time = pulse_0 + (pulse_90 - pulse_0) * angle / quan::angle::deg{90};
    set_elevation_servo(pulse_time);
 }
