@@ -46,6 +46,8 @@ void setup_inputs()
 {
    posdata_sp::serial_port::init();
 //TODO : invert tx output due to transistor inverter on output
+   // N.B  for mavlink only
+   // for GPS depends on config
    posdata_sp::serial_port::set_baudrate<57600,false>();
 }
 
