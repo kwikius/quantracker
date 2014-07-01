@@ -211,7 +211,8 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
             copy_new_values(result_out);
             return 1; // new data
          }
-
+      default:
+         return 0;
    }
 }
 
