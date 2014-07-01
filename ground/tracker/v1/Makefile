@@ -97,7 +97,7 @@ Debug : test
 
 objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o azimuth_motor_calc.o loop_timer.o \
  elevation_servo.o telemetry.o frsky_serial_port.o led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o \
- text_commands.o compass.o update_mag.o systick.o
+ text_commands.o compass.o update_mag.o systick.o bytestuff_telemetry.o cobs_frsky_telemetry.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
