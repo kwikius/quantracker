@@ -49,6 +49,7 @@ namespace {
     /*
     Set TXO pin as input with pullup. Then read it.
     if it reads low then want command line mode return true
+    or could change to three rets after period of nothing ..like APM?
    */
    bool want_commandline()
    {
@@ -77,6 +78,11 @@ namespace {
 
 int main()
 {
+   // for user input CLI
+   // setup the sp at baud
+   // listen for user data for 30 secs
+   // if first three bytes == rets then command line else
+   //
    if (! want_commandline() ){
       setup();
       for(;;){
