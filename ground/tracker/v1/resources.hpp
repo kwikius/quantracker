@@ -76,8 +76,14 @@ typedef quan::mcu::pin<quan::stm32::gpioc,4>    azimuth_motor_v_A;//(ADC12_IN14)
 typedef quan::mcu::pin<quan::stm32::gpioc,5>    azimuth_motor_v_B;//(ADC12_IN15) for reading azimuth motor speed
 typedef quan::mcu::pin<quan::stm32::gpioc,6>    azimuth_encoder_b_pin; // SF: TIM3_CH1:AF2 ( encoder white, 5th from left)
 // pc8 free
-typedef quan::mcu::pin<quan::stm32::gpioc,11>   av_telem_rx_pin;
+// define but dont use,poss set it to open drain?
+// or input
+// (Used by CS43L22 SCLK i/O. Think its set as an input on that ic default
+// so should be ok as output!
+typedef quan::mcu::pin<quan::stm32::gpioc,10>   av_telem_dummy_tx_pin;
 // pc11 free use for UART4 RX
+typedef quan::mcu::pin<quan::stm32::gpioc,11>   av_telem_rx_pin;
+// PD2 can be uart 5 rx
 typedef quan::mcu::pin<quan::stm32::gpiod,2>    free_rx_in_pin; 
 // pd1 free
 // pd2 free use for UART5 RX
@@ -95,8 +101,8 @@ typedef quan::mcu::pin<quan::stm32::gpiod,15>   blue_led_pin;       // blue led 
 typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
 
 typedef quan::stm32::usart1 gps_usart;   //tx & rx
-typedef quan::stm32::usart2 frsky_usart;  // tx & rx
-typedef quan::stm32::usart3 rctx_usart;  // tx & rx
+typedef quan::stm32::usart2 frsky_usart;  // tx & rx ( only neds to be rx though!)
+typedef quan::stm32::usart3 rctx_usart;  // tx & rx via sliprings
 typedef quan::stm32::uart4  av_telem_uart; // rx only
 typedef quan::stm32::uart5  free_usart_rx; // rx only
 

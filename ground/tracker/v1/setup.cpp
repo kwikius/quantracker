@@ -32,6 +32,9 @@ void *__dso_handle;
 // till we have op new...
 void operator delete (void*p){ ;}
 
+// setup uart4 for av telem input
+// set unused tx as input?
+
 extern "C" void setup()
 {
   

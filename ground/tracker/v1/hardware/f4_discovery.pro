@@ -1,4 +1,4 @@
-update=Sat 22 Feb 2014 13:32:39 GMT
+update=Wed 02 Jul 2014 14:17:19 BST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -143,3 +143,4 @@ LibName29=opto
 LibName30=atmel
 LibName31=contrib
 LibName32=valves
+LibName33=/home/andy/electronics/kicad/projects/modem_rx/tcm3105

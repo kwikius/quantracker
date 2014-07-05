@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 
 #include <quan/config.hpp>
 #include <quan/uav/fletcher16.hpp>

@@ -1,4 +1,4 @@
-řpins on 34 way output connector
+pins on 34 way output connector
 
 --------------
 *Mag gps* 
@@ -14,10 +14,10 @@
 10 NC
 *RCOutput*
  11  RCGnd
- 12  RCPWM
+ 12  RCPWM   <--(100R) PA2
  13  RC12Vout
- 14  RCTXO
- 15  RCRXI
+ 14  RCTXO   <--(100R) ?
+ 15  RCRXI   -->(100R) ?
 *azimuth motor sense*
  16  AZSENS
  17  5VfromH
@@ -28,13 +28,13 @@
  21  AZDIR     <--(100R) PB0
 *VrxIn*
  22  VrxGnd
- 23  Videoin
+ 23  AVin
  24  12Vout
  25  AudioLin
  26  AudioRin
 *sliprings lower deck*
  27  VideoGnd
- 28  Avout
+ 28  AVout
  29  12Vout
  30  AudioLout
  31  AudioRout
@@ -56,7 +56,9 @@ offboard
 *TiltServo*
  1  TSGND
  2  TSBEC5V
- 3  TSSIG           <-->(100R) PA1
+ 3  TSSIG        <-->(100R) PA1
+
+
 
 
 
