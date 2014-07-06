@@ -94,10 +94,18 @@ namespace {
     angle is +- deg  - 180 to 180
     convert to angle of +- deg * 1e7
    */
+
    inline int32_t normalise_angle(quan::angle_<int32_t>::deg10e7 const & in)
    {
-       constexpr int64_t ang_max  = 1800000000LL;
-       return static_cast<int32_t>(in.numeric_value() % ang_max);
+       int64_t v = in.numeric_value();
+       if ( v >   1800000000LL){
+                  v -= 3600000000LL;
+         }else{
+            if ( v < -1799999999LL){
+                     v += 3600000000LL;
+            }
+         }
+        return static_cast<int32_t>(v);
    }
    /* 
    max FrSky update rate is 1200 baud. If this is called at 50 Hz then

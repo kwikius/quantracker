@@ -112,9 +112,11 @@ struct interrupt_priority{
    static constexpr uint32_t systick_timer = 15;
    static constexpr uint32_t exti_mag_rdy = 14;
    static constexpr uint32_t frsky_serial_port= 13;
-   static constexpr uint32_t sliprings_serial_port = 12;
-   static constexpr uint32_t i2c_mag_evt  = 11;
-   static constexpr uint32_t loop_timer = 10;
+   static constexpr uint32_t av_fsk_serial_port = 12;
+   static constexpr uint32_t sliprings_serial_port = 11;
+   static constexpr uint32_t i2c_mag_evt  = 10;
+   static constexpr uint32_t loop_timer = 9;
+   
 };
 
 #endif // QUANTRACKER_RESOURCES_HPP_INCLUDED

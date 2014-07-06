@@ -27,8 +27,8 @@ struct telemetry{
    static void set_protocol (protocol_t prot){m_protocol = prot;}
    static protocol_t get_protocol(){return m_protocol;}
    private:
-        static void parse_input_from_FrSky_with_high_level_escape_protocol();
-        static void parse_input_from_FrSky_with_cobs_protocol();
+        static void parse_frsky_bytestuff();
+        static void parse_av_cobs();
         static void parse_command_line();
         static protocol_t m_protocol;
    

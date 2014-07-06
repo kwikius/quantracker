@@ -44,12 +44,14 @@ extern "C" void setup()
    main_loop::elevation_servo_setup_ports();
    azimuth::motor::setup_ports();
 
-   frsky::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port);
+  // frsky::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port);
    sliprings::serial_port::set_irq_priority(interrupt_priority::sliprings_serial_port);
+   av_fsk::serial_port::set_irq_priority(interrupt_priority::av_fsk_serial_port);
 
-   frsky::serial_port::init();
-
+  // frsky::serial_port::init();
    sliprings::serial_port::init();
+   av_fsk::serial_port::init();
+   av_fsk::serial_port::set_baudrate<1200,false>();
 
    azimuth::encoder::setup();
    raw_compass::init();

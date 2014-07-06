@@ -19,6 +19,7 @@ namespace {
    void (*pf_on_button_up)() = idle;
    void (*pf_on_20_ms_event)() = initial_20_ms_event;
 
+// 20 ms event
    void tracking()
    {
      // static uint32_t count = 0;
@@ -82,7 +83,7 @@ namespace {
      if ( state == 0){
           azimuth::motor::disable();
          // check for user holding down user button (n.b should be true for holding down button!
-         if(user_button.get_instant_state() == false){
+         if(user_button.get_instant_state() == true){
 #ifdef DEBUG
             debug::serial_port::write("quan_tracker V1.1 startup");
 #endif

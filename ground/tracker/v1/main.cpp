@@ -28,7 +28,7 @@
 int main()
 {
    for (;;){  
-
+      // timer events
       if ( azimuth_pwm_calc_event.signalled()){
          azimuth::motor::do_calc();
          azimuth_pwm_calc_event.clear();
@@ -43,14 +43,9 @@ int main()
          on_20ms_event();
          ms20_event.clear();
       }
-
-      if ( telemetry::serial_port.in_avail()){
-         telemetry::parse_input();
-      }
-      // ad look for FSK input
-
+      // asynch events
+      telemetry::parse_input();
       raw_compass::update();
-
    }
 }
 

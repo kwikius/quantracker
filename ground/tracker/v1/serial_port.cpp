@@ -19,8 +19,6 @@
 #include "serial_ports.hpp"
 
 extern "C" void USART3_IRQHandler() __attribute__ ((interrupt ("IRQ")));
-extern "C" void USART2_IRQHandler() __attribute__ ((interrupt ("IRQ")));
-
 extern "C" void USART3_IRQHandler()
 {
    static_assert(
@@ -32,6 +30,20 @@ extern "C" void USART3_IRQHandler()
    quan::stm32::usart::irq_handler<sliprings::serial_port>();
 }
 
+extern "C" void UART4_IRQHandler() __attribute__ ((interrupt ("IRQ")));
+extern "C" void UART4_IRQHandler()
+{
+   static_assert(
+   std::is_same<
+      av_fsk::serial_port::usart_type,quan::stm32::uart4
+   >::value
+   ,"invalid usart for serial_port irq");
+
+   quan::stm32::usart::irq_handler<av_fsk::serial_port>();
+}
+
+#if 0
+extern "C" void USART2_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART2_IRQHandler()
 {
    static_assert(
@@ -42,6 +54,7 @@ extern "C" void USART2_IRQHandler()
 
    quan::stm32::usart::irq_handler<frsky::serial_port>();
 }
+#endif
 
 
 

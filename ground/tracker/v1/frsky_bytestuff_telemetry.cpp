@@ -51,7 +51,7 @@ namespace {
 }// namespace
 
 // FrSky telemetry from RcTx with original high level escapes protocol on top
-void telemetry::parse_input_from_FrSky_with_high_level_escape_protocol()
+void telemetry::parse_frsky_bytestuff()
 {
    // buffer for the raw input message in FrSky protocol format
    unsigned char buf[9];
