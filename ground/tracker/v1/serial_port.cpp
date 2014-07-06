@@ -25,11 +25,11 @@ extern "C" void USART3_IRQHandler()
 {
    static_assert(
    std::is_same<
-      rctx::serial_port::usart_type,quan::stm32::usart3
+      sliprings::serial_port::usart_type,quan::stm32::usart3
    >::value
    ,"invalid usart for serial_port irq");
 
-   quan::stm32::usart::irq_handler<rctx::serial_port>();
+   quan::stm32::usart::irq_handler<sliprings::serial_port>();
 }
 
 extern "C" void USART2_IRQHandler()

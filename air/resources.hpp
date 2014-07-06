@@ -43,7 +43,7 @@ typedef quan::stm32::usart2  frsky_usart;
 //struct interrupt_priority{
 //   static constexpr uint32_t systick_timer = 15;
 //   static constexpr uint32_t frsky_serial_port= 14;
-//   static constexpr uint32_t rctx_serial_port = 13;
+//   static constexpr uint32_t sliprings_serial_port = 13;
 //   static constexpr uint32_t loop_timer = 12;
 //};
 

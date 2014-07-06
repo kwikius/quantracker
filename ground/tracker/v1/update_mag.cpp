@@ -10,7 +10,7 @@
 
 namespace{
 
-   typedef rctx::serial_port serial_port1;
+   typedef sliprings::serial_port serial_port1;
   
    static const uint8_t mag_read = 0x3D;
    static const uint8_t mag_write = 0x3C;

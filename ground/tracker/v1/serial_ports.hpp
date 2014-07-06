@@ -21,7 +21,7 @@
 #include <quan/stm32/serial_port.hpp>
 #include "resources.hpp"
 
-struct rctx{
+struct sliprings{
    typedef rctx_txo_pin txo_pin;
    typedef rctx_rxi_pin rxi_pin;
    static constexpr uint32_t in_buf_size = 1000;
@@ -31,7 +31,7 @@ struct rctx{
   static constexpr uint32_t out_buf_size = 25;
 #endif
    typedef quan::stm32::serial_port<
-   rctx_usart,out_buf_size,in_buf_size,txo_pin,rxi_pin
+   sliprings_usart,out_buf_size,in_buf_size,txo_pin,rxi_pin
    > serial_port;
 };
 
@@ -46,7 +46,7 @@ struct frsky{
 };
 
 #ifdef DEBUG
-typedef rctx debug;
+typedef sliprings debug;
 #endif
 
 #endif // QUANTRACKER_SERIAL_PORTS_HPP_INCLUDED

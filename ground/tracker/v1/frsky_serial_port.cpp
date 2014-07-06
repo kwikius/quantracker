@@ -19,7 +19,7 @@
 #include "frsky_serial_port.hpp"
 #include <quan_matters/src/uav/frsky2wsp/protocol.cpp>
 
-template struct FrSky2WSP::protocol<rctx::serial_port> ;
+template struct FrSky2WSP::protocol<sliprings::serial_port> ;
 
 
 

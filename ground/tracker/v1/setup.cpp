@@ -45,11 +45,11 @@ extern "C" void setup()
    azimuth::motor::setup_ports();
 
    frsky::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port);
-   rctx::serial_port::set_irq_priority(interrupt_priority::rctx_serial_port);
+   sliprings::serial_port::set_irq_priority(interrupt_priority::sliprings_serial_port);
 
    frsky::serial_port::init();
 
-   rctx::serial_port::init();
+   sliprings::serial_port::init();
 
    azimuth::encoder::setup();
    raw_compass::init();

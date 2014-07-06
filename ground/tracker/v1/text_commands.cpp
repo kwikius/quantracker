@@ -62,7 +62,7 @@
 */
 namespace {
 
-   typedef rctx::serial_port cl_sp;
+   typedef sliprings::serial_port cl_sp;
    typedef telemetry::gps_position uav_pos_type;
 
    bool parse_position(const char* cbuf, size_t len, uav_pos_type& pos)
