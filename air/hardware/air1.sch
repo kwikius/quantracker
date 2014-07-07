@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 06 Jun 2014 11:59:05 BST
+EESchema Schematic File Version 2  date Mon 07 Jul 2014 15:18:26 BST
 LIBS:stm32
 LIBS:power
 LIBS:device
@@ -38,7 +38,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "6 jun 2014"
+Date "7 jul 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -46,6 +46,16 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 2500 4100 0    60   ~ 0
+add pullup to mavrxi \n
+Text Notes 3100 6500 0    60   ~ 0
+Use small connector not header
+Text Notes 8150 4000 0    60   ~ 0
+Add buffer
+Text Notes 6400 2450 0    60   ~ 0
+REmove - use FLASH
+Text Notes 2300 5600 0    60   ~ 0
+Use a MC74HC1GT125 Single non-inverting Buffer
 $Comp
 L MCP601R U3
 U 1 1 53918899

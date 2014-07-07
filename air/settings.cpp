@@ -18,7 +18,7 @@ settings::output_protocol_t settings::frsky_protocol
    = settings::output_protocol_t::zapp1;
 
 settings::output_protocol_t settings::fsk_protocol 
-   = settings::output_protocol_t::zapp2;
+   = settings::output_protocol_t::zapp3;
 
 settings::data_source_t settings::data_source
-   = settings::data_source_t::gps;
+   = settings::data_source_t::mavlink;

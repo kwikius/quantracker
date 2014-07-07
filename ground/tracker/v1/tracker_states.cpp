@@ -8,10 +8,6 @@
 
 namespace {
 
-  // bool home_set_flag = false;
-  // bool error_flag = false;
-  // bool awaiting_tracker_data = true;
-
    void initial_20_ms_event();
 
    void idle(){}
@@ -22,17 +18,7 @@ namespace {
 // 20 ms event
    void tracking()
    {
-     // static uint32_t count = 0;
-     // if ( ++ count == 5 ){
-       //  count = 0;
-//         if( telemetry::state_changed){
-//            telemetry::state_changed = false;
-            telemetry::recalc();
-//            error_led.switch_off();
-//         }else{
-//            error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
-//         }
-//      }
+      telemetry::recalc();
    }
 
    void init_tracking()
@@ -92,7 +78,7 @@ namespace {
             // do lights to suit
             error_led.set_flashing(quan::time_<int32_t>::ms{100},quan::time_<int32_t>::ms{900} );
             state = 3;
-         }else{
+         }else{ // wait for user to initiate tracking
             //TODO
             // ADD setup compass to point to normal readings
             // init eeprom etc..
@@ -103,11 +89,15 @@ namespace {
             state = 1;
          }
      };
-     
+     // OK what happens if no data for some time after received data?
+     // startup LED is blue
+     // heartbeat led is red
      if ( (state==1) && telemetry::state_changed ){
         error_led.switch_off();
+        // ok ready to init tracking...
         startup_led.set_flashing(quan::time_<int32_t>::ms{500},quan::time_<int32_t>::ms{500} );
         heartbeat_led.set_flashing(quan::time_<int32_t>::ms{300},quan::time_<int32_t>::ms{700} );
+
         pf_on_button_down = on_button_down;
         state = 2;
      }

@@ -49,8 +49,8 @@ void setup_heartbeat_event()
       , gpio::otype::push_pull
       , gpio::pupd::none
       , gpio::ospeed::slow
-      , gpio::ostate::high
+      , gpio::ostate::low
    >();
 
-  set_event(event_index::heartbeat,&heartbeat_event);
+  //set_event(event_index::heartbeat,&heartbeat_event);
 }

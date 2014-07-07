@@ -26,25 +26,25 @@
 extern "C" void setup();
 
 namespace {
-
-   void read_gps()
-   { 
-      the_gps.parse();
-   }
+//
+//   void read_gps()
+//   { 
+//      the_gps.parse();
+//   }
 
    void read_data()
    {
-      switch( settings::data_source){
-         case settings::data_source_t::mavlink:
+//      switch( settings::data_source){
+//         case settings::data_source_t::mavlink:
             read_mavlink();
-         break;
-         default:
-            read_gps();
-         break;
-      }
+//         break;
+//         default:
+//            read_gps();
+//         break;
+//      }
    }
 }
-
+#if 0
 namespace {
     /*
     Set TXO pin as input with pullup. Then read it.
@@ -75,7 +75,7 @@ namespace {
 
    void do_command_line(){}
 }
-
+#endif
 int main()
 {
    // for user input CLI
@@ -83,13 +83,14 @@ int main()
    // listen for user data for 30 secs
    // if first three bytes == rets then command line else
    //
-   if (! want_commandline() ){
+  // if (! want_commandline() ){
       setup();
       for(;;){
          read_data();
-         service_events();
+       
+        service_events();
       }
-   }else{
-      do_command_line();
-   }
+//   }else{
+//      do_command_line();
+//   }
 }

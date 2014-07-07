@@ -23,7 +23,7 @@ struct telemetry{
    static bool state_changed;
    static void set_home();
    static void filter_pos();
-   enum class protocol_t {zapp1,zapp2,command_line};
+   enum class protocol_t {zapp1,zapp3,command_line};
    static void set_protocol (protocol_t prot){m_protocol = prot;}
    static protocol_t get_protocol(){return m_protocol;}
    private:

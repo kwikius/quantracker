@@ -71,7 +71,7 @@ namespace fsk {
    #else
       tim6::get()->dier.clearbit<0>() ; // (UIE)
    #endif
-       bool const result = output_fifo.put(static_cast<uint8_t>(ch));
+      bool const result = output_fifo.put(static_cast<uint8_t>(ch));
       // enable TIM6 interrupt
    #if  QUAN_STM32_HAS_BITBANDING
       tim6::get()->dier.bb_setbit<0>() ; // (UIE)
@@ -83,9 +83,11 @@ namespace fsk {
 
    bool write( const char* buf, size_t len)
    {
+
       for (size_t i =0; i < len; ++i){
         fsk::put(buf[i]);
       }
+
    }
 }
 
@@ -199,6 +201,7 @@ namespace {
          if ( output_fifo.is_empty() ){ 
             advance_mark();
          }else{
+/*
             static bool led_on = true;
                if ( led_on){
                     quan::stm32::clear<heartbeat_led_pin>();
@@ -207,6 +210,7 @@ namespace {
                     quan::stm32::set<heartbeat_led_pin>();
                     led_on = true;
                }
+*/
             output_fifo.get(output_byte); // new data in
             advance_space();
            // pf_fsk = in_start_bit;

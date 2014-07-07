@@ -16,7 +16,7 @@
 */
 #include "settings.hpp"
 #include "frsky.hpp"
-#include "zapp2.hpp"
+
 #include "serial_ports.hpp"
 #include "events.hpp"
 
@@ -27,32 +27,10 @@ namespace {
       ::frsky_sp::serial_port::write(reinterpret_cast<char const *>(buf),len);
       return len;
    }
+//need to invert output for FrSky
+  // but not for eg OpenLRS
+   bool invert_frsky_tx = true;
 }
-
-namespace frsky{ namespace zapp2 {
-   
-   void send_message()
-   {
-      ::zapp2::send_message(output);
-   }
-}} // frsky::zapp2
-
-namespace {
-
-   periodic_event zapp2_event{
-      ::zapp2::get_update_event_timing(),
-      ::frsky::zapp2::send_message,true
-   };
-}
-
-namespace frsky{ namespace zapp2{
-
-   void setup_event()
-   {
-      ::set_event(::event_index::frsky,&zapp2_event);
-   }
-
-}}
 
 namespace frsky{
 
@@ -60,35 +38,30 @@ namespace frsky{
    {
       frsky_sp::serial_port::init();
    //TODO : invert tx output according to eeprom
+      if ( invert_frsky_tx == true){
+         typedef frsky_sp::serial_port::usart_type usart;
+         static constexpr uint8_t txinv_bit = 17;
+         bool const enabled = frsky_sp::serial_port::is_enabled();
+         if (enabled){
+          quan::stm32::disable<usart>();
+         }
+         usart::get()->cr2.setbit<txinv_bit>();
+         if(enabled){
+            quan::stm32::enable<usart>();
+         }
+      }
       frsky_sp::serial_port::set_baudrate<9600,false>();
+      
    }
 
    void send_message()
    {
-      switch (settings::frsky_protocol){
-         case settings::output_protocol_t::zapp1:
-         //   zapp1::frsky_send_message();
-            break;
-         case settings::output_protocol_t::zapp2:
-            frsky::zapp2::send_message();
-            break;
-         default:
-            break;
-      }
+      zapp1::frsky_send_message();
    }
 
    void setup_event()
    {
-      switch (settings::frsky_protocol){
-         case settings::output_protocol_t::zapp1:
-         //   zapp1::setup_frsky_event();
-            break;
-         case settings::output_protocol_t::zapp2:
-            frsky::zapp2::setup_event();
-            break;
-         default:
-            break;
-      }
+      zapp1::setup_frsky_event();
    }
 
 }//frsky

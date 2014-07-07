@@ -45,7 +45,20 @@ void setup_events()
 void setup_inputs()
 {
    posdata_sp::serial_port::init();
-//TODO : invert tx output due to transistor inverter on output
+   // add pullup to input
+// inverted on v1 board
+#if !defined(QUAN_DISCOVERY)
+   typedef posdata_sp::serial_port::usart_type usart;
+   static constexpr uint8_t txinv_bit = 17;
+   bool const enabled = posdata_sp::serial_port::is_enabled();
+   if (enabled){
+      quan::stm32::disable<usart>();
+   }
+   usart::get()->cr2.setbit<txinv_bit>();
+   if(enabled){
+      quan::stm32::enable<usart>();
+   }
+#endif
    // N.B  for mavlink only
    // for GPS depends on config
    posdata_sp::serial_port::set_baudrate<57600,false>();

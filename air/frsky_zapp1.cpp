@@ -249,6 +249,7 @@ namespace zapp1{
 }
 
 namespace {
+   // event enabled
    periodic_event FrSkyZapp1_event{quan::time_<uint32_t>::ms{20U},zapp1::frsky_send_message,true};
 }
 

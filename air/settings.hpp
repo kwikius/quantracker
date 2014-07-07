@@ -10,9 +10,9 @@ struct settings{
 
    // protocol to use for sending data down the telemetry link
    // choose zapp1 for compatibility
-   enum class output_protocol_t {none,zapp1, zapp2};
+   enum class output_protocol_t {none,zapp1, zapp3};
    static output_protocol_t frsky_protocol;
-   // must be i none or zapp2
+
    static output_protocol_t fsk_protocol;
 
    // what is the data source

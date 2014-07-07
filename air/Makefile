@@ -26,7 +26,7 @@ INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERS
 
 DEFINES = QUAN_STM32F0 QUAN_NO_EXCEPTIONS QUAN_STM32_SUBFAMILY_05X HSE_VALUE=8000000
 
-DEFINES += QUAN_DISCOVERY
+#DEFINES += QUAN_DISCOVERY
 
 STARTUP = startupf0.s
 LINKER_SCRIPT = stm32f0.ld
@@ -58,8 +58,12 @@ ODFLAGS = -d
 
 all: test
 
+#objects = main.o setup.o spbrk.o $(SYSTEM_INIT).o serial_port.o fsk_output.o \
+#fsk.o frsky.o frsky_zapp1.o aircraft.o mavlink.o timer.o gps.o on_gps.o \
+#settings.o events.o heartbeat.o
+
 objects = main.o setup.o spbrk.o $(SYSTEM_INIT).o serial_port.o fsk_output.o \
-fsk.o frsky.o frsky_zapp1.o zapp2.o aircraft.o mavlink.o timer.o gps.o on_gps.o \
+fsk.o frsky.o frsky_zapp1.o aircraft.o mavlink.o timer.o \
 settings.o events.o heartbeat.o
 
 clean:
