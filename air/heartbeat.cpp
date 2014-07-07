@@ -52,5 +52,5 @@ void setup_heartbeat_event()
       , gpio::ostate::low
    >();
 
-  //set_event(event_index::heartbeat,&heartbeat_event);
+  set_event(event_index::heartbeat,&heartbeat_event);
 }
