@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 07 Jul 2014 15:18:26 BST
+EESchema Schematic File Version 2  date Tue 08 Jul 2014 09:36:23 BST
 LIBS:stm32
 LIBS:power
 LIBS:device
@@ -38,7 +38,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "7 jul 2014"
+Date "8 jul 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -46,6 +46,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 8800 5150 0    60   ~ 0
+Add 33uF cap on output
 Text Notes 2500 4100 0    60   ~ 0
 add pullup to mavrxi \n
 Text Notes 3100 6500 0    60   ~ 0

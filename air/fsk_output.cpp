@@ -51,6 +51,7 @@ namespace {
       
       tim6::get()->sr.clearbit<0>(); // (UIF)
 
+      NVIC_SetPriority(TIM6_DAC_IRQn,interrupt_priority::fsk_dac_timer);
       NVIC_EnableIRQ(TIM6_DAC_IRQn);
       // enable update interrupt
       tim6::get()->dier.setbit<0>() ; // (UIE)

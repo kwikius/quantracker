@@ -40,11 +40,11 @@ typedef quan::mcu::pin<quan::stm32::gpioa,0>  heartbeat_led_pin;
 typedef quan::stm32::usart1  posdata_usart;
 typedef quan::stm32::usart2  frsky_usart;
 
-//struct interrupt_priority{
-//   static constexpr uint32_t systick_timer = 15;
-//   static constexpr uint32_t frsky_serial_port= 14;
-//   static constexpr uint32_t sliprings_serial_port = 13;
-//   static constexpr uint32_t loop_timer = 12;
-//};
+struct interrupt_priority{
+   static constexpr uint32_t systick_timer = 15;
+   static constexpr uint32_t frsky_serial_port= 14;
+   static constexpr uint32_t telemetry_input_port = 13;
+   static constexpr uint32_t fsk_dac_timer = 12;
+};
 
 #endif // FSK_TX_RESOURCES_HPP_INCLUDED

@@ -257,5 +257,6 @@ namespace zapp1{
    void setup_frsky_event()
    {
       set_event(event_index::frsky,&FrSkyZapp1_event);
+      frsky_sp::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port);
    }
 }

@@ -38,8 +38,9 @@ void setup_events()
    frsky::setup_event();
    fsk::setup_event();
    setup_heartbeat_event();
-
+   NVIC_SetPriority(SysTick_IRQn,interrupt_priority::systick_timer);
    SysTick_Config(SystemCoreClock / 1000);
+   
 }
 
 void setup_inputs()
@@ -62,6 +63,7 @@ void setup_inputs()
    // N.B  for mavlink only
    // for GPS depends on config
    posdata_sp::serial_port::set_baudrate<57600,false>();
+   posdata_sp::serial_port::set_irq_priority(interrupt_priority::telemetry_input_port);
 }
 
 extern "C" void setup()
