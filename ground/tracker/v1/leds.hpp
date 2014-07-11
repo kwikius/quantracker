@@ -47,12 +47,16 @@ struct Led{
       m_off_period = off_period;
       quan::stm32::set<Pin>();
    }
+   bool is_flashing() const
+   {
+      return ( m_on_period > quan::time_<int32_t>::ms{0} ) 
+            && (m_off_period > quan::time_<int32_t>::ms{0});
+   }
 
    // in 20 ms event
    void update()
    {
-      if ( ( m_on_period > quan::time_<int32_t>::ms{0} )
-            && (m_off_period > quan::time_<int32_t>::ms{0}) ){
+      if ( is_flashing() ){ 
          m_count -= quan::time_<int32_t>::ms{50};
          if ( m_count <= quan::time_<int32_t>::ms{0}){
             if (quan::stm32::get<Pin>() == true){
