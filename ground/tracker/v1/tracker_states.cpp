@@ -15,7 +15,11 @@ namespace {
    void (*pf_on_button_up)() = idle;
    void (*pf_on_20_ms_event)() = initial_20_ms_event;
 
+
+
 // 20 ms event
+   // add look for data. If no new data then stop leds
+
    void tracking()
    {
       telemetry::recalc();
@@ -23,6 +27,8 @@ namespace {
 
    void init_tracking()
    {
+      // if not using compass then assume user has pointed tracker at North
+      azimuth::encoder::zero();
       telemetry::set_home();
       startup_led.switch_on();
       azimuth::motor::enable();
@@ -63,6 +69,7 @@ namespace {
         error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
    }
 
+  
    void initial_20_ms_event()
    {
      static int32_t state = 0;
@@ -91,22 +98,40 @@ namespace {
      };
      // OK what happens if no data for some time after received data?
      // startup LED is blue
-     // heartbeat led is red
-     if ( (state==1) && telemetry::state_changed ){
+
+     if ( (state==1) && heartbeat_led.is_flashing()){
         error_led.switch_off();
         // ok ready to init tracking...
         startup_led.set_flashing(quan::time_<int32_t>::ms{500},quan::time_<int32_t>::ms{500} );
-        heartbeat_led.set_flashing(quan::time_<int32_t>::ms{300},quan::time_<int32_t>::ms{700} );
 
         pf_on_button_down = on_button_down;
         state = 2;
      }
+     // for state 2 start monitoring the data
    }
+
+
 }//namespace
 
 void on_20ms_event()
 {
+   //lokking for heartbeats and indicating on heartbeat led
    telemetry::filter_pos();
+   if ( telemetry::state_changed){
+      // signify by flashing heartbeat
+      if( ! heartbeat_led.is_flashing()){
+         heartbeat_led.set_flashing(quan::time_<int32_t>::ms{300},quan::time_<int32_t>::ms{700} );
+      }
+      telemetry::state_changed = false;
+   }else{ // no new data for a while...
+      if ( heartbeat_led.is_flashing() ){
+        static uint32_t telemetry_data_timeout =0;
+        if(++telemetry_data_timeout >= 50){
+           telemetry_data_timeout = 0;
+           heartbeat_led.switch_off();
+        }
+      }
+   }
    pf_on_20_ms_event();
    update_leds();
 }
