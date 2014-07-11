@@ -95,6 +95,7 @@ void telemetry::parse_input()
       parse_commandline();
    }else{
       parse_av_cobs();
+      telemetry::parse_frsky_bytestuff();
    }
  //  parse_input_from_FrSky_with_cobs_protocol();
 }
