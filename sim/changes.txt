@@ -1,0 +1,7 @@
+
+4 Aug 2013
+changed panel in panel.*pp to derive from wxScrolledWindow so it can be scrolled if too large for screen
+
+Moved aircraft gps to separate file
+
+----------------

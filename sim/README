@@ -1,0 +1,18 @@
+PC simulator for my Antenna Tracker with a GUI to move the aircraft around
+ and send the simulated GPS info to the Tracker.
+
+See http://www.zoomworks.org/fpv/antenna_tracker/index.html for more about info about the Tracker.
+See https://github.com/kwikius/mavlink_to_frsky for the airborne part of the project.
+See https://github.com/kwikius/quantracker for sourcode for the tracker part of the project
+
+The code is written in C++11 , so you will need gcc4.7 or above to compile and build.
+
+Currently builds for Linux only.
+
+Other dependencies:
+ 
+	wxWidgets http://www.wxwidgets.org/
+	my quan library:  https://github.com/kwikius/quan-trunk
+
+
+

@@ -1,0 +1,84 @@
+
+assume that the error rate is inversely proportional to signal strength
+We know that if distance of plane from tracker is d
+
+actual_signal_strength = (max_signal_strength / d^2)
+
+lost_packet_rate is also proportional to bandwidth used. Intuitively if you send only one short packet every now and then it is less likely to get shot down by intereference than if your packet fills the whole channel. Shorter packets are good
+
+lost_packet_rate(d) =  bandwidth_used / actual_signal_strength
+              = bandwidth_used * d^2 / max_signal_strength
+
+The rate of change of tracking angle is important. If invalid data is received ( and detected) the tracking position will be still valid until the plane moves out of focus
+How fast it moves out of focus is a function of distance. If d_angle_dt is rate of change of aircraft angle
+
+d_angle_dt(d)  = aircraft_max_velocity / d
+
+required_packet_rate(d) = k3 * d_angle_dt(d)
+								 = k3 * aircraft_max_velocity / d;
+
+actual_packet_rate(d) = max_packet_rate  * (1 - lost_packet_rate)
+							 = max_packet_rate * (1 - (bandwidth_used * d^2 / max_signal_strength))
+
+d > max_range  if actual_update_rate(d) < required_update_rate(d)
+
+max_packet_rate * (1 - (bandwidth_used * d^2 / max_signal_strength)) < k3 * aircraft_max_velocity / d;
+
+max_packet_rate * (1 - (bandwidth_used * d^2 / max_signal_strength)) * d  < k3 * aircraft_max_velocity;
+
+max_packet_rate * d  - max_packet_rate * bandwidth_used * d^3 / max_signal_strength
+
+max range exceeeded if 
+max_packet_rate  * ( d - bandwidth_used * d^3 / max_signal_strength) / aircraft_max_velocity < k3 
+
+huge dependence on bandwidth according to this!
+
+-----------------
+
+num possible lengths = 8
+short 
+1 data doffst = 1    // 4
+0,np,d,ck,ck,x
+
+2 data doffst = 2    // 6
+0,np,p0,d,d,ck,ck,x
+
+3 data  dofst = 2    // 7
+0,np,pp,d,d,d,ck,ck,x
+
+4 data dofst = 3        // 9 encoded length = 11
+0,np,pp,p0,d,d,d,d,ck,ck,x
+
+5 data dofst = 3       // 10
+0,np,pp,pp,d,d,d,d,d,ck,ck,x
+
+6 data                 // 12
+0,np,pp,pp,p0,d,d,d,d,d,d,ck,ck,x
+
+7 data len = 13        // 13
+0,np,pp,pp,pp,d,d,d,d,d,d,d,ck,ck,x
+
+full = 14              
+0,n0,d,d,d,d,d,d,d,d,d,d,d,ck,ck,x  encoded length = 16
+
+
+
+whitwell  51,5219 minutes n , 01645 w
+
+51.5219,-0.1645
+
+51.878187,-0.276775
+
+51.875458,-0.280759
+
+51.8219,-0.1645
+
+
+
+    
+    
+
+
+
+
+
