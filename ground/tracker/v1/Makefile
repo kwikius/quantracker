@@ -80,11 +80,13 @@ CFLAG_EXTRAS += -Wall
 
 PROCESSOR_FLAGS = -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -O3 -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
+CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -O3 -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) \
+-fdata-sections -ffunction-sections
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-LFLAGS = -T$(STM32F4_LINKER_SCRIPT) -Os $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) $(INIT_LIBS) -nodefaultlibs -nostartfiles
+LFLAGS = -T$(STM32F4_LINKER_SCRIPT) -Os $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) $(INIT_LIBS) -nodefaultlibs -nostartfiles \
+--specs=nano.specs -Wl,--gc-sections
 
 CPFLAGS = -Obinary
 ODFLAGS = -d
@@ -97,7 +99,7 @@ Debug : test
 
 objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o azimuth_motor_calc.o loop_timer.o \
  elevation_servo.o telemetry.o frsky_serial_port.o led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o \
- text_commands.o compass.o update_mag.o systick.o frsky_bytestuff_telemetry.o cobs_fsk_telemetry.o
+ text_commands.o compass.o update_mag.o systick.o frsky_bytestuff_telemetry.o cobs_fsk_telemetry.o fsk_filter.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst

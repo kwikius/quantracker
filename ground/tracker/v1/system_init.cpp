@@ -44,7 +44,11 @@ extern "C" void SystemInit(void)
   /* FPU settings ------------------------------------------------------------*/
  
   SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
-
+  // set FPU context save restore to none
+  FPU->FPCCR &= ~((1 << 31) | (1 << 30));
+  // clear Control FPCA so must explicitly save regs in any float irq
+  uint32_t control = __get_CONTROL();
+  __set_CONTROL( control & ~(1 << 2) );
   /* Reset the RCC clock configuration to the default reset state ------------*/
   /* Set HSION bit */
   RCC->CR |= (uint32_t)0x00000001;  // High Speed Internal Clock On

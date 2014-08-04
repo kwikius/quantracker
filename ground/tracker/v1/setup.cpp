@@ -22,8 +22,11 @@
 #include "leds.hpp"
 #include "switch_input.hpp"
 #include "compass.hpp"
+//#include "resources.hpp"
+//#include "serial_ports.hpp"
 
 void setup_systick();
+void setup_fsk_demod();
 
 // blink error led forever???
 extern "C" void __cxa_pure_virtual() { while (1); }
@@ -51,7 +54,14 @@ extern "C" void setup()
   // frsky::serial_port::init();
    sliprings::serial_port::init();
    av_fsk::serial_port::init();
+     // turn off tx output ( was af)
+   quan::stm32::apply<
+      av_fsk::txo_pin
+     , quan::stm32::gpio::mode::input
+     , quan::stm32::gpio::pupd::pull_up
+   >(); 
    av_fsk::serial_port::set_baudrate<1200,false>();
+   setup_fsk_demod();
 
    azimuth::encoder::setup();
    raw_compass::init();

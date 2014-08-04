@@ -38,8 +38,8 @@ struct sliprings{
 struct frsky{
    typedef frsky_txo_pin txo_pin;
    typedef frsky_rxi_pin rxi_pin;
-   static constexpr uint32_t in_buf_size = 1000;
-   static constexpr uint32_t out_buf_size = 25;
+   static constexpr uint32_t in_buf_size = 100;
+   static constexpr uint32_t out_buf_size = 0;
    typedef quan::stm32::serial_port<
    frsky_usart,out_buf_size,in_buf_size,txo_pin,rxi_pin
    > serial_port;
@@ -48,8 +48,8 @@ struct frsky{
 struct av_fsk{
    typedef av_telem_dummy_tx_pin txo_pin;
    typedef av_telem_rx_pin rxi_pin;
-   static constexpr uint32_t in_buf_size = 50;
-   static constexpr uint32_t out_buf_size = 5;
+   static constexpr uint32_t in_buf_size = 100;
+   static constexpr uint32_t out_buf_size = 0;
    typedef quan::stm32::serial_port<
       av_telem_uart,out_buf_size,in_buf_size,txo_pin,rxi_pin
    > serial_port;

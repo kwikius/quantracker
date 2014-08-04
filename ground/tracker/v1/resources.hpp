@@ -25,6 +25,7 @@
 
 typedef quan::stm32::tim2 main_loop_timer;
 typedef quan::stm32::tim3 azimuth_qdrt_counter;
+typedef quan::stm32::tim4 fsk_filter_timer;
 
  /*
   using loop_timer  (tim2)
@@ -46,8 +47,14 @@ typedef quan::mcu::pin<quan::stm32::gpioa,2>    rc_tx_out_pin;                  
 // PA6
 //PA7
 typedef quan::mcu::pin<quan::stm32::gpioa,8>    not_azimuth_motor_direction_out_pin;   //( H-bridge blue wire in1, in4)
+// cant swap this port with av_telem in as uses higher speed bus and 1200 baud n/a
+// has (max)15 k pullup pull down rather than (max)50 k
 // requires removal of Discovery cap C49
+// output only enabled if pc0 is made output lo, so should be ok if charged once and left
+// or just make pin input and dont use the alternate function part.
 typedef quan::mcu::pin<quan::stm32::gpioa,9>    gps_txo;
+// may require removal of Discovery R59 which is a link to the micro usb connector ID pin
+// Actually looks like may be ok 15 k pullup downs
 typedef quan::mcu::pin<quan::stm32::gpioa,10>   gps_rxi;
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
@@ -68,14 +75,17 @@ typedef quan::mcu::pin<quan::stm32::gpiob,9>    i2c1_sda;  // already connected 
 // pb13 free
 // pb14 free
 // pb15 free
-
-// pc1 free
-// pc2 free
+// pc0  attached to STMPS2141STR
+// N.B not 5v tolerant in analog mode
+typedef quan::mcu::pin<quan::stm32::gpioc,1>    av_telem_raw_fsk_in; // ADC123_IN11 
+// unused
+//typedef quan::mcu::pin<quan::stm32::gpioc,2>    av_telem_fsk_demod_out; // 
 
 typedef quan::mcu::pin<quan::stm32::gpioc,4>    azimuth_motor_v_A;//(ADC12_IN14) for reading azimuth motor speed
 typedef quan::mcu::pin<quan::stm32::gpioc,5>    azimuth_motor_v_B;//(ADC12_IN15) for reading azimuth motor speed
 typedef quan::mcu::pin<quan::stm32::gpioc,6>    azimuth_encoder_b_pin; // SF: TIM3_CH1:AF2 ( encoder white, 5th from left)
 // pc8 free
+// change to GPS?
 // define but dont use,poss set it to open drain?
 // or input
 // (Used by CS43L22 SCLK i/O. Think its set as an input on that ic default
@@ -87,7 +97,7 @@ typedef quan::mcu::pin<quan::stm32::gpioc,11>   av_telem_rx_pin;
 typedef quan::mcu::pin<quan::stm32::gpiod,2>    free_rx_in_pin; 
 // pd1 free
 // pd2 free use for UART5 RX
-
+// N.B TX I think is knacked unless mod board
 typedef quan::mcu::pin<quan::stm32::gpiod,5>    frsky_txo_pin;                         // SF:USART2_TX:AF7(!!!remove R50 on Discovery!!!)
 typedef quan::mcu::pin<quan::stm32::gpiod,6>    frsky_rxi_pin;                         // SF:USART2_RX:AF7
 
@@ -105,6 +115,7 @@ typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
 typedef quan::stm32::usart1 gps_usart;   //tx & rx dependent on GPS freq
 typedef quan::stm32::usart2 frsky_usart;  // tx & rx 9600( only needs to be rx though!)
 typedef quan::stm32::usart3 sliprings_usart;  // tx & rx via sliprings 9600
+// cant use usart1 or usart6 as cant support (low) 1200 baud
 typedef quan::stm32::uart4  av_telem_uart; // 1200 baud rx only
 typedef quan::stm32::uart5  free_usart_rx; // rx only
 
@@ -116,6 +127,7 @@ struct interrupt_priority{
    static constexpr uint32_t sliprings_serial_port = 11;
    static constexpr uint32_t i2c_mag_evt  = 10;
    static constexpr uint32_t loop_timer = 9;
+   static constexpr uint32_t fsk_adc = 8;
    
 };
 

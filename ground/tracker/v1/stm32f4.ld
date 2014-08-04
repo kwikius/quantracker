@@ -26,6 +26,7 @@ MEMORY
 {
    rom (rx)  : org = 0x08000000, len = 1024K
    ram (xrw) : org = 0x10000000, len = 64K
+   /* ram1 (xrw) : org = 0x20000000, len = 128K */
 }
 
 SECTIONS
