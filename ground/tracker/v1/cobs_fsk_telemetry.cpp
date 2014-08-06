@@ -1,9 +1,25 @@
+/*
+ Copyright (c) 2014 Andy Little 
 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 #include <quan/config.hpp>
 #include <quan/uav/fletcher16.hpp>
 #include <quan/tracker/zapp3_decode.hpp>
 #include "serial_ports.hpp"
 #include "telemetry.hpp"
+#include "leds.hpp"
 
 namespace {
 
@@ -26,12 +42,20 @@ namespace {
             ar[idx] = ch;
             if (++idx == 16U) {
                idx = 0U; // reset
-               return quan::tracker::zapp3_decode (ar,new_pos);
+               // if conv failed do error
+               bool no_error = quan::tracker::zapp3_decode (ar,new_pos);
+               if ( no_error){
+                  error_led.switch_off();
+               }else{
+                  error_led.switch_on();
+               }
+               return no_error;
             } else {
                return false;
             }
          } else { // A zero in the encoded data means corruption
             idx = 0U;
+            error_led.switch_on();
             return false;
          }
       } else { // looking for start of frame
