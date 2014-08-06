@@ -99,40 +99,47 @@ namespace {
      // OK what happens if no data for some time after received data?
      // startup LED is blue
 
-     if ( (state==1) && heartbeat_led.is_flashing()){
+     if ( (state==1) && heartbeat_led.is_on()){
         error_led.switch_off();
         // ok ready to init tracking...
         startup_led.set_flashing(quan::time_<int32_t>::ms{500},quan::time_<int32_t>::ms{500} );
-
         pf_on_button_down = on_button_down;
         state = 2;
      }
      // for state 2 start monitoring the data
    }
 
+  
+void do_heartbeat()
+{
+   static bool in_heartbeat = false;
+   static uint32_t count = 0;
+   if ( in_heartbeat){
+      ++count;
+      if ( count == 5){
+         heartbeat_led.switch_off();
+      }else {
+         if (count == 10){
+            in_heartbeat = false;
+         }
+      }
+   }else{ // not in heartbeat
+      if ( telemetry::state_changed ){
+         heartbeat_led.switch_on();
+         telemetry::state_changed = false;
+         in_heartbeat = true;
+         count = 0;
+      }
+   }
+}
 
 }//namespace
 
 void on_20ms_event()
 {
-   //lokking for heartbeats and indicating on heartbeat led
-   telemetry::filter_pos();
-   if ( telemetry::state_changed){
-      // signify by flashing heartbeat
-      if( ! heartbeat_led.is_flashing()){
-         heartbeat_led.set_flashing(quan::time_<int32_t>::ms{300},quan::time_<int32_t>::ms{700} );
-      }
-      telemetry::state_changed = false;
-   }else{ // no new data for a while...
-      if ( heartbeat_led.is_flashing() ){
-        static uint32_t telemetry_data_timeout =0;
-        if(++telemetry_data_timeout >= 50){
-           telemetry_data_timeout = 0;
-           heartbeat_led.switch_off();
-        }
-      }
-   }
    pf_on_20_ms_event();
+   telemetry::filter_pos();
+   do_heartbeat();
    update_leds();
 }
 
