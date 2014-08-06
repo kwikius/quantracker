@@ -33,12 +33,23 @@ struct Led{
       m_off_period = quan::time_<int32_t>::ms{0};
       quan::stm32::set<Pin>();
    }
+   bool is_on() const
+   {
+      return  (m_on_period == quan::time_<int32_t>::ms{1})
+       && (m_off_period == quan::time_<int32_t>::ms{0});
+   }
    void switch_off()
    { 
       m_off_period = quan::time_<int32_t>::ms{1};
       m_on_period = quan::time_<int32_t>::ms{0};
       quan::stm32::clear<Pin>();
    }
+   bool is_off() const
+   {
+      return  (m_off_period == quan::time_<int32_t>::ms{1})
+       && (m_on_period == quan::time_<int32_t>::ms{0});
+   }
+
    void set_flashing(
          quan::time_<int32_t>::ms on_period, 
          quan::time_<int32_t>::ms off_period
