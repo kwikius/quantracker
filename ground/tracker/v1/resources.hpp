@@ -48,7 +48,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,2>    rc_tx_out_pin;                  
 //PA7
 typedef quan::mcu::pin<quan::stm32::gpioa,8>    not_azimuth_motor_direction_out_pin;   //( H-bridge blue wire in1, in4)
 // cant swap this port with av_telem in as uses higher speed bus and 1200 baud n/a
-// has (max)15 k pullup pull down rather than (max)50 k
+// but would be nice as has (max)15 k pullup pull down rather than (max)50 k
 // requires removal of Discovery cap C49
 // output only enabled if pc0 is made output lo, so should be ok if charged once and left
 // or just make pin input and dont use the alternate function part.
@@ -56,6 +56,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,9>    gps_txo;
 // may require removal of Discovery R59 which is a link to the micro usb connector ID pin
 // Actually looks like may be ok 15 k pullup downs
 typedef quan::mcu::pin<quan::stm32::gpioa,10>   gps_rxi;
+
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
 typedef quan::mcu::pin<quan::stm32::gpiob,0>    azimuth_motor_direction_out_pin;       // (H-bridge white in2,in3)
@@ -65,21 +66,23 @@ typedef quan::mcu::pin<quan::stm32::gpiob,4>    button_left_pin;       // UNUSED
 typedef quan::mcu::pin<quan::stm32::gpiob,5>    azimuth_encoder_a_pin; // SF: TIM3_CH2:AF2  ( encoder yellow 6th from left) 
 
 // HMC5883
-typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl;   // already connected to SDL on Discovery           
-typedef quan::mcu::pin<quan::stm32::gpiob,7>    ac_telem_cdto;  // AV audio telem data carrier detect input
+typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl;   // already connected to SDL on Discovery  
+ 
+//TIM4 CH2        
+typedef quan::mcu::pin<quan::stm32::gpiob,7>    av_telem_fsk_demod_out;  // AV audio telem data output
 // pb8 free
 typedef quan::mcu::pin<quan::stm32::gpiob,9>    i2c1_sda;  // already connected to SDA on Discovery
 
 // pb11 free  use for USART 1 RX
+// use for LCD data?
 // pb12 free
 // pb13 free
 // pb14 free
 // pb15 free
 // pc0  attached to STMPS2141STR
 // N.B not 5v tolerant in analog mode
-typedef quan::mcu::pin<quan::stm32::gpioc,1>    av_telem_raw_fsk_in; // ADC123_IN11 
-// unused
-//typedef quan::mcu::pin<quan::stm32::gpioc,2>    av_telem_fsk_demod_out; // 
+typedef quan::mcu::pin<quan::stm32::gpioc,1>    av_telem_raw_fsk_in_plus; // ADC123_IN11 
+typedef quan::mcu::pin<quan::stm32::gpioc,2>    av_telem_raw_fsk_in_minus; // ADC123_IN12
 
 typedef quan::mcu::pin<quan::stm32::gpioc,4>    azimuth_motor_v_A;//(ADC12_IN14) for reading azimuth motor speed
 typedef quan::mcu::pin<quan::stm32::gpioc,5>    azimuth_motor_v_B;//(ADC12_IN15) for reading azimuth motor speed
@@ -91,10 +94,13 @@ typedef quan::mcu::pin<quan::stm32::gpioc,6>    azimuth_encoder_b_pin; // SF: TI
 // (Used by CS43L22 SCLK i/O. Think its set as an input on that ic default
 // so should be ok as output!
 typedef quan::mcu::pin<quan::stm32::gpioc,10>   av_telem_dummy_tx_pin;
-// pc11 free use for UART4 RX
+
 typedef quan::mcu::pin<quan::stm32::gpioc,11>   av_telem_rx_pin;
+// NB -----------------------------Except PD2 those below are NA on 64 pin part!!! -------------------
+// seek alternate pins for usart2 and usart3
 // PD2 can be uart 5 rx
 typedef quan::mcu::pin<quan::stm32::gpiod,2>    free_rx_in_pin; 
+
 // pd1 free
 // pd2 free use for UART5 RX
 // N.B TX I think is knacked unless mod board
