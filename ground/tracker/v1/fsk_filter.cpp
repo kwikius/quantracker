@@ -88,7 +88,7 @@ float bandpass_filter (float in)
    bp_yv[3] = bp_yv[4];
    
    bp_xv[4] = in * recip_gain;
-   bp_yv[4] = (bp_xv[0] + bp_xv[4]) - 2 * bp_xv[2]
+   bp_yv[4] = (bp_xv[0] + bp_xv[4]) - 2.f * bp_xv[2]
               + (-0.3689615189f * bp_yv[0]) + (1.8619306759f * bp_yv[1])
               + (-3.5946003295f * bp_yv[2]) + (3.1007745276f * bp_yv[3]);
    return bp_yv[4];
@@ -126,7 +126,7 @@ inline void set_fsk_demod_output()
 inline void clear_fsk_demod_output()
 {
    // set output low on match
- auto ccmr1_reg = fsk_filter_timer::get()->ccmr1.get();
+   auto ccmr1_reg = fsk_filter_timer::get()->ccmr1.get();
      
       ccmr1_reg  &= ~ (0b111 << 12);  // (OC2M 14:12)
       ccmr1_reg  |= (0b010 << 12);
@@ -141,36 +141,34 @@ inline void fsk_demod()
    // virtual 0v half way between GND and VDD
    // will be adjusted as input comes in
    // near zero
-   static float zero_volts_rail = 2047.f;
-   constexpr float zero_v_rail_filter_val = 0.001f;
+  // static float zero_volts_rail = 2047.f;
+   //constexpr float zero_v_rail_filter_val = 0.001f;
    constexpr float sig_level_filter_val = 0.01f;
    
    static float average_signal_level = 0.f;
    // set min signal level to distinguish valid signal from noise
    // 2 levels fopr hysteresis , maybe make adjustable
-   constexpr float min_signal_level_on = 40.f; // maybe 50 mV rms
-   constexpr float min_signal_level_off = 30.f; // maybe 40 mV rms
-   constexpr float output_hysteresis = 0.1f;
+   // prob should be 250 on ( 0.2 v rms)/ 200 off ( 0.16 v)
+   constexpr float min_signal_level_on = 40.f; 
+   constexpr float min_signal_level_off = 30.f; 
+   constexpr float output_hysteresis = 0.01f;
 
    static uint32_t shift_reg = 0x00FFFFFF;
    /// start...
-   // get latest sample (clears the A2D interrupt flag)
-   float const raw_a2d = static_cast<float> (ADC1->DR);
-   //refer to 0v and apply input bandpass filter
-   
+   // get latest samples (clears the A2D interrupt flag)
+   int32_t const a2d_plus = ADC1->DR;
+   int32_t const a2d_minus = ADC2->DR; 
+
   // float const wave_val = bandpass_filter (raw_a2d - zero_volts_rail);
-   float const wave_val = raw_a2d - zero_volts_rail;
+   float const wave_val = static_cast<float>(a2d_plus - a2d_minus);
    
-   float const abs_wave_val = (wave_val >= 0.f)
-      ? wave_val
-      :-wave_val;
    // simple exponentially weighted moving average
    // lp filter for the virtual 0v rail, to be the average of all the inputs
    // since the actual input is based on a voltage divider of 2 resistors
    //  which isnt that accurate
-   zero_volts_rail = (zero_volts_rail * (1.f - zero_v_rail_filter_val)) + (raw_a2d * zero_v_rail_filter_val);
+   //zero_volts_rail = (zero_volts_rail * (1.f - zero_v_rail_filter_val)) + (raw_a2d * zero_v_rail_filter_val);
    //also want to know average signal level, use exponentially weighted moving average here too
-   average_signal_level = (average_signal_level * (1.f - sig_level_filter_val)) + (sig_level_filter_val * abs_wave_val);
+   average_signal_level = (average_signal_level * (1.f - sig_level_filter_val)) + (sig_level_filter_val * fabs(wave_val));
    // set signal on or off according to signal level with hysteresis..
    if (!have_signal()) {
       if (average_signal_level > min_signal_level_on) {
@@ -226,58 +224,97 @@ extern "C" void ADC_IRQHandler()
 namespace {
    void setup_fsk_demod_adc()
    {
-   // set up ADCCLK via APB2_ENR
-      static constexpr uint8_t apb2enr_adc1en = 8;
-      quan::stm32::rcc::get()->apb2enr.setbit<apb2enr_adc1en>();
-   // TODO add reset ADC in RCC
-   //###
+   // set up ADCCLK's via APB2_ENR
+      quan::stm32::rcc::get()->apb2enr |= ((1 << 8) | (1 << 9)); //( ADC1, ADC2)
+      // reset adc
+      quan::stm32::rcc::get()->apb2rstr |= ( 1 << 8 ); // (ADC)
+      quan::stm32::rcc::get()->apb2rstr &= ~( 1 << 8 );
+
       // ADC Clk max = 36 MHz
       // PCLK2 = SysClk/2 = 84 MHz
       // set prescaler = /4 -> 21 MHz
-      ADC->CCR = (ADC->CCR & ~ (0b11 << 16)) | (0b01 << 16); // (ADCPRE 17:16)
-      // turn off the ADC
-      ADC1->CR2 &= ~ (1 << 0) ; //(ADON)
-      // Select Channel 11 only     ADC123_IN11
+      auto adc_ccr = ADC->CCR;
+         adc_ccr = (adc_ccr & ~ (0b11 << 16)) | (0b01 << 16); // (ADCPRE 17:16)
+         // Set Regular simultaneous Dual mode ADC1 and ADC2 working together
+         adc_ccr = (adc_ccr & ~(0b11111 << 0)) | ( 0b00110 << 0) ;// (MULTI 4:0) 
+      ADC->CCR = adc_ccr;
+
+      // turn off the ADC's
+      ADC1->CR2 &= ~(1 << 0) ; //(ADON)
+      ADC2->CR2 &= ~(1 << 0);  // (ADON)
+      // Select ADC1 Channel 11     ADC123_IN11
       ADC1->SQR3 = 11;
-      // say want 1 conv in group  L <- 0 for 1 conv
+      // select ADC2 Channel 12     ADC123_IN12
+      ADC2->SQR3 = 12;
+      // 1 conv in group  L <- 0 for 1 conv
       ADC1->SQR1 &= ~ (0b1111 << 20); //( L 23:20)
-      //ADC1 channel 11 set to sample time
+      ADC2->SQR1 &= ~ (0b1111 << 20); //( L 23:20)
+      //
+      //ADC1 channel 11, ADC2 Channel 12  set to sample time
       // set 56 ADC cycles
       // adc clock of 21 MHz gives sampling time of 2.6667 usec
       // which is 0.5% of high freq cycle
       // total conv time = 56 + 12 = 68 ADC cycles == 3.23 usec
       ADC1->SMPR1 = (ADC1->SMPR1 & ~ (0b111 << 3)) | (0b011 << 3) ; // (SMP11 5:3)
-      auto adc_cr1 = ADC1->CR1;
-         // no scan mode
-         adc_cr1 &= ~ (1 << 8); // (SCAN)
-         // want end of conversion interrupt
-         adc_cr1 |= (1 << 5);    // (EOCIE)
-         // want 12 bit resolution
-         adc_cr1 &= ~ (0b11 << 24) ; // (RES 25:24)
-         // dont want discontinuous mode
-         adc_cr1 &= ~ (1 << 11);  // (DISCEN)
-      ADC1->CR1 = adc_cr1;
+      ADC2->SMPR1 = (ADC2->SMPR1 & ~ (0b111 << 6)) | (0b011 << 6) ; // (SMP12 8:6)
       
-      // set 1 channel conversion ( default)
+      auto adc1_cr1 = ADC1->CR1;
+         // no scan mode
+         adc1_cr1 &= ~ (1 << 8); // (SCAN)
+         // want end of conversion interrupt
+         adc1_cr1 |= (1 << 5);    // (EOCIE)
+         // want 12 bit resolution
+         adc1_cr1 &= ~ (0b11 << 24) ; // (RES 25:24)
+         // dont want discontinuous mode
+         adc1_cr1 &= ~ (1 << 11);  // (DISCEN)
+      ADC1->CR1 = adc1_cr1;
+
+      auto adc2_cr1 = ADC2->CR1;
+         // no scan mode
+         adc2_cr1 &= ~ (1 << 8); // (SCAN)
+         // want end of conversion interrupt 
+        // think only want it on one ADC1 channel?
+       //  adc2_cr1 |= (1 << 5);    // (EOCIE)
+         // want 12 bit resolution
+         adc2_cr1 &= ~ (0b11 << 24) ; // (RES 25:24)
+         // dont want discontinuous mode
+         adc2_cr1 &= ~ (1 << 11);  // (DISCEN)
+      ADC2->CR1 = adc2_cr1;
 
       // want single conversion per trigger
-      auto adc_cr2 = ADC1->CR2;
-         adc_cr2 &= ~ (1 << 1); // (CONT)
+      auto adc1_cr2 = ADC1->CR2;
+         adc1_cr2 &= ~ (1 << 1); // (CONT)
          // want right alignment ( lsb is bit 0)
-         adc_cr2 &= ~ (1 << 11) ; // (ALIGN)
+         adc1_cr2 &= ~ (1 << 11) ; // (ALIGN)
          //want external trigger rising edge
-         adc_cr2 &= ~ (0b11 << 28); // (EXTEN 29:28)
-         adc_cr2 |= (0b10 << 28);  // (EXTEN 29:28)
+         adc1_cr2 &= ~ (0b11 << 28); // (EXTEN 29:28)
+         adc1_cr2 |= (0b10 << 28);  // (EXTEN 29:28)
          // select Timer 4 CC4 as trigger
-         adc_cr2 &= ~ (0b1111 << 24); // (EXTSEL 27:24);
-         adc_cr2 |= (0b1001 << 24);  // (EXTSEL 27:24);
-         // clear any status flags
-         ADC1->SR = 0;
+         adc1_cr2 &= ~ (0b1111 << 24); // (EXTSEL 27:24);
+         adc1_cr2 |= (0b1001 << 24);  // (EXTSEL 27:24);
+      ADC1->CR2 = adc1_cr2;
+
+       auto adc2_cr2 = ADC2->CR2;
+         adc2_cr2 &= ~ (1 << 1); // (CONT)
+         // want right alignment ( lsb is bit 0)
+         adc2_cr2 &= ~ (1 << 11) ; // (ALIGN)
+         //want external trigger rising edge , think only needed on ADC1
+       //  adc2_cr2 &= ~ (0b11 << 28); // (EXTEN 29:28)
+       //  adc2_cr2 |= (0b10 << 28);  // (EXTEN 29:28)
+         // select Timer 4 CC4 as trigger
+       //  adc2_cr2 &= ~ (0b1111 << 24); // (EXTSEL 27:24);
+        // adc2_cr2 |= (0b1001 << 24);  // (EXTSEL 27:24);
+      ADC2->CR2 = adc2_cr2;
+
+      // clear any status flags
+      ADC1->SR = 0;
+      ADC2->SR = 0;
+
+      NVIC_EnableIRQ (ADC_IRQn);
          // dont forget the NVIC!
-         NVIC_EnableIRQ (ADC_IRQn);
          // turn on the A2D
-         adc_cr2 |= (1 << 0) ;  //(ADON)
-      ADC1->CR2 = adc_cr2;
+      ADC1->CR2 |= (1 << 0) ;  //(ADON)
+      ADC2->CR2 |= (1 << 0) ;  //(ADON)
    }
    // setup timer to give interrupt every 18.667 usec for demod
    // Timer4 channel 4
@@ -375,6 +412,13 @@ void setup_fsk_demod()
    
    quan::stm32::apply<
       av_telem_raw_fsk_in_plus
+      ,quan::stm32::gpio::mode::analog
+      ,quan::stm32::gpio::pupd::none
+   >();
+
+   quan::stm32::module_enable<av_telem_raw_fsk_in_minus::port_type>();
+   quan::stm32::apply<
+      av_telem_raw_fsk_in_minus
       ,quan::stm32::gpio::mode::analog
       ,quan::stm32::gpio::pupd::none
    >();
