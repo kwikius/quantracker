@@ -78,7 +78,7 @@ main.elf: startup.o $(objects)
 	@ echo "..linking"
 	$(LD) $(LFLAGS) -o main.elf $(objects) startup.o
 
-$(objects): %.o : %.cpp
+$(objects): %.o : %.cpp  sin_array.txt fsk_params.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
 startup.o: $(STARTUP)

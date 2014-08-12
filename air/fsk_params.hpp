@@ -38,9 +38,12 @@ struct fsk_params{
 #endif
    //???
    static constexpr uint32_t dac_write_freq = mux * (F_high * F_low)/quan::meta::gcd<uint32_t,F_high,F_low>::value; // Hz
-   static constexpr uint32_t low_freq_steps = dac_write_freq / F_high; // dimless
-   static constexpr uint32_t high_freq_steps = dac_write_freq / F_low; // dimless
-   static constexpr uint32_t num_sin_values = low_freq_steps * high_freq_steps;
+   static constexpr uint32_t raw_low_freq_steps = dac_write_freq / F_high; // dimless
+   static constexpr uint32_t raw_high_freq_steps = dac_write_freq / F_low; // dimless
+   static constexpr uint32_t steps_gcd = quan::meta::gcd<uint32_t,raw_low_freq_steps,raw_high_freq_steps>::value;
+   static constexpr uint32_t low_freq_steps = raw_low_freq_steps/steps_gcd; // dimless
+   static constexpr uint32_t high_freq_steps = raw_high_freq_steps/steps_gcd; // dimless
+   static constexpr uint32_t num_sin_values = (raw_low_freq_steps * raw_high_freq_steps)/steps_gcd;
    static constexpr uint32_t baud_rate = 1200U;
    static constexpr uint32_t samples_per_bit = dac_write_freq / baud_rate;
    static_assert(dac_write_freq % baud_rate == 0, "remainder in division");
@@ -57,7 +60,7 @@ struct fsk_params{
 
    typedef  uint16_t dac_data_type;
    static constexpr uint16_t dac_max_value = 4095;// quan::meta::integer_max<dac_data_type>::value;
-   static constexpr double dac_pp_voltage = 1.;  // required amplitude in volts
+   static constexpr double dac_pp_voltage = 1.5;  // required amplitude in volts
    static constexpr double supply_voltage = 3.3;
 };
 
