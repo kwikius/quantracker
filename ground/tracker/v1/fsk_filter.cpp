@@ -114,7 +114,6 @@ inline void set_fsk_demod_output()
 {
    // set output high on match
    auto ccmr1_reg = fsk_filter_timer::get()->ccmr1.get();
-      
       ccmr1_reg  &= ~ (0b111 << 12);  // (OC2M 14:12)
       ccmr1_reg  |= (0b001 << 12);
    fsk_filter_timer::get()->ccmr1 = ccmr1_reg;
@@ -127,7 +126,6 @@ inline void clear_fsk_demod_output()
 {
    // set output low on match
    auto ccmr1_reg = fsk_filter_timer::get()->ccmr1.get();
-     
       ccmr1_reg  &= ~ (0b111 << 12);  // (OC2M 14:12)
       ccmr1_reg  |= (0b010 << 12);
    fsk_filter_timer::get()->ccmr1 = ccmr1_reg;
@@ -136,7 +134,7 @@ inline void clear_fsk_demod_output()
 }
  
 // fsk demod for bell202
-inline void fsk_demod()
+void fsk_demod()
 {
    // virtual 0v half way between GND and VDD
    // will be adjusted as input comes in
@@ -294,7 +292,7 @@ namespace {
          adc1_cr2 |= (0b1001 << 24);  // (EXTSEL 27:24);
       ADC1->CR2 = adc1_cr2;
 
-       auto adc2_cr2 = ADC2->CR2;
+      auto adc2_cr2 = ADC2->CR2;
          adc2_cr2 &= ~ (1 << 1); // (CONT)
          // want right alignment ( lsb is bit 0)
          adc2_cr2 &= ~ (1 << 11) ; // (ALIGN)
@@ -305,14 +303,12 @@ namespace {
        //  adc2_cr2 &= ~ (0b1111 << 24); // (EXTSEL 27:24);
         // adc2_cr2 |= (0b1001 << 24);  // (EXTSEL 27:24);
       ADC2->CR2 = adc2_cr2;
-
       // clear any status flags
       ADC1->SR = 0;
       ADC2->SR = 0;
-
-      NVIC_EnableIRQ (ADC_IRQn);
-         // dont forget the NVIC!
-         // turn on the A2D
+      // dont forget the NVIC!
+      NVIC_EnableIRQ (ADC_IRQn);     
+      // turn on the A2D
       ADC1->CR2 |= (1 << 0) ;  //(ADON)
       ADC2->CR2 |= (1 << 0) ;  //(ADON)
    }
@@ -331,8 +327,8 @@ namespace {
       
       constexpr uint32_t freq = quan::stm32::get_bus_frequency<tbus>();
       static_assert (freq == 42000000,"unexpected freq");
-      static uint16_t count = 784 *2 ; // *2 is consistent but not sure why
-      fsk_filter_timer::get()->arr = count - 1;
+      constexpr uint16_t filter_clks = (784 *2)  ; // *2 is consistent but not sure why
+      fsk_filter_timer::get()->arr = filter_clks -1;
       fsk_filter_timer::get()->cnt = 0;
       auto cr1_reg = fsk_filter_timer::get()->cr1.get();
          typedef decltype (cr1_reg) cr1_vt;
@@ -395,7 +391,7 @@ namespace {
          // disable CC2 preload
          ccmr1_reg &= ~(1 <<11U);
       fsk_filter_timer::get()->ccmr1 = ccmr1_reg;
-      fsk_filter_timer::get()->ccr2 = count - 2; // longest possible delay
+      fsk_filter_timer::get()->ccr2 = filter_clks - 2; // longest possible delay
       // enable demod tx output
       fsk_filter_timer::get()->ccer |= (1 << 4); // CC2E
       // could set?
