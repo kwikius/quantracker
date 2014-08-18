@@ -46,6 +46,9 @@ TOOLCHAIN_PREFIX = /opt/gcc-arm-none-eabi-4_7-2013q2/
 # (You can find the gcc version by invoking arm-noe-eabi-gcc --version in the $(TOOLCHAIN_PREFIX)/bin/ directory)
 TOOLCHAIN_GCC_VERSION = 4.7.4
 
+FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/flash.cpp
+QUAN_FLASH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash.cpp
+
 # otherwise you are on your own ... !
 ###################################################################
 
@@ -59,12 +62,12 @@ else
 endif
 endif
 
-
 CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc
 LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
+SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
 
 STM32F4_LINKER_SCRIPT = stm32f4.ld
 
@@ -80,7 +83,7 @@ CFLAG_EXTRAS += -Wall
 
 PROCESSOR_FLAGS = -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -O3 -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) \
+CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -Os -g $(INCLUDES) $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) \
 -fdata-sections -ffunction-sections
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
@@ -101,6 +104,8 @@ objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o azi
  elevation_servo.o telemetry.o frsky_serial_port.o led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o \
  text_commands.o compass.o update_mag.o systick.o frsky_bytestuff_telemetry.o cobs_fsk_telemetry.o fsk_filter.o
 
+flash_objects = flash_data_conversion_functions.o flash_error.o flash.o flash_menu.o
+
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
 
@@ -108,17 +113,27 @@ test: main.elf
 	@ echo "...copying"
 	$(CP) $(CPFLAGS) main.elf main.bin
 	$(OD) $(ODFLAGS) main.elf > main.lst
+	$(SIZ) -A main.elf
 
-main.elf: startup.o $(objects) 
+main.elf: startup.o $(objects) $(flash_objects) quan_stm32_flash_funs.o quan_stm32_flash.o
 	@ echo "..linking"
-	$(LD)   $(LFLAGS)  -o main.elf $(objects) startup.o 
+	$(LD)   $(LFLAGS)  -o main.elf $(objects) quan_stm32_flash_funs.o \
+quan_stm32_flash.o $(flash_objects) startup.o 
 
 $(objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
+$(flash_objects) : %.o : flash/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+quan_stm32_flash_funs.o : $(FLASH_SRC)
+	$(CC) $(CFLAGS) -o quan_stm32_flash_funs.o $(FLASH_SRC)
+
+quan_stm32_flash.o : $(QUAN_FLASH)
+	$(CC) $(CFLAGS) -o quan_stm32_flash.o $(QUAN_FLASH)
+
 startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
-
 
 upload : test
 	st-flash write main.bin 0x8000000

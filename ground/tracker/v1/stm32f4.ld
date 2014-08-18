@@ -16,17 +16,19 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-/* Heap size will be set to this if allocing memmory*/
+/* Heap size will be set to this if allocing memory*/
 _HeapSize = 0x2000;
 
 /* linker checks that stack is bigger than this */
-_MinStackSize = 0x2000; 
+_MinStackSize = 0x6000; 
 
 MEMORY
 {
-   rom (rx)  : org = 0x08000000, len = 1024K
-   ram (xrw) : org = 0x10000000, len = 64K
-   /* ram1 (xrw) : org = 0x20000000, len = 128K */
+   start_vector (rx) : org = 0x08000000, len = 16K
+   flash(a)          : org = 0x08004000, len = 32K 
+   rom (rx)          : org = 0x0800C000, len = 976K
+   ram (xrw)         : org = 0x10000000, len = 64K
+   /* ram1 (xrw)     : org = 0x20000000, len = 128K */
 }
 
 SECTIONS
@@ -39,7 +41,44 @@ SECTIONS
       . = ALIGN(4);
       KEEP(*(.isr_vector)) 
       . = ALIGN(4);
-   }>rom
+   }>start_vector
+
+    /* initialised data */
+   .preinit_array :
+   {
+      PROVIDE_HIDDEN (__preinit_array_start = .);
+      KEEP (*(.preinit_array*))
+      PROVIDE_HIDDEN (__preinit_array_end = .);
+   }>start_vector
+
+   .init_array :
+   {
+      PROVIDE_HIDDEN (__init_array_start = .);
+      KEEP (*(SORT(.init_array.*)))
+      KEEP (*(.init_array*))
+      PROVIDE_HIDDEN (__init_array_end = .);
+   }>start_vector
+
+   .fini_array :
+   {
+      PROVIDE_HIDDEN (__fini_array_start = .);
+      KEEP (*(.fini_array*))
+      KEEP (*(SORT(.fini_array.*)))
+      PROVIDE_HIDDEN (__fini_array_end = .);
+   }>start_vector
+
+
+    .flash_memory :
+   {
+      . = ALIGN(16);
+      KEEP(*(.flash_memory))
+      _FLASH_PAGE1 = .;
+      . = . + 16K;
+       . = ALIGN(16);
+      _FLASH_PAGE2 = .;
+      . = . + 16K;
+   }>flash 
+
 
    .text :
    {
@@ -57,30 +96,6 @@ SECTIONS
       . = ALIGN(4);
       _etext = .; 
       _exit = .;
-   }>rom
-
-    /* initialised data */
-   .preinit_array :
-   {
-      PROVIDE_HIDDEN (__preinit_array_start = .);
-      KEEP (*(.preinit_array*))
-      PROVIDE_HIDDEN (__preinit_array_end = .);
-   }>rom
-
-   .init_array :
-   {
-      PROVIDE_HIDDEN (__init_array_start = .);
-      KEEP (*(SORT(.init_array.*)))
-      KEEP (*(.init_array*))
-      PROVIDE_HIDDEN (__init_array_end = .);
-   }>rom
-
-   .fini_array :
-   {
-      PROVIDE_HIDDEN (__fini_array_start = .);
-      KEEP (*(.fini_array*))
-      KEEP (*(SORT(.fini_array.*)))
-      PROVIDE_HIDDEN (__fini_array_end = .);
    }>rom
 
    _sidata = .;

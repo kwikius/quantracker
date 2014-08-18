@@ -55,8 +55,6 @@ struct av_fsk{
    > serial_port;
 };
 
-#ifdef DEBUG
 typedef sliprings debug;
-#endif
 
 #endif // QUANTRACKER_SERIAL_PORTS_HPP_INCLUDED

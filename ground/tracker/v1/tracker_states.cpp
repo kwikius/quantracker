@@ -24,14 +24,22 @@
 
 namespace {
 
+   bool want_interactive_run_mode = false;
+}
+
+void setInteractiveRunMode()
+{
+   want_interactive_run_mode = true;
+}
+
+namespace{
+
    void initial_20_ms_event();
 
    void idle(){}
    void (*pf_on_button_down)() = idle;
    void (*pf_on_button_up)() = idle;
    void (*pf_on_20_ms_event)() = initial_20_ms_event;
-
-
 
 // 20 ms event
    // add look for data. If no new data then stop leds
@@ -70,8 +78,8 @@ namespace {
       pf_on_20_ms_event = wait1sec;
    }
 
-   void  on_button_down(){ 
-     
+   void  on_button_down()
+   { 
       pf_on_button_up = on_button_up;
    }
 
@@ -84,18 +92,17 @@ namespace {
    {
         error_led.set_flashing(quan::time_<int32_t>::ms{400},quan::time_<int32_t>::ms{200} );
    }
-
   
    void initial_20_ms_event()
    {
      static int32_t state = 0;
      if ( state == 0){
           azimuth::motor::disable();
-         // check for user holding down user button (n.b should be true for holding down button!
-         if(user_button.get_instant_state() == true){
-#ifdef DEBUG
-            debug::serial_port::write("quan_tracker V1.1 startup");
-#endif
+
+         if(want_interactive_run_mode == true){
+
+            debug::serial_port::write("entering interactive mode");
+
             // command line mode
             telemetry::set_protocol(telemetry::protocol_t::command_line);
             // do lights to suit

@@ -24,9 +24,12 @@
 #include <quan/three_d/vect.hpp>
 
 
+extern "C" void setup();
 
 int main()
 {
+   setup();
+
    for (;;){  
       // timer events
       if ( azimuth_pwm_calc_event.signalled()){
