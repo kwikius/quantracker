@@ -104,7 +104,8 @@ objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o azi
  elevation_servo.o telemetry.o frsky_serial_port.o led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o \
  text_commands.o compass.o update_mag.o systick.o frsky_bytestuff_telemetry.o cobs_fsk_telemetry.o fsk_filter.o
 
-flash_objects = flash_data_conversion_functions.o flash_error.o flash.o flash_menu.o
+flash_objects = flash_error.o flash.o flash_menu.o flash_get_set_mag_offset.o \
+Vect3F_flash_conv_functions.o Bool_flash_conv_functions.o init_values_from_flash.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst

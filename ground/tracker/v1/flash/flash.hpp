@@ -1,15 +1,19 @@
-#ifndef CPP_PROJECTS_TEST_FLASH_IMPL_HPP_INCLUDED
-#define CPP_PROJECTS_TEST_FLASH_IMPL_HPP_INCLUDED
+#ifndef QUANTRACKER_FLASH_FLASH_HPP_INCLUDED
+#define QUANTRACKER_FLASH_FLASH_HPP_INCLUDED
 
 #include <cstdint>
 #include <quan/dynarray.hpp>
+#include <quan/three_d/vect.hpp>
 #include <quan/stm32/flash.hpp>
-
 #include "flash_error.hpp"
+
+//void set_mag_offset (quan::three_d::vect<float> const & offsets);
+bool init_values_from_flash();
 
 namespace flash_symtab{
 
       int32_t get_index( quan::dynarray<char> const & symbol_name);
+      int32_t get_index ( const char* symbol_name);
       const char* get_name(uint16_t symindex);
       uint16_t get_size(uint16_t sym_index);
       const char* get_info(uint16_t symindex);
@@ -17,7 +21,7 @@ namespace flash_symtab{
       bool read_to_string(uint16_t symbol_index, quan::dynarray<char> & value);
       bool write_from_string (uint16_t symbol_index,quan::dynarray<char> const & value);
       bool write(uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value);
-     // ideally symbol_value is prepared with a size from get_flash_symbol_size
+     // ideally symbol_value is prepared with a size from get_size
       bool read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value);
       bool exists(uint16_t symidx);
   
@@ -31,4 +35,4 @@ namespace flash_symtab{
 
 }//namespace flash_symtab
 
-#endif // CPP_PROJECTS_TEST_FLASH_IMPL_HPP_INCLUDED
+#endif // QUANTRACKER_FLASH_FLASH_HPP_INCLUDED

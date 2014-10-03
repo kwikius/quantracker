@@ -87,8 +87,7 @@ int main()
       setup();
       for(;;){
          read_data();
-       
-        service_events();
+         service_events();
       }
 //   }else{
 //      do_command_line();

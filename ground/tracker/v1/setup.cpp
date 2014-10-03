@@ -54,10 +54,12 @@ namespace{
       sliprings::serial_port::init(); // for user interactive
       debug::serial_port::write("quan_tracker V1.1 startup\n");
       // check for fails on flash
-
+      // really need to do automatically
       if ( ! flash_symtab::init()){
+         debug::serial_port::write("flash init failed\n"); 
          infinite_loop();
       }
+
    }
   // if user button is down then command line
   // then user must respond via sp to continue else exit
@@ -66,11 +68,12 @@ namespace{
    {
       quan::time_<int64_t>::ms t = quan::stm32::millis();
 
-      while ( (quan::stm32::millis() - t ) < quan::time_<int64_t>::ms{10}){;}
+      while ( (quan::stm32::millis() - t ) < quan::time_<int64_t>::ms{10})
+      {;}
       
       if(user_button.get_instant_state() == false){
           return user_next_mode::Normal;
-      } else{
+      } else{ // pressed == true
          for (;;){
             flush_sp_tx();
             debug::serial_port::write("enter\n");
@@ -78,15 +81,26 @@ namespace{
             debug::serial_port::write("I for interactive mode\n");
             debug::serial_port::write("N for Normal startup\n");
             while(!debug::serial_port::in_avail()){;}
-            switch(debug::serial_port::get()){
+            user_next_mode result = user_next_mode::Fail;
+            char ch = debug::serial_port::get();
+            switch(ch){
               case 'F':
-               return user_next_mode::FlashMenu;
+               result = user_next_mode::FlashMenu;
+               break;
               case 'I':
-               return user_next_mode::InteractiveRun;
+               result = user_next_mode::InteractiveRun;
+               break;
               case 'N':
-               return user_next_mode::Normal;
+               result = user_next_mode::Normal;
+               break;
               default:
                break;
+            }
+            if (result != user_next_mode::Fail){
+               debug::serial_port::write("\n");
+               return result;
+            }else{
+               continue;
             }
          }
       } 
@@ -97,9 +111,8 @@ namespace{
 
 extern "C" void setup()
 {
-  
-
-   initial_setup();
+  // setup basic stuff for user interaction
+   initial_setup(); 
 
    user_next_mode ok_to_continue = check_user_button_down();
 
@@ -110,11 +123,13 @@ extern "C" void setup()
          break;
       case user_next_mode::FlashMenu:
       /*
-        flash_menu only returns fals on bad error
+        flash_menu only returns false on bad error
       */
+         debug::serial_port::write("entering Flash read/write mode\n");
          if ( ! flash_menu()){
             infinite_loop();
          }
+         //maybe want to reboot?
          break;
       case user_next_mode::InteractiveRun:
           setInteractiveRunMode();
@@ -138,11 +153,7 @@ extern "C" void setup()
   // sliprings::serial_port::init();
    av_fsk::serial_port::init();
      // turn off tx output ( was af)
-   quan::stm32::apply<
-      av_fsk::txo_pin
-     , quan::stm32::gpio::mode::input
-     , quan::stm32::gpio::pupd::pull_up
-   >(); 
+
    av_fsk::serial_port::set_baudrate<1200,false>();
    setup_fsk_demod();
 

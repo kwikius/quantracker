@@ -23,11 +23,22 @@
 
 using namespace quan::stm32;
 
+/*
+  if have a mag and its calibrated
+  read the mag, convert the bearing to an encoder value
+  and set the count to that otherwise assume
+  operator has pointed the mag North and set the encoder count to 0
+
+*/
 void azimuth::encoder::zero()
 {
   counter::get()->cnt = 0U;
   motor::set_target_position(0);
 }
+
+/*
+set up azimuth timer as quadrature counter
+*/
 void azimuth::encoder::setup()
 {
    module_enable<a_pin::port_type>();

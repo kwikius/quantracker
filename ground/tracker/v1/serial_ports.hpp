@@ -19,6 +19,8 @@
 */
 
 #include <quan/stm32/serial_port.hpp>
+#include <quan/stm32/rx_serial_port.hpp>
+#include <quan/stm32/tx_serial_port.hpp>
 #include "resources.hpp"
 
 struct sliprings{
@@ -46,12 +48,11 @@ struct frsky{
 };
 
 struct av_fsk{
-   typedef av_telem_dummy_tx_pin txo_pin;
+  // typedef av_telem_dummy_tx_pin txo_pin;
    typedef av_telem_rx_pin rxi_pin;
    static constexpr uint32_t in_buf_size = 100;
-   static constexpr uint32_t out_buf_size = 0;
-   typedef quan::stm32::serial_port<
-      av_telem_uart,out_buf_size,in_buf_size,txo_pin,rxi_pin
+   typedef quan::stm32::rx_serial_port<
+      av_telem_uart,in_buf_size,rxi_pin
    > serial_port;
 };
 

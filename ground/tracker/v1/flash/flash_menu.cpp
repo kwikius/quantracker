@@ -7,6 +7,7 @@
 #include <quan/conversion/itoa.hpp>
 #include <quan/dynarray.hpp>
 #include "../serial_ports.hpp"
+
  
 void user_message (const char* str)
 {

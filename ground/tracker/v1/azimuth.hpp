@@ -47,10 +47,13 @@ struct azimuth {
       static void   set_target_position(uint32_t val); // should be atomic
       static void   set_azimuth(quan::angle::deg angle);
       static quan::angle::deg get_target_azimuth();
+      static int32_t bearing_to_encoder( quan::angle::deg bearing);
+      static quan::angle::deg encoder_to_bearing(uint32_t encoder_val);
       static void   set_kP(float val);
       static void   set_kD(float val);
       static float  get_kP();
       static float  get_kD();
+      
       static float  get_min_duty_cycle() { return m_min_duty_cycle_percent;}
       static constexpr float  m_max_duty_cycle_percent = .9f;
 

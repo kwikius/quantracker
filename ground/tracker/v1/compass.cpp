@@ -19,18 +19,41 @@
 #include <quan/stm32/rcc.hpp>
 #include <quan/stm32/f4/exti/set_exti.hpp>
 #include <quan/stm32/f4/syscfg/module_enable_disable.hpp>
-
-#include "resources.hpp"
-#include "events.hpp"
+#include <quan/atan2.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/constrain.hpp>
+#include "resources.hpp"
+#include "events.hpp"
 #include "compass.hpp"
 
-quan::three_d::vect<float> raw_compass ::value = {0.f,0.f,0.f};
-int32_t raw_compass::strap_value = 0;
-float raw_compass::filter_value = 0.1f;
+quan::three_d::vect<float> raw_compass ::m_raw_value = {0.f,0.f,0.f};
+int32_t raw_compass::m_strap_value = 0;
+float raw_compass::m_filter_value = 0.1f;
 bool raw_compass::m_request_disable_updating = false;
 bool raw_compass::m_updating_enabled = true;
+bool raw_compass::m_use_compass = false;
+bool raw_compass:: m_compass_offset_set = false;
+quan::three_d::vect<float> raw_compass::m_offset = {0.f,0.f,0.f};
+
+bool raw_compass::get_bearing( quan::angle::deg & bearing_out)
+{
+   if ( ! m_compass_offset_set){
+      return false;
+   }
+   quan::three_d::vect<float> v = get_vect();
+   bearing_out = quan::atan2(v.y, v.x) + quan::angle::pi/2;
+   return true;
+}
+
+void raw_compass::set_mag_offset(quan::three_d::vect<float> const & offset)
+{
+   m_offset = offset;
+   m_compass_offset_set = true;
+}
+void raw_compass::set_use_compass( bool val)
+{
+   m_use_compass = val;
+}
 
 void raw_compass::set_strap(int32_t val)
 {
@@ -38,7 +61,7 @@ void raw_compass::set_strap(int32_t val)
       case 0:
       case 1:
       case -1:
-      strap_value = val;
+      m_strap_value = val;
       break;
       default:
       break;
@@ -47,22 +70,32 @@ void raw_compass::set_strap(int32_t val)
 
 int32_t raw_compass::get_strap()
 {
-   return strap_value;
+   return m_strap_value;
 }
 
 void raw_compass::set_filter(float const & val)
 {
-   filter_value = quan::constrain(val,0.f,1.f);
+   m_filter_value = quan::constrain(val,0.f,1.f);
 }
 
 void raw_compass::clear()
 {
-   value = {0.f,0.f,0.f};
+   m_raw_value = {0.f,0.f,0.f};
 }
 
-quan::three_d::vect<float> const& raw_compass::get()
+quan::three_d::vect<float> const& raw_compass::get_raw()
 {
-   return value;
+   return m_raw_value ;
+}
+
+quan::three_d::vect<float> const& raw_compass::get_offset()
+{
+   return m_offset ;
+}
+
+quan::three_d::vect<float> raw_compass::get_vect()
+{
+   return m_raw_value - m_offset;
 }
 
 int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap);
@@ -86,9 +119,9 @@ int32_t raw_compass::update()
       quan::three_d::vect<int16_t> result;
       int res = ::ll_update_mag(result,raw_compass::get_strap());
       if ( res == 1){
-         raw_compass::value 
-            = raw_compass::value * (1.f - raw_compass::filter_value) 
-               + result * raw_compass::filter_value;
+         raw_compass::m_raw_value 
+            = raw_compass::m_raw_value * (1.f - raw_compass::m_filter_value) 
+               + result * raw_compass::m_filter_value;
          // Disable updating here because its the end of a cycle so nice and neat
          if ( m_request_disable_updating){
             m_request_disable_updating = false;

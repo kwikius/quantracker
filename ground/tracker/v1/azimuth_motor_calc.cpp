@@ -49,6 +49,28 @@ void  azimuth::motor::set_target_position(uint32_t val)
    m_target_position = static_cast<int32_t>(val) % static_cast<int32_t>(azimuth::encoder::counts_rev());
 }
 
+int32_t azimuth::motor::bearing_to_encoder( quan::angle::deg bearing)
+{
+     while( bearing < quan::angle::deg{0}){
+         bearing += quan::angle::deg{360};
+     }
+
+     while ( bearing > quan::angle::deg{360}){
+         bearing -= quan::angle::deg{360};
+     }
+  // if (reverse) ...
+     auto const norm_angle = quan::angle::deg{360} - bearing;
+     int32_t const val =  static_cast<int32_t>( norm_angle * (azimuth::encoder::counts_rev() / quan::angle::deg{360}));
+     return val % static_cast<int32_t>(azimuth::encoder::counts_rev());
+}
+
+quan::angle::deg azimuth::motor::encoder_to_bearing(uint32_t encoder_val)
+{
+   quan::angle::deg const raw_angle = (encoder_val * quan::angle::deg{360}) / azimuth::encoder::counts_rev() ;
+   //if reverse...
+   return raw_angle - quan::angle::deg{360};
+}
+
 void azimuth::motor::set_azimuth(quan::angle::deg angle)
 {
      while( angle < quan::angle::deg{0}){
@@ -59,13 +81,13 @@ void azimuth::motor::set_azimuth(quan::angle::deg angle)
          angle -= quan::angle::deg{360};
      }
   // if (reverse) ...
-      auto norm_angle = quan::angle::deg{360} - angle;
+      auto const norm_angle = quan::angle::deg{360} - angle;
       set_target_position( static_cast<uint32_t>( norm_angle * (azimuth::encoder::counts_rev() / quan::angle::deg{360}) ) );
 }
 
 quan::angle::deg azimuth::motor::get_target_azimuth()
 {
-   auto raw_angle = (get_target_position() * quan::angle::deg{360} ) / azimuth::encoder::counts_rev() ;
+   auto const raw_angle = (get_target_position() * quan::angle::deg{360} ) / azimuth::encoder::counts_rev() ;
    //if reverse...
    return raw_angle - quan::angle::deg{360};
 }

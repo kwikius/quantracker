@@ -45,15 +45,17 @@
    "GA"  --> get actual position
    "Gp"  --> Get proportional term
    "Gd"  --> get differential term  
-   "Gm" --> get raw mag reading x,y,z    what this represents is dependendt on the last M+ M- M0 sent prior
+   "GM" --> get mag reading x,y,z    what this represents is dependendt on the last M+ M- M0 sent prior
+   "Gm"  --> get raw mag reading what this represents is dependendt on the last M+ M- M0 sent prior
+   "Gf" --> get compass offset // loaded from flash at startup
+   "GB" --> get compass bearing. requires a valid mag offset
    "M+" --> Set Mag plus strap gain
    "M-" --> Set Mag - strap gain
    "M0" --> Set Mag - normal reading
    "Mf%f --> set raw mag filter value
 // to do 
-   "GM" --> get mag reading x,y,z
    "GE" --> get elevation servo pos;
-    M!  --> request compass reading disabled (e.g want i2c bus for eeprom access)
+    M!   --> request compass reading disabled (e.g want i2c bus for eeprom access)
     M?   --> is compass reading enabled ( disabling takes a bit to release bus transaction neds to complete)
     M*   --> enable compass reading
     Rd%s 
@@ -245,15 +247,48 @@ namespace {
                         cl_sp::write(buf1);
                      }
                      break;
-                     case 'm':{
-                         quan::three_d::vect<float> const & raw_mag = raw_compass::get();
+                     case 'M':{
+                         quan::three_d::vect<float> const & mag_vect = raw_compass::get_vect();
                          char buf1[100];
-                         sprintf(buf1,"raw filt mag = [%.3f,%.3f,%.3f]\n",
-                           static_cast<double>(raw_mag.x),
-                              static_cast<double>(raw_mag.y),
-                                 static_cast<double>(raw_mag.z)
+                         sprintf(buf1,"mag vector = [%.3f,%.3f,%.3f]\n",
+                           static_cast<double>(mag_vect.x),
+                              static_cast<double>(mag_vect.y),
+                                 static_cast<double>(mag_vect.z)
                          );
                          cl_sp::write(buf1);
+                     }
+                     break;
+                     case 'm':{
+                         quan::three_d::vect<float> const & mag_vect = raw_compass::get_raw();
+                         char buf1[100];
+                         sprintf(buf1,"raw mag vector = [%.3f,%.3f,%.3f]\n",
+                           static_cast<double>(mag_vect.x),
+                              static_cast<double>(mag_vect.y),
+                                 static_cast<double>(mag_vect.z)
+                         );
+                         cl_sp::write(buf1);
+                     }
+                     break;
+                     case 'f':{
+                         quan::three_d::vect<float> const & mag_vect = raw_compass::get_offset();
+                         char buf1[100];
+                         sprintf(buf1,"mag offset = [%.3f,%.3f,%.3f]\n",
+                           static_cast<double>(mag_vect.x),
+                              static_cast<double>(mag_vect.y),
+                                 static_cast<double>(mag_vect.z)
+                         );
+                         cl_sp::write(buf1);
+                     }
+                     break;
+                     case 'B':{
+                           quan::angle::deg bearing;
+                           if (raw_compass::get_bearing(bearing)){
+                              char buf1[100];
+                              sprintf(buf1,"mag bearing = %.3f deg\n",bearing.numeric_value());
+                              cl_sp::write(buf1);
+                           }else{
+                              cl_sp::write("get_bearing failed\n");
+                           }
                      }
                      break;
                      default:

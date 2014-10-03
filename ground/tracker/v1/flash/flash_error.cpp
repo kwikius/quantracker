@@ -1,5 +1,4 @@
 
-
 #include <quan/error.hpp>
 #include <quan/utility/fifo.hpp>
 #include "flash.hpp"
@@ -19,18 +18,16 @@ namespace {
          return "quan::stm32::flash_get_write_count";
          case quan::detail::stm32_ll_flash_get_sym_ptr:
          return "(static) stm32_ll_flash_get_sym_ptr";
-
 // app
          case fn_parse_input:
          return "parse_input";
          case fn_main:
          return "main";
-         case fn_rep_to_cstring_MagVect3F:
-         return "rep_to_cstring_MagVect3F";
-         case fn_rep_to_cstring_Char:
-         return "rep_to_cstring_Char";
-         case fn_cstring_to_rep_magic:
-         return "cstring_to_rep_magic";
+         case fn_rep_to_cstring_Vect3F:
+         return "rep_to_cstring_Vect3F";
+         case fn_rep_to_cstring_Bool:
+         return "rep_to_cstring_Bool";
+
          default:
          return "unknown function";
          

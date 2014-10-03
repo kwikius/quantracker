@@ -39,7 +39,7 @@ extern "C" void UART4_IRQHandler()
    >::value
    ,"invalid usart for serial_port irq");
 
-   quan::stm32::usart::irq_handler<av_fsk::serial_port>();
+   quan::stm32::usart::rx_irq_handler<av_fsk::serial_port>();
 }
 
 #if 0

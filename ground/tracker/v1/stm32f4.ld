@@ -17,10 +17,10 @@
 */
 
 /* Heap size will be set to this if allocing memory*/
-_HeapSize = 0x2000;
+_HeapSize = 0x1000;
 
 /* linker checks that stack is bigger than this */
-_MinStackSize = 0x6000; 
+_MinStackSize = 0x2000; 
 
 MEMORY
 {
@@ -67,18 +67,18 @@ SECTIONS
       PROVIDE_HIDDEN (__fini_array_end = .);
    }>start_vector
 
-
-    .flash_memory :
+    .flash_memory (NOLOAD) :
    {
+     
       . = ALIGN(16);
       KEEP(*(.flash_memory))
+       FILL(0xFFFF);
       _FLASH_PAGE1 = .;
       . = . + 16K;
        . = ALIGN(16);
       _FLASH_PAGE2 = .;
       . = . + 16K;
-   }>flash 
-
+   }>flash =0xffff
 
    .text :
    {
@@ -123,7 +123,7 @@ SECTIONS
       __bss_end__ = _ebss;
    }>ram
 
-   .check_heap :
+   .check_heap (NOLOAD) :
    { 
       . = ALIGN(4);
       _HEAP_START  = .;
@@ -132,7 +132,7 @@ SECTIONS
       _HEAP_MAX = .;
    }>ram
 
-   .check_stack :
+   .check_stack (NOLOAD) :
    {
       . = ALIGN(4);
       . = . + _MinStackSize;

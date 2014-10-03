@@ -101,7 +101,7 @@ namespace{
 
          if(want_interactive_run_mode == true){
 
-            debug::serial_port::write("entering interactive mode");
+            debug::serial_port::write("entering interactive mode\n");
 
             // command line mode
             telemetry::set_protocol(telemetry::protocol_t::command_line);
