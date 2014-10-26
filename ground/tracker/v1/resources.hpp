@@ -23,9 +23,11 @@
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/i2c_port.hpp>
 
+//timers
 // tim1 for pixel_clk
 // TIM2 32 bit with PWM
 // TIM3 16 bit timer with QDRT  
+// however also need 3 more for osd 
 
 typedef quan::stm32::tim2 main_loop_timer;
 typedef quan::stm32::tim3 azimuth_qdrt_counter;
@@ -50,27 +52,44 @@ typedef quan::mcu::pin<quan::stm32::gpioa,1>    elev_servo_pwm_out_pin;         
 typedef quan::mcu::pin<quan::stm32::gpioa,2>    rc_tx_out_pin;                         // SF: TIM2_CH3:AF1
 
 typedef quan::mcu::pin<quan::stm32::gpioa,3>  analog_video_in; // ADC123_IN3
-// PA4 DAC out x?
-// PA5 DAC out xx?                   
-// PA6
-//PA7
-//PA8 could prob swap this and put TIM1_CH1 pixel_clk here but can use PE8
-// need this for SPI clock
+
+// keep internal DAC's
+//on pa4 / pa5 free
+
+/*
+// pa6 free SPI1_MISO/ 
+TIM8_BKIN/ 
+TIM13_CH1/ 
+DCMI_PIXCLK/ 
+TIM3_CH1/ 
+TIM1_BKIN/ 
+ADC12_IN6 
+*/
+// pa 7 free
+
 typedef quan::mcu::pin<quan::stm32::gpioa,8>    not_azimuth_motor_direction_out_pin;   //( H-bridge blue wire in1, in4)
 // cant swap this port with av_telem in as uses higher speed bus and 1200 baud n/a
 // but would be nice as has (max)15 k pullup pull down rather than (max)50 k
 // requires removal of Discovery cap C49
 // output only enabled if pc0 is made output lo, so should be ok if charged once and left
 // or just make pin input and dont use the alternate function part.
-//typedef quan::mcu::pin<quan::stm32::gpioa,9>    txo;  // USART1_TX
+/*
+// pa9 free but has LED on it
 // may require removal of Discovery R59 which is a link to the micro usb connector ID pin
-
+USART1_TX/ 
+TIM1_CH2/ 
+I2C3_SMBA/ 
+DCMI_D0/ 
+OTG_FS_VBUS 
+*/
 // change to av_video_telem_in
 // Actually looks like may be ok 15 k pullup downs
 typedef quan::mcu::pin<quan::stm32::gpioa,10>   av_video_rxi; // USART1_RX  fast 10.5 Mbps
 
-//B13 B14 have to be hacked up to get at the pins
-// currently tim2 conflict
+//pb11 free
+//pb12 free
+//pb13 free ( used on OSD )
+//pb14 free (* used on OSD)
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   azimuth_motor_pwm_out_pin;             // SF: TIM2_CH1:AF1
 
 typedef quan::mcu::pin<quan::stm32::gpiob,0>    azimuth_motor_direction_out_pin;       // (H-bridge white in2,in3)
@@ -91,13 +110,15 @@ typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl;   // already connected
 typedef quan::mcu::pin<quan::stm32::gpiob,7>    av_telem_fsk_demod_out;  // AV audio telem data output
 // pb8 free
 typedef quan::mcu::pin<quan::stm32::gpiob,9>    i2c1_sda;  // already connected to SDA on Discovery
+// pb11 free ( used by OSD)
+// pb12 free  ( used by OSD)
 
-// pb11 free  use for USART 3 RX
-// pb12 free
-// use for LCD data?
 typedef quan::mcu::pin<quan::stm32::gpiob,13> black_pixel_sck; // SPI2_SCK AF5
+
+// could also use PC2 as SPI2_MISO
 typedef quan::mcu::pin<quan::stm32::gpiob,14> black_pixel_miso; // SPI2_MISO AF5
-// pb15 free TIM12_CH2 various other timers
+
+// pb15  (used by OSD) TIM12_CH2 various other timers
 // pc0  attached to STMPS2141STR
 // N.B not 5v tolerant in analog mode
 typedef quan::mcu::pin<quan::stm32::gpioc,1>    av_telem_raw_fsk_in_plus; // ADC123_IN11 
@@ -115,33 +136,36 @@ typedef quan::mcu::pin<quan::stm32::gpioc,6>    azimuth_encoder_b_pin; // SF: TI
 // or input
 // (Used by CS43L22 SCLK i/O. Think its set as an input on that ic default
 // so should be ok as output, but limited to 3.5 v!
-typedef quan::mcu::pin<quan::stm32::gpioc,10>   av_telem_dummy_tx_pin;
-
+// can get rid of this now
+// pc9 avail
+// pc10 avail
 typedef quan::mcu::pin<quan::stm32::gpioc,11>   av_telem_rx_pin;
 // NB -----------------------------Except PD2 those below are NA on 64 pin part!!! -------------------
 // seek alternate pins for usart2 and usart3
 // SDIN to CS43L22. Therefore OK to use as uart output
+// but  5V ok for CS43L22 ?
 typedef quan::mcu::pin<quan::stm32::gpioc,12>    gps_txo;  //UART5_TX
+// pd1 for osd
 // PD2 can be uart 5 rx
 typedef quan::mcu::pin<quan::stm32::gpiod,2>    gps_rxi; // UART5_RX
-
-// pd1 free
-// pd2 free use for UART5 RX
+// PD3 for osd
 // N.B TX I think is knacked unless mod board
 typedef quan::mcu::pin<quan::stm32::gpiod,5>    frsky_txo_pin;                         // SF:USART2_TX:AF7(!!!remove R50 on Discovery!!!)
 typedef quan::mcu::pin<quan::stm32::gpiod,6>    frsky_rxi_pin;                         // SF:USART2_RX:AF7
-
-//
+// PD7 for osd
 typedef quan::mcu::pin<quan::stm32::gpiod,8>    rctx_txo_pin;                          // SF:USART3_TX:AF7
 typedef quan::mcu::pin<quan::stm32::gpiod,9>    rctx_rxi_pin;                          // SF:UASRT3_RX:AF7
 
-// PD10 free good fro General Purpose use
-// PD11 free 
+// pd10 free
+// pd11 free 
 
 typedef quan::mcu::pin<quan::stm32::gpiod,12>   green_led_pin;   // green led on Discovery
 typedef quan::mcu::pin<quan::stm32::gpiod,13>   orange_led_pin;       // orange led on Discovery
 typedef quan::mcu::pin<quan::stm32::gpiod,14>   red_led_pin;  // red led on Discover
 typedef quan::mcu::pin<quan::stm32::gpiod,15>   blue_led_pin;       // blue led on Discover
+
+//pe3 free
+// pe4 free
 
 typedef quan::mcu::pin<quan::stm32::gpioe,5> hsync_falling_pin; // TIM9_CH1
 typedef quan::mcu::pin<quan::stm32::gpioe,6> hsync_rising_pin; // TIM9_CH2

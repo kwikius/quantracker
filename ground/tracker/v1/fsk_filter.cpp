@@ -30,6 +30,15 @@ from "Simplified FSK Signal Detection"
 which appeared in Circuit Cellar issue 194, Sept 2006.
 */
 
+/*
+ A free running timer starts an ADC conversion at the sampling frequency
+ in the A2D interrupt the output is calculated
+then another channel of the timer is modified to
+ either set the clear the output to the UART on match
+ Therefeore everything happens at a constant time irrespective of other interrupts
+ irq claimed to take < 1.8 usec at 168 MHz
+*/
+
 namespace {
 
 //########################mkfilter##############################

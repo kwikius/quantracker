@@ -1,0 +1,17 @@
+
+Spec for V2
+-----------------
+OSD
+  2 x SPI
+  1 UART Rx only
+  Timers
+  1 x ADC channel to read Av values. Injected
+  various pins to control DAC etc
+
+  
+  
+  
+  
+ 
+
+

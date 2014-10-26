@@ -4,6 +4,11 @@
 #include <quan/dynarray.hpp>
 #include <cstdint>
 
+/*
+  actually these generic functions so could move to quan
+  Needs proper API
+*/
+
 bool is_defined_flash_mag_offset();
 bool get_flash_mag_offset(quan::three_d::vect<float> & dest);
 bool set_flash_mag_offset(quan::three_d::vect<float> const & src);

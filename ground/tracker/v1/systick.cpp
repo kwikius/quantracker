@@ -28,7 +28,8 @@ void setup_systick()
 #error "need to define this"
 #endif
   SysTick_Config(SystemCoreClock / 1000);
-  NVIC_SetPriority(SysTick_IRQn,interrupt_priority::systick_timer);
+  NVIC_SetPriority(SysTick_IRQn,15);
+  NVIC_EnableIRQ(SysTick_IRQn);
 }
 
 extern "C" void Systick_Handler() __attribute__ ((interrupt ("IRQ")));

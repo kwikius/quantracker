@@ -283,8 +283,11 @@ namespace {
                      case 'B':{
                            quan::angle::deg bearing;
                            if (raw_compass::get_bearing(bearing)){
-                              char buf1[100];
-                              sprintf(buf1,"mag bearing = %.3f deg\n",bearing.numeric_value());
+                              char buf1[200];
+                              int32_t enc = azimuth::motor::bearing_to_encoder(bearing);
+                              quan::angle::deg back = azimuth::motor::encoder_to_bearing(enc);
+                              sprintf(buf1,"mag bearing = %.3f deg, encoder value = %d, back = %.3f\n",
+                                          bearing.numeric_value(), enc, back.numeric_value());
                               cl_sp::write(buf1);
                            }else{
                               cl_sp::write("get_bearing failed\n");

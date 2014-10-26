@@ -48,7 +48,7 @@ struct frsky{
 };
 
 struct av_fsk{
-  // typedef av_telem_dummy_tx_pin txo_pin;
+
    typedef av_telem_rx_pin rxi_pin;
    static constexpr uint32_t in_buf_size = 100;
    typedef quan::stm32::rx_serial_port<
