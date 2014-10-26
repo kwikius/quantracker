@@ -15,6 +15,12 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+/* NB alternate way to do this is merely to change the timing dependent on bit. 
+Think this might work well.
+The shape of the wave is the same then for fast and slow. Would merely then be one step.
+could meybe use DMA per bit and change the timing so very low overhead
+*/
+
 #include "fsk_params.hpp"
 #include "resources.hpp"
 #include <quan/stm32/gpio.hpp>
