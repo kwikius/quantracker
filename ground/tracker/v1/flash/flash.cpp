@@ -7,116 +7,107 @@
 #include "../serial_ports.hpp"
 
 namespace {
-struct app_symtab_t : quan::stm32::flash::symbol_table {
-   app_symtab_t() {}
-   ~app_symtab_t() {}
-   uint16_t get_symbol_storage_size (uint16_t symidx) const;
-   uint16_t get_symtable_size() const;
-};
-}
+   // The symtab for this app
+   struct app_symtab_t : quan::stm32::flash::symbol_table {
+      app_symtab_t() {}
+      ~app_symtab_t() {}
+      uint16_t get_symbol_storage_size (uint16_t symidx) const;
+      uint16_t get_symtable_size() const;
+   };
 
-// unique id for each type in the structure
-// used for array lookup so must start at 0 and be contiguous
-// CharAr8 is an array different to a string8 which must be zero terminated
-// but types are user defined
-//###########################APP LEVEL ###############################
-// app level enums for each type in the Flash
+   // Representation of the data to be read to or written from Flash
+   // as a structure for this app
+   struct {
+      quan::three_d::vect<float> mag_offsets;
+      bool use_compass;
+   } flash_image;
 
-namespace {
-// app level structure representing the data to be read to or written from cold store
-struct {
-   quan::three_d::vect<float> mag_offsets;
-   bool use_compass;
-} flash_image;
+   // array of functions for converting text to a bytestream
+   // The order must be the same as the flash_type_tags enum in flash_type_tags.hpp
+   constexpr flash_symtab::pfn_text_to_bytestream text_to_bytestream[] =
+   {
+      &flash_convert<id_to_type<0>::type>::text_to_bytestream,
+      &flash_convert<id_to_type<1>::type>::text_to_bytestream
+   };
 
-// Order is same as flash_type_tags enum above
-constexpr flash_symtab::pfn_cstring_to_rep type_cstring_to_rep[] =
-{
-   cstring_to_rep_Vect3F,
-   cstring_to_rep_Bool
-};
-
-bool cstring_to_rep_mag_offsets (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
-{
-   // parse these and see if in range
-   return type_cstring_to_rep[ Vect3F] (dest,src);
-}
-
-bool cstring_to_rep_use_compass (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
-{
-   return type_cstring_to_rep[Bool] (dest,src);
-}
-
-#define EE_SYMTAB_ENTRY(Val,Info, Readonly) { \
-         #Val, \
-         get_flash_type_tag<decltype(flash_image.Val)>::value ,\
-         & cstring_to_rep_ ## Val, \
-         Info ,\
-         Readonly \
-       }
-#if 0
-#define EE_SYMTAB_STRING_N(Val,N, info){ \
-         #Val, \
-         get_flash_type_tag<decltype(flash_image.Val)>::value ,\
-         & cstring_to_rep_string<N>, \
-         info ,\
-         false \
-       }
- #endif
-struct flash_symtab_entry_t {
-   const char* const name;
-   uint32_t const type_tag;
-   bool (*pfn_cstring_to_rep) (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
-   const char * const info;
-   bool readonly;
-};
- 
-flash_symtab_entry_t constexpr names[] = {
-   EE_SYMTAB_ENTRY(mag_offsets,"[float,float,float] where min = -1000, max =1000",false),
-   EE_SYMTAB_ENTRY(use_compass,"true to use compass to set tracker azimuth, else false", false)
-};
- 
-constexpr uint32_t names_size = sizeof (names) /sizeof (flash_symtab_entry_t);
- 
-int32_t get_symtable_index (const char* symbol)
-{
-   int count = 0;
-   for (auto entry : names) {
-      if (strcmp (entry.name, symbol) == 0) {
-         return count;
-      } else {
-         ++count;
-      }
+// in converting to bytestream may need to convert then check values
+// otherwise can just use type conv func
+   bool text_to_bytestream_mag_offsets (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
+   {
+      return text_to_bytestream[ type_to_id<decltype(flash_image.mag_offsets)>::value] (dest,src);
    }
-   return -1; // not found
-}
- 
-#undef EE_SYMTAB_ENTRY
-// the order must be the same as the flash_type_tags enum
-constexpr uint32_t type_tag_to_size[] =
-{
-   sizeof (quan::three_d::vect<float>), // Vect3F
-   sizeof (bool)  // Bool
-};
- 
-constexpr flash_symtab::pfn_rep_to_cstring type_rep_to_cstring[] =
-{
-   rep_to_cstring_Vect3F ,
-   rep_to_cstring_Bool
-};
- 
-//interface for meeting requirements of archetype
-uint16_t get_type_index (uint16_t symidx)
-{
-   return names[symidx].type_tag;
-}
- 
-uint16_t get_type_size (uint16_t typeidx)
-{
-   return type_tag_to_size[typeidx];
-}
- 
-app_symtab_t app_symtab;
+
+   bool text_to_bytestream_use_compass (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
+   {
+      return text_to_bytestream[type_to_id<decltype(flash_image.use_compass)>::value] (dest,src);
+   }
+
+   #define EE_SYMTAB_ENTRY(Val,Info, Readonly) { \
+            #Val, \
+            type_to_id<decltype(flash_image.Val)>::value ,\
+            & text_to_bytestream_ ## Val, \
+            Info ,\
+            Readonly \
+          }
+
+   // name of the symbol
+   // with tag representing the type
+   // and some info
+   struct flash_symtab_entry_t {
+      const char* const name;
+      uint32_t const type_tag;
+      bool (*pfn_text_to_bytestream) (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
+      const char * const info;
+      bool readonly;
+   };
+    
+   flash_symtab_entry_t constexpr names[] = {
+      EE_SYMTAB_ENTRY(mag_offsets,"[float,float,float] where min = -1000, max =1000",false),
+      EE_SYMTAB_ENTRY(use_compass,"true to use compass to set tracker azimuth, else false", false)
+   };
+    
+   int32_t get_symtable_index (const char* symbol)
+   {
+      int count = 0;
+      for (auto entry : names) {
+         if (strcmp (entry.name, symbol) == 0) {
+            return count;
+         } else {
+            ++count;
+         }
+      }
+      return -1; // not found
+   }
+    
+   #undef EE_SYMTAB_ENTRY
+   // Array describing the size of a type in flash
+   // the order must be the same as the flash_type_tags enum
+   // in flash_type_tags.hpp
+   // There must be a separate entry for each different flash typ
+   constexpr uint32_t type_tag_to_size[] =
+   {
+      sizeof (id_to_type<0>::type), 
+      sizeof (id_to_type<1>::type) 
+   };
+    
+   /* array of fun_ptrs to convert the bytestream to text*/
+   constexpr flash_symtab::pfn_bytestream_to_text bytestream_to_text[] =
+   {
+      &flash_convert<id_to_type<0>::type>::bytestream_to_text,
+      &flash_convert<id_to_type<1>::type>::bytestream_to_text
+   };
+    
+   uint16_t get_type_index (uint16_t symidx)
+   {
+      return names[symidx].type_tag;
+   }
+    
+   uint16_t get_type_size (uint16_t typeidx)
+   {
+      return type_tag_to_size[typeidx];
+   }
+    
+   app_symtab_t app_symtab;
  
 } // namespace
  
@@ -156,7 +147,7 @@ uint16_t app_symtab_t::get_symbol_storage_size (uint16_t symidx) const
  
 uint16_t app_symtab_t::get_symtable_size() const
 {
-   return names_size;
+   return sizeof (names)/sizeof (flash_symtab_entry_t);
 }
  
 uint16_t flash_symtab::get_num_elements()
@@ -182,7 +173,7 @@ bool flash_symtab::write_from_string (uint16_t symbol_index,quan::dynarray<char>
    if (!reparray.good()) {
       return false;
    }
-   auto const string_to_rep_fun = get_string_to_rep_fun (symbol_index);
+   auto const string_to_rep_fun = get_text_to_bytestream_fun (symbol_index);
    
    bool result1 = string_to_rep_fun (reparray,value);
    if (! result1) {
@@ -202,7 +193,7 @@ bool flash_symtab::read_to_string (
    if (!flash_symtab::read (symbol_index, reparray)) {
       return false;
    }
-   auto const rep_to_string_fun = get_rep_to_string_fun (symbol_index);
+   auto const rep_to_string_fun = get_bytestream_to_text_fun (symbol_index);
    return rep_to_string_fun (value,reparray) ;
 }
  
@@ -213,6 +204,11 @@ bool flash_symtab::exists (uint16_t symindex)
    } else {
       return false;
    }
+}
+bool flash_symtab::is_defined(const char* symbol_name)
+{
+   int32_t idx =  flash_symtab::get_index(symbol_name);
+   return  (idx != -1) && flash_symtab::exists(idx);
 }
  
 uint16_t flash_symtab::get_size (uint16_t symidx)
@@ -231,25 +227,32 @@ int32_t flash_symtab::get_index (const char* symbol_name)
 }
  
 // per symbol as string needs to be checked for validity
-flash_symtab::pfn_cstring_to_rep flash_symtab::get_string_to_rep_fun (uint16_t symidx)
+flash_symtab::pfn_text_to_bytestream flash_symtab::get_text_to_bytestream_fun (uint16_t symidx)
 {
-   return names[symidx].pfn_cstring_to_rep;
+   return names[symidx].pfn_text_to_bytestream;
 }
  
 // coming out data assumed ok.
-flash_symtab::pfn_rep_to_cstring flash_symtab::get_rep_to_string_fun (uint16_t symidx)
+flash_symtab::pfn_bytestream_to_text flash_symtab::get_bytestream_to_text_fun (uint16_t symidx)
 {
-   return type_rep_to_cstring[get_type_index (symidx) ];
+   return bytestream_to_text[get_type_index (symidx) ];
 }
  
 namespace {
  
+/*
+See if flash page has been written.
+  Using the Linux version of ST-Link, the default 
+ after uploading is to clear verything to 0
+  so starting from 0 or each byte with the sum.
+  if reult is 0 then page is empty
+*/
 uint8_t flash_check_page (uint8_t n)
 {
    uint8_t sum = 0x00;
    
-   volatile uint8_t * pn = (volatile uint8_t*)
-                           quan::stm32::flash::detail::get_page_address (n);
+   volatile uint8_t * pn 
+      = (volatile uint8_t*)quan::stm32::flash::detail::get_page_address (n);
    uint32_t  pn_size = quan::stm32::flash::detail::get_page_size (n);
    if (pn_size ==0) {
       user_message ("invalid flash page\n");
@@ -262,19 +265,15 @@ uint8_t flash_check_page (uint8_t n)
    return sum ;
 }
  
+ // 
 uint8_t flash_check()
 {
    return flash_check_page (1) | flash_check_page (2);
 }
 
- bool default_init_values_to_flash()
-  {
-      return true;
-  }
-   
-
 } //namespace
  
+bool init_values_from_flash();
 bool flash_symtab::init()
 {
    if (flash_check() == 0x00) {
@@ -290,13 +289,6 @@ bool flash_symtab::init()
          return false;
       }
        user_message ("\n...flash erased OK\n");
-   
-   
-      // default init of flash values
-//     //  user_message ("initing flash values\n");
-////      if (! default_init_values_to_flash()){
-////         return false;
-////      }
    }
    return init_values_from_flash();
 }

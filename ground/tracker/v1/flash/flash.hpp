@@ -7,8 +7,6 @@
 #include <quan/stm32/flash.hpp>
 #include "flash_error.hpp"
 
-bool init_values_from_flash();
-
 namespace flash_symtab{
 
       // get the index of the symbol name in the dynarray
@@ -33,18 +31,19 @@ namespace flash_symtab{
      // ideally symbol_value is prepared with a size from get_size
       // read symbol to byte stream in symbol value
       bool read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value);
-      // does the given symbolindex exist
+      // does the given symbol index exist
       bool exists(uint16_t symidx);
-      //
+      // is the symbol defined in flash
+      bool is_defined(const char* symbol_name);
       uint16_t get_num_elements();
       // convesrion from user text to byte stream
-      typedef bool (*pfn_cstring_to_rep)(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
+      typedef bool (*pfn_text_to_bytestream)(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
       // conversion from byte_stream to user text rep
-      typedef bool (*pfn_rep_to_cstring)(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
+      typedef bool (*pfn_bytestream_to_text)(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
       // return the string to rep stream fun for the index
-      pfn_cstring_to_rep get_string_to_rep_fun( uint16_t symidx);
+      pfn_text_to_bytestream get_text_to_bytestream_fun( uint16_t symidx);
       // return the rep stream to string fun for the index
-      pfn_rep_to_cstring get_rep_to_string_fun( uint16_t symidx);
+      pfn_bytestream_to_text get_bytestream_to_text_fun( uint16_t symidx);
       // at startup check that flash is initialised
       // and then read symbols to their runtime places from flash
       bool init();

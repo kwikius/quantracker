@@ -7,19 +7,6 @@
 #include "flash.hpp"
 #include "conv_funcs.hpp"
 
-
-bool is_defined_flash_mag_offset()
-{
-   int32_t idx =  flash_symtab::get_index("mag_offsets");
-   return  (idx != -1) && flash_symtab::exists(idx);
-}
-
-bool is_defined_flash_use_compass()
-{
-   int32_t idx =  flash_symtab::get_index("use_compass");
-   return  (idx != -1) && flash_symtab::exists(idx);
-}
-
 bool set_flash_use_compass(bool val)
 {
    int32_t const sym_index = flash_symtab::get_index("use_compass");
@@ -34,7 +21,6 @@ bool set_flash_use_compass(bool val)
    *reparray.get() = (val == true)?1:0;
    return flash_symtab::write(sym_index,reparray);
 }
-
 
 bool set_flash_mag_offset(quan::three_d::vect<float> const & src)
 {
@@ -57,8 +43,6 @@ bool set_flash_mag_offset(quan::three_d::vect<float> const & src)
    memcpy(reparray.get(),uconv.ar,sizeof (float) * 3);
    return flash_symtab::write(sym_index,reparray);
 }
-
-
 
 bool get_flash_mag_offset(quan::three_d::vect<float> & dest)
 {

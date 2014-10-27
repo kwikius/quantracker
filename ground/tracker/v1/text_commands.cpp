@@ -64,7 +64,6 @@
 */
 namespace {
 
-   typedef sliprings::serial_port cl_sp;
    typedef telemetry::gps_position uav_pos_type;
 
    bool parse_position(const char* cbuf, size_t len, uav_pos_type& pos)
@@ -109,7 +108,7 @@ namespace {
 
          case '$' :
                if (! parse_home_position(buf+1,len-1) ){
-                  cl_sp::write("set home position failed\n");
+                  debug::serial_port::write("set home position failed\n");
                }
                else{
                  char buf1[100];
@@ -118,14 +117,14 @@ namespace {
                       static_cast<double>(quan::angle::deg{telemetry::m_home_position.lon}.numeric_value()),
                       static_cast<double>(telemetry::m_home_position.alt.numeric_value())
                   );
-                 cl_sp::write(buf1);
+                 debug::serial_port::write(buf1);
                }
                break;
 
          case '~' : {
                uav_pos_type aircraft_position;
                if(!parse_position(buf+1,len-1,aircraft_position)){
-                  cl_sp::write("set aircraft position failed\n");
+                  debug::serial_port::write("set aircraft position failed\n");
                }else{
                  char buf1[100];
                  sprintf(buf1,"aircraft pos set lat = %.6f deg, lon = %.6f deg, alt = %.1f mm\n",
@@ -136,23 +135,23 @@ namespace {
                  telemetry::m_aircraft_position = aircraft_position;
                  telemetry::recalc();
                  
-                 cl_sp::write(buf1);
+                 debug::serial_port::write(buf1);
                }
                break;
          }
          case 'Z' :{
                azimuth::encoder::zero();
-               cl_sp::write("zeroed\n");
+               debug::serial_port::write("zeroed\n");
          }
          break;
          case 'E' :{
                azimuth::motor::enable();
-               cl_sp::write("Azimuth Enabled\n");
+               debug::serial_port::write("Azimuth Enabled\n");
          }
          break;
          case 'D' :{
                azimuth::motor::disable();
-               cl_sp::write("Azimuth Disabled\n");
+               debug::serial_port::write("Azimuth Disabled\n");
          }
          break;
          case 'P' :
@@ -161,10 +160,10 @@ namespace {
                azimuth::motor::set_target_position(pos);
                char buf1[50];
                sprintf(buf1,"T <~ %ld : OK!\n",azimuth::motor::get_target_position());
-               cl_sp::write(buf1);
+               debug::serial_port::write(buf1);
             }
             else{
-               cl_sp::write("expected uint");
+               debug::serial_port::write("expected uint");
             } 
          break;
          case 'H' :
@@ -174,10 +173,10 @@ namespace {
                main_loop::set_elevation_servo(quan::time_<uint32_t>::us{pos});
                char buf1[50];
                sprintf(buf1,"H <~ %ld : OK!\n",main_loop::get_elevation_servo().numeric_value());
-               cl_sp::write(buf1);
+               debug::serial_port::write(buf1);
             }
             else{
-               cl_sp::write("expected uint");
+               debug::serial_port::write("expected uint");
             } 
          break;
          case 'k': 
@@ -193,31 +192,31 @@ namespace {
                               azimuth::motor::set_kP(v);
                               char buf1[50];
                               sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
-                              cl_sp::write(buf1);
+                              debug::serial_port::write(buf1);
                            }
                            break;
                            case 'D':
                               azimuth::motor::set_kD(v);
                               char buf1[50];
                               sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
-                              cl_sp::write(buf1);
+                              debug::serial_port::write(buf1);
                            break;
                            default:
-                              cl_sp::write("internal error\n");
+                              debug::serial_port::write("internal error\n");
                            break;
                         }
                     }else{
-                        cl_sp::write("float conv error\n");
+                        debug::serial_port::write("float conv error\n");
                     }
                   }
                   break;
                   default :
-                     cl_sp::write("unknown command\n");
+                     debug::serial_port::write("unknown command\n");
                   break;
                }
             }
             else{
-               cl_sp::write("expctd kP or kD + float\n");
+               debug::serial_port::write("expctd kP or kD + float\n");
             } 
          break;
          case 'G' :
@@ -226,25 +225,25 @@ namespace {
                      case 'T':{
                         char buf1[50];
                         sprintf(buf1,"Pt = %ld\n",azimuth::motor::get_target_position());
-                        cl_sp::write(buf1);
+                        debug::serial_port::write(buf1);
                      }
                      break;
                      case 'A':{
                         char buf1[50];
                         sprintf(buf1,"Pa = %ld\n",azimuth::motor::get_actual_position());
-                        cl_sp::write(buf1);
+                        debug::serial_port::write(buf1);
                      }
                      break;
                      case 'p':{
                         char buf1[50];
                         sprintf(buf1,"kP = %f\n",static_cast<double>(azimuth::motor::get_kP()));
-                        cl_sp::write(buf1);
+                        debug::serial_port::write(buf1);
                      }
                      break;
                      case 'd': {
                         char buf1[50];
                         sprintf(buf1,"kD = %f\n",static_cast<double>(azimuth::motor::get_kD()));
-                        cl_sp::write(buf1);
+                        debug::serial_port::write(buf1);
                      }
                      break;
                      case 'M':{
@@ -255,7 +254,7 @@ namespace {
                               static_cast<double>(mag_vect.y),
                                  static_cast<double>(mag_vect.z)
                          );
-                         cl_sp::write(buf1);
+                         debug::serial_port::write(buf1);
                      }
                      break;
                      case 'm':{
@@ -266,7 +265,7 @@ namespace {
                               static_cast<double>(mag_vect.y),
                                  static_cast<double>(mag_vect.z)
                          );
-                         cl_sp::write(buf1);
+                         debug::serial_port::write(buf1);
                      }
                      break;
                      case 'f':{
@@ -277,7 +276,7 @@ namespace {
                               static_cast<double>(mag_vect.y),
                                  static_cast<double>(mag_vect.z)
                          );
-                         cl_sp::write(buf1);
+                         debug::serial_port::write(buf1);
                      }
                      break;
                      case 'B':{
@@ -286,21 +285,21 @@ namespace {
                               char buf1[200];
                               int32_t enc = azimuth::motor::bearing_to_encoder(bearing);
                               quan::angle::deg back = azimuth::motor::encoder_to_bearing(enc);
-                              sprintf(buf1,"mag bearing = %.3f deg, encoder value = %d, back = %.3f\n",
+                              sprintf(buf1,"mag bearing = %.3f deg, encoder value = %ld, back = %.3f\n",
                                           bearing.numeric_value(), enc, back.numeric_value());
-                              cl_sp::write(buf1);
+                              debug::serial_port::write(buf1);
                            }else{
-                              cl_sp::write("get_bearing failed\n");
+                              debug::serial_port::write("get_bearing failed\n");
                            }
                      }
                      break;
                      default:
-                        cl_sp::write("unknown get param\n");
+                        debug::serial_port::write("unknown get param\n");
                      break;
                }
              }
              else{
-               cl_sp::write("expctd get param\n");
+               debug::serial_port::write("expctd get param\n");
              }
          break;
          case 'M':{
@@ -308,15 +307,15 @@ namespace {
                switch(buf[1]){
                   case '0':
                      raw_compass::set_strap(0);
-                     cl_sp::write("set mag norm\n");
+                     debug::serial_port::write("set mag norm\n");
                   break;
                   case '+':
                      raw_compass::set_strap(1);
-                     cl_sp::write("set mag +strp\n");
+                     debug::serial_port::write("set mag +strp\n");
                   break;
                   case '-':
                      raw_compass::set_strap(-1);
-                     cl_sp::write("set mag -strp\n");
+                     debug::serial_port::write("set mag -strp\n");
                   break;
                   case '!':
                   break;
@@ -332,26 +331,26 @@ namespace {
                            raw_compass::set_filter(v);
                            char buf1[60];
                            sprintf(buf1,"raw mag filt set to %f\n",static_cast<double>(v));
-                           cl_sp::write(buf1);
+                           debug::serial_port::write(buf1);
                         }else{
-                           cl_sp::write("mag filt float range\n");
+                           debug::serial_port::write("mag filt float range\n");
                         }
                      }else{
-                        cl_sp::write("mag filt float invalid\n");
+                        debug::serial_port::write("mag filt float invalid\n");
                      }
                   }
                   break;
                   default:
-                     cl_sp::write("expctd M0, M+, M- mfxxx\n");
+                     debug::serial_port::write("expctd M0, M+, M- mfxxx\n");
                   break;
                }
             }else {
-               cl_sp::write("expctd M0, M+, M- mfxxx\n");
+               debug::serial_port::write("expctd M0, M+, M- mfxxx\n");
             }
          }
          break;   
          default:
-            cl_sp::write("cmd not found\n");
+            debug::serial_port::write("cmd not found\n");
          break;
 
        }
@@ -363,27 +362,26 @@ void parse_commandline()
    constexpr uint32_t bufsize = 255;
    static char buffer[bufsize];
    static uint32_t index =0;
-   if(cl_sp::in_avail()){
+   if(debug::serial_port::in_avail()){
       if(index == bufsize){
-         while(cl_sp::in_avail()){
-            char ch = cl_sp::get();
+         while(debug::serial_port::in_avail()){
+            char ch = debug::serial_port::get();
             if(ch =='\n'){
                break;
             }
          }
          index = 0;
-         cl_sp::write("command too long\n");
+         debug::serial_port::write("command too long\n");
       }else{
-         char ch = cl_sp::get();
-         cl_sp::put(ch);
+         char ch = debug::serial_port::get();
+         debug::serial_port::put(ch);
           
          if(ch == '\r'){
-            cl_sp::write("#\n");
+            debug::serial_port::write("#\n");
             buffer[index] = '\0';
             index = 0;
             parse_text_command(buffer);
          }else{
-            
             buffer[index++] = ch;
          }
       }

@@ -51,7 +51,7 @@ namespace{
       setup_leds();
       setup_switches();
       setup_systick();
-      sliprings::serial_port::init(); // for user interactive
+      debug::serial_port::init(); // for user interactive
       debug::serial_port::write("quan_tracker V1.1 startup\n");
       // check for fails on flash
       // really need to do automatically

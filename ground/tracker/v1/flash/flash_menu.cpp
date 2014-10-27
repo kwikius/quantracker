@@ -8,15 +8,14 @@
 #include <quan/dynarray.hpp>
 #include "../serial_ports.hpp"
 
- 
 void user_message (const char* str)
 {
-   sliprings::serial_port::write (str) ;
+   debug::serial_port::write (str) ;
 }
 
 void flush_sp_tx()
 {
-  while (!sliprings::serial_port::tx_reg_empty()){;}
+  while (!debug::serial_port::tx_reg_empty()){;}
 }
  
 namespace {
@@ -39,19 +38,15 @@ namespace {
       }
       // show values here
       size_t const symbol_len = strlen (symbol_part);
-     // if (symbol.get_num_elements() < (symbol_len +1)) {
-         if (! symbol.realloc (symbol_len +1)) {
-            quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
-            return false;
-         }
-      //}
+      if (! symbol.realloc (symbol_len +1)) {
+         quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
+         return false;
+      }
       size_t const value_len = strlen (value_part);
-     // if (value.get_num_elements() < (value_len +1)) {
-         if (! value.realloc (value_len +1)) {
-            quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
-            return false;
-         }
-     // }
+      if (! value.realloc (value_len +1)) {
+         quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
+         return false;
+      }
       strcpy (symbol.get(), symbol_part);
       strcpy (value.get(), value_part);
       return true;
@@ -206,15 +201,15 @@ bool flash_menu()
       char buffer[100];
       int32_t idx = 0;
       while (1) {
-         if (sliprings::serial_port::in_avail()) {
-            char ch = sliprings::serial_port::get();
+         if (debug::serial_port::in_avail()) {
+            char ch = debug::serial_port::get();
             if (ch == '\r') {
                buffer[idx] = '\0';
                ++idx;
                break;
             } else {
                if (idx > 99) {
-                  sliprings::serial_port::write ("input too long\n");
+                  debug::serial_port::write ("input too long\n");
                   idx = 0;
                } else {
                   buffer[idx] = ch;

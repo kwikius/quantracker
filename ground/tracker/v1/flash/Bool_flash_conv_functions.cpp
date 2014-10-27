@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <quan/dynarray.hpp>
 #include "flash.hpp"
+#include "flash_type_tags.hpp"
 #include "conv_funcs.hpp"
  
 /*
@@ -12,7 +13,8 @@ namespace {
 const char expected_bool[] = "expected \"true\" or \"false\"";
 }
  
-bool cstring_to_rep_Bool(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
+bool flash_convert<bool>::text_to_bytestream(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
+//bool cstring_to_rep_Bool(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
 {
      // input is "true" or "false"
      uint8_t val = 0;
@@ -42,8 +44,10 @@ bool cstring_to_rep_Bool(quan::dynarray<uint8_t>& dest, quan::dynarray<char> con
      *dest.get() = val;
      return true;
 }
- 
-bool rep_to_cstring_Bool(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
+
+bool flash_convert<bool>::bytestream_to_text(
+      quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
+//bool rep_to_cstring_Bool(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
 {
     if (src.get_num_elements() != sizeof (bool)) {
       quan::error(fn_rep_to_cstring_Bool,

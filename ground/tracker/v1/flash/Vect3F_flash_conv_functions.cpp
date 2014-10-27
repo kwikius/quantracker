@@ -6,7 +6,7 @@
 #include <quan/dynarray.hpp>
 #include "flash.hpp"
 #include "conv_funcs.hpp"
-
+#include "flash_type_tags.hpp"
 /*
  Think these should be moved to quan if and when more stable
 */
@@ -16,7 +16,10 @@ namespace{
 }
 
 // expects a string of "[float,float,float]" terminated with 0
-bool cstring_to_rep_Vect3F (quan::dynarray<uint8_t> & dest, quan::dynarray<char> const & src_in)
+
+bool flash_convert<quan::three_d::vect<float> >::text_to_bytestream(
+      quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src_in)
+//bool cstring_to_rep_Vect3F (quan::dynarray<uint8_t> & dest, quan::dynarray<char> const & src_in)
 {
    if ((src_in.get_num_elements() < 7) ||  (src_in.get() [0] != '[') ) {
       user_error(expected_float);
@@ -61,8 +64,10 @@ bool cstring_to_rep_Vect3F (quan::dynarray<uint8_t> & dest, quan::dynarray<char>
 }
 
 // a sequence of 3 floats
-bool rep_to_cstring_Vect3F (quan::dynarray<char>& dest, 
-            quan::dynarray<uint8_t> const & src)
+bool flash_convert<quan::three_d::vect<float> >::bytestream_to_text(
+      quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
+/*bool rep_to_cstring_Vect3F (quan::dynarray<char>& dest, 
+            quan::dynarray<uint8_t> const & src) */
 {
    if (src.get_num_elements() != sizeof (float) *3) {
       quan::error(fn_rep_to_cstring_Vect3F,

@@ -15,6 +15,8 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+// TODO add dt e.g time between last read and one before
+
 #include <cstdint>
 #include <cstring>
 #include <quan/three_d/vect.hpp>
@@ -26,8 +28,6 @@
 
 namespace{
 
-   typedef sliprings::serial_port serial_port1;
-  
    static const uint8_t mag_read = 0x3D;
    static const uint8_t mag_write = 0x3C;
    static const uint8_t configA = 0x0;
@@ -49,21 +49,21 @@ namespace{
    void request_new_measurement()
    {
       if(!i2c_mag_port::transfer_request(mag_write,single_measurement_string,2)){
-         serial_port1::write("request_new_measurement transfer failed\n");
+         debug::serial_port::write("request_new_measurement transfer failed\n");
       }
    }
 
    void send_x_reg_address()
    {
       if( !i2c_mag_port::transfer_request(mag_write,msb_x_ar,1)){
-         serial_port1::write("xend x transfer failed\n");
+         debug::serial_port::write("xend x transfer failed\n");
       }
    }
 
    void  request_read_mag_values()
    {
        if( !i2c_mag_port::transfer_request(mag_read,local_values,6)){
-         serial_port1::write("data transfer failed\n");
+         debug::serial_port::write("data transfer failed\n");
       }
    }
 
@@ -97,21 +97,21 @@ namespace{
    void request_positive_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,positive_pulse_string,2)){
-         serial_port1::write("positive pulse failed\n");
+         debug::serial_port::write("positive pulse failed\n");
       }
    }
 
    void request_negative_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,negative_pulse_string,2)){
-         serial_port1::write("negative pulse failed\n");
+         debug::serial_port::write("negative pulse failed\n");
       }
    }
 
    void request_no_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,no_pulse_string,2)){
-         serial_port1::write("no pulse failed\n");
+         debug::serial_port::write("no pulse failed\n");
       }
    }
 
@@ -136,7 +136,7 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
    
    if (i2c_mag_port::addr_timeout()){
      // TODO do error message
-     // serial_port1::write("i2c addr timeout\n");
+     // debug::serial_port::write("i2c addr timeout\n");
       return -1;
    }
    if (i2c_mag_port::busy()){
@@ -149,11 +149,6 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
 
    switch (update_state){
       case update_state_t::transfer_done:
-#if 0
-        if (!i2c1_bus_lock.acquire()){
-            return 0;
-        }
-#endif
         if(strap == oldstrap){
             request_new_measurement();
             timepoint = quan::stm32::millis(); // record time to exti
@@ -192,11 +187,8 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
             */
             if ( ( quan::stm32::millis() - timepoint) > quan::time_<int64_t>::ms{200} ){
               // timepoint = quan::stm32::millis();
-             //  serial_port1::write("no exti\n");
+             //  debug::serial_port::write("no exti\n");
                 // TODO do error message
-#if 0
-               i2c1_bus_lock.release();
-#endif
                update_state = update_state_t::transfer_done;
                // reset
                return -1;    // failed  to get exti
@@ -215,9 +207,7 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
    The caller will just have to wait to gp round again
    and do another conversion
 */ 
-#if 0
-         i2c1_bus_lock.release();
-#endif
+
          update_state = update_state_t::transfer_done;
          
          if (different_strap == true){
