@@ -4,7 +4,9 @@
 #include "flash.hpp"
 #include "conv_funcs.hpp"
  
-
+/*
+ Think these should be moved to quan if and when more stable
+*/
 
 namespace {
 const char expected_bool[] = "expected \"true\" or \"false\"";
