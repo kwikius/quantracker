@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1361875985 source:/home/andy/cpp/projects/osd/spbrk.cpp
+	<errno.h>
+	<stddef.h>
+

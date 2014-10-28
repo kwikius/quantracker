@@ -1,0 +1,13 @@
+digraph g{
+	vsync -> row_count [ label = "reinit"];
+	hsync -> row_count [label = "clock"];
+	hsync -> col_gate [label = "reinit"];
+   col_gate -> first_col ;
+   first_col -> pixel_clock [label = "enable"];
+   col_gate -> last_col;
+   last_col -> pixel_clock [label = "disable"]; 
+   row_count -> first_row;
+   row_count -> last_row;
+   first_row -> col_gate [label = "enable"];
+   last_row -> col_gate [label = "disable"];
+}

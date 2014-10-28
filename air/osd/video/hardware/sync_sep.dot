@@ -1,0 +1,57 @@
+digraph G{
+
+ Start  [label = "Start\n field_pulse_count = 0"];
+ Start:s -> InitialSyncPhase:n;
+ InitialSyncPhase [label = "Initial sync phase"];
+ InitialSyncPhase:s -> InitialSyncPhaseChecktype:n [label = "new pulse"];
+ InitialSyncPhaseChecktype [shape = diamond,label = "hsync pulse?"];
+ InitialSyncPhaseChecktype:w -> InitialSyncPhase:n [ label = "N"];
+ InitialSyncPhaseChecktype:e -> InitialSyncPhaseInc:n [ label = "Y"];
+ InitialSyncPhaseInc [shape = rectangle,label = "++field_pulse_count"];
+ InitialSyncPhaseInc:s -> InitialSyncPhaseCount:n;
+ InitialSyncPhaseCount [ shape = diamond, label = "field_pulse_count >= 2?"];
+ InitialSyncPhaseCount:w ->  InitialSyncPhase:n [label = "N"];
+ InitialSyncPhaseCount:e ->  SyncPeriodCheck:n [ label = "Y"]; 
+ SyncPeriodCheck [shape = diamond, label = "Full period?"];
+ SyncPeriodCheck:w -> InitialSyncPhase:n [label = "N"];
+ SyncPeriodCheck:e -> NewFrameCheck [ label = "Y"]; 
+ NewFrameCheck [label = "Frame Transition phase"];
+ NewFrameCheck:s -> NewFrameCheck1:n [label = "new pulse"];
+ NewFrameCheck1 [shape = diamond,label = "hsync pulse?"];
+ NewFrameCheck1:e -> NewFrameCheck2:n [label = "Y"];
+ NewFrameCheck1:w -> Start:n [label = "N"];
+ NewFrameCheck2 [shape = diamond,label =  "Half Period?"];
+ InNewFrameInit [label = "pre_eq_count = 0"];
+ NewFrameCheck2:e -> InNewFrameInit:n [label = "Y"];
+ NewFrameCheck2:w -> NewFrameCheck:n [label = "N"];
+ InNewFrame [label = "++pre_eq_count"];
+ InNewFrameInit -> InNewFrame;
+ InNewFrame1 [ shape = diamond,label =  "Half Period?"];
+ InNewFrame:s -> InNewFrame1:n [label = "new pulse"];
+ InNewFrame1:e -> InNewFrame2:n [label = "Y"];
+ InNewFrame1:w -> Start:n [label = "N"];
+ InNewFrame2 [shape = diamond, label = "Vsync pulse?"];
+ InNewFrame2:e -> InVsyncInitOdd:n [label = "Y"];
+ InNewFrame2:w -> InNewFrame:n [label = "N"];
+
+ InVsyncInitOdd [shape = diamond,label = "pre_eq_count == 6?"];
+ InVsyncInitOdd:e -> InVsyncOdd [label = "Y"];
+ InVsyncInitOdd:w -> InVsyncInitEven [label = "N"];
+ InVsyncInitEven [ shape = diamond ,label = "pre_eq_count == 7?"];
+ InVsyncInitEven:e -> InVsyncEven [label = "Y"];
+ InVsyncInitEven:w -> Start:n [label = "N"];
+ InVsyncOdd [shape = rectangle,label = "set odd frame"];
+ InVsyncEven [shape = rectangle,label = "set even frame"];
+ InVsyncOdd:s -> InVsync:n;
+ InVsyncEven:s -> InVsync:n;
+ InVsync [shape = rectangle, label = "++ vsync_count"];
+ InVsync:s -> InVsync1:n [ label = "new pulse"];
+ InVsync1 [shape = "diamond", label = "half period?"];
+ InVsync1:e -> InVsync2:n [ label = "Y"];
+ InVsync1:w -> Start:n [ label = "N"];
+ InVsync2 [shape = diamond, label = "Vsync pulse?"];
+ InVsync2:e -> InVsync:n [ label = "Y"];
+ InVsync2:w -> InVsync3:n [ label = "N"];
+ InVsync3 [shape = diamond, label = "vsync_count == 6?"];
+   
+}

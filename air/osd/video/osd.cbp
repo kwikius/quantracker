@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="osd" />
+		<Option pch_mode="2" />
+		<Option compiler="baremetalarmgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/osd" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="baremetalarmgcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/osd" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="baremetalarmgcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Makefile" />
+		<Unit filename="av_telem_data.cpp" />
+		<Unit filename="bitmap.hpp" />
+		<Unit filename="bits_to_get.txt" />
+		<Unit filename="black_level.cpp" />
+		<Unit filename="dac.cpp" />
+		<Unit filename="draw_loop.cpp" />
+		<Unit filename="font.cpp" />
+		<Unit filename="font1.cpp" />
+		<Unit filename="graphics_api.cpp" />
+		<Unit filename="graphics_api.hpp" />
+		<Unit filename="hardware/sync_sep.dot" />
+		<Unit filename="led.cpp" />
+		<Unit filename="main.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="main.lst" />
+		<Unit filename="mcm_file_format.txt" />
+		<Unit filename="mux.txt" />
+		<Unit filename="on_draw.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="pal_video.hpp" />
+		<Unit filename="resources.hpp" />
+		<Unit filename="setup.cpp" />
+		<Unit filename="spbrk.cpp" />
+		<Unit filename="specification.txt" />
+		<Unit filename="spi_to_osd.v" />
+		<Unit filename="startup.s" />
+		<Unit filename="stm32f4.ld" />
+		<Unit filename="sync_sep.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="system_init.cpp" />
+		<Unit filename="telem_via_video_thoughts.txt" />
+		<Unit filename="todo.txt" />
+		<Unit filename="video.cpp" />
+		<Unit filename="video.hpp" />
+		<Unit filename="video_buffer.cpp" />
+		<Unit filename="video_buffer.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="video_column.cpp" />
+		<Unit filename="video_dma.cpp" />
+		<Unit filename="video_pixel.cpp" />
+		<Unit filename="video_row.cpp" />
+		<Unit filename="video_setup.hpp" />
+		<Unit filename="video_spi.cpp" />
+		<Unit filename="../../../website/quan-trunk/quan/stm32/f4/spi.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../../../website/quan-trunk/quan/stm32/get_module_bus_frequency.hpp" />
+		<Unit filename="../../../website/quan-trunk/quan/stm32/spi.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../../../website/quan-trunk/quan/stm32/spi/module.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../../../website/quan-trunk/quan/stm32/spi/typedefs.hpp" />
+		<Extensions>
+			<code_completion>
+				<search_path add="/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include" />
+				<search_path add="$(QUAN_ROOT)" />
+			</code_completion>
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

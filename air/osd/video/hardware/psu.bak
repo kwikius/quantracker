@@ -1,0 +1,506 @@
+EESchema Schematic File Version 2  date Sun 26 Oct 2014 17:07:43 GMT
+LIBS:stm32
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:stm32f4duino-cache
+LIBS:passives
+LIBS:sync_clamp-cache
+LIBS:osd-cache
+EELAYER 25  0
+EELAYER END
+$Descr A4 11700 8267
+encoding utf-8
+Sheet 4 4
+Title "noname.sch"
+Date "26 oct 2014"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Connection ~ 5600 2800
+Wire Wire Line
+	5600 2800 5600 2600
+Wire Wire Line
+	6350 3550 7200 3550
+Wire Wire Line
+	7150 1600 6350 1600
+Connection ~ 4250 2100
+Wire Wire Line
+	4250 2200 4250 2100
+Connection ~ 4900 2800
+Wire Wire Line
+	4900 2800 4900 2950
+Wire Wire Line
+	4900 2950 4850 2950
+Wire Wire Line
+	5600 2600 7150 2600
+Connection ~ 5050 2800
+Wire Wire Line
+	7150 2800 1800 2800
+Wire Wire Line
+	3750 1900 3750 2000
+Wire Wire Line
+	3750 2000 3550 2000
+Wire Wire Line
+	3550 2000 3550 1750
+Wire Wire Line
+	3550 1750 3400 1750
+Wire Wire Line
+	4050 1400 3450 1400
+Wire Wire Line
+	3450 1400 3450 1600
+Wire Wire Line
+	3450 1600 3400 1600
+Connection ~ 3650 2800
+Wire Wire Line
+	3650 2800 3650 3050
+Connection ~ 1900 1800
+Wire Wire Line
+	2000 1800 1900 1800
+Wire Wire Line
+	1800 1650 2000 1650
+Wire Wire Line
+	3400 1900 3450 1900
+Wire Wire Line
+	3450 1900 3450 2100
+Connection ~ 4750 2100
+Wire Wire Line
+	3450 2100 4750 2100
+Connection ~ 3950 1400
+Wire Wire Line
+	3950 1400 3950 2250
+Connection ~ 4750 2800
+Wire Wire Line
+	4750 2800 4750 2700
+Wire Wire Line
+	4750 2200 4750 2000
+Wire Wire Line
+	6350 1400 4650 1400
+Wire Wire Line
+	4750 1500 4750 1400
+Connection ~ 4750 1400
+Wire Wire Line
+	1900 2500 1900 2800
+Wire Wire Line
+	5050 2800 5050 2300
+Connection ~ 3950 2800
+Wire Wire Line
+	3950 2800 3950 2650
+Wire Wire Line
+	1900 1650 1900 2100
+Connection ~ 1900 1650
+Wire Wire Line
+	5050 1400 5050 1900
+Connection ~ 5050 1400
+Wire Wire Line
+	2700 2800 2700 2350
+Connection ~ 2700 2800
+Connection ~ 1900 2800
+Wire Wire Line
+	3750 1500 3750 1400
+Connection ~ 3750 1400
+Connection ~ 3700 3550
+Wire Wire Line
+	3700 3650 3700 3550
+Connection ~ 1850 4950
+Connection ~ 2650 4950
+Wire Wire Line
+	2650 4950 2650 4500
+Connection ~ 5000 3550
+Wire Wire Line
+	5000 4050 5000 3550
+Connection ~ 1850 3800
+Wire Wire Line
+	1850 4250 1850 3800
+Wire Wire Line
+	3900 4950 3900 4800
+Connection ~ 3900 4950
+Wire Wire Line
+	5000 4950 5000 4450
+Wire Wire Line
+	1850 4650 1850 4950
+Connection ~ 4700 3550
+Wire Wire Line
+	4700 3550 4700 3650
+Wire Wire Line
+	4700 4150 4700 4350
+Wire Wire Line
+	4700 4950 4700 4850
+Connection ~ 4700 4950
+Wire Wire Line
+	3900 3550 3900 4400
+Connection ~ 3900 3550
+Wire Wire Line
+	4700 4250 3400 4250
+Connection ~ 4700 4250
+Wire Wire Line
+	3400 4250 3400 4050
+Wire Wire Line
+	3400 4050 3350 4050
+Wire Wire Line
+	1950 3800 1750 3800
+Wire Wire Line
+	1950 3950 1850 3950
+Connection ~ 1850 3950
+Wire Wire Line
+	3600 4950 3600 5200
+Connection ~ 3600 4950
+Wire Wire Line
+	3350 3750 3400 3750
+Wire Wire Line
+	3400 3750 3400 3550
+Wire Wire Line
+	3400 3550 4000 3550
+Wire Wire Line
+	3350 3900 3500 3900
+Wire Wire Line
+	3500 3900 3500 4150
+Wire Wire Line
+	3500 4150 3700 4150
+Wire Wire Line
+	3700 4150 3700 4050
+Wire Wire Line
+	5950 1600 5600 1600
+Wire Wire Line
+	1750 4950 7200 4950
+Connection ~ 5000 4950
+Wire Wire Line
+	4350 2950 4250 2950
+Wire Wire Line
+	4250 2950 4250 2650
+Wire Wire Line
+	6750 1400 7150 1400
+Wire Wire Line
+	5950 3550 4600 3550
+Wire Wire Line
+	5600 1600 5600 1400
+Connection ~ 5600 1400
+$Comp
+L DIODESCH D?
+U 1 1 543AA40C
+P 6150 3550
+F 0 "D?" H 6150 3650 40  0000 C CNN
+F 1 "DIODESCH" H 6150 3450 40  0000 C CNN
+	1    6150 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L DIODESCH D?
+U 1 1 543AA409
+P 6150 1600
+F 0 "D?" H 6300 1650 40  0000 C CNN
+F 1 "DIODESCH" H 6150 1500 40  0000 C CNN
+	1    6150 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L DIODESCH D?
+U 1 1 543AA405
+P 6550 1400
+F 0 "D?" H 6550 1500 40  0000 C CNN
+F 1 "DIODESCH" H 6550 1300 40  0000 C CNN
+	1    6550 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L SPST SW?
+U 1 1 543AA2E1
+P 4250 2500
+F 0 "SW?" H 4250 2600 70  0000 C CNN
+F 1 "SPST" H 4250 2400 70  0000 C CNN
+	1    4250 2500
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 543AA2B3
+P 4600 2950
+F 0 "R?" V 4680 2950 50  0000 C CNN
+F 1 "R" V 4600 2950 50  0000 C CNN
+	1    4600 2950
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 543AA23C
+P 7350 4950
+F 0 "P?" H 7430 4950 40  0000 L CNN
+F 1 "CONN_1" H 7350 5005 30  0001 C CNN
+	1    7350 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 543AA183
+P 7300 2600
+F 0 "P?" H 7380 2600 40  0000 L CNN
+F 1 "CONN_1" H 7300 2655 30  0001 C CNN
+	1    7300 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 543AA167
+P 7300 1600
+F 0 "P?" H 7380 1600 40  0000 L CNN
+F 1 "CONN_1" H 7300 1655 30  0001 C CNN
+	1    7300 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 543A9DA2
+P 7300 2800
+F 0 "P?" H 7380 2800 40  0000 L CNN
+F 1 "CONN_1" H 7300 2855 30  0001 C CNN
+	1    7300 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L INDUCTOR L?
+U 1 1 5433B3CB
+P 4300 3550
+F 0 "L?" V 4250 3550 40  0000 C CNN
+F 1 "10uH to 22uH 1.1A" V 4450 3550 40  0000 C CNN
+	1    4300 3550
+	0    1    1    0   
+$EndComp
+$Comp
+L DIODESCH D?
+U 1 1 5433B3CA
+P 3900 4600
+F 0 "D?" H 3900 4700 40  0000 C CNN
+F 1 "DIODESCH" H 3900 4500 40  0000 C CNN
+	1    3900 4600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R?
+U 1 1 5433B3C9
+P 4700 3900
+F 0 "R?" V 4780 3900 50  0000 C CNN
+F 1 "R" V 4700 3900 50  0000 C CNN
+	1    4700 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5433B3C8
+P 4700 4600
+F 0 "R?" V 4780 4600 50  0000 C CNN
+F 1 "R" V 4700 4600 50  0000 C CNN
+	1    4700 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 5433B3C7
+P 5000 4250
+F 0 "C?" H 5050 4350 50  0000 L CNN
+F 1 "22uF" H 5050 4150 50  0000 L CNN
+	1    5000 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 5433B3C6
+P 3700 3850
+F 0 "C?" H 3750 3950 50  0000 L CNN
+F 1 "C" H 3750 3750 50  0000 L CNN
+	1    3700 3850
+	-1   0    0    1   
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 5433B3C5
+P 1850 4450
+F 0 "C?" H 1900 4550 50  0000 L CNN
+F 1 "10uF" H 1900 4350 50  0000 L CNN
+	1    1850 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L LM2842 U?
+U 1 1 5433B3C4
+P 2650 4000
+F 0 "U?" H 2650 4150 60  0000 C CNN
+F 1 "LM2842" H 2650 4300 60  0000 C CNN
+	1    2650 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 5433B3C3
+P 7350 3550
+F 0 "P?" H 7430 3550 40  0000 L CNN
+F 1 "CONN_1" H 7350 3605 30  0001 C CNN
+	1    7350 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 5433B3C2
+P 1600 3800
+F 0 "P?" H 1680 3800 40  0000 L CNN
+F 1 "CONN_1" H 1600 3855 30  0001 C CNN
+	1    1600 3800
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 5433B3C1
+P 3600 5200
+F 0 "#PWR?" H 3600 5200 30  0001 C CNN
+F 1 "GND" H 3600 5130 30  0001 C CNN
+	1    3600 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 5433B3C0
+P 1600 4950
+F 0 "P?" H 1680 4950 40  0000 L CNN
+F 1 "CONN_1" H 1600 5005 30  0001 C CNN
+	1    1600 4950
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 54331690
+P 1650 2800
+F 0 "P?" H 1730 2800 40  0000 L CNN
+F 1 "CONN_1" H 1650 2855 30  0001 C CNN
+	1    1650 2800
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 543313CD
+P 3650 3050
+F 0 "#PWR?" H 3650 3050 30  0001 C CNN
+F 1 "GND" H 3650 2980 30  0001 C CNN
+	1    3650 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 54331313
+P 1650 1650
+F 0 "P?" H 1730 1650 40  0000 L CNN
+F 1 "CONN_1" H 1650 1705 30  0001 C CNN
+	1    1650 1650
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 54331261
+P 7300 1400
+F 0 "P?" H 7380 1400 40  0000 L CNN
+F 1 "CONN_1" H 7300 1455 30  0001 C CNN
+	1    7300 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L LM2842 U?
+U 1 1 543311D9
+P 2700 1850
+F 0 "U?" H 2700 2000 60  0000 C CNN
+F 1 "LM2842" H 2700 2150 60  0000 C CNN
+	1    2700 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 54330F72
+P 1900 2300
+F 0 "C?" H 1950 2400 50  0000 L CNN
+F 1 "10uF" H 1950 2200 50  0000 L CNN
+	1    1900 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 54330F5E
+P 3750 1700
+F 0 "C?" H 3800 1800 50  0000 L CNN
+F 1 "C" H 3800 1600 50  0000 L CNN
+	1    3750 1700
+	-1   0    0    1   
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 54330F55
+P 5050 2100
+F 0 "C?" H 5100 2200 50  0000 L CNN
+F 1 "22uF" H 5100 2000 50  0000 L CNN
+	1    5050 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 54330F47
+P 4750 2450
+F 0 "R?" V 4830 2450 50  0000 C CNN
+F 1 "R" V 4750 2450 50  0000 C CNN
+	1    4750 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 54330F43
+P 4750 1750
+F 0 "R?" V 4830 1750 50  0000 C CNN
+F 1 "R" V 4750 1750 50  0000 C CNN
+	1    4750 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L DIODESCH D?
+U 1 1 54330F15
+P 3950 2450
+F 0 "D?" H 3950 2550 40  0000 C CNN
+F 1 "DIODESCH" H 3950 2350 40  0000 C CNN
+	1    3950 2450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L INDUCTOR L?
+U 1 1 54330EFB
+P 4350 1400
+F 0 "L?" V 4300 1400 40  0000 C CNN
+F 1 "10uH to 22uH 1.1A" V 4500 1400 40  0000 C CNN
+	1    4350 1400
+	0    1    1    0   
+$EndComp
+$EndSCHEMATC

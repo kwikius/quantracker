@@ -1,0 +1,19 @@
+ADG704
+Marked with Analog devices symbol
+and
+S
+9B
+//////////////////
+// OPA830 is marked
+A72
+/////////////////////
+BCV61 is marked 1L
+//////////
+
+DAC0804S085C
+is marked
+43K
+X70C
+/////////////
+TLV3501 is marked
+NXA
