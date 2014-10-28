@@ -1,11 +1,13 @@
-#include <quan/three_d/vect.hpp>
+
 #include <cstring>
 #include <cstdio>
 #include <quan/conversion/float_convert.hpp>
 #include <quan/conversion/float_to_ascii.hpp>
 #include <quan/dynarray.hpp>
+#include <quan/three_d/vect.hpp>
 #include "flash.hpp"
-#include "conv_funcs.hpp"
+#include "flash_error.hpp"
+#include "flash_convert.hpp"
 
 bool set_flash_use_compass(bool val)
 {
@@ -14,12 +16,12 @@ bool set_flash_use_compass(bool val)
       // shouldnt get here
       return false;
    }
-   quan::dynarray<uint8_t> reparray{sizeof (uint8_t),main_alloc_failed};
-   if(!reparray.good()){
+   quan::dynarray<uint8_t> bytestream{sizeof (uint8_t),main_alloc_failed};
+   if(!bytestream.good()){
       return false;
    }
-   *reparray.get() = (val == true)?1:0;
-   return flash_symtab::write(sym_index,reparray);
+   *bytestream.get() = (val == true)?1:0;
+   return flash_symtab::write_from_bytestream(sym_index,bytestream);
 }
 
 bool set_flash_mag_offset(quan::three_d::vect<float> const & src)
@@ -36,12 +38,12 @@ bool set_flash_mag_offset(quan::three_d::vect<float> const & src)
    for ( uint8_t i = 0U; i < 3U; ++i){
       uconv.vals[i] = src[i];
    }
-   quan::dynarray<uint8_t> reparray{sizeof (float) * 3,main_alloc_failed};
-   if(!reparray.good()){
+   quan::dynarray<uint8_t> bytestream{sizeof (float) * 3,main_alloc_failed};
+   if(!bytestream.good()){
       return false;
    }
-   memcpy(reparray.get(),uconv.ar,sizeof (float) * 3);
-   return flash_symtab::write(sym_index,reparray);
+   memcpy(bytestream.get(),uconv.ar,sizeof (float) * 3);
+   return flash_symtab::write_from_bytestream(sym_index,bytestream);
 }
 
 bool get_flash_mag_offset(quan::three_d::vect<float> & dest)
@@ -53,12 +55,12 @@ bool get_flash_mag_offset(quan::three_d::vect<float> & dest)
       return false;
    }
    uint32_t const length = flash_symtab::get_size(sym_index);
-   quan::dynarray<uint8_t> reparray{length,main_alloc_failed};
-   if(!reparray.good()){
+   quan::dynarray<uint8_t> bytestream{length,main_alloc_failed};
+   if(!bytestream.good()){
       return false;
    }
 
-   if (!flash_symtab::read(sym_index,reparray)){
+   if (!flash_symtab::read(sym_index,bytestream)){
       return false;
    }
 
@@ -67,7 +69,7 @@ bool get_flash_mag_offset(quan::three_d::vect<float> & dest)
       float vals[3];
    } uconv;
 
-   memcpy(uconv.ar,reparray.get(),length);
+   memcpy(uconv.ar,bytestream.get(),length);
    for (uint8_t i = 0; i < 3U; ++i){
       dest[i] = uconv.vals[i];
    }
@@ -82,13 +84,13 @@ bool get_flash_use_compass( bool & dest)
       return false;
    }
    uint32_t const length = flash_symtab::get_size(sym_index);
-   quan::dynarray<uint8_t> reparray{length,main_alloc_failed};
-   if(!reparray.good()){
+   quan::dynarray<uint8_t> bytestream{length,main_alloc_failed};
+   if(!bytestream.good()){
       return false;
    }
-   if (!flash_symtab::read(sym_index,reparray)){
+   if (!flash_symtab::read(sym_index,bytestream)){
       return false;
    }
-   dest = (*reparray.get() == 1)?true:false;
+   dest = (*bytestream.get() == 1)?true:false;
    return true;
 }

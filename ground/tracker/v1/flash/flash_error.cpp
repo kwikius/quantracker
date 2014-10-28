@@ -1,7 +1,7 @@
 
 #include <quan/error.hpp>
 #include <quan/utility/fifo.hpp>
-#include "flash.hpp"
+#include "flash_error.hpp"
 
 void user_message(const char * str);
 

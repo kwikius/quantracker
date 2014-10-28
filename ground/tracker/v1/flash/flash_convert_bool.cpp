@@ -3,18 +3,14 @@
 #include <quan/dynarray.hpp>
 #include "flash.hpp"
 #include "flash_type_tags.hpp"
-#include "conv_funcs.hpp"
- 
-/*
- Think these should be moved to quan if and when more stable
-*/
+#include "flash_convert.hpp"
+#include "flash_error.hpp"
 
 namespace {
-const char expected_bool[] = "expected \"true\" or \"false\"";
+   const char expected_bool[] = "expected \"true\" or \"false\"";
 }
  
 bool flash_convert<bool>::text_to_bytestream(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
-//bool cstring_to_rep_Bool(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
 {
      // input is "true" or "false"
      uint8_t val = 0;

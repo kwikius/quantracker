@@ -1,15 +1,15 @@
-#include <quan/three_d/vect.hpp>
+
 #include <cstring>
 #include <cstdio>
+#include <quan/three_d/vect.hpp>
+#include <quan/dynarray.hpp>
 #include <quan/conversion/float_convert.hpp>
 #include <quan/conversion/float_to_ascii.hpp>
-#include <quan/dynarray.hpp>
+#include <quan/error.hpp>
 #include "flash.hpp"
-#include "conv_funcs.hpp"
+#include "flash_convert.hpp"
 #include "flash_type_tags.hpp"
-/*
- Think these should be moved to quan if and when more stable
-*/
+#include "flash_error.hpp"
 
 namespace{
     const char expected_float[] = "expected [float,float,float]";
@@ -19,7 +19,6 @@ namespace{
 
 bool flash_convert<quan::three_d::vect<float> >::text_to_bytestream(
       quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src_in)
-//bool cstring_to_rep_Vect3F (quan::dynarray<uint8_t> & dest, quan::dynarray<char> const & src_in)
 {
    if ((src_in.get_num_elements() < 7) ||  (src_in.get() [0] != '[') ) {
       user_error(expected_float);
@@ -82,7 +81,7 @@ bool flash_convert<quan::three_d::vect<float> >::bytestream_to_text(
    memcpy(conv.ar,src.get(),sizeof (float) *3);
 
     char buf[100];
-#if 1
+#if 0
     char* ptr = buf;
     *ptr++ = '[';
     ptr += quan::float_to_ascii<3>( conv.val[0],ptr);
@@ -97,7 +96,7 @@ bool flash_convert<quan::three_d::vect<float> >::bytestream_to_text(
 //###########results in large code but ok if used already#####
    int const result = sprintf (buf,"[%.3f,%.3f,%.3f]",conv.val[0],conv.val[1],conv.val[2]);
    if ( (result <= 0) || (result >= 100)) {
-      quan::error(fn_rep_to_cstring_Vect3F, error_bad_float_range);
+      quan::error(fn_rep_to_cstring_Vect3F, quan::detail::bad_float_range);
       return false;
    }
 //#############################################

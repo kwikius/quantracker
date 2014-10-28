@@ -1,9 +1,15 @@
 
 #include <quan/three_d/vect.hpp>
-#include "conv_funcs.hpp"
 #include "../compass.hpp"
 #include "../serial_ports.hpp"
 #include "flash.hpp"
+#include "flash_convert.hpp"
+#include "to_from_flash.hpp"
+
+/*
+ get values from flash for startup config
+ 
+*/
 
  bool init_values_from_flash()
  {

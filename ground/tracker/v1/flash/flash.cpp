@@ -1,10 +1,12 @@
 #include <cstring>
 #include <quan/three_d/vect.hpp>
+#include <quan/stm32/flash.hpp>
 #include <quan/stm32/detail/flash.hpp>
-#include "flash.hpp"
-#include "conv_funcs.hpp"
-#include "flash_type_tags.hpp"
 #include "../serial_ports.hpp"
+#include "flash.hpp"
+#include "flash_error.hpp"
+#include "flash_convert.hpp"
+#include "flash_type_tags.hpp"
 
 namespace {
    // The symtab for this app
@@ -29,9 +31,8 @@ namespace {
       &flash_convert<id_to_type<0>::type>::text_to_bytestream,
       &flash_convert<id_to_type<1>::type>::text_to_bytestream
    };
-
-// in converting to bytestream may need to convert then check values
-// otherwise can just use type conv func
+   // in converting to bytestream may need to convert then check values
+// otherwise can just use type conv func as here
    bool text_to_bytestream_mag_offsets (quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
    {
       return text_to_bytestream[ type_to_id<decltype(flash_image.mag_offsets)>::value] (dest,src);
@@ -41,6 +42,23 @@ namespace {
    {
       return text_to_bytestream[type_to_id<decltype(flash_image.use_compass)>::value] (dest,src);
    }
+
+   // Array describing the size of a type in flash
+   // the order must be the same as the flash_type_tags enum
+   // in flash_type_tags.hpp
+   // There must be a separate entry for each different flash typ
+   constexpr uint32_t type_tag_to_size[] =
+   {
+      sizeof (id_to_type<0>::type), 
+      sizeof (id_to_type<1>::type) 
+   };
+    
+   /* array of fun_ptrs to convert the bytestream to text*/
+   constexpr flash_symtab::pfn_bytestream_to_text bytestream_to_text[] =
+   {
+      &flash_convert<id_to_type<0>::type>::bytestream_to_text,
+      &flash_convert<id_to_type<1>::type>::bytestream_to_text
+   };
 
    #define EE_SYMTAB_ENTRY(Val,Info, Readonly) { \
             #Val, \
@@ -80,22 +98,7 @@ namespace {
    }
     
    #undef EE_SYMTAB_ENTRY
-   // Array describing the size of a type in flash
-   // the order must be the same as the flash_type_tags enum
-   // in flash_type_tags.hpp
-   // There must be a separate entry for each different flash typ
-   constexpr uint32_t type_tag_to_size[] =
-   {
-      sizeof (id_to_type<0>::type), 
-      sizeof (id_to_type<1>::type) 
-   };
-    
-   /* array of fun_ptrs to convert the bytestream to text*/
-   constexpr flash_symtab::pfn_bytestream_to_text bytestream_to_text[] =
-   {
-      &flash_convert<id_to_type<0>::type>::bytestream_to_text,
-      &flash_convert<id_to_type<1>::type>::bytestream_to_text
-   };
+
     
    uint16_t get_type_index (uint16_t symidx)
    {
@@ -155,7 +158,7 @@ uint16_t flash_symtab::get_num_elements()
    return app_symtab.get_symtable_size();
 }
  
-bool flash_symtab::write (uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value)
+bool flash_symtab::write_from_bytestream (uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value)
 {
    return quan::stm32::flash::write_symbol (app_symtab,symidx,symbol_value);
 }
@@ -165,36 +168,36 @@ bool flash_symtab::read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value
    return quan::stm32::flash::read_symbol (app_symtab,symidx,symbol_value);
 }
  
-bool flash_symtab::write_from_string (uint16_t symbol_index,quan::dynarray<char> const & value)
+bool flash_symtab::write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)
 {
    uint16_t const symbol_size = flash_symtab::get_size (symbol_index);
    // add check not 0 or neg
-   quan::dynarray<uint8_t> reparray { (size_t) symbol_size,main_alloc_failed};
-   if (!reparray.good()) {
+   quan::dynarray<uint8_t> bytestream { (size_t) symbol_size,main_alloc_failed};
+   if (!bytestream.good()) {
       return false;
    }
-   auto const string_to_rep_fun = get_text_to_bytestream_fun (symbol_index);
+   auto const text_to_bytestream_fun = get_text_to_bytestream_fun (symbol_index);
    
-   bool result1 = string_to_rep_fun (reparray,value);
+   bool result1 = text_to_bytestream_fun (bytestream,value);
    if (! result1) {
       return false;
    }
-   return flash_symtab::write (symbol_index,reparray);
+   return flash_symtab::write_from_bytestream (symbol_index,bytestream);
 }
  
-bool flash_symtab::read_to_string (
+bool flash_symtab::read_to_text (
    uint16_t symbol_index, quan::dynarray<char> & value)
 {
    uint16_t const symbol_size = flash_symtab::get_size (symbol_index);
-   quan::dynarray<uint8_t> reparray {symbol_size,main_alloc_failed};
-   if (!reparray.good()) {
+   quan::dynarray<uint8_t> bytestream {symbol_size,main_alloc_failed};
+   if (!bytestream.good()) {
       return false;
    }
-   if (!flash_symtab::read (symbol_index, reparray)) {
+   if (!flash_symtab::read (symbol_index, bytestream)) {
       return false;
    }
    auto const rep_to_string_fun = get_bytestream_to_text_fun (symbol_index);
-   return rep_to_string_fun (value,reparray) ;
+   return rep_to_string_fun (value,bytestream) ;
 }
  
 bool flash_symtab::exists (uint16_t symindex)
@@ -242,7 +245,7 @@ namespace {
  
 /*
 See if flash page has been written.
-  Using the Linux version of ST-Link, the default 
+ Currently (with Linux version of ST-Link), the default 
  after uploading is to clear verything to 0
   so starting from 0 or each byte with the sum.
   if reult is 0 then page is empty
@@ -265,10 +268,9 @@ uint8_t flash_check_page (uint8_t n)
    return sum ;
 }
  
- // 
 uint8_t flash_check()
 {
-   return flash_check_page (1) | flash_check_page (2);
+   return flash_check_page(1) | flash_check_page(2);
 }
 
 } //namespace

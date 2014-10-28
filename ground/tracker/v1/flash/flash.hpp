@@ -3,9 +3,7 @@
 
 #include <cstdint>
 #include <quan/dynarray.hpp>
-#include <quan/three_d/vect.hpp>
-#include <quan/stm32/flash.hpp>
-#include "flash_error.hpp"
+
 
 namespace flash_symtab{
 
@@ -20,14 +18,14 @@ namespace flash_symtab{
       // get the text info blurb about the index
       const char* get_info(uint16_t symindex);
       // is it readonly
-       // TODO sort force writing
+      // TODO sort force writing
       bool get_readonly_status(uint16_t symidx,bool & result);
        // get the symbol value to a user string representation
-      bool read_to_string(uint16_t symbol_index, quan::dynarray<char> & value);
-      // write from text rep
-      bool write_from_string (uint16_t symbol_index,quan::dynarray<char> const & value);
-      // write to flash as byte stream in symbol_value
-      bool write(uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value);
+      bool read_to_text(uint16_t symbol_index, quan::dynarray<char> & value);
+      // write index to flash from text
+      bool write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value);
+      // write index to flash from byte stream 
+      bool write_from_bytestream(uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value);
      // ideally symbol_value is prepared with a size from get_size
       // read symbol to byte stream in symbol value
       bool read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value);
