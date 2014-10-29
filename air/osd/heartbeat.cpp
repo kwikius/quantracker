@@ -43,7 +43,6 @@ On new heartbeat Switch on LED and change function to counting in heartbeat
 
 void on_new_heartbeat()
 {
-   static uint32_t heartbeat_timer = 0;
    static uint32_t cur_num_heartbeats = 0;
 
    uint32_t num_heartbeats = get_num_heartbeats();

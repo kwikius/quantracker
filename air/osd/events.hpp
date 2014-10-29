@@ -16,8 +16,15 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
-#include <stm32f0xx.h>
+#if defined QUAN_STM32F4
+#include <stm32f4xx.h>
+#else
+#if defined QUAN_STM32F0
+#include <stm32f4xx.h>
+#else
+#error need to define processor
+#endif
+#endif
 #include <cstdint>
 #include <quan/time.hpp>
 
@@ -28,7 +35,7 @@ void do_event_ticks();
 struct periodic_event{
 
    periodic_event(quan::time_<uint32_t>::ms const & period, void(*pf)(), bool enabled = false) :
-   m_count{0},m_target_count{period},m_pf{pf},
+   m_count{0U},m_target_count{period},m_pf{pf},
    m_call_flag{false},m_enabled{enabled}{}
 
    void service() 
@@ -45,8 +52,8 @@ struct periodic_event{
       NVIC_EnableIRQ(SysTick_IRQn);  
    }
    bool is_enabled() const {return m_enabled;}
-   bool enable(){ m_enabled = true;}
-   bool disable() { m_enabled = false;}
+   void enable(){ m_enabled = true;}
+   void disable() { m_enabled = false;}
 private:
 
    friend void do_event_ticks();
@@ -54,7 +61,7 @@ private:
    { 
       if (++m_count >= m_target_count){
          m_call_flag = true;
-         m_count = quan::time_<uint32_t>::ms{0};
+         m_count = quan::time_<uint32_t>::ms{0U};
       }
    }
    quan::time_<uint32_t>::ms m_count;
@@ -66,9 +73,9 @@ private:
 
 // indexes into the events array
 struct event_index{
-   static constexpr uint32_t frsky = 0;
-   static constexpr uint32_t fsk = 1;
-   static constexpr uint32_t heartbeat = 2;
+   static constexpr uint32_t frsky = 0U;
+   static constexpr uint32_t fsk = 1U;
+   static constexpr uint32_t heartbeat = 2U;
 };
 
 periodic_event * get_event(uint32_t i);

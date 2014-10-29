@@ -16,13 +16,13 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+#include <cstdint>
 #include <cstddef>
 
 namespace fsk {
 
    bool put(char ch);
-   bool write(const char* buf, size_t len);
+   int32_t write(const char* buf, size_t len);
 
    void setup(); // defined in fsk_output.cpp
    void setup_event();

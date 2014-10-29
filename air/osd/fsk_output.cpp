@@ -29,7 +29,7 @@ could meybe use DMA per bit and change the timing so very low overhead
 #include <stm32f4xx.h>
 #else
 #if defined QUAN_STM32F0
-#include <stm32f0xx.h>
+#include <stm32f4xx.h>
 #else
 #error need to define processor
 #endif
@@ -42,9 +42,9 @@ namespace {
 
    void dac_port_setup()
    {
-      module_enable<dac_out_pin::port_type>();
+      module_enable<fsk_dac_out_pin::port_type>();
       apply<
-         dac_out_pin
+         fsk_dac_out_pin
          , gpio::mode::analog
          , gpio::pupd::none
       >();
@@ -52,33 +52,33 @@ namespace {
 
    void dac_timer_setup()
    {
-      module_enable<tim6>();
+      module_enable<fsk_dac_timer>();
 
-      tim6::get()->cnt = 0;
+      fsk_dac_timer::get()->cnt = 0;
    
-      tim6::get()->psc = 0;
+      fsk_dac_timer::get()->psc = 0;
 #if defined QUAN_STM32F4
 // got something wrong with f4 bus frequencies calcs here!
 // would suggest actual freq is 2x the value we find
-      tim6::get()->arr = 2*fsk_params::clks_per_dac_write - 1;
+      fsk_dac_timer::get()->arr = 2*fsk_params::clks_per_dac_write - 1;
 #else
 #if defined QUAN_STM32F0
-       tim6::get()->arr = fsk_params::clks_per_dac_write - 1;
+       fsk_dac_timer::get()->arr = fsk_params::clks_per_dac_write - 1;
 #endif
 #endif
 
-      tim6::get()->cr1 = (1 << 2); // (URS)
+      fsk_dac_timer::get()->cr1 = (1 << 2); // (URS)
       
-      tim6::get()->cr2 = 0b010 << 4 ; // trigger output on update (TRGO)
+      fsk_dac_timer::get()->cr2 = 0b010 << 4 ; // trigger output on update (TRGO)
       
-      tim6::get()->sr.clearbit<0>(); // (UIF)
+      fsk_dac_timer::get()->sr.clearbit<0>(); // (UIF)
 
       NVIC_SetPriority(TIM6_DAC_IRQn,interrupt_priority::fsk_dac_timer);
       NVIC_EnableIRQ(TIM6_DAC_IRQn);
       // enable update interrupt
-      tim6::get()->dier.setbit<0>() ; // (UIE)
+      fsk_dac_timer::get()->dier.setbit<0>() ; // (UIE)
 
-      enable<tim6>();
+      enable<fsk_dac_timer>();
    }
 
       // the fifo for the fsk output data
@@ -90,27 +90,31 @@ namespace fsk {
    {
    #if  QUAN_STM32_HAS_BITBANDING
       // disable TIM6 interrupt
-       tim6::get()->dier.bb_clearbit<0>() ; // (UIE)
+       fsk_dac_timer::get()->dier.bb_clearbit<0>() ; // (UIE)
    #else
-      tim6::get()->dier.clearbit<0>() ; // (UIE)
+      fsk_dac_timer::get()->dier.clearbit<0>() ; // (UIE)
    #endif
       bool const result = output_fifo.put(static_cast<uint8_t>(ch));
       // enable TIM6 interrupt
    #if  QUAN_STM32_HAS_BITBANDING
-      tim6::get()->dier.bb_setbit<0>() ; // (UIE)
+      fsk_dac_timer::get()->dier.bb_setbit<0>() ; // (UIE)
    #else
-      tim6::get()->dier.setbit<0>() ; // (UIE)
+      fsk_dac_timer::get()->dier.setbit<0>() ; // (UIE)
    #endif
       return result;
    }
-
-   bool write( const char* buf, size_t len)
+// should be count
+   int32_t write( const char* buf, size_t len)
    {
-
+      int32_t count =0;
       for (size_t i =0; i < len; ++i){
-        fsk::put(buf[i]);
+        if (!fsk::put(buf[i])){
+            break;
+         }else{
+            ++count;
+         }
       }
-
+      return count;
    }
 }
 
@@ -278,9 +282,9 @@ extern "C" void TIM6_DAC_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void TIM6_DAC_IRQHandler()
 {
 #if QUAN_STM32_HAS_BITBANDING
-   tim6::get()->sr.bb_clearbit<0>(); // (UIF)
+   fsk_dac_timer::get()->sr.bb_clearbit<0>(); // (UIF)
 #else
-   tim6::get()->sr.clearbit<0>(); // (UIF)
+   fsk_dac_timer::get()->sr.clearbit<0>(); // (UIF)
 #endif
 
    switch (cur_state){

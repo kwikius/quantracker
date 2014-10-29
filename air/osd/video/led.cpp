@@ -1,7 +1,7 @@
 
 #include <quan/meta/type_sequence.hpp>
 #include <quan/meta/for_each.hpp>
-#include "resources.hpp"
+#include "../resources.hpp"
 
 namespace {
       

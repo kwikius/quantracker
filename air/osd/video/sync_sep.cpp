@@ -5,8 +5,8 @@
 #include <quan/time.hpp>
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
-#include "resources.hpp"
-#include "video_setup.hpp"
+#include "../resources.hpp"
+#include "video_cfg.hpp"
 
 /*
 software sync sep
@@ -21,7 +21,7 @@ TODO add ADC to get sync tip and black level
 */
  
 namespace {
-   typedef quan::stm32::tim9 sync_timer;
+  // typedef quan::stm32::tim9 sync_timer;
     
    bool initial_first_edge_captured = false;
     
@@ -44,7 +44,7 @@ namespace {
    uint8_t sync_counter = 0;
    syncmode_t syncmode = syncmode_t::start;
 
-   constexpr uint32_t bus_freq = quan::stm32::get_module_bus_frequency<sync_timer>();
+   constexpr uint32_t bus_freq = quan::stm32::get_module_bus_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec = 2 * static_cast<uint16_t>(bus_freq / 1000000U);
 
 }; // namespace
@@ -73,15 +73,15 @@ void sync_sep_error_reset()
 void sync_sep_enable()
 {
   sync_sep_reset();
-  sync_timer::get()->sr = 0;
-  sync_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
-  sync_timer::get()->cr1.bb_setbit<0>();// (CEN)
+  sync_sep_timer::get()->sr = 0;
+  sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
+  sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
 }
 
 void sync_sep_disable()
 {
-  sync_timer::get()->cr1.bb_clearbit<0>() ;// (CEN)
-  sync_timer::get()->dier &= ~((1 << 1) | ( 1 << 2)); // ( CC1IE, CC2IE)
+  sync_sep_timer::get()->cr1.bb_clearbit<0>() ;// (CEN)
+  sync_sep_timer::get()->dier &= ~((1 << 1) | ( 1 << 2)); // ( CC1IE, CC2IE)
 }
  
 void sync_sep_new_frame()
@@ -95,12 +95,12 @@ void sync_sep_new_frame()
 
 void sync_sep_setup()
 {
-   quan::stm32::module_enable<video_in::hsync_first_edge_pin::port_type>();
-   quan::stm32::module_enable<video_in::hsync_second_edge_pin::port_type>();
+   quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
+   quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
 //############################
 //change to pulldown
    quan::stm32::apply<
-      video_in::hsync_first_edge_pin,
+      video_in_hsync_first_edge_pin,
       quan::stm32::gpio::mode::af3,
 #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
       quan::stm32::gpio::pupd::pull_up
@@ -114,7 +114,7 @@ void sync_sep_setup()
    >();
 
    quan::stm32::apply<
-      video_in::hsync_second_edge_pin,
+      video_in_hsync_second_edge_pin,
       quan::stm32::gpio::mode::af3,
 #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
       quan::stm32::gpio::pupd::pull_up
@@ -128,17 +128,17 @@ void sync_sep_setup()
    >();
 //####################################
 
-   quan::stm32::module_enable<sync_timer>();
-   quan::stm32::module_reset<sync_timer>();
+   quan::stm32::module_enable<sync_sep_timer>();
+   quan::stm32::module_reset<sync_sep_timer>();
 
-   sync_timer::get()->arr = 0xFFFF;
+   sync_sep_timer::get()->arr = 0xFFFF;
 
    // cc1 capture on first edge of hsync
    // cc2 capture on second edge of hsync
    quan::stm32::tim::ccmr1_t ccmr1 = 0;
      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
-   sync_timer::get()->ccmr1.set(ccmr1.value);
+   sync_sep_timer::get()->ccmr1.set(ccmr1.value);
 
 // tim9
    quan::stm32::tim::ccer_t ccer = 0;
@@ -159,7 +159,7 @@ void sync_sep_setup()
 #endif
       ccer.cc1e = true;
       ccer.cc2e = true;
-    sync_timer::get()->ccer.set(ccer.value);
+    sync_sep_timer::get()->ccer.set(ccer.value);
 
    NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
 }
@@ -170,7 +170,7 @@ namespace {
 void  calc_line_period() 
 {
   if (initial_first_edge_captured) {
-       uint16_t const capture = sync_timer::get()->ccr1;
+       uint16_t const capture = sync_sep_timer::get()->ccr1;
        uint16_t const line_length = capture - last_sync_first_edge ;
        last_sync_first_edge = capture;
        constexpr uint16_t one_quarter_line = 16U * clocks_usec;
@@ -186,7 +186,7 @@ void  calc_line_period()
             }
        }
   } else {// just get initial capture value and exit
-       last_sync_first_edge = sync_timer::get()->ccr1;
+       last_sync_first_edge = sync_sep_timer::get()->ccr1;
        initial_first_edge_captured = true;
   } 
 }
@@ -199,7 +199,7 @@ void calc_sync_pulse_type()
 {
    if ( initial_first_edge_captured) { // have capture to compare with
       // second edge capture
-      uint16_t const capture = sync_timer::get()->ccr2;
+      uint16_t const capture = sync_sep_timer::get()->ccr2;
       uint16_t const sync_length = capture - last_sync_first_edge ;
       // hsync short is about 2.4 usec
       // hsync long is about 4.8 usec
@@ -212,9 +212,9 @@ void calc_sync_pulse_type()
       if ( (sync_length >= min_vsync_len) && (sync_length <= max_vsync_len) ) {
                sync_pulse_type = synctype_t::vsync;
                quan::stm32::set<red_led_pin>();
-               quan::stm32::set<test_pin>();
+               //quan::stm32::set<test_pin>();
       }else {
-              quan::stm32::clear<test_pin>();
+             // quan::stm32::clear<test_pin>();
          if ( (sync_length <= max_hsync_len) && (sync_length >= min_hsync_len)) {
                sync_pulse_type = synctype_t::hsync;
                quan::stm32::clear<orange_led_pin>();
@@ -353,13 +353,13 @@ extern "C" void TIM1_BRK_TIM9_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
  
 extern "C" void TIM1_BRK_TIM9_IRQHandler()
 {
-     uint16_t const sr = sync_timer::get()->sr.get();
+     uint16_t const sr = sync_sep_timer::get()->sr.get();
      if (sr & (1 << 1)) {  // cc1_if
-          sync_timer::get()->sr.bb_clearbit<1>();
+          sync_sep_timer::get()->sr.bb_clearbit<1>();
           on_hsync_first_edge();
      } else {
           if (sr & (1 << 2)) {  // cc2_if
-            sync_timer::get()->sr.bb_clearbit<2>();
+            sync_sep_timer::get()->sr.bb_clearbit<2>();
             on_hsync_second_edge();
           }
      }

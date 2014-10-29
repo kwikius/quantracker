@@ -3,7 +3,7 @@
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
-#include "video_setup.hpp"
+#include "video_cfg.hpp"
 #include "video.hpp"
 
 // row line_counter on TIM3 (16 bit)

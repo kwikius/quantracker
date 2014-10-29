@@ -3,7 +3,7 @@
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
-#include "video_setup.hpp"
+#include "video_cfg.hpp"
 // OSD pixel clock
 uint16_t video_cfg::spi_clock::m_timer_half_clks_per_px = 6;   // 14 MHz px clk
 // Data bit clock
@@ -12,9 +12,9 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
  void video_cfg::spi_clock::setup()
    {
       //spi_clock output on TIM1_CH1
-      quan::stm32::module_enable<video_mux::spi_clock::port_type>();
+      quan::stm32::module_enable<video_spi_clock::port_type>();
       quan::stm32::apply<
-         video_mux::spi_clock
+         video_spi_clock
          ,quan::stm32::gpio::mode::af1  // TIM1_CH1
          ,quan::stm32::gpio::ospeed::fast
          ,quan::stm32::gpio::ostate::low

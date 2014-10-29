@@ -15,8 +15,26 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-#include <cstdint>
 
+#ifndef QUAN_OSD_BOARD_TYPE
+   #error which board?
+#else
+   #if QUAN_OSD_BOARD_TYPE == 1
+      #pragma message "for board 1"
+   #else 
+      #if QUAN_OSD_BOARD_TYPE == 2
+         #pragma message "for board 2"
+      #else
+         #if QUAN_OSD_BOARD_TYPE == 3
+            #pragma message "for board 3"
+         #else
+            #error unknown board
+         #endif
+      #endif
+   #endif
+#endif
+
+#include <cstdint>
 #include "mavlink.hpp"
 #include "gps.hpp"
 #include "settings.hpp"
@@ -26,22 +44,10 @@
 extern "C" void setup();
 
 namespace {
-//
-//   void read_gps()
-//   { 
-//      the_gps.parse();
-//   }
 
    void read_data()
    {
-//      switch( settings::data_source){
-//         case settings::data_source_t::mavlink:
-            read_mavlink();
-//         break;
-//         default:
-//            read_gps();
-//         break;
-//      }
+      read_mavlink();
    }
 }
 #if 0
@@ -74,22 +80,20 @@ namespace {
    }
 
    void do_command_line(){}
+
 }
 #endif
+
+void do_tasks()
+{
+   read_data();
+   service_events();
+}
 int main()
 {
-   // for user input CLI
-   // setup the sp at baud
-   // listen for user data for 30 secs
-   // if first three bytes == rets then command line else
-   //
-  // if (! want_commandline() ){
-      setup();
-      for(;;){
-         read_data();
-         service_events();
-      }
-//   }else{
-//      do_command_line();
-//   }
+   setup();
+   for(;;){
+      draw_loop();
+      do_tasks();
+   }
 }

@@ -15,21 +15,18 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-
-#include <stm32f0xx.h>
-
 #include "events.hpp"
 
-namespace {
-    uint32_t tickcount;
-}
+#include <quan/stm32/systick.hpp>
 
-quan::time_<uint32_t>::ms millis()
-{ return quan::time_<uint32_t>::ms{tickcount};}
+volatile int64_t quan::stm32::detail::systick_tick::current = 0;
 
+extern "C" void Systick_Handler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void SysTick_Handler()
 {
-   ++tickcount;
-   
+   ++quan::stm32::detail::systick_tick::current;
    do_event_ticks(); 
 }
+
+   
+   

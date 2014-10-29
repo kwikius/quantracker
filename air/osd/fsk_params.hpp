@@ -48,9 +48,16 @@ struct fsk_params{
    static constexpr uint32_t samples_per_bit = dac_write_freq / baud_rate;
    static_assert(dac_write_freq % baud_rate == 0, "remainder in division");
    // want to no bus_speed of tim6 bus
-   static constexpr uint32_t tim6_bus_freq = quan::stm32::get_bus_frequency<quan::stm32::detail::get_bus<quan::stm32::tim6>::type>();
+// prob is wrong on stm32f4
+
+
 #if defined QUAN_STM32F0
+      static constexpr uint32_t tim6_bus_freq = quan::stm32::get_bus_frequency<quan::stm32::detail::get_bus<quan::stm32::tim6>::type>();
    static_assert(tim6_bus_freq == 48000000,"not as expected");
+#endif
+#if defined QUAN_STM32F4
+   static constexpr uint32_t tim6_bus_freq =  quan::stm32::get_bus_frequency<quan::stm32::detail::get_bus<quan::stm32::tim6>::type>();
+   static_assert(tim6_bus_freq == 42000000,"not as expected");
 #endif
   // this basicallys sets modem baudrate
    static constexpr uint32_t clks_per_dac_write = tim6_bus_freq/dac_write_freq + (((tim6_bus_freq % dac_write_freq) >= dac_write_freq/2)?1:0);

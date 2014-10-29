@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <quan/two_d/vect.hpp>
 #include <quan/time.hpp>
-#include "video_setup.hpp"
+#include "video_cfg.hpp"
 #include "video_buffer.hpp"
 #include <quan/small_rational.hpp>
 // after openpilot oposd etc

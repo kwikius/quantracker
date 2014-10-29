@@ -3,7 +3,7 @@
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
-#include "video_setup.hpp"
+#include "video_cfg.hpp"
 #include "video_buffer.hpp"
 #include "video.hpp"
 #include <quan/conversion/itoa.hpp>
@@ -150,14 +150,11 @@ void spi_ll_setup()
    quan::stm32::rcc::get()->apb1rstr |= (0b11 << 14);
    quan::stm32::rcc::get()->apb1rstr &= ~ (0b11 << 14);
    
-   spi_setup1<video_mux::out_black::spi>();
-   spi_setup1<video_mux::out_white::spi>();
+   spi_setup1<video_mux_out_black_spi>();
+   spi_setup1<video_mux_out_white_spi>();
    
-   video_mux::out_black::spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
-   //  video_mux::out_black::spi::get()->cr1.bb_setbit<6>(); //(SPE)
-   
-   video_mux::out_white::spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
-   // video_mux::out_white::spi::get()->cr1.bb_setbit<6>(); //(SPE)
+   video_mux_out_black_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+   video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
 }
  
  
@@ -267,10 +264,10 @@ void video_cfg::columns::telem::begin()
       quan::stm32::rcc::get()->apb1enr |= (0b1 << 15);
       quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
       quan::stm32::rcc::get()->apb1rstr &= ~ (0b1 << 15);
-      spi_setup1<video_mux::out_white::spi>();
-      video_mux::out_white::spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
-      video_mux::out_white::spi::get()->dr = white[0] | 0b00001111;
-      video_mux::out_white::spi::get()->cr1.bb_setbit<6>(); //(SPE)
+      spi_setup1<video_mux_out_white_spi>();
+      video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+      video_mux_out_white_spi::get()->dr = white[0] | 0b00001111;
+      video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
       DMA1_Stream5->CR |= (1 << 0); // (EN)
    }
    // receiver
@@ -316,10 +313,10 @@ void video_cfg::columns::osd::begin()
    
    spi_ll_setup();
    
-   video_mux::out_black::spi::get()->dr = black[0] | 1U;
-   video_mux::out_white::spi::get()->dr = white[0] | 1U;
-   video_mux::out_black::spi::get()->cr1.bb_setbit<6>(); //(SPE)
-   video_mux::out_white::spi::get()->cr1.bb_setbit<6>(); //(SPE)
+   video_mux_out_black_spi::get()->dr = black[0] | 1U;
+   video_mux_out_white_spi::get()->dr = white[0] | 1U;
+   video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+   video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
    DMA1_Stream4->CR |= (1 << 0); // (EN)
    DMA1_Stream5->CR |= (1 << 0); // (EN)
 }

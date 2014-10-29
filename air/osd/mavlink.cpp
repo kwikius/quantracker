@@ -110,18 +110,18 @@ namespace{
 void read_mavlink()
 {
 
-   static bool mavlink_active = false;
+  // static bool mavlink_active = false;
    static int packet_drops = 0;
-   static int  parse_error = 0;
+   static int parse_error = 0;
   
    mavlink_message_t msg; 
-   mavlink_status_t status;
+   mavlink_status_t status ;
 
     while (posdata_sp::serial_port::in_avail()) {
        uint8_t ch = posdata_sp::serial_port::get();
 
       if(mavlink_parse_char(MAVLINK_COMM_0, ch, &msg, &status)) {
-         mavlink_active = true;
+        // mavlink_active = true;
          switch(msg.msgid) {
             case MAVLINK_MSG_ID_HEARTBEAT:
                do_mavlink_heartbeat(&msg);

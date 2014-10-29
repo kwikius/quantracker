@@ -52,6 +52,8 @@ void start_black_level_conversion()
 
 void update_black_level(uint16_t sync_tip, uint16_t black_level)
 {
+// TODO
+#if 0
   // can also use DAC?
    // 12 bit 
    float const white = sync_tip + (black_level - sync_tip) * 1.0f/0.3f;
@@ -62,6 +64,7 @@ void update_black_level(uint16_t sync_tip, uint16_t black_level)
    float const grey  =  black + 0.25 * ( white - black);
    float const data  = black + ( white - black)/2.f;
    //12 bit pwm  arr// get lowest freq 
+#endif
 }
 
 

@@ -27,7 +27,7 @@ namespace {
       ::frsky_sp::serial_port::write(reinterpret_cast<char const *>(buf),len);
       return len;
    }
-//need to invert output for FrSky
+   //need to invert output for FrSky
   // but not for eg OpenLRS
    bool invert_frsky_tx = true;
 }
@@ -38,6 +38,7 @@ namespace frsky{
    {
       frsky_sp::serial_port::init();
    //TODO : invert tx output according to eeprom
+   // cant invert on stm32f4 may need external xor gate
       if ( invert_frsky_tx == true){
          typedef frsky_sp::serial_port::usart_type usart;
          static constexpr uint8_t txinv_bit = 17;

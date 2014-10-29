@@ -6,7 +6,19 @@
 #include <quan/dynarray.hpp>
 
 
-
+/*
+ need to yield at times to do other tasks,
+ ideally once per millisec
+ alternately use irq to do tasks?
+ In systick reeenable interrupts
+ Or get a big buffer for input and do other tasks at the end.
+ 1/50th sec at 56 k baud
+ 5,600 bytes/sec
+ = 5,600 / 50
+ = requires 112 bytes of buffer per 1/50th sec frame
+ also need to process.
+ 
+*/
 namespace {
 
    typedef quan::two_d::vect<float> vect;
@@ -34,7 +46,7 @@ void set_text_data( const char* text)
 // return true to request buffers swapped
 // need to periodically yield from the function
 // as it may be quite long
-// to service events etc
+// to service events etc ( min every ms)
 // set a clipbox
 bool on_draw()
 {

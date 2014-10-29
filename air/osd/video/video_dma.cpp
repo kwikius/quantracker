@@ -1,6 +1,6 @@
 #include <stm32f4xx.h>
 
-#include "resources.hpp"
+#include "../resources.hpp"
 
 namespace {
 
@@ -64,8 +64,8 @@ void pixel_dma_setup()
    RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA1RST;
    RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA1RST;
   
-   ll_pixel_dma_setup<video_mux::out_black::spi>(DMA1_Stream4,0); // spix tx
-   ll_pixel_dma_setup<video_mux::out_white::spi>(DMA1_Stream5,0); // spix tx
+   ll_pixel_dma_setup<video_mux_out_black_spi>(DMA1_Stream4,0); // spix tx
+   ll_pixel_dma_setup<video_mux_out_white_spi>(DMA1_Stream5,0); // spix tx
 
 // not needed? 
   // NVIC_EnableIRQ(DMA1_Stream4_IRQn);

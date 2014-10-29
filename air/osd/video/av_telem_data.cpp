@@ -2,7 +2,7 @@
 #include <stm32f4xx.h>
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
-#include "video_setup.hpp"
+#include "video_cfg.hpp"
 #include "video_buffer.hpp"
 #include "video.hpp"
 #include <quan/stm32/systick.hpp>

@@ -2,7 +2,7 @@
 #include "video.hpp"
 #include "video_buffer.hpp"
 #include <quan/dynarray.hpp>
-#include "resources.hpp"
+#include "../resources.hpp"
 
 void get_data_to_transmit(quan::dynarray<uint8_t> & ar);
 
