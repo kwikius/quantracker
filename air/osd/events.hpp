@@ -27,6 +27,7 @@
 #endif
 #include <cstdint>
 #include <quan/time.hpp>
+#include <quan/stm32/systick.hpp>
 
 void do_event_ticks();
 
@@ -47,9 +48,9 @@ struct periodic_event{
    }
    void set(quan::time_<uint32_t>::ms const & period, void(*pf)())
    {
-      NVIC_DisableIRQ(SysTick_IRQn);
+      quan::stm32::disable_SysTick_IRQ();
       m_target_count = period; m_pf = pf;
-      NVIC_EnableIRQ(SysTick_IRQn);  
+      quan::stm32::enable_SysTick_IRQ();
    }
    bool is_enabled() const {return m_enabled;}
    void enable(){ m_enabled = true;}
