@@ -16,15 +16,13 @@ void setup_events()
      frsky::setup_event();
      fsk::setup_event();
      setup_heartbeat_event();
-     NVIC_SetPriority(SysTick_IRQn,interrupt_priority::systick_timer);
      SysTick_Config(SystemCoreClock / 1000);
-
+     NVIC_SetPriority(SysTick_IRQn,interrupt_priority::systick_timer);
 }
 
 namespace {
    void setup_outputs()
    {
-
         frsky::setup();
         fsk::setup();
    }
@@ -60,9 +58,7 @@ void setup_systick()
 #error "need to define this"
 #endif
      SysTick_Config(SystemCoreClock / 1000);
-
      NVIC_SetPriority(SysTick_IRQn,15);
-     NVIC_EnableIRQ(SysTick_IRQn);
 }
 
 extern "C" void __cxa_pure_virtual()
@@ -182,7 +178,7 @@ extern "C" void setup()
      setup_leds();
      video_setup();
 #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
-     serial_port::init();
+   //  serial_port::init();
      Dac_setup();
 #endif
      setup_systick();
@@ -192,7 +188,7 @@ extern "C" void setup()
      setup_inputs();
      setup_events();
 }
- 
+ /*
 extern "C" void USART3_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART3_IRQHandler()
 {
@@ -204,5 +200,6 @@ extern "C" void USART3_IRQHandler()
  
      quan::stm32::usart::irq_handler<serial_port>();
 }
+*/
  
  
