@@ -29,7 +29,6 @@ void setup_systick()
 #endif
   SysTick_Config(SystemCoreClock / 1000);
   NVIC_SetPriority(SysTick_IRQn,15);
-  NVIC_EnableIRQ(SysTick_IRQn);
 }
 
 extern "C" void Systick_Handler() __attribute__ ((interrupt ("IRQ")));
