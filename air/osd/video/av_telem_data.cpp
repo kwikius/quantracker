@@ -1,13 +1,17 @@
-#include <quan/dynarray.hpp>
+#include <cstdio>
+#include <cstring>
+
 #include <stm32f4xx.h>
+
+#include "FreeRTOS.h"
+#include <task.h>
+
+#include <quan/dynarray.hpp>
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
 #include "video.hpp"
-#include <quan/stm32/systick.hpp>
-#include <cstdio>
-#include <cstring>
 
 /*
    get the data to transmit into ar provided by the caller
@@ -19,12 +23,10 @@
 */
 void do_time (quan::dynarray<uint8_t>  & ar)
 {
-    int64_t time_now = quan::stm32::millis().numeric_value();
+    int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)
     int32_t min_now = static_cast<int32_t>(time_now / 60000);
     int32_t s_now   = (time_now / 1000) - (min_now * 60);
-
     sprintf((char*)ar.get(),"time = %03lu min %02lu s", min_now,s_now);
-    
 }
 
 void get_data_to_transmit (quan::dynarray<uint8_t> & ar)

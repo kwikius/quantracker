@@ -15,19 +15,18 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include <quan/stm32/usart/irq_handler.hpp>
-#include "serial_ports.hpp"
+#include <type_traits>
+#include "resources.hpp"
 
 extern "C" void USART2_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART2_IRQHandler()
 {
    static_assert(
    std::is_same<
-      frsky_sp::serial_port::usart_type,quan::stm32::usart2
+      frsky_usart,quan::stm32::usart2
    >::value
    ,"invalid usart for serial_port irq");
-
-   quan::stm32::usart::irq_handler<frsky_sp::serial_port>();
+   frsky_tx_rx_task::irq_handler();
 }
 
 extern "C" void USART3_IRQHandler() __attribute__ ((interrupt ("IRQ")));
@@ -35,9 +34,8 @@ extern "C" void USART3_IRQHandler()
 {
    static_assert(
    std::is_same<
-     posdata_sp::serial_port::usart_type,quan::stm32::usart3
+     posdata_usart,quan::stm32::usart3
    >::value
    ,"invalid usart for serial_port irq");
-
-   quan::stm32::usart::irq_handler<posdata_sp::serial_port>();
+   posdata_tx_rx_task::irq_handler();
 }

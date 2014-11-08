@@ -1,12 +1,13 @@
 #ifndef QUANTRACKER_AIR_OSD_RESOURCES_HPP_INCLUDED
 #define QUANTRACKER_AIR_OSD_RESOURCES_HPP_INCLUDED
 // after taulabs, openpilot,brainfpv
+
+#include "freertos_usart_task.hpp"
 #include <quan/voltage.hpp>
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/spi.hpp>
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/usart.hpp>
-#include <quan/stm32/serial_port.hpp>
 
 //timers
 typedef quan::stm32::tim1                       spi_clock_timer;
@@ -48,8 +49,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,3>    frsky_rxi_pin;
 typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin;
 //keep pa5 free for stm32 DAC output
 typedef quan::mcu::pin<quan::stm32::gpioa,8>    video_spi_clock ; // TIM1_CH1
-// typedef quan::mcu::pin<quan::stm32::gpioa,9>    posdata_txo_pin;
-//  typedef quan::mcu::pin<quan::stm32::gpioa,10>   posdata_rxi_pin;
+
 
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
 
@@ -79,10 +79,24 @@ typedef quan::mcu::pin<quan::stm32::gpiod,3> av_dac_data;
 typedef quan::mcu::pin<quan::stm32::gpiod,7> av_dac_clk;
 typedef quan::mcu::pin<quan::stm32::gpiod,8>        posdata_txo_pin; // SF:USART3_TX:AF7
 typedef quan::mcu::pin<quan::stm32::gpiod,9>        posdata_rxi_pin; // SF:UASRT3_RX:AF7
+typedef posdata_txo_pin debug_txo_pin ;
+typedef posdata_rxi_pin debug_rxi_pin;
 
+typedef quan::stm32::freertos::usart_tx_rx_task<
+   posdata_usart,
+   100,100, 
+   posdata_txo_pin,posdata_rxi_pin,
+   uint8_t
+> posdata_tx_rx_task;
 
+typedef quan::stm32::freertos::usart_tx_rx_task<
+   frsky_usart,
+   100,100, 
+   frsky_txo_pin,frsky_rxi_pin,
+   char
+> frsky_tx_rx_task;
 
-typedef quan::mcu::pin<quan::stm32::gpiod,12>      green_led_pin;   // green led on Discovery
+typedef quan::mcu::pin<quan::stm32::gpiod,12>   green_led_pin;   // green led on Discovery
 typedef quan::mcu::pin<quan::stm32::gpiod,13>   orange_led_pin;       // orange led on Discovery
 typedef quan::mcu::pin<quan::stm32::gpiod,14>   red_led_pin;  // red led on Discover
 typedef quan::mcu::pin<quan::stm32::gpiod,15>   blue_led_pin;       // blue led on Discover
@@ -102,27 +116,25 @@ void Dac_setup();
 // really only 0 1nd 1 are useful
 void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
 
-
-
-//typedef quan::stm32::usart3 debug_usart;
-//typedef quan::mcu::pin<quan::stm32::gpiod,8>    debug_txo_pin; // SF:USART3_TX:AF7
-//typedef quan::mcu::pin<quan::stm32::gpiod,9>    debug_rxi_pin; // SF:UASRT3_RX:AF7
-//
-//   typedef quan::stm32::serial_port<
-//      debug_usart,500,500,txo_pin,rxi_pin
-//   > serial_port;
 #endif
 
-/*
-typedef quan::stm32::serial_port<
-   debug_usart,500,500,debug_txo_pin,debug_rxi_pin
-> serial_port;
-*/
+//typedef quan::stm32::serial_port<
+//   debug_usart,500,500,debug_txo_pin,debug_rxi_pin
+//> debug_serial_port;
+
+// 0- 15 lower numeical is higher logical priority
 struct interrupt_priority {
      static constexpr uint32_t systick_timer = 15;
      static constexpr uint32_t frsky_serial_port= 14;
      static constexpr uint32_t telemetry_input_port = 13;
      static constexpr uint32_t fsk_dac_timer = 12;
+};
+
+struct task_priority{
+   static constexpr uint32_t fsk = ( tskIDLE_PRIORITY + 3UL );
+   static constexpr uint32_t mavlink = ( tskIDLE_PRIORITY + 3UL );
+   static constexpr uint32_t frsky = ( tskIDLE_PRIORITY + 2UL );
+   static constexpr uint32_t heartbeat = ( tskIDLE_PRIORITY + 1UL );
 };
 
 bool is_transmitter();

@@ -14,14 +14,12 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
-
+#include "resources.hpp"
 #include "config.hpp"
 #include "frsky.hpp"
 #include "aircraft.hpp"
-#include "serial_ports.hpp"
+
 #include "settings.hpp"
-#include "events.hpp"
 
 /*
  The FrSky ZAPP1 protocol
@@ -143,23 +141,18 @@ namespace {
       int16_t pos = 0;
       int16_t count = 0;
       if(start_of_frame){
-        // though the header is in buf[0] we know what it is so use a constant here...
-        // frsky_serial_port::write( FrSky_msgID::header_value);
-      //  frsky_serial_port::write(buf,1);
-       // asynch_tx_write_byte( FrSky_msgID::header_value);
-        // frsky_tx_write_byte(FrSky_msgID::header_value);
-       frsky_sp::serial_port::put(FrSky_msgID::header_value);
+       frsky_tx_rx_task::put(FrSky_msgID::header_value);
         ++pos;
         ++count;
       }
       for( ; pos < len; ++pos){
           char ch = buf[pos];
           if ( (ch == FrSky_msgID::header_value) || (ch == FrSky_msgID::escape_value) ){
-             char ar[2]= {FrSky_msgID::escape_value, static_cast<char>(ch ^ 0x60)};
-             frsky_sp::serial_port::write(ar,2);
-             count += 2;
+            frsky_tx_rx_task::put(FrSky_msgID::escape_value);
+            frsky_tx_rx_task::put(ch ^ 0x60);
+            count += 2;
           }else{
-             frsky_sp::serial_port::put(ch);
+             frsky_tx_rx_task::put(ch);
              ++count;
           }
       }
@@ -169,7 +162,10 @@ namespace {
    //return actual num of chars written including escapes
    int16_t update_lat_msg1()
    {
-       lat_msg = normalise_angle(the_aircraft.location.gps_lat);
+       the_aircraft.mutex_acquire();
+       quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.gps_lat;
+       the_aircraft.mutex_release();
+       lat_msg = normalise_angle(temp);
        return esc_write_sp(lat_msg.get(), 2, true);
    }
    int16_t update_lat_msg2()
@@ -184,7 +180,10 @@ namespace {
    //longtitude
    int16_t update_lon_msg1()
    {
-      lon_msg = normalise_angle(the_aircraft.location.gps_lon);
+      the_aircraft.mutex_acquire();
+         quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.gps_lon;
+      the_aircraft.mutex_release();
+      lon_msg = normalise_angle(temp);
       return esc_write_sp(lon_msg.get(), 2, true);
    }
 
@@ -200,9 +199,15 @@ namespace {
    int16_t update_alt_msg1()
    {
       if ( settings::altitude_src == settings::altitude_t::gps_alt){
-         alt_msg = the_aircraft.location.gps_alt.numeric_value()/1000;
+         the_aircraft.mutex_acquire();
+            quan::length_<int32_t>::mm temp = the_aircraft.location.gps_alt;
+         the_aircraft.mutex_release();
+         alt_msg = temp.numeric_value()/1000;
       }else{
-         alt_msg = static_cast<int32_t>(the_aircraft.baro_alt.numeric_value());
+         the_aircraft.mutex_acquire();
+            quan::length_<float>::m temp = the_aircraft.baro_alt;
+         the_aircraft.mutex_release();
+         alt_msg = static_cast<int32_t>(temp.numeric_value());
       }
       return esc_write_sp(alt_msg.get(),2,true);
    }
@@ -258,21 +263,10 @@ namespace {
 
 namespace zapp1{
 
+   // call once per millisec
    void frsky_send_message()
    {
       zapp1_impl::send_message();
    }
 }
 
-namespace {
-   // event enabled
-   periodic_event FrSkyZapp1_event{quan::time_<uint32_t>::ms{20U},zapp1::frsky_send_message,true};
-}
-
-namespace zapp1{
-   void setup_frsky_event()
-   {
-      set_event(event_index::frsky,&FrSkyZapp1_event);
-      frsky_sp::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port);
-   }
-}

@@ -14,58 +14,66 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
+#include <cstdint>
+
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+
 
 #include <quan/stm32/gpio.hpp>
 
 #include "heartbeat.hpp"
 #include "resources.hpp"
-#include "events.hpp"
-#include "mavlink.hpp"
 
 /*
-  Once the heartbeat is done, switch off led and reversed to waiting for the next
+  On each heartbeat from mavlink
+   switch on heartbeat led for 250 ms
 */
+
 namespace {
-   periodic_event heartbeat_event{quan::time_<uint32_t>::ms{10U},on_new_heartbeat,true};
-}
 
-using namespace quan::stm32;
+   SemaphoreHandle_t heartbeat_semaphore = 0;
 
-void on_heartbeat_done()
-{
-   clear<heartbeat_led_pin>();
-   heartbeat_event.set(quan::time_<uint32_t>::ms{10U},on_new_heartbeat);
-}
-
-/*
-On new heartbeat Switch on LED and change function to counting in heartbeat
-*/
-
-void on_new_heartbeat()
-{
-   static uint32_t cur_num_heartbeats = 0;
-
-   uint32_t num_heartbeats = get_num_heartbeats();
-   if ( num_heartbeats > cur_num_heartbeats){
-      // new heartbeat
-      cur_num_heartbeats = num_heartbeats;
-      set<heartbeat_led_pin>();
-      heartbeat_event.set(quan::time_<uint32_t>::ms{250U},on_heartbeat_done);
+   void on_new_heartbeat()
+   {
+      xSemaphoreTake(heartbeat_semaphore,portMAX_DELAY);
    }
+
+   void heartbeat_task(void * params)
+   {
+      heartbeat_semaphore = xSemaphoreCreateBinary();
+
+      for (;;){
+         on_new_heartbeat(); // blocks waiting for heartbeat
+         quan::stm32::set<heartbeat_led_pin>(); 
+         vTaskDelay(250);
+         quan::stm32::clear<heartbeat_led_pin>(); 
+      }
+   }
+}//namespace 
+// N.B. called by mavlink task
+void signal_new_heartbeat()
+{
+   xSemaphoreGive(heartbeat_semaphore);
 }
 
-void setup_heartbeat_event()
+void create_heartbeat_task()
 {
-   module_enable<heartbeat_led_pin::port_type>();
+   quan::stm32::module_enable<heartbeat_led_pin::port_type>();
 
-   apply<
+   quan::stm32::apply<
       heartbeat_led_pin
-      , gpio::mode::output
-      , gpio::otype::push_pull
-      , gpio::pupd::none
-      , gpio::ospeed::slow
-      , gpio::ostate::low
+      , quan::stm32::gpio::mode::output
+      , quan::stm32::gpio::otype::push_pull
+      , quan::stm32::gpio::pupd::none
+      , quan::stm32::gpio::ospeed::slow
+      , quan::stm32::gpio::ostate::low
    >();
+   char dummy_param = 0;
+   xTaskCreate(heartbeat_task,"heartbeat_task", 
+      configMINIMAL_STACK_SIZE,
+         &dummy_param,task_priority::heartbeat,
+         ( TaskHandle_t * ) NULL);
 
-  set_event(event_index::heartbeat,&heartbeat_event);
 }

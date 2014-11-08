@@ -21,3 +21,16 @@
 #include "aircraft.hpp"
 
 aircraft the_aircraft;
+
+void aircraft::mutex_init()
+{
+   m_mutex = xSemaphoreCreateMutex();
+}
+void aircraft::mutex_acquire()
+{
+   xSemaphoreTake(m_mutex,portMAX_DELAY);
+}
+void aircraft::mutex_release()
+{
+   xSemaphoreGive(m_mutex);
+}

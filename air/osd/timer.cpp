@@ -14,7 +14,8 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+// not needed with RTOS
+#if 0
 #include "events.hpp"
 
 #include <quan/stm32/systick.hpp>
@@ -27,6 +28,7 @@ extern "C" void SysTick_Handler()
    ++quan::stm32::detail::systick_tick::current;
    do_event_ticks(); 
 }
+#endif
 
    
    

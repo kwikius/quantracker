@@ -16,6 +16,16 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+
+#include <stm32f4xx.h>
+#include <stdio.h>
+#include <misc.h>
+
+#include "FreeRTOS.h"
+#include "task.h"
+
+#include "resources.hpp"
+
 #ifndef QUAN_OSD_BOARD_TYPE
    #error which board?
 #else
@@ -34,34 +44,28 @@
    #endif
 #endif
 
-#include <cstdint>
-#include "mavlink.hpp"
-#include "gps.hpp"
-#include "settings.hpp"
-#include "events.hpp"
-#include "resources.hpp"
-
 extern "C" void setup();
 
-namespace {
-
-   void read_data()
-   {
-      read_mavlink();
-   }
-}
-
-void do_tasks()
-{
-   read_data();
-   service_events();
-}
+void create_mavlink_task();
+void create_heartbeat_task();
+void create_frsky_task();
+void create_fsk_task();
 
 int main()
 {
-   setup();
-   for(;;){
-      draw_loop();
-      do_tasks();
-   }
+  setup();
+    
+  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+  
+  create_mavlink_task();
+  create_frsky_task();
+  create_heartbeat_task();
+  create_fsk_task();
+
+  vTaskStartScheduler();
+
+  posdata_tx_rx_task::enable();
+  frsky_tx_rx_task::enable();
+
+  while (1) {;}
 }

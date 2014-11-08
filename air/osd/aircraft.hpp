@@ -19,12 +19,18 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+
+
 #ifdef __AVR__
 #include <stdint.h>
 #else 
 #include <cstdint>
 #endif
-//#include <quan/stm32f4/config.hpp>
+#include "FreeRTOS.h"
+#include "semphr.h"
+#ifdef QUAN_STM32F4
+#include <quan/stm32f4/config.hpp>
+#endif
 #include <quan/time.hpp>
 #include <quan/length.hpp>
 #include <quan/velocity.hpp>
@@ -91,9 +97,14 @@ struct aircraft{
       battery_current{0},
       battery_remaining{0},
       nav_mode{0},
-      custom_mode{0}
+      custom_mode{0},
+      m_mutex{0}
    {}
-   
+   void mutex_init();
+   void mutex_acquire();
+   void mutex_release();
+   private:
+      SemaphoreHandle_t m_mutex;
 };
 
 extern aircraft the_aircraft;

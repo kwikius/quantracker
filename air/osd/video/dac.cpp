@@ -31,10 +31,10 @@ void delay()
 
 void ll_dac_write(uint16_t val)
 {
-  dac_irq_timer::get()->dier.bb_clearbit<0>(); //(UIE)
+  video_level_dac_irq_timer::get()->dier.bb_clearbit<0>(); //(UIE)
   dac_fifo.put(val);
-  dac_irq_timer::get()->cr1.bb_setbit<0>(); //(CEN)
-  dac_irq_timer::get()->dier.bb_setbit<0>(); //(UIE)
+  video_level_dac_irq_timer::get()->cr1.bb_setbit<0>(); //(CEN)
+  video_level_dac_irq_timer::get()->dier.bb_setbit<0>(); //(UIE)
 }
 
 using quan::stm32::set;
@@ -64,8 +64,8 @@ void dac_irq()
           if ( !dac_fifo.is_empty()) {
                 dac_data = dac_fifo.get();
           }else {
-               dac_irq_timer::get()->cr1.bb_clearbit<0>(); //(CEN)
-               dac_irq_timer::get()->cnt = 0;
+               video_level_dac_irq_timer::get()->cr1.bb_clearbit<0>(); //(CEN)
+               video_level_dac_irq_timer::get()->cnt = 0;
           } 
           bit_count = 0;
           set<av_dac_nsync>();
@@ -76,19 +76,19 @@ void dac_irq()
 namespace tim = quan::stm32::tim;
 void dac_timer_setup()
 {
-     quan::stm32::module_enable<dac_irq_timer>();
+     quan::stm32::module_enable<video_level_dac_irq_timer>();
      constexpr quan::time_<int32_t>::us period {10};
      constexpr quan::frequency::Hz bus_freq
-     {quan::stm32::get_module_bus_frequency<dac_irq_timer>() *2};
+     {quan::stm32::get_module_bus_frequency<video_level_dac_irq_timer>() *2};
      constexpr auto clks = period * bus_freq;
      //tim10 on APB2 so full sys freq
      static_assert( clks == 168 *10,"error in calc");
      tim::cr1_t cr1 = 0U;
      cr1.urs = true;
-     dac_irq_timer::get()->cr1.set(cr1.value);
-     dac_irq_timer::get()->arr = clks;
-     dac_irq_timer::get()->cnt = 0;
-     dac_irq_timer::get()->sr = 0;
+     video_level_dac_irq_timer::get()->cr1.set(cr1.value);
+     video_level_dac_irq_timer::get()->arr = clks;
+     video_level_dac_irq_timer::get()->cnt = 0;
+     video_level_dac_irq_timer::get()->sr = 0;
      // dont enable timer till needed
      NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
 }
@@ -96,7 +96,7 @@ void dac_timer_setup()
 extern "C" void TIM1_UP_TIM10_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void TIM1_UP_TIM10_IRQHandler()
 {
-      dac_irq_timer::get()->sr = 0;
+      video_level_dac_irq_timer::get()->sr = 0;
       dac_irq();
 }
 
@@ -130,7 +130,7 @@ namespace {
    {
     #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
       
-       serial_port::write("OSD startup\n");
+     //  debug_serial_port::write("OSD startup\n");
 
        constexpr uint8_t dac_sync_idx = 0;
        constexpr uint8_t dac_black_idx = 1;

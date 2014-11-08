@@ -14,55 +14,33 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-#include "settings.hpp"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "resources.hpp"
+
 #include "frsky.hpp"
 
-#include "serial_ports.hpp"
-#include "events.hpp"
-
-namespace {
-
-   int16_t output (uint8_t const * buf, int16_t len)
-   {
-      ::frsky_sp::serial_port::write(reinterpret_cast<char const *>(buf),len);
-      return len;
-   }
-   //need to invert output for FrSky
-  // but not for eg OpenLRS
-   bool invert_frsky_tx = true;
-}
-
 namespace frsky{
-
-   void setup()
-   {
-      frsky_sp::serial_port::init();
-   //TODO : invert tx output according to eeprom
-   // cant invert on stm32f4 may need external xor gate
-      if ( invert_frsky_tx == true){
-         typedef frsky_sp::serial_port::usart_type usart;
-         static constexpr uint8_t txinv_bit = 17;
-         bool const enabled = frsky_sp::serial_port::is_enabled();
-         if (enabled){
-          quan::stm32::disable<usart>();
-         }
-         usart::get()->cr2.setbit<txinv_bit>();
-         if(enabled){
-            quan::stm32::enable<usart>();
-         }
-      }
-      frsky_sp::serial_port::set_baudrate<9600,false>();
-      
-   }
 
    void send_message()
    {
       zapp1::frsky_send_message();
    }
 
-   void setup_event()
+   void frsky_task(void * param)
    {
-      zapp1::setup_frsky_event();
+      for (;;){
+         frsky::send_message();
+         vTaskDelay(50);
+      }
    }
-
 }//frsky
+
+void create_frsky_task()
+{
+   char dummy_param = 0;
+   xTaskCreate(frsky::frsky_task,"frsky_task", 
+      configMINIMAL_STACK_SIZE,
+         &dummy_param,task_priority::frsky,
+         ( TaskHandle_t * ) NULL);
+}

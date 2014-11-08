@@ -1,6 +1,19 @@
 
 
 QUAN_INCLUDE_PATH = $(QUAN_ROOT)
+FREE_RTOS_DIR = /home/andy/cpp/lib/FreeRTOSV8.1.2/FreeRTOS/
+
+RTOS_INCLUDES = \
+$(FREE_RTOS_DIR)Source/include/ \
+$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
+/home/andy/cpp/projects/quantracker/air/osd/
+
+STM32_SRC_DIR =  /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/src/
+
+CMSIS_INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \
+/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
+/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/inc
+
 
 TARGET_PROCESSOR = STM32F4
 OPTIMISATION_LEVEL = O3
@@ -10,8 +23,11 @@ video_objects = video.o video_buffer.o video_column.o \
   av_telem_data.o draw_loop.o sync_sep.o led.o black_level.o dac.o
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
-  fsk.o frsky.o frsky_zapp1.o aircraft.o mavlink.o timer.o settings.o \
-  events.o heartbeat.o 
+  fsk.o frsky.o frsky_zapp1.o aircraft.o mavlink.o  settings.o \
+   heartbeat.o rtos_hooks.o
+
+rtos_objects = tasks.o queue.o list.o timers.o 
+cmsis_objects = misc.o
 
 #include $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/make_scripts/stm32.mk
 
@@ -81,7 +97,7 @@ endif
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-INCLUDES += $(QUAN_INCLUDE_PATH) /home/andy/website/fpv/mavlink
+INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) /home/andy/website/fpv/mavlink
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
@@ -110,7 +126,8 @@ board_type1 : test
 board_type2 : test
 board_type3 : test
 
-objects = $(video_objects) $(local_objects) startup.o system_init.o flash_funs.o 
+objects = $(video_objects) $(local_objects) $(rtos_objects) \
+$(cmsis_objects) startup.o system_init.o flash_funs.o port.o heap_3.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -140,8 +157,20 @@ startup.o: $(STARTUP)
 flash_funs.o : $(FLASH_SRC)
 	$(CC) $(CFLAGS) -o flash_funs.o $(FLASH_SRC)
 
+C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
+ $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
+
+$(cmsis_objects) : %.o : $(STM32_SRC_DIR)%.c
+	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(CMSIS_INCLUDES)) $< -o $@
+
+$(rtos_objects) : %.o : $(FREE_RTOS_DIR)Source/%.c
+	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+
+port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
+	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+
+heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
+	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+
 upload : test
 	st-flash write main.bin 0x8000000
-
-
-
