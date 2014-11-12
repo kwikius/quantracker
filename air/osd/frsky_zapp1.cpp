@@ -163,7 +163,7 @@ namespace {
    int16_t update_lat_msg1()
    {
        the_aircraft.mutex_acquire();
-       quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.gps_lat;
+         quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.gps_lat;
        the_aircraft.mutex_release();
        lat_msg = normalise_angle(temp);
        return esc_write_sp(lat_msg.get(), 2, true);

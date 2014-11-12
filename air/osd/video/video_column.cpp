@@ -1,12 +1,73 @@
 #include <stm32f4xx.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "resources.hpp"
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
-#include "video.hpp"
 #include <quan/conversion/itoa.hpp>
+
+namespace {
+
+   SemaphoreHandle_t h_request_osd_buffers_swap = 0;
+   SemaphoreHandle_t h_osd_buffers_swapped = 0;
+   SemaphoreHandle_t h_new_telem_buffer =0;
+   BaseType_t HigherPriorityTaskWoken = 0;
+
+}
+
+void create_osd_swap_semaphores()
+{
+   h_request_osd_buffers_swap = xSemaphoreCreateBinary();
+   h_osd_buffers_swapped = xSemaphoreCreateBinary();
+}
+
+void create_telem_swap_semaphores()
+{
+   h_new_telem_buffer = xSemaphoreCreateBinary();
+}
+
+//call from task
+void swap_osd_buffers()
+{
+   xSemaphoreGive(h_request_osd_buffers_swap);
+   xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY);
+}
+// call from task
+void swap_telem_buffers()
+{
+   xSemaphoreTake(h_new_telem_buffer,portMAX_DELAY);
+}
+
+namespace {
+// call from ISR
+/*
+Draw loop differs from telem loop
+as it has unknown length
+*/
+   int count = 0;
+   void service_osd_buffers()
+   {
+//     if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
+//        if ( ++count == 50){
+//            count = 0;
+//            quan::stm32::complement<orange_led_pin>();
+//        }
+//       
+//        video_buffers::osd::manager.swap();
+//        xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken);
+//     }
+   }
+   void service_telem_buffers()
+   {
+//       video_buffers::telem::tx::manager.swap();
+//       xSemaphoreGiveFromISR(h_new_telem_buffer,&HigherPriorityTaskWoken);
+   }
+}
 
 // columns gate_timer is TIM2
 // start and end px ( from vsync rising edge
@@ -27,7 +88,7 @@ uint16_t video_cfg::columns::osd::m_end = 778 ;
 uint16_t video_cfg::columns::telem::m_begin = 12;
 // One after last bit in bit units from bit 0
 uint16_t video_cfg::columns::telem::m_end = 110;
-
+#if 0
 namespace {
    #if QUAN_OSD_BOARD_TYPE==3
    static constexpr bool transmitter = true;
@@ -40,8 +101,9 @@ namespace {
    static constexpr bool receiver = false;
    #endif
 }
-bool is_transmitter() { return transmitter;}
-bool is_receiver(){return receiver;}
+#endif
+
+//bool is_receiver(){return receiver;}
 // called by row line_counter
 
 // at first edge of hsync
@@ -61,7 +123,7 @@ void video_cfg::columns::osd::enable()
    // pixel clk timing
    spi_clock::timer::get()->cnt = 0;
    // div 2 for slower clk so compensate in faster bus clk
-   auto const clks_px = video_cfg::spi_clock::get_timer_clks_per_px() /2 ;
+   auto const clks_px = spi_clock::get_timer_clks_per_px() /2 ;
    spi_clock::timer::get()->arr = clks_px*2-1; // faster bus clk
    spi_clock::timer::get()->ccr1 = clks_px-1; // faster bus clk
    // pixel clk gate timing
@@ -74,17 +136,21 @@ void video_cfg::columns::osd::enable()
 
    gate_timer::get()->sr.bb_clearbit<6>(); //(TIF)
    gate_timer::get()->dier.bb_setbit<6>(); // (TIE)
-   // flag set from main to swap buffers
+
+   // swaps buffers if necessary
+  // service_osd_buffers();
    if (  ! video_buffers::osd::manager.swapped()) {
       video_buffers::osd::manager.swap();
    }
+
    video_buffers::osd::manager.read_reset();
 
-   if (!video_cfg::rows::is_odd_frame()) {
+   if (!rows::is_odd_frame()) {
       // odd is 1 even is 0
       // first is odd so inc if even
-      video_buffers::osd::manager.read_advance (video_t::get_display_size_x_bytes() + 1);
+      video_buffers::osd::manager.read_advance (get_display_size_x_bytes() + 1);
    }
+   //portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
 }
 
 // called on first edge of hsync
@@ -165,10 +231,13 @@ void spi_ll_setup()
 void video_cfg::columns::telem::enable()
 {
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
-   if (is_transmitter()) {
+
+#if defined QUAN_OSD_TELEM_TRANSMITTER
       // get any data to buffer
       if (! video_buffers::telem::tx::manager.swapped()) {
          video_buffers::telem::tx::manager.swap();
+         //service_telem_buffers();
+
          video_buffers::telem::tx::manager.read_reset();
         // video_buffers::telem::tx::m_want_tx= true;
          // pixel clk timing
@@ -177,22 +246,20 @@ void video_cfg::columns::telem::enable()
          spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
          spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
       }
-   }
+#endif
    // pixel timer gate timing
    gate_timer::get()->cnt = 0;
    gate_timer::get()->ccr2 = m_begin * clks_bit - 1;
    gate_timer::get()->arr = (m_end - 1)  * clks_bit - 1 ;
-
-    // 
-   if (is_receiver()) {
+#if defined QUAN_OSD_TELEM_RECEIVER
       gate_timer::get()->ccer.bb_setbit<4>();   ;//(CC2E)
-   }
+#endif
    gate_timer::get()->sr.bb_clearbit<6>();  // (TIF)
    gate_timer::get()->dier.bb_setbit<6>();  // (TIE)
    // change gate to trigger mode ready for TRGI edge to start gate_timer
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
 
-   if ( is_receiver()){
+#if defined QUAN_OSD_TELEM_RECEIVER
        uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
        DMA2_Stream5->M0AR = (uint32_t)ptr;
        DMA2_Stream5->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
@@ -205,7 +272,10 @@ void video_cfg::columns::telem::enable()
        av_telem_in_usart::get()->sr = 0;
        av_telem_in_usart::get()->cr1.setbit<13>(); // ( UE)
        DMA2_Stream5->CR |= (1 << 0); // (EN)
-   }
+#endif
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+    //  portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
+#endif
 }
  void set_text_data( const char* text);
 // called on second edge of hsync
@@ -216,24 +286,15 @@ void video_cfg::columns::telem::disable()
 {
    video_cfg::columns::disable();
   // video_buffers::telem::tx::m_want_tx= false;
-   if (is_receiver()) {
+#if defined QUAN_OSD_TELEM_RECEIVER
       gate_timer::get()->ccer.bb_clearbit<4>();   ;//(CC2E)
 /*
- got Framing error
+  errors 
+  Framing error
  Overrun Error
  Noise Flag
 */
-#if 0 
-      char buf[30];
-     
-      if ((DMA2_Stream5->NDTR != video_buffers::telem::rx::get_num_data_bytes()) ){
-      // || ((av_telem_in_usart::get()->sr.get() & (1 << 5)) !=0)){
-         quan::itoasc(DMA2_Stream5->NDTR, buf,10);
-        // set_text_data(buf);
-      }else{
-         //set_text_data("None");
-      }
-#endif
+
       DMA2_Stream5->CR &= ~(1 << 0); // (EN)
       av_telem_in_usart::get()->cr3.clearbit<6>(); //( DMAR)
       av_telem_in_usart::get()->cr1.clearbit<13>(); // ( UE)
@@ -241,8 +302,7 @@ void video_cfg::columns::telem::disable()
     //  quan::stm32::disable<av_telem_in_usart>();
     //  quan::stm32::module_reset<av_telem_in_usart>();
       video_buffers::telem::rx::manager.swap();
-
-   }
+ #endif
 }
  
 // called at second edge of hsync
@@ -252,7 +312,8 @@ void video_cfg::columns::telem::begin()
    // if tx configure dma for telem tx
    // if rx  configure dma for telem rx
   // if (video_buffers::telem::tx::m_want_tx) {
-   if( is_transmitter()){
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+
       uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       uint16_t const dma_length = video_buffers::telem::tx::get_full_bytes_per_line()-1;
       DMA1_Stream5->M0AR = (uint32_t) (white+1);
@@ -269,16 +330,15 @@ void video_cfg::columns::telem::begin()
       video_mux_out_white_spi::get()->dr = white[0] | 0b00001111;
       video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
       DMA1_Stream5->CR |= (1 << 0); // (EN)
-   }
+#endif
    // receiver
    // enable usart dma
 }
- 
- 
+
 void video_cfg::columns::telem::end()
 {
   // if (video_buffers::telem::tx::m_want_tx) {
-   if( is_transmitter()){
+#if defined QUAN_OSD_TELEM_TRANSMITTER
       // gate_timer::get()->sr.bb_clearbit<6>();// TIF
       gate_timer::get()->dier.bb_setbit<6>(); // TIE
       video_buffers::telem::tx::manager.read_advance (video_buffers::telem::tx::get_full_bytes_per_line());
@@ -289,7 +349,7 @@ void video_cfg::columns::telem::end()
       quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
       
       DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
-   }
+ #endif
 }
 // called at rising edge of hsync
 // start of osd rows
@@ -298,7 +358,7 @@ void video_cfg::columns::osd::begin()
    uint8_t* const black = video_buffers::osd::get_black_read_pos() ;
    uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
    
-   uint16_t const dma_length = (video_t::get_display_size_x_bytes());
+   uint16_t const dma_length = (video_cfg::get_display_size_x_bytes());
    black[dma_length+1] |= 0x0F;
    white[dma_length+1] |= 0x0F;
    
@@ -338,7 +398,7 @@ void video_cfg::columns::osd::end()
 {
    gate_timer::get()->sr.bb_clearbit<6>();// TIF
    gate_timer::get()->dier.bb_setbit<6>(); // TIE
-   video_buffers::osd::manager.read_advance ( (video_t::get_display_size_x_bytes() +1) *2);
+   video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1) *2);
    gate_timer::get()->cnt = 0;
    video_cfg::spi_clock::timer::get()->cnt = 0;
    // reset spi's
@@ -427,8 +487,8 @@ void video_cfg::columns::setup()
       gate_timer::get()->dier.set (dier.value);
    }
    gate_timer::get()->sr.set (0);
+   NVIC_SetPriority(TIM2_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ (TIM2_IRQn);
-   // set priority very high
    // dont set CEN as it will be enabled by hsync on input trigger
 }
  

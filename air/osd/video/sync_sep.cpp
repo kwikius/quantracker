@@ -40,12 +40,12 @@ namespace {
    };
    synctype_t sync_pulse_type = synctype_t::unknown;
    line_period_t line_period = line_period_t::unknown;
-   uint16_t last_sync_first_edge = 0;
-   uint8_t sync_counter = 0;
+   uint16_t last_sync_first_edge = 0U;
+   uint8_t sync_counter = 0U;
    syncmode_t syncmode = syncmode_t::start;
 
    constexpr uint32_t bus_freq = quan::stm32::get_module_bus_frequency<sync_sep_timer>();
-   constexpr uint16_t clocks_usec = 2 * static_cast<uint16_t>(bus_freq / 1000000U);
+   constexpr uint16_t clocks_usec = 2U * static_cast<uint16_t>(bus_freq / 1000000U);
 
 }; // namespace
  
@@ -54,8 +54,8 @@ void sync_sep_reset()
   initial_first_edge_captured = false;
   sync_pulse_type = synctype_t::unknown;
   line_period = line_period_t::unknown;
-  last_sync_first_edge = 0;
-  sync_counter = 0;
+  last_sync_first_edge = 0U;
+  sync_counter = 0U;
   syncmode = syncmode_t::start;
 }
 
@@ -161,6 +161,7 @@ void sync_sep_setup()
       ccer.cc2e = true;
     sync_sep_timer::get()->ccer.set(ccer.value);
 
+   NVIC_SetPriority(TIM1_BRK_TIM9_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
 }
  
@@ -211,17 +212,17 @@ void calc_sync_pulse_type()
       constexpr uint16_t max_vsync_len = 35U * clocks_usec; 
       if ( (sync_length >= min_vsync_len) && (sync_length <= max_vsync_len) ) {
                sync_pulse_type = synctype_t::vsync;
-               quan::stm32::set<red_led_pin>();
+             //  quan::stm32::set<red_led_pin>();
                //quan::stm32::set<test_pin>();
       }else {
              // quan::stm32::clear<test_pin>();
          if ( (sync_length <= max_hsync_len) && (sync_length >= min_hsync_len)) {
                sync_pulse_type = synctype_t::hsync;
-               quan::stm32::clear<orange_led_pin>();
+              // quan::stm32::clear<orange_led_pin>();
          }else {
             sync_sep_reset();
               if(sync_length >= max_hsync_len){
-             quan::stm32::set<orange_led_pin>();
+            // quan::stm32::set<orange_led_pin>();
              }
          }
       }
@@ -267,8 +268,10 @@ void on_hsync_second_edge()
                 case syncmode_t::vsync_serration:
                   if (line_period == line_period_t::half){
                      if (sync_pulse_type == synctype_t::hsync){
+                        
                         if ( sync_counter == 4){
                              // flag calc_line_period to start ADC conv for sync tip
+                           //quan::stm32::clear<test_output_pin>();
                         }
                         if ( sync_counter == 5){
                            // get sync tip ADC result
@@ -292,6 +295,7 @@ void on_hsync_second_edge()
                 case syncmode_t::pre_equalise:
                   if (line_period == line_period_t::half) {
                        if (sync_pulse_type == synctype_t::vsync) {
+                           quan::stm32::complement<test_output_pin>(); 
                             if (sync_counter == 5){
                                  video_cfg::rows::set_odd_frame();
                             }else{
@@ -303,6 +307,7 @@ void on_hsync_second_edge()
                               }
                             }
                             syncmode = syncmode_t::vsync_serration;
+                            
                             sync_counter = 1;
                        }else { // hsync pulse
                            if (++sync_counter > 5) {
@@ -318,8 +323,6 @@ void on_hsync_second_edge()
                             && (line_period == line_period_t::full)) {
                        //in frame so move to next state
                        syncmode = syncmode_t::sync_phase1;
-                       
-                        
                   }
                break;
                case syncmode_t::sync_phase1:

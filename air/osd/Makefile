@@ -1,4 +1,6 @@
 
+TARGET_PROCESSOR = STM32F4
+OPTIMISATION_LEVEL = O3
 
 QUAN_INCLUDE_PATH = $(QUAN_ROOT)
 FREE_RTOS_DIR = /home/andy/cpp/lib/FreeRTOSV8.1.2/FreeRTOS/
@@ -8,23 +10,19 @@ $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 /home/andy/cpp/projects/quantracker/air/osd/
 
-STM32_SRC_DIR =  /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/src/
+STM32_SRC_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/src/
 
 CMSIS_INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/inc
 
-
-TARGET_PROCESSOR = STM32F4
-OPTIMISATION_LEVEL = O3
-
-video_objects = video.o video_buffer.o video_column.o \
-  video_row.o video_pixel.o video_spi.o video_dma.o font.o on_draw.o graphics_api.o \
-  av_telem_data.o draw_loop.o sync_sep.o led.o black_level.o dac.o
+video_objects = draw_loop.o video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
+ video_dma.o font.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
+ draw_task.o sync_sep.o led.o black_level.o dac.o
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
-  fsk.o frsky.o frsky_zapp1.o aircraft.o mavlink.o  settings.o \
-   heartbeat.o rtos_hooks.o
+ fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
+ heartbeat_task.o rtos_hooks.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 cmsis_objects = misc.o
@@ -67,9 +65,10 @@ SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
 
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
-DEFINES = QUAN_STM32F4 
+DEFINES = QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_TRANSMITTER
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
+#DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
 
 STARTUP = startup.s
 # custom linker script 
@@ -79,7 +78,8 @@ FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/flash.cpp
 SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 SYSTEM_INIT = system_init.cpp
-PROCESSOR_FLAGS = -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
+PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
+-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
 INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
@@ -101,18 +101,18 @@ INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) /home/andy/website/fpv/mavlink
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
-DEFINES += HSE_VALUE=8000000
+DEFINES += HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=3 QUAN_DISCOVERY
 
-board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1
-board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2
-board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3
+#board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1
+#board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2
+#board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
 # for float printf format etc
 # CFLAG_EXTRAS += -Wl,-u,vsprintf -lm
 
-CFLAGS  = -Wall -std=c++11 -fno-rtti -fno-exceptions -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
+CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
   $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
 LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
@@ -122,9 +122,9 @@ CPFLAGS = -Obinary
 ODFLAGS = -d 
 
 all: test
-board_type1 : test
-board_type2 : test
-board_type3 : test
+#board_type1 : test
+#board_type2 : test
+#board_type3 : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
 $(cmsis_objects) startup.o system_init.o flash_funs.o port.o heap_3.o
@@ -161,7 +161,7 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
 $(cmsis_objects) : %.o : $(STM32_SRC_DIR)%.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(CMSIS_INCLUDES)) $< -o $@
+	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(CMSIS_INCLUDES)) $< -o $@
 
 $(rtos_objects) : %.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@

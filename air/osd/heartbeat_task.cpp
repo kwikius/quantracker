@@ -16,14 +16,12 @@
  */
 #include <cstdint>
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-
+#include <FreeRTOS.h>
+#include <task.h>
+#include <semphr.h>
 
 #include <quan/stm32/gpio.hpp>
 
-#include "heartbeat.hpp"
 #include "resources.hpp"
 
 /*
@@ -45,7 +43,7 @@ namespace {
       heartbeat_semaphore = xSemaphoreCreateBinary();
 
       for (;;){
-         on_new_heartbeat(); // blocks waiting for heartbeat
+         on_new_heartbeat(); // block waiting for heartbeat
          quan::stm32::set<heartbeat_led_pin>(); 
          vTaskDelay(250);
          quan::stm32::clear<heartbeat_led_pin>(); 
@@ -56,6 +54,11 @@ namespace {
 void signal_new_heartbeat()
 {
    xSemaphoreGive(heartbeat_semaphore);
+}
+
+namespace {
+   char dummy_param = 0;
+   TaskHandle_t task_handle = NULL;
 }
 
 void create_heartbeat_task()
@@ -70,10 +73,10 @@ void create_heartbeat_task()
       , quan::stm32::gpio::ospeed::slow
       , quan::stm32::gpio::ostate::low
    >();
-   char dummy_param = 0;
+
    xTaskCreate(heartbeat_task,"heartbeat_task", 
       configMINIMAL_STACK_SIZE,
          &dummy_param,task_priority::heartbeat,
-         ( TaskHandle_t * ) NULL);
+         &task_handle);
 
 }

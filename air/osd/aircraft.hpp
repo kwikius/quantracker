@@ -19,15 +19,14 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-
-
 #ifdef __AVR__
 #include <stdint.h>
 #else 
 #include <cstdint>
 #endif
-#include "FreeRTOS.h"
-#include "semphr.h"
+#include <FreeRTOS.h>
+#include <semphr.h>
+
 #ifdef QUAN_STM32F4
 #include <quan/stm32f4/config.hpp>
 #endif
@@ -39,13 +38,7 @@
 #include <quan/angle.hpp>
 
 struct location_t{
-/*
-   quan::angle_<float>::deg    lat;       
-   quan::angle_<float>::deg    lon;
-   quan::length_<float>::m     alt;
-   location_t():lat{0},lon{0},alt{0}{}
-  
-*/
+
    quan::time_<uint64_t>::us                             gps_time_stamp;
    quan::angle_<int32_t>::deg10e7                        gps_lat;  
    quan::angle_<int32_t>::deg10e7                        gps_lon; 
@@ -54,7 +47,6 @@ struct location_t{
    quan::length_<int32_t>::mm                            gps_alt;  
    quan::length_<uint16_t>::cm                           gps_hdop;
    quan::length_<uint16_t>::cm                           gps_vdop; 
-
  };
 
 struct gps_t{

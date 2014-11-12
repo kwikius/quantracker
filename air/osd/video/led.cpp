@@ -25,15 +25,17 @@ namespace {
 }
 
 namespace  quan{ namespace impl{
-   template<> struct is_model_of_impl<quan::meta::PolymorphicFunctor<1,0>,do_led_pin_setup > : quan::meta::true_{};
+   template<> struct is_model_of_impl<
+      quan::meta::PolymorphicFunctor<1,0>,do_led_pin_setup 
+   > : quan::meta::true_{};
 }}
 
 
 void setup_leds()
 {
    typedef quan::meta::type_sequence<
-      red_led_pin
-      ,blue_led_pin     
+    //  red_led_pin , // used for heartbeat led
+      blue_led_pin     
       ,green_led_pin  
       ,orange_led_pin 
    > led_pins;

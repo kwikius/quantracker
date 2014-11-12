@@ -17,10 +17,10 @@
 */
 
 /* Heap size will be set to this if allocing memmory*/
-_HeapSize = 0x2000;
+_HeapSize = 0x8000;
 
 /* linker checks that stack is bigger than this */
-_MinStackSize = 0x4000; 
+_MinStackSize = 0x7000; 
 
 MEMORY
 {

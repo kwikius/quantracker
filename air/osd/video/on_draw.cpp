@@ -1,10 +1,14 @@
-#include "graphics_api.hpp"
-#include "video.hpp"
-#include <quan/angle.hpp>
+
 #include <cmath>
+#include <cstring>
+
+#include <quan/angle.hpp>
 #include <quan/two_d/rotation.hpp>
 #include <quan/dynarray.hpp>
 
+#include "video_cfg.hpp"
+#include "graphics_api.hpp"
+#include <quan/stm32/push_pop_fp.hpp>
 
 /*
  need to yield at times to do other tasks,
@@ -17,15 +21,14 @@
  = 5,600 / 50
  = requires 112 bytes of buffer per 1/50th sec frame
  also need to process.
- 
 */
 namespace {
 
    typedef quan::two_d::vect<float> vect;
-   vect pos {0,0};
-   vect inc {1,1};
-   float sq = 150;
-   quan::angle_<float>::deg cur_rotation{0};
+   vect pos {0.f,0.f};
+   vect inc {1.f,1.f};
+   float sq = 150.f;
+   quan::angle_<float>::deg cur_rotation{0.f};
    quan::two_d::vect<float> bx0{-sq, sq};
    quan::two_d::vect<float> bx1{ sq, sq};
    quan::two_d::vect<float> bx2{sq, -sq};
@@ -43,18 +46,14 @@ void set_text_data( const char* text)
    strcpy(text_data, text);
 }
 
-// return true to request buffers swapped
-// need to periodically yield from the function
-// as it may be quite long
-// to service events etc ( min every ms)
-// set a clipbox
-bool on_draw()
+void on_draw()
 {
-
-   vect display_size = video_t::get_display_size_px();
+  // quan::stm32::push_FPregs();
+   vect display_size = video_cfg::get_display_size_px();
 
    quan::two_d::rotation rotate{cur_rotation};
-   quan::two_d::vect<float> center = display_size/2;
+   quan::two_d::vect<float> center = display_size/2.f;
+
    for ( int32_t i = 0; i < 10; ++i){
       color col = ((i > 2)&& (i < 8))?color::white:color::black;
       draw_line_bres ( rotate(bx0 + vect{-i,i})+ center, rotate(bx1 + vect{i,i})+ center,col);
@@ -62,21 +61,24 @@ bool on_draw()
       draw_line_bres ( rotate(bx2 + vect{i,-i})+ center, rotate(bx3+vect{-i,-i})+ center,col);
       draw_line_bres ( rotate(bx3 +vect{-i,-i})+ center, rotate(bx0 + vect{-i,i})+ center,col);
    }
-   cur_rotation += quan::angle_<float>::deg{60}/ 50;
-   if(cur_rotation >= quan::angle_<float>::deg{360}){
-      cur_rotation -= quan::angle_<float>::deg{360};
+
+   cur_rotation += quan::angle_<float>::deg{60.f}/ 50.f;
+
+   if(cur_rotation >= quan::angle_<float>::deg{360.f}){
+      cur_rotation -= quan::angle_<float>::deg{360.f};
    }
 
    draw_line_bres ( 
       {0,0},
-      {display_size.x-1,0},color::black);
+      {display_size.x-1.f,0.f},color::black);
+
    draw_line_bres (
-      {display_size.x-1,0},
-      {display_size.x-1,display_size.y-1},color::black);
+      {display_size.x-1.f,0.f},
+      {display_size.x-1.f,display_size.y-1.f},color::black);
    
    draw_line_bres (
-      {0, display_size.y-1},
-      {display_size.x-1,display_size.y-1},color::black);
+      {0, display_size.y-1.f},
+      {display_size.x-1.f,display_size.y-1.f},color::black);
    draw_line_bres ( 
       {0,0},
       {0,display_size.y-1},color::black);
@@ -160,6 +162,5 @@ bool on_draw()
    draw_line_bres (p3,p2,color::white);
    draw_line_bres (p0,p3,color::white);
 
-   return true;
 }
  

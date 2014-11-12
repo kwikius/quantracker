@@ -17,8 +17,8 @@ void set_pixel(quan::two_d::vect<int32_t> const & px, color c);
 
 struct abc_bitmap<uint8_t>* get_font_char( char c);
 void output_bitmap(abc_bitmap<uint8_t>* pic, quan::two_d::vect<int32_t> const & pos);
-void draw_setup();
-void draw_loop();
-bool on_draw();
+//void draw_setup();
+//void draw_loop();
+void on_draw();
 
 #endif // OSD_GRAPHICS_API_HPP_INCLUDED

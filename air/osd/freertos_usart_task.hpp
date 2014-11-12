@@ -39,7 +39,6 @@ namespace quan{ namespace stm32{namespace freertos{
          setup_rxi_queue();
          setup_txo_queue();
          setup_usart<Baudrate>(priority);
-         
       }
       // blocking
       static CharType get()
@@ -48,7 +47,7 @@ namespace quan{ namespace stm32{namespace freertos{
          xQueueReceive(m_rxi_queue_handle,&ch,portMAX_DELAY);
          return ch;
       }
-      // blocking
+      // blocking ( if q full)
       static void put (CharType ch)
       {
           xQueueSendToBack(m_txo_queue_handle,&ch,portMAX_DELAY);
@@ -106,7 +105,6 @@ namespace quan{ namespace stm32{namespace freertos{
         }
       }
       
-
       template <uint32_t Baudrate>
       static void setup_usart(uint32_t irq_priority)
       {
@@ -116,7 +114,7 @@ namespace quan{ namespace stm32{namespace freertos{
             TxPin,Usart,quan::stm32::usart::tx_pin
          >::type tx_gpio_af_type;
          static_assert(!std::is_same<tx_gpio_af_type,quan::undefined>::value,
-               "tx pin invalid for alternate function");
+            "tx pin invalid for alternate function");
 
          quan::stm32::module_enable<typename TxPin::port_type>();
          quan::stm32::apply<
@@ -130,7 +128,9 @@ namespace quan{ namespace stm32{namespace freertos{
          typedef typename quan::stm32::get_alternate_function<
             RxPin,Usart,quan::stm32::usart::rx_pin
          >::type rx_gpio_af_type;
-         static_assert(!std::is_same<rx_gpio_af_type,quan::undefined>::value,"rx pin invalid for alternate function");
+         static_assert(!std::is_same<rx_gpio_af_type,quan::undefined>::value,
+            "rx pin invalid for alternate function");
+
          quan::stm32::module_enable<typename RxPin::port_type>();
          quan::stm32::apply<
             RxPin
@@ -161,7 +161,8 @@ namespace quan{ namespace stm32{namespace freertos{
             ,quan::stm32::usart::i_en::error<false>
          >();
 
-         IRQn_Type irq_num = quan::stm32::usart::detail::get_irq_number<Usart>::value;
+         IRQn_Type irq_num 
+            = quan::stm32::usart::detail::get_irq_number<Usart>::value;
          NVIC_SetPriority(irq_num,irq_priority);
          NVIC_EnableIRQ(irq_num);
       }
@@ -178,7 +179,9 @@ namespace quan{ namespace stm32{namespace freertos{
       ,typename RxPin
       ,typename CharType
    >
-   QueueHandle_t usart_tx_rx_task<Usart,TX_q_size,RX_q_size,TxPin,RxPin,CharType>::m_rxi_queue_handle = 0;
+   QueueHandle_t usart_tx_rx_task<
+         Usart,TX_q_size,RX_q_size,TxPin,RxPin,CharType
+   >::m_rxi_queue_handle = 0;
 
    template <
       typename Usart
@@ -188,7 +191,9 @@ namespace quan{ namespace stm32{namespace freertos{
       ,typename RxPin
       ,typename CharType
    >
-   QueueHandle_t usart_tx_rx_task<Usart,TX_q_size,RX_q_size,TxPin,RxPin,CharType>::m_txo_queue_handle = 0;
+   QueueHandle_t usart_tx_rx_task<
+      Usart,TX_q_size,RX_q_size,TxPin,RxPin,CharType
+   >::m_txo_queue_handle = 0;
    
 }}}
 

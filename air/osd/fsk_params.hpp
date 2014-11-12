@@ -17,7 +17,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-
 #include <quan/stm32/detail/get_bus.hpp>
 #include <quan/stm32/sys_freq.hpp>
 #include <quan/meta/integer_max.hpp>
@@ -49,7 +48,6 @@ struct fsk_params{
    static_assert(dac_write_freq % baud_rate == 0, "remainder in division");
    // want to no bus_speed of tim6 bus
 // prob is wrong on stm32f4
-
 
 #if defined QUAN_STM32F0
       static constexpr uint32_t tim6_bus_freq = quan::stm32::get_bus_frequency<quan::stm32::detail::get_bus<quan::stm32::tim6>::type>();

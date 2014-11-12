@@ -43,68 +43,69 @@ using quan::stm32::put;
 
 void dac_irq()
 {
-     if (bit_count == 0) {
-          clear<av_dac_nsync>();
-     }
-#if 1
-    if ( dac_data & quan::bit<uint16_t>(15)) {
-          set<av_dac_data>() ;
-     } else {
-          clear<av_dac_data>();
-     }
-#else
-     put<av_dac_data>((dac_data & quan::bit<uint16_t>(15)) != 0) ;
-#endif
-     delay();
-     clear<av_dac_clk>();
-     if ( bit_count != 15) {
-          dac_data <<= 1;
-          ++bit_count;
-     }else{
-          if ( !dac_fifo.is_empty()) {
-                dac_data = dac_fifo.get();
-          }else {
-               video_level_dac_irq_timer::get()->cr1.bb_clearbit<0>(); //(CEN)
-               video_level_dac_irq_timer::get()->cnt = 0;
-          } 
-          bit_count = 0;
-          set<av_dac_nsync>();
-     }
-     set<av_dac_clk>();
+   if (bit_count == 0) {
+       clear<av_dac_nsync>();
+   }
+   #if 1
+   if ( dac_data & quan::bit<uint16_t>(15)) {
+       set<av_dac_data>() ;
+   } else {
+       clear<av_dac_data>();
+   }
+   #else
+   put<av_dac_data>((dac_data & quan::bit<uint16_t>(15)) != 0) ;
+   #endif
+   delay();
+   clear<av_dac_clk>();
+   if ( bit_count != 15) {
+       dac_data <<= 1;
+       ++bit_count;
+   }else{
+       if ( !dac_fifo.is_empty()) {
+             dac_data = dac_fifo.get();
+       }else {
+            video_level_dac_irq_timer::get()->cr1.bb_clearbit<0>(); //(CEN)
+            video_level_dac_irq_timer::get()->cnt = 0;
+       } 
+       bit_count = 0;
+       set<av_dac_nsync>();
+   }
+   set<av_dac_clk>();
 }
 }//namespace
 namespace tim = quan::stm32::tim;
 void dac_timer_setup()
 {
-     quan::stm32::module_enable<video_level_dac_irq_timer>();
-     constexpr quan::time_<int32_t>::us period {10};
-     constexpr quan::frequency::Hz bus_freq
-     {quan::stm32::get_module_bus_frequency<video_level_dac_irq_timer>() *2};
-     constexpr auto clks = period * bus_freq;
-     //tim10 on APB2 so full sys freq
-     static_assert( clks == 168 *10,"error in calc");
-     tim::cr1_t cr1 = 0U;
-     cr1.urs = true;
-     video_level_dac_irq_timer::get()->cr1.set(cr1.value);
-     video_level_dac_irq_timer::get()->arr = clks;
-     video_level_dac_irq_timer::get()->cnt = 0;
-     video_level_dac_irq_timer::get()->sr = 0;
-     // dont enable timer till needed
-     NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
+   quan::stm32::module_enable<video_level_dac_irq_timer>();
+   constexpr quan::time_<int32_t>::us period {10};
+   constexpr quan::frequency::Hz bus_freq
+   {quan::stm32::get_module_bus_frequency<video_level_dac_irq_timer>() *2};
+   constexpr auto clks = period * bus_freq;
+   //tim10 on APB2 so full sys freq
+   static_assert( clks == 168 *10,"error in calc");
+   tim::cr1_t cr1 = 0U;
+   cr1.urs = true;
+   video_level_dac_irq_timer::get()->cr1.set(cr1.value);
+   video_level_dac_irq_timer::get()->arr = clks;
+   video_level_dac_irq_timer::get()->cnt = 0;
+   video_level_dac_irq_timer::get()->sr = 0;
+   // dont enable timer till needed
+   NVIC_SetPriority(TIM1_UP_TIM10_IRQn,interrupt_priority::video_level);
+   NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
 }
 
 extern "C" void TIM1_UP_TIM10_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void TIM1_UP_TIM10_IRQHandler()
 {
-      video_level_dac_irq_timer::get()->sr = 0;
-      dac_irq();
+   video_level_dac_irq_timer::get()->sr = 0;
+   dac_irq();
 }
 
 namespace {
 
-   constexpr quan::voltage::V vref{3.28};
-   constexpr quan::voltage::V ze{0.005};
-   constexpr float fse = 0.0075;
+   constexpr quan::voltage::V vref{3.28f};
+   constexpr quan::voltage::V ze{0.005f};
+   constexpr float fse = 0.0075f;
 }
 
 // shift right 4 for 8 bit dac
@@ -130,23 +131,10 @@ namespace {
    {
     #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
       
-     //  debug_serial_port::write("OSD startup\n");
-
        constexpr uint8_t dac_sync_idx = 0;
        constexpr uint8_t dac_black_idx = 1;
        constexpr uint8_t dac_white_idx = 2;
        constexpr uint8_t dac_data_idx = 3;
-
-   //0.16 too low
-   //0.18 worksbut not great
-   // 0.2 works but not great
-   // 0.24 works but not great
-   // 0.26 ok but not at bottom
-   //0.27
-   //0.28 look v good at top bu not bottom
-   //0.29
-   //0.3 too high
-
       // Dac_write (dac_sync_idx, quan::voltage::V{0.4f}, 0);
        Dac_write (dac_black_idx, quan::voltage::V{0.64f}, 0); // 0.64
        Dac_write (dac_white_idx, quan::voltage::V{2.04f} , 0); // 2.04

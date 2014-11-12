@@ -4,7 +4,7 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
-#include "video.hpp"
+//#include "video.hpp"
 
 // row line_counter on TIM3 (16 bit)
 // if ! defined QUAN_OSD_SOFTWARE_SYNCSEP
@@ -24,7 +24,6 @@
 // compare 3 start of telem
 // compare 4 end of telem
 // using LM1881
-
 
 uint16_t video_cfg::rows::telem::m_begin = 3;//11;
 uint16_t video_cfg::rows::telem::m_end = 16;//26;
@@ -57,8 +56,8 @@ void video_cfg::rows::osd::begin()
 {
   m_cur_mode = mode::osd;
   video_cfg::columns::osd::enable();
+  
 }
-
 
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
 void sync_sep_enable();
@@ -169,6 +168,7 @@ void video_cfg::rows::setup()
    }
    
    line_counter::get()->cnt = 0 ;
+   NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ (TIM3_IRQn);
 }
 
@@ -189,6 +189,7 @@ extern "C" void TIM3_IRQHandler()
          if( sr & (1 << 4)){ //cc4_if
             rows::line_counter::get()->sr.bb_clearbit<4>();
             rows::osd::begin();
+            
          }else{
             rows::line_counter::get()->sr.bb_clearbit<0>();  // must be uif
             rows::osd::end();

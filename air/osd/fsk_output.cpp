@@ -21,10 +21,7 @@ The shape of the wave is the same then for fast and slow. Would merely then be o
 could meybe use DMA per bit and change the timing so very low overhead
 */
 
-#include "fsk_params.hpp"
-#include "resources.hpp"
-#include <quan/stm32/gpio.hpp>
-#include <quan/utility/fifo.hpp> 
+
 #if defined QUAN_STM32F4
 #include <stm32f4xx.h>
 #else
@@ -34,6 +31,11 @@ could meybe use DMA per bit and change the timing so very low overhead
 #error need to define processor
 #endif
 #endif
+#include <quan/stm32/gpio.hpp>
+#include <quan/utility/fifo.hpp> 
+
+#include "fsk_params.hpp"
+#include "resources.hpp"
 #include "fsk.hpp"
 
 using namespace quan::stm32;

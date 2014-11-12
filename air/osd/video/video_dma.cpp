@@ -95,6 +95,7 @@ void av_telem_dma_setup()
    stream->FCR |= (0b11 << 0);
    // setup periph_reg
    stream->PAR = (uint32_t)&av_telem_in_usart::get()->dr;
-
+//#error enabled but no handler
+    NVIC_SetPriority(DMA2_Stream5_IRQn,interrupt_priority::video);
     NVIC_EnableIRQ(DMA2_Stream5_IRQn);
 }

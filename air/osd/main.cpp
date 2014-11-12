@@ -18,13 +18,13 @@
 
 
 #include <stm32f4xx.h>
-#include <stdio.h>
-#include <misc.h>
 
-#include "FreeRTOS.h"
-#include "task.h"
+#include <FreeRTOS.h>
+#include <task.h>
 
 #include "resources.hpp"
+#include "video/graphics_api.hpp"
+#include "video/video_buffer.hpp"
 
 #ifndef QUAN_OSD_BOARD_TYPE
    #error which board?
@@ -50,22 +50,28 @@ void create_mavlink_task();
 void create_heartbeat_task();
 void create_frsky_task();
 void create_fsk_task();
+void create_draw_task();
+void create_telem_task();
+void create_led_tasks( );
+
+void draw_loop();
 
 int main()
 {
   setup();
-    
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-  
-  create_mavlink_task();
-  create_frsky_task();
-  create_heartbeat_task();
-  create_fsk_task();
 
-  vTaskStartScheduler();
+  //on_draw();
+ // video_buffers::osd::manager.swap(); 
 
-  posdata_tx_rx_task::enable();
-  frsky_tx_rx_task::enable();
+//  create_mavlink_task();
+//  create_frsky_task();
+//  create_heartbeat_task();
+//  create_fsk_task();
+//  create_draw_task();
+// // create_telem_task();
+//  create_led_tasks();
+//
+//  vTaskStartScheduler();
 
-  while (1) {;}
+  while (1) {draw_loop();}
 }

@@ -1,6 +1,6 @@
-/*/*
+/*
 
- Copyright (c) 2012 Andy Little 11/11/2012
+ Copyright (c) 2012 - 2014 Andy Little
 
 (
   Some parts of this work are based on: 
@@ -25,11 +25,11 @@
 
 #include <cstdint>
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
+#include <FreeRTOS.h>
+#include <task.h>
+#include <semphr.h>
+#include <mavlink.hpp>
 
-#include "mavlink.hpp"
 #include "aircraft.hpp"
 #include "resources.hpp"
 
@@ -39,7 +39,6 @@ void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 {
   posdata_tx_rx_task::put(ch);
 }
-
 
 void signal_new_heartbeat();
 
@@ -100,7 +99,12 @@ namespace{
      
       mavlink_message_t msg; 
       mavlink_status_t status ;
+
+      the_aircraft.mutex_init();
+      posdata_tx_rx_task::enable();
+
       for(;;){
+        
          uint8_t ch =  posdata_tx_rx_task::get();
          if(mavlink_parse_char(MAVLINK_COMM_0, ch, &msg, &status)) {
             switch(msg.msgid) {
@@ -138,7 +142,6 @@ namespace{
            // parse_error += status.parse_error;
          }
       }
-       
    }
 
   void do_mavlink_heartbeat(mavlink_message_t* pmsg)
@@ -214,8 +217,8 @@ namespace{
        //  the_aircraft.location.gps_hdop = mavlink_msg_gps_raw_int_get_eph(pmsg);
         the_aircraft.location.gps_vdop = quan::length_<int32_t>::cm{ mavlink_msg_gps_raw_int_get_epv(pmsg) };
         // the_aircraft.location.gps_vdop =  mavlink_msg_gps_raw_int_get_epv(pmsg);
-         the_aircraft.gps.fix_type = mavlink_msg_gps_raw_int_get_fix_type(pmsg);
-         the_aircraft.gps.num_sats = mavlink_msg_gps_raw_int_get_satellites_visible(pmsg);
+        the_aircraft.gps.fix_type = mavlink_msg_gps_raw_int_get_fix_type(pmsg);
+        the_aircraft.gps.num_sats = mavlink_msg_gps_raw_int_get_satellites_visible(pmsg);
       the_aircraft.mutex_release();
    }
 #endif
@@ -256,28 +259,28 @@ namespace{
          // static const float rad_to_deg = 180.f / pi;
          the_aircraft.attitude.pitch = quan::angle_<float>::rad{mavlink_msg_attitude_get_pitch(pmsg)};
          // the_aircraft.attitude.pitch = mavlink_msg_attitude_get_pitch(pmsg) * rad_to_deg;
-           the_aircraft.attitude.roll = quan::angle_<float>::rad{mavlink_msg_attitude_get_roll(pmsg)};
+         the_aircraft.attitude.roll = quan::angle_<float>::rad{mavlink_msg_attitude_get_roll(pmsg)};
          // the_aircraft.attitude.roll = mavlink_msg_attitude_get_roll(pmsg)* rad_to_deg;
-          the_aircraft.attitude.yaw = quan::angle_<float>::rad{mavlink_msg_attitude_get_yaw(pmsg)};
+         the_aircraft.attitude.yaw = quan::angle_<float>::rad{mavlink_msg_attitude_get_yaw(pmsg)};
          //the_aircraft.attitude.yaw = mavlink_msg_attitude_get_yaw(pmsg) * rad_to_deg;
       the_aircraft.mutex_release();
    }
+
+   char dummy_param  =0;
+   TaskHandle_t task_handle = NULL;
 
 }//namespace
 
 // called from heartbeat task
 
-
 void create_mavlink_task()
 {
-   the_aircraft.mutex_init();
-   char dummy_param ;
-   xTaskCreate(read_mavlink,"read_mavlink", 
-         configMINIMAL_STACK_SIZE,&dummy_param,task_priority::mavlink,
-         ( TaskHandle_t * ) NULL);
-  
-
-
+   xTaskCreate(
+         read_mavlink,"read_mavlink", 
+         512,
+         &dummy_param,
+         task_priority::mavlink,
+         &task_handle);
 }
 
 

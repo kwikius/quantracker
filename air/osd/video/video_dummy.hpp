@@ -1,6 +1,6 @@
 #ifndef QUAN_STM32_OSD_VIDEO_HPP_INCLUDED
 #define QUAN_STM32_OSD_VIDEO_HPP_INCLUDED
-
+#if 0
 #include <cstdint>
 #include <quan/two_d/vect.hpp>
 #include <quan/time.hpp>
@@ -13,7 +13,6 @@ struct video_t{
    // storage aspect_ratio
    // display_aspect_ratio Usually 4:3
    //
-
    static quan::two_d::vect<uint32_t> get_display_size_px()
    {
      return {get_display_size_x_px(),get_display_size_y_px()};
@@ -38,3 +37,4 @@ struct video_t{
 };
 
 #endif // QUAN_STM32_OSD_VIDEO_H_INCLUDED
+#endif

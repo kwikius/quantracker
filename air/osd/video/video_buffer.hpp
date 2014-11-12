@@ -3,11 +3,11 @@
  
 #include <cstdint>
 #include <cstring>
+#include <utility>
 #include <array>
 #include <quan/two_d/vect.hpp>
 #include <quan/stm32/bitband.hpp>
-#include <utility>
- 
+
 template <uint32_t Length>
 struct black_white_buffer_t {
    uint32_t * bb_black;
@@ -68,6 +68,7 @@ template <typename Buffer> struct double_buffer_manager {
    typedef Buffer buffer_type;
    double_buffer_manager(buffer_type* r, buffer_type* w)
    :m_read_buffer{r},m_write_buffer{w},m_read_index{0},m_new_buffer_ready{false}{}
+
    void swap()
    {
       std::swap (m_read_buffer,m_write_buffer);

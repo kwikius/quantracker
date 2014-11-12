@@ -1,7 +1,8 @@
-#include "graphics_api.hpp"
-#include "video.hpp"
-#include "video_buffer.hpp"
 
+#include "graphics_api.hpp"
+#include "video_buffer.hpp"
+#include "video_cfg.hpp"
+#include <quan/stm32/push_pop_fp.hpp>
 
 //<black, white> 0 = on
 void set_white_pixel(quan::two_d::vect<int32_t> const & px)
@@ -48,7 +49,7 @@ void output_bitmap(abc_bitmap<uint8_t>* pic, quan::two_d::vect<int32_t> const & 
 
 void draw_text(quan::two_d::vect<float> const & p0_in, const char* str)
 {
-   quan::two_d::vect<int32_t> pos{p0_in.x + 0.5, p0_in.y +0.5};
+   quan::two_d::vect<int32_t> pos{p0_in.x + 0.5f, p0_in.y +0.5f};
    for (const char* ptr = str; *ptr != '\0'; ++ptr) {
       abc_bitmap<uint8_t>* fontch = get_font_char (*ptr);
       if (fontch) {
@@ -109,8 +110,14 @@ color get_color(float const & value)
 void draw_line_bres(quan::two_d::vect<float> const & p0_in, quan::two_d::vect<float> const & p1_in, color c)
 {
 
+ //  quan::stm32::push_FPregs();
+
 	// Based on http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 	bool const steep = fabs(p1_in.y - p0_in.y) > fabs(p1_in.x - p0_in.x);
+
+  // quan::stm32::pop_FPregs();
+
+
    quan::two_d::vect<float> p0;
    quan::two_d::vect<float> p1;
 	if (!steep) {
@@ -120,7 +127,7 @@ void draw_line_bres(quan::two_d::vect<float> const & p0_in, quan::two_d::vect<fl
        p0 = quan::two_d::vect<float>{  p0_in.y,p0_in.x};
        p1 = quan::two_d::vect<float>{  p1_in.y,p1_in.x};
    }
-   
+
    if ( p0.x > p1.x){
       quan::two_d::vect<float> const tmp = p0;
       p0 = p1;
@@ -132,11 +139,14 @@ void draw_line_bres(quan::two_d::vect<float> const & p0_in, quan::two_d::vect<fl
 	float error = deltax / 2.f;
 	int32_t const ystep = (p0.y < p1.y)?1:-1;
 	int32_t y = static_cast<int32_t>(p0.y + 0.5f);
+
 	for (int32_t x = static_cast<int32_t>(p0.x +0.5f), end = static_cast<int32_t>(p1.x + 0.5f);x < end ; ++x) {
 		if (!steep) {
          set_pixel({x,y},c);
+          asm volatile ("nop":::);
       }else{
 			set_pixel({y,x},c);
+           asm volatile ("nop":::);
 		}
 		error -= deltay;
 		if (error < 0.f) {
@@ -144,7 +154,6 @@ void draw_line_bres(quan::two_d::vect<float> const & p0_in, quan::two_d::vect<fl
 			error += deltax;
 		}
 	}
-
 }
 
 void draw_line_wu(
@@ -173,7 +182,7 @@ void draw_line_wu(
    // float
    auto yend = p0.y + gradient *(xend - p0.x);
    // float
-   auto xgap = rfpart(p0.x + 0.5);
+   auto xgap = rfpart(p0.x + 0.5f);
    //int
    int32_t xpxl1 = xend;
    // int
@@ -191,7 +200,7 @@ void draw_line_wu(
 //int
    xend = round(p1.x);
    yend = p1.y + gradient * (xend - p1.x);
-   xgap = fpart(p1.x + 0.5);
+   xgap = fpart(p1.x + 0.5f);
 //int
    auto xpxl2 = xend;
 //int

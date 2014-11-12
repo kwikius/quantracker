@@ -14,10 +14,10 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "resources.hpp"
+#include <FreeRTOS.h>
+#include <task.h>
 
+#include "resources.hpp"
 #include "frsky.hpp"
 
 namespace frsky{
@@ -29,18 +29,28 @@ namespace frsky{
 
    void frsky_task(void * param)
    {
+      frsky_tx_rx_task::enable();
+      TickType_t last_wakeup = xTaskGetTickCount();
+
       for (;;){
+         vTaskDelayUntil(&last_wakeup,50);
          frsky::send_message();
-         vTaskDelay(50);
       }
    }
 }//frsky
 
+namespace {
+   char dummy_param = 0;
+   TaskHandle_t task_handle = NULL;
+}
+
 void create_frsky_task()
 {
-   char dummy_param = 0;
-   xTaskCreate(frsky::frsky_task,"frsky_task", 
-      configMINIMAL_STACK_SIZE,
-         &dummy_param,task_priority::frsky,
-         ( TaskHandle_t * ) NULL);
+   xTaskCreate(
+      frsky::frsky_task,"frsky_task", 
+      512,
+      &dummy_param,
+      task_priority::frsky,
+      &task_handle
+   );
 }

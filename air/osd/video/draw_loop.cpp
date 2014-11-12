@@ -1,10 +1,32 @@
 #include "graphics_api.hpp"
-#include "video.hpp"
 #include "video_buffer.hpp"
 #include <quan/dynarray.hpp>
-#include "../resources.hpp"
-
+#include "resources.hpp"
+#include <cstdio>
 void get_data_to_transmit(quan::dynarray<uint8_t> & ar);
+
+void do_time (quan::dynarray<uint8_t>  & ar)
+{
+    int64_t time_now = 10000;// quan::stm32::millis().numeric_value();
+    int32_t min_now = static_cast<int32_t>(time_now / 60000);
+    int32_t s_now   = (time_now / 1000) - (min_now * 60);
+
+    sprintf((char*)ar.get(),"time = %03lu min %02lu s", min_now,s_now);
+    
+}
+
+void get_data_to_transmit (quan::dynarray<uint8_t> & ar)
+{
+   // data_size is the constant total bytes that are transmitted in
+   // one half frame ( ie between 2 vsyncs)
+   uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
+   ar.realloc (data_size);
+   do_time(ar);
+   // fill the rest with zeroes
+   auto len = strlen ((char*)ar.get()) +1;
+   memset (ar.get() + len ,0,data_size -  len  );
+
+}
 
 namespace{
    bool error_flag  = false;
@@ -12,6 +34,8 @@ namespace{
    {
       error_flag = true;
    }
+   bool is_transmitter(){return true;}
+   bool is_receiver(){return false;}
 }
 void set_text_data( const char* text);
 void draw_loop()
@@ -47,7 +71,8 @@ void draw_loop()
    if ( error_flag){
       set_text_data("memory error");
    }else {
-      if(on_draw()){
+      if(true){
+         on_draw();
          // do other tasks...;
          typedef video_buffers::osd osd;
          typedef video_buffers::telem::tx tx;

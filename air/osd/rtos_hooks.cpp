@@ -35,7 +35,7 @@ extern "C" void vApplicationMallocFailedHook( )
 	to query the size of free heap space that remains (although it does not
 	provide information on how the remaining heap might be fragmented). */
 	taskDISABLE_INTERRUPTS();
-   quan::stm32::set<orange_led_pin>();
+   quan::stm32::set<blue_led_pin>();
 	for( ;; );
 }
 
@@ -48,7 +48,7 @@ extern "C" void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTask
 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
 	function is called if a stack overflow is detected. */
 	taskDISABLE_INTERRUPTS();
-   quan::stm32::set<orange_led_pin>();
+   quan::stm32::set<heartbeat_led_pin>();
 	for( ;; );
 }
 

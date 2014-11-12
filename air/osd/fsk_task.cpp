@@ -15,13 +15,12 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#include "FreeRTOS.h"
-#include "task.h"
+#include <FreeRTOS.h>
+#include <task.h>
+#include <quan/tracker/zapp3_encode.hpp>
 #include "fsk.hpp"
 #include "resources.hpp"
-//#include "events.hpp"
 #include "aircraft.hpp"
-#include <quan/tracker/zapp3_encode.hpp>
 
 namespace {
 
@@ -36,32 +35,44 @@ namespace fsk {
 
    void send_message()
    {
-      pos_type pos {
-         the_aircraft.location.gps_lat,
-         the_aircraft.location.gps_lon,
-         the_aircraft.location.gps_alt
-      };
-      
-      uint8_t encoded[16];
-      quan::tracker::zapp3_encode (pos,encoded);
-      fsk::write((const char*)encoded, 16);
+    asm volatile ("nop":::);
+//
+//      the_aircraft.mutex_acquire();
+//      pos_type pos {
+//         the_aircraft.location.gps_lat,
+//         the_aircraft.location.gps_lon,
+//         the_aircraft.location.gps_alt
+//      };
+//      the_aircraft.mutex_release();
+//      
+//      uint8_t encoded[16];
+//      quan::tracker::zapp3_encode (pos,encoded);
+//
+//      fsk::write((const char*)encoded, 16);
    }
 
    void fsk_task(void* params)
    {
+       TickType_t last_wakeup = xTaskGetTickCount();
        for (;;){
+         vTaskDelayUntil(&last_wakeup,200);
          fsk::send_message();
-         vTaskDelay(200);
       }
    }
 }
 
+namespace {
+   char dummy_param = 0;
+   TaskHandle_t task_handle = NULL;
+}
+
 void create_fsk_task()
 {
-    char dummy_param = 0;
-   xTaskCreate(fsk::fsk_task,"fsk_task", 
-      configMINIMAL_STACK_SIZE,
-         &dummy_param,task_priority::fsk,
-         ( TaskHandle_t * ) NULL);
+   xTaskCreate(fsk::fsk_task,
+      "fsk_task", 
+      256,
+      &dummy_param,
+      task_priority::fsk,
+      &task_handle);
 }
  

@@ -75,7 +75,7 @@ private:
      // typedef quan::stm32::tim2 gate_timer;
       typedef video_columns_gate_timer gate_timer;
       static constexpr quan::frequency::Hz bus_freq {quan::stm32::get_module_bus_frequency<gate_timer>() };
-      static_assert (bus_freq == quan::frequency::Hz {42000000.0},"error in bus freq");
+      static_assert (bus_freq == quan::frequency::Hz {42000000.0f},"error in bus freq");
 
       static void setup();
       struct telem{
@@ -115,7 +115,7 @@ private:
       typedef spi_clock_timer timer;
      
       static constexpr quan::frequency::Hz bus_freq {quan::stm32::get_module_bus_frequency<timer>() };
-      static_assert (bus_freq == quan::frequency::Hz {84000000.0},"error in bus freq");
+      static_assert (bus_freq == quan::frequency::Hz {84000000.0f},"error in bus freq");
       static void setup();
       static uint16_t get_timer_clks_per_px() {
          return m_timer_half_clks_per_px * 2;
@@ -127,8 +127,36 @@ private:
       static uint16_t m_timer_half_clks_per_px;
       static uint16_t m_timer_half_clks_per_bit;
    };
-   static quan::time::us get_line_period();
+   
    static void setup();
+
+   static quan::two_d::vect<uint32_t> get_display_size_px()
+   {
+     return {get_display_size_x_px(),get_display_size_y_px()};
+   }
+   // full visible number of columns
+   // adjusted to multiple of 8
+   static uint32_t get_display_size_x_px()
+   {
+      return (columns::osd::get_num_pixels()/8U)*8U;
+   }
+   // full visible number of rows
+   static uint32_t get_display_size_y_px()
+   {
+       return rows::osd::get_visible_length();
+   }
+   // dump last pixels if not a multiple of 8
+   static uint32_t get_display_size_x_bytes()
+   {
+       return get_display_size_x_px() / 8U;
+   }
+
+   static quan::time::us get_line_period()
+   {
+       return (spi_clock::get_timer_clks_per_px()
+         * get_display_size_x_px())
+            / spi_clock::bus_freq;
+   }
    
 };
 
