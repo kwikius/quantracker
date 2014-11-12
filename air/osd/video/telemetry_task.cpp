@@ -57,16 +57,14 @@ namespace {
    void telem_task(void* params)
    {
       create_telem_swap_semaphores();
-      TickType_t last_wakeup = xTaskGetTickCount();
+
       for(;;){
          typedef video_buffers::telem::tx tx;
-         tx::reset_write_buffer();
          quan::dynarray<uint8_t> data{tx::get_num_data_bytes(),on_memory_error};
          get_data_to_transmit(data);
          tx::write_data(data.get());
-
-         vTaskDelayUntil(&last_wakeup,200);
-        // swap_telem_buffers();
+         swap_telem_buffers();
+        // vTaskDelay(50);
       }
    }
 
@@ -136,7 +134,7 @@ void av_telem_dma_setup();
  
 void av_telem_setup()
 {
-   av_telem_usart_setup();
-   av_telem_dma_setup();
+  // av_telem_usart_setup();
+  // av_telem_dma_setup();
 }
  

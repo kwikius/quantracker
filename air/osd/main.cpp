@@ -65,7 +65,7 @@ int main()
   create_heartbeat_task();
   create_fsk_task();
   create_draw_task();
-// // create_telem_task();
+  create_telem_task();
   create_led_tasks();
 //
    vTaskStartScheduler();

@@ -15,8 +15,11 @@ namespace {
 
    SemaphoreHandle_t h_request_osd_buffers_swap = 0;
    SemaphoreHandle_t h_osd_buffers_swapped = 0;
-   SemaphoreHandle_t h_new_telem_buffer =0;
-   BaseType_t HigherPriorityTaskWoken = 0;
+   BaseType_t HigherPriorityTaskWoken_osd = 0;
+
+   SemaphoreHandle_t h_request_telem_buffers_swap =0;
+   SemaphoreHandle_t h_telem_buffers_swapped = 0;
+   BaseType_t HigherPriorityTaskWoken_telem = 0;
 
 }
 
@@ -28,7 +31,8 @@ void create_osd_swap_semaphores()
 
 void create_telem_swap_semaphores()
 {
-   h_new_telem_buffer = xSemaphoreCreateBinary();
+   h_request_telem_buffers_swap = xSemaphoreCreateBinary();
+   h_telem_buffers_swapped = xSemaphoreCreateBinary();
 }
 
 //call from task
@@ -41,7 +45,9 @@ void swap_osd_buffers()
 // call from task
 void swap_telem_buffers()
 {
-   xSemaphoreTake(h_new_telem_buffer,portMAX_DELAY);
+   xSemaphoreGive(h_request_telem_buffers_swap);
+   xSemaphoreTake(h_telem_buffers_swapped,portMAX_DELAY);
+   video_buffers::telem::tx::reset_write_buffer();
 }
 
 namespace {
@@ -60,13 +66,19 @@ as it has unknown length
         }
        
         video_buffers::osd::manager.swap();
-        xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken);
+        xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken_osd);
      }
    }
    void service_telem_buffers()
    {
-//       video_buffers::telem::tx::manager.swap();
-//       xSemaphoreGiveFromISR(h_new_telem_buffer,&HigherPriorityTaskWoken);
+      if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
+        if ( ++count == 50){
+            count = 0;
+            quan::stm32::complement<heartbeat_led_pin>();
+        }
+        video_buffers::telem::tx::manager.swap();
+        xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);
+     }
    }
 }
 
@@ -151,7 +163,7 @@ void video_cfg::columns::osd::enable()
       // first is odd so inc if even
       video_buffers::osd::manager.read_advance (get_display_size_x_bytes() + 1);
    }
-   portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
+   portEND_SWITCHING_ISR(HigherPriorityTaskWoken_osd);
 }
 
 // called on first edge of hsync
@@ -235,10 +247,10 @@ void video_cfg::columns::telem::enable()
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
       // get any data to buffer
-      if (! video_buffers::telem::tx::manager.swapped()) {
-         video_buffers::telem::tx::manager.swap();
-         //service_telem_buffers();
-
+//      if (! video_buffers::telem::tx::manager.swapped()) {
+//         video_buffers::telem::tx::manager.swap();
+         service_telem_buffers();
+      
          video_buffers::telem::tx::manager.read_reset();
         // video_buffers::telem::tx::m_want_tx= true;
          // pixel clk timing
@@ -246,7 +258,7 @@ void video_cfg::columns::telem::enable()
          // div 2 for slower clk so compensate in faster bus clk
          spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
          spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
-      }
+     // }
 #endif
    // pixel timer gate timing
    gate_timer::get()->cnt = 0;
@@ -275,7 +287,7 @@ void video_cfg::columns::telem::enable()
        DMA2_Stream5->CR |= (1 << 0); // (EN)
 #endif
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-      portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
+      portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
 #endif
 }
  void set_text_data( const char* text);
