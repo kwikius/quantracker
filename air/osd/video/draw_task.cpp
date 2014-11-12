@@ -9,8 +9,9 @@
 
 void swap_osd_buffers();
 void create_osd_swap_semaphores();
-
+void draw_loop();
 namespace {
+#if 0
    void draw_task(void * params)
    {
       create_osd_swap_semaphores();
@@ -22,6 +23,17 @@ namespace {
          swap_osd_buffers();
       }
    }
+#else
+   void draw_task(void * params)
+   {
+    //  create_osd_swap_semaphores();
+     // TickType_t last_wakeup = xTaskGetTickCount();
+       for (;;){
+         draw_loop();
+         vTaskDelay(2);
+       }
+   }
+#endif
 
    char dummy_param = 0;
    TaskHandle_t task_handle = NULL;

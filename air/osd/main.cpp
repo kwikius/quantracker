@@ -67,11 +67,11 @@ int main()
 //  create_frsky_task();
 //  create_heartbeat_task();
 //  create_fsk_task();
-//  create_draw_task();
+  create_draw_task();
 // // create_telem_task();
 //  create_led_tasks();
 //
-//  vTaskStartScheduler();
+   vTaskStartScheduler();
 
-  while (1) {draw_loop();}
+  while (1) {;}
 }
