@@ -52,6 +52,6 @@ extern "C" void setup()
   Dac_setup();
 #endif
  // fsk::setup();
- // posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
- // frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
+  posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
+  frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
 }
