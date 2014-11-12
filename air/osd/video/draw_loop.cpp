@@ -34,7 +34,11 @@ namespace{
    {
       error_flag = true;
    }
+#if defined QUAN_OSD_TELEM_TRANSMITTER
    bool is_transmitter(){return true;}
+#else
+ bool is_transmitter(){return false;}
+#endif
    bool is_receiver(){return false;}
 }
 void set_text_data( const char* text);
@@ -54,7 +58,7 @@ void draw_loop()
             if ( is_transmitter()){
                set_text_data("transmitter");
             }else{
-               set_text_data("error - not transmitter or receiver");
+               set_text_data("not transmitter or receiver");
             }
          }
     }else{

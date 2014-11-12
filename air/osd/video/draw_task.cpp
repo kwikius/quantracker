@@ -14,11 +14,8 @@ namespace {
 #if 0
    void draw_task(void * params)
    {
-      create_osd_swap_semaphores();
-      TickType_t last_wakeup = xTaskGetTickCount();
+       create_osd_swap_semaphores();
        for (;;){
-        // vTaskDelayUntil(&last_wakeup,200);
-        // asm volatile("nop":::);
          on_draw();
          swap_osd_buffers();
       }
