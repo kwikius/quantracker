@@ -36,19 +36,19 @@ namespace fsk {
    void send_message()
    {
     asm volatile ("nop":::);
-//
-//      the_aircraft.mutex_acquire();
-//      pos_type pos {
-//         the_aircraft.location.gps_lat,
-//         the_aircraft.location.gps_lon,
-//         the_aircraft.location.gps_alt
-//      };
-//      the_aircraft.mutex_release();
-//      
-//      uint8_t encoded[16];
-//      quan::tracker::zapp3_encode (pos,encoded);
-//
-//      fsk::write((const char*)encoded, 16);
+
+      the_aircraft.mutex_acquire();
+      pos_type pos {
+         the_aircraft.location.gps_lat,
+         the_aircraft.location.gps_lon,
+         the_aircraft.location.gps_alt
+      };
+      the_aircraft.mutex_release();
+      
+      uint8_t encoded[16];
+      quan::tracker::zapp3_encode (pos,encoded);
+
+      fsk::write((const char*)encoded, 16);
    }
 
    void fsk_task(void* params)

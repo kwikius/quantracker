@@ -51,7 +51,7 @@ extern "C" void setup()
 #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
   Dac_setup();
 #endif
- // fsk::setup();
+  fsk::setup();
   posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
   frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
 }
