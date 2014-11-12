@@ -1,17 +1,13 @@
 #include "graphics_api.hpp"
-//#include "video.hpp"
 #include "video_buffer.hpp"
 #include <quan/dynarray.hpp>
 #include "../resources.hpp"
 
-//void get_data_to_transmit(quan::dynarray<uint8_t> & ar);
-//void set_text_data( const char* text);
-
 void swap_osd_buffers();
 void create_osd_swap_semaphores();
-void draw_loop();
+
 namespace {
-#if 1
+
    void draw_task(void * params)
    {
        create_osd_swap_semaphores();
@@ -20,17 +16,6 @@ namespace {
          swap_osd_buffers();
       }
    }
-#else
-   void draw_task(void * params)
-   {
-    //  create_osd_swap_semaphores();
-     // TickType_t last_wakeup = xTaskGetTickCount();
-       for (;;){
-         draw_loop();
-         vTaskDelay(2);
-       }
-   }
-#endif
 
    char dummy_param = 0;
    TaskHandle_t task_handle = NULL;

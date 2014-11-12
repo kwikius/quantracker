@@ -60,16 +60,13 @@ int main()
 {
   setup();
 
-  //on_draw();
- // video_buffers::osd::manager.swap(); 
-
 //  create_mavlink_task();
 //  create_frsky_task();
 //  create_heartbeat_task();
 //  create_fsk_task();
   create_draw_task();
 // // create_telem_task();
-//  create_led_tasks();
+  create_led_tasks();
 //
    vTaskStartScheduler();
 

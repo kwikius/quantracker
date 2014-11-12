@@ -151,7 +151,7 @@ void video_cfg::columns::osd::enable()
       // first is odd so inc if even
       video_buffers::osd::manager.read_advance (get_display_size_x_bytes() + 1);
    }
-   //portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
+   portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
 }
 
 // called on first edge of hsync
@@ -275,7 +275,7 @@ void video_cfg::columns::telem::enable()
        DMA2_Stream5->CR |= (1 << 0); // (EN)
 #endif
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-    //  portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
+      portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
 #endif
 }
  void set_text_data( const char* text);

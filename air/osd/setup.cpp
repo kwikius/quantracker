@@ -44,7 +44,7 @@ namespace {
 extern "C" void setup()
 {
   
- // NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
   setup_test_pin();
   setup_leds();
   video_setup();
