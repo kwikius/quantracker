@@ -36,6 +36,7 @@ void swap_osd_buffers()
 {
    xSemaphoreGive(h_request_osd_buffers_swap);
    xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY);
+   video_buffers::osd::clear_write_buffer();
 }
 // call from task
 void swap_telem_buffers()
@@ -52,15 +53,15 @@ as it has unknown length
    int count = 0;
    void service_osd_buffers()
    {
-//     if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
-//        if ( ++count == 50){
-//            count = 0;
-//            quan::stm32::complement<orange_led_pin>();
-//        }
-//       
-//        video_buffers::osd::manager.swap();
-//        xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken);
-//     }
+     if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
+        if ( ++count == 50){
+            count = 0;
+            quan::stm32::complement<orange_led_pin>();
+        }
+       
+        video_buffers::osd::manager.swap();
+        xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken);
+     }
    }
    void service_telem_buffers()
    {
@@ -138,10 +139,10 @@ void video_cfg::columns::osd::enable()
    gate_timer::get()->dier.bb_setbit<6>(); // (TIE)
 
    // swaps buffers if necessary
-  // service_osd_buffers();
-   if (  ! video_buffers::osd::manager.swapped()) {
-      video_buffers::osd::manager.swap();
-   }
+   service_osd_buffers();
+//   if (  ! video_buffers::osd::manager.swapped()) {
+//      video_buffers::osd::manager.swap();
+//   }
 
    video_buffers::osd::manager.read_reset();
 

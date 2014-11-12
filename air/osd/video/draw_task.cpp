@@ -11,7 +11,7 @@ void swap_osd_buffers();
 void create_osd_swap_semaphores();
 void draw_loop();
 namespace {
-#if 0
+#if 1
    void draw_task(void * params)
    {
        create_osd_swap_semaphores();
