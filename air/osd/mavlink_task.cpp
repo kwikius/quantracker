@@ -91,7 +91,6 @@ namespace{
   void do_mavlink_vfr_hud(mavlink_message_t * pmsg);
   void do_mavlink_attitude(mavlink_message_t * pmsg);
 
-
    void read_mavlink(void * param)
    {
      // static int packet_drops = 0;

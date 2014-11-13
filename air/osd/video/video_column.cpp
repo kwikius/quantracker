@@ -60,11 +60,12 @@ as it has unknown length
    void service_osd_buffers()
    {
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
+#if 0
         if ( ++count == 50){
             count = 0;
             quan::stm32::complement<orange_led_pin>();
         }
-       
+ #endif      
         video_buffers::osd::manager.swap();
         xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken_osd);
      }
@@ -72,10 +73,12 @@ as it has unknown length
    void service_telem_buffers()
    {
       if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
+#if 0
         if ( ++count == 50){
             count = 0;
             quan::stm32::complement<heartbeat_led_pin>();
         }
+#endif
         video_buffers::telem::tx::manager.swap();
         xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);
      }
