@@ -64,7 +64,6 @@ namespace {
          get_data_to_transmit(data);
          tx::write_data(data.get());
          swap_telem_buffers();
-        // vTaskDelay(50);
       }
    }
 

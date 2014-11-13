@@ -86,7 +86,7 @@ void init_led_task( unsigned portBASE_TYPE uxPriority, bool init_state,ms low, m
                   uxPriority, ( TaskHandle_t * ) NULL );
 }
 
-void create_led_tasks( )
+void create_leds_task( )
 {
    unsigned portBASE_TYPE priority = task_priority::heartbeat;
    init_led_task<green_led_pin> (priority,false,ms{770},ms{1900} );

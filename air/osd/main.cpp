@@ -52,7 +52,7 @@ void create_frsky_task();
 void create_fsk_task();
 void create_draw_task();
 void create_telem_task();
-void create_led_tasks( );
+void create_leds_task();
 
 void draw_loop();
 
@@ -66,9 +66,9 @@ int main()
   create_fsk_task();
   create_draw_task();
   create_telem_task();
-  create_led_tasks();
-//
-   vTaskStartScheduler();
+  create_leds_task();
+
+  vTaskStartScheduler();
 
   while (1) {;}
 }
