@@ -16,7 +16,7 @@ CMSIS_INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/inc
 
-video_objects = draw_loop.o video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
+video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
  video_dma.o font.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
  draw_task.o sync_sep.o led.o black_level.o dac.o
 
