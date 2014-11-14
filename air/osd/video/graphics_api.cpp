@@ -49,12 +49,14 @@ void output_bitmap(abc_bitmap<uint8_t>* pic, quan::two_d::vect<int32_t> const & 
 
 void draw_text(quan::two_d::vect<float> const & p0_in, const char* str)
 {
-   quan::two_d::vect<int32_t> pos{p0_in.x + 0.5f, p0_in.y +0.5f};
-   for (const char* ptr = str; *ptr != '\0'; ++ptr) {
-      abc_bitmap<uint8_t>* fontch = get_font_char (*ptr);
-      if (fontch) {
-         output_bitmap (fontch,pos);
-         pos.x += fontch->get_size_px().x;
+   if (str){
+      quan::two_d::vect<int32_t> pos{p0_in.x + 0.5f, p0_in.y +0.5f};
+      for (const char* ptr = str; *ptr != '\0'; ++ptr) {
+         abc_bitmap<uint8_t>* fontch = get_font_char (*ptr);
+         if (fontch) {
+            output_bitmap (fontch,pos);
+            pos.x += fontch->get_size_px().x;
+         }
       }
    }
 }
