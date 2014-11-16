@@ -87,6 +87,8 @@ namespace {
  
    void av_telem_usart_setup()
    {
+//todo redo transmitter using usart
+#if defined QUAN_OSD_TELEM_RECEIVER
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
          telem_cmp_enable_pin
@@ -101,11 +103,11 @@ namespace {
          ,quan::stm32::gpio::pupd::pull_up
       >();
       
-      quan::stm32::module_reset<av_telem_in_usart>();
-      quan::stm32::module_enable<av_telem_in_usart>();
+      quan::stm32::module_reset<av_telemetry_usart>();
+      quan::stm32::module_enable<av_telemetry_usart>();
       
       quan::stm32::apply<
-         av_telem_in_usart
+         av_telemetry_usart
          ,quan::stm32::usart::asynchronous
          ,quan::stm32::usart::transmitter<false>
          ,quan::stm32::usart::receiver<true>
@@ -124,8 +126,9 @@ namespace {
          ,quan::stm32::usart::i_en::pe<false>
          ,quan::stm32::usart::i_en::error<false>
       >();
-     // av_telem_in_usart::get()->cr3.setbit<6>(); //( DMAR)
-      av_telem_in_usart::get()->cr1.setbit<2>(); // ( RE)
+     // av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
+      av_telemetry_usart::get()->cr1.setbit<2>(); // ( RE)
+#endif
    }
 }//namespace 
 

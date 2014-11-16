@@ -15,73 +15,221 @@ typedef quan::stm32::tim2                       video_columns_gate_timer;
 typedef quan::stm32::tim3                       video_rows_line_counter;
 typedef quan::stm32::tim6                       fsk_dac_timer;
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
+/*
+   2 channel timer us channels 1 and 2 for getting sync pulse length
+   and length of a line etc
+*/
 typedef quan::stm32::tim9                       sync_sep_timer;
 #endif
+/*
+   To avoid use of SPI loading the video color dac is done
+   with an interrupt of the timer
+*/
 typedef quan::stm32::tim10                      video_level_dac_irq_timer;
-//usart/uart
-//#error usart1  used by video
-typedef quan::stm32::usart1                     av_telem_in_usart;
-// typedef quan::stm32::usart1  posdata_usart;
+/*
+ Not used currently for transmitter,but wil be eventually
+ to transmit the telem at start of video frame
+*/
+typedef quan::stm32::usart1                     av_telemetry_usart;
 typedef quan::stm32::usart2                     frsky_usart; // maybe inverted but not on f4
 typedef quan::stm32::usart3                     posdata_usart;
-typedef posdata_usart                           debug_usart;
+// usart4 avail for expansion
+// usart6 avail for expansion
 //spi
+// SPI1 avail for expansion
 typedef quan::stm32::spi2                       video_mux_out_black_spi;
 typedef quan::stm32::spi3                       video_mux_out_white_spi;
-
+// I2C1 and I2C3 avail for expansion
 //----PORTA---------------------------------------
 #if !defined QUAN_DISCOVERY
-typedef quan::mcu::pin<quan::stm32::gpioa,0>    heartbeat_led_pin;
+typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_tx ;
 #endif
+#if defined QUAN_OSD_TELEM_RECEIVER
 typedef quan::mcu::pin<quan::stm32::gpioa,1>    telem_cmp_enable_pin; // TIM2_CH2
+#else 
+//USART4_TX
+typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rx; 
+#endif
 
 #if !(defined QUAN_OSD_SOFTWARE_SYNCSEP)
 #error need to sort pins here
 
-// typedef quan::mcu::pin<quan::stm32::gpioa,2>    video_in_odd_even_pin ; // no special requirements!
+ typedef quan::mcu::pin<quan::stm32::gpioa,2>    video_in_odd_even_pin ; // no special requirements!
+#else
+// POSS move pixel clock here on TIM9
+// move frsky_txo_pin to PC12 uart 5
+typedef quan::mcu::pin<quan::stm32::gpioa,2>    frsky_txo_pin;  // USART2 TX or TIM5 CH3
 #endif
-typedef quan::mcu::pin<quan::stm32::gpioa,2>    frsky_txo_pin;
-typedef quan::mcu::pin<quan::stm32::gpioa,3>    frsky_rxi_pin;
-
+//##############################
+//pa3 free frsky rx
+// only for compile .. need to do tx only usart for freertos
+// TIM5_CH4 
+typedef quan::mcu::pin<quan::stm32::gpioa,3>    frsky_rxi_pin_unused;  // not used ... 
+// 
+//#########################
 typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin;
-//keep pa5 free for stm32 DAC output
-typedef quan::mcu::pin<quan::stm32::gpioa,8>    video_spi_clock ; // TIM1_CH1
+// prob most useful to do audio..
+typedef quan::mcu::pin<quan::stm32::gpioa,5>    dac2_out_pin;
+/*
+PA6 TIM13_CH1 SPI1_MISO
+PA7 TIM14_CH1 SPI1_MOSI
+*/
+#if defined QUAN_DISCOVERY
+typedef quan::mcu::pin<quan::stm32::gpioa,8>  video_spi_clock ; // TIM1_CH1
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,8>  i2c3_scl ;
+#endif
+#if !(defined QUAN_DISCOVERY)
+typedef quan::mcu::pin<quan::stm32::gpioa,9>    heartbeat_led_pin;
+#endif
+typedef quan::mcu::pin<quan::stm32::gpioa,10>   frsky_txo_sign_pin;
+/*
+CAN protocol useful?
+PA11 - CAN1 TX
+PA12 - CAN1 RX
+*/
+/*
+SWD
+PA13    SWDIO
+PA14    SWCLK
+*/
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
 //----PORTB---------------------------------------------
+/*
+PB0  TIM8_CH2
+PB1  TIM8_CH3
+*/
 typedef quan::mcu::pin<quan::stm32::gpiob,2>    test_output_pin;
+
+#if defined QUAN_DISCOVERY
 typedef quan::mcu::pin<quan::stm32::gpiob,3>    video_mux_out_white_sck; // SPI3_SCK AF6
 typedef quan::mcu::pin<quan::stm32::gpiob,4>    video_mux_out_white_miso; // SPI3_MISO AF6
+#else
+// SPI port for expansion
+typedef quan::mcu::pin<quan::stm32::gpiob,3> spi1_sck;
+typedef quan::mcu::pin<quan::stm32::gpiob,4> spi1_miso;
+typedef quan::mcu::pin<quan::stm32::gpiob,5> spi1_mosi;
+#endif
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+typedef quan::mcu::pin<quan::stm32::gpiob,6>    av_video_txo; // USART1 TX
+#endif
+#if defined QUAN_OSD_TELEM_RECEIVER
 typedef quan::mcu::pin<quan::stm32::gpiob,7>    av_video_rxi; // USART1_RX  fast 10.5 Mbps
-
+#else
+// I2C port for expansion
+typedef quan::mcu::pin<quan::stm32::gpiob,7>    i2c1_sda; 
+typedef quan::mcu::pin<quan::stm32::gpiob,8>    i2c1_scl;
+#endif
+/*
+PB9 TIM11_CH1 TIM4_CH4 I2C1_SDA
+*/
+#if !defined QUAN_DISCOVERY
+// also bootloader via usart
+typedef quan::mcu::pin<quan::stm32::gpiob,10>     posdata_txo_pin; // SF:USART3_TX:AF7
+typedef quan::mcu::pin<quan::stm32::gpiob,11>     posdata_rxi_pin; // SF:USART3_RX:AF7
+#endif
+/*
+PB12 - general purpose - no useful SF
+*/
 typedef quan::mcu::pin<quan::stm32::gpiob,13>   video_mux_out_black_sck; // SPI2_SCK AF5
 typedef quan::mcu::pin<quan::stm32::gpiob,14>   video_mux_out_black_miso; // SPI2_MISO AF5
+/*
+PB15 TIM8 CH3 TIM12 CH2
+*/
 //-----PORTC---------------------------------------
+/*
+PC0 ADC
+PC1 ADC
+PC2 ADC
+PC3 ADC
+PC4 ADC
+PC5 ADC
+*/
 #if !(defined QUAN_OSD_SOFTWARE_SYNCSEP)
-typedef quan::mcu::pin<quan::stm32::gpioc,6>     video_in_vsync_pin ; // TIM3_CH1
+typedef quan::mcu::pin<quan::stm32::gpioc,6> video_in_vsync_pin ; // TIM3_CH1
+#else
+typedef quan::mcu::pin<quan::stm32::gpioc,6> usart6_tx;
+typedef quan::mcu::pin<quan::stm32::gpioc,7> usart6_rx;
+#endif
+/*
+PC8 TIM8_CH3 
+*/
+#if ! defined QUAN_DISCOVERY
+typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda ;
 #endif
 
+#if !defined QUAN_DISCOVERY
+typedef quan::mcu::pin<quan::stm32::gpioc,10>     video_mux_out_white_sck; // SPI3_SCK 
+typedef quan::mcu::pin<quan::stm32::gpioc,11>     video_mux_out_white_miso; // SPI3_MISO
+#endif
+/*
+// could move frsky tx here and get another usart
+PC12  UART5_TX
+PC13  GP no af
+*/
+// NA on 64 pin part except PD2 PH0 PH1
 //---------PORTD--------------------------------
-typedef quan::mcu::pin<quan::stm32::gpiod,1>     av_dac_nsync;
+/*
+PD0 GP no useful AF
+*/
+typedef quan::mcu::pin<quan::stm32::gpiod,1>     av_dac_nsync; // software no af
 typedef quan::mcu::pin<quan::stm32::gpiod,2>     video_in_tim3_hsync_pin; // TIM3_ETR
-typedef quan::mcu::pin<quan::stm32::gpiod,3>     av_dac_data;
-typedef quan::mcu::pin<quan::stm32::gpiod,7>     av_dac_clk;
+typedef quan::mcu::pin<quan::stm32::gpiod,3>     av_dac_data; // software no af
+/*
+PD4
+PD5
+PD6
+*/
+typedef quan::mcu::pin<quan::stm32::gpiod,7>     av_dac_clk; // software no af
+#if defined QUAN_DISCOVERY
 typedef quan::mcu::pin<quan::stm32::gpiod,8>     posdata_txo_pin; // SF:USART3_TX:AF7
 typedef quan::mcu::pin<quan::stm32::gpiod,9>     posdata_rxi_pin; // SF:USART3_RX:AF7
+#endif
 typedef posdata_txo_pin debug_txo_pin ;
 typedef posdata_rxi_pin debug_rxi_pin;
 
 #if (defined QUAN_DISCOVERY) && (defined QUAN_STM32F4)
+
 typedef quan::mcu::pin<quan::stm32::gpiod,12>   green_led_pin;   // green led on Discovery
 typedef quan::mcu::pin<quan::stm32::gpiod,13>   orange_led_pin;       // orange led on Discovery
-//typedef quan::mcu::pin<quan::stm32::gpiod,14>   red_led_pin;  // red led on Discover
 typedef quan::mcu::pin<quan::stm32::gpiod,14>   heartbeat_led_pin;
 typedef quan::mcu::pin<quan::stm32::gpiod,15>   blue_led_pin;       // blue led on Discovery
+#else
+typedef quan::mcu::pin<quan::stm32::gpiod,12>   tim4_ch1;   
+typedef quan::mcu::pin<quan::stm32::gpiod,13>   tim4_ch2;     
+typedef quan::mcu::pin<quan::stm32::gpiod,14>   tim4_ch3;
+typedef quan::mcu::pin<quan::stm32::gpiod,15>   tim4_ch4;    
 #endif
 //----------PORTE--------------------------
+/*
+PE0
+PE1
+PE2
+PE3
+PE4
+*/
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
+// need move to other timer on 64 pin
 typedef quan::mcu::pin<quan::stm32::gpioe,5> video_in_hsync_first_edge_pin; // TIM9_CH1
 typedef quan::mcu::pin<quan::stm32::gpioe,6> video_in_hsync_second_edge_pin; // TIM9_CH2
 #endif
+/*
+PE7
+PE8
+*/
+#if ! defined QUAN_DISCOVERY
+//could move to other timer on APB2 bus
+typedef quan::mcu::pin<quan::stm32::gpioe,9> video_spi_clock; // TIM1_CH1
+#endif
+/*
+PE10
+PE11
+PE12
+PE13
+PE14
+PE15
+*/
+//----------------PORTH---------------
 
 #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
 void Dac_setup();
@@ -105,7 +253,7 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
 typedef quan::stm32::freertos::usart_tx_rx_task<
    frsky_usart,
    10,2, 
-   frsky_txo_pin,frsky_rxi_pin,
+   frsky_txo_pin,frsky_rxi_pin_unused,
    char
 > frsky_tx_rx_task;
 
@@ -128,7 +276,5 @@ struct task_priority{
    static constexpr uint32_t heartbeat = ( tskIDLE_PRIORITY + 1UL );
 
 };
-
-//bool is_receiver();
 
 #endif // QUANTRACKER_AIR_OSD_RESOURCES_HPP_INCLUDED

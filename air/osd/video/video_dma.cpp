@@ -74,6 +74,7 @@ void pixel_dma_setup()
 
 void av_telem_dma_setup()
 {
+#if defined QUAN_OSD_TELEM_RECEIVER
    RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
    for ( uint8_t i = 0; i < 20; ++i){
       asm volatile ("nop" : : :);
@@ -94,8 +95,9 @@ void av_telem_dma_setup()
    // set threshold full
    stream->FCR |= (0b11 << 0);
    // setup periph_reg
-   stream->PAR = (uint32_t)&av_telem_in_usart::get()->dr;
+   stream->PAR = (uint32_t)&av_telemetry_usart::get()->dr;
 //#error enabled but no handler
     NVIC_SetPriority(DMA2_Stream5_IRQn,interrupt_priority::video);
     NVIC_EnableIRQ(DMA2_Stream5_IRQn);
+#endif
 }

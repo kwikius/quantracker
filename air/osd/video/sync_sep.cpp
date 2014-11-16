@@ -232,8 +232,7 @@ void calc_sync_pulse_type()
 // TDO vsync ADC for low value here
 // in vsync
 void on_hsync_first_edge()
-{   
-     
+{ 
      calc_line_period();
 }
  
@@ -260,7 +259,6 @@ void on_hsync_second_edge()
                            sync_sep_new_frame(); // disable this sequence and start
                                              // osd and telem sequence
                         }
-                        
                   }else{ 
                      sync_sep_error_reset(); // unexpected puls type or frame length
                   }

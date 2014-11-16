@@ -116,6 +116,7 @@ void video_cfg::rows::setup()
    {
       quan::stm32::tim::ccmr1_t ccmr1 = line_counter::get()->ccmr1.get();
 // want this as input either on internal or external sync sep
+// but if software sync sep this channel is available I think
       ccmr1.cc1s = 0b01; // ch1 vsync input trigger
       ccmr1.ic1f = 0b00; // no filter on input trigger
 

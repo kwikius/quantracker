@@ -136,6 +136,13 @@ void video_cfg::columns::disable()
 // at start of first osd row
 void video_cfg::columns::osd::enable()
 {
+/*
+   make these constants for a bit more speed
+   osd_spi_clock_arr_init
+   osd_spi_clk_ccr1_init
+   osd_gate_timer_ccr2_init
+   osd_gate_timer_arr_init
+*/
    // pixel clk timing
    spi_clock::timer::get()->cnt = 0;
    // div 2 for slower clk so compensate in faster bus clk
@@ -246,6 +253,13 @@ void spi_ll_setup()
 // at start of first telem row
 void video_cfg::columns::telem::enable()
 {
+   /*
+   make these constants for a bit more speed
+   telem_spi_clock_arr_init
+   telem_spi_clk_ccr1_init
+   telem_gate_timer_ccr2_init
+   telem_gate_timer_arr_init
+*/
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -282,11 +296,11 @@ void video_cfg::columns::telem::enable()
        DMA2->HIFCR |= (0b111101 << 6) ;
        DMA2->HIFCR &= ~ (0b111101 << 6) ;
        
-       av_telem_in_usart::get()->cr2.clearbit<14>(); //(LINEN)
-       av_telem_in_usart::get()->cr3.setbit<6>(); //( DMAR)
-       av_telem_in_usart::get()->cr3.setbit<11>(); //(ONEBIT)
-       av_telem_in_usart::get()->sr = 0;
-       av_telem_in_usart::get()->cr1.setbit<13>(); // ( UE)
+       av_telemetry_usart::get()->cr2.clearbit<14>(); //(LINEN)
+       av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
+       av_telemetry_usart::get()->cr3.setbit<11>(); //(ONEBIT)
+       av_telemetry_usart::get()->sr = 0;
+       av_telemetry_usart::get()->cr1.setbit<13>(); // ( UE)
        DMA2_Stream5->CR |= (1 << 0); // (EN)
 #endif
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -312,11 +326,11 @@ void video_cfg::columns::telem::disable()
 */
 
       DMA2_Stream5->CR &= ~(1 << 0); // (EN)
-      av_telem_in_usart::get()->cr3.clearbit<6>(); //( DMAR)
-      av_telem_in_usart::get()->cr1.clearbit<13>(); // ( UE)
-     // av_telem_in_usart::get()->cr1.clearbit<2>(); // ( RXE)
-    //  quan::stm32::disable<av_telem_in_usart>();
-    //  quan::stm32::module_reset<av_telem_in_usart>();
+      av_telemetry_usart::get()->cr3.clearbit<6>(); //( DMAR)
+      av_telemetry_usart::get()->cr1.clearbit<13>(); // ( UE)
+     // av_telemetry_usart::get()->cr1.clearbit<2>(); // ( RXE)
+    //  quan::stm32::disable<av_telemetry_usart>();
+    //  quan::stm32::module_reset<av_telemetry_usart>();
       video_buffers::telem::rx::manager.swap();
  #endif
 }
