@@ -24,6 +24,17 @@ void* operator new (unsigned int n){ return pvPortMalloc(n);}
 
 void video_setup();
 void setup_leds();
+#if (QUAN_OSD_BOARD_TYPE != 1 ) 
+void Dac_setup();
+// for 8 bit only msbyte of val is used
+// code is 00 write to specific reg but dont update
+// 1 is write to specific reg and update outputs
+// 2 is write tao all registers and update outputs
+// 3 is power down outputs
+// really only 0 1nd 1 are useful
+void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
+
+#endif
 
 namespace {
 
@@ -48,7 +59,7 @@ extern "C" void setup()
   setup_test_pin();
   setup_leds();
   video_setup();
-#if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
+#if (QUAN_OSD_BOARD_TYPE != 1 )
   Dac_setup();
 #endif
   fsk::setup();
