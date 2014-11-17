@@ -414,7 +414,7 @@ void video_cfg::columns::osd::begin()
 // also at start of telem data
 void video_cfg::columns::tif_irq()
 {
-   gate_timer::get()->dier.bb_clearbit<6>();
+   gate_timer::get()->dier.bb_clearbit<6>(); // (TIE)
    // assume transfer complete
    // so dma disabled
    if (video_cfg::rows::get_current_mode() == rows::mode::telemetry) {
