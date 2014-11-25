@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 25 Nov 2014 12:19:01 GMT
+EESchema Schematic File Version 2  date Tue 25 Nov 2014 14:45:45 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,11 +48,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Connection ~ 7550 5450
+Text HLabel 8250 5450 0    45   Input ~ 0
+VIDEO_+3.3V
 Wire Wire Line
-	7550 5450 7550 5700
-Wire Wire Line
-	7550 5700 7650 5700
+	6450 5450 7250 5450
 Wire Wire Line
 	1250 6550 1550 6550
 Wire Wire Line
@@ -73,18 +72,18 @@ Wire Wire Line
 	2550 1150 2550 950 
 Wire Wire Line
 	2550 950  2400 950 
-Connection ~ 8600 6250
+Connection ~ 7650 6250
 Wire Wire Line
-	8600 6250 8600 6700
-Connection ~ 10200 5450
-Wire Wire Line
-	10200 5450 10200 5550
+	7650 6250 7650 6700
 Connection ~ 9600 5450
 Wire Wire Line
 	9600 5450 9600 5550
 Connection ~ 9000 5450
 Wire Wire Line
-	9000 5550 9000 5450
+	9000 5450 9000 5550
+Connection ~ 8400 5450
+Wire Wire Line
+	8400 5550 8400 5450
 Connection ~ 6950 5450
 Wire Wire Line
 	6950 5450 6950 5550
@@ -93,21 +92,19 @@ Wire Wire Line
 	7250 6250 7250 5950
 Wire Wire Line
 	6650 5950 6650 6250
-Connection ~ 10200 6250
-Wire Wire Line
-	10200 6250 10200 5950
 Connection ~ 9600 6250
 Wire Wire Line
 	9600 6250 9600 5950
 Connection ~ 9000 6250
 Wire Wire Line
 	9000 6250 9000 5950
+Connection ~ 8400 6250
 Wire Wire Line
-	6650 6250 10500 6250
+	8400 6250 8400 5950
 Wire Wire Line
-	10500 6250 10500 5950
+	6650 6250 9900 6250
 Wire Wire Line
-	6450 5450 7650 5450
+	9900 6250 9900 5950
 Connection ~ 3200 3250
 Wire Wire Line
 	3200 3400 3200 3250
@@ -307,33 +304,32 @@ Wire Wire Line
 	3200 4500 3200 3900
 Connection ~ 3200 4100
 Wire Wire Line
-	8850 5450 10700 5450
+	8250 5450 9900 5450
+Wire Wire Line
+	8700 6250 8700 5950
+Connection ~ 8700 6250
 Wire Wire Line
 	9300 6250 9300 5950
 Connection ~ 9300 6250
-Wire Wire Line
-	9900 6250 9900 5950
-Connection ~ 9900 6250
 Wire Wire Line
 	6950 6250 6950 5950
 Connection ~ 6950 6250
 Connection ~ 6650 5450
 Wire Wire Line
-	7250 5550 7250 5450
+	7250 5450 7250 5550
 Connection ~ 7250 5450
 Wire Wire Line
 	6650 5450 6650 5550
+Wire Wire Line
+	8700 5450 8700 5550
+Connection ~ 8700 5450
 Wire Wire Line
 	9300 5450 9300 5550
 Connection ~ 9300 5450
 Wire Wire Line
 	9900 5450 9900 5550
-Connection ~ 9900 5450
 Wire Wire Line
-	10500 5550 10500 5450
-Connection ~ 10500 5450
-Wire Wire Line
-	8600 6700 8300 6700
+	7650 6700 7350 6700
 Wire Wire Line
 	10450 1600 10550 1600
 Connection ~ 1350 2850
@@ -349,20 +345,6 @@ Wire Wire Line
 	1450 7550 1550 7550
 Wire Wire Line
 	1550 7550 1550 7450
-Wire Wire Line
-	8250 6250 8250 6050
-Connection ~ 8250 6250
-$Comp
-L LD39015MXXR U12
-U 1 1 5471E297
-P 8250 5550
-F 0 "U12" H 8625 5150 60  0000 C CNN
-F 1 "LD39015M33R" H 8275 5525 60  0000 C CNN
-F 2 "SOT23-5" H 8250 5550 60  0001 C CNN
-F 3 "/home/andy/electronics/voltage_reg/linear/LD39015.pdf" H 8250 5550 60  0001 C CNN
-	1    8250 5550
-	1    0    0    -1  
-$EndComp
 Text Notes 4300 6450 0    45   ~ 0
 hyst +-0.33 V
 Text Notes 2850 6650 0    45   ~ 0
@@ -372,10 +354,10 @@ hyst +-0.05 V
 Text Notes 2650 5650 0    45   ~ 0
 Csync circuit
 $Comp
-L MCP6562 U7
+L MCP6562 U8
 U 3 1 54707205
 P 1750 7050
-F 0 "U7" H 1800 7250 60  0000 L CNN
+F 0 "U8" H 1800 7250 60  0000 L CNN
 F 1 "MCP6562" H 1700 6850 60  0000 L CNN
 F 2 "MSOP-8" H 1750 7050 60  0001 C CNN
 F 3 "/home/andy/electronics/comparator/MCP6561.pdf" H 1750 7050 60  0001 C CNN
@@ -383,10 +365,10 @@ F 3 "/home/andy/electronics/comparator/MCP6561.pdf" H 1750 7050 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L MCP6562 U7
+L MCP6562 U8
 U 2 1 54706BB6
 P 5200 6400
-F 0 "U7" H 5250 6600 60  0000 L CNN
+F 0 "U8" H 5250 6600 60  0000 L CNN
 F 1 "MCP6562" H 5150 6200 60  0000 L CNN
 F 2 "MSOP-8" H 5200 6400 60  0001 C CNN
 F 3 "/home/andy/electronics/comparator/MCP6561.pdf" H 5200 6400 60  0001 C CNN
@@ -394,10 +376,10 @@ F 3 "/home/andy/electronics/comparator/MCP6561.pdf" H 5200 6400 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L MCP6562 U7
+L MCP6562 U8
 U 1 1 54706B91
 P 2450 6200
-F 0 "U7" H 2500 6400 60  0000 L CNN
+F 0 "U8" H 2500 6400 60  0000 L CNN
 F 1 "MCP6562" H 2400 6000 60  0000 L CNN
 F 2 "MSOP-8" H 2450 6200 60  0001 C CNN
 F 3 "/home/andy/electronics/comparator/MCP6561.pdf" H 2450 6200 60  0001 C CNN
@@ -405,8 +387,6 @@ F 3 "/home/andy/electronics/comparator/MCP6561.pdf" H 2450 6200 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 7800 2150 0    45   ~ 0
-VIDEO_+3.3V
-Text Label 10700 5450 0    45   ~ 0
 VIDEO_+3.3V
 Text Label 4200 5500 0    45   ~ 0
 VIDEO_+3.3V
@@ -423,84 +403,84 @@ VIDEO_IN
 Text HLabel 6400 6400 2    60   Output ~ 0
 CSYNC
 $Comp
-L C C28
+L C C29
 U 1 1 546DB5EF
 P 6950 5750
-F 0 "C28" H 7000 5850 50  0000 L CNN
+F 0 "C29" H 7000 5850 50  0000 L CNN
 F 1 "0u1" H 7000 5650 50  0000 L CNN
 	1    6950 5750
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C34
-U 1 1 546DB5BD
-P 10200 5750
-F 0 "C34" H 10250 5850 50  0000 L CNN
-F 1 "0u1" H 10250 5650 50  0000 L CNN
-	1    10200 5750
-	1    0    0    -1  
-$EndComp
-$Comp
 L C C35
+U 1 1 546DB5BD
+P 9600 5750
+F 0 "C35" H 9650 5850 50  0000 L CNN
+F 1 "0u1" H 9650 5650 50  0000 L CNN
+	1    9600 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C36
 U 1 1 546DB542
-P 10500 5750
-F 0 "C35" H 10550 5850 50  0000 L CNN
-F 1 "0u1" H 10550 5650 50  0000 L CNN
-	1    10500 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C31
-U 1 1 546DB404
-P 9300 5750
-F 0 "C31" H 9350 5850 50  0000 L CNN
-F 1 "0u1" H 9350 5650 50  0000 L CNN
-	1    9300 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L CP1 C29
-U 1 1 546DB398
-P 7250 5750
-F 0 "C29" H 7300 5850 50  0000 L CNN
-F 1 "4U7" H 7300 5650 50  0000 L CNN
-	1    7250 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C33
-U 1 1 546DB394
 P 9900 5750
-F 0 "C33" H 9950 5850 50  0000 L CNN
+F 0 "C36" H 9950 5850 50  0000 L CNN
 F 1 "0u1" H 9950 5650 50  0000 L CNN
 	1    9900 5750
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C27
+L C C32
+U 1 1 546DB404
+P 8700 5750
+F 0 "C32" H 8750 5850 50  0000 L CNN
+F 1 "0u1" H 8750 5650 50  0000 L CNN
+	1    8700 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C30
+U 1 1 546DB398
+P 7250 5750
+F 0 "C30" H 7300 5850 50  0000 L CNN
+F 1 "4U7" H 7300 5650 50  0000 L CNN
+	1    7250 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C34
+U 1 1 546DB394
+P 9300 5750
+F 0 "C34" H 9350 5850 50  0000 L CNN
+F 1 "0u1" H 9350 5650 50  0000 L CNN
+	1    9300 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C28
 U 1 1 546DB366
 P 6650 5750
-F 0 "C27" H 6700 5850 50  0000 L CNN
+F 0 "C28" H 6700 5850 50  0000 L CNN
 F 1 "0u1" H 6700 5650 50  0000 L CNN
 	1    6650 5750
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C30
+L CP1 C31
 U 1 1 546DB339
-P 9000 5750
-F 0 "C30" H 9050 5850 50  0000 L CNN
-F 1 "4u7" H 9050 5650 50  0000 L CNN
-	1    9000 5750
+P 8400 5750
+F 0 "C31" H 8450 5850 50  0000 L CNN
+F 1 "4u7" H 8450 5650 50  0000 L CNN
+	1    8400 5750
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C32
+L C C33
 U 1 1 546DB332
-P 9600 5750
-F 0 "C32" H 9650 5850 50  0000 L CNN
-F 1 "0u1" H 9650 5650 50  0000 L CNN
-	1    9600 5750
+P 9000 5750
+F 0 "C33" H 9050 5850 50  0000 L CNN
+F 1 "0u1" H 9050 5650 50  0000 L CNN
+	1    9000 5750
 	1    0    0    -1  
 $EndComp
 Text HLabel 6450 5450 0    45   BiDi ~ 0
@@ -509,7 +489,7 @@ Text HLabel 2000 4700 0    60   Input ~ 0
 VIDEO_GND
 Text HLabel 1300 2850 0    60   Input ~ 0
 VIDEO_GND
-Text HLabel 8300 6700 0    60   BiDi ~ 0
+Text HLabel 7350 6700 0    60   BiDi ~ 0
 VIDEO_GND
 Text Notes 9750 4550 0    45   ~ 0
 Provide 25 mA on 3V supply\nProvide 50 mA on 5V supply
@@ -561,10 +541,10 @@ AV_TELEM_RXO_EN
 Text HLabel 8000 4500 2    60   Output ~ 0
 AV_TELEM_RXO
 $Comp
-L TLV3501 U8
+L TLV3501 U9
 U 1 1 546B4E6D
 P 2400 4100
-F 0 "U8" H 2350 4300 60  0000 L CNN
+F 0 "U9" H 2350 4300 60  0000 L CNN
 F 1 "TLV3501" H 2450 3925 60  0000 L CNN
 F 2 "SOT23-6" H 2400 4100 60  0001 C CNN
 F 3 "/home/andy/electronics/comparator/TLV3501_comparator.pdf" H 2400 4100 60  0001 C CNN
@@ -623,10 +603,10 @@ $EndComp
 Text HLabel 10550 1600 2    60   Output ~ 0
 VIDEO_OUT
 $Comp
-L FMS6141 U9
+L FMS6141 U10
 U 1 1 544A2987
 P 2450 1600
-F 0 "U9" H 2800 1250 60  0000 L CNN
+F 0 "U10" H 2800 1250 60  0000 L CNN
 F 1 "FMS6141" H 2650 1850 60  0000 L CNN
 F 2 "SC70-5" H 2450 1600 60  0001 C CNN
 F 3 "/home/andy/electronics/video/video_amp/FMS6141_video_amp_with_filter.pdf" H 2450 1600 60  0001 C CNN
@@ -663,10 +643,10 @@ F 1 "1K" V 4200 5800 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C26
+L C C27
 U 1 1 5448B99E
 P 3650 6500
-F 0 "C26" H 3700 6350 50  0000 L CNN
+F 0 "C27" H 3700 6350 50  0000 L CNN
 F 1 "470pF" H 3400 6600 50  0000 L CNN
 	1    3650 6500
 	1    0    0    -1  
@@ -695,10 +675,10 @@ BLACK
 Text Label 5900 2050 0    60   ~ 0
 WHITE
 $Comp
-L DAC084S085 U10
+L DAC084S085 U11
 U 1 1 54303A98
 P 4900 2150
-F 0 "U10" H 4800 1950 60  0000 C CNN
+F 0 "U11" H 4800 1950 60  0000 C CNN
 F 1 "DAC084S085" H 4750 2300 60  0000 C CNN
 F 2 "MSOP-10" H 4900 2150 60  0001 C CNN
 F 3 "/home/andy/electronics/dac/dac084s085.pdf" H 4900 2150 60  0001 C CNN
@@ -706,10 +686,10 @@ F 3 "/home/andy/electronics/dac/dac084s085.pdf" H 4900 2150 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L ADG704 U11
+L ADG704 U12
 U 1 1 543013EB
 P 7200 1500
-F 0 "U11" H 7350 1400 60  0000 C CNN
+F 0 "U12" H 7350 1400 60  0000 C CNN
 F 1 "ADG704" H 7400 1650 60  0000 C CNN
 F 2 "MSOP-10" H 7200 1500 60  0001 C CNN
 F 3 "/home/andy/electronics/video/videomux/ADG704.pdf" H 7200 1500 60  0001 C CNN
@@ -728,10 +708,10 @@ F 3 "/home/andy/electronics/video/video_amp/opa830.pdf" H 9350 1600 60  0001 C C
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C25
+L C C26
 U 1 1 541E8561
 P 1700 1600
-F 0 "C25" H 1750 1700 50  0000 L CNN
+F 0 "C26" H 1750 1700 50  0000 L CNN
 F 1 "0u1" H 1750 1500 50  0000 L CNN
 F 2 "0603" H 1700 1600 60  0001 C CNN
 	1    1700 1600

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 25 Nov 2014 12:19:01 GMT
+EESchema Schematic File Version 2  date Tue 25 Nov 2014 14:45:45 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -57,10 +57,10 @@ Wire Wire Line
 Wire Wire Line
 	4500 3450 5200 3450
 $Comp
-L DIODESCH D5
+L DIODESCH D4
 U 1 1 546F5A7F
 P 4300 3450
-F 0 "D5" H 4300 3550 40  0000 C CNN
+F 0 "D4" H 4300 3550 40  0000 C CNN
 F 1 "DIODESCH" H 4300 3350 40  0000 C CNN
 	1    4300 3450
 	1    0    0    -1  
