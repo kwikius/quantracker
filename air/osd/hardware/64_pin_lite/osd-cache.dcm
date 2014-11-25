@@ -1,0 +1,7 @@
+EESchema-DOCLIB  Version 2.0  Date: Sat 22 Nov 2014 16:51:35 GMT
+#
+$CMP SwitchRegMod
+F /home/andy/electronics/voltage_reg/linear/LD39015.pdf
+$ENDCMP
+#
+#End Doc Library
