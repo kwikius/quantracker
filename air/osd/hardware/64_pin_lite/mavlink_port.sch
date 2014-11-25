@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 24 Nov 2014 15:22:33 GMT
+EESchema Schematic File Version 2  date Tue 25 Nov 2014 12:19:01 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -38,9 +38,9 @@ EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 6 9
+Sheet 6 8
 Title ""
-Date "24 nov 2014"
+Date "25 nov 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -142,19 +142,19 @@ FC_GND
 Text Label 7900 2100 0    45   ~ 0
 FC_+5V
 $Comp
-L C C8
+L C C23
 U 1 1 54734555
 P 7850 2400
-F 0 "C8" H 7900 2500 50  0000 L CNN
+F 0 "C23" H 7900 2500 50  0000 L CNN
 F 1 "C" H 7900 2300 50  0000 L CNN
 	1    7850 2400
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C7
+L C C22
 U 1 1 54734552
 P 2800 2550
-F 0 "C7" H 2850 2650 50  0000 L CNN
+F 0 "C22" H 2850 2650 50  0000 L CNN
 F 1 "C" H 2850 2450 50  0000 L CNN
 	1    2800 2550
 	1    0    0    -1  
@@ -198,10 +198,10 @@ FC_+5V
 Text HLabel 4250 2400 0    45   Input ~ 0
 MAVLINK_+3.3V
 $Comp
-L SI8642 U4
+L SI8642 U5
 U 1 1 5473378C
 P 5400 3600
-F 0 "U4" H 5950 2600 60  0000 C CNN
+F 0 "U5" H 5950 2600 60  0000 C CNN
 F 1 "SI8642" H 5350 2550 60  0000 C CNN
 	1    5400 3600
 	1    0    0    -1  
@@ -215,10 +215,10 @@ MAVLINK_GND
 Text HLabel 4200 3150 0    45   Input ~ 0
 FRSKY_TXO
 $Comp
-L CONN_6 P4
+L CONN_6 P5
 U 1 1 546C98A1
 P 8150 3550
-F 0 "P4" V 8100 3550 60  0000 C CNN
+F 0 "P5" V 8100 3550 60  0000 C CNN
 F 1 "CONN_6" V 8200 3550 60  0000 C CNN
 	1    8150 3550
 	1    0    0    1   

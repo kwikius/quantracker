@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 24 Nov 2014 15:22:32 GMT
+EESchema Schematic File Version 2  date Tue 25 Nov 2014 12:19:01 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -38,9 +38,9 @@ EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 2 9
+Sheet 4 8
 Title ""
-Date "24 nov 2014"
+Date "25 nov 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -57,20 +57,20 @@ Wire Wire Line
 Wire Wire Line
 	4500 3450 5200 3450
 $Comp
-L DIODESCH D1
+L DIODESCH D5
 U 1 1 546F5A7F
 P 4300 3450
-F 0 "D1" H 4300 3550 40  0000 C CNN
+F 0 "D5" H 4300 3550 40  0000 C CNN
 F 1 "DIODESCH" H 4300 3350 40  0000 C CNN
 	1    4300 3450
 	1    0    0    -1  
 $EndComp
 Text HLabel 5000 3350 0    45   Output ~ 0
-CAM_VIDEO_IN
+VIDEO_IN
 Text HLabel 5000 3550 0    45   Input ~ 0
-CAM_V-
+VIDEO_IN_GND
 Text HLabel 3750 3450 0    45   Input ~ 0
-CAM_V+
+VIDEO_IN_+V
 $Comp
 L CONN_3 K1
 U 1 1 546F3160
