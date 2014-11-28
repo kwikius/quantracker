@@ -129,8 +129,9 @@ void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code)
 namespace {
    void set_init_dac_values()
    {
+#error need to redo values from pcb connections
     #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
-      
+ 
        constexpr uint8_t dac_sync_idx = 0;
        constexpr uint8_t dac_black_idx = 1;
        constexpr uint8_t dac_white_idx = 2;

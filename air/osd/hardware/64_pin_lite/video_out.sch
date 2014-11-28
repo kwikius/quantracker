@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 25 Nov 2014 14:45:45 GMT
+EESchema Schematic File Version 2  date Thu 27 Nov 2014 15:59:43 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 7 8
 Title ""
-Date "25 nov 2014"
+Date "27 nov 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -52,9 +52,9 @@ Wire Wire Line
 	5150 2350 4950 2350
 Connection ~ 3150 4900
 Wire Wire Line
-	4150 4900 4150 5200
+	4150 5200 4150 4900
 Wire Wire Line
-	3050 4900 4150 4900
+	4150 4900 3050 4900
 Wire Wire Line
 	3150 5850 3150 5950
 Wire Wire Line
@@ -62,10 +62,10 @@ Wire Wire Line
 Wire Wire Line
 	7200 2650 7000 2650
 Wire Wire Line
-	4950 2400 4950 2350
+	4950 2350 4950 2400
 Connection ~ 4800 3600
 Wire Wire Line
-	4800 4050 4800 3600
+	4800 3600 4800 4050
 Wire Wire Line
 	4800 4050 3600 4050
 Wire Wire Line
@@ -74,7 +74,7 @@ Wire Wire Line
 	3600 3700 3700 3700
 Connection ~ 4800 2400
 Wire Wire Line
-	4800 2900 4800 2400
+	4800 2400 4800 2900
 Wire Wire Line
 	4800 2900 3550 2900
 Wire Wire Line
@@ -84,7 +84,7 @@ Wire Wire Line
 Wire Wire Line
 	3400 2300 3700 2300
 Wire Wire Line
-	4700 2400 4950 2400
+	4950 2400 4700 2400
 Wire Wire Line
 	3700 3500 3300 3500
 Wire Wire Line

@@ -1,5 +1,5 @@
-update=Fri 24 Oct 2014 13:55:01 BST
-last_client=kicad
+update=Wed 26 Nov 2014 14:33:11 GMT
+last_client=pcbnew
 [eeschema]
 version=1
 LibDir=/home/andy/electronics/kicad/lib
@@ -68,3 +68,37 @@ LibName33=passives
 LibName34=/home/andy/cpp/projects/quantracker/hardware/sync_clamp-cache
 [general]
 version=1
+[pcbnew]
+version=1
+PadDrlX=0
+PadDimH=157
+PadDimV=197
+BoardThickness=630
+TxtPcbV=800
+TxtPcbH=600
+TxtModV=600
+TxtModH=600
+TxtModW=120
+VEgarde=100
+DrawLar=150
+EdgeLar=150
+TxtLar=120
+MSegLar=150
+LastNetListRead=osd.net
+[pcbnew/libraries]
+LibDir=
+LibName1=sockets
+LibName2=connect
+LibName3=discret
+LibName4=pin_array
+LibName5=divers
+LibName6=libcms
+LibName7=display
+LibName8=valves
+LibName9=led
+LibName10=dip_sockets
+LibName11=/home/andy/electronics/kicad/modules/SOD-123
+LibName12=/home/andy/electronics/kicad/modules/LPS4018
+LibName13=/home/andy/electronics/kicad/modules/SIL-20
+LibName14=/home/andy/electronics/kicad/modules/DFN2532
+LibName15=/home/andy/electronics/kicad/modules/SC70-5

@@ -1,5 +1,5 @@
-update=Fri 21 Nov 2014 11:02:49 GMT
-last_client=eeschema
+update=Wed 26 Nov 2014 14:34:58 GMT
+last_client=cvpcb
 [eeschema]
 version=1
 LibDir=
@@ -67,3 +67,26 @@ LibName32=/home/andy/electronics/kicad/projects/stm32duino/stm32f4duino-cache
 LibName33=/home/andy/electronics/kicad/lib/stm32
 LibName34=/home/andy/cpp/projects/quantracker/air/osd/hardware/osd-cache
 LibName35=/home/andy/cpp/projects/quantracker/air/osd/video/hardware/osd-cache
+[pcbnew]
+[pcbnew/libraries]
+LibName1=sockets
+LibName2=connect
+LibName3=discret
+LibName4=pin_array
+LibName5=divers
+LibName6=libcms
+LibName7=display
+LibName8=valves
+LibName9=led
+LibName10=dip_sockets
+LibName11=/home/andy/electronics/kicad/modules/LPS4018
+LibName12=/home/andy/electronics/kicad/modules/SOD-123
+LibName13=/home/andy/electronics/kicad/modules/SIL-20
+LibName14=/home/andy/electronics/kicad/modules/DFN2532
+LibName15=/home/andy/electronics/kicad/modules/SC70-5
+LibDir=
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
