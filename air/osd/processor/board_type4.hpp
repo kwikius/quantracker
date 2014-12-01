@@ -23,11 +23,19 @@ typedef quan::stm32::tim9                       spi_clock_timer;
 typedef quan::stm32::tim10                      video_level_dac_irq_timer;
 typedef quan::stm32::tim12                      sync_sep_timer;
 
-/*Timers avail for expansion ( with i/o)
-TIM1 4 channels ( on 100 pin part)
-TIM4 4 Channels ( on 100 pin part)
-TIM10_CH1 ( on all parts)
-TIM11_CH1 ( on all parts)
+/*Timers potentially avail for expansion some multiplexed with other functions ( with i/o)
+TIM1_CH1 
+TIM1_CH2-3( on 100 pin part)
+TIM1_CH4
+TIM4_CH1
+TIM4_CH2
+TIM4_CH3-4 ( on 100 pin part)
+TIM4_CH2
+TIM5_CH1
+TIM5_CH2
+TIM8_CH4
+TIM10_CH1 
+TIM11_CH1 
 
 /expansion 100 pin io
  10 for timers
@@ -43,9 +51,9 @@ TIM11_CH1 ( on all parts)
 */
 typedef quan::stm32::usart1                    mavlink_usart;
 // usart2 avail for expansion on 100 pin part
-// usart3 avail for expansion on 100 pin part
 // usart4 avail for expansion on all parts
-typedef quan::stm32::usart5                    frsky_usart; // maybe inverted but not on f4
+typedef quan::stm32::usart3                    frsky_usart; // maybe inverted but not on f4
+// uart5 txo avail on all parts
 typedef quan::stm32::usart6                    av_telem_usart;
 // spi
 // SPI1 avail for expansion
@@ -53,57 +61,57 @@ typedef quan::stm32::spi2                      video_mux_out_black_spi;
 typedef quan::stm32::spi3                      video_mux_out_white_spi;
 // I2C1 I2C2 and I2C3 avail for expansion
 //----PORTA---------------------------------------
-typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_tx ;// USART4_TX
-typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rx; // USART4_RX
+//typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_tx ;// USART4_TX
+//typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rx; // USART4_RX
 typedef quan::mcu::pin<quan::stm32::gpioa,2>    pixel_clock;// TIM9_CH1
 typedef quan::mcu::pin<quan::stm32::gpioa,3>    telem_cmp_enable; // TIM2_CH4
 typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin; // NOT MOVABLE
 typedef quan::mcu::pin<quan::stm32::gpioa,5>    dac2_out_pin; // NOT MOVABLE
 typedef quan::mcu::pin<quan::stm32::gpioa,6>    av_dac_nsync; // software no af
 typedef quan::mcu::pin<quan::stm32::gpioa,7>    av_dac_data; // softawre no af
-typedef quan::mcu::pin<quan::stm32::gpioa,8>    i2c3_scl ;
+//typedef quan::mcu::pin<quan::stm32::gpioa,8>    i2c3_scl ;
 typedef quan::mcu::pin<quan::stm32::gpioa,9>     mavlink_txo_pin; // USART1_TX
 typedef quan::mcu::pin<quan::stm32::gpioa,10>    mavlink_rxi_pin; // USART1_RX
-typedef quan::mcu::pin<quan::stm32::gpioa,11>    can1_tx;
-typedef quan::mcu::pin<quan::stm32::gpioa,12>    can1_rx;
+//typedef quan::mcu::pin<quan::stm32::gpioa,11>    can1_tx;
+//typedef quan::mcu::pin<quan::stm32::gpioa,12>    can1_rx;
 typedef quan::mcu::pin<quan::stm32::gpioa,13>    swdio;
 typedef quan::mcu::pin<quan::stm32::gpioa,14>    swdclk;
 typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
 //----PORTB---------------------------------------------
 typedef quan::mcu::pin<quan::stm32::gpiob,0>   video_adc_pin ; // ADC12_IN8
-typedef quan::mcu::pin<quan::stm32::gpiob,1>   adc1; // ADC12_IN9
+//typedef quan::mcu::pin<quan::stm32::gpiob,1>   adc1; // ADC12_IN9
 typedef quan::mcu::pin<quan::stm32::gpiob,2>   boot1_pin;
-typedef quan::mcu::pin<quan::stm32::gpiob,3>    spi1_sck; // NOT MOVABLE
-typedef quan::mcu::pin<quan::stm32::gpiob,4>    spi1_miso; // or SPI3_MISO
-typedef quan::mcu::pin<quan::stm32::gpiob,5>    spi1_mosi;
-typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl; 
-typedef quan::mcu::pin<quan::stm32::gpiob,7>    i2c1_sda; 
-typedef quan::mcu::pin<quan::stm32::gpiob,8>    tim10_ch1; 
-typedef quan::mcu::pin<quan::stm32::gpiob,9>    tim11_ch1; 
-typedef quan::mcu::pin<quan::stm32::gpiob,10>     i2c2_scl; 
-typedef quan::mcu::pin<quan::stm32::gpiob,11>     i2c2_sda; 
-typedef quan::mcu::pin<quan::stm32::gpiob,12>    heartbeat_led_pin;
+//typedef quan::mcu::pin<quan::stm32::gpiob,3>    spi1_sck; // NOT MOVABLE
+//typedef quan::mcu::pin<quan::stm32::gpiob,4>    spi1_miso; // or SPI3_MISO
+//typedef quan::mcu::pin<quan::stm32::gpiob,5>    spi1_mosi;
+//typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl; 
+//typedef quan::mcu::pin<quan::stm32::gpiob,7>    i2c1_sda; 
+//typedef quan::mcu::pin<quan::stm32::gpiob,8>    tim10_ch1; 
+//typedef quan::mcu::pin<quan::stm32::gpiob,9>    tim11_ch1; 
+typedef quan::mcu::pin<quan::stm32::gpiob,10>   frsky_txo; 
+typedef quan::mcu::pin<quan::stm32::gpiob,11>   frsky_rxi; 
+typedef quan::mcu::pin<quan::stm32::gpiob,12>   heartbeat_led_pin;
 typedef quan::mcu::pin<quan::stm32::gpiob,13>   video_mux_out_black_sck; // SPI2_SCK AF5
 typedef quan::mcu::pin<quan::stm32::gpiob,14>   video_in_hsync_first_edge_pin; // TIM12_CH1
 typedef quan::mcu::pin<quan::stm32::gpiob,15>   video_in_hsync_second_edge_pin; // TIM12_CH2
 //-----PORTC---------------------------------------
-typedef quan::mcu::pin<quan::stm32::gpioc,0> adc2; //ADC123_IN10
-typedef quan::mcu::pin<quan::stm32::gpioc,1> adc3; //ADC123_IN11
+//typedef quan::mcu::pin<quan::stm32::gpioc,0> adc2; //ADC123_IN10
+//typedef quan::mcu::pin<quan::stm32::gpioc,1> adc3; //ADC123_IN11
 typedef quan::mcu::pin<quan::stm32::gpioc,2> video_mux_out_black_miso; // SPI2_MISO AF5
-typedef quan::mcu::pin<quan::stm32::gpioc,3> adc4; //ADC123_IN13
-typedef quan::mcu::pin<quan::stm32::gpioc,4> adc5; //ADC123_IN14
-typedef quan::mcu::pin<quan::stm32::gpioc,5> adc6; //ADC123_IN15
+//typedef quan::mcu::pin<quan::stm32::gpioc,3> adc4; //ADC123_IN13
+//typedef quan::mcu::pin<quan::stm32::gpioc,4> adc5; //ADC123_IN14
+//typedef quan::mcu::pin<quan::stm32::gpioc,5> adc6; //ADC123_IN15
 typedef quan::mcu::pin<quan::stm32::gpioc,6> av_telem_tx; // USART6_TX
 typedef quan::mcu::pin<quan::stm32::gpioc,7> av_telem_rx; // USART6_RX
 typedef quan::mcu::pin<quan::stm32::gpioc,8> av_dac_clk; // software no af
-typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda ;
+//typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda ;
 typedef quan::mcu::pin<quan::stm32::gpioc,10> video_mux_out_white_sck; // SPI3_SCK 
 typedef quan::mcu::pin<quan::stm32::gpioc,11> video_mux_out_white_miso; // SPI3_MISO
-typedef quan::mcu::pin<quan::stm32::gpioc,12> frsky_txo_pin ; // UART5_TXO
+//typedef quan::mcu::pin<quan::stm32::gpioc,12> mcu_pc12_pin ; // UART5_TXO
 //############Limited output current ###########################
 typedef quan::mcu::pin<quan::stm32::gpioc,13> frsky_txo_sign_pin;
-typedef quan::mcu::pin<quan::stm32::gpioc,14> osc32_in;;
-typedef quan::mcu::pin<quan::stm32::gpioc,15> osc32_out;
+//typedef quan::mcu::pin<quan::stm32::gpioc,14> osc32_in;;
+//typedef quan::mcu::pin<quan::stm32::gpioc,15> osc32_out;
 //############Limited output current ############################
 // NA on 64 pin part except PD2 PH0 PH1
 //---------PORTD---------------------------------------------------------------------
@@ -116,21 +124,21 @@ typedef quan::mcu::pin<quan::stm32::gpiod,2>     video_in_tim3_hsync_pin; // TIM
 PD3 GP no useful AF no ADC (NC)
 PD4 GP No useful AF no ADC (NC)
 */
-typedef quan::mcu::pin<quan::stm32::gpiod,5>     usart2_tx;
-typedef quan::mcu::pin<quan::stm32::gpiod,6>     usart2_rx;
+//typedef quan::mcu::pin<quan::stm32::gpiod,5>     usart2_tx;
+//typedef quan::mcu::pin<quan::stm32::gpiod,6>     usart2_rx;
 /*
 PD7 GP no AF no ADC (NC)
 */
-typedef quan::mcu::pin<quan::stm32::gpiod,8>    usart3_tx;
-typedef quan::mcu::pin<quan::stm32::gpiod,9>    usart3_rx;
+//typedef quan::mcu::pin<quan::stm32::gpiod,8>    usart3_tx;
+//typedef quan::mcu::pin<quan::stm32::gpiod,9>    usart3_rx;
 /*
 PD10 GP no AF no ADC (NC)
 PD11 GP no AF no ADC (NC)
 */
-typedef quan::mcu::pin<quan::stm32::gpiod,12>   tim4_ch1;   // No other AF
-typedef quan::mcu::pin<quan::stm32::gpiod,13>   tim4_ch2;   // No other AF   
-typedef quan::mcu::pin<quan::stm32::gpiod,14>   tim4_ch3;  // No other AF
-typedef quan::mcu::pin<quan::stm32::gpiod,15>   tim4_ch4;    // No other AF 
+//typedef quan::mcu::pin<quan::stm32::gpiod,12>   tim4_ch1;   // No other AF
+//typedef quan::mcu::pin<quan::stm32::gpiod,13>   tim4_ch2;   // No other AF   
+//typedef quan::mcu::pin<quan::stm32::gpiod,14>   tim4_ch3;  // No other AF
+//typedef quan::mcu::pin<quan::stm32::gpiod,15>   tim4_ch4;    // No other AF 
 
 //----------PORTE--------------------------
 /* 8 bit software port 
@@ -148,16 +156,16 @@ PE6 TIM9_CH2 NO ADC
 PE7 TIM1_ETR
 PE8 GP NO ADC (NC)
 */
-typedef quan::mcu::pin<quan::stm32::gpioe,9> tim1_ch1;
+//typedef quan::mcu::pin<quan::stm32::gpioe,9> tim1_ch1;
 /*
 PE10 NO ADC (NC)
 */
-typedef quan::mcu::pin<quan::stm32::gpioe,11> tim1_ch2;
+//typedef quan::mcu::pin<quan::stm32::gpioe,11> tim1_ch2;
 /*
 PE12 NO ADC (NC)
 */
-typedef quan::mcu::pin<quan::stm32::gpioe,13> tim1_ch3;
-typedef quan::mcu::pin<quan::stm32::gpioe,14> tim1_ch4;
+//typedef quan::mcu::pin<quan::stm32::gpioe,13> tim1_ch3;
+//typedef quan::mcu::pin<quan::stm32::gpioe,14> tim1_ch4;
 /*
 PE15 NO ADC (NC)
 */

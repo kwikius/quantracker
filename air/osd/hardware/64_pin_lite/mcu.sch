@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sun 30 Nov 2014 15:34:12 GMT
+EESchema Schematic File Version 2  date Mon 01 Dec 2014 08:28:41 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 8
 Title ""
-Date "30 nov 2014"
+Date "1 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -718,7 +718,7 @@ Text Label 5250 5625 3    45   ~ 0
 RAW_FRSKY_TXO
 Text Label 2650 2825 2    45   ~ 0
 FRSKY_TXO_SIGN
-Text Notes 4975 1525 1    45   ~ 0
+Text Notes 5000 2850 1    45   ~ 0
 TIM3_ETR
 Text Notes 5575 2900 1    45   ~ 0
 TIM2_CH1
