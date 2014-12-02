@@ -69,7 +69,8 @@ private:
    };
    
    struct columns {
-      // TIM2_CH1 (hsync)-  trigger 2nd edge
+
+      // TIM2_CH1 (hsync)-  trigger 2nd edge ( same on all boards)
       // TIF Interrupt on reinit
       // have time from hsync second edge to line_start to prepare pixel dma
      // typedef quan::stm32::tim2 gate_timer;
@@ -109,7 +110,8 @@ private:
    };
    
    struct spi_clock {
-      // TIM1_CH1 pwm for spi clock
+      // pwm for spi clock
+      // TIM1_CH1  except on boadtype 4 which is TIM9_CH1
       // different clk speds for telem and osd
      // typedef quan::stm32::tim1 timer;
       typedef spi_clock_timer timer;

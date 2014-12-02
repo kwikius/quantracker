@@ -132,17 +132,11 @@ namespace {
    {
 
     #if (QUAN_OSD_BOARD_TYPE != 1 )
-    #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
        constexpr uint8_t dac_sync_idx = 0;
        constexpr uint8_t dac_black_idx = 1;
        constexpr uint8_t dac_white_idx = 2;
        constexpr uint8_t dac_data_idx = 3;
-    #endif
      #if (QUAN_OSD_BOARD_TYPE ==4 )
-       constexpr uint8_t dac_sync_idx = 0;
-       constexpr uint8_t dac_black_idx = 1;
-       constexpr uint8_t dac_white_idx = 2;
-       constexpr uint8_t dac_data_idx = 3;
        Dac_write (dac_sync_idx, quan::voltage::V{0.45f}, 0);
      #endif
        Dac_write (dac_black_idx, quan::voltage::V{0.64f}, 0); // 0.64

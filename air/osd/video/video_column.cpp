@@ -284,7 +284,11 @@ void video_cfg::columns::telem::enable()
    gate_timer::get()->ccr2 = m_begin * clks_bit - 1;
    gate_timer::get()->arr = (m_end - 1)  * clks_bit - 1 ;
 #if defined QUAN_OSD_TELEM_RECEIVER
-      gate_timer::get()->ccer.bb_setbit<4>();   ;//(CC2E)
+   #if (QUAN_OSD_BOARD_TYPE == 4)
+   gate_timer::get()->ccer.bb_setbit<12>();//( CC4E)
+   #else
+   gate_timer::get()->ccer.bb_setbit<4>(); //(CC2E)
+   #endif
 #endif
    gate_timer::get()->sr.bb_clearbit<6>();  // (TIF)
    gate_timer::get()->dier.bb_setbit<6>();  // (TIE)
@@ -292,19 +296,28 @@ void video_cfg::columns::telem::enable()
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
 
 #if defined QUAN_OSD_TELEM_RECEIVER
-       uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
-       DMA2_Stream5->M0AR = (uint32_t)ptr;
-       DMA2_Stream5->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
-       DMA2->HIFCR |= (0b111101 << 6) ;
-       DMA2->HIFCR &= ~ (0b111101 << 6) ;
-       
+      uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
+#if (QUAN_OSD_BOARD_TYPE == 4)
+      DMA_Stream_TypeDef *stream = DMA2_Stream1;
+#else
+      DMA_Stream_TypeDef *stream = DMA2_Stream5;
+#endif
+       stream->M0AR = (uint32_t)ptr;
+       stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
+#if (QUAN_OSD_BOARD_TYPE == 4)
+       DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Stream 1
+       DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Stream 1
+#else
+       DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for stream 5
+       DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for stream 5
+#endif      
        av_telemetry_usart::get()->cr2.clearbit<14>(); //(LINEN)
        av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
        av_telemetry_usart::get()->cr3.setbit<11>(); //(ONEBIT)
        av_telemetry_usart::get()->sr = 0;
        av_telemetry_usart::get()->cr1.setbit<13>(); // ( UE)
-       DMA2_Stream5->CR |= (1 << 0); // (EN)
-#endif
+       stream->CR |= (1 << 0); // (EN)
+#endif // defined QUAN_OSD_TELEM_RECEIVER
 #if defined QUAN_OSD_TELEM_TRANSMITTER
       portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
 #endif
@@ -319,15 +332,17 @@ void video_cfg::columns::telem::disable()
    video_cfg::columns::disable();
   // video_buffers::telem::tx::m_want_tx= false;
 #if defined QUAN_OSD_TELEM_RECEIVER
-      gate_timer::get()->ccer.bb_clearbit<4>();   ;//(CC2E)
-/*
-  errors 
-  Framing error
- Overrun Error
- Noise Flag
-*/
-
+// channel 4 on board_type 4
+   #if (QUAN_OSD_BOARD_TYPE == 4)
+   gate_timer::get()->ccer.bb_setbit<12>();//( CC4E)
+   #else
+   gate_timer::get()->ccer.bb_clearbit<4>();   ;//(CC2E)
+   #endif
+   #if (QUAN_OSD_BOARD_TYPE == 4)
+      DMA2_Stream1->CR &= ~(1 << 0); // (EN)
+   #else
       DMA2_Stream5->CR &= ~(1 << 0); // (EN)
+   #endif
       av_telemetry_usart::get()->cr3.clearbit<6>(); //( DMAR)
       av_telemetry_usart::get()->cr1.clearbit<13>(); // ( UE)
      // av_telemetry_usart::get()->cr1.clearbit<2>(); // ( RXE)
@@ -348,6 +363,7 @@ void video_cfg::columns::telem::begin()
 
       uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       uint16_t const dma_length = video_buffers::telem::tx::get_full_bytes_per_line()-1;
+
       DMA1_Stream5->M0AR = (uint32_t) (white+1);
       DMA1_Stream5->NDTR = dma_length  ;
       DMA1->HIFCR |= (0b111101 << 6) ;
@@ -471,7 +487,13 @@ void video_cfg::columns::setup()
    {
       quan::stm32::tim::cr2_t cr2 = gate_timer::get()->cr2.get();
       cr2.ti1s = false; // TIM2_CH1 is connected to TI1
+// ############### for boardtype 4  need OC4REF ####################
+#if (QUAN_OSD_BOARD_TYPE == 4)
+      cr2.mms = 0b111;// OC4REF is TRGO
+#else
       cr2.mms = 0b101; // OC2REF is TRGO
+#endif
+//#########################################################
       gate_timer::get()->cr2.set (cr2.value);
    }
     // smcr trigger polarity?
@@ -487,16 +509,26 @@ void video_cfg::columns::setup()
       ccmr1.cc1s   = 0b01;   // IC1 is input mapped on TI1 (hsync)
       ccmr1.ic1psc = 0b00;   // no prescaler
       ccmr1.ic1f   = 0b0000; // no filter
+#if (QUAN_OSD_BOARD_TYPE == 4)
+      gate_timer::get()->ccmr1.set (ccmr1.value);
+      quan::stm32::tim::ccmr2_t ccmr2 = gate_timer::get()->ccmr2.get();
+      ccmr2.cc4s  = 0b00;   // OC4 is output mapped to TRGO ( enable px clk)
+      ccmr2.oc4fe = false;
+      ccmr2.oc4pe = false;
+      ccmr2.oc4m  = 0b111;  // pwm mode 2
+#else
       ccmr1.cc2s  = 0b00;   // OC2 is output mapped to TRGO ( enable px clk)
       ccmr1.oc2fe = false;
       ccmr1.oc2pe = false;
       ccmr1.oc2m  = 0b111;  // pwm mode 2
       gate_timer::get()->ccmr1.set (ccmr1.value);
+#endif
+      
    }
    {
       quan::stm32::tim::ccer_t ccer = gate_timer::get()->ccer.get();
 // second edge of hsync TIM2_CH1 
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
+#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       ccer.cc1np = false;  // Ti1FP1 rising edge trigger ( hsync)
       ccer.cc1p  = false;  // Ti1FP1 rising edge trigger
 #else
@@ -507,8 +539,13 @@ void video_cfg::columns::setup()
       #error unknown board type
    #endif
 #endif
+      #if (QUAN_OSD_BOARD_TYPE == 4)
+      ccer.cc4p  = true;  // active low ???
+      ccer.cc4e  = true;
+      #else
       ccer.cc2p  = true;  // active low ???
       ccer.cc2e  = true;
+      #endif
       gate_timer::get()->ccer.set (ccer.value);
    }
    gate_timer::get()->psc = 0;

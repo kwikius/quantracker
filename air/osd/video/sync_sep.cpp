@@ -101,8 +101,13 @@ void sync_sep_setup()
 //change to pulldown
    quan::stm32::apply<
       video_in_hsync_first_edge_pin,
+// af for first edge
+#if (QUAN_OSD_BOARD_TYPE == 4)
+      quan::stm32::gpio::mode::af9
+#else
       quan::stm32::gpio::mode::af3,
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
+#endif
+#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       quan::stm32::gpio::pupd::pull_up
 #else
    #if QUAN_OSD_BOARD_TYPE == 2
@@ -115,8 +120,12 @@ void sync_sep_setup()
 
    quan::stm32::apply<
       video_in_hsync_second_edge_pin,
+#if (QUAN_OSD_BOARD_TYPE == 4)
+      quan::stm32::gpio::mode::af9
+#else
       quan::stm32::gpio::mode::af3,
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
+#endif
+#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)|| (QUAN_OSD_BOARD_TYPE == 4)
       quan::stm32::gpio::pupd::pull_up
 #else
    #if QUAN_OSD_BOARD_TYPE == 2
@@ -139,10 +148,8 @@ void sync_sep_setup()
      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
    sync_sep_timer::get()->ccmr1.set(ccmr1.value);
-
-// tim9
    quan::stm32::tim::ccer_t ccer = 0;
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
+#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       ccer.cc1p = true; // CC1 is falling edge capture
       ccer.cc1np = false;
       ccer.cc2p = false;
@@ -160,9 +167,13 @@ void sync_sep_setup()
       ccer.cc1e = true;
       ccer.cc2e = true;
     sync_sep_timer::get()->ccer.set(ccer.value);
-
+#if (QUAN_OSD_BOARD_TYPE !=4)
    NVIC_SetPriority(TIM1_BRK_TIM9_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
+#else
+   NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
+   NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+#endif
 }
  
 namespace {
@@ -350,11 +361,13 @@ void on_hsync_second_edge()
 }
 } // namespace
 
-#error redo for boardtype 4 ( becomes timer12 irq)
- 
+#if (QUAN_OSD_BOARD_TYPE == 4)
+extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
+extern "C" void TIM8_BRK_TIM12_IRQHandler()
+#else
 extern "C" void TIM1_BRK_TIM9_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
- 
 extern "C" void TIM1_BRK_TIM9_IRQHandler()
+#endif
 {
      uint16_t const sr = sync_sep_timer::get()->sr.get();
      if (sr & (1 << 1)) {  // cc1_if

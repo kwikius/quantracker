@@ -71,6 +71,10 @@ void pixel_dma_setup()
   // NVIC_EnableIRQ(DMA1_Stream4_IRQn);
   // NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 }
+/*
+ for boardtype 4 dma is on USART6  DMA2 Channel 5 stream 1 or 2
+ ( use stream 1 to save stream 2 for
+*/
 
 void av_telem_dma_setup()
 {
@@ -81,13 +85,19 @@ void av_telem_dma_setup()
    }
    RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA2RST;
    RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA2RST;
+#if (QUAN_OSD_BOARD_TYPE == 4)
+   DMA_Stream_TypeDef *stream = DMA2_Stream1;
+   constexpr uint32_t dma_channel = 5U;
+#else
    DMA_Stream_TypeDef *stream = DMA2_Stream5;
+   constexpr uint32_t dma_channel = 4U;
+#endif
    if (  stream->CR & (1 << 0)){
       stream->CR &= ~(1 << 0); // (EN)
       while(stream->CR & (1 << 0)){;}
    }
    stream->CR = 
-      ( 4 << 25)     // select ch 4
+      ( dma_channel << 25)     // select channel
       | (0b10 << 16) // medium high priority
       |( 1 << 10) ;  // (MINC);      
 
@@ -96,8 +106,14 @@ void av_telem_dma_setup()
    stream->FCR |= (0b11 << 0);
    // setup periph_reg
    stream->PAR = (uint32_t)&av_telemetry_usart::get()->dr;
+#if 0
 //#error enabled but no handler
+#if (QUAN_OSD_BOARD_TYPE == 4)
+    NVIC_SetPriority(DMA2_Stream1_IRQn,interrupt_priority::video);
+    NVIC_EnableIRQ(DMA2_Stream1_IRQn);
+#else
     NVIC_SetPriority(DMA2_Stream5_IRQn,interrupt_priority::video);
     NVIC_EnableIRQ(DMA2_Stream5_IRQn);
+#endif
 #endif
 }

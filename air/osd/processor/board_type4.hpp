@@ -64,7 +64,7 @@ typedef quan::stm32::spi3                      video_mux_out_white_spi;
 //typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_tx ;// USART4_TX
 //typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rx; // USART4_RX
 typedef quan::mcu::pin<quan::stm32::gpioa,2>    pixel_clock;// TIM9_CH1
-typedef quan::mcu::pin<quan::stm32::gpioa,3>    telem_cmp_enable; // TIM2_CH4
+typedef quan::mcu::pin<quan::stm32::gpioa,3>    telem_cmp_enable_pin; // TIM2_CH4
 typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin; // NOT MOVABLE
 typedef quan::mcu::pin<quan::stm32::gpioa,5>    dac2_out_pin; // NOT MOVABLE
 typedef quan::mcu::pin<quan::stm32::gpioa,6>    av_dac_nsync; // software no af

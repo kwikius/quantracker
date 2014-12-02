@@ -91,15 +91,19 @@ namespace {
 #if defined QUAN_OSD_TELEM_RECEIVER
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
-         telem_cmp_enable_pin
-         ,quan::stm32::gpio::mode::af1
+         telem_cmp_enable_pin    // TIM2_CH2 or TIM2_CH4 for boardtype 4
+         ,quan::stm32::gpio::mode::af1 // same for all boardtypes
          ,quan::stm32::gpio::pupd::pull_up
       >();
 
       quan::stm32::module_enable<av_video_rxi::port_type>();
       quan::stm32::apply<
          av_video_rxi
+#if (QUAN_OSD_BOARD_TYPE == 4)
+         ,quan::stm32::gpio::mode::af8
+#else
          ,quan::stm32::gpio::mode::af7
+#endif
          ,quan::stm32::gpio::pupd::pull_up
       >();
       
