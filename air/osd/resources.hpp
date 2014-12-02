@@ -9,6 +9,9 @@
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/usart.hpp>
 
+#if (QUAN_OSD_BOARD_TYPE == 4)
+#include "processor/board_type4.hpp"
+#else
 //timers
 typedef quan::stm32::tim1                       spi_clock_timer;
 typedef quan::stm32::tim2                       video_columns_gate_timer;
@@ -276,5 +279,5 @@ struct task_priority{
    static constexpr uint32_t heartbeat = ( tskIDLE_PRIORITY + 1UL );
 
 };
-
+#endif
 #endif // QUANTRACKER_AIR_OSD_RESOURCES_HPP_INCLUDED

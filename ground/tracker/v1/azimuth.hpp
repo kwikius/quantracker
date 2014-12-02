@@ -22,6 +22,8 @@
 #include "main_loop.hpp"
 #include <quan/angle.hpp>
 
+#erro redo for boardtype 4
+
  extern "C" void TIM2_IRQHandler();
  extern "C" void setup();
 

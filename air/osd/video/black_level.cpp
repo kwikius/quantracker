@@ -19,6 +19,7 @@ option Trigger by EXTI15 injected trigger
 // if edge trigger have 27 usec which should be enough!
 // could do dma to some loc and then average result?
 // or just do one of each?
+#error redo for boardtype 4
 void black_level_a2d_setup()
 {
   // TODO ADC port pin

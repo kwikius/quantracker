@@ -25,7 +25,7 @@ namespace quan{ namespace stm32{namespace freertos{
 
       static void enable()
       {
-         typedef quan::stm32::usart3 usart_type;
+         typedef Usart usart_type;
          quan::stm32::enable<usart_type>();
       }
 
@@ -40,7 +40,7 @@ namespace quan{ namespace stm32{namespace freertos{
       static void put (CharType ch)
       {
           xQueueSendToBack(m_txo_queue_handle,&ch,portMAX_DELAY);
-          typedef quan::stm32::usart3 usart_type;
+          typedef Usart usart_type;
           constexpr uint8_t usart_cr1_txeie = 7;
           usart_type::get()->cr1.bb_setbit<usart_cr1_txeie>();
       }

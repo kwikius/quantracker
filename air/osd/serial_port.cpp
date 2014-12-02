@@ -18,23 +18,42 @@
 #include <type_traits>
 #include "resources.hpp"
 
+#error redo for boardtype4 USART3
+
+#if (QUAN_OSD_BOARD_TYPE == 4)
+extern "C" void USART3_IRQHandler() __attribute__ ((interrupt ("IRQ")));
+extern "C" void USART3_IRQHandler()
+#else
 extern "C" void USART2_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART2_IRQHandler()
+#endif
 {
    static_assert(
    std::is_same<
+#if (QUAN_OSD_BOARD_TYPE == 4)
+     frsky_usart,quan::stm32::usart3
+#else
       frsky_usart,quan::stm32::usart2
+#endif
    >::value
    ,"invalid usart for serial_port irq");
    frsky_tx_rx_task::irq_handler();
 }
 
+#if (QUAN_OSD_BOARD_TYPE == 4)
+extern "C" void USART1_IRQHandler() __attribute__ ((interrupt ("IRQ")));
+extern "C" void USART1_IRQHandler()
+#else
 extern "C" void USART3_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART3_IRQHandler()
 {
    static_assert(
    std::is_same<
+#if (QUAN_OSD_BOARD_TYPE == 4)
+     posdata_usart,quan::stm32::usart1
+#else
      posdata_usart,quan::stm32::usart3
+#endif
    >::value
    ,"invalid usart for serial_port irq");
    posdata_tx_rx_task::irq_handler();

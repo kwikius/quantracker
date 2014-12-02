@@ -4,6 +4,8 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
+
+#error redo for boardtype 4
 //#include "video.hpp"
 
 // row line_counter on TIM3 (16 bit)

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 01 Dec 2014 08:28:41 GMT
+EESchema Schematic File Version 2  date Tue 02 Dec 2014 12:33:05 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "1 dec 2014"
+Date "2 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -139,10 +139,10 @@ XP_GND
 Text HLabel 6500 2800 0    45   Output ~ 0
 XP_GND
 $Comp
-L PWR_FLAG #FLG3
+L PWR_FLAG #FLG03
 U 1 1 5474845E
 P 5550 2550
-F 0 "#FLG3" H 5550 2820 30  0001 C CNN
+F 0 "#FLG03" H 5550 2820 30  0001 C CNN
 F 1 "PWR_FLAG" H 5550 2780 30  0000 C CNN
 	1    5550 2550
 	1    0    0    -1  
@@ -150,10 +150,10 @@ $EndComp
 Text HLabel 6500 2600 0    45   Output ~ 0
 XP_+V
 $Comp
-L PWR_FLAG #FLG4
+L PWR_FLAG #FLG04
 U 1 1 54748449
 P 6200 2350
-F 0 "#FLG4" H 6200 2620 30  0001 C CNN
+F 0 "#FLG04" H 6200 2620 30  0001 C CNN
 F 1 "PWR_FLAG" H 6200 2580 30  0000 C CNN
 	1    6200 2350
 	1    0    0    -1  

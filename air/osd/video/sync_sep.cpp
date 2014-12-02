@@ -349,6 +349,8 @@ void on_hsync_second_edge()
      }
 }
 } // namespace
+
+#error redo for boardtype 4 ( becomes timer12 irq)
  
 extern "C" void TIM1_BRK_TIM9_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
  

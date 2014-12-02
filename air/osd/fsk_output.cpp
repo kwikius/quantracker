@@ -280,6 +280,7 @@ void fsk::setup()
    dac_timer_setup();
 }
 
+//#################OK for all boards###################
 extern "C" void TIM6_DAC_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void TIM6_DAC_IRQHandler()
 {

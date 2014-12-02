@@ -9,7 +9,7 @@
 #include <quan/constrain.hpp>
 #include "../resources.hpp"
 
-#if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
+#if (QUAN_OSD_BOARD_TYPE != 1 ) 
 
 /*
  External DAC using DAC08S084S05 8 bit DAC. Uses soft spi to avoid use of SPI hardware
@@ -90,10 +90,11 @@ void dac_timer_setup()
    video_level_dac_irq_timer::get()->cnt = 0;
    video_level_dac_irq_timer::get()->sr = 0;
    // dont enable timer till needed
+//########same for all boards ######
    NVIC_SetPriority(TIM1_UP_TIM10_IRQn,interrupt_priority::video_level);
    NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
 }
-
+//####################### same for all boards###############
 extern "C" void TIM1_UP_TIM10_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void TIM1_UP_TIM10_IRQHandler()
 {
@@ -129,14 +130,21 @@ void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code)
 namespace {
    void set_init_dac_values()
    {
-#error need to redo values from pcb connections
+
+    #if (QUAN_OSD_BOARD_TYPE != 1 )
     #if (QUAN_OSD_BOARD_TYPE == 2 )  || (QUAN_OSD_BOARD_TYPE == 3 )
- 
        constexpr uint8_t dac_sync_idx = 0;
        constexpr uint8_t dac_black_idx = 1;
        constexpr uint8_t dac_white_idx = 2;
        constexpr uint8_t dac_data_idx = 3;
-      // Dac_write (dac_sync_idx, quan::voltage::V{0.4f}, 0);
+    #endif
+     #if (QUAN_OSD_BOARD_TYPE ==4 )
+       constexpr uint8_t dac_sync_idx = 0;
+       constexpr uint8_t dac_black_idx = 1;
+       constexpr uint8_t dac_white_idx = 2;
+       constexpr uint8_t dac_data_idx = 3;
+       Dac_write (dac_sync_idx, quan::voltage::V{0.45f}, 0);
+     #endif
        Dac_write (dac_black_idx, quan::voltage::V{0.64f}, 0); // 0.64
        Dac_write (dac_white_idx, quan::voltage::V{2.04f} , 0); // 2.04
        Dac_write (dac_data_idx, quan::voltage::V{1.2f}, 1);

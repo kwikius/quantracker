@@ -11,6 +11,8 @@
 #include "video_buffer.hpp"
 #include <quan/conversion/itoa.hpp>
 
+#error redo for boardtype4
+
 namespace {
 
    SemaphoreHandle_t h_request_osd_buffers_swap = 0;
