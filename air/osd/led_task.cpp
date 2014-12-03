@@ -1,4 +1,5 @@
 
+#if ( QUAN_OSD_BOARD_TYPE !=4)
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -94,3 +95,5 @@ void create_leds_task( )
   // init_led_task<orange_led_pin> (priority, false,ms{250},ms{250} ); 
   // init_led_task<blue_led_pin> ( priority, false,ms{1000},ms{1000} );
 }
+
+#endif

@@ -2,15 +2,8 @@
 #include <quan/stm32/rcc.hpp>
 #include <stm32f4xx.h>
 /*
+option Trigger injected trigger
 
-ADC on    typedef quan::mcu::pin<quan::stm32::gpioa,3>  analog_video_in; // ADC123_IN3
-option Trigger by EXTI15 injected trigger
-  typedef quan::mcu::pin<quan::stm32::gpiob,15> adc_exti_pin ;// Connect to EXTI15
-*/
-// maybe
-
-/*
-   set up exti15 or just use falling edge/ rising edge irqs
 */
 // Do sync tip ADC in vsync serrated pulses as are long
 // do black level ADC in post_equalising pulses
@@ -19,9 +12,12 @@ option Trigger by EXTI15 injected trigger
 // if edge trigger have 27 usec which should be enough!
 // could do dma to some loc and then average result?
 // or just do one of each?
-#error redo for boardtype 4
+
+// On board type 4 Analog video in on PB0 == ADC12_IN8
 void black_level_a2d_setup()
 {
+#if 0
+#error redo for boardtype 4
   // TODO ADC port pin
 //#######################
    // turn on
@@ -43,25 +39,27 @@ void black_level_a2d_setup()
     ADC3->CR2  |= (1 << 0); // (ADON)
 
     // To start a conversion
- 
+ #endif
 }
 
 void start_black_level_conversion()
 {
+//TODO
+#if 0
+#error redo for boardtype 4
      ADC3->CR2 |= (1 << 30);
+#endif
 }
 
 void update_black_level(uint16_t sync_tip, uint16_t black_level)
 {
 // TODO
 #if 0
-  // can also use DAC?
    // 12 bit 
    float const white = sync_tip + (black_level - sync_tip) * 1.0f/0.3f;
    // 12 bit
    float const black = black_level;
-   // put white to white pwm
-   // put black to black pwm
+
    float const grey  =  black + 0.25 * ( white - black);
    float const data  = black + ( white - black)/2.f;
    //12 bit pwm  arr// get lowest freq 

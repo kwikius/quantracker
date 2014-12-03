@@ -38,6 +38,7 @@ void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
 
 namespace {
 
+#if 0
    void setup_test_pin()
    {
       quan::stm32::module_enable< test_output_pin::port_type>();
@@ -50,19 +51,24 @@ namespace {
             , quan::stm32::gpio::ostate::low
          >();
    }
+#endif
 }
  
 extern "C" void setup()
 {
   
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-  setup_test_pin();
+ // setup_test_pin();
   setup_leds();
   video_setup();
 #if (QUAN_OSD_BOARD_TYPE != 1 )
   Dac_setup();
 #endif
   fsk::setup();
+ #if QUAN_OSD_BOARD_TYPE == 4
+  mavlink_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
+#else
   posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
+#endif
   frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
 }

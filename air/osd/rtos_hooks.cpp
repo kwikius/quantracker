@@ -35,7 +35,12 @@ extern "C" void vApplicationMallocFailedHook( )
 	to query the size of free heap space that remains (although it does not
 	provide information on how the remaining heap might be fragmented). */
 	taskDISABLE_INTERRUPTS();
+// have to set heartbeat here
+   #if ( QUAN_OSD_BOARD_TYPE !=4) 
    quan::stm32::set<blue_led_pin>();
+   #else
+     quan::stm32::set<heartbeat_led_pin>(); 
+   #endif
 	for( ;; );
 }
 

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 02 Dec 2014 12:33:04 GMT
+EESchema Schematic File Version 2  date Wed 03 Dec 2014 09:37:23 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 8
 Title ""
-Date "2 dec 2014"
+Date "3 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -552,8 +552,8 @@ Text Notes 4525 6225 1    45   ~ 0
 ADC5
 Text HLabel 4950 5625 3    45   BiDi ~ 0
 MCU_PB1
-Text Notes 5000 6225 1    45   ~ 0
-ADC1
+Text Notes 4975 6600 1    45   ~ 0
+ADC1 (Batt level)
 Text HLabel 4650 5625 3    45   BiDi ~ 0
 MCU_PC5
 Text Notes 4675 6200 1    45   ~ 0

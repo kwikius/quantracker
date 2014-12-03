@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 02 Dec 2014 12:33:05 GMT
+EESchema Schematic File Version 2  date Wed 03 Dec 2014 09:37:23 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "2 dec 2014"
+Date "3 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -670,9 +670,9 @@ Text HLabel 8000 3700 2    60   Input ~ 0
 N_WHITE_PX
 Text HLabel 8000 3500 2    60   Input ~ 0
 N_BLACK_PX
-Text Label 5850 2050 0    60   ~ 0
-BLACK
 Text Label 5900 2250 0    60   ~ 0
+BLACK
+Text Label 5900 2050 0    60   ~ 0
 WHITE
 $Comp
 L DAC084S085 U11

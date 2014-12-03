@@ -5,7 +5,6 @@
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
 
-#error redo for boardtype 4
 //#include "video.hpp"
 
 // row line_counter on TIM3 (16 bit)
@@ -96,7 +95,7 @@ void video_cfg::rows::setup()
       quan::stm32::tim::smcr_t smcr = line_counter::get()->smcr.get();
       smcr.ece = true;  // external clock on TIM3_ETR
 // The source for the clock to count lines
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)
+#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       smcr.etp = true;  // external clock TIM3_ETR falling edge ( first edge)
 #else
     #if QUAN_OSD_BOARD_TYPE == 2

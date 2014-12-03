@@ -37,7 +37,11 @@ mavlink_system_t mavlink_system = {12,1,0,0};
 
 void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 {
+ #if  (QUAN_OSD_BOARD_TYPE == 4)
+   mavlink_tx_rx_task::put(ch);
+#else
   posdata_tx_rx_task::put(ch);
+#endif
 }
 
 void signal_new_heartbeat();
@@ -100,11 +104,17 @@ namespace{
       mavlink_status_t status ;
 
       the_aircraft.mutex_init();
+#if  (QUAN_OSD_BOARD_TYPE == 4)
+   mavlink_tx_rx_task::enable();
+#else
       posdata_tx_rx_task::enable();
-
+#endif
       for(;;){
-        
+  #if  (QUAN_OSD_BOARD_TYPE == 4)    
+         uint8_t ch =  mavlink_tx_rx_task::get();
+  #else
          uint8_t ch =  posdata_tx_rx_task::get();
+  #endif
          if(mavlink_parse_char(MAVLINK_COMM_0, ch, &msg, &status)) {
             switch(msg.msgid) {
                case MAVLINK_MSG_ID_HEARTBEAT:

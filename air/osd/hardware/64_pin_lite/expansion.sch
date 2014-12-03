@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 02 Dec 2014 12:33:05 GMT
+EESchema Schematic File Version 2  date Wed 03 Dec 2014 09:37:23 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "2 dec 2014"
+Date "3 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,6 +48,21 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 4650 3400
+Wire Wire Line
+	4650 3400 4650 3600
+Connection ~ 5300 3600
+Wire Wire Line
+	4650 3600 5300 3600
+Connection ~ 5300 3650
+Wire Wire Line
+	5550 3800 5550 3650
+Wire Wire Line
+	5550 3650 5300 3650
+Wire Wire Line
+	5300 3050 5300 2950
+Wire Wire Line
+	5300 2950 5100 2950
 Wire Wire Line
 	6500 4400 6600 4400
 Wire Wire Line
@@ -107,7 +122,7 @@ Wire Wire Line
 Wire Wire Line
 	4100 3200 4200 3200
 Wire Wire Line
-	4100 3400 4200 3400
+	4100 3400 4700 3400
 Wire Wire Line
 	4100 3600 4200 3600
 Wire Wire Line
@@ -134,6 +149,46 @@ Wire Wire Line
 	6500 4100 6600 4100
 Wire Wire Line
 	6500 4300 6600 4300
+Wire Wire Line
+	5300 3700 5300 3550
+Wire Wire Line
+	5300 4200 5300 4300
+Wire Wire Line
+	5200 4300 5550 4300
+Wire Wire Line
+	5550 4300 5550 4200
+Connection ~ 5300 4300
+$Comp
+L C C39
+U 1 1 547ED333
+P 5550 4000
+F 0 "C39" H 5600 4100 50  0000 L CNN
+F 1 "C" H 5600 3900 50  0000 L CNN
+	1    5550 4000
+	1    0    0    -1  
+$EndComp
+Text HLabel 5100 2950 0    45   Input ~ 0
+XP_+V
+Text HLabel 5200 4300 0    45   BiDi ~ 0
+XP_GND
+$Comp
+L R R31
+U 1 1 547ED2AB
+P 5300 3950
+F 0 "R31" V 5380 3950 50  0000 C CNN
+F 1 "R" V 5300 3950 50  0000 C CNN
+	1    5300 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R30
+U 1 1 547ED2A5
+P 5300 3300
+F 0 "R30" V 5380 3300 50  0000 C CNN
+F 1 "R" V 5300 3300 50  0000 C CNN
+	1    5300 3300
+	1    0    0    -1  
+$EndComp
 Text HLabel 6500 4400 0    45   BiDi ~ 0
 XP_GND
 Text HLabel 6500 2800 0    45   Output ~ 0
@@ -244,7 +299,7 @@ Text HLabel 4200 3600 2    45   BiDi ~ 0
 XP_PC4
 Text HLabel 4200 3500 2    45   BiDi ~ 0
 XP_PC5
-Text HLabel 4200 3400 2    45   BiDi ~ 0
+Text HLabel 4700 3400 2    45   BiDi ~ 0
 XP_PB1
 Text HLabel 4200 3300 2    45   BiDi ~ 0
 XP_GND

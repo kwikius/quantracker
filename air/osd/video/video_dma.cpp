@@ -116,4 +116,5 @@ void av_telem_dma_setup()
     NVIC_EnableIRQ(DMA2_Stream5_IRQn);
 #endif
 #endif
+#endif
 }

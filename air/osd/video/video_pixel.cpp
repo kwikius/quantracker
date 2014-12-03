@@ -19,7 +19,7 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
       quan::stm32::apply<
          video_spi_clock
 #if (QUAN_OSD_BOARD_TYPE == 4)
-          ,quan::stm32::gpio::mode::af3  // TIM9_CH1
+         ,quan::stm32::gpio::mode::af3  // TIM9_CH1
 #else
          ,quan::stm32::gpio::mode::af1  // TIM1_CH1
 #endif

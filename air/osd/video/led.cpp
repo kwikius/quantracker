@@ -37,7 +37,7 @@ namespace  quan{ namespace impl{
 void setup_leds()
 {
 #if (QUAN_OSD_BOARD_TYPE == 4)
-      do_led_pin_setup<heartbeat_led_pin>{}();
+      do_led_pin_setup{}.operator()<heartbeat_led_pin>();
 #else
    typedef quan::meta::type_sequence<
     //  red_led_pin , // used for heartbeat led

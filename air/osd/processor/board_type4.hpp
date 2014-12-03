@@ -63,7 +63,7 @@ typedef quan::stm32::spi3                      video_mux_out_white_spi;
 //----PORTA---------------------------------------
 //typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_tx ;// USART4_TX
 //typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rx; // USART4_RX
-typedef quan::mcu::pin<quan::stm32::gpioa,2>    pixel_clock;// TIM9_CH1
+typedef quan::mcu::pin<quan::stm32::gpioa,2>    video_spi_clock;// TIM9_CH1
 typedef quan::mcu::pin<quan::stm32::gpioa,3>    telem_cmp_enable_pin; // TIM2_CH4
 typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin; // NOT MOVABLE
 typedef quan::mcu::pin<quan::stm32::gpioa,5>    dac2_out_pin; // NOT MOVABLE
@@ -88,8 +88,8 @@ typedef quan::mcu::pin<quan::stm32::gpiob,2>   boot1_pin;
 //typedef quan::mcu::pin<quan::stm32::gpiob,7>    i2c1_sda; 
 //typedef quan::mcu::pin<quan::stm32::gpiob,8>    tim10_ch1; 
 //typedef quan::mcu::pin<quan::stm32::gpiob,9>    tim11_ch1; 
-typedef quan::mcu::pin<quan::stm32::gpiob,10>   frsky_txo; 
-typedef quan::mcu::pin<quan::stm32::gpiob,11>   frsky_rxi; 
+typedef quan::mcu::pin<quan::stm32::gpiob,10>   frsky_txo_pin; 
+typedef quan::mcu::pin<quan::stm32::gpiob,11>   frsky_rxi_pin; 
 typedef quan::mcu::pin<quan::stm32::gpiob,12>   heartbeat_led_pin;
 typedef quan::mcu::pin<quan::stm32::gpiob,13>   video_mux_out_black_sck; // SPI2_SCK AF5
 typedef quan::mcu::pin<quan::stm32::gpiob,14>   video_in_hsync_first_edge_pin; // TIM12_CH1
@@ -184,7 +184,7 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
 typedef quan::stm32::freertos::usart_tx_rx_task<
    frsky_usart,
    10,2, 
-   frsky_txo_pin,frsky_rxi_pin_unused,
+   frsky_txo_pin,frsky_rxi_pin,
    char
 > frsky_tx_rx_task;
 

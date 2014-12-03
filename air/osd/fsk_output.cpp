@@ -126,7 +126,8 @@ namespace {
    // the sine data has been precalced in the file 
    #include "sin_array.txt"
 
-   static_assert( (sizeof(sin_array)/sizeof(fsk_params::dac_data_type)) == fsk_params::num_sin_values, "invalid array_length");
+   static_assert( (sizeof(sin_array)/sizeof(fsk_params::dac_data_type)) == fsk_params::num_sin_values, 
+         "invalid array_length");
 
    // The index of the current waveform dac value 
    uint32_t cur_dac_value_idx = 0;

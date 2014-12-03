@@ -21,7 +21,7 @@ void spi_setup()
 #if QUAN_OSD_BOARD_TYPE == 1
       ,quan::stm32::gpio::otype::open_drain
 #else
-    #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3)
+    #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       ,quan::stm32::gpio::otype::push_pull
     #else
       #error undefined board type
@@ -46,7 +46,7 @@ void spi_setup()
 #if QUAN_OSD_BOARD_TYPE == 1
       ,quan::stm32::gpio::otype::open_drain
 #else
-     #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3)
+     #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       ,quan::stm32::gpio::otype::push_pull
     #else
       #error undefined board type

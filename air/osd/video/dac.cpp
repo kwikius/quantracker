@@ -53,6 +53,7 @@ void dac_irq()
        clear<av_dac_data>();
    }
    #else
+   // not tested yet!
    put<av_dac_data>((dac_data & quan::bit<uint16_t>(15)) != 0) ;
    #endif
    delay();
@@ -133,11 +134,25 @@ namespace {
 
     #if (QUAN_OSD_BOARD_TYPE != 1 )
        constexpr uint8_t dac_sync_idx = 0;
+       constexpr uint8_t dac_data_idx = 3;
+     #if ((QUAN_OSD_BOARD_TYPE == 4 ) && ! ( defined QUAN_DISCOVERY))
+//###############################################
+       // only if not on Discovery unless change the soldered pins
+         // reversed on pcb board 4 for simpler routing
+       constexpr uint8_t dac_white_idx = 1;
+       constexpr uint8_t dac_black_idx = 2;
+//##########################
+       /* required for csync comparator
+         black at nominal 0.64 V
+         sync tip at 0.04
+          hysteresis nominal 0.05 V
+          on < 0.44 V
+           off > 0.54 V
+       */
+       Dac_write (dac_sync_idx, quan::voltage::V{0.49f}, 0);
+      #else
        constexpr uint8_t dac_black_idx = 1;
        constexpr uint8_t dac_white_idx = 2;
-       constexpr uint8_t dac_data_idx = 3;
-     #if (QUAN_OSD_BOARD_TYPE ==4 )
-       Dac_write (dac_sync_idx, quan::voltage::V{0.45f}, 0);
      #endif
        Dac_write (dac_black_idx, quan::voltage::V{0.64f}, 0); // 0.64
        Dac_write (dac_white_idx, quan::voltage::V{2.04f} , 0); // 2.04
@@ -146,8 +161,35 @@ namespace {
    }
 }
 
+
+
 void Dac_setup()
 {
+      /*
+ For Discovery, dont use DAC2 on PA5
+ Make  PE3 output High to set the LIS32DL to I2C mode
+ make PA5 output low to set low clock
+*/
+     #if ((QUAN_OSD_BOARD_TYPE == 4 ) &&  ( defined QUAN_DISCOVERY))
+      quan::stm32::module_enable<quan::stm32::porte>();
+      quan::stm32::apply<
+         quan::mcu::pin<quan::stm32::porte,3>
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::slow
+         , quan::stm32::gpio::ostate::high
+      >();
+       quan::stm32::module_enable<quan::stm32::porta>();
+      quan::stm32::apply<
+         quan::mcu::pin<quan::stm32::porta,5>
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::slow
+         , quan::stm32::gpio::ostate::low
+      >();
+     #endif
      quan::stm32::module_enable<av_dac_nsync::port_type>();
      quan::stm32::apply<
      av_dac_nsync

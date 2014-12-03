@@ -38,7 +38,11 @@
          #if QUAN_OSD_BOARD_TYPE == 3
             #pragma message "for board 3"
          #else
-            #error unknown board
+            #if QUAN_OSD_BOARD_TYPE == 4
+               #pragma message "for board 4"
+            #else
+               #error unknown board
+            #endif
          #endif
       #endif
    #endif
@@ -52,8 +56,9 @@ void create_frsky_task();
 void create_fsk_task();
 void create_draw_task();
 void create_telem_task();
+#if ( QUAN_OSD_BOARD_TYPE !=4)
 void create_leds_task();
-
+#endif
 void draw_loop();
 
 int main()
@@ -66,8 +71,9 @@ int main()
   create_fsk_task();
   create_draw_task();
   create_telem_task();
+#if ( QUAN_OSD_BOARD_TYPE !=4)
   create_leds_task();
-
+#endif
   vTaskStartScheduler();
 
   while (1) {;}

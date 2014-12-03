@@ -11,8 +11,6 @@
 #include "video_buffer.hpp"
 #include <quan/conversion/itoa.hpp>
 
-#error redo for boardtype4
-
 namespace {
 
    SemaphoreHandle_t h_request_osd_buffers_swap = 0;
@@ -58,7 +56,7 @@ namespace {
 Draw loop differs from telem loop
 as it has unknown length
 */
-   int count = 0;
+   //int count = 0;
    void service_osd_buffers()
    {
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
@@ -108,7 +106,7 @@ uint16_t video_cfg::columns::telem::m_begin = 12;
 uint16_t video_cfg::columns::telem::m_end = 110;
 #if 0
 namespace {
-   #if QUAN_OSD_BOARD_TYPE==3
+   #if (QUAN_OSD_BOARD_TYPE==3) || (QUAN_OSD_BOARD_TYPE==4)
    static constexpr bool transmitter = true;
    #else
    static constexpr bool transmitter = false;
@@ -334,9 +332,9 @@ void video_cfg::columns::telem::disable()
 #if defined QUAN_OSD_TELEM_RECEIVER
 // channel 4 on board_type 4
    #if (QUAN_OSD_BOARD_TYPE == 4)
-   gate_timer::get()->ccer.bb_setbit<12>();//( CC4E)
+   gate_timer::get()->ccer.bb_clearbit<12>();//( CC4E)
    #else
-   gate_timer::get()->ccer.bb_clearbit<4>();   ;//(CC2E)
+   gate_timer::get()->ccer.bb_clearbit<4>(); //(CC2E)
    #endif
    #if (QUAN_OSD_BOARD_TYPE == 4)
       DMA2_Stream1->CR &= ~(1 << 0); // (EN)
@@ -363,7 +361,7 @@ void video_cfg::columns::telem::begin()
 
       uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       uint16_t const dma_length = video_buffers::telem::tx::get_full_bytes_per_line()-1;
-
+// same for all boards
       DMA1_Stream5->M0AR = (uint32_t) (white+1);
       DMA1_Stream5->NDTR = dma_length  ;
       DMA1->HIFCR |= (0b111101 << 6) ;
@@ -516,6 +514,7 @@ void video_cfg::columns::setup()
       ccmr2.oc4fe = false;
       ccmr2.oc4pe = false;
       ccmr2.oc4m  = 0b111;  // pwm mode 2
+      gate_timer::get()->ccmr2.set (ccmr2.value);
 #else
       ccmr1.cc2s  = 0b00;   // OC2 is output mapped to TRGO ( enable px clk)
       ccmr1.oc2fe = false;

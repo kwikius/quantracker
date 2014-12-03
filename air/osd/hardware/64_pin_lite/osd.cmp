@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 02 Dec 2014 09:17:38 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 03 Dec 2014 09:11:41 GMT
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -262,6 +262,13 @@ EndCmp
 BeginCmp
 TimeStamp = /546C8634/547D8257;
 Reference = C38;
+ValeurCmp = C;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546D98A5/547ED333;
+Reference = C39;
 ValeurCmp = C;
 IdModule  = SM0603;
 EndCmp
@@ -577,6 +584,20 @@ EndCmp
 BeginCmp
 TimeStamp = /546C8634/547D81DE;
 Reference = R29;
+ValeurCmp = R;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546D98A5/547ED2A5;
+Reference = R30;
+ValeurCmp = R;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546D98A5/547ED2AB;
+Reference = R31;
 ValeurCmp = R;
 IdModule  = SM0603;
 EndCmp
