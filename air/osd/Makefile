@@ -106,7 +106,8 @@ DEFINES += HSE_VALUE=8000000
 #board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
 #board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY
 #board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3 QUAN_DISCOVERY
-board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
+#board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
+board_type4_disco : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_DISCOVERY
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
@@ -127,6 +128,7 @@ ODFLAGS = -d
 #board_type2 : test
 #board_type3 : test
 board_type4 : test
+board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
 $(cmsis_objects) startup.o system_init.o flash_funs.o port.o heap_3.o

@@ -133,12 +133,13 @@ namespace {
    {
 
     #if (QUAN_OSD_BOARD_TYPE != 1 )
-       constexpr uint8_t dac_sync_idx = 0;
+      
        constexpr uint8_t dac_data_idx = 3;
      #if ((QUAN_OSD_BOARD_TYPE == 4 ) && ! ( defined QUAN_DISCOVERY))
 //###############################################
        // only if not on Discovery unless change the soldered pins
          // reversed on pcb board 4 for simpler routing
+        constexpr uint8_t dac_sync_idx = 0;
        constexpr uint8_t dac_white_idx = 1;
        constexpr uint8_t dac_black_idx = 2;
 //##########################
@@ -171,18 +172,18 @@ void Dac_setup()
  make PA5 output low to set low clock
 */
      #if ((QUAN_OSD_BOARD_TYPE == 4 ) &&  ( defined QUAN_DISCOVERY))
-      quan::stm32::module_enable<quan::stm32::porte>();
+      quan::stm32::module_enable<quan::stm32::gpioe>();
       quan::stm32::apply<
-         quan::mcu::pin<quan::stm32::porte,3>
+         quan::mcu::pin<quan::stm32::gpioe,3>
          , quan::stm32::gpio::mode::output
          , quan::stm32::gpio::otype::push_pull
          , quan::stm32::gpio::pupd::none
          , quan::stm32::gpio::ospeed::slow
          , quan::stm32::gpio::ostate::high
       >();
-       quan::stm32::module_enable<quan::stm32::porta>();
+       quan::stm32::module_enable<quan::stm32::gpioa>();
       quan::stm32::apply<
-         quan::mcu::pin<quan::stm32::porta,5>
+         quan::mcu::pin<quan::stm32::gpioa,5>
          , quan::stm32::gpio::mode::output
          , quan::stm32::gpio::otype::push_pull
          , quan::stm32::gpio::pupd::none
