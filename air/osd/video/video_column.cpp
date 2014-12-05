@@ -134,6 +134,7 @@ void video_cfg::columns::disable()
 
 // called on first edge of hsync
 // at start of first osd row
+//########################check use of TIM2 Ch2 and ch4 here //#################
 void video_cfg::columns::osd::enable()
 {
 /*
@@ -151,7 +152,13 @@ void video_cfg::columns::osd::enable()
    spi_clock::timer::get()->ccr1 = clks_px-1; // faster bus clk
    // pixel clk gate timing
    gate_timer::get()->cnt = 0;
+//######################Check use of CCR2 here###############
+#if (QUAN_OSD_BOARD_TYPE == 4)
+   gate_timer::get()->ccr4 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
+#else
    gate_timer::get()->ccr2 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
+#endif
+//##############################check use of CR2 here ##################
    gate_timer::get()->arr = ( (m_end +7) * clks_px) - 1;  // end px /2 as busclk is only half of pixel bus clk
 //
    // change gate to trigger mode ready for hsync second edge to start gate_timer
@@ -279,7 +286,13 @@ void video_cfg::columns::telem::enable()
 #endif
    // pixel timer gate timing
    gate_timer::get()->cnt = 0;
+//##############################check use of ccr2 here#####################
+#if (QUAN_OSD_BOARD_TYPE == 4)
+    gate_timer::get()->ccr4 = m_begin * clks_bit - 1;
+#else
    gate_timer::get()->ccr2 = m_begin * clks_bit - 1;
+#endif
+//################################################################
    gate_timer::get()->arr = (m_end - 1)  * clks_bit - 1 ;
 #if defined QUAN_OSD_TELEM_RECEIVER
    #if (QUAN_OSD_BOARD_TYPE == 4)
@@ -291,6 +304,8 @@ void video_cfg::columns::telem::enable()
    gate_timer::get()->sr.bb_clearbit<6>();  // (TIF)
    gate_timer::get()->dier.bb_setbit<6>();  // (TIE)
    // change gate to trigger mode ready for TRGI edge to start gate_timer
+
+//##############################
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
 
 #if defined QUAN_OSD_TELEM_RECEIVER
@@ -531,7 +546,7 @@ void video_cfg::columns::setup()
       ccer.cc1np = false;  // Ti1FP1 rising edge trigger ( hsync)
       ccer.cc1p  = false;  // Ti1FP1 rising edge trigger
 #else
-   #if QUAN_OSD_BOARD_TYPE == 2
+   #if (QUAN_OSD_BOARD_TYPE == 2)
       ccer.cc1np = false;  // Ti1FP1 falling edge trigger ( hsync)
       ccer.cc1p  = true;  // Ti1FP1 falling edge trigger
    #else

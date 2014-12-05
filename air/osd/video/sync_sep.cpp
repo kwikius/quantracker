@@ -62,7 +62,7 @@ void sync_sep_reset()
 void sync_sep_error_reset()
 {
 #if ((QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY))
-  quan::stm32::set<blue_led_pin>();
+  quan::stm32::set<orange_led_pin>();
  #endif
   initial_first_edge_captured = false;
   sync_pulse_type = synctype_t::unknown;
@@ -305,6 +305,9 @@ void on_hsync_second_edge()
                 break;
                 case syncmode_t::pre_equalise:
                   if (line_period == line_period_t::half) {
+//#############
+                       quan::stm32::set<blue_led_pin>();
+//###################
                        if (sync_pulse_type == synctype_t::vsync) {
                          //  quan::stm32::complement<test_output_pin>(); 
                             if (sync_counter == 5){
@@ -344,7 +347,9 @@ void on_hsync_second_edge()
                             // rather than preequalise but this is counted
                             syncmode = syncmode_t::pre_equalise;
                             sync_counter = 1;
-                          //   quan::stm32::clear<green_led_pin>();
+//#################
+                            quan::stm32::clear<blue_led_pin>();
+//#########################
                           //   quan::stm32::set<red_led_pin>();
                        }else{
                           //     quan::stm32::clear<red_led_pin>();

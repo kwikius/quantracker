@@ -18,6 +18,7 @@
  = requires 112 bytes of buffer per 1/50th sec frame
  also need to process.
 */
+#if 1
 namespace {
  
    typedef quan::two_d::vect<float> fvect;
@@ -62,6 +63,22 @@ void on_draw()
      cursor += fvect {0.f,21.f};
      draw_num_sats();
 }
+#else
+
+void on_draw()
+{
+   typedef quan::two_d::vect<float> vect;
+   for ( uint32_t i = 0; i < 10;++i){
+
+    draw_line_bres(vect{50*i +20,0},vect{50*i+20,400},color::black);
+    draw_line_bres(vect{50*i +21,0},vect{50*i+21,400},color::black);
+
+        draw_line_bres(vect{50*i +30,0},vect{50*i+30,400},color::black);
+    draw_line_bres(vect{50*i +31,0},vect{50*i+31,400},color::black);
+    }
+}
+
+#endif
  
  
  
