@@ -1,5 +1,5 @@
 
-#if (QUAN_OSD_BOARD_TYPE != 4)
+#if (QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY)
 #include <quan/meta/type_sequence.hpp>
 #include <quan/meta/for_each.hpp>
 #endif
@@ -26,7 +26,7 @@ namespace {
       }
    };
 }
-#if (QUAN_OSD_BOARD_TYPE != 4)
+#if (QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY)
 namespace  quan{ namespace impl{
    template<> struct is_model_of_impl<
       quan::meta::PolymorphicFunctor<1,0>,do_led_pin_setup 
@@ -36,12 +36,12 @@ namespace  quan{ namespace impl{
 
 void setup_leds()
 {
-#if (QUAN_OSD_BOARD_TYPE == 4)
+#if (QUAN_OSD_BOARD_TYPE == 4) && !(defined QUAN_DISCOVERY)
       do_led_pin_setup{}.operator()<heartbeat_led_pin>();
 #else
    typedef quan::meta::type_sequence<
-    //  red_led_pin , // used for heartbeat led
-      blue_led_pin     
+      heartbeat_led_pin
+      ,blue_led_pin     
       ,green_led_pin  
       ,orange_led_pin 
    > led_pins;

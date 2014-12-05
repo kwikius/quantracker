@@ -19,9 +19,9 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
       quan::stm32::apply<
          video_spi_clock
 #if (QUAN_OSD_BOARD_TYPE == 4)
-         ,quan::stm32::gpio::mode::af3  // TIM9_CH1
+         ,quan::stm32::gpio::mode::af3  //PA2 TIM9_CH1
 #else
-         ,quan::stm32::gpio::mode::af1  // TIM1_CH1
+         ,quan::stm32::gpio::mode::af1  // PA8 TIM1_CH1
 #endif
          ,quan::stm32::gpio::ospeed::fast
          ,quan::stm32::gpio::ostate::low
@@ -34,14 +34,19 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
          quan::stm32::tim::cr1_t cr1 = timer::get()->cr1.get();
             cr1.ckd  = 0b000;  // no clk division
             cr1.arpe = false;   // auto reload is buffered
+#if (QUAN_OSD_BOARD_TYPE != 4)
+// only on tim1
             cr1.cms  = 0b00;   // edge aligned counting
             cr1.dir  =  false; // up counting
+#endif
             cr1.urs  = true;   // only update event generates update interrupt
             cr1.opm  = false;  // not one pulse mode
             cr1.udis = false;
             cr1.cen  = false;
          timer::get()->cr1.set(cr1.value);
       }
+#if (QUAN_OSD_BOARD_TYPE != 4)
+// no cr2 on tim9
       {
          quan::stm32::tim::cr2_t cr2 = timer::get()->cr2.get();
             cr2.ti1s = false;
@@ -50,6 +55,7 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
             cr2.ois1 = false;  // OC1 low when inactive
          timer::get()->cr2.set(cr2.value);
       }
+#endif
       {
          quan::stm32::tim::smcr_t smcr = timer::get()->smcr.get();
            //To TRY--> smcr.msm = true;

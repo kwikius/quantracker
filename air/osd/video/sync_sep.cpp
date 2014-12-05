@@ -61,7 +61,7 @@ void sync_sep_reset()
 
 void sync_sep_error_reset()
 {
-#if (QUAN_OSD_BOARD_TYPE != 4)
+#if ((QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY))
   quan::stm32::set<blue_led_pin>();
  #endif
   initial_first_edge_captured = false;
@@ -105,7 +105,7 @@ void sync_sep_setup()
       video_in_hsync_first_edge_pin,
 // af for first edge
 #if (QUAN_OSD_BOARD_TYPE == 4)
-      quan::stm32::gpio::mode::af9,
+      quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1 
 #else
       quan::stm32::gpio::mode::af3,
 #endif
@@ -123,7 +123,7 @@ void sync_sep_setup()
    quan::stm32::apply<
       video_in_hsync_second_edge_pin,
 #if (QUAN_OSD_BOARD_TYPE == 4)
-      quan::stm32::gpio::mode::af9,
+      quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
 #else
       quan::stm32::gpio::mode::af3,
 #endif

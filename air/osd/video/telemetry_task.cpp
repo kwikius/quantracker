@@ -91,8 +91,8 @@ namespace {
 #if defined QUAN_OSD_TELEM_RECEIVER
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
-         telem_cmp_enable_pin    // TIM2_CH2 or TIM2_CH4 for boardtype 4
-         ,quan::stm32::gpio::mode::af1 // same for all boardtypes
+         telem_cmp_enable_pin    // TIM2_CH2 or TIM2_CH4 for boardtype 4 (PA3)
+         ,quan::stm32::gpio::mode::af1 // same for all boardtypes 
          ,quan::stm32::gpio::pupd::pull_up
       >();
 
@@ -100,7 +100,7 @@ namespace {
       quan::stm32::apply<
          av_video_rxi
 #if (QUAN_OSD_BOARD_TYPE == 4)
-         ,quan::stm32::gpio::mode::af8
+         ,quan::stm32::gpio::mode::af8 // PC7  USART6_RX
 #else
          ,quan::stm32::gpio::mode::af7
 #endif
@@ -132,7 +132,24 @@ namespace {
       >();
      // av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
       av_telemetry_usart::get()->cr1.setbit<2>(); // ( RE)
+#else  // transmitter
+  #if (QUAN_OSD_BOARD_TYPE == 4) 
+      quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
+      quan::stm32::apply<
+         telem_cmp_enable_pin   
+         ,quan::stm32::gpio::mode::input // Shutdown TLV3501 kep cmp disabled
+         ,quan::stm32::gpio::pupd::pull_up
+      >();
+      quan::stm32::module_enable<av_telem_rx::port_type>();
+      quan::stm32::apply<
+         av_telem_rx   
+         ,quan::stm32::gpio::mode::input //cmp output hiz pulled up
+         ,quan::stm32::gpio::pupd::pull_up
+      >();
+  #endif
 #endif
+
+
    }
 }//namespace 
 

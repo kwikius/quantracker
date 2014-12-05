@@ -162,8 +162,6 @@ namespace {
    }
 }
 
-
-
 void Dac_setup()
 {
       /*

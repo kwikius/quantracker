@@ -283,9 +283,9 @@ void video_cfg::columns::telem::enable()
    gate_timer::get()->arr = (m_end - 1)  * clks_bit - 1 ;
 #if defined QUAN_OSD_TELEM_RECEIVER
    #if (QUAN_OSD_BOARD_TYPE == 4)
-   gate_timer::get()->ccer.bb_setbit<12>();//( CC4E)
+   gate_timer::get()->ccer.bb_setbit<12>();//( CC4E) // gate timer output enable cmp TIM2_CH4
    #else
-   gate_timer::get()->ccer.bb_setbit<4>(); //(CC2E)
+   gate_timer::get()->ccer.bb_setbit<4>(); //(CC2E)  // gate timer output enable cmp TIM2_CH2
    #endif
 #endif
    gate_timer::get()->sr.bb_clearbit<6>();  // (TIF)
@@ -296,18 +296,18 @@ void video_cfg::columns::telem::enable()
 #if defined QUAN_OSD_TELEM_RECEIVER
       uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
 #if (QUAN_OSD_BOARD_TYPE == 4)
-      DMA_Stream_TypeDef *stream = DMA2_Stream1;
+      DMA_Stream_TypeDef *stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
 #else
-      DMA_Stream_TypeDef *stream = DMA2_Stream5;
+      DMA_Stream_TypeDef *stream = DMA2_Stream5; // USART1_RX DMA2 stream 5 Cha 4
 #endif
        stream->M0AR = (uint32_t)ptr;
        stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
 #if (QUAN_OSD_BOARD_TYPE == 4)
-       DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Stream 1
-       DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Stream 1
+       DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
+       DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Dma2 Stream 1
 #else
-       DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for stream 5
-       DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for stream 5
+       DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
+       DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
 #endif      
        av_telemetry_usart::get()->cr2.clearbit<14>(); //(LINEN)
        av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
@@ -465,7 +465,7 @@ void video_cfg::columns::uif_irq()
 }
 // columns gate gate_timer on TIM2
 // triggered by hsync (TIM2_CH1) tim2_hsync_pin when enabled
-// compare on CC2 gives one shot PWM to gate pixel gate_timer
+// compare on CC2 (CC4 for boardtype 4) gives one shot PWM to gate pixel gate_timer
 void video_cfg::columns::setup()
 {
    quan::stm32::module_enable<gate_timer>();

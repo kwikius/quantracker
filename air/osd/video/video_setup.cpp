@@ -9,12 +9,12 @@ void hsync_setup()
      // TIx input for resetting hsync capture timer
      // Tim2 is gate timer ch1 second edge starts gate timer
      quan::stm32::module_enable<video_in_tim2_hsync_pin::port_type>();
-     // TIM2_CH1
+     // TIM2_CH1 same on all boards
      quan::stm32::apply<
         video_in_tim2_hsync_pin,
         quan::stm32::gpio::mode::af1
      >();
-     // gate trigger
+     // gate trigger same on all boards
      quan::stm32::module_enable<video_in_tim3_hsync_pin::port_type>();
      // TIM3_ETR
      quan::stm32::apply<

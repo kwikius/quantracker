@@ -36,7 +36,7 @@ extern "C" void vApplicationMallocFailedHook( )
 	provide information on how the remaining heap might be fragmented). */
 	taskDISABLE_INTERRUPTS();
 // have to set heartbeat here
-   #if ( QUAN_OSD_BOARD_TYPE !=4) 
+   #if (( QUAN_OSD_BOARD_TYPE !=4) || (defined QUAN_DISCOVERY))
    quan::stm32::set<blue_led_pin>();
    #else
      quan::stm32::set<heartbeat_led_pin>(); 
