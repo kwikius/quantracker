@@ -1,4 +1,4 @@
-update=Wed 26 Nov 2014 14:34:58 GMT
+update=Sat 06 Dec 2014 10:52:15 GMT
 last_client=cvpcb
 [eeschema]
 version=1
@@ -84,6 +84,7 @@ LibName12=/home/andy/electronics/kicad/modules/SOD-123
 LibName13=/home/andy/electronics/kicad/modules/SIL-20
 LibName14=/home/andy/electronics/kicad/modules/DFN2532
 LibName15=/home/andy/electronics/kicad/modules/SC70-5
+LibName16=/home/andy/electronics/kicad/modules/TEST_PAD
 LibDir=
 [cvpcb]
 version=1

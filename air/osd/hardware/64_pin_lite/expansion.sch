@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 03 Dec 2014 09:37:23 GMT
+EESchema Schematic File Version 2  date Sun 07 Dec 2014 14:25:55 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "3 dec 2014"
+Date "7 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,6 +48,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 5550 3550 0    45   ~ 0
+3V max
 Connection ~ 4650 3400
 Wire Wire Line
 	4650 3400 4650 3600
@@ -163,7 +165,7 @@ L C C39
 U 1 1 547ED333
 P 5550 4000
 F 0 "C39" H 5600 4100 50  0000 L CNN
-F 1 "C" H 5600 3900 50  0000 L CNN
+F 1 "10uF" H 5600 3900 50  0000 L CNN
 	1    5550 4000
 	1    0    0    -1  
 $EndComp
@@ -176,7 +178,7 @@ L R R31
 U 1 1 547ED2AB
 P 5300 3950
 F 0 "R31" V 5380 3950 50  0000 C CNN
-F 1 "R" V 5300 3950 50  0000 C CNN
+F 1 "3K" V 5300 3950 50  0000 C CNN
 	1    5300 3950
 	1    0    0    -1  
 $EndComp
@@ -185,7 +187,7 @@ L R R30
 U 1 1 547ED2A5
 P 5300 3300
 F 0 "R30" V 5380 3300 50  0000 C CNN
-F 1 "R" V 5300 3300 50  0000 C CNN
+F 1 "9K" V 5300 3300 50  0000 C CNN
 	1    5300 3300
 	1    0    0    -1  
 $EndComp

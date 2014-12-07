@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 03 Dec 2014 09:11:41 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Sun 07 Dec 2014 10:52:22 GMT
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -88,7 +88,7 @@ BeginCmp
 TimeStamp = /546F1A19/5433B3C5;
 Reference = C13;
 ValeurCmp = 4u7;
-IdModule  = SM0603;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
@@ -109,14 +109,14 @@ BeginCmp
 TimeStamp = /546F1A19/5472708F;
 Reference = C16;
 ValeurCmp = 10uF;
-IdModule  = SM0603;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
 TimeStamp = /546F1A19/54711603;
 Reference = C17;
 ValeurCmp = 10uF;
-IdModule  = SM0603;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
@@ -130,7 +130,7 @@ BeginCmp
 TimeStamp = /546F1A19/547491F8;
 Reference = C19;
 ValeurCmp = 10uF;
-IdModule  = SM0603;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
@@ -383,6 +383,41 @@ TimeStamp = /54675A51/546DBC86;
 Reference = P5;
 ValeurCmp = CONN_5;
 IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5433EE23/5482DC3E;
+Reference = P6;
+ValeurCmp = CONN_1;
+IdModule  = TEST_PAD;
+EndCmp
+
+BeginCmp
+TimeStamp = /5433EE23/5482DF7C;
+Reference = P7;
+ValeurCmp = CONN_1;
+IdModule  = TEST_PAD;
+EndCmp
+
+BeginCmp
+TimeStamp = /5433EE23/5482DF35;
+Reference = P8;
+ValeurCmp = CONN_1;
+IdModule  = TEST_PAD;
+EndCmp
+
+BeginCmp
+TimeStamp = /544A4CB8/5482DEA0;
+Reference = P9;
+ValeurCmp = CONN_1;
+IdModule  = TEST_PAD;
+EndCmp
+
+BeginCmp
+TimeStamp = /544A4CB8/5482DEBF;
+Reference = P10;
+ValeurCmp = CONN_1;
+IdModule  = TEST_PAD;
 EndCmp
 
 BeginCmp

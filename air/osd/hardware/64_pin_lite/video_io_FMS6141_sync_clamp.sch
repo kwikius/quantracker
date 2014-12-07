@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 03 Dec 2014 09:37:23 GMT
+EESchema Schematic File Version 2  date Sun 07 Dec 2014 14:25:55 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "3 dec 2014"
+Date "7 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,6 +48,9 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 5700 5900
+Wire Wire Line
+	5850 5900 5700 5900
 Wire Wire Line
 	5700 2250 6400 2250
 Connection ~ 6250 1850
@@ -120,7 +123,7 @@ Wire Wire Line
 Wire Wire Line
 	2900 4100 3200 4100
 Wire Wire Line
-	5800 6400 5600 6400
+	5600 6400 5800 6400
 Connection ~ 9900 1600
 Wire Wire Line
 	9900 1600 9900 2400
@@ -139,7 +142,7 @@ Wire Wire Line
 Wire Wire Line
 	8800 2400 8800 1700
 Wire Wire Line
-	1250 1600 1500 1600
+	1500 1600 1250 1600
 Connection ~ 3300 1600
 Wire Wire Line
 	3200 1600 3300 1600
@@ -167,7 +170,7 @@ Wire Wire Line
 	3650 7350 3650 6700
 Connection ~ 4200 6250
 Wire Wire Line
-	4600 6250 4200 6250
+	4200 6250 4600 6250
 Wire Wire Line
 	4600 6550 3900 6550
 Wire Wire Line
@@ -175,7 +178,7 @@ Wire Wire Line
 Wire Wire Line
 	1550 5050 5850 5050
 Wire Wire Line
-	6400 6400 6300 6400
+	6700 6400 6300 6400
 Wire Wire Line
 	8000 3500 7500 3500
 Wire Wire Line
@@ -195,7 +198,7 @@ Wire Wire Line
 Wire Wire Line
 	3650 2350 3850 2350
 Wire Wire Line
-	4800 1000 4800 1200
+	4800 1200 4800 1000
 Wire Wire Line
 	6100 700  3300 700 
 Wire Wire Line
@@ -251,7 +254,7 @@ Wire Wire Line
 	3650 6300 3650 6200
 Connection ~ 3650 6200
 Wire Wire Line
-	4200 6700 4200 6050
+	4200 6050 4200 6700
 Wire Wire Line
 	3900 6200 3550 6200
 Wire Wire Line
@@ -260,7 +263,7 @@ Wire Wire Line
 	4400 5550 4750 5550
 Connection ~ 4400 6250
 Wire Wire Line
-	8850 1500 8600 1500
+	8600 1500 8850 1500
 Wire Wire Line
 	8700 2100 8700 2400
 Wire Wire Line
@@ -272,7 +275,7 @@ Connection ~ 1300 4900
 Wire Wire Line
 	1350 2400 1350 2850
 Wire Wire Line
-	9850 1600 9950 1600
+	9950 1600 9850 1600
 Wire Wire Line
 	1750 4250 1300 4250
 Connection ~ 1300 4250
@@ -343,6 +346,27 @@ Wire Wire Line
 	5850 2450 5700 2450
 Wire Wire Line
 	6550 2050 5700 2050
+Wire Wire Line
+	3800 6200 3800 5950
+Connection ~ 3800 6200
+$Comp
+L CONN_1 P10
+U 1 1 5482DEBF
+P 6000 5900
+F 0 "P10" H 6080 5900 40  0000 L CNN
+F 1 "CONN_1" H 6000 5955 30  0001 C CNN
+	1    6000 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P9
+U 1 1 5482DEA0
+P 3800 5800
+F 0 "P9" H 3880 5800 40  0000 L CNN
+F 1 "CONN_1" H 3800 5855 30  0001 C CNN
+	1    3800 5800
+	0    -1   -1   0   
+$EndComp
 Text HLabel 8250 5450 0    45   Input ~ 0
 VIDEO_+3.3V
 Text Notes 4300 6450 0    45   ~ 0
@@ -400,7 +424,7 @@ Text Label 4800 1000 0    45   ~ 0
 VIDEO_+3.3V
 Text HLabel 1250 1600 0    60   Input ~ 0
 VIDEO_IN
-Text HLabel 6400 6400 2    60   Output ~ 0
+Text HLabel 6700 6400 2    60   Output ~ 0
 CSYNC
 $Comp
 L C C29

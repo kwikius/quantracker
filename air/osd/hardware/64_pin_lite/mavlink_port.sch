@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 03 Dec 2014 09:37:23 GMT
+EESchema Schematic File Version 2  date Sun 07 Dec 2014 14:25:55 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 6 8
 Title ""
-Date "3 dec 2014"
+Date "7 dec 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -179,7 +179,7 @@ L C C37
 U 1 1 547D825F
 P 7150 4600
 F 0 "C37" H 7200 4700 50  0000 L CNN
-F 1 "C" H 7200 4500 50  0000 L CNN
+F 1 "470pF" H 7200 4500 50  0000 L CNN
 	1    7150 4600
 	1    0    0    -1  
 $EndComp
@@ -188,7 +188,7 @@ L C C38
 U 1 1 547D8257
 P 8050 4600
 F 0 "C38" H 8100 4700 50  0000 L CNN
-F 1 "C" H 8100 4500 50  0000 L CNN
+F 1 "470pF" H 8100 4500 50  0000 L CNN
 	1    8050 4600
 	1    0    0    -1  
 $EndComp
@@ -197,7 +197,7 @@ L R R29
 U 1 1 547D81DE
 P 8400 3500
 F 0 "R29" V 8480 3500 50  0000 C CNN
-F 1 "R" V 8400 3500 50  0000 C CNN
+F 1 "100R" V 8400 3500 50  0000 C CNN
 	1    8400 3500
 	0    1    1    0   
 $EndComp
@@ -206,7 +206,7 @@ L R R28
 U 1 1 547D81C5
 P 7500 4250
 F 0 "R28" V 7580 4250 50  0000 C CNN
-F 1 "R" V 7500 4250 50  0000 C CNN
+F 1 "100R" V 7500 4250 50  0000 C CNN
 	1    7500 4250
 	0    1    1    0   
 $EndComp
@@ -215,7 +215,7 @@ L R R27
 U 1 1 547D816E
 P 6750 3400
 F 0 "R27" V 6830 3400 50  0000 C CNN
-F 1 "R" V 6750 3400 50  0000 C CNN
+F 1 "100R" V 6750 3400 50  0000 C CNN
 	1    6750 3400
 	0    1    1    0   
 $EndComp
@@ -224,7 +224,7 @@ L R R26
 U 1 1 547D813B
 P 6750 3150
 F 0 "R26" V 6830 3150 50  0000 C CNN
-F 1 "R" V 6750 3150 50  0000 C CNN
+F 1 "100R" V 6750 3150 50  0000 C CNN
 	1    6750 3150
 	0    1    1    0   
 $EndComp

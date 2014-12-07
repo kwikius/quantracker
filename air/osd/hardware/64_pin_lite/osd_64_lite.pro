@@ -1,4 +1,4 @@
-update=Wed 26 Nov 2014 14:33:11 GMT
+update=Sat 06 Dec 2014 10:53:58 GMT
 last_client=pcbnew
 [eeschema]
 version=1
@@ -71,7 +71,7 @@ version=1
 [pcbnew]
 version=1
 PadDrlX=0
-PadDimH=157
+PadDimH=394
 PadDimV=197
 BoardThickness=630
 TxtPcbV=800
@@ -102,3 +102,4 @@ LibName12=/home/andy/electronics/kicad/modules/LPS4018
 LibName13=/home/andy/electronics/kicad/modules/SIL-20
 LibName14=/home/andy/electronics/kicad/modules/DFN2532
 LibName15=/home/andy/electronics/kicad/modules/SC70-5
+LibName16=/home/andy/electronics/kicad/modules/TEST_PAD
