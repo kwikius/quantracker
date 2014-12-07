@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Sun 07 Dec 2014 10:52:22 GMT
+# EESchema Netlist Version 1.1 created  Sun 07 Dec 2014 15:15:53 GMT
 (
  ( /5433EE23/5470A326 SM0603 C1 0u1
   ( 1 /mavlink_port/MAVLINK_+3.3V )
@@ -45,23 +45,23 @@
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /546F1A19/54711574 SM0603 C12 0u1
-  ( 1 N-000096 )
+  ( 1 N-000099 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
- ( /546F1A19/5433B3C5 SM0805 C13 4u7
-  ( 1 N-000100 )
+ ( /546F1A19/5433B3C5 SM1206 C13 4u7
+  ( 1 N-000101 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /546F1A19/5433B3C6 SM0603 C14 15nF
-  ( 1 N-000099 )
+  ( 1 N-000095 )
   ( 2 N-000098 )
  )
  ( /546F1A19/5472ED3C SM0603 C15 0u15
-  ( 1 N-000101 )
-  ( 2 N-000095 )
+  ( 1 N-000097 )
+  ( 2 N-000100 )
  )
  ( /546F1A19/5472708F SM1206 C16 10uF
-  ( 1 N-000101 )
+  ( 1 N-000097 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /546F1A19/54711603 SM1206 C17 10uF
@@ -93,16 +93,16 @@
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /54675A51/54749516 SM0805 C24 33uF
-  ( 1 N-000081 )
-  ( 2 N-000084 )
+  ( 1 N-000080 )
+  ( 2 N-000082 )
  )
  ( /54675A51/5474951D SM0805 C25 33uF
-  ( 1 N-000083 )
-  ( 2 N-000082 )
+  ( 1 N-000081 )
+  ( 2 N-000083 )
  )
  ( /544A4CB8/541E8561 SM0603 C26 0u1
   ( 1 N-000073 )
-  ( 2 /camera/VIDEO_IN )
+  ( 2 /video_circuit/VIDEO_IN )
  )
  ( /544A4CB8/5448B99E SM0603 C27 470pF
   ( 1 N-000079 )
@@ -144,16 +144,24 @@
   ( 1 /mavlink_port/MAVLINK_+3.3V )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
- ( /546C8634/547D825F SM0603 C37 C
-  ( 1 N-000094 )
+ ( /546C8634/547D825F SM0603 C37 470pF
+  ( 1 N-000092 )
   ( 2 /mavlink_port/FC_GND )
  )
- ( /546C8634/547D8257 SM0603 C38 C
-  ( 1 N-000093 )
+ ( /546C8634/547D8257 SM0603 C38 470pF
+  ( 1 N-000087 )
   ( 2 /mavlink_port/FC_GND )
  )
- ( /546D98A5/547ED333 SM0603 C39 C
+ ( /546D98A5/547ED333 SM0603 C39 10uF
   ( 1 /MCU/MCU_PB1 )
+  ( 2 /mavlink_port/MAVLINK_GND )
+ )
+ ( /546F1A19/54846E5A SM0603 C40 0u1
+  ( 1 N-000101 )
+  ( 2 /mavlink_port/MAVLINK_GND )
+ )
+ ( /546F1A19/54846DC1 SM1206 C41 4u7
+  ( 1 N-000101 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /5433EE23/546E5ED4 LED-0603 D1 RED_LED
@@ -166,40 +174,40 @@
  )
  ( /546F1A19/547467CD LED-0603 D3 Blue_Led
   ( 1 /mavlink_port/MAVLINK_+5V )
-  ( 2 N-000097 )
+  ( 2 N-000096 )
  )
  ( /546F3145/546F5A7F SOD-123 D4 DIODESCH
-  ( 1 /camera/VIDEO_IN_+V )
+  ( 1 /expansion/VIDEO_IN_+V )
   ( 2 N-000103 )
  )
  ( /54675A51/546F5AD9 SOD-123 D5 DIODESCH
   ( 1 /expansion/VIDEO_OUT_+V )
-  ( 2 N-000080 )
+  ( 2 N-000084 )
  )
  ( /546F1A19/547C7672 SOD-123 D6 DIODESCH
   ( 1 /psu/VIN+ )
-  ( 2 N-000096 )
+  ( 2 N-000099 )
  )
  ( /546F3145/546F3160 SIL-3 K1 CONN_3
   ( 1 /mavlink_port/MAVLINK_GND )
   ( 2 N-000103 )
-  ( 3 /camera/VIDEO_IN )
+  ( 3 /video_circuit/VIDEO_IN )
  )
  ( /5433EE23/546CA64B SM0603 L1 Ferrite_Bead
   ( 1 /MCU/MCU_VDDA )
   ( 2 /mavlink_port/MAVLINK_+3.3V )
  )
  ( /546F1A19/547114E5 SM0603 L2 2u2
-  ( 1 N-000100 )
-  ( 2 N-000096 )
+  ( 1 N-000101 )
+  ( 2 N-000099 )
  )
  ( /546F1A19/5433B3CB LPS4018 L3 LPS4018-473MR
-  ( 1 N-000101 )
+  ( 1 N-000097 )
   ( 2 N-000098 )
  )
  ( /546F1A19/54711641 SM0603 L4 2u2
   ( 1 /mavlink_port/MAVLINK_+5V )
-  ( 2 N-000101 )
+  ( 2 N-000097 )
  )
  ( /5433EE23/547343FE SIL-2 P1 CONN_2
   ( 1 /mavlink_port/MAVLINK_+3.3V )
@@ -228,8 +236,8 @@
   ( 20 /mavlink_port/MAVLINK_GND )
  )
  ( /546D98A5/54746DE4 SIL-20 P3 CONN_20
-  ( 1 /camera/VIDEO_IN_+V )
-  ( 2 /camera/VIDEO_IN_+V )
+  ( 1 /expansion/VIDEO_IN_+V )
+  ( 2 /expansion/VIDEO_IN_+V )
   ( 3 /expansion/VIDEO_OUT_+V )
   ( 4 /expansion/VIDEO_OUT_+V )
   ( 5 /mavlink_port/MAVLINK_GND )
@@ -259,10 +267,10 @@
  )
  ( /54675A51/546DBC86 SIL-5 P5 CONN_5
   ( 1 /mavlink_port/MAVLINK_GND )
-  ( 2 N-000080 )
+  ( 2 N-000084 )
   ( 3 /video_circuit/VIDEO_OUT )
-  ( 4 N-000083 )
-  ( 5 N-000081 )
+  ( 4 N-000081 )
+  ( 5 N-000080 )
  )
  ( /5433EE23/5482DC3E TEST_PAD P6 CONN_1
   ( 1 /MCU/PIXEL_CLK )
@@ -308,20 +316,20 @@
   ( 2 /MCU/NRST )
  )
  ( /546F1A19/5433B3C9 SM0603 R8 4K1
-  ( 1 N-000101 )
-  ( 2 N-000095 )
+  ( 1 N-000097 )
+  ( 2 N-000100 )
  )
  ( /546F1A19/5433B3C8 SM0603 R9 680R
-  ( 1 N-000095 )
+  ( 1 N-000100 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /546F1A19/547467E3 SM0603 R10 470R
-  ( 1 N-000097 )
+  ( 1 N-000096 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
  ( /544A4CB8/541E78CF SM0603 R11 75R
   ( 1 /mavlink_port/MAVLINK_GND )
-  ( 2 /camera/VIDEO_IN )
+  ( 2 /video_circuit/VIDEO_IN )
  )
  ( /544A4CB8/546B5003 SM0603 R12 33K
   ( 1 N-000065 )
@@ -379,27 +387,27 @@
   ( 1 /mavlink_port/FC_GND )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
- ( /546C8634/547D813B SM0603 R26 R
+ ( /546C8634/547D813B SM0603 R26 100R
   ( 1 /mavlink_port/FC_FRSKY_TXO )
-  ( 2 N-000092 )
+  ( 2 N-000089 )
  )
- ( /546C8634/547D816E SM0603 R27 R
+ ( /546C8634/547D816E SM0603 R27 100R
   ( 1 /mavlink_port/FC_MAVLINK_TXO )
-  ( 2 N-000088 )
- )
- ( /546C8634/547D81C5 SM0603 R28 R
-  ( 1 /mavlink_port/FC_FRSKY_RXI )
   ( 2 N-000094 )
  )
- ( /546C8634/547D81DE SM0603 R29 R
-  ( 1 /mavlink_port/FC_MAVLINK_RXI )
-  ( 2 N-000093 )
+ ( /546C8634/547D81C5 SM0603 R28 100R
+  ( 1 /mavlink_port/FC_FRSKY_RXI )
+  ( 2 N-000092 )
  )
- ( /546D98A5/547ED2A5 SM0603 R30 R
+ ( /546C8634/547D81DE SM0603 R29 100R
+  ( 1 /mavlink_port/FC_MAVLINK_RXI )
+  ( 2 N-000087 )
+ )
+ ( /546D98A5/547ED2A5 SM0603 R30 9K
   ( 1 /psu/VIN+ )
   ( 2 /MCU/MCU_PB1 )
  )
- ( /546D98A5/547ED2AB SM0603 R31 R
+ ( /546D98A5/547ED2AB SM0603 R31 3K
   ( 1 /MCU/MCU_PB1 )
   ( 2 /mavlink_port/MAVLINK_GND )
  )
@@ -448,11 +456,11 @@
   ( 36 /MCU/CSYNC )
   ( 37 /MCU/AV_TELEM_TXO )
   ( 38 /MCU/AV_TELEM_RXI )
-  ( 39 /MCU/AV_DAC_CLK )
+  ( 39 /video_circuit/AV_DAC_CLK )
   ( 40 /MCU/MCU_PC9 )
   ( 41 /MCU/MCU_PA8 )
   ( 42 /MCU/MAVLINK_TXO )
-  ( 43 /mavlink_port/MAVLINK_RXI )
+  ( 43 /MCU/MAVLINK_RXI )
   ( 44 /MCU/MCU_PA11 )
   ( 45 /MCU/MCU_PA12 )
   ( 46 /MCU/MCU_PA13 )
@@ -483,11 +491,11 @@
   ( 5 /mavlink_port/MAVLINK_+3.3V )
  )
  ( /546F1A19/5472F34B SOT23_6 U4 BD9G101G
-  ( 1 N-000099 )
+  ( 1 N-000095 )
   ( 2 /mavlink_port/MAVLINK_GND )
-  ( 3 N-000095 )
-  ( 4 N-000100 )
-  ( 5 N-000100 )
+  ( 3 N-000100 )
+  ( 4 N-000101 )
+  ( 5 N-000101 )
   ( 6 N-000098 )
  )
  ( /546F1A19/5474880F SOT23-5 U5 LD39015MXXR
@@ -502,27 +510,27 @@
   ( 2 /mavlink_port/MAVLINK_GND )
   ( 3 /MCU/FRSKY_TXO )
   ( 4 /MCU/MAVLINK_TXO )
-  ( 5 /mavlink_port/MAVLINK_RXI )
+  ( 5 /MCU/MAVLINK_RXI )
   ( 6 /MCU/FRSKY_RXI )
   ( 7 /mavlink_port/MAVLINK_+3.3V )
   ( 8 /mavlink_port/MAVLINK_GND )
   ( 9 /mavlink_port/FC_GND )
   ( 10 /mavlink_port/FC_+5V )
-  ( 11 N-000094 )
-  ( 12 N-000093 )
-  ( 13 N-000088 )
-  ( 14 N-000092 )
+  ( 11 N-000092 )
+  ( 12 N-000087 )
+  ( 13 N-000094 )
+  ( 14 N-000089 )
   ( 15 /mavlink_port/FC_GND )
   ( 16 /mavlink_port/FC_+5V )
  )
  ( /54675A51/5470A57E MSOP_8 U7 LM358
-  ( 1 N-000082 )
-  ( 2 N-000082 )
+  ( 1 N-000083 )
+  ( 2 N-000083 )
   ( 3 /MCU/RAW_AUDIO_OUT1 )
   ( 4 /mavlink_port/MAVLINK_GND )
   ( 5 /MCU/RAW_AUDIO_OUT2 )
-  ( 6 N-000084 )
-  ( 7 N-000084 )
+  ( 6 N-000082 )
+  ( 7 N-000082 )
   ( 8 /mavlink_port/MAVLINK_+5V )
  )
  ( /544A4CB8/54707205 MSOP_8 U8 MCP6562
@@ -560,7 +568,7 @@
   ( 7 /mavlink_port/MAVLINK_+3.3V )
   ( 8 /MCU/AV_DAC_DATA )
   ( 9 /video_circuit/AV_DAC_NSYNC )
-  ( 10 /MCU/AV_DAC_CLK )
+  ( 10 /video_circuit/AV_DAC_CLK )
  )
  ( /544A4CB8/543013EB MSOP10-0.5 U12 ADG704
   ( 1 /MCU/N_WHITE_PX )
@@ -641,8 +649,9 @@ $component C12
  C1-1
 $endlist
 $component C13
- CP*
  SM*
+ C?
+ C1-1
 $endlist
 $component C14
  SM*
@@ -768,6 +777,16 @@ $component C38
  C1-1
 $endlist
 $component C39
+ SM*
+ C?
+ C1-1
+$endlist
+$component C40
+ SM*
+ C?
+ C1-1
+$endlist
+$component C41
  SM*
  C?
  C1-1

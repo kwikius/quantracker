@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Sun 07 Dec 2014 10:52:22 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Sun 07 Dec 2014 15:15:53 GMT
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -88,7 +88,7 @@ BeginCmp
 TimeStamp = /546F1A19/5433B3C5;
 Reference = C13;
 ValeurCmp = 4u7;
-IdModule  = SM0805;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
@@ -255,22 +255,36 @@ EndCmp
 BeginCmp
 TimeStamp = /546C8634/547D825F;
 Reference = C37;
-ValeurCmp = C;
+ValeurCmp = 470pF;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546C8634/547D8257;
 Reference = C38;
-ValeurCmp = C;
+ValeurCmp = 470pF;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546D98A5/547ED333;
 Reference = C39;
-ValeurCmp = C;
+ValeurCmp = 10uF;
 IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546F1A19/54846E5A;
+Reference = C40;
+ValeurCmp = 0u1;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546F1A19/54846DC1;
+Reference = C41;
+ValeurCmp = 4u7;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
@@ -598,42 +612,42 @@ EndCmp
 BeginCmp
 TimeStamp = /546C8634/547D813B;
 Reference = R26;
-ValeurCmp = R;
+ValeurCmp = 100R;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546C8634/547D816E;
 Reference = R27;
-ValeurCmp = R;
+ValeurCmp = 100R;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546C8634/547D81C5;
 Reference = R28;
-ValeurCmp = R;
+ValeurCmp = 100R;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546C8634/547D81DE;
 Reference = R29;
-ValeurCmp = R;
+ValeurCmp = 100R;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546D98A5/547ED2A5;
 Reference = R30;
-ValeurCmp = R;
+ValeurCmp = 9K;
 IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /546D98A5/547ED2AB;
 Reference = R31;
-ValeurCmp = R;
+ValeurCmp = 3K;
 IdModule  = SM0603;
 EndCmp
 

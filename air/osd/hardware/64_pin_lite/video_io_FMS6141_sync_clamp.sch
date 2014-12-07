@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sun 07 Dec 2014 14:25:55 GMT
+EESchema Schematic File Version 2  date Sun 07 Dec 2014 19:48:20 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -671,7 +671,7 @@ L C C27
 U 1 1 5448B99E
 P 3650 6500
 F 0 "C27" H 3700 6350 50  0000 L CNN
-F 1 "470pF" H 3400 6600 50  0000 L CNN
+F 1 "250pF" H 3400 6600 50  0000 L CNN
 	1    3650 6500
 	1    0    0    -1  
 $EndComp
@@ -680,7 +680,7 @@ L R R13
 U 1 1 5448B6A1
 P 3300 6200
 F 0 "R13" V 3380 6200 50  0000 C CNN
-F 1 "620R" V 3300 6200 50  0000 C CNN
+F 1 "1K2" V 3300 6200 50  0000 C CNN
 	1    3300 6200
 	0    1    1    0   
 $EndComp

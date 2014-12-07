@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sun 07 Dec 2014 14:25:55 GMT
+EESchema Schematic File Version 2  date Sun 07 Dec 2014 19:48:20 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -588,7 +588,7 @@ L INDUCTOR L1
 U 1 1 546CA64B
 P 2050 6050
 F 0 "L1" V 2000 6050 40  0000 C CNN
-F 1 "Ferrite Bead" V 2150 6050 40  0000 C CNN
+F 1 "22nH" V 2150 6050 40  0000 C CNN
 	1    2050 6050
 	0    1    1    0   
 $EndComp
