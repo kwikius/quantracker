@@ -6,18 +6,6 @@
 #include "graphics_api.hpp"
 #include "aircraft.hpp"
  
-/*
- need to yield at times to do other tasks,
- ideally once per millisec
- alternately use irq to do tasks?
- In systick reeenable interrupts
- Or get a big buffer for input and do other tasks at the end.
- 1/50th sec at 56 k baud
- 5,600 bytes/sec
- = 5,600 / 50
- = requires 112 bytes of buffer per 1/50th sec frame
- also need to process.
-*/
 #if 1
 namespace {
  
