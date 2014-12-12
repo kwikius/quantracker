@@ -53,7 +53,7 @@ struct azimuth {
       static void   set_kD(float val);
       static float  get_kP();
       static float  get_kD();
-      
+      static void   align_with_compass();
       static float  get_min_duty_cycle() { return m_min_duty_cycle_percent;}
       static constexpr float  m_max_duty_cycle_percent = .9f;
 

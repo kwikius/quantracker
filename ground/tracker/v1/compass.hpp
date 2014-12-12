@@ -29,7 +29,7 @@ struct raw_compass{
    static quan::three_d::vect<float> get_vect();
    static quan::three_d::vect<float> const& get_raw();
    static quan::three_d::vect<float> const& get_offset();
-   static bool get_use_compass() { return m_use_compass;}
+   static bool get_use_compass() { return get_compass_offset_set() && m_use_compass;}
    static int32_t update();
    static void init();
    static void request_disable_updating();

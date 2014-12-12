@@ -52,7 +52,11 @@ namespace{
    void init_tracking()
    {
       // if not using compass then assume user has pointed tracker at North
-      azimuth::encoder::zero();
+      if ( raw_compass::get_use_compass()){
+         azimuth::encoder::align_with_compass();
+      }else{
+         azimuth::encoder::zero();
+      }
       telemetry::set_home();
       startup_led.switch_on();
       azimuth::motor::enable();

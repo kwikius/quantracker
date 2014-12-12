@@ -17,7 +17,7 @@
 */
 
 #include "azimuth.hpp"
-
+#include "compass.hpp"
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/tim.hpp>
 
@@ -32,8 +32,20 @@ using namespace quan::stm32;
 */
 void azimuth::encoder::zero()
 {
-  counter::get()->cnt = 0U;
-  motor::set_target_position(0);
+   counter::get()->cnt = 0U;
+   motor::set_target_position(0);
+}
+
+bool azimuth::encoder::align_with_compass()
+{
+   quan::angle::deg bearing;
+   if (raw_compass::get_bearing(bearing)){
+      counter::get()->cnt = azimuth::motor::bearing_to_encoder(bearing);
+      return true;
+   }else{
+      debug::serial_port::write("get_bearing failed\n");
+      return false;
+   }
 }
 
 /*
