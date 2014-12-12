@@ -66,9 +66,11 @@ int32_t azimuth::motor::bearing_to_encoder( quan::angle::deg bearing)
 
 quan::angle::deg azimuth::motor::encoder_to_bearing(uint32_t encoder_val)
 {
+   // do modulo?
+  // encoder_val %= azimuth::encoder::counts_rev() ;
    quan::angle::deg const raw_angle = (encoder_val * quan::angle::deg{360}) / azimuth::encoder::counts_rev() ;
    //if reverse...
-   return raw_angle - quan::angle::deg{360};
+   return  quan::angle::deg{360} - raw_angle;
 }
 
 void azimuth::motor::set_azimuth(quan::angle::deg angle)

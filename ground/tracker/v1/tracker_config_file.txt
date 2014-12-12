@@ -1,0 +1,2 @@
+set use_compass true
+set mag_offsets [116,-156,-414.5]
