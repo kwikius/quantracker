@@ -20,6 +20,7 @@
 #include "compass.hpp"
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/tim.hpp>
+#include "serial_ports.hpp"
 
 using namespace quan::stm32;
 

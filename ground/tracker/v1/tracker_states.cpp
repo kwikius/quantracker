@@ -21,6 +21,7 @@
 #include "switch_input.hpp"
 #include "serial_ports.hpp"
 #include "leds.hpp"
+#include "compass.hpp"
 
 namespace {
 
