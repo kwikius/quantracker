@@ -41,7 +41,11 @@ bool raw_compass::get_bearing( quan::angle::deg & bearing_out)
       return false;
    }
    quan::three_d::vect<float> v = get_vect();
-   bearing_out = quan::atan2(v.y, v.x) + quan::angle::pi/2;
+   quan::angle::deg result = quan::atan2(v.y, v.x) + quan::angle::pi/2;
+   while (result < quan::angle::deg{0}){
+      result += quan::angle::deg{360};
+   }
+   bearing_out = result;
    return true;
 }
 
