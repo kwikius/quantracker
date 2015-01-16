@@ -1,2 +1,11 @@
 set use_compass true
 set mag_offsets [116,-156,-414.5]
+
+/*
+TODO ADD 
+   azimuth_Ki_incr
+   azimuth_KI_min_dist
+   azimuth_KI_min_speed
+   azimuth_Kp
+   azimuth_KD
+*/
