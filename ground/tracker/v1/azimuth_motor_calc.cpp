@@ -157,13 +157,19 @@ namespace{
 } // namspace
 
 //always in interrupt
+/*
+
+*/
 void azimuth::motor::do_calc()
 {
    auto const oldpos = m_last_recorded_position;
    m_last_recorded_position = get_actual_position();
 
+   // rotational speed
    auto const speed = get_speed(oldpos,m_last_recorded_position);
+   // angle from last position to next position
    auto const dist = get_distance(m_last_recorded_position,m_target_position);
+   // could put these into 
    static float kI = 0;
    static float kI_incr = 0.00002;
    constexpr int32_t min_dist = 5;
