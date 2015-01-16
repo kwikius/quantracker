@@ -133,31 +133,30 @@ namespace {
    {
 
     #if (QUAN_OSD_BOARD_TYPE != 1 )
-      
-       constexpr uint8_t dac_data_idx = 3;
      #if ((QUAN_OSD_BOARD_TYPE == 4 ) && ! ( defined QUAN_DISCOVERY))
 //###############################################
        // only if not on Discovery unless change the soldered pins
          // reversed on pcb board 4 for simpler routing
-        constexpr uint8_t dac_sync_idx = 0;
+       constexpr uint8_t dac_data_idx = 0; // (also grey)
        constexpr uint8_t dac_white_idx = 1;
        constexpr uint8_t dac_black_idx = 2;
+       constexpr uint8_t dac_sync_idx = 3;
 //##########################
-       /* required for csync comparator
-         black at nominal 0.64 V
-         sync tip at 0.04
-          hysteresis nominal 0.05 V
-          on < 0.44 V
-           off > 0.54 V
-       */
-       Dac_write (dac_sync_idx, quan::voltage::V{0.49f}, 0);
+       // for FMS6141 with 0.28 V d.c. offset at output with ac input
+       // or maybe 0.15 V ???
+       Dac_write (dac_sync_idx, quan::voltage::V{0.58f}, 0);
+       Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
+       Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
+       Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
       #else
+       constexpr uint8_t dac_data_idx = 3;
        constexpr uint8_t dac_black_idx = 1;
        constexpr uint8_t dac_white_idx = 2;
-     #endif
+    
        Dac_write (dac_black_idx, quan::voltage::V{0.64f}, 0); // 0.64
        Dac_write (dac_white_idx, quan::voltage::V{2.04f} , 0); // 2.04
        Dac_write (dac_data_idx, quan::voltage::V{1.2f}, 1);
+      #endif
    #endif
    }
 }

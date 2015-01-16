@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 08 Dec 2014 08:43:00 GMT
+EESchema Schematic File Version 2  date Fri 16 Jan 2015 10:15:05 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "8 dec 2014"
+Date "16 jan 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -575,8 +575,8 @@ F 3 "/home/andy/electronics/comparator/TLV3501_comparator.pdf" H 2400 4100 60  0
 	1    2400 4100
 	1    0    0    -1  
 $EndComp
-Text Notes 8150 2850 0    60   ~ 0
-for AC output would require a video amp with SAG. \nInput would need to be at G=1. \nWith FMS6141 use resistor divider, to halve output voltage. \nAlso add a low voltage ref to DAC.\n Overall complicated. \nHowever current scheme uses quite a bit of current.
+Text Notes 8200 2650 0    60   ~ 0
+for AC output Use a voltage divider at ouput of DAC \n(Could add variable res to change gain)\n Use e.g TSH122 Video Driver with SAG and\n AC couple output
 $Comp
 L R R19
 U 1 1 544D2243

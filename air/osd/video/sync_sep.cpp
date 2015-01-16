@@ -209,6 +209,10 @@ void  calc_line_period()
 // measure how long low pulse was
 // and decide if it's a hsync, vsync or invalid
 
+#if  (QUAN_OSD_BOARD_TYPE==4) && (!defined(QUAN_DISCOVERY))
+int test_led_count = 0;
+#endif
+
 void calc_sync_pulse_type() 
 {
    if ( initial_first_edge_captured) { // have capture to compare with
@@ -225,7 +229,7 @@ void calc_sync_pulse_type()
       constexpr uint16_t max_vsync_len = 35U * clocks_usec; 
       if ( (sync_length >= min_vsync_len) && (sync_length <= max_vsync_len) ) {
                sync_pulse_type = synctype_t::vsync;
-             //  quan::stm32::set<red_led_pin>();
+             //quan::stm32::set<red_led_pin>();
                //quan::stm32::set<test_pin>();
       }else {
              // quan::stm32::clear<test_pin>();
@@ -233,6 +237,7 @@ void calc_sync_pulse_type()
                sync_pulse_type = synctype_t::hsync;
               // quan::stm32::clear<orange_led_pin>();
          }else {
+           
             sync_sep_reset();
               if(sync_length >= max_hsync_len){
             // quan::stm32::set<orange_led_pin>();
@@ -246,16 +251,20 @@ void calc_sync_pulse_type()
 // in vsync
 void on_hsync_first_edge()
 { 
-     calc_line_period();
+   // quan::stm32::set<heartbeat_led_pin>();
+    calc_line_period();
 }
+
+
  
 void on_hsync_second_edge() 
 {
-   //  quan::stm32::clear<test_pin>();
+     quan::stm32::set<heartbeat_led_pin>();
+
      calc_sync_pulse_type(); 
      if ( (sync_pulse_type != synctype_t::unknown)
                && (line_period != line_period_t::unknown) ) {
-            
+                 
           switch (syncmode) {
                 case syncmode_t::post_equalise:
                   if ( (line_period == line_period_t::half) 
@@ -306,7 +315,15 @@ void on_hsync_second_edge()
                 case syncmode_t::pre_equalise:
                   if (line_period == line_period_t::half) {
 //#############
+#if defined(QUAN_DISCOVERY)
                        quan::stm32::set<blue_led_pin>();
+#else
+#if (QUAN_OSD_BOARD_TYPE==4)
+         if ( test_led_count  == 0){
+           //quan::stm32::set<heartbeat_led_pin>();
+         }
+#endif
+#endif
 //###################
                        if (sync_pulse_type == synctype_t::vsync) {
                          //  quan::stm32::complement<test_output_pin>(); 
@@ -348,7 +365,16 @@ void on_hsync_second_edge()
                             syncmode = syncmode_t::pre_equalise;
                             sync_counter = 1;
 //#################
+#if defined(QUAN_DISCOVERY)
                             quan::stm32::clear<blue_led_pin>();
+#else
+#if (QUAN_OSD_BOARD_TYPE==4)
+         if ( ++ test_led_count == 50){
+         test_led_count = 0;
+        // quan::stm32::clear<heartbeat_led_pin>();
+      }
+#endif
+#endif
 //#########################
                           //   quan::stm32::set<red_led_pin>();
                        }else{

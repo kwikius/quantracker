@@ -16,7 +16,6 @@ namespace {
    char text_buffer[200] = {0};
    void draw_heading()
    {
-    
         sprintf(text_buffer,"heading = %ld deg",static_cast<int32_t>(the_aircraft.heading.numeric_value()));
         draw_text(cursor,text_buffer);
    }
@@ -61,7 +60,7 @@ void on_draw()
     draw_line_bres(vect{50*i +20,0},vect{50*i+20,400},color::black);
     draw_line_bres(vect{50*i +21,0},vect{50*i+21,400},color::black);
 
-        draw_line_bres(vect{50*i +30,0},vect{50*i+30,400},color::black);
+    draw_line_bres(vect{50*i +30,0},vect{50*i+30,400},color::black);
     draw_line_bres(vect{50*i +31,0},vect{50*i+31,400},color::black);
     }
 }
