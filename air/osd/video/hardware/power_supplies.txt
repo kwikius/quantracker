@@ -1,4 +1,0 @@
-5V out at 150 mA to power board
-5V out at 450 mA  for 5V camera etc
-
-12V at  600 mA for Vtx and Cam

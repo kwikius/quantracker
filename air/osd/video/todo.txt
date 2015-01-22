@@ -1,9 +1,0 @@
-// Invert levels of hsync for V2
-// name define for V2
-// sort dac for V2 startup initial values
-// add flash stuff
-
-transmitter spec
-
-full size display
-Make timing parametric and test out with lower clock rates
