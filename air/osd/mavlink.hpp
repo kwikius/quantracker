@@ -2,7 +2,7 @@
 #define ARD_MAV_TO_FRSKY_MAVLINK_H_INCLUDED
 
 /*
- Copyright (c) 2012 - 2013 Andy Little 
+ Copyright (c) 2012 - 2015 Andy Little 
 
 (
   Some parts of this work are based on: 

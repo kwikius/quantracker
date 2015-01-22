@@ -1,6 +1,5 @@
 /*
-
- Copyright (c) 2012 - 2014 Andy Little
+ Copyright (c) 2012 - 2015 Andy Little
 
 (
   Some parts of this work are based on: 

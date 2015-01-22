@@ -1,3 +1,25 @@
+/*
+ Copyright (c) 2013 -2015 Andy Little 
+
+ With Grateful Acknowledgements to the prior work of:
+   Sami Korbonen(Openpilot.org)
+   taulabs ( taulabs.com) 
+   brainFPV ( brainfpv.com)
+   Thomas Oldbury (super-osd.com)
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
 #include <stm32f4xx.h>
@@ -21,8 +43,7 @@ TODO add ADC to get sync tip and black level
 */
  
 namespace {
-  // typedef quan::stm32::tim9 sync_timer;
-    
+
    bool initial_first_edge_captured = false;
     
    enum class synctype_t {
@@ -92,15 +113,13 @@ void sync_sep_new_frame()
   // enable the rows counter one shot
   video_cfg::rows::line_counter::get()->cnt = 0;
   video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
-  
 }
 
 void sync_sep_setup()
 {
    quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
    quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
-//############################
-//change to pulldown
+
    quan::stm32::apply<
       video_in_hsync_first_edge_pin,
 // af for first edge
@@ -137,7 +156,6 @@ void sync_sep_setup()
    #endif
 #endif
    >();
-//####################################
 
    quan::stm32::module_enable<sync_sep_timer>();
    quan::stm32::module_reset<sync_sep_timer>();
@@ -229,19 +247,11 @@ void calc_sync_pulse_type()
       constexpr uint16_t max_vsync_len = 35U * clocks_usec; 
       if ( (sync_length >= min_vsync_len) && (sync_length <= max_vsync_len) ) {
                sync_pulse_type = synctype_t::vsync;
-             //quan::stm32::set<red_led_pin>();
-               //quan::stm32::set<test_pin>();
       }else {
-             // quan::stm32::clear<test_pin>();
          if ( (sync_length <= max_hsync_len) && (sync_length >= min_hsync_len)) {
                sync_pulse_type = synctype_t::hsync;
-              // quan::stm32::clear<orange_led_pin>();
          }else {
-           
             sync_sep_reset();
-              if(sync_length >= max_hsync_len){
-            // quan::stm32::set<orange_led_pin>();
-             }
          }
       }
    }
@@ -251,16 +261,11 @@ void calc_sync_pulse_type()
 // in vsync
 void on_hsync_first_edge()
 { 
-   // quan::stm32::set<heartbeat_led_pin>();
     calc_line_period();
 }
 
-
- 
 void on_hsync_second_edge() 
 {
-     quan::stm32::set<heartbeat_led_pin>();
-
      calc_sync_pulse_type(); 
      if ( (sync_pulse_type != synctype_t::unknown)
                && (line_period != line_period_t::unknown) ) {
@@ -291,42 +296,27 @@ void on_hsync_second_edge()
                         
                         if ( sync_counter == 4){
                              // flag calc_line_period to start ADC conv for sync tip
-                           //quan::stm32::clear<test_output_pin>();
                         }
                         if ( sync_counter == 5){
                            // get sync tip ADC result
                            syncmode = syncmode_t::post_equalise;
                            sync_counter = 0 ;
                         }else{
-                        //   quan::stm32::set<red_led_pin>();
                            sync_sep_error_reset(); // unexpected sequence
                         }
                      }else{
                         if (++sync_counter > 7){
-                     //      quan::stm32::set<green_led_pin>();
                            sync_sep_error_reset(); // unexpected sequence
                         }
                      }
                   }else{
                      sync_sep_error_reset(); // unexpected
-               //      quan::stm32::set<orange_led_pin>();
                   }
                 break;
                 case syncmode_t::pre_equalise:
                   if (line_period == line_period_t::half) {
-//#############
-#if defined(QUAN_DISCOVERY)
-                       quan::stm32::set<blue_led_pin>();
-#else
-#if (QUAN_OSD_BOARD_TYPE==4)
-         if ( test_led_count  == 0){
-           //quan::stm32::set<heartbeat_led_pin>();
-         }
-#endif
-#endif
-//###################
+
                        if (sync_pulse_type == synctype_t::vsync) {
-                         //  quan::stm32::complement<test_output_pin>(); 
                             if (sync_counter == 5){
                                  video_cfg::rows::set_odd_frame();
                             }else{
@@ -364,23 +354,7 @@ void on_hsync_second_edge()
                             // rather than preequalise but this is counted
                             syncmode = syncmode_t::pre_equalise;
                             sync_counter = 1;
-//#################
-#if defined(QUAN_DISCOVERY)
-                            quan::stm32::clear<blue_led_pin>();
-#else
-#if (QUAN_OSD_BOARD_TYPE==4)
-         if ( ++ test_led_count == 50){
-         test_led_count = 0;
-        // quan::stm32::clear<heartbeat_led_pin>();
-      }
-#endif
-#endif
-//#########################
-                          //   quan::stm32::set<red_led_pin>();
-                       }else{
-                          //     quan::stm32::clear<red_led_pin>();
-                          //    quan::stm32::set<green_led_pin>();
-                        }
+                       }
                   } else {
                        sync_sep_error_reset(); // unexpected vsync
                   }
@@ -388,8 +362,6 @@ void on_hsync_second_edge()
                default:
                break;
           }
-     }else{
-         
      }
 }
 } // namespace

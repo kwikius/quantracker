@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 16 Jan 2015 10:15:05 GMT
+EESchema Schematic File Version 2  date Wed 21 Jan 2015 09:35:15 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "16 jan 2015"
+Date "21 jan 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,6 +48,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 6600 5350 0    45   ~ 0
+Provide 50 mA on 5V supply
+Text Notes 2550 3650 0    45   ~ 0
+U9 only reqd\nfor receiving\ndata.
 Connection ~ 5700 5900
 Wire Wire Line
 	5850 5900 5700 5900
@@ -515,8 +519,8 @@ Text HLabel 1300 2850 0    60   Input ~ 0
 VIDEO_GND
 Text HLabel 7350 6700 0    60   BiDi ~ 0
 VIDEO_GND
-Text Notes 9750 4550 0    45   ~ 0
-Provide 25 mA on 3V supply\nProvide 50 mA on 5V supply
+Text Notes 9000 5350 0    45   ~ 0
+Provide 25 mA on 3V supply\n
 Text HLabel 1450 7550 0    60   BiDi ~ 0
 VIDEO_GND
 Text HLabel 3950 7450 0    60   BiDi ~ 0
@@ -540,8 +544,6 @@ F 1 "100R" V 4500 4500 50  0000 C CNN
 	1    4500 4500
 	0    1    1    0   
 $EndComp
-Text Notes 10650 4250 2    60   ~ 0
-Add Decouple caps\n3V3 reg
 $Comp
 L R R12
 U 1 1 546B5003

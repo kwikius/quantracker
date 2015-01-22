@@ -1,20 +1,51 @@
+# Copyright (c) 2013 -2015 Andy Little 
+#
+# With Grateful Acknowledgements to the prior work of:
+#   Sami Korbonen(Openpilot.org)
+#   taulabs ( taulabs.com) 
+#   brainFPV ( brainfpv.com)
+#   Thomas Oldbury (super-osd.com)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>
 
-TARGET_PROCESSOR = STM32F4
-OPTIMISATION_LEVEL = O3
-
+#################### ATTENTION ################################
+###############################################################
+# N.B. You will need to  modify the paths in this section   ###
+# to where you have placed these libraries on your system   ###
+#                                                           ###
+###  The gcc compiler toolchain                             ###
+TOOLCHAIN_PREFIX =/opt/gcc-arm-none-eabi-4_7-2013q2/
+TOOLCHAIN_GCC_VERSION = 4.7.4
+###  the quan library                                       ###        
 QUAN_INCLUDE_PATH = $(QUAN_ROOT)
+###  FreeRTOS                                               ###
 FREE_RTOS_DIR = /home/andy/cpp/lib/FreeRTOSV8.1.2/FreeRTOS/
+###  The STM32F4 standard peripherals library               ###
+STM32_SRC_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/src/
+###############################################################
 
 RTOS_INCLUDES = \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 /home/andy/cpp/projects/quantracker/air/osd/
 
-STM32_SRC_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/src/
-
 CMSIS_INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
 /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/inc
+
+TARGET_PROCESSOR = STM32F4
+OPTIMISATION_LEVEL = O3
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
  video_dma.o font.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
@@ -32,7 +63,9 @@ cmsis_objects = misc.o
 # requires QUAN_INCLUDE_PATH - path to quan lib
 # requires TARGET_PROCESSOR either STM32F4 or STM32F0
 # OPTIMISATION_LEVEL defaults to Os
-
+################################
+## TODO add errors on other libs too 
+###################################
 ifeq ($(QUAN_INCLUDE_PATH), )
 $(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library")
 endif
@@ -50,9 +83,6 @@ endif
 CPLUS_INCLUDE_PATH=
 C_INCLUDE_PATH=
 LIBRARY_PATH=
-
-TOOLCHAIN_PREFIX =/opt/gcc-arm-none-eabi-4_7-2013q2/
-TOOLCHAIN_GCC_VERSION = 4.7.4
 
 CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc

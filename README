@@ -1,11 +1,25 @@
 DIY Antenna Tracker using an STM32F4 discovery board.
 
-Uses a Pololu style servo motor with encoder to give continuous Azimuth rotation
-Uses a standard RC Servo for elevation.
+Ground side tracker.
+   Uses a Pololu style servo motor with encoder to give continuous Azimuth rotation
+   Uses a standard RC Servo for elevation.
+Airborne side 
+   uses an OSD with telemetry via the video to send telemetry data to the tracker.
+   or an Arduino ( basic option if you have a FrSky Telemetry RC system)
 
 see my website http://www.zoomworks.org/fpv/antenna_tracker/index.html for more info about the project.
 
 See the Changelog file in this directory for changes after 16/07/2013
+
+Acknowledgments
+
+      With Grateful Acknowledgements to the prior work, on the OSD code of:
+        Sami Korbonen(Openpilot.org)
+        taulabs ( taulabs.com) 
+        brainFPV ( brainfpv.com)
+        Thomas Oldbury (super-osd.com)
+   
+      Thanks to VEX Robotics for permission to use their step file of the VEX turntable
 
 Dependencies
 
@@ -24,6 +38,10 @@ Dependencies
          
          https://github.com/kwikius/quan-trunk
 
+   FreeRTOS
+   available from
+         http://www.freertos.org/a00104.html
+
 
 Once these are installed you will need to modify the paths in Makefile to suit your configuration.
 
@@ -31,16 +49,21 @@ Once these are installed you will need to modify the paths in Makefile to suit y
 
 You will also need an airborne option to send the data to the tracker from the aircraft.
 
-   So far there are 2 airborne options using Arduino Pro Mini microcontroller
+   So far there are 2 airborne options
 
-   1)
-      Use an Frsky Telemetry receiver and an Ardupilot to acquire the GPS data.
+  1) Use the OSD airborne module which uses the Video link direct to send telemetry.
+     This is currently in development but the design is all open source and in the repo.
+     I hope to have a retail version soon.
+
+  2) using an Arduino Pro Mini microcontroller and an FrSky Rx ( simple cheap)
+
+   
+     a) Use an Frsky Telemetry receiver and an Ardupilot to acquire the GPS data.
       The source code for this option can be downloaded from
 
          https://github.com/kwikius/mavlink_to_frsky
 
-   2)
-      GPS module attached direct to the Arduino and sending data down the FrSky telemetry link
+     b) Use a GPS module attached direct to the Arduino and sending data down the FrSky telemetry link
       The source code for this option is available at
          
          https://github.com/kwikius/quantracker_air
@@ -51,9 +74,7 @@ You will also need an airborne option to send the data to the tracker from the a
 
       See https://github.com/kwikius?tab=repositories for more details 
 
-Acknowledgments
 
-      Thanks to VEX Robotics for permission to use their step file of the VEX turntable
       
 
       

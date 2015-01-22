@@ -1,6 +1,14 @@
+
+2013 - 2015 
+
+TODO :0
+
+
 17th July 2013
 
 Changed to using the gcc_arm_embedded arm gcc compiler toolchain from the Michael Pratt one. 
 Though the resulting binary image is much larger than previously, I hope that is down to inexperience. 
 There are other link options, for example, a "nano" version of newlib, which I havent yet tested.
+
+
 

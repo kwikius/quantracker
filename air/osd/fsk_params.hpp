@@ -1,7 +1,7 @@
 #ifndef FSK_TX_FSK_PARAMS_HPP_INCLUDED
 #define FSK_TX_FSK_PARAMS_HPP_INCLUDED
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2015 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
