@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:08:39 GMT
+EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -53,7 +53,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
-Date "21 jan 2015"
+Date "26 jan 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -473,8 +473,6 @@ F 5 "Farnell 2215629" V 1900 3450 60  0001 C CNN "OC"
 	1    1900 3450
 	0    1    1    0   
 $EndComp
-Text Notes 4250 3000 0    45   ~ 0
-PSU2
 $Comp
 L INDUCTOR L3
 U 1 1 5433B3CB
