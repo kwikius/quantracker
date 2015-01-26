@@ -1,8 +1,15 @@
-EESchema Schematic File Version 2  date Wed 21 Jan 2015 09:35:15 GMT
+EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:08:39 GMT
+LIBS:lm358
+LIBS:conn_6
+LIBS:conn_5
+LIBS:conn_3
+LIBS:conn_2
+LIBS:conn_20
+LIBS:si501
+LIBS:stm32f405rgt6
 LIBS:power
 LIBS:device
 LIBS:transistors
-LIBS:andy_conn
 LIBS:conn
 LIBS:linear
 LIBS:regul
@@ -30,10 +37,16 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:stm32f4duino-cache
-LIBS:stm32
-LIBS:osd-cache
-LIBS:osd-cache
+LIBS:adg704
+LIBS:bd9g101g
+LIBS:dac084s085
+LIBS:fms6141
+LIBS:ld39015mxxr
+LIBS:mcp6562
+LIBS:opa830
+LIBS:si8642
+LIBS:tlv3501
+LIBS:74lvc1g86
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
