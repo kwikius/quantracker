@@ -21,18 +21,30 @@
 
 #################### ATTENTION ################################
 ###############################################################
-# N.B. You will need to  modify the paths in this section   ###
+# N.B. You will need to  fulfil the following dependencies  ###
+# (see links for where to download)
+# and modify the paths in this section                      ###
 # to where you have placed these libraries on your system   ###
 #                                                           ###
 ###  The gcc compiler toolchain                             ###
+## https://launchpad.net/gcc-arm-embedded
 TOOLCHAIN_PREFIX =/opt/gcc-arm-none-eabi-4_7-2013q2/
 TOOLCHAIN_GCC_VERSION = 4.7.4
-###  the quan library                                       ###        
-QUAN_INCLUDE_PATH = $(QUAN_ROOT)
+###  the quan library                                       ###    
+## https://github.com/kwikius/quan-trunk    
+QUAN_INCLUDE_PATH = /home/andy/website/quan-trunk
+### Mavlink
+## https://github.com/mavlink/mavlink
+MAVLINK_INCLUDES = /home/andy/website/fpv/mavlink
 ###  FreeRTOS                                               ###
+## http://www.freertos.org/a00104.html
 FREE_RTOS_DIR = /home/andy/cpp/lib/FreeRTOSV8.1.2/FreeRTOS/
 ###  The STM32F4 standard peripherals library               ###
-STM32_SRC_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/src/
+## http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
+
+STM32_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/
+STM32_SRC_DIR = $(STM32_DIR)STM32F4xx_StdPeriph_Driver/src/
+
 ###############################################################
 
 RTOS_INCLUDES = \
@@ -40,9 +52,9 @@ $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 /home/andy/cpp/projects/quantracker/air/osd/
 
-CMSIS_INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \
-/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
-/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/inc
+STM32_INCLUDES = $(STM32_DIR)CMSIS/Include \
+$(STM32_DIR)CMSIS/Device/ST/STM32F4xx/Include \
+$(STM32_DIR)STM32F4xx_StdPeriph_Driver/inc
 
 TARGET_PROCESSOR = STM32F4
 OPTIMISATION_LEVEL = O3
@@ -56,7 +68,7 @@ local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  heartbeat_task.o rtos_hooks.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
-cmsis_objects = misc.o
+stm32_objects = misc.o
 
 #include $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/make_scripts/stm32.mk
 
@@ -111,9 +123,7 @@ SYSTEM_INIT = system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \
-/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Device/ST/STM32F4xx/Include \
-/opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/STM32F4xx_StdPeriph_Driver/inc \
+INCLUDES = $(STM32_INCLUDES)
 
 INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 # todo stm32f0 version
@@ -127,7 +137,7 @@ endif
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) /home/andy/website/fpv/mavlink
+INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDES)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
@@ -162,7 +172,7 @@ board_type4 : test
 board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
-$(cmsis_objects) startup.o system_init.o flash_funs.o port.o heap_3.o
+$(stm32_objects) startup.o system_init.o flash_funs.o port.o heap_3.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -195,8 +205,8 @@ flash_funs.o : $(FLASH_SRC)
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
-$(cmsis_objects) : %.o : $(STM32_SRC_DIR)%.c
-	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(CMSIS_INCLUDES)) $< -o $@
+$(stm32_objects) : %.o : $(STM32_SRC_DIR)%.c
+	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
 $(rtos_objects) : %.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
