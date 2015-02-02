@@ -19,34 +19,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
+
+HAVE_DEPENDENCIES_FILE := $(shell if test -f "./Dependencies.mk"; then echo "True"; fi)
+
+ifeq ($(HAVE_DEPENDENCIES_FILE), )
+  quantracker-make-help:
+	@echo ' '
+	@echo '   ########## HELP - OSD firmware build needs more info ############'
+	@echo '   #                                                               #'
+	@echo '   #            Hi. Welcome to quantracker / air / OSD.            #'
+	@echo '   #                                                               #'
+	@echo '   #            To build the OSD firmware, you need to             #'
+	@echo '   #            create a Dependencies.mk file.                     #'
+	@echo '   #                                                               #'
+	@echo '   #            Please read "Sample-Dependencies.mk" .             #'
+	@echo '   #            in this directory for further Details.             #                                                          #'
+	@echo '   #                                                               #'
+	@echo '   #################################################################'
+	@echo ' '	
+else
 # need the sourcedir for freertos compile
 APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
-#################### ATTENTION ################################
-###############################################################
-# N.B. You will need to  fulfil the following dependencies  ###
-# (see links for where to download)
-# and modify the paths in this section                      ###
-# to where you have placed these libraries on your system   ###
-#                                                           ###
-###  The gcc compiler toolchain                             ###
-## https://launchpad.net/gcc-arm-embedded
-TOOLCHAIN_PREFIX =/opt/gcc-arm-none-eabi-4_7-2013q2/
-TOOLCHAIN_GCC_VERSION = 4.7.4
-###  the quan library                                       ###    
-## https://github.com/kwikius/quan-trunk    
-QUAN_INCLUDE_PATH = /home/andy/website/quan-trunk
-### Mavlink
-## https://github.com/mavlink/mavlink
-MAVLINK_INCLUDE_PATH = /home/andy/website/fpv/mavlink
-###  FreeRTOS                                               ###
-## http://www.freertos.org/a00104.html
-FREE_RTOS_DIR = /home/andy/cpp/lib/FreeRTOSV8.1.2/FreeRTOS/
-###  The STM32F4 standard peripherals library               ###
-## http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
+DEFINES = 
 
-STM32_STD_PERIPH_LIB_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/
-STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
+
+# You will need a custom Dependencies.mk
+include Dependencies.mk
 
 ###############################################################
 ifeq ($(TOOLCHAIN_PREFIX), )
@@ -54,7 +53,7 @@ $(error "TOOLCHAIN_PREFIX must be defined to the path to the gcc-arm compiler - 
 endif
 
 ifeq ($(TOOLCHAIN_GCC_VERSION), )
-$(error "TOOLCHAIN_GCC_VERSION must be defined the gcc-arm compiler version- see README.")
+$(error "TOOLCHAIN_GCC_VERSION must be defined to the gcc-arm compiler version - see README.")
 endif
 
 ifeq ($(QUAN_INCLUDE_PATH), )
@@ -69,17 +68,22 @@ ifeq ($(FREE_RTOS_DIR), )
 $(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
 endif
 
-RTOS_INCLUDES = \
-$(FREE_RTOS_DIR)Source/include/ \
-$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
-$(APP_SRC_PATH)
+ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
+$(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
+endif
+
+STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
+RTOS_INCLUDES = \
+$(FREE_RTOS_DIR)Source/include/ \
+$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
+$(APP_SRC_PATH)
+
 TARGET_PROCESSOR = STM32F4
-OPTIMISATION_LEVEL = O3
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
  video_dma.o font.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
@@ -100,6 +104,10 @@ ifeq ( $(CFLAG_EXTRAS), )
 CFLAG_EXTRAS = -fno-math-errno
 endif
 
+ifeq ( $(TELEMETRY_DIRECTION), )
+TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
+endif
+
 #required for Ubuntu 12.x placid as system headers have been put in strange places
 # these have beeen defined to thos in my bash .profile
 CPLUS_INCLUDE_PATH=
@@ -115,7 +123,7 @@ SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
-DEFINES = QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_TRANSMITTER STM32F40_41xxx
+DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 #DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
@@ -223,3 +231,5 @@ heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 
 upload : test
 	st-flash write main.bin 0x8000000
+#deps conditional
+endif
