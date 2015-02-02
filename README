@@ -14,17 +14,19 @@ See the Changelog file in this directory for changes after 16/07/2013
 Acknowledgments
 
       With Grateful Acknowledgements to the prior work, on the OSD code of:
+
         Sami Korbonen(Openpilot.org)
         taulabs ( taulabs.com) 
         brainFPV ( brainfpv.com)
         Thomas Oldbury (super-osd.com)
    
-      Thanks to VEX Robotics for permission to use their step file of the VEX turntable
+        Thanks to VEX Robotics for permission to use their step file of the VEX turntable
 
 Dependencies
 
-   The GNU gcc compiler. The source code is written in C++11, requires gcc4.7  higher to compile
-   You can get a suitable gcc compiler for your platform from
+   The GNU gcc compiler. The source code is written in C++11, and requires gcc4.7 or higher
+   to compile.
+   available from 
 
          https://launchpad.net/gcc-arm-embedded
 
@@ -40,16 +42,21 @@ Dependencies
 
    FreeRTOS
    available from
+
          http://www.freertos.org/a00104.html
 
+   MAVlink
+   available from
+ 
+        https://github.com/mavlink/mavlink
 
-Once these are installed you will need to modify the paths in Makefile to suit your configuration.
+Once these are installed you will need to modify the paths in the Makefiles to suit your configuration.
 
 -----
 
 You will also need an airborne option to send the data to the tracker from the aircraft.
 
-   So far there are 2 airborne options
+So far there are 2 airborne options
 
   1) Use the OSD airborne module which uses the Video link direct to send telemetry.
      This is currently in development but the design is all open source and in the repo.
@@ -57,7 +64,6 @@ You will also need an airborne option to send the data to the tracker from the a
 
   2) using an Arduino Pro Mini microcontroller and an FrSky Rx ( simple cheap)
 
-   
      a) Use an Frsky Telemetry receiver and an Ardupilot to acquire the GPS data.
       The source code for this option can be downloaded from
 
