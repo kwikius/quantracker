@@ -19,6 +19,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
+# need the sourcedir for freertos compile
+APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
 #################### ATTENTION ################################
 ###############################################################
 # N.B. You will need to  fulfil the following dependencies  ###
@@ -35,26 +38,45 @@ TOOLCHAIN_GCC_VERSION = 4.7.4
 QUAN_INCLUDE_PATH = /home/andy/website/quan-trunk
 ### Mavlink
 ## https://github.com/mavlink/mavlink
-MAVLINK_INCLUDES = /home/andy/website/fpv/mavlink
+MAVLINK_INCLUDE_PATH = /home/andy/website/fpv/mavlink
 ###  FreeRTOS                                               ###
 ## http://www.freertos.org/a00104.html
 FREE_RTOS_DIR = /home/andy/cpp/lib/FreeRTOSV8.1.2/FreeRTOS/
 ###  The STM32F4 standard peripherals library               ###
 ## http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
 
-STM32_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/
-STM32_SRC_DIR = $(STM32_DIR)STM32F4xx_StdPeriph_Driver/src/
+STM32_STD_PERIPH_LIB_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/
+STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 ###############################################################
+ifeq ($(TOOLCHAIN_PREFIX), )
+$(error "TOOLCHAIN_PREFIX must be defined to the path to the gcc-arm compiler - see README.")
+endif
+
+ifeq ($(TOOLCHAIN_GCC_VERSION), )
+$(error "TOOLCHAIN_GCC_VERSION must be defined the gcc-arm compiler version- see README.")
+endif
+
+ifeq ($(QUAN_INCLUDE_PATH), )
+$(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
+endif
+
+ifeq ($(MAVLINK_INCLUDE_PATH), )
+$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
+endif
+
+ifeq ($(FREE_RTOS_DIR), )
+$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
+endif
 
 RTOS_INCLUDES = \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
-/home/andy/cpp/projects/quantracker/air/osd/
+$(APP_SRC_PATH)
 
-STM32_INCLUDES = $(STM32_DIR)CMSIS/Include \
-$(STM32_DIR)CMSIS/Device/ST/STM32F4xx/Include \
-$(STM32_DIR)STM32F4xx_StdPeriph_Driver/inc
+STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
+$(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
+$(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
 TARGET_PROCESSOR = STM32F4
 OPTIMISATION_LEVEL = O3
@@ -69,18 +91,6 @@ local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
-
-#include $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/make_scripts/stm32.mk
-
-# requires QUAN_INCLUDE_PATH - path to quan lib
-# requires TARGET_PROCESSOR either STM32F4 or STM32F0
-# OPTIMISATION_LEVEL defaults to Os
-################################
-## TODO add errors on other libs too 
-###################################
-ifeq ($(QUAN_INCLUDE_PATH), )
-$(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library")
-endif
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -103,11 +113,9 @@ CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
 SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
-#MAKE_SCRIPTS_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/make_scripts
-
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
-DEFINES = QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_TRANSMITTER
+DEFINES = QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_TRANSMITTER STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 #DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
@@ -117,7 +125,7 @@ STARTUP = startup.s
 LINKER_SCRIPT = stm32f4.ld
 #LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
 FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/flash.cpp
-SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
+#SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 SYSTEM_INIT = system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
@@ -126,10 +134,6 @@ PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 INCLUDES = $(STM32_INCLUDES)
 
 INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
-# todo stm32f0 version
-#else
-#ifeq ($(TARGET_PROCESSOR), STM32F0)
-#include $(MAKE_SCRIPTS_PATH)/stm32f0.mk
 else
 $(error no target processor defined)
 endif
@@ -137,7 +141,7 @@ endif
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDES)
+INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
