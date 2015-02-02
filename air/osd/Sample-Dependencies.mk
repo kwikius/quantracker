@@ -1,7 +1,7 @@
 # Quantracker OSD Firmware
 # Example Dependencies.mk
 # Rename this to Dependencies.mk and save in this directory
-(~quantracker/air/osd/)
+#(~quantracker/air/osd/)
 # Modify the following variables to the paths, etc
 # for these libraries.
 
