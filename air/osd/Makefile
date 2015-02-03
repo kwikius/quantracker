@@ -91,7 +91,7 @@ video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_s
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
- heartbeat_task.o rtos_hooks.o
+ heartbeat_task.o rtos_hooks.o test_task.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -231,5 +231,9 @@ heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 
 upload : test
 	st-flash write main.bin 0x8000000
+
+upload_stm32flash : test
+	stm32flash -f -v -w main.bin /dev/ttyUSB0
+
 #deps conditional
 endif
