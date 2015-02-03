@@ -27,12 +27,19 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include <semphr.h>
-#include <mavlink.hpp>
+
+#include "mavlink.hpp"
 
 #include "aircraft.hpp"
 #include "resources.hpp"
 
-mavlink_system_t mavlink_system = {12,1,0,0};
+
+// see qgroundcontrol.org/dev/mavlink_onboard_integration_tutorial
+// Not quite sure what values these should be though...
+ // think they are don't care here
+static constexpr uint8_t mavlink_sysid = 1;  // system id
+static constexpr uint8_t mavlink_compid = 1; // component id
+mavlink_system_t mavlink_system = {mavlink_sysid,mavlink_compid}; // 
 
 void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 {
@@ -96,15 +103,21 @@ namespace{
 
    void read_mavlink(void * param)
    {
-     // static int packet_drops = 0;
-     // static int parse_error = 0;
-     
       mavlink_message_t msg; 
+      {  // init msg to silence gcc warnings
+         msg.msgid  = 255; // TODO should be initialised for rx?
+         msg.compid = 255;
+         msg.sysid  = 255;
+         constexpr uint32_t payload_64_size = ( sizeof(msg.payload64) / sizeof(uint64_t));
+         for ( uint32_t i = 0U; i < payload_64_size; ++i){
+            msg.payload64[i] = 0UL;
+         }
+      }
       mavlink_status_t status ;
 
       the_aircraft.mutex_init();
 #if  (QUAN_OSD_BOARD_TYPE == 4)
-   mavlink_tx_rx_task::enable();
+      mavlink_tx_rx_task::enable();
 #else
       posdata_tx_rx_task::enable();
 #endif
@@ -114,7 +127,9 @@ namespace{
   #else
          uint8_t ch =  posdata_tx_rx_task::get();
   #endif
+
          if(mavlink_parse_char(MAVLINK_COMM_0, ch, &msg, &status)) {
+            
             switch(msg.msgid) {
                case MAVLINK_MSG_ID_HEARTBEAT:
                   do_mavlink_heartbeat(&msg);
@@ -278,8 +293,6 @@ namespace{
    TaskHandle_t task_handle = NULL;
 
 }//namespace
-
-// called from heartbeat task
 
 void create_mavlink_task()
 {
