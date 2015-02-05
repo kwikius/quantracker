@@ -111,7 +111,10 @@ void telemetry::parse_input()
       parse_commandline();
    }else{
       parse_av_cobs();
+<<<<<<< Updated upstream
       telemetry::parse_frsky_bytestuff();
+=======
+>>>>>>> Stashed changes
    }
  //  parse_input_from_FrSky_with_cobs_protocol();
 }

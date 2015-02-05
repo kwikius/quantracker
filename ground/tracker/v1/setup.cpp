@@ -150,12 +150,18 @@ extern "C" void setup()
    av_fsk::serial_port::set_irq_priority(interrupt_priority::av_fsk_serial_port);
 
   // frsky::serial_port::init();
+<<<<<<< Updated upstream
   // sliprings::serial_port::init();
    av_fsk::serial_port::init();
      // turn off tx output ( was af)
 
    av_fsk::serial_port::set_baudrate<1200,false>();
    setup_fsk_demod();
+=======
+   sliprings::serial_port::init();
+   av_fsk::serial_port::init();
+   av_fsk::serial_port::set_baudrate<1200,false>();
+>>>>>>> Stashed changes
 
    azimuth::encoder::setup();
    raw_compass::init();

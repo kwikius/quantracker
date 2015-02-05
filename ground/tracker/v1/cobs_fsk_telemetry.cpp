@@ -19,7 +19,7 @@
 #include <quan/tracker/zapp3_decode.hpp>
 #include "serial_ports.hpp"
 #include "telemetry.hpp"
-#include "leds.hpp"
+
 
 namespace {
 
@@ -42,6 +42,7 @@ namespace {
             ar[idx] = ch;
             if (++idx == 16U) {
                idx = 0U; // reset
+<<<<<<< Updated upstream
                // if conv failed do error
                bool no_error = quan::tracker::zapp3_decode (ar,new_pos);
                if ( no_error){
@@ -50,12 +51,18 @@ namespace {
                   error_led.switch_on();
                }
                return no_error;
+=======
+               return quan::tracker::zapp3_decode (ar,new_pos);
+>>>>>>> Stashed changes
             } else {
                return false;
             }
          } else { // A zero in the encoded data means corruption
             idx = 0U;
+<<<<<<< Updated upstream
             error_led.switch_on();
+=======
+>>>>>>> Stashed changes
             return false;
          }
       } else { // looking for start of frame
