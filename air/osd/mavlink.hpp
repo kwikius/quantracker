@@ -1,4 +1,3 @@
-
 #ifndef ARD_MAV_TO_FRSKY_MAVLINK_H_INCLUDED
 #define ARD_MAV_TO_FRSKY_MAVLINK_H_INCLUDED
 
@@ -27,22 +26,16 @@
 
 #define MAVLINK_COMM_NUM_BUFFERS 1
 #define MAVLINK_USE_CONVENIENCE_FUNCTIONS
-// TODO this may be more efficient but most traffic is rx anyway
-//#define MAVLINK_SEND_UART_BYTES quan_mavlink_send_bytes
 
 #define MAVLINK10
 
-//uint32_t get_num_heartbeats();
-//void read_mavlink();
+uint32_t get_num_heartbeats();
+void read_mavlink();
 
-#include <mavlink/mavlink_types.h>
+#include "include/mavlink/v1.0/mavlink_types.h"
 
-// more convenient
-//void quan_mavlink_send_bytes(mavlink_channel_t chan, uint8_t const * str,uint16_t len);
-
-void comm_send_ch(mavlink_channel_t chan, uint8_t ch);
 extern mavlink_system_t mavlink_system;
 
-#include  <mavlink/ardupilotmega/mavlink.h>
+#include "include/mavlink/v1.0/ardupilotmega/mavlink.h"
 
 #endif // ARD_MAV_TO_FRSKY_MAVLINK_H_INCLUDED
