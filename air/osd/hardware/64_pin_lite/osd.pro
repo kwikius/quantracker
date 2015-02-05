@@ -1,4 +1,4 @@
-update=Mon 26 Jan 2015 12:08:18 GMT
+update=Thu 05 Feb 2015 13:38:50 GMT
 last_client=eeschema
 [pcbnew]
 [pcbnew/libraries]
