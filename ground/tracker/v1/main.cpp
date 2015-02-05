@@ -28,11 +28,8 @@ extern "C" void setup();
 
 int main()
 {
-<<<<<<< Updated upstream
    setup();
 
-=======
->>>>>>> Stashed changes
    for (;;){  
       // timer events
       if ( azimuth_pwm_calc_event.signalled()){

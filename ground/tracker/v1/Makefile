@@ -113,7 +113,6 @@ flash_convert_bool.o flash_convert_vect3f.o init_values_from_flash.o
 all_objects = startup.o $(local_objects) $(flash_objects) \
   quan_stm32_flash_funs.o quan_stm32_flash.o
 
-
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
 

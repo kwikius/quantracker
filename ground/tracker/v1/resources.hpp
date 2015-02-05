@@ -191,10 +191,7 @@ struct interrupt_priority{
    static constexpr uint32_t sliprings_serial_port = 11;
    static constexpr uint32_t i2c_mag_evt  = 10;
    static constexpr uint32_t loop_timer = 9;
-<<<<<<< Updated upstream
    static constexpr uint32_t fsk_adc = 8;
-=======
->>>>>>> Stashed changes
    
 };
 
