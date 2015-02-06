@@ -179,7 +179,6 @@ CPFLAGS = -Obinary
 ODFLAGS = -d 
 
 all: board_type4
-	@ echo "making baor_type 4"
 #board_type1 : test
 #board_type2 : test
 board_type3 : test
@@ -236,7 +235,7 @@ heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 upload : test
 	st-flash write main.bin 0x8000000
 
-upload_stm32flash : test
+upload_sp : test
 	stm32flash -f -v -w main.bin /dev/ttyUSB0
 
 #deps conditional

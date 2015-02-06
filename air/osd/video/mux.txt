@@ -1,3 +1,0 @@
-OPA830 
-
-OPA832 Low power single supply fixed gain version of OPA830 with internal resistors
