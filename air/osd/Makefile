@@ -86,7 +86,7 @@ $(APP_SRC_PATH)
 TARGET_PROCESSOR = STM32F4
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o font.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
+ video_dma.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
  draw_task.o sync_sep.o led.o black_level.o dac.o
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
@@ -95,6 +95,16 @@ local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
+
+GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
+
+graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
+draw_line.o draw_text.o flood_fill.o
+
+USER_OBJECT_PATH = /home/andy/cpp/projects/osd_draw/
+
+user_objects =  draw_altitude.o draw_artificial_horizon.o \
+draw_compass.o draw_home.o bitmaps.o fonts.o
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -155,8 +165,6 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
 DEFINES += HSE_VALUE=8000000  
 
-
-
 #board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
 #board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY
 board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3 QUAN_DISCOVERY
@@ -186,7 +194,8 @@ board_type4 : test
 board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
-$(stm32_objects) startup.o system_init.o flash_funs.o port.o heap_3.o
+$(stm32_objects) $(graphics_api_objects) $(user_objects)  \
+startup.o system_init.o flash_funs.o port.o heap_3.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -205,6 +214,12 @@ $(video_objects): %.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(local_objects): %.o : %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(user_objects) : %.o : $(USER_OBJECT_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 system_init.o : $(SYSTEM_INIT)
@@ -231,7 +246,7 @@ port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
 heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-
+#-----------------------------------------
 upload : test
 	st-flash write main.bin 0x8000000
 

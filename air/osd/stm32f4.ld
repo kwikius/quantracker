@@ -20,7 +20,7 @@
 _HeapSize = 0x8000;
 
 /* linker checks that stack is bigger than this */
-_MinStackSize = 0x7000; 
+_MinStackSize = 0x6000; 
 
 MEMORY
 {

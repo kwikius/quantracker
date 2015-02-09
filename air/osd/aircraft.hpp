@@ -36,36 +36,39 @@
 #include <quan/voltage.hpp>
 #include <quan/current.hpp>
 #include <quan/angle.hpp>
+#include <quan/uav/attitude.hpp>
+#include <quan/uav/osd/api.hpp>
 
-struct location_t{
-
-   quan::time_<uint64_t>::us                             gps_time_stamp;
-   quan::angle_<int32_t>::deg10e7                        gps_lat;  
-   quan::angle_<int32_t>::deg10e7                        gps_lon; 
-   quan::velocity_<uint16_t>::cm_per_s                   gps_vog;  
-   quan::angle_<uint16_t>::cdeg                          gps_cog;
-   quan::length_<int32_t>::mm                            gps_alt;  
-   quan::length_<uint16_t>::cm                           gps_hdop;
-   quan::length_<uint16_t>::cm                           gps_vdop; 
- };
 
 struct gps_t{
    uint8_t num_sats;
    uint8_t fix_type;
    bool  has_home;
+   quan::time_<uint64_t>::us                             time_stamp;
+   quan::angle_<int32_t>::deg10e7                        lat;  
+   quan::angle_<int32_t>::deg10e7                        lon; 
+   quan::velocity_<uint16_t>::cm_per_s                   vog;  
+   quan::angle_<uint16_t>::cdeg                          cog;
+   quan::length_<int32_t>::mm                            alt;  
+   quan::length_<uint16_t>::cm                           hdop;
+   quan::length_<uint16_t>::cm                           vdop; 
+
 };
 
+/*
 struct attitude_t{
    quan::angle_<float>::deg            pitch;                  
    quan::angle_<float>::deg            roll;                   
    quan::angle_<float>::deg            yaw; 
    attitude_t():pitch{0},roll{0},yaw{0}{}
 };
+*/
 
 struct aircraft{
-   location_t                          location;
-  // location_t                          home_location;
-   attitude_t                          attitude;
+  // location_t    
+   quan::uav::osd::position_type       location;
+   quan::uav::osd::position_type       home_location;
+   quan::uav::osd::attitude_type       attitude;
    float                               throttle;                  
    quan::angle_<float>::deg            heading;              
    quan::velocity_<float>::m_per_s     airspeed;            
@@ -74,8 +77,6 @@ struct aircraft{
    quan::current_<float>::A            battery_current; 
    float                               battery_remaining; 
    quan::length_<float>::m             baro_alt;
-  // quan::length_<float>::m             get_distance_from_home(); 
- //  quan::angle_<float>::deg            get_bearing_to_home();
    uint16_t                            nav_mode;
    uint8_t                             custom_mode;
    gps_t                               gps;

@@ -15,13 +15,11 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include "graphics_api.hpp"
-#include "video_buffer.hpp"
-#include <quan/dynarray.hpp>
 #include "../resources.hpp"
 
 void swap_osd_buffers();
 void create_osd_swap_semaphores();
+void on_draw();
 
 namespace {
 
@@ -42,7 +40,7 @@ void create_draw_task()
 {
    xTaskCreate(
       draw_task,"draw_task", 
-      3000,
+      2500,
       &dummy_param,
       task_priority::draw,
       &task_handle

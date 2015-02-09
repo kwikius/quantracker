@@ -38,11 +38,7 @@ namespace fsk {
     asm volatile ("nop":::);
 
       the_aircraft.mutex_acquire();
-      pos_type pos {
-         the_aircraft.location.gps_lat,
-         the_aircraft.location.gps_lon,
-         the_aircraft.location.gps_alt
-      };
+         pos_type pos = the_aircraft.location;
       the_aircraft.mutex_release();
       
       uint8_t encoded[16];

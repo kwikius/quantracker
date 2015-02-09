@@ -223,26 +223,29 @@ namespace{
 
   void do_mavlink_gps_raw_int(mavlink_message_t * pmsg)
    {
-      the_aircraft.mutex_acquire();
-         the_aircraft.location.gps_time_stamp = quan::time_<uint64_t>::us{mavlink_msg_gps_raw_int_get_time_usec(pmsg)};
-       //  the_aircraft.location.gps_time_stamp = mavlink_msg_gps_raw_int_get_time_usec(pmsg);
-         the_aircraft.location.gps_lat = quan::angle_<int32_t>::deg10e7{ mavlink_msg_gps_raw_int_get_lat(pmsg) };
-        // the_aircraft.location.gps_lat =  mavlink_msg_gps_raw_int_get_lat(pmsg) ;
-         the_aircraft.location.gps_lon = quan::angle_<int32_t>::deg10e7{ mavlink_msg_gps_raw_int_get_lon(pmsg) };
-       //  the_aircraft.location.gps_lon =  mavlink_msg_gps_raw_int_get_lon(pmsg) ;
-         the_aircraft.location.gps_alt = quan::length_<int32_t>::mm{ mavlink_msg_gps_raw_int_get_alt(pmsg) };
-        // the_aircraft.location.gps_alt = mavlink_msg_gps_raw_int_get_alt(pmsg);
-           the_aircraft.location.gps_vog = quan::velocity_<uint16_t>::cm_per_s{ mavlink_msg_gps_raw_int_get_vel(pmsg)};
-       //  the_aircraft.location.gps_vog =  mavlink_msg_gps_raw_int_get_vel(pmsg);
-        the_aircraft.location.gps_cog =  quan::angle_<uint16_t>::cdeg{mavlink_msg_gps_raw_int_get_cog(pmsg)};
-       //  the_aircraft.location.gps_cog =  mavlink_msg_gps_raw_int_get_cog(pmsg);
-        the_aircraft.location.gps_hdop = quan::length_<uint16_t>::cm{ mavlink_msg_gps_raw_int_get_eph(pmsg) };
-       //  the_aircraft.location.gps_hdop = mavlink_msg_gps_raw_int_get_eph(pmsg);
-        the_aircraft.location.gps_vdop = quan::length_<int32_t>::cm{ mavlink_msg_gps_raw_int_get_epv(pmsg) };
-        // the_aircraft.location.gps_vdop =  mavlink_msg_gps_raw_int_get_epv(pmsg);
-        the_aircraft.gps.fix_type = mavlink_msg_gps_raw_int_get_fix_type(pmsg);
-        the_aircraft.gps.num_sats = mavlink_msg_gps_raw_int_get_satellites_visible(pmsg);
-      the_aircraft.mutex_release();
+   the_aircraft.mutex_acquire();
+      the_aircraft.gps.time_stamp = quan::time_<uint64_t>::us{mavlink_msg_gps_raw_int_get_time_usec(pmsg)};
+      //  the_aircraft.location.gps_time_stamp = mavlink_msg_gps_raw_int_get_time_usec(pmsg);
+      the_aircraft.gps.lat = quan::angle_<int32_t>::deg10e7{ mavlink_msg_gps_raw_int_get_lat(pmsg) };
+      the_aircraft.location.lat = the_aircraft.gps.lat;
+      // the_aircraft.location.gps_lat =  mavlink_msg_gps_raw_int_get_lat(pmsg) ;
+      the_aircraft.gps.lon = quan::angle_<int32_t>::deg10e7{ mavlink_msg_gps_raw_int_get_lon(pmsg) };
+      the_aircraft.location.lon = the_aircraft.gps.lon;
+      //  the_aircraft.location.gps_lon =  mavlink_msg_gps_raw_int_get_lon(pmsg) ;
+      the_aircraft.gps.alt = quan::length_<int32_t>::mm{ mavlink_msg_gps_raw_int_get_alt(pmsg) };
+      the_aircraft.location.alt = the_aircraft.gps.alt;
+      // the_aircraft.location.gps_alt = mavlink_msg_gps_raw_int_get_alt(pmsg);
+      the_aircraft.gps.vog = quan::velocity_<uint16_t>::cm_per_s{ mavlink_msg_gps_raw_int_get_vel(pmsg)};
+      //  the_aircraft.location.gps_vog =  mavlink_msg_gps_raw_int_get_vel(pmsg);
+      the_aircraft.gps.cog =  quan::angle_<uint16_t>::cdeg{mavlink_msg_gps_raw_int_get_cog(pmsg)};
+      //  the_aircraft.location.gps_cog =  mavlink_msg_gps_raw_int_get_cog(pmsg);
+      the_aircraft.gps.hdop = quan::length_<uint16_t>::cm{ mavlink_msg_gps_raw_int_get_eph(pmsg) };
+      //  the_aircraft.location.gps_hdop = mavlink_msg_gps_raw_int_get_eph(pmsg);
+      the_aircraft.gps.vdop = quan::length_<int32_t>::cm{ mavlink_msg_gps_raw_int_get_epv(pmsg) };
+      // the_aircraft.location.gps_vdop =  mavlink_msg_gps_raw_int_get_epv(pmsg);
+      the_aircraft.gps.fix_type = mavlink_msg_gps_raw_int_get_fix_type(pmsg);
+      the_aircraft.gps.num_sats = mavlink_msg_gps_raw_int_get_satellites_visible(pmsg);
+   the_aircraft.mutex_release();
    }
 #endif
 
