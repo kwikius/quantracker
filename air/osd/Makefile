@@ -72,6 +72,14 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
+ifeq ($(USER_SOURCE_PATH), )
+$(error "USER_SOURCE_PATH must be defined to the path to the path to your custom sources - see README.")
+endif
+
+ifeq ($(USER_SOURCE_FILES), )
+$(error "USER_SOURCE_FILES must be defined to the list of your custom source files - see README.")
+endif
+
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
@@ -86,7 +94,7 @@ $(APP_SRC_PATH)
 TARGET_PROCESSOR = STM32F4
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o font.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
+ video_dma.o video_setup.o graphics_api.o telemetry_task.o \
  draw_task.o sync_sep.o led.o black_level.o dac.o
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
@@ -95,6 +103,15 @@ local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
+
+GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
+
+graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
+draw_line.o draw_text.o flood_fill.o
+
+user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
+
+user_resources = bitmaps.o fonts.o
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -153,9 +170,7 @@ INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
-DEFINES += HSE_VALUE=8000000  
-
-
+DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION)
 
 #board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
 #board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY
@@ -169,8 +184,9 @@ DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 # for float printf format etc
 # CFLAG_EXTRAS += -Wl,-u,vsprintf -lm
 
-CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
-  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
+CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
+-$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
+ $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
 LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
  $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
@@ -186,7 +202,8 @@ board_type4 : test
 board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
-$(stm32_objects) startup.o system_init.o flash_funs.o port.o heap_3.o
+$(stm32_objects) $(graphics_api_objects) $(user_objects) $(user_resources) \
+startup.o system_init.o flash_funs.o port.o heap_3.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -206,6 +223,15 @@ $(video_objects): %.o : video/%.cpp
 
 $(local_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
+
+$(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(user_objects) : %.o : $(USER_SOURCE_PATH)common/%.cpp
+	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+
+$(user_resources) : %.o : $(USER_SOURCE_PATH)board/%.cpp
+	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 system_init.o : $(SYSTEM_INIT)
 	$(CC) $(CFLAGS) -o system_init.o $(SYSTEM_INIT)
@@ -231,7 +257,7 @@ port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
 heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-
+#-----------------------------------------
 upload : test
 	st-flash write main.bin 0x8000000
 

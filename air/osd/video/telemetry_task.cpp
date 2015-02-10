@@ -29,7 +29,7 @@
 #include "FreeRTOS.h"
 #include <task.h>
 
-#include <quan/dynarray.hpp>
+//#include <quan/dynarray.hpp>
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 
@@ -51,42 +51,35 @@ void swap_telem_buffers();
 
 namespace {
 
-   bool error_flag  = false;
-   void on_memory_error()
+   uint8_t* telem_buffer = nullptr;
+   bool init_telem_buffer()
    {
-      error_flag = true;
+      telem_buffer = (uint8_t*) pvPortMalloc(video_buffers::telem::tx::get_num_data_bytes());
+      return telem_buffer != nullptr;
    }
 
-   void do_time (quan::dynarray<uint8_t>  & ar)
+   void do_time ()
    {
        int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)
        int32_t min_now = static_cast<int32_t>(time_now / 60000);
        int32_t s_now   = (time_now / 1000) - (min_now * 60);
-       sprintf((char*)ar.get(),"time = %03lu min %02lu s", min_now,s_now);
-   }
-
-   void get_data_to_transmit (quan::dynarray<uint8_t> & ar)
-   {
-      // data_size is the constant total bytes that are transmitted in
-      // one half frame ( ie between 2 vsyncs)
-      uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
-      ar.realloc (data_size);
-      do_time(ar);
-      // fill the rest with zeroes
-      auto len = strlen ((char*)ar.get()) +1;
-      memset (ar.get() + len ,0,data_size -  len  );
+       sprintf((char*)telem_buffer,"time = %03lu min %02lu s", min_now,s_now);
+             // fill the rest with zeroes
+       uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
+       auto len = strlen ((char*)telem_buffer) +1;
+       memset (telem_buffer + len ,0,data_size -  len  );
+       video_buffers::telem::tx::write_data(telem_buffer);
    }
 
    void telem_task(void* params)
    {
       create_telem_swap_semaphores();
-
-      for(;;){
-         typedef video_buffers::telem::tx tx;
-         quan::dynarray<uint8_t> data{tx::get_num_data_bytes(),on_memory_error};
-         get_data_to_transmit(data);
-         tx::write_data(data.get());
-         swap_telem_buffers();
+      if ( init_telem_buffer() == true ){
+         for(;;){
+            typedef video_buffers::telem::tx tx;
+            do_time();
+            swap_telem_buffers();
+         }
       }
    }
 
@@ -99,7 +92,7 @@ void create_telem_task()
 {
    xTaskCreate(
       telem_task,"telem_task", 
-      500,
+      600,
       &dummy_param,
       task_priority::av_telemetry,
       &task_handle
@@ -171,8 +164,6 @@ namespace {
       >();
   #endif
 #endif
-
-
    }
 }//namespace 
 

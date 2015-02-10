@@ -1,3 +1,14 @@
+Tue Feb 10 11:47:26 GMT 2015
+(currently on devel branch)
+added OSD Example in quantracker/examples/osd_example1
+quan/air/osd/Makefile now builds this example
+Added customisation info to Sample-Dependencies.mk.
+Now by providing a list of deps in Dependencies.mk, should be able to make a custom version.
+See Sample-Dependencies.mk for more details
+(Hope to make a library eventually so this is a crude first step)
+
+Also added a "make upload_sp" comand to invoke stm32flash to upload via serial port
+(defaults to /dev/ttyUSB0)
 -------------------------------------------------
 18th July 2013
    I have moved the code and Makefile for the ground part of the tracker into the subdirectory ground/tracker/v1/

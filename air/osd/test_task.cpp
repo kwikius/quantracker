@@ -1,4 +1,8 @@
 
+/*
+just a task to test the board is working. Prob should do a proper test suite to verify the board
+*/
+
 #include <cstdint>
 
 #include <FreeRTOS.h>

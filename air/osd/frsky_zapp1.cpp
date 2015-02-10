@@ -163,7 +163,7 @@ namespace {
    int16_t update_lat_msg1()
    {
        the_aircraft.mutex_acquire();
-         quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.gps_lat;
+         quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.lat;
        the_aircraft.mutex_release();
        lat_msg = normalise_angle(temp);
        return esc_write_sp(lat_msg.get(), 2, true);
@@ -181,7 +181,7 @@ namespace {
    int16_t update_lon_msg1()
    {
       the_aircraft.mutex_acquire();
-         quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.gps_lon;
+         quan::angle_<int32_t>::deg10e7 temp =  the_aircraft.location.lon;
       the_aircraft.mutex_release();
       lon_msg = normalise_angle(temp);
       return esc_write_sp(lon_msg.get(), 2, true);
@@ -200,7 +200,7 @@ namespace {
    {
       if ( settings::altitude_src == settings::altitude_t::gps_alt){
          the_aircraft.mutex_acquire();
-            quan::length_<int32_t>::mm temp = the_aircraft.location.gps_alt;
+            quan::length_<int32_t>::mm temp = the_aircraft.location.alt;
          the_aircraft.mutex_release();
          alt_msg = temp.numeric_value()/1000;
       }else{
