@@ -6,7 +6,6 @@
 # Modify the following variables to the paths, etc
 # for these libraries on your system.
 
-
 #####################################################################
 ### The arm-gcc compiler
 # Download : https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2 -O gcc-arm
@@ -62,13 +61,13 @@ draw_compass.cpp draw_home.cpp
 ################################## OTHER OPTIONS ######################
 
 # Optional. if not set defaults to O. You will need optimisation of at least O
-#OPTIMISATION_LEVEL = O3
+
+OPTIMISATION_LEVEL = O3
 
 # Optional defaults to transmitter
-# NB telem_none not tested yet
+# NB QUAN_OSD_TELEM_NONE is not tested yet
 # one of QUAN_OSD_TELEM_RECEIVER QUAN_OSD_TELEM_TRANSMITTER QUAN_OSD_TELEM_NONE
 
-#QUAN_TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
+QUAN_TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
 
 ########################################################################
-
