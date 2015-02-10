@@ -16,10 +16,10 @@
 */
 
 #include "../resources.hpp"
+#include <quan/uav/osd/api.hpp>
 
 void swap_osd_buffers();
 void create_osd_swap_semaphores();
-void on_draw();
 
 namespace {
 
@@ -27,7 +27,7 @@ namespace {
    {
        create_osd_swap_semaphores();
        for (;;){
-         on_draw();
+         quan::uav::osd::on_draw();
          swap_osd_buffers();
       }
    }

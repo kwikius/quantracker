@@ -86,7 +86,7 @@ $(APP_SRC_PATH)
 TARGET_PROCESSOR = STM32F4
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o on_draw.o graphics_api.o telemetry_task.o \
+ video_dma.o video_setup.o graphics_api.o telemetry_task.o \
  draw_task.o sync_sep.o led.o black_level.o dac.o
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
@@ -101,10 +101,12 @@ GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
 draw_line.o draw_text.o flood_fill.o
 
-USER_OBJECT_PATH = /home/andy/cpp/projects/osd_draw/
+USER_OBJECT_PATH = /home/andy/cpp/projects/quantracker/examples/osd_example1/
 
-user_objects =  draw_altitude.o draw_artificial_horizon.o \
-draw_compass.o draw_home.o bitmaps.o fonts.o
+user_objects = on_draw.o draw_altitude.o draw_artificial_horizon.o \
+draw_compass.o draw_home.o 
+
+user_resources = bitmaps.o fonts.o
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -194,7 +196,7 @@ board_type4 : test
 board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
-$(stm32_objects) $(graphics_api_objects) $(user_objects)  \
+$(stm32_objects) $(graphics_api_objects) $(user_objects) $(user_resources) \
 startup.o system_init.o flash_funs.o port.o heap_3.o
 
 clean:
@@ -219,8 +221,11 @@ $(local_objects): %.o : %.cpp
 $(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(user_objects) : %.o : $(USER_OBJECT_PATH)%.cpp
-	$(CC) $(CFLAGS) $< -o $@
+$(user_objects) : %.o : $(USER_OBJECT_PATH)common/%.cpp
+	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+
+$(user_resources) : %.o : $(USER_OBJECT_PATH)board/%.cpp
+	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 system_init.o : $(SYSTEM_INIT)
 	$(CC) $(CFLAGS) -o system_init.o $(SYSTEM_INIT)

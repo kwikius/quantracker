@@ -23,6 +23,6 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-void on_draw();
+//void on_draw();
 
 #endif // OSD_GRAPHICS_API_HPP_INCLUDED
