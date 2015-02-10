@@ -72,6 +72,14 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
+ifeq ($(USER_SOURCE_PATH), )
+$(error "USER_SOURCE_PATH must be defined to the path to the path to your custom sources - see README.")
+endif
+
+ifeq ($(USER_SOURCE_FILES), )
+$(error "USER_SOURCE_FILES must be defined to the list of your custom source files - see README.")
+endif
+
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
@@ -101,10 +109,7 @@ GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
 draw_line.o draw_text.o flood_fill.o
 
-USER_OBJECT_PATH = /home/andy/cpp/projects/quantracker/examples/osd_example1/
-
-user_objects = on_draw.o draw_altitude.o draw_artificial_horizon.o \
-draw_compass.o draw_home.o 
+user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
 
 user_resources = bitmaps.o fonts.o
 
@@ -221,10 +226,10 @@ $(local_objects): %.o : %.cpp
 $(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(user_objects) : %.o : $(USER_OBJECT_PATH)common/%.cpp
+$(user_objects) : %.o : $(USER_SOURCE_PATH)common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
-$(user_resources) : %.o : $(USER_OBJECT_PATH)board/%.cpp
+$(user_resources) : %.o : $(USER_SOURCE_PATH)board/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 system_init.o : $(SYSTEM_INIT)

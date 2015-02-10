@@ -18,7 +18,7 @@ void draw_home()
       auto const & aircraft_position = get_aircraft_position();
       auto const & home_position = get_home_position();
       auto const & distance = quan::uav::get_distance(aircraft_position,home_position);
-      auto const d_m = static_cast<uint32_t> (distance.numeric_value() + 0.5f);
+      unsigned int const d_m = static_cast<unsigned int> (distance.numeric_value() + 0.5f);
       char buf[30];
       sprintf( buf,"%5u M",d_m);
       font_ptr font = get_font(FontID::OSD_Charset);

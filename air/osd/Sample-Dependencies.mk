@@ -42,6 +42,22 @@ QUAN_INCLUDE_PATH = /home/andy/website/quan-trunk
 
  STM32_STD_PERIPH_LIB_DIR = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/
 
+#########################USER CUSTOMISATION#########################################
+### Your Customised on_draw function
+## The one here is the example included with the library
+# Its is OK to leave this as here first time through to check everything works
+# (currently points to the included example)
+
+USER_SOURCE_PATH = ../../examples/osd_example1/
+
+# The user sources which must be in the "common" subdirectory of $(USER_SOURCE_PATH)
+# Must have a .cpp extension to work
+
+# Its is OK to leave this as here first time through to check everything works
+# (currently points to the included example)
+
+USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
+draw_compass.cpp draw_home.cpp
 
 ################################## OTHER OPTIONS ######################
 
