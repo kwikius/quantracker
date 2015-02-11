@@ -53,7 +53,9 @@ uint16_t video_cfg::rows::telem::m_begin = 3;//11;
 uint16_t video_cfg::rows::telem::m_end = 16;//26;
 // make sure first active row is x2 more than last telem row
 // dont think need to change for interlaced/ non interlaced
-
+// except that on stm32f407 interlaced doesnt have
+// enough memory for full display
+// (actually 427 doesnt quite either)
 #if defined (QUAN_DISPLAY_INTERLACED)
 uint16_t video_cfg::rows::osd::m_begin = 132;
 uint16_t video_cfg::rows::osd::m_end = 480;
