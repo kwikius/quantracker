@@ -21,7 +21,10 @@ _HeapSize = 0x8000;
 
 /* linker checks that stack is bigger than this */
 _MinStackSize = 0x6000; 
-
+/*
+If non interlaced have lots memeory in upper section
+so maybe use that for stack and lower 64k for heap
+*/
 MEMORY
 {
    rom (rx)        : org = 0x08000000, len = 1024K
