@@ -26,7 +26,7 @@
 #include "../resources.hpp"
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
-#include <quan/stm32/get_module_bus_frequency.hpp>
+#include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/two_d/vect.hpp>
 
 struct video_cfg {
@@ -97,8 +97,10 @@ private:
       // have time from hsync second edge to line_start to prepare pixel dma
      // typedef quan::stm32::tim2 gate_timer;
       typedef video_columns_gate_timer gate_timer;
-      static constexpr quan::frequency::Hz bus_freq {quan::stm32::get_module_bus_frequency<gate_timer>() };
-      static_assert (bus_freq == quan::frequency::Hz {42000000.0f},"error in bus freq");
+      static constexpr quan::frequency::Hz raw_timer_frequency {
+            quan::stm32::get_raw_timer_frequency<gate_timer>() 
+      };
+      static_assert (raw_timer_frequency == quan::frequency::Hz {84000000.0f},"unexpected timer frequency");
 
       static void setup();
       struct telem{
@@ -138,8 +140,8 @@ private:
      // typedef quan::stm32::tim1 timer;
       typedef spi_clock_timer timer;
      
-      static constexpr quan::frequency::Hz bus_freq {quan::stm32::get_module_bus_frequency<timer>() };
-      static_assert (bus_freq == quan::frequency::Hz {84000000.0f},"error in bus freq");
+      static constexpr quan::frequency::Hz raw_timer_frequency {quan::stm32::get_raw_timer_frequency<timer>() }; 
+      static_assert (raw_timer_frequency == quan::frequency::Hz {168000000.0f},"unexpected timer frequency");
       static void setup();
       static uint16_t get_timer_clks_per_px() {
          return m_timer_half_clks_per_px * 2;
@@ -167,21 +169,26 @@ private:
    // full visible number of rows
    static uint32_t get_display_size_y_px()
    {
+#if defined (QUAN_DISPLAY_INTERLACED)
        return rows::osd::get_visible_length();
+#else
+ return rows::osd::get_visible_length()/2;
+#endif
    }
    // dump last pixels if not a multiple of 8
    static uint32_t get_display_size_x_bytes()
    {
        return get_display_size_x_px() / 8U;
    }
-
-   static quan::time::us get_line_period()
+#if 0
+// not used yet!
+   static quan::time::us get_visible_line_period()
    {
        return (spi_clock::get_timer_clks_per_px()
          * get_display_size_x_px())
             / spi_clock::bus_freq;
    }
-   
+ #endif  
 };
 
 #endif // QUAN_OSD_VIDEO_SETUP_HPP_INCLUDED
