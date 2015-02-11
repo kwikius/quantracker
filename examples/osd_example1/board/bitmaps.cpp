@@ -122,6 +122,45 @@ namespace {
    } home_arrow;
   constexpr uint8_t home_arrow_type::m_data [ 143];
 
+ struct home_image_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {20,19};
+    }
+ private:
+    static constexpr uint8_t m_data[95] = {
+      255, 255, 235, 255
+      , 255, 255, 191, 150
+      , 254, 255, 255, 107
+      , 105, 233, 255, 191
+      , 150, 150, 150, 254
+      , 107, 105, 85, 105
+      , 233, 150, 86, 85
+      , 149, 150, 106, 85
+      , 85, 85, 169, 111
+      , 85, 149, 170, 249
+      , 111, 85, 149, 128
+      , 249, 111, 169, 154
+      , 128, 249, 111, 9
+      , 152, 128, 249, 111
+      , 9, 152, 128, 249
+      , 111, 9, 152, 170
+      , 249, 111, 9, 88
+      , 85, 249, 111, 9
+      , 88, 85, 249, 111
+      , 9, 88, 85, 249
+      , 111, 9, 88, 85
+      , 249, 111, 9, 88
+      , 85, 249, 175, 170
+      , 170, 170, 250
+      };
+   } home_image;
+  constexpr uint8_t home_image_type::m_data [ 95];
+
  struct satellite_image_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
     {
@@ -199,6 +238,7 @@ namespace {
    {
     &compass_arrow
     ,&home_arrow
+    ,&home_image
     ,&satellite_image
     ,&altitude_symbol
    };

@@ -1,5 +1,13 @@
-Tue Feb 10 11:47:26 GMT 2015
-(currently on devel branch)
+Wed Feb 11 12:55:29 GMT 2015 : 
+Change to non-interlaced for display so now around 360 x288. Uses 1/4 as much ram, 
+which means much more available to user and other yet too be defined tasks. 
+Maybe will revisit interlaced at some point, but currently prefer the freedom of 
+extra memory.
+Compilation of quan/air/osd/Makefile Requires the quan library :
+   version quan-1-0-1 available from http://www.github/kwikius/quan-trunk/
+
+
+Tue Feb 10 11:47:26 GMT 2015 : devel
 added OSD Example in quantracker/examples/osd_example1
 quan/air/osd/Makefile now builds this example
 Added customisation info to Sample-Dependencies.mk.
