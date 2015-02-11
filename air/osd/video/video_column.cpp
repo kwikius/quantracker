@@ -113,11 +113,20 @@ as it has unknown length
 // in fact relates to video buf
 
 // first visible pixel on osd line in pixel units from pixel 0
-// pixel 0 hypothetically starts at rising edge of hsync when gated timer starts
-// (start must give >= 8usec from hsync rising edge - TODO check this)
+// pixel 0 hypothetically starts at 2nd edge of hsync when gated timer starts
+// (start of line must be greater than time_from_second_edge = 5.75 usec from second edge of hsync
+// mbegin  >= time_from_second_edge * pixel_clk_frequency;
+#if defined (QUAN_DISPLAY_INTERLACED)
 uint16_t video_cfg::columns::osd::m_begin = 90;
 // one after last visible pixel in pixel units from pixel 0
+// time_from_second_edge_to_eol = 64us - time_from_second_edge
+// medn <= time_from_second_edge_to_eol * pixel_clk_frequency
 uint16_t video_cfg::columns::osd::m_end = 778 ;
+#else
+// not interlaced
+uint16_t video_cfg::columns::osd::m_begin = 45;
+uint16_t video_cfg::columns::osd::m_end = 389;
+#endif
 
 // first bit ( of start sequence) in bit units from bit 0
 // bit 0 hypothetically starts at rising edge of hsync when gated timer starts
@@ -198,11 +207,13 @@ void video_cfg::columns::osd::enable()
 
    video_buffers::osd::manager.read_reset();
 
+#if defined (QUAN_DISPLAY_INTERLACED)
    if (!rows::is_odd_frame()) {
       // odd is 1 even is 0
       // first is odd so inc if even
       video_buffers::osd::manager.read_advance (get_display_size_x_bytes() + 1);
    }
+#endif
    portEND_SWITCHING_ISR(HigherPriorityTaskWoken_osd);
 }
 
@@ -482,7 +493,12 @@ void video_cfg::columns::osd::end()
 {
    gate_timer::get()->sr.bb_clearbit<6>();// TIF
    gate_timer::get()->dier.bb_setbit<6>(); // TIE
+#if defined (QUAN_DISPLAY_INTERLACED)
    video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1) *2);
+#else
+// not interlaced
+ video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1));
+#endif
    gate_timer::get()->cnt = 0;
    video_cfg::spi_clock::timer::get()->cnt = 0;
    // reset spi's

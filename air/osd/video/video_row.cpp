@@ -52,8 +52,15 @@
 uint16_t video_cfg::rows::telem::m_begin = 3;//11;
 uint16_t video_cfg::rows::telem::m_end = 16;//26;
 // make sure first active row is x2 more than last telem row
+// dont think need to change for interlaced/ non interlaced
+
+#if defined (QUAN_DISPLAY_INTERLACED)
 uint16_t video_cfg::rows::osd::m_begin = 132;
 uint16_t video_cfg::rows::osd::m_end = 480;
+#else
+uint16_t video_cfg::rows::osd::m_begin = 34;
+uint16_t video_cfg::rows::osd::m_end = 600;
+#endif
 video_cfg::rows::mode video_cfg::rows::m_cur_mode = mode::idle;
 
 bool video_cfg::rows::m_cur_row_odd = true;

@@ -27,9 +27,25 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
-// OSD pixel clock
+// OSD pixel clock basically controlled by reqd number of pixels per line
+// Digital video formats
+// PAL 720 * 576
+// NTSC 720 * 486
+// visible_line_time = video_cfg::get_visible_line_period();
+// num_pixels_per_visible_line =(interlaced)?768:768/2 or 720?
+// timerclks_px = visible_line_time * bus_clk_freq / num_pixels_per_visible_line
+// use half as uses pwm so needs an integer for each half cycle
+#if defined (QUAN_DISPLAY_INTERLACED)
 uint16_t video_cfg::spi_clock::m_timer_half_clks_per_px = 6;   // 14 MHz px clk
+#else
+uint16_t video_cfg::spi_clock::m_timer_half_clks_per_px = 12;   // 7 MHz px clk
+#endif
 // Data bit clock
+// timr_clks_bit = visible_line_time * bus_clk_freq / num_bits_per_visible_line
+// should calc that to baud
+// num_bits_per_visible_line = visible_line_time * baud
+// timer_clks_bit = visible_line_time * bus_clk_freq / num_bits_per_visible_line
+// use half as uses pwm so needs an integer for each half cycle
 uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
 
  void video_cfg::spi_clock::setup()

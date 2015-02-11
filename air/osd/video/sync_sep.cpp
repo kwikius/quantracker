@@ -25,7 +25,7 @@
 #include <stm32f4xx.h>
 #include <quan/stm32/tim.hpp>
 #include <quan/time.hpp>
-#include <quan/stm32/get_module_bus_frequency.hpp>
+#include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "../resources.hpp"
 #include "video_cfg.hpp"
@@ -65,8 +65,8 @@ namespace {
    uint8_t sync_counter = 0U;
    syncmode_t syncmode = syncmode_t::start;
 
-   constexpr uint32_t bus_freq = quan::stm32::get_module_bus_frequency<sync_sep_timer>();
-   constexpr uint16_t clocks_usec = 2U * static_cast<uint16_t>(bus_freq / 1000000U);
+   constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
+   constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
 }; // namespace
  
