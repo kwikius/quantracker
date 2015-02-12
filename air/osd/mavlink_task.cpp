@@ -260,8 +260,12 @@ namespace{
          the_aircraft.airspeed 
             = quan::velocity_<float>::m_per_s{mavlink_msg_vfr_hud_get_airspeed(pmsg)};
            //=  mavlink_msg_vfr_hud_get_airspeed(pmsg);
-        the_aircraft.heading = quan::angle_<float>::deg{mavlink_msg_vfr_hud_get_heading(pmsg)};
+//##############################
+       // turns out this is an integer version of the ahrs yaw param in degrees
+       // better to use the yaw param sent in the attitude message
+       // the_aircraft.heading = quan::angle_<float>::deg{mavlink_msg_vfr_hud_get_heading(pmsg)};
        //  the_aircraft.heading = mavlink_msg_vfr_hud_get_heading(pmsg);
+//################################################################
          the_aircraft.throttle = mavlink_msg_vfr_hud_get_throttle(pmsg) / 100.f;
 
          if((the_aircraft.throttle > 1.f) && (the_aircraft.throttle < 1.5f)){
@@ -287,7 +291,10 @@ namespace{
          // the_aircraft.attitude.pitch = mavlink_msg_attitude_get_pitch(pmsg) * rad_to_deg;
          the_aircraft.attitude.roll = quan::angle_<float>::rad{mavlink_msg_attitude_get_roll(pmsg)};
          // the_aircraft.attitude.roll = mavlink_msg_attitude_get_roll(pmsg)* rad_to_deg;
-         the_aircraft.attitude.yaw = quan::angle_<float>::rad{mavlink_msg_attitude_get_yaw(pmsg)};
+         auto yaw = quan::angle_<float>::rad{mavlink_msg_attitude_get_yaw(pmsg)};
+         the_aircraft.attitude.yaw = yaw;
+          // therefore could dump this var as is same as heading
+         the_aircraft.heading = yaw;
          //the_aircraft.attitude.yaw = mavlink_msg_attitude_get_yaw(pmsg) * rad_to_deg;
       the_aircraft.mutex_release();
    }
