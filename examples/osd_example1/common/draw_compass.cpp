@@ -21,10 +21,10 @@ void draw_compass ()
    int constexpr radius = 25;
    draw_circle(radius + 2,pos, colour_type::black);
    for (int i = 0; i < 16; ++i) {
-      constexpr auto offset = quan::uav::osd::angle_type {360.f / 32.f};
-      auto basic_angle = quan::uav::osd::angle_type { (360.f * i) / 16.f};
-      auto start_angle = basic_angle - offset;
-      auto end_angle = basic_angle + offset;
+      constexpr auto offset = angle_type {360.f / 32.f};
+      angle_type const basic_angle = angle_type { (360.f * i) / 16.f};
+      angle_type const start_angle = basic_angle - offset;
+      angle_type const end_angle = basic_angle + offset;
       colour_type col 
          = (i & 1) 
          ? colour_type::white 
