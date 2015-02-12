@@ -15,14 +15,19 @@ void draw_home()
    if (home_image) {
       vect = get_size(home_image) / 2;
       draw_bitmap (home_image,pos);
-      auto const & aircraft_position = get_aircraft_position();
-      auto const & home_position = get_home_position();
-      auto const & distance = quan::uav::get_distance(aircraft_position,home_position);
-      unsigned int const d_m = static_cast<unsigned int> (distance.numeric_value() + 0.5f);
       char buf[30];
-      sprintf( buf,"%5u M",d_m);
       font_ptr font = get_font(FontID::OSD_Charset);
       if ( font){
+         if (1/*home_position_is_set()*/){
+            auto const & aircraft_position = get_aircraft_position();
+            auto const & home_position = get_home_position();
+            auto const & distance = quan::uav::get_distance(aircraft_position,home_position);
+            int const d_m = static_cast<int> (distance.numeric_value() + 0.5f);
+            sprintf( buf,"%5dm",d_m);
+         }else{
+            // could do timer here
+            sprintf ( buf,"~~~~~~");
+         }
          draw_text(buf,pos + pxp_type{vect.x,0},font);
       }
    }
