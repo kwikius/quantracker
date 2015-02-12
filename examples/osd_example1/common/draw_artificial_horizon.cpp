@@ -4,7 +4,15 @@
 #include <quan/uav/osd/get_aircraft_attitude.hpp>
 #include "osd.hpp"
 
+/*
+ TODO add pitch
+ artificial horizon represents the earth frame
+ so want to rotate the earth frame rel the aircraft
+  so calc is roll_matrix * pitch_matrix
+*/
+
 using namespace quan::uav::osd;
+
 
 void draw_artificial_horizon()
 {
