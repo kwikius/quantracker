@@ -3,18 +3,18 @@
 #include <quan/uav/osd/api.hpp>
 #include <quan/uav/osd/get_aircraft_position.hpp>
 #include <quan/uav/osd/get_home_position.hpp>
+//#include <quan/uav/osd/home_position_is_set.hpp>
 #include "osd.hpp"
 
 using namespace quan::uav::osd;
 using quan::length;
 
-//constexpr uint32_t altitude_symbol = 1;
-//constexpr uint32_t osd_charset = 1;
+// todo add a home_position_is_set function
 
 void draw_altitude()
 {
-   auto const & aircraft_position = get_aircraft_position();
-   auto const & home_position = get_home_position();
+   position_type const & aircraft_position = get_aircraft_position();
+   position_type const & home_position = get_home_position();
    length::m const alt = aircraft_position.alt - home_position.alt;
 
    size_type vect= {0,0};
