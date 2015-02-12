@@ -22,8 +22,12 @@ _HeapSize = 0x8000;
 /* linker checks that stack is bigger than this */
 _MinStackSize = 0x6000; 
 /*
+TODO
 If non interlaced have lots memeory in upper section
-so maybe use that for stack and lower 64k for heap
+memory used is only 50K so have an extra 74 K :)
+so maybe use upper  for stack and lower 64k for heap
+Lower 64k is faster but not available to DMA
+posss better for stack?
 */
 MEMORY
 {
