@@ -58,6 +58,10 @@ namespace{
    uint8_t  apm_mav_system; 
    uint8_t  apm_mav_component;
 
+   // prob add this to the_aircraft structure
+   bool  aircraft_home_set = false;
+   //quan::time_<float>::s aircraft_home_set_time;
+
    struct mav_sr_t{
       uint8_t stream_number;
       uint16_t rate;
@@ -201,6 +205,7 @@ namespace{
       the_aircraft.mutex_release();
    }
 
+   
 #ifndef MAVLINK10
 #error wrong version
    void do_mavlink_gps_raw(mavlink_message_t * pmsg)
@@ -245,7 +250,13 @@ namespace{
       // the_aircraft.location.gps_vdop =  mavlink_msg_gps_raw_int_get_epv(pmsg);
       the_aircraft.gps.fix_type = mavlink_msg_gps_raw_int_get_fix_type(pmsg);
       the_aircraft.gps.num_sats = mavlink_msg_gps_raw_int_get_satellites_visible(pmsg);
-   the_aircraft.mutex_release();
+      
+      the_aircraft.mutex_release();
+
+      if ((aircraft_home_set == false) && ( the_aircraft.gps.fix_type > 1)){
+         the_aircraft.home_location = the_aircraft.location;
+         the_aircraft_home_set = true;
+      }       
    }
 #endif
 
