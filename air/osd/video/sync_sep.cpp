@@ -110,8 +110,11 @@ void sync_sep_disable()
 void sync_sep_new_frame()
 {
   sync_sep_disable();
+// could we just enable the interrupts
+// Ideally want counting but
   // enable the rows counter one shot
   video_cfg::rows::line_counter::get()->cnt = 0;
+// cant see this is ever disabled?
   video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
 }
 

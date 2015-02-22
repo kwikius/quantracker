@@ -160,8 +160,8 @@ namespace {
        constexpr uint8_t dac_sync_idx = 3;
 //##########################
        // for FMS6141 with 0.28 V d.c. offset at output with ac input
-       // or maybe 0.15 V ???
        Dac_write (dac_sync_idx, quan::voltage::V{0.58f}, 0);
+//########## FOR NTSC should be slightly above ?
        Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
        Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
        Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
