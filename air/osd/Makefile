@@ -1,7 +1,7 @@
 # Copyright (c) 2013 -2015 Andy Little 
 #
 # With Grateful Acknowledgements to the prior work of:
-#   Sami Korbonen(Openpilot.org)
+#   Sami Korhonen(Openpilot.org)
 #   taulabs ( taulabs.com) 
 #   brainFPV ( brainfpv.com)
 #   Thomas Oldbury (super-osd.com)
