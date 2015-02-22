@@ -255,7 +255,7 @@ namespace{
 
       if ((aircraft_home_set == false) && ( the_aircraft.gps.fix_type > 1)){
          the_aircraft.home_location = the_aircraft.location;
-         the_aircraft_home_set = true;
+         aircraft_home_set = true;
       }       
    }
 #endif
