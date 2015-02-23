@@ -31,6 +31,10 @@
 
 struct video_cfg {
 
+   enum class video_mode_t { unknown,pal,ntsc};
+
+   static video_mode_t get_video_mode(); 
+
    //row line_counter
    struct rows {
       // TIM3_ETR (hsync) - clock first edge
@@ -51,17 +55,21 @@ struct video_cfg {
          }
       };
       struct osd {
+         
          static void begin();
          static void end();
          static uint16_t m_begin;
-         static uint16_t m_end;
+         static uint16_t m_end_pal;
+         static uint16_t m_end_ntsc;
+         static uint16_t get_end() 
+               { return ((get_video_mode() == video_mode_t::pal)?m_end_pal:m_end_ntsc);}
          static uint16_t get_visible_length()
          {
-            return m_end - m_begin;
+            return get_end() - m_begin;
          }
          uint16_t get_total_length()
          {
-            return m_end;
+            return get_end();
          }
       };
       

@@ -42,8 +42,6 @@ Both are in same irq so low edge can be dealt with before high edge
 TODO add ADC to get sync tip and black level
 */
 
-
- 
 namespace {
 
    bool initial_first_edge_captured = false;
@@ -61,16 +59,27 @@ namespace {
         vsync_serration,
         post_equalise
    };
+   
+
    synctype_t sync_pulse_type = synctype_t::unknown;
    line_period_t line_period = line_period_t::unknown;
    uint16_t last_sync_first_edge = 0U;
    uint8_t sync_counter = 0U;
    syncmode_t syncmode = syncmode_t::start;
+   video_cfg::video_mode_t video_mode = video_cfg::video_mode_t::unknown;
 
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
 }; // namespace
+
+video_cfg::video_mode_t 
+video_cfg::get_video_mode()
+{
+  return video_mode;
+}
+
+typedef video_cfg::video_mode_t video_mode_t;
  
 void sync_sep_reset()
 {
@@ -93,6 +102,7 @@ void sync_sep_error_reset()
   last_sync_first_edge = 0;
   sync_counter = 0;
   syncmode = syncmode_t::start;
+  video_mode = video_mode_t::unknown;
 }
 
 void sync_sep_enable()
@@ -114,7 +124,9 @@ void sync_sep_new_frame()
   sync_sep_disable();
 // could we just enable the interrupts
 // Ideally want counting but
-  // enable the rows counter one shot
+// important if video_mode has changed from ntsc to pal etc
+  video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
+   // enable the rows counter one shot
   video_cfg::rows::line_counter::get()->cnt = 0;
 // cant see this is ever disabled?
   video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
@@ -232,10 +244,6 @@ void  calc_line_period()
 // measure how long low pulse was
 // and decide if it's a hsync, vsync or invalid
 
-#if  (QUAN_OSD_BOARD_TYPE==4) && (!defined(QUAN_DISCOVERY))
-int test_led_count = 0;
-#endif
-
 void calc_sync_pulse_type() 
 {
    if ( initial_first_edge_captured) { // have capture to compare with
@@ -274,98 +282,121 @@ void on_hsync_second_edge()
      calc_sync_pulse_type(); 
      if ( (sync_pulse_type != synctype_t::unknown)
                && (line_period != line_period_t::unknown) ) {
-                 
           switch (syncmode) {
                 case syncmode_t::post_equalise:
+// here it should always be known whether in pal or ntsc
                   if ( (line_period == line_period_t::half) 
                            && (sync_pulse_type == synctype_t::hsync) ) {
                         ++sync_counter;
-                        if (sync_counter == 1){
-                              // Do ADC to get black _level
-                        }
-                        if (sync_counter ==2){
-                              // get ADC result and convert sort outputs etc
-                        }
 #if 0
-                        if (sync_counter == 3){
-#else
-                        if (sync_counter == 5){
-#endif
-                           // dont disable but
-                           sync_sep_new_frame(); // disable this sequence and start
-                                             // osd and telem sequence
+                        if (sync_counter == 1){
+                              // TODO Do ADC to get black _level
                         }
-
+                        if (sync_counter == 2){
+                              // TODO get ADC result and convert sort outputs etc
+                        }
+#endif
+                        if (  ((video_mode == video_mode_t::pal)  && (sync_counter == 3))
+                          ||  ((video_mode == video_mode_t::ntsc) && (sync_counter == 5))
+                        ){
+                           // disable this sequence and start
+                           // osd and telem sequence
+                           sync_sep_new_frame();               
+                        }
                   }else{ 
-                     sync_sep_error_reset(); // unexpected puls type or frame length
+                     sync_sep_error_reset(); // unexpected pulse type or frame length
                   }
                 break;
                 case syncmode_t::vsync_serration:
                   if (line_period == line_period_t::half){
                      if (sync_pulse_type == synctype_t::hsync){
-                        
-                        if ( sync_counter == 4){
-                             // flag calc_line_period to start ADC conv for sync tip
-                        }
-#if 0
+                     // signifies the end of vsync period
+                        // TODO flag calc_line_period to start ADC conv for sync tip
                         if ( sync_counter == 5){
-#else
-                        if ( sync_counter == 6){
-#endif
-
-                           // get sync tip ADC result
-                           syncmode = syncmode_t::post_equalise;
-                           sync_counter = 0 ;
-                        }else{
-                           sync_sep_error_reset(); // unexpected sequence
+                           if ( video_mode != video_mode_t::pal){
+                              if ( video_mode == video_mode_t::unknown){
+                                 video_mode = video_mode_t::pal;
+                              }else{
+                                 sync_sep_error_reset(); // unexpected sequence
+                                 return;
+                              }
+                           }
+                        }else {
+                           if ( sync_counter == 6){
+                              if ( video_mode != video_mode_t::ntsc){
+                                 if ( video_mode == video_mode_t::unknown){
+                                    video_mode = video_mode_t::ntsc;
+                                 }else{
+                                    sync_sep_error_reset(); // unexpected sequence
+                                    return;
+                                 }
+                              }
+                           }else{
+                              sync_sep_error_reset(); // unexpected sequence
+                              return;
+                           }
                         }
-                     }else{
-#if 0
-                        if (++sync_counter > 7){
-#else
+                        // TODO get sync tip ADC result
+                        syncmode = syncmode_t::post_equalise;
+                        sync_counter = 0 ;
+                     }else{// incr count in the vsync period
                         if (++sync_counter > 8){
-#endif
                            sync_sep_error_reset(); // unexpected sequence
                         }
                      }
-                  }else{
+                  }else{ // not a half line period in vsync
                      sync_sep_error_reset(); // unexpected
                   }
                 break;
                 case syncmode_t::pre_equalise:
                   if (line_period == line_period_t::half) {
-
                        if (sync_pulse_type == synctype_t::vsync) {
-#if 0
-                            if (sync_counter == 5){
-#else
-                             if (sync_counter == 6){
-#endif
-                                 video_cfg::rows::set_odd_frame();
-                            }else{
-#if 0
-                              if(sync_counter == 4){
-#else
-                              if(sync_counter == 5){
-#endif
-                                 video_cfg::rows::set_even_frame();
+                        // start of vsync period
+                        // do odd / even frame logic
+                        // n.b not realy needed in non-interlaced
+                        if (sync_counter == 4){
+                           if ( video_mode != video_mode_t::pal){
+                              if (video_mode == video_mode_t::unknown){
+                                 video_mode = video_mode_t::pal;
                               }else{
                                  sync_sep_error_reset(); // unexpected
                                  return;
                               }
-                            }
-                            syncmode = syncmode_t::vsync_serration;
-                            
-                            sync_counter = 1;
-                       }else { // hsync pulse
-#if 0
-                           if (++sync_counter > 5) {
-#else
-                           if (++sync_counter > 6) {
-#endif
-                               sync_sep_error_reset();
                            }
-                       }
+                           video_cfg::rows::set_even_frame();
+                        }else {
+                           if ( sync_counter == 5){
+                              if ( video_mode == video_mode_t::pal){
+                                  video_cfg::rows::set_odd_frame();
+                              }else{
+                                 // n.b dont care if its unknown video mode
+                                 // assume its ntsc
+                                 video_cfg::rows::set_even_frame();
+                              }
+                           }else{
+                              if ( sync_counter == 6){
+                                 if ( video_mode != video_mode_t::ntsc){
+                                    if (video_mode == video_mode_t::unknown){
+                                       video_mode = video_mode_t::ntsc;
+                                    }else{
+                                       sync_sep_error_reset(); // unexpected
+                                       return;
+                                    }
+                                 }
+                                 video_cfg::rows::set_odd_frame();
+                              }else{ // invalid number of pre-equalise pulses
+                                 sync_sep_error_reset(); // unexpected
+                                 return;
+                              }
+                           }
+                        } // ~ synccounter 4 to 6
+                        syncmode = syncmode_t::vsync_serration;
+                        sync_counter = 1;
+                     }else { // hsync pulse in pre_equalise
+                        if (++sync_counter > 6) {
+                           sync_sep_error_reset();
+                        }
+                     }
                   }else{ // unexpected full line period
                      sync_sep_error_reset(); 
                   }
@@ -418,7 +449,3 @@ extern "C" void TIM1_BRK_TIM9_IRQHandler()
 }
 
 #endif  // defined QUAN_OSD_SOFTWARE_SYNCSEP
- 
- 
- 
- 

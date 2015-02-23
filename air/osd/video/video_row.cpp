@@ -60,18 +60,15 @@ uint16_t video_cfg::rows::telem::m_end = 16;//26;
 // (actually 427 doesnt quite either)
 // ################TODO  SORT FOR NTSC ########################
 #if defined (QUAN_DISPLAY_INTERLACED)
-
+// this is simply as there aint enough ram on the stm32f407
 uint16_t video_cfg::rows::osd::m_begin = 132;
-uint16_t video_cfg::rows::osd::m_end = 480;
+uint16_t video_cfg::rows::osd::m_end_pal = 480;
+uint16_t video_cfg::rows::osd::m_end_ntsc = 480;
 #else
-
 uint16_t video_cfg::rows::osd::m_begin = 34;
 // BALDLY just reduce this to 500 for NTSC?
-#if 0
-uint16_t video_cfg::rows::osd::m_end = 600;
-#else
-uint16_t video_cfg::rows::osd::m_end = 500;
-#endif
+uint16_t video_cfg::rows::osd::m_end_pal = 600;
+uint16_t video_cfg::rows::osd::m_end_ntsc = 500;
 #endif
 //###############################################################
 video_cfg::rows::mode video_cfg::rows::m_cur_mode = mode::idle;
@@ -202,7 +199,7 @@ void video_cfg::rows::setup()
    line_counter::get()->ccr3 = telem::m_end - 1;
    // interlace means jump 2 rows per clk
    line_counter::get()->ccr4 = osd::m_begin/2-1 ;
-   line_counter::get()->arr = osd::m_end/2 - 2;
+   line_counter::get()->arr = osd::get_end()/2 - 2;
    {
       quan::stm32::tim::dier_t dier = line_counter::get()->dier.get();
       dier.cc2ie = true;
