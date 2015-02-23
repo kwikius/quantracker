@@ -67,7 +67,11 @@ uint16_t video_cfg::rows::osd::m_end = 480;
 
 uint16_t video_cfg::rows::osd::m_begin = 34;
 // BALDLY just reduce this to 500 for NTSC?
+#if 0
 uint16_t video_cfg::rows::osd::m_end = 600;
+#else
+uint16_t video_cfg::rows::osd::m_end = 500;
+#endif
 #endif
 //###############################################################
 video_cfg::rows::mode video_cfg::rows::m_cur_mode = mode::idle;

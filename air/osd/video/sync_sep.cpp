@@ -41,6 +41,8 @@ Uses a separate capture for first and second edge then timing can be quite relax
 Both are in same irq so low edge can be dealt with before high edge
 TODO add ADC to get sync tip and black level
 */
+
+
  
 namespace {
 
@@ -284,11 +286,16 @@ void on_hsync_second_edge()
                         if (sync_counter ==2){
                               // get ADC result and convert sort outputs etc
                         }
+#if 0
                         if (sync_counter == 3){
+#else
+                        if (sync_counter == 5){
+#endif
                            // dont disable but
                            sync_sep_new_frame(); // disable this sequence and start
                                              // osd and telem sequence
                         }
+
                   }else{ 
                      sync_sep_error_reset(); // unexpected puls type or frame length
                   }
@@ -300,7 +307,12 @@ void on_hsync_second_edge()
                         if ( sync_counter == 4){
                              // flag calc_line_period to start ADC conv for sync tip
                         }
+#if 0
                         if ( sync_counter == 5){
+#else
+                        if ( sync_counter == 6){
+#endif
+
                            // get sync tip ADC result
                            syncmode = syncmode_t::post_equalise;
                            sync_counter = 0 ;
@@ -308,7 +320,11 @@ void on_hsync_second_edge()
                            sync_sep_error_reset(); // unexpected sequence
                         }
                      }else{
+#if 0
                         if (++sync_counter > 7){
+#else
+                        if (++sync_counter > 8){
+#endif
                            sync_sep_error_reset(); // unexpected sequence
                         }
                      }
@@ -320,10 +336,18 @@ void on_hsync_second_edge()
                   if (line_period == line_period_t::half) {
 
                        if (sync_pulse_type == synctype_t::vsync) {
+#if 0
                             if (sync_counter == 5){
+#else
+                             if (sync_counter == 6){
+#endif
                                  video_cfg::rows::set_odd_frame();
                             }else{
+#if 0
                               if(sync_counter == 4){
+#else
+                              if(sync_counter == 5){
+#endif
                                  video_cfg::rows::set_even_frame();
                               }else{
                                  sync_sep_error_reset(); // unexpected
@@ -334,7 +358,11 @@ void on_hsync_second_edge()
                             
                             sync_counter = 1;
                        }else { // hsync pulse
+#if 0
                            if (++sync_counter > 5) {
+#else
+                           if (++sync_counter > 6) {
+#endif
                                sync_sep_error_reset();
                            }
                        }
