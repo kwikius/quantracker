@@ -29,6 +29,7 @@
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "../resources.hpp"
 #include "video_cfg.hpp"
+#include "video_buffer.hpp"
 
 /*
 software sync sep
@@ -125,6 +126,7 @@ void sync_sep_new_frame()
 // could we just enable the interrupts
 // Ideally want counting but
 // important if video_mode has changed from ntsc to pal etc
+  video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
   video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
    // enable the rows counter one shot
   video_cfg::rows::line_counter::get()->cnt = 0;
