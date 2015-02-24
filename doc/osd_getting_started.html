@@ -350,22 +350,24 @@ ul.auto-toc {
 <img alt="osd_board.png" src="osd_board.png" />
 </blockquote>
 <p>The above diagram highlights the basic connections of the board <a class="footnote-reference" href="#id4" id="id1">[1]</a>.</p>
-<p>The Board is designed to be used with Ardupilot.
-The board is designed to be hardware compatible with MinimOSD <a class="footnote-reference" href="#id5" id="id2">[2]</a> ,
-and so the layout should be familiar if you have used MinimOSD.
+<p>The initial board firmware is designed to be used with Ardupilot and
+the layout of the board connectors is designed to be compatible with MinimOSD <a class="footnote-reference" href="#id5" id="id2">[2]</a> .
 The 6 pin header at the right hand end of the diagram is
 used for the MAVLink serial connection.
 The Header at the left end is used for connecting the Camera
 and the Video transmitter <a class="footnote-reference" href="#id6" id="id3">[3]</a> .</p>
-<p>As well as its use as a MAVLink port, the serial port is also used to flash
+<p>As well as its use as a MAVLink port, the serial port can also be used to flash
 firmware onto the board using a stock FTDI module.</p>
-<p><a class="reference external" href="index.html">Index</a></p>
+<p>The board is entirely Open Source hardware and software.</p>
+<p><a class="reference external" href="https://oshpark.com/shared_projects/KlRxcZaZ">The pcb is currently available at OSHPark</a> .</p>
+<p>We hope soon to try to get some finished boards available too.</p>
+<p><a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v1/schematic_pdf">The full schematic is available here as a set of pdfs</a>  .</p>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are many other available pins, which are broken out from
 the STM32F4 processor. For a more complete view of the functions
-on the board <a class="reference external" href="htpps://github.com/kwikius/blob/master/quantracker/air/osd/hardware/64_pin_lite/schematic_pdf/osd-MCY.pdf?raw=true">see the mcu schematic</a>.
+on the board <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v1/schematic_pdf/osd-MCU.pdf?raw=true">see the mcu schematic</a>.
 The board has the capability to be a full Flight controller, as well as an OSD)
 With an abundance of open source flight control software , it is hoped to realise
 that shortly.</td></tr>
@@ -384,6 +386,7 @@ that shortly.</td></tr>
 Options include sending FSK telemetry data and uses a a Variometer, voice alerts etc.</td></tr>
 </tbody>
 </table>
+<p><a class="reference external" href="index.html">Index</a></p>
 </div>
 </div>
 </div>
