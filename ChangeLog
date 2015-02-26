@@ -1,3 +1,7 @@
+Wed Feb 25 18:02:45 GMT 2015
+OSD Now working with PAL and NTSC. Will switch dynamically.
+Added a get_video_mode function in the quan::uav::osd::api
+
 Wed Feb 11 12:55:29 GMT 2015 : 
 Change to non-interlaced for display so now around 360 x288. Uses 1/4 as much ram, 
 which means much more available to user and other yet too be defined tasks. 
@@ -5,7 +9,6 @@ Maybe will revisit interlaced at some point, but currently prefer the freedom of
 extra memory.
 Compilation of quan/air/osd/Makefile Requires the quan library :
    version quan-1-0-1 available from http://www.github/kwikius/quan-trunk/
-
 
 Tue Feb 10 11:47:26 GMT 2015 : devel
 added OSD Example in quantracker/examples/osd_example1

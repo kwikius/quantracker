@@ -90,6 +90,7 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
       * Compact
       * Freestanding - can be used with or without the tracker
       * Works with Ardupilot, Compatible with MinimOSD. 
+      * supports PAL and NTSC cameras (can switch between protocols dynamically)
       * Vector graphics
       * Hugely customisable display, using "osd_maker" App for helping to create the display
       * Digitally isolated Serial port to eliminate ground loops

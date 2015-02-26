@@ -1,3 +1,4 @@
+
 # Copyright (c) 2012-2013 Andy Little 
 
 # This program is free software: you can redistribute it and/or modify
@@ -38,7 +39,7 @@ GRAPHICS_API_SRC_PATH = $(QUAN_INCLUDE_PATH)quan_matters/src/uav/osd/
 #########################################################
 
 sources =  draw_altitude.cpp draw_artificial_horizon.cpp \
-draw_compass.cpp draw_home.cpp on_draw.cpp
+draw_compass.cpp draw_home.cpp on_draw.cpp draw_gps_state.cpp
 
 # in $(GRAPHICS_API_SRC_PATH)
 graphics_api_sources = draw_arc.cpp draw_bitmap.cpp draw_circle.cpp \

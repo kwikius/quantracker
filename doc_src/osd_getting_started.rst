@@ -18,6 +18,7 @@ The 6 pin header at the right hand end of the diagram is
 used for the MAVLink serial connection. 
 The Header at the left end is used for connecting the Camera
 and the Video transmitter [3]_ .
+The board firmware supports PAL and NTSC cameras
 
 As well as its use as a MAVLink port, the serial port can also be used to flash
 firmware onto the board using a stock FTDI module. 
@@ -30,6 +31,9 @@ We hope soon to try to get some finished boards available too.
 
 `The full schematic is available here as a set of pdfs`_  .
 
+For more info , please look at the `OSD index`_.
+
+.. _`OSD index`: osd/index.html
 .. _Index: index.html
 .. _`see the mcu schematic`: https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v1/schematic_pdf/osd-MCU.pdf?raw=true
 .. _`The full schematic is available here as a set of pdfs`: https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v1/schematic_pdf

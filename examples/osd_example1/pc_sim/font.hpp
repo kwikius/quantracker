@@ -1,6 +1,6 @@
 
-#ifndef USER_FONT_HPP_INCLUDED
-#define USER_FONT_HPP_INCLUDED
+#ifndef QUANTRACKER_USER_FONT_HPP_INCLUDED
+#define QUANTRACKER_USER_FONT_HPP_INCLUDED
 
 #include <quan/uav/osd/basic_font.hpp>
 
@@ -10,3 +10,4 @@ struct FontID{
 };
 
 #endif
+// 

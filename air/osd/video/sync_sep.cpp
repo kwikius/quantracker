@@ -30,6 +30,7 @@
 #include "../resources.hpp"
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
+#include <quan/uav/osd/api.hpp>
 
 /*
 software sync sep
@@ -72,7 +73,20 @@ namespace {
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
+   // 
+   static quan::uav::osd::video_mode public_video_mode 
+      = quan::uav::osd::video_mode::unknown;
+
 }; // namespace
+
+namespace quan{ namespace uav{ namespace osd{
+
+   video_mode get_video_mode()
+   {
+      return public_video_mode;
+   }
+
+}}}
 
 video_cfg::video_mode_t 
 video_cfg::get_video_mode()
@@ -122,16 +136,29 @@ void sync_sep_disable()
  
 void sync_sep_new_frame()
 {
-  sync_sep_disable();
-// could we just enable the interrupts
-// Ideally want counting but
-// important if video_mode has changed from ntsc to pal etc
-  video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
-  video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
+   sync_sep_disable();
+   // could we just enable the interrupts
+   // Ideally want counting but
+   // important if video_mode has changed from ntsc to pal etc
+   video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
+   video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
    // enable the rows counter one shot
-  video_cfg::rows::line_counter::get()->cnt = 0;
-// cant see this is ever disabled?
-  video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
+   video_cfg::rows::line_counter::get()->cnt = 0;
+   // cant see this is ever disabled?
+   video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
+// update the public one.. messy prob just use one public enum for this?
+// should prob do it in the swap_buffers function?
+   switch (video_mode){
+      case video_mode_t::ntsc:
+         public_video_mode = quan::uav::osd::video_mode::ntsc;
+      break;
+      case video_mode_t::pal:
+         public_video_mode = quan::uav::osd::video_mode::pal;
+      break;
+      default:
+         public_video_mode = quan::uav::osd::video_mode::unknown;
+      break;
+   }
 }
 
 void sync_sep_setup()

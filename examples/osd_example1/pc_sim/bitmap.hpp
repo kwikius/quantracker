@@ -1,6 +1,6 @@
 
-#ifndef USER_BITMAP_HPP_INCLUDED
-#define USER_BITMAP_HPP_INCLUDED
+#ifndef QUANTRACKER_USER_BITMAP_HPP_INCLUDED
+#define QUANTRACKER_USER_BITMAP_HPP_INCLUDED
 
 #include <quan/uav/osd/basic_font.hpp>
 

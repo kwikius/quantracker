@@ -1,5 +1,4 @@
 
-
 #include <quan/uav/osd/api.hpp>
 #include <quan/two_d/rotation.hpp>
 #include <quan/uav/osd/get_aircraft_heading.hpp>
@@ -16,10 +15,15 @@ void draw_compass ()
    angle_type const home_bearing 
       = quan::uav::get_bearing(get_aircraft_position(),get_home_position());
    
-   quan::two_d::rotation const rotate {heading};
-   pxp_type constexpr pos = {0,-115};
+   quan::two_d::rotation const rotate {heading}; 
+   pxp_type const pos = 
+      {0,
+      (( get_video_mode() == video_mode::pal)
+      ?-115:-65)};
    int constexpr radius = 25;
    draw_circle(radius + 2,pos, colour_type::black);
+   // should prob make this a bitmap for speed
+   // since its constant
    for (int i = 0; i < 16; ++i) {
       constexpr auto offset = angle_type {360.f / 32.f};
       angle_type const basic_angle = angle_type { (360.f * i) / 16.f};
