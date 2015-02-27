@@ -8,6 +8,10 @@ using namespace quan::uav::osd;
 
 void draw_gps_state();
 
+namespace {
+  int count = 0;
+}
+
 void quan::uav::osd::on_draw()
 {
 
@@ -18,7 +22,10 @@ void quan::uav::osd::on_draw()
       draw_home();
    } else{ // home position
       if ( position_is_good()){
-         set_home_position(get_aircraft_position());
+         if ( ++count == 250){ // 5 secs
+            auto const ap = get_aircraft_position();
+            set_home_position(ap);
+         }
       }else{
          draw_gps_state();
       }

@@ -13,8 +13,8 @@ using quan::length;
 
 void draw_altitude()
 {
-   position_type const & aircraft_position = get_aircraft_position();
-   position_type const & home_position = get_home_position();
+   position_type const aircraft_position = get_aircraft_position();
+   position_type const home_position = get_home_position();
    length::m const alt = aircraft_position.alt - home_position.alt;
 
    size_type vect= {0,0};

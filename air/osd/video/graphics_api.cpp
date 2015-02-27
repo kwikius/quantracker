@@ -104,29 +104,29 @@
 
 // prob should put these in separate file ....
 
-   quan::uav::osd::position_type const & 
+   quan::uav::osd::position_type
    quan::uav::osd::get_aircraft_position()
     {
        the_aircraft.mutex_acquire(); 
-         quan::uav::osd::position_type const & p = the_aircraft.location;
+         quan::uav::osd::position_type const p = the_aircraft.location;
        the_aircraft.mutex_release();
        return p;
     }
 
-    quan::uav::osd::position_type const & 
+    quan::uav::osd::position_type 
     quan::uav::osd::get_home_position()
     {
       the_aircraft.mutex_acquire();
-         quan::uav::osd::position_type const & p = the_aircraft.home_location;
+         quan::uav::osd::position_type const p = the_aircraft.home_location;
       the_aircraft.mutex_release();
       return p;
     }
 
-    quan::uav::osd::attitude_type const & 
+    quan::uav::osd::attitude_type
     quan::uav::osd::get_aircraft_attitude()
     {
        the_aircraft.mutex_acquire();
-         quan::uav::osd::attitude_type const & a= the_aircraft.attitude;
+         quan::uav::osd::attitude_type const a= the_aircraft.attitude;
        the_aircraft.mutex_release();
        return a;
     }

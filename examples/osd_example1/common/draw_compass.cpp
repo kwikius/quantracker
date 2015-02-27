@@ -12,8 +12,10 @@ using namespace quan::uav::osd;
 void draw_compass () 
 {
    angle_type const heading = get_aircraft_heading();
+   auto const aircraft_pos = get_aircraft_position();
+   auto const home_pos = get_home_position();
    angle_type const home_bearing 
-      = quan::uav::get_bearing(get_aircraft_position(),get_home_position());
+      = quan::uav::get_bearing(aircraft_pos,home_pos);
    
    quan::two_d::rotation const rotate {heading}; 
    pxp_type const pos = 
