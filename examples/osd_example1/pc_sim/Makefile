@@ -38,7 +38,7 @@ GRAPHICS_API_SRC_PATH = $(QUAN_INCLUDE_PATH)quan_matters/src/uav/osd/
 
 #########################################################
 
-sources =  draw_altitude.cpp draw_artificial_horizon.cpp \
+sources =  draw_altitude.cpp draw_artificial_horizon_1.cpp \
 draw_compass.cpp draw_home.cpp on_draw.cpp draw_gps_state.cpp
 
 # in $(GRAPHICS_API_SRC_PATH)
