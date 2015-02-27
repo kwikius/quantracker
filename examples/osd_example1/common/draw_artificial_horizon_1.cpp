@@ -17,11 +17,13 @@ namespace{
 
       quan::two_d::vect<float> operator()(quan::two_d::vect<float> const & in)const
       {
+         // represents the distance of the screen from the viewers eye.
+         // prob calc from viewing angle
+         // where screen is z units wide then can work from there
          float z = 400;
          quan::two_d::vect<float> result{
             in.x * cos_roll - in.y  * sin_roll * cos_pitch + z * sin_roll * sin_pitch
             ,in.x * sin_roll + in.y * cos_roll * cos_pitch - z * cos_roll * sin_pitch
-           
          };
 #if 1
          float z1 = in.y * sin_pitch + z * cos_pitch;
@@ -78,6 +80,7 @@ void draw_artificial_horizon()
          rotate(pxp_type{right_end.x +i,-outer_stop_height/2}),c
       );
       draw_circle(centre_rad+i,{0,0},c);
+      draw_circle(centre_rad+i,rotate({0,0}),c);
       draw_line(rotate(pxp_type{-20,i}),rotate(pxp_type{-centre_rad - 1 ,i}), c);
       draw_line(rotate(pxp_type{20,i}),rotate(pxp_type{centre_rad + 1,i}), c); 
    }
