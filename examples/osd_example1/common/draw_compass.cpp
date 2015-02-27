@@ -15,7 +15,7 @@ void draw_compass ()
    auto const aircraft_pos = get_aircraft_position();
    auto const home_pos = get_home_position();
    angle_type const home_bearing 
-      = quan::uav::get_bearing(aircraft_pos,home_pos);
+      = quan::uav::get_bearing(home_pos,aircraft_pos);
    
    quan::two_d::rotation const rotate {heading}; 
    pxp_type const pos = 

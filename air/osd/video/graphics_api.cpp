@@ -181,3 +181,20 @@
        // atomic
        return the_aircraft.gps.num_sats;
    }
+
+   // for now!
+   uint8_t quan::uav::osd::get_num_batteries()
+   {
+      return 1;
+   }
+   const char* const quan::uav::osd::get_battery_name(uint8_t n)
+   {
+      return "Flt1";
+   }
+
+   quan::voltage_<float>::V  quan::uav::osd::get_battery_voltage(uint8_t n)
+   {
+      return the_aircraft.battery_voltage;
+   }
+
+   

@@ -1,3 +1,14 @@
+Fri Feb 27 11:50:17 GMT 2015
+OSD - In examples/osd_example1
+   startup gps info,
+   compass with home_arrow
+   Artificial horizon in pitch and roll, 
+   distance to home, 
+   altitude now working
+Compilation of quan/air/osd/Makefile Requires the quan library :
+   version quan-1-0-2 available from http://www.github/kwikius/quan-trunk/
+
+
 Wed Feb 25 18:02:45 GMT 2015
 OSD Now working with PAL and NTSC. Will switch dynamically.
 Added a get_video_mode function in the quan::uav::osd::api

@@ -5,6 +5,7 @@
  void draw_artificial_horizon( );
  void draw_home();
  void draw_altitude();
+ void draw_batteries();
 
 #endif
 // QUANTRACKER_AIR_OSD_ON_DRAW_HPP_INCLUDED

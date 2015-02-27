@@ -12,11 +12,16 @@ namespace {
   int count = 0;
 }
 
+/*
+TODO add Va (airspeed) Vg( groundspeed)
+*/
+
 void quan::uav::osd::on_draw()
 {
 
    draw_compass();
    draw_artificial_horizon();
+   draw_batteries();
    if (home_position_is_set() == true){
       draw_altitude();
       draw_home();
