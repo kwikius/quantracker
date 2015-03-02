@@ -83,6 +83,10 @@ extern "C" void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= (uint32_t)0xFFFBFFFF;
 
+  // for spread spectrum
+  /*RCC->SSCGR |= (uint32_t)RCC_SSCGR_SSCGEN; */
+  /* and need to set INCSTEP and MODEPER */
+
   /* Disable all interrupts */
   RCC->CIR = 0x00000000;
   
