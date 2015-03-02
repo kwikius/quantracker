@@ -28,6 +28,7 @@
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/usart/irq_handler.hpp>
+#include <quan/stm32/gpio.hpp>
 #include "video/video_cfg.hpp"
 //#include "video/video.hpp"
 #include "resources.hpp"
@@ -60,7 +61,7 @@ void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
 
 #endif
 
-namespace {
+
 
 #if 0
    void setup_test_pin()
@@ -76,12 +77,92 @@ namespace {
          >();
    }
 #endif
+
+namespace {
+
+#if (QUAN_OSD_BOARD_TYPE == 4) && ! defined(QUAN_DISCOVERY)
+
+   constexpr uint32_t gpioa_unused[] ={
+      0,1,5,8,11,12,13,14 
+   };
+   constexpr uint32_t gpiob_unused[] ={
+      3,4,5,6,7,8,9 
+   };
+   constexpr uint32_t gpioc_unused[] ={
+      0,1,3,4,5,9,12,14,15
+   };
+
+   // low outputs
+   void setup_unused_pins()
+   {
+      quan::stm32::module_enable<quan::stm32::gpioa>();
+      uint32_t moder_and_mask = 0xFFFFFFFF;
+      uint32_t moder_or_mask =  0U;
+      uint32_t odr_mask = 0xFFFFFFFF;
+      for ( auto pin : gpioa_unused){
+         uint32_t const pos = 2U * pin;
+         moder_and_mask  &= ~(3U << pos);
+         moder_or_mask   |=  (1U << pos);
+         odr_mask &= ~(1U << pin);
+      }
+      quan::stm32::gpioa::get()->moder &= moder_and_mask;
+      quan::stm32::gpioa::get()->moder |= moder_or_mask;
+      quan::stm32::gpioa::get()->odr &= odr_mask;
+      
+      quan::stm32::module_enable<quan::stm32::gpiob>();
+      moder_and_mask = 0xFFFFFFFF;
+      moder_or_mask =  0U;
+      odr_mask = 0xFFFFFFFF;
+      for ( auto pin : gpiob_unused){
+         uint32_t const pos = 2U * pin;
+         moder_and_mask  &= ~(3U << pos);
+         moder_or_mask   |=  (1U << pos);
+         odr_mask &= ~(1U << pin);
+      }
+      quan::stm32::gpiob::get()->moder &= moder_and_mask;
+      quan::stm32::gpiob::get()->moder |= moder_or_mask;
+      quan::stm32::gpiob::get()->odr &= odr_mask;
+
+      quan::stm32::module_enable<quan::stm32::gpioc>();
+      moder_and_mask = 0xFFFFFFFF;
+      moder_or_mask =  0;
+      odr_mask = 0xFFFFFFFF;
+      for ( auto pin : gpioc_unused){
+         uint32_t const pos = 2U * pin;
+         moder_and_mask  &= ~(3U << pos);
+         moder_or_mask   |=  (1U << pos);
+         odr_mask &= ~(1U << pin);
+      }
+      quan::stm32::gpioc::get()->moder &= moder_and_mask;
+      quan::stm32::gpioc::get()->moder |= moder_or_mask;
+      quan::stm32::gpioc::get()->odr &= odr_mask;
+   }
+
+   void setup_analog_inputs()
+   {
+      quan::stm32::module_enable<video_adc_pin::port_type>();
+      quan::stm32::apply<
+         video_adc_pin
+         ,quan::stm32::gpio::mode::analog
+         ,quan::stm32::gpio::pupd::none
+      >();
+      quan::stm32::module_enable<vin_voltage_pin::port_type>();
+      quan::stm32::apply<
+         vin_voltage_pin
+         ,quan::stm32::gpio::mode::analog
+         ,quan::stm32::gpio::pupd::none
+      >();
+   }
+#endif
+
 }
  
 extern "C" void setup()
 {
-  
+
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+    setup_unused_pins();
+    setup_analog_inputs() ;
  // setup_test_pin();
   setup_leds();
   video_setup();
