@@ -16,7 +16,7 @@ void draw_batteries()
 
    
    pxp_type const pos = 
-      {-175,
+      {-155,
       (( get_video_mode() == video_mode::pal)
       ?-130:-80)};
 
