@@ -98,7 +98,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,14>    swdclk;
 typedef quan::mcu::pin<quan::stm32::gpioa,15>    video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
 //----PORTB---------------------------------------------
 typedef quan::mcu::pin<quan::stm32::gpiob,0>      video_adc_pin ; // ADC12_IN8
-//typedef quan::mcu::pin<quan::stm32::gpiob,1>   adc1; // ADC12_IN9
+typedef quan::mcu::pin<quan::stm32::gpiob,1>      vin_voltage_pin ;//adc1 ADC12_IN9 
 typedef quan::mcu::pin<quan::stm32::gpiob,2>      boot1_pin;
 //typedef quan::mcu::pin<quan::stm32::gpiob,3>    spi1_sck; // NOT MOVABLE
 //typedef quan::mcu::pin<quan::stm32::gpiob,4>    spi1_miso; // or SPI3_MISO
@@ -170,10 +170,9 @@ PD11 GP no AF no ADC (NC)
 //typedef quan::mcu::pin<quan::stm32::gpiod,13>   tim4_ch2;   // No other AF   
 //typedef quan::mcu::pin<quan::stm32::gpiod,14>   tim4_ch3;  // No other AF
 #if defined QUAN_DISCOVERY
-typedef quan::mcu::pin<quan::stm32::gpiod,14>   heartbeat_led_pin;
-
 typedef quan::mcu::pin<quan::stm32::gpiod,12>   green_led_pin;   // green led on Discovery
 typedef quan::mcu::pin<quan::stm32::gpiod,13>   orange_led_pin;       // orange led on Discovery
+typedef quan::mcu::pin<quan::stm32::gpiod,14>   heartbeat_led_pin;
 typedef quan::mcu::pin<quan::stm32::gpiod,15>   blue_led_pin;       // blue led on Discovery
 #endif
 
