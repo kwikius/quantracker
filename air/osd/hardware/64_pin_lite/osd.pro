@@ -1,4 +1,4 @@
-update=Thu 05 Feb 2015 13:38:50 GMT
+update=Wed 04 Mar 2015 17:57:03 GMT
 last_client=eeschema
 [pcbnew]
 [pcbnew/libraries]
@@ -24,6 +24,8 @@ version=1
 NetIExt=net
 [cvpcb/libraries]
 EquName1=devcms
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=../../../../kicad/lib
@@ -104,3 +106,4 @@ LibName45=opa830
 LibName46=si8642
 LibName47=tlv3501
 LibName48=74lvc1g86
+LibName49=R0link

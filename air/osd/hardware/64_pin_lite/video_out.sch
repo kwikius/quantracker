@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Wed 04 Mar 2015 21:55:31 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 7 8
 Title ""
-Date "26 jan 2015"
+Date "4 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,6 +63,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	7100 3350 7100 3500
+Wire Wire Line
+	7100 3500 6900 3500
 Wire Wire Line
 	5150 2350 4950 2350
 Connection ~ 3150 4900
@@ -121,6 +127,20 @@ Wire Wire Line
 Connection ~ 3150 5950
 Wire Wire Line
 	8550 2350 5550 2350
+Wire Wire Line
+	7100 2850 7100 2650
+Connection ~ 7100 2650
+Text HLabel 6900 3500 0    45   Input ~ 0
+VIN+
+$Comp
+L LINK LK16
+U 1 1 54F752D2
+P 7100 3100
+F 0 "LK16" V 7180 3100 50  0000 C CNN
+F 1 "LINK" V 7100 3100 50  0000 C CNN
+	1    7100 3100
+	1    0    0    -1  
+$EndComp
 $Comp
 L C C25
 U 1 1 5474951D
@@ -179,10 +199,10 @@ VIDEO_OUT_GND
 $Comp
 L CONN_5 P5
 U 1 1 546DBC86
-P 8900 2550
-F 0 "P5" V 8850 2550 50  0000 C CNN
-F 1 "CONN_5" V 8950 2550 50  0000 C CNN
-	1    8900 2550
+P 8950 2550
+F 0 "P5" V 8900 2550 50  0000 C CNN
+F 1 "CONN_5" V 9000 2550 50  0000 C CNN
+	1    8950 2550
 	1    0    0    1   
 $EndComp
 Text HLabel 8250 2550 0    45   Input ~ 0

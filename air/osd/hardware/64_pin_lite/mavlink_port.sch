@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Wed 04 Mar 2015 21:55:30 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 6 8
 Title ""
-Date "26 jan 2015"
+Date "4 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -304,19 +306,19 @@ FC_FRSKY_RXI
 Text Label 6100 4950 0    45   ~ 0
 FC_GND
 $Comp
-L PWR_FLAG #FLG05
+L PWR_FLAG #FLG018
 U 1 1 547339AD
 P 9000 4750
-F 0 "#FLG05" H 9000 5020 30  0001 C CNN
+F 0 "#FLG018" H 9000 5020 30  0001 C CNN
 F 1 "PWR_FLAG" H 9000 4980 30  0000 C CNN
 	1    9000 4750
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG06
+L PWR_FLAG #FLG019
 U 1 1 547339A4
 P 6700 2300
-F 0 "#FLG06" H 6700 2570 30  0001 C CNN
+F 0 "#FLG019" H 6700 2570 30  0001 C CNN
 F 1 "PWR_FLAG" H 6700 2530 30  0000 C CNN
 	1    6700 2300
 	1    0    0    -1  

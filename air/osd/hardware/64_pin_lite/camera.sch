@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Wed 04 Mar 2015 21:55:30 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 4 8
 Title ""
-Date "26 jan 2015"
+Date "4 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,6 +63,9 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 3900 3450
+Wire Wire Line
+	3900 3350 3900 3450
 Wire Wire Line
 	4100 3450 3750 3450
 Wire Wire Line
@@ -69,6 +74,21 @@ Wire Wire Line
 	5200 3350 5000 3350
 Wire Wire Line
 	4500 3450 5200 3450
+Wire Wire Line
+	3650 2750 3900 2750
+Wire Wire Line
+	3900 2750 3900 2850
+Text HLabel 3650 2750 0    45   Input ~ 0
+VIN+
+$Comp
+L LINK LK15
+U 1 1 54F752A1
+P 3900 3100
+F 0 "LK15" V 3980 3100 50  0000 C CNN
+F 1 "LINK" V 3900 3100 50  0000 C CNN
+	1    3900 3100
+	1    0    0    -1  
+$EndComp
 $Comp
 L DIODESCH D4
 U 1 1 546F5A7F
