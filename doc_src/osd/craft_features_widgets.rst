@@ -1,5 +1,5 @@
 
-Index_
+`OSD Index`_
 
 =========================================
 craft, features and widgets.
@@ -57,10 +57,10 @@ craft, features and widgets.
    user-firmware
          The user firmware is generated from the user-widget-list. 
 
-Index_
+`OSD Index`_
 
 .. _Features: http://www.wikipedia.org/wiki/Feature_(machine_learning)
-.. _Index: index.html
+.. _`OSD Index`: index.html
 
 .. [#craft_feature]  A craft with a GPS can be assumed to have latitude, longtitude, altitude etc.
 .. [#widget_robust]  Widgets must be designed to be able to cope with failed requests for data.
