@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 04 Mar 2015 18:52:20 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Thu 05 Mar 2015 15:28:10 GMT
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -288,6 +288,13 @@ IdModule  = SM1206;
 EndCmp
 
 BeginCmp
+TimeStamp = /546F1A19/54F874D2;
+Reference = C42;
+ValeurCmp = 0u1;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
 TimeStamp = /5433EE23/546E5ED4;
 Reference = D1;
 ValeurCmp = RED_LED;
@@ -472,6 +479,20 @@ EndCmp
 BeginCmp
 TimeStamp = /54675A51/54F752D2;
 Reference = LK16;
+ValeurCmp = LINK;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546C8634/54F87560;
+Reference = LK17;
+ValeurCmp = LINK;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546C8634/54F8757A;
+Reference = LK18;
 ValeurCmp = LINK;
 IdModule  = SM0603;
 EndCmp
@@ -712,20 +733,6 @@ TimeStamp = /544A4CB8/544CEF88;
 Reference = R23;
 ValeurCmp = 75R;
 IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546C8634/547C2601;
-Reference = R24;
-ValeurCmp = 0R;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /546C8634/547C2609;
-Reference = R25;
-ValeurCmp = 0R;
-IdModule  = R3;
 EndCmp
 
 BeginCmp

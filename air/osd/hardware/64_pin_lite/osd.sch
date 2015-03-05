@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 04 Mar 2015 21:55:30 GMT
+EESchema Schematic File Version 2  date Thu 05 Mar 2015 23:13:03 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 8
 Title ""
-Date "4 mar 2015"
+Date "5 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,15 +63,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Connection ~ 4600 1250
 Wire Wire Line
-	4600 1250 4600 850 
+	2700 4500 2500 4500
 Wire Wire Line
-	4600 850  6750 850 
+	2500 4500 2500 1250
 Wire Wire Line
-	6750 850  6750 2600
-Wire Wire Line
-	6750 2600 7050 2600
+	2500 1250 4700 1250
 Connection ~ 4600 2800
 Wire Wire Line
 	4700 2800 4250 2800
@@ -310,21 +307,6 @@ Wire Wire Line
 	2550 4400 2550 1150
 Wire Wire Line
 	2550 1150 4700 1150
-Wire Wire Line
-	2700 4500 2500 4500
-Wire Wire Line
-	2500 4500 2500 1250
-Wire Wire Line
-	2500 1250 4700 1250
-Wire Wire Line
-	7050 1150 6950 1150
-Wire Wire Line
-	6950 1150 6950 600 
-Wire Wire Line
-	6950 600  4550 600 
-Wire Wire Line
-	4550 600  4550 1250
-Connection ~ 4550 1250
 $Sheet
 S 4700 2500 1750 4400
 U 5433EE23
@@ -403,7 +385,6 @@ F1 "camera.sch" 60
 F2 "VIDEO_IN" O R 7900 1500 60 
 F3 "VIDEO_IN_GND" I L 7050 1350 60 
 F4 "VIDEO_IN_+V" I L 7050 1250 60 
-F5 "VIN+" I L 7050 1150 60 
 $EndSheet
 $Sheet
 S 2700 4250 1350 2700
@@ -469,7 +450,6 @@ F4 "VIDEO_OUT_GND" B L 7050 2450 60
 F5 "VIDEO_OUT" I R 8000 2600 60 
 F6 "VIDEO_OUT_+5V" I L 7050 2350 60 
 F7 "VIDEO_OUT_+V" I L 7050 2250 60 
-F8 "VIN+" I L 7050 2600 60 
 $EndSheet
 $Sheet
 S 7050 3300 1650 1200

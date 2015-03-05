@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 04 Mar 2015 21:55:30 GMT
+EESchema Schematic File Version 2  date Thu 05 Mar 2015 23:13:03 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 6 8
 Title ""
-Date "4 mar 2015"
+Date "5 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,6 +63,24 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L LINK LK18
+U 1 1 54F8757A
+P 5350 5150
+F 0 "LK18" V 5430 5150 50  0000 C CNN
+F 1 "LINK" V 5350 5150 50  0000 C CNN
+	1    5350 5150
+	0    1    1    0   
+$EndComp
+$Comp
+L LINK LK17
+U 1 1 54F87560
+P 5350 1800
+F 0 "LK17" V 5430 1800 50  0000 C CNN
+F 1 "LINK" V 5350 1800 50  0000 C CNN
+	1    5350 1800
+	0    1    1    0   
+$EndComp
 Connection ~ 7150 4950
 Wire Wire Line
 	7150 4950 7150 4800
@@ -73,12 +91,12 @@ Connection ~ 4550 4800
 Wire Wire Line
 	4550 4800 4550 5150
 Wire Wire Line
-	4550 5150 5200 5150
+	4550 5150 5100 5150
 Connection ~ 6200 2450
 Wire Wire Line
 	6200 2450 6200 1800
 Wire Wire Line
-	6200 1800 5550 1800
+	6200 1800 5600 1800
 Wire Wire Line
 	2700 2800 2800 2800
 Wire Wire Line
@@ -177,9 +195,9 @@ Wire Wire Line
 Wire Wire Line
 	2800 2250 2800 2350
 Wire Wire Line
-	5050 1800 4850 1800
+	5100 1800 4850 1800
 Wire Wire Line
-	5700 5150 6000 5150
+	5600 5150 6000 5150
 Wire Wire Line
 	6000 5150 6000 4950
 Connection ~ 6000 4950
@@ -247,24 +265,6 @@ Text Notes 5100 1600 0    45   ~ 0
 Optional link
 Text Notes 5250 5350 0    45   ~ 0
 Optional link
-$Comp
-L R R25
-U 1 1 547C2609
-P 5450 5150
-F 0 "R25" V 5530 5150 50  0000 C CNN
-F 1 "0R" V 5450 5150 50  0000 C CNN
-	1    5450 5150
-	0    1    1    0   
-$EndComp
-$Comp
-L R R24
-U 1 1 547C2601
-P 5300 1800
-F 0 "R24" V 5380 1800 50  0000 C CNN
-F 1 "0R" V 5300 1800 50  0000 C CNN
-	1    5300 1800
-	0    1    1    0   
-$EndComp
 Text HLabel 4850 1800 0    45   Input ~ 0
 MAVLINK_+5V
 Text HLabel 2700 2800 0    45   BiDi ~ 0
@@ -306,19 +306,19 @@ FC_FRSKY_RXI
 Text Label 6100 4950 0    45   ~ 0
 FC_GND
 $Comp
-L PWR_FLAG #FLG018
+L PWR_FLAG #FLG05
 U 1 1 547339AD
 P 9000 4750
-F 0 "#FLG018" H 9000 5020 30  0001 C CNN
+F 0 "#FLG05" H 9000 5020 30  0001 C CNN
 F 1 "PWR_FLAG" H 9000 4980 30  0000 C CNN
 	1    9000 4750
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG019
+L PWR_FLAG #FLG06
 U 1 1 547339A4
 P 6700 2300
-F 0 "#FLG019" H 6700 2570 30  0001 C CNN
+F 0 "#FLG06" H 6700 2570 30  0001 C CNN
 F 1 "PWR_FLAG" H 6700 2530 30  0000 C CNN
 	1    6700 2300
 	1    0    0    -1  

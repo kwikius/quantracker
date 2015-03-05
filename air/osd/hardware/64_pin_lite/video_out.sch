@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 04 Mar 2015 21:55:31 GMT
+EESchema Schematic File Version 2  date Thu 05 Mar 2015 23:13:03 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 7 8
 Title ""
-Date "4 mar 2015"
+Date "5 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,10 +63,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Wire Wire Line
-	7100 3350 7100 3500
-Wire Wire Line
-	7100 3500 6900 3500
+Text Label 6000 3550 0    45   ~ 0
+LINE_DAC_OUT2
+Text Label 6000 2350 0    45   ~ 0
+LINE_DAC_OUT1
+Text Label 4800 4050 0    45   ~ 0
+BUF_DAC_OUT2
+Text Label 4800 2900 0    45   ~ 0
+BUF_DAC_OUT1
 Wire Wire Line
 	5150 2350 4950 2350
 Connection ~ 3150 4900
@@ -127,20 +131,6 @@ Wire Wire Line
 Connection ~ 3150 5950
 Wire Wire Line
 	8550 2350 5550 2350
-Wire Wire Line
-	7100 2850 7100 2650
-Connection ~ 7100 2650
-Text HLabel 6900 3500 0    45   Input ~ 0
-VIN+
-$Comp
-L LINK LK16
-U 1 1 54F752D2
-P 7100 3100
-F 0 "LK16" V 7180 3100 50  0000 C CNN
-F 1 "LINK" V 7100 3100 50  0000 C CNN
-	1    7100 3100
-	1    0    0    -1  
-$EndComp
 $Comp
 L C C25
 U 1 1 5474951D
