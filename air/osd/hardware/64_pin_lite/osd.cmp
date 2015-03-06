@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Thu 05 Mar 2015 15:28:10 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Fri 06 Mar 2015 00:36:18 GMT
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -372,118 +372,6 @@ IdModule  = SM0603;
 EndCmp
 
 BeginCmp
-TimeStamp = /546F1A19/54F7477A;
-Reference = LK1;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74791;
-Reference = LK2;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74846;
-Reference = LK3;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F7484B;
-Reference = LK4;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74795;
-Reference = LK5;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F7484E;
-Reference = LK6;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74851;
-Reference = LK7;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74855;
-Reference = LK8;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F747AA;
-Reference = LK9;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F747B1;
-Reference = LK10;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F747B4;
-Reference = LK11;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F747B7;
-Reference = LK12;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74AF5;
-Reference = LK13;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F1A19/54F74CB5;
-Reference = LK14;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546F3145/54F752A1;
-Reference = LK15;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /54675A51/54F752D2;
-Reference = LK16;
-ValeurCmp = LINK;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
 TimeStamp = /546C8634/54F87560;
 Reference = LK17;
 ValeurCmp = LINK;
@@ -572,6 +460,13 @@ TimeStamp = /546D98A5/54F74E74;
 Reference = P11;
 ValeurCmp = CONN_1;
 IdModule  = SIL-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /544A4CB8/54F8F33A;
+Reference = P12;
+ValeurCmp = CONN_1;
+IdModule  = TEST_PAD;
 EndCmp
 
 BeginCmp

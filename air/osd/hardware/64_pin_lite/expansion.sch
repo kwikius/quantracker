@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 05 Mar 2015 23:13:03 GMT
+EESchema Schematic File Version 2  date Fri 06 Mar 2015 00:28:55 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "5 mar 2015"
+Date "6 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
