@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 07 Mar 2015 18:05:27 GMT
+EESchema Schematic File Version 2  date Sat 07 Mar 2015 22:28:54 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -159,7 +159,7 @@ Wire Wire Line
 Wire Wire Line
 	6500 3900 6600 3900
 Wire Wire Line
-	6300 4100 6600 4100
+	6500 4100 6600 4100
 Wire Wire Line
 	6500 4300 6600 4300
 Wire Wire Line
@@ -281,45 +281,45 @@ XP_GND
 Text HLabel 5950 2500 0    45   Output ~ 0
 VIN+
 Text HLabel 4200 3200 2    45   Input ~ 0
-XP_PB9
+XP_PC15
 Text HLabel 6500 4300 0    45   Output ~ 0
 XP_NRST
 Text HLabel 1900 5450 0    45   BiDi ~ 0
 XP_GND
-Text HLabel 6300 4100 0    45   BiDi ~ 0
+Text HLabel 6500 4100 0    45   BiDi ~ 0
 XP_GND
 Text HLabel 6500 4000 0    45   BiDi ~ 0
 XP_PA14
 Text HLabel 6500 3800 0    45   BiDi ~ 0
-XP_PB5
+XP_PA12
 Text HLabel 6500 3700 0    45   BiDi ~ 0
-XP_PB4
+XP_PA11
 Text HLabel 6500 3600 0    45   BiDi ~ 0
-XP_PB3
-Text HLabel 6500 3500 0    45   BiDi ~ 0
 XP_PC12
+Text HLabel 6500 3500 0    45   BiDi ~ 0
+XP_PB3
 Text HLabel 6500 3400 0    45   BiDi ~ 0
-XP_PB7
+XP_PB4
 Text HLabel 6500 3300 0    45   BiDi ~ 0
-XP_PB6
+XP_PB5
 Text HLabel 6500 3900 0    45   BiDi ~ 0
 XP_+3V
 Text HLabel 6500 3200 0    45   BiDi ~ 0
-XP_PA12
+XP_PB6
 Text HLabel 6500 3100 0    45   BiDi ~ 0
-XP_PA11
+XP_PB7
 Text HLabel 6500 3000 0    45   BiDi ~ 0
-XP_PA8
+XP_PB8
 Text HLabel 6500 2900 0    45   BiDi ~ 0
-XP_PC9
+XP_PB9
 Text HLabel 4200 4300 2    45   BiDi ~ 0
-XP_PC14
+XP_PA8
 Text HLabel 4200 4200 2    45   BiDi ~ 0
-XP_PC15
+XP_PC9
 Text HLabel 4200 4100 2    45   BiDi ~ 0
-XP_PC0
+XP_PC5
 Text HLabel 4200 4000 2    45   BiDi ~ 0
-XP_PC1
+XP_PC4
 Text HLabel 4200 3900 2    45   BiDi ~ 0
 XP_PC3
 Text HLabel 4200 3800 2    45   BiDi ~ 0
@@ -327,13 +327,13 @@ XP_PA0
 Text HLabel 4200 3700 2    45   BiDi ~ 0
 XP_PA1
 Text HLabel 4200 3600 2    45   BiDi ~ 0
-XP_PC4
+XP_PC1
 Text HLabel 4200 3500 2    45   BiDi ~ 0
-XP_PC5
+XP_PC0
 Text HLabel 4200 3300 2    45   BiDi ~ 0
 XP_GND
 Text HLabel 4200 3100 2    45   Input ~ 0
-XP_PB8
+XP_PC14
 Text HLabel 4200 4400 2    45   BiDi ~ 0
 XP_GND
 Text HLabel 4750 3000 2    45   BiDi ~ 0

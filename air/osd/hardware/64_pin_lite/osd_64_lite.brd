@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 1 date Sat 07 Mar 2015 20:47:15 GMT
+PCBNEW-BOARD Version 1 date Sat 07 Mar 2015 22:27:06 GMT
 
 # Created by Pcbnew(2011-05-25)-stable
 
@@ -8,10 +8,10 @@ LayerCount 4
 Ly 1FFF8007
 EnabledLayers 10F08007
 Links 274
-NoConn 93
+NoConn 83
 Di 45489 29867 66868 46410
 Ndraw 82
-Ntrack 1180
+Ntrack 1224
 Nzone 0
 BoardThickness 630
 Nmodule 107
@@ -80,339 +80,339 @@ Na 1 "/MCU/ANALOG_VIDEO_IN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 2 "/MCU/AV_DAC_NSYNC"
+Na 2 "/MCU/AV_TELEM_RXI"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 3 "/MCU/AV_TELEM_RXI"
+Na 3 "/MCU/AV_TELEM_RXI_EN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 4 "/MCU/AV_TELEM_RXI_EN"
+Na 4 "/MCU/AV_TELEM_TXO"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 5 "/MCU/AV_TELEM_TXO"
+Na 5 "/MCU/BOOT0_IN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 6 "/MCU/BOOT0_IN"
+Na 6 "/MCU/BOOT1"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 7 "/MCU/BOOT1"
+Na 7 "/MCU/CSYNC"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 8 "/MCU/CSYNC"
+Na 8 "/MCU/FRSKY_TXO"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 9 "/MCU/FRSKY_TXO"
+Na 9 "/MCU/FRSKY_TXO_SIGN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 10 "/MCU/FRSKY_TXO_SIGN"
+Na 10 "/MCU/HEARTBEAT_LED"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 11 "/MCU/HEARTBEAT_LED"
+Na 11 "/MCU/MCU_PA0"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 12 "/MCU/MCU_PA0"
+Na 12 "/MCU/MCU_PA1"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 13 "/MCU/MCU_PA1"
+Na 13 "/MCU/MCU_PA11"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 14 "/MCU/MCU_PA11"
+Na 14 "/MCU/MCU_PA12"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 15 "/MCU/MCU_PA12"
+Na 15 "/MCU/MCU_PA13"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 16 "/MCU/MCU_PA13"
+Na 16 "/MCU/MCU_PA14"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 17 "/MCU/MCU_PA14"
+Na 17 "/MCU/MCU_PA8"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 18 "/MCU/MCU_PA8"
+Na 18 "/MCU/MCU_PB1"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 19 "/MCU/MCU_PB1"
+Na 19 "/MCU/MCU_PB3"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 20 "/MCU/MCU_PB3"
+Na 20 "/MCU/MCU_PB4"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 21 "/MCU/MCU_PB4"
+Na 21 "/MCU/MCU_PB5"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 22 "/MCU/MCU_PB5"
+Na 22 "/MCU/MCU_PB6"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 23 "/MCU/MCU_PB6"
+Na 23 "/MCU/MCU_PB7"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 24 "/MCU/MCU_PB7"
+Na 24 "/MCU/MCU_PB8"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 25 "/MCU/MCU_PB8"
+Na 25 "/MCU/MCU_PB9"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 26 "/MCU/MCU_PB9"
+Na 26 "/MCU/MCU_PC0"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 27 "/MCU/MCU_PC0"
+Na 27 "/MCU/MCU_PC1"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 28 "/MCU/MCU_PC1"
+Na 28 "/MCU/MCU_PC12"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 29 "/MCU/MCU_PC12"
+Na 29 "/MCU/MCU_PC14"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 30 "/MCU/MCU_PC14"
+Na 30 "/MCU/MCU_PC15"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 31 "/MCU/MCU_PC15"
+Na 31 "/MCU/MCU_PC3"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 32 "/MCU/MCU_PC3"
+Na 32 "/MCU/MCU_PC4"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 33 "/MCU/MCU_PC4"
+Na 33 "/MCU/MCU_PC5"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 34 "/MCU/MCU_PC5"
+Na 34 "/MCU/MCU_PC9"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 35 "/MCU/MCU_PC9"
+Na 35 "/MCU/MCU_VDDA"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 36 "/MCU/MCU_VDDA"
+Na 36 "/MCU/NRST"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 37 "/MCU/NRST"
+Na 37 "/MCU/OSC_IN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 38 "/MCU/N_WHITE_PX"
+Na 38 "/MCU/PIXEL_CLK"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 39 "/MCU/OSC_IN"
+Na 39 "/MCU/RAW_AUDIO_OUT1"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 40 "/MCU/PIXEL_CLK"
+Na 40 "/MCU/RAW_AUDIO_OUT2"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 41 "/MCU/RAW_AUDIO_OUT1"
+Na 41 "/MCU/RAW_FRSKY_TXO"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 42 "/MCU/RAW_AUDIO_OUT2"
+Na 42 "/MCU/RED_LED_RES"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 43 "/MCU/RAW_FRSKY_TXO"
+Na 43 "/MCU/SPI_MISO_BLACK"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 44 "/MCU/RED_LED_RES"
+Na 44 "/MCU/SPI_MISO_WHITE"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 45 "/MCU/SPI_MISO_BLACK"
+Na 45 "/MCU/VCAP1"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 46 "/MCU/SPI_MISO_WHITE"
+Na 46 "/MCU/VCAP_2"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 47 "/MCU/VCAP1"
+Na 47 "/camera/VIDEO_IN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 48 "/MCU/VCAP_2"
+Na 48 "/camera/VIDEO_IN_+V"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 49 "/camera/VIDEO_IN"
+Na 49 "/expansion/VIN+"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 50 "/camera/VIDEO_IN_+V"
+Na 50 "/mavlink_port/FC_+5V"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 51 "/expansion/VIDEO_OUT_+V"
+Na 51 "/mavlink_port/FC_FRSKY_RXI"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 52 "/expansion/VIN+"
+Na 52 "/mavlink_port/FC_FRSKY_TXO"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 53 "/mavlink_port/FC_+5V"
+Na 53 "/mavlink_port/FC_GND"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 54 "/mavlink_port/FC_FRSKY_RXI"
+Na 54 "/mavlink_port/FC_MAVLINK_RXI"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 55 "/mavlink_port/FC_FRSKY_TXO"
+Na 55 "/mavlink_port/FC_MAVLINK_TXO"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 56 "/mavlink_port/FC_GND"
+Na 56 "/mavlink_port/FRSKY_RXI"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 57 "/mavlink_port/FC_MAVLINK_RXI"
+Na 57 "/mavlink_port/MAVLINK_+3.3V"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 58 "/mavlink_port/FC_MAVLINK_TXO"
+Na 58 "/mavlink_port/MAVLINK_GND"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 59 "/mavlink_port/FRSKY_RXI"
+Na 59 "/mavlink_port/MAVLINK_RXI"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 60 "/mavlink_port/MAVLINK_+3.3V"
+Na 60 "/mavlink_port/MAVLINK_TXO"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 61 "/mavlink_port/MAVLINK_GND"
+Na 61 "/psu/BLUE_LED_RES"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 62 "/mavlink_port/MAVLINK_RXI"
+Na 62 "/psu/SWITCHER_+5V"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 63 "/mavlink_port/MAVLINK_TXO"
+Na 63 "/psu/SWITCHER_CB"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 64 "/psu/BLUE_LED_RES"
+Na 64 "/psu/SWITCHER_FB"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 65 "/psu/SWITCHER_+5V"
+Na 65 "/psu/SWITCHER_OUT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 66 "/psu/SWITCHER_CB"
+Na 66 "/psu/SWITCHER_VIN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 67 "/psu/SWITCHER_FB"
+Na 67 "/psu/VIN+RECT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 68 "/psu/SWITCHER_OUT"
+Na 68 "/video_circuit/AV_DAC_CLK"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 69 "/psu/SWITCHER_VIN"
+Na 69 "/video_circuit/AV_DAC_DATA"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 70 "/psu/VIN+RECT"
+Na 70 "/video_circuit/AV_DAC_NSYNC"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 71 "/video_circuit/AV_DAC_CLK"
+Na 71 "/video_circuit/BLACK"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 72 "/video_circuit/AV_DAC_DATA"
+Na 72 "/video_circuit/CSYNC_CMP_OUT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 73 "/video_circuit/BLACK"
+Na 73 "/video_circuit/CSYNC_FLT_POS_REF"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 74 "/video_circuit/CSYNC_CMP_OUT"
+Na 74 "/video_circuit/CSYNC_FLT_VIN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 75 "/video_circuit/CSYNC_FLT_POS_REF"
+Na 75 "/video_circuit/CSYNC_RAW_CMP_REF"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 76 "/video_circuit/CSYNC_FLT_VIN"
+Na 76 "/video_circuit/GREY_D"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 77 "/video_circuit/CSYNC_RAW_CMP_REF"
+Na 77 "/video_circuit/N_BLACK_PX"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 78 "/video_circuit/GREY_D"
+Na 78 "/video_circuit/N_WHITE_PX"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 79 "/video_circuit/N_BLACK_PX"
+Na 79 "/video_circuit/RAW_CSYNC_OUT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 80 "/video_circuit/RAW_CSYNC_OUT"
+Na 80 "/video_circuit/RAW_VIDOUT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 81 "/video_circuit/RAW_VIDOUT"
+Na 81 "/video_circuit/RX_CMP_DIN"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 82 "/video_circuit/RX_CMP_DIN"
+Na 82 "/video_circuit/RX_CMP_DOUT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 83 "/video_circuit/RX_CMP_DOUT"
+Na 83 "/video_circuit/VIDEO_+5V"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 84 "/video_circuit/VIDEO_+5V"
+Na 84 "/video_circuit/VIDEO_IN_CLAMP"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 85 "/video_circuit/VIDEO_IN_CLAMP"
+Na 85 "/video_circuit/VIDEO_OUT"
 St ~
 $EndEQUIPOT
 $EQUIPOT
@@ -448,7 +448,7 @@ Na 93 "/video_out/LINE_DAC_OUT2"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 94 "/video_out/VIDEO_OUT"
+Na 94 "/video_out/VIDEO_OUT_+V"
 St ~
 $EndEQUIPOT
 $EQUIPOT
@@ -486,7 +486,6 @@ uViaDia 200
 uViaDrill 50
 AddNet ""
 AddNet "/MCU/ANALOG_VIDEO_IN"
-AddNet "/MCU/AV_DAC_NSYNC"
 AddNet "/MCU/AV_TELEM_RXI"
 AddNet "/MCU/AV_TELEM_RXI_EN"
 AddNet "/MCU/AV_TELEM_TXO"
@@ -522,7 +521,6 @@ AddNet "/MCU/MCU_PC5"
 AddNet "/MCU/MCU_PC9"
 AddNet "/MCU/MCU_VDDA"
 AddNet "/MCU/NRST"
-AddNet "/MCU/N_WHITE_PX"
 AddNet "/MCU/OSC_IN"
 AddNet "/MCU/PIXEL_CLK"
 AddNet "/MCU/RAW_AUDIO_OUT1"
@@ -535,7 +533,6 @@ AddNet "/MCU/VCAP1"
 AddNet "/MCU/VCAP_2"
 AddNet "/camera/VIDEO_IN"
 AddNet "/camera/VIDEO_IN_+V"
-AddNet "/expansion/VIDEO_OUT_+V"
 AddNet "/expansion/VIN+"
 AddNet "/mavlink_port/FC_+5V"
 AddNet "/mavlink_port/FC_FRSKY_RXI"
@@ -557,6 +554,7 @@ AddNet "/psu/SWITCHER_VIN"
 AddNet "/psu/VIN+RECT"
 AddNet "/video_circuit/AV_DAC_CLK"
 AddNet "/video_circuit/AV_DAC_DATA"
+AddNet "/video_circuit/AV_DAC_NSYNC"
 AddNet "/video_circuit/BLACK"
 AddNet "/video_circuit/CSYNC_CMP_OUT"
 AddNet "/video_circuit/CSYNC_FLT_POS_REF"
@@ -564,12 +562,14 @@ AddNet "/video_circuit/CSYNC_FLT_VIN"
 AddNet "/video_circuit/CSYNC_RAW_CMP_REF"
 AddNet "/video_circuit/GREY_D"
 AddNet "/video_circuit/N_BLACK_PX"
+AddNet "/video_circuit/N_WHITE_PX"
 AddNet "/video_circuit/RAW_CSYNC_OUT"
 AddNet "/video_circuit/RAW_VIDOUT"
 AddNet "/video_circuit/RX_CMP_DIN"
 AddNet "/video_circuit/RX_CMP_DOUT"
 AddNet "/video_circuit/VIDEO_+5V"
 AddNet "/video_circuit/VIDEO_IN_CLAMP"
+AddNet "/video_circuit/VIDEO_OUT"
 AddNet "/video_circuit/VIDOUT_BUF_IN-"
 AddNet "/video_circuit/VID_MUX_OUT"
 AddNet "/video_circuit/VID_OUT_BUF_IN"
@@ -578,7 +578,7 @@ AddNet "/video_out/BUF_DAC_OUT1"
 AddNet "/video_out/BUF_DAC_OUT2"
 AddNet "/video_out/LINE_DAC_OUT1"
 AddNet "/video_out/LINE_DAC_OUT2"
-AddNet "/video_out/VIDEO_OUT"
+AddNet "/video_out/VIDEO_OUT_+V"
 AddNet "N-000084"
 AddNet "N-000090"
 AddNet "N-000094"
@@ -615,35 +615,35 @@ $PAD
 Sh "1" R 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -1476 2311
 $EndPAD
 $PAD
 Sh "2" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 10 "/MCU/FRSKY_TXO_SIGN"
+Ne 9 "/MCU/FRSKY_TXO_SIGN"
 Po -1279 2311
 $EndPAD
 $PAD
 Sh "3" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 30 "/MCU/MCU_PC14"
+Ne 29 "/MCU/MCU_PC14"
 Po -1082 2311
 $EndPAD
 $PAD
 Sh "4" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 31 "/MCU/MCU_PC15"
+Ne 30 "/MCU/MCU_PC15"
 Po -885 2311
 $EndPAD
 $PAD
 Sh "5" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 39 "/MCU/OSC_IN"
+Ne 37 "/MCU/OSC_IN"
 Po -688 2311
 $EndPAD
 $PAD
@@ -657,133 +657,133 @@ $PAD
 Sh "7" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 37 "/MCU/NRST"
+Ne 36 "/MCU/NRST"
 Po -295 2311
 $EndPAD
 $PAD
 Sh "8" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 27 "/MCU/MCU_PC0"
+Ne 26 "/MCU/MCU_PC0"
 Po -98 2311
 $EndPAD
 $PAD
 Sh "9" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 28 "/MCU/MCU_PC1"
+Ne 27 "/MCU/MCU_PC1"
 Po 99 2311
 $EndPAD
 $PAD
 Sh "10" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 45 "/MCU/SPI_MISO_BLACK"
+Ne 43 "/MCU/SPI_MISO_BLACK"
 Po 296 2311
 $EndPAD
 $PAD
 Sh "11" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 32 "/MCU/MCU_PC3"
+Ne 31 "/MCU/MCU_PC3"
 Po 493 2311
 $EndPAD
 $PAD
 Sh "12" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 689 2311
 $EndPAD
 $PAD
 Sh "13" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 36 "/MCU/MCU_VDDA"
+Ne 35 "/MCU/MCU_VDDA"
 Po 886 2311
 $EndPAD
 $PAD
 Sh "14" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 12 "/MCU/MCU_PA0"
+Ne 11 "/MCU/MCU_PA0"
 Po 1083 2311
 $EndPAD
 $PAD
 Sh "15" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 13 "/MCU/MCU_PA1"
+Ne 12 "/MCU/MCU_PA1"
 Po 1280 2311
 $EndPAD
 $PAD
 Sh "16" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 40 "/MCU/PIXEL_CLK"
+Ne 38 "/MCU/PIXEL_CLK"
 Po 1477 2311
 $EndPAD
 $PAD
 Sh "17" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 4 "/MCU/AV_TELEM_RXI_EN"
+Ne 3 "/MCU/AV_TELEM_RXI_EN"
 Po 2375 1476
 $EndPAD
 $PAD
 Sh "18" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 2375 1279
 $EndPAD
 $PAD
 Sh "19" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 2375 1082
 $EndPAD
 $PAD
 Sh "20" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 41 "/MCU/RAW_AUDIO_OUT1"
+Ne 39 "/MCU/RAW_AUDIO_OUT1"
 Po 2375 885
 $EndPAD
 $PAD
 Sh "21" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 42 "/MCU/RAW_AUDIO_OUT2"
+Ne 40 "/MCU/RAW_AUDIO_OUT2"
 Po 2375 688
 $EndPAD
 $PAD
 Sh "22" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 2 "/MCU/AV_DAC_NSYNC"
+Ne 70 "/video_circuit/AV_DAC_NSYNC"
 Po 2375 492
 $EndPAD
 $PAD
 Sh "23" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 72 "/video_circuit/AV_DAC_DATA"
+Ne 69 "/video_circuit/AV_DAC_DATA"
 Po 2375 295
 $EndPAD
 $PAD
 Sh "24" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 33 "/MCU/MCU_PC4"
+Ne 32 "/MCU/MCU_PC4"
 Po 2375 98
 $EndPAD
 $PAD
 Sh "25" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 34 "/MCU/MCU_PC5"
+Ne 33 "/MCU/MCU_PC5"
 Po 2375 -99
 $EndPAD
 $PAD
@@ -797,266 +797,266 @@ $PAD
 Sh "27" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 19 "/MCU/MCU_PB1"
+Ne 18 "/MCU/MCU_PB1"
 Po 2375 -493
 $EndPAD
 $PAD
 Sh "28" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 7 "/MCU/BOOT1"
+Ne 6 "/MCU/BOOT1"
 Po 2375 -689
 $EndPAD
 $PAD
 Sh "29" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 43 "/MCU/RAW_FRSKY_TXO"
+Ne 41 "/MCU/RAW_FRSKY_TXO"
 Po 2375 -886
 $EndPAD
 $PAD
 Sh "30" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 59 "/mavlink_port/FRSKY_RXI"
+Ne 56 "/mavlink_port/FRSKY_RXI"
 Po 2375 -1083
 $EndPAD
 $PAD
 Sh "31" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 47 "/MCU/VCAP1"
+Ne 45 "/MCU/VCAP1"
 Po 2375 -1280
 $EndPAD
 $PAD
 Sh "32" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 2375 -1477
 $EndPAD
 $PAD
 Sh "33" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 11 "/MCU/HEARTBEAT_LED"
+Ne 10 "/MCU/HEARTBEAT_LED"
 Po 1477 -2375
 $EndPAD
 $PAD
 Sh "34" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 40 "/MCU/PIXEL_CLK"
+Ne 38 "/MCU/PIXEL_CLK"
 Po 1280 -2375
 $EndPAD
 $PAD
 Sh "35" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 8 "/MCU/CSYNC"
+Ne 7 "/MCU/CSYNC"
 Po 1083 -2375
 $EndPAD
 $PAD
 Sh "36" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 8 "/MCU/CSYNC"
+Ne 7 "/MCU/CSYNC"
 Po 886 -2375
 $EndPAD
 $PAD
 Sh "37" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 5 "/MCU/AV_TELEM_TXO"
+Ne 4 "/MCU/AV_TELEM_TXO"
 Po 689 -2375
 $EndPAD
 $PAD
 Sh "38" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 3 "/MCU/AV_TELEM_RXI"
+Ne 2 "/MCU/AV_TELEM_RXI"
 Po 493 -2375
 $EndPAD
 $PAD
 Sh "39" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 71 "/video_circuit/AV_DAC_CLK"
+Ne 68 "/video_circuit/AV_DAC_CLK"
 Po 296 -2375
 $EndPAD
 $PAD
 Sh "40" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 35 "/MCU/MCU_PC9"
+Ne 34 "/MCU/MCU_PC9"
 Po 99 -2375
 $EndPAD
 $PAD
 Sh "41" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 18 "/MCU/MCU_PA8"
+Ne 17 "/MCU/MCU_PA8"
 Po -98 -2375
 $EndPAD
 $PAD
 Sh "42" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 63 "/mavlink_port/MAVLINK_TXO"
+Ne 60 "/mavlink_port/MAVLINK_TXO"
 Po -295 -2375
 $EndPAD
 $PAD
 Sh "43" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 62 "/mavlink_port/MAVLINK_RXI"
+Ne 59 "/mavlink_port/MAVLINK_RXI"
 Po -492 -2375
 $EndPAD
 $PAD
 Sh "44" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 14 "/MCU/MCU_PA11"
+Ne 13 "/MCU/MCU_PA11"
 Po -688 -2375
 $EndPAD
 $PAD
 Sh "45" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 15 "/MCU/MCU_PA12"
+Ne 14 "/MCU/MCU_PA12"
 Po -885 -2375
 $EndPAD
 $PAD
 Sh "46" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 16 "/MCU/MCU_PA13"
+Ne 15 "/MCU/MCU_PA13"
 Po -1082 -2375
 $EndPAD
 $PAD
 Sh "47" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 48 "/MCU/VCAP_2"
+Ne 46 "/MCU/VCAP_2"
 Po -1279 -2375
 $EndPAD
 $PAD
 Sh "48" O 98 600 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -1476 -2375
 $EndPAD
 $PAD
 Sh "49" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 17 "/MCU/MCU_PA14"
+Ne 16 "/MCU/MCU_PA14"
 Po -2311 -1477
 $EndPAD
 $PAD
 Sh "50" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 8 "/MCU/CSYNC"
+Ne 7 "/MCU/CSYNC"
 Po -2311 -1280
 $EndPAD
 $PAD
 Sh "52" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 46 "/MCU/SPI_MISO_WHITE"
+Ne 44 "/MCU/SPI_MISO_WHITE"
 Po -2311 -886
 $EndPAD
 $PAD
 Sh "51" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 40 "/MCU/PIXEL_CLK"
+Ne 38 "/MCU/PIXEL_CLK"
 Po -2318 -1083
 $EndPAD
 $PAD
 Sh "53" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 29 "/MCU/MCU_PC12"
+Ne 28 "/MCU/MCU_PC12"
 Po -2311 -689
 $EndPAD
 $PAD
 Sh "54" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 8 "/MCU/CSYNC"
+Ne 7 "/MCU/CSYNC"
 Po -2311 -493
 $EndPAD
 $PAD
 Sh "55" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 20 "/MCU/MCU_PB3"
+Ne 19 "/MCU/MCU_PB3"
 Po -2311 -296
 $EndPAD
 $PAD
 Sh "56" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 21 "/MCU/MCU_PB4"
+Ne 20 "/MCU/MCU_PB4"
 Po -2311 -99
 $EndPAD
 $PAD
 Sh "57" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 22 "/MCU/MCU_PB5"
+Ne 21 "/MCU/MCU_PB5"
 Po -2311 98
 $EndPAD
 $PAD
 Sh "58" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 23 "/MCU/MCU_PB6"
+Ne 22 "/MCU/MCU_PB6"
 Po -2311 295
 $EndPAD
 $PAD
 Sh "59" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 24 "/MCU/MCU_PB7"
+Ne 23 "/MCU/MCU_PB7"
 Po -2311 489
 $EndPAD
 $PAD
 Sh "60" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 6 "/MCU/BOOT0_IN"
+Ne 5 "/MCU/BOOT0_IN"
 Po -2311 686
 $EndPAD
 $PAD
 Sh "61" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 25 "/MCU/MCU_PB8"
+Ne 24 "/MCU/MCU_PB8"
 Po -2311 883
 $EndPAD
 $PAD
 Sh "62" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 26 "/MCU/MCU_PB9"
+Ne 25 "/MCU/MCU_PB9"
 Po -2311 1080
 $EndPAD
 $PAD
 Sh "63" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -2311 1276
 $EndPAD
 $PAD
 Sh "64" O 600 98 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -2311 1473
 $EndPAD
 $SHAPE3D
@@ -1084,35 +1084,35 @@ $PAD
 Sh "6" R 276 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 4 "/MCU/AV_TELEM_RXI_EN"
+Ne 3 "/MCU/AV_TELEM_RXI_EN"
 Po -375 -500
 $EndPAD
 $PAD
 Sh "5" R 276 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 83 "/video_circuit/RX_CMP_DOUT"
+Ne 82 "/video_circuit/RX_CMP_DOUT"
 Po 0 -500
 $EndPAD
 $PAD
 Sh "4" R 276 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 375 -500
 $EndPAD
 $PAD
 Sh "3" R 276 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 82 "/video_circuit/RX_CMP_DIN"
+Ne 81 "/video_circuit/RX_CMP_DIN"
 Po 375 500
 $EndPAD
 $PAD
 Sh "2" R 276 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 500
 $EndPAD
 $PAD
@@ -1147,42 +1147,42 @@ $PAD
 Sh "6" R 276 394 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 68 "/psu/SWITCHER_OUT"
+Ne 65 "/psu/SWITCHER_OUT"
 Po -375 500
 $EndPAD
 $PAD
 Sh "5" R 276 394 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 69 "/psu/SWITCHER_VIN"
+Ne 66 "/psu/SWITCHER_VIN"
 Po 0 500
 $EndPAD
 $PAD
 Sh "4" R 276 394 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 69 "/psu/SWITCHER_VIN"
+Ne 66 "/psu/SWITCHER_VIN"
 Po 375 500
 $EndPAD
 $PAD
 Sh "3" R 276 394 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 67 "/psu/SWITCHER_FB"
+Ne 64 "/psu/SWITCHER_FB"
 Po 375 -500
 $EndPAD
 $PAD
 Sh "2" R 276 394 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 -500
 $EndPAD
 $PAD
 Sh "1" R 276 394 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 66 "/psu/SWITCHER_CB"
+Ne 63 "/psu/SWITCHER_CB"
 Po -375 -500
 $EndPAD
 $SHAPE3D
@@ -1210,7 +1210,7 @@ $PAD
 Sh "1" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 81 "/video_circuit/RAW_VIDOUT"
+Ne 80 "/video_circuit/RAW_VIDOUT"
 Po -375 500
 $EndPAD
 $PAD
@@ -1224,14 +1224,14 @@ $PAD
 Sh "5" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -375 -500
 $EndPAD
 $PAD
 Sh "2" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 500
 $EndPAD
 $PAD
@@ -1266,28 +1266,28 @@ $PAD
 Sh "1" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -375 -500
 $EndPAD
 $PAD
 Sh "3" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po 375 -500
 $EndPAD
 $PAD
 Sh "5" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -375 500
 $EndPAD
 $PAD
 Sh "2" R 200 300 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 -500
 $EndPAD
 $PAD
@@ -1322,35 +1322,35 @@ $PAD
 Sh "1" R 200 300 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 43 "/MCU/RAW_FRSKY_TXO"
+Ne 41 "/MCU/RAW_FRSKY_TXO"
 Po -375 -500
 $EndPAD
 $PAD
 Sh "3" R 200 300 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 375 -500
 $EndPAD
 $PAD
 Sh "5" R 200 300 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -375 500
 $EndPAD
 $PAD
 Sh "2" R 200 300 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 10 "/MCU/FRSKY_TXO_SIGN"
+Ne 9 "/MCU/FRSKY_TXO_SIGN"
 Po 0 -500
 $EndPAD
 $PAD
 Sh "4" R 200 300 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 9 "/MCU/FRSKY_TXO"
+Ne 8 "/MCU/FRSKY_TXO"
 Po 375 500
 $EndPAD
 $SHAPE3D
@@ -1382,70 +1382,70 @@ $PAD
 Sh "1" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -1750 1000
 $EndPAD
 $PAD
 Sh "2" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -1250 1000
 $EndPAD
 $PAD
 Sh "3" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 9 "/MCU/FRSKY_TXO"
+Ne 8 "/MCU/FRSKY_TXO"
 Po -750 1000
 $EndPAD
 $PAD
 Sh "4" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 63 "/mavlink_port/MAVLINK_TXO"
+Ne 60 "/mavlink_port/MAVLINK_TXO"
 Po -250 1000
 $EndPAD
 $PAD
 Sh "5" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 62 "/mavlink_port/MAVLINK_RXI"
+Ne 59 "/mavlink_port/MAVLINK_RXI"
 Po 250 1000
 $EndPAD
 $PAD
 Sh "6" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 59 "/mavlink_port/FRSKY_RXI"
+Ne 56 "/mavlink_port/FRSKY_RXI"
 Po 750 1000
 $EndPAD
 $PAD
 Sh "7" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 1250 1000
 $EndPAD
 $PAD
 Sh "8" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 1750 1000
 $EndPAD
 $PAD
 Sh "9" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 56 "/mavlink_port/FC_GND"
+Ne 53 "/mavlink_port/FC_GND"
 Po 1750 -1000
 $EndPAD
 $PAD
 Sh "10" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 53 "/mavlink_port/FC_+5V"
+Ne 50 "/mavlink_port/FC_+5V"
 Po 1250 -1000
 $EndPAD
 $PAD
@@ -1480,14 +1480,14 @@ $PAD
 Sh "15" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 56 "/mavlink_port/FC_GND"
+Ne 53 "/mavlink_port/FC_GND"
 Po -1250 -1000
 $EndPAD
 $PAD
 Sh "16" R 200 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 53 "/mavlink_port/FC_+5V"
+Ne 50 "/mavlink_port/FC_+5V"
 Po -1750 -1000
 $EndPAD
 $SHAPE3D
@@ -1572,7 +1572,7 @@ Ro 0.000000 0.000000 0.000000
 $EndSHAPE3D
 $EndMODULE  SM0805
 $MODULE SM0603
-Po 59400 38350 900 0 455C3716 5474A0ED ~~
+Po 65625 39025 900 0 455C3716 5474A0ED ~~
 Li SM0603
 Sc 5474A0ED
 AR /5433EE23/546F4821
@@ -1588,14 +1588,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 7 "/MCU/BOOT1"
+Ne 6 "/MCU/BOOT1"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1622,14 +1622,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 67 "/psu/SWITCHER_FB"
+Ne 64 "/psu/SWITCHER_FB"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1656,14 +1656,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 65 "/psu/SWITCHER_+5V"
+Ne 62 "/psu/SWITCHER_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 67 "/psu/SWITCHER_FB"
+Ne 64 "/psu/SWITCHER_FB"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1690,14 +1690,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 37 "/MCU/NRST"
+Ne 36 "/MCU/NRST"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1724,14 +1724,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 79 "/video_circuit/N_BLACK_PX"
+Ne 77 "/video_circuit/N_BLACK_PX"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 45 "/MCU/SPI_MISO_BLACK"
+Ne 43 "/MCU/SPI_MISO_BLACK"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1758,14 +1758,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 38 "/MCU/N_WHITE_PX"
+Ne 78 "/video_circuit/N_WHITE_PX"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 46 "/MCU/SPI_MISO_WHITE"
+Ne 44 "/MCU/SPI_MISO_WHITE"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1792,14 +1792,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 38 "/MCU/N_WHITE_PX"
+Ne 78 "/video_circuit/N_WHITE_PX"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 5 "/MCU/AV_TELEM_TXO"
+Ne 4 "/MCU/AV_TELEM_TXO"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1826,14 +1826,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 6 "/MCU/BOOT0_IN"
+Ne 5 "/MCU/BOOT0_IN"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1860,14 +1860,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 11 "/MCU/HEARTBEAT_LED"
+Ne 10 "/MCU/HEARTBEAT_LED"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 44 "/MCU/RED_LED_RES"
+Ne 42 "/MCU/RED_LED_RES"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1894,14 +1894,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 75 "/video_circuit/CSYNC_FLT_POS_REF"
+Ne 73 "/video_circuit/CSYNC_FLT_POS_REF"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1928,14 +1928,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 65 "/psu/SWITCHER_+5V"
+Ne 62 "/psu/SWITCHER_+5V"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1962,14 +1962,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -1996,14 +1996,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 64 "/psu/BLUE_LED_RES"
+Ne 61 "/psu/BLUE_LED_RES"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2030,14 +2030,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 49 "/camera/VIDEO_IN"
+Ne 47 "/camera/VIDEO_IN"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2064,14 +2064,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 83 "/video_circuit/RX_CMP_DOUT"
+Ne 82 "/video_circuit/RX_CMP_DOUT"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 82 "/video_circuit/RX_CMP_DIN"
+Ne 81 "/video_circuit/RX_CMP_DIN"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2098,14 +2098,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 76 "/video_circuit/CSYNC_FLT_VIN"
+Ne 74 "/video_circuit/CSYNC_FLT_VIN"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 80 "/video_circuit/RAW_CSYNC_OUT"
+Ne 79 "/video_circuit/RAW_CSYNC_OUT"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2132,14 +2132,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 69 "/psu/SWITCHER_VIN"
+Ne 66 "/psu/SWITCHER_VIN"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 70 "/psu/VIN+RECT"
+Ne 67 "/psu/VIN+RECT"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2166,14 +2166,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 75 "/video_circuit/CSYNC_FLT_POS_REF"
+Ne 73 "/video_circuit/CSYNC_FLT_POS_REF"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2200,14 +2200,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 78 "/video_circuit/GREY_D"
+Ne 76 "/video_circuit/GREY_D"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 82 "/video_circuit/RX_CMP_DIN"
+Ne 81 "/video_circuit/RX_CMP_DIN"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2234,14 +2234,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 3 "/MCU/AV_TELEM_RXI"
+Ne 2 "/MCU/AV_TELEM_RXI"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 83 "/video_circuit/RX_CMP_DOUT"
+Ne 82 "/video_circuit/RX_CMP_DOUT"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2268,14 +2268,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 74 "/video_circuit/CSYNC_CMP_OUT"
+Ne 72 "/video_circuit/CSYNC_CMP_OUT"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 75 "/video_circuit/CSYNC_FLT_POS_REF"
+Ne 73 "/video_circuit/CSYNC_FLT_POS_REF"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2302,14 +2302,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 8 "/MCU/CSYNC"
+Ne 7 "/MCU/CSYNC"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 74 "/video_circuit/CSYNC_CMP_OUT"
+Ne 72 "/video_circuit/CSYNC_CMP_OUT"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2404,7 +2404,7 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 81 "/video_circuit/RAW_VIDOUT"
+Ne 80 "/video_circuit/RAW_VIDOUT"
 Po -300 0
 $EndPAD
 $PAD
@@ -2438,14 +2438,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 94 "/video_out/VIDEO_OUT"
+Ne 85 "/video_circuit/VIDEO_OUT"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 81 "/video_circuit/RAW_VIDOUT"
+Ne 80 "/video_circuit/RAW_VIDOUT"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2472,14 +2472,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 70 "/psu/VIN+RECT"
+Ne 67 "/psu/VIN+RECT"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2506,14 +2506,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 85 "/video_circuit/VIDEO_IN_CLAMP"
+Ne 84 "/video_circuit/VIDEO_IN_CLAMP"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 49 "/camera/VIDEO_IN"
+Ne 47 "/camera/VIDEO_IN"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2540,14 +2540,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2574,14 +2574,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2608,14 +2608,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2642,14 +2642,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2676,14 +2676,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 65 "/psu/SWITCHER_+5V"
+Ne 62 "/psu/SWITCHER_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 67 "/psu/SWITCHER_FB"
+Ne 64 "/psu/SWITCHER_FB"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2710,14 +2710,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 66 "/psu/SWITCHER_CB"
+Ne 63 "/psu/SWITCHER_CB"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 68 "/psu/SWITCHER_OUT"
+Ne 65 "/psu/SWITCHER_OUT"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2744,14 +2744,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 53 "/mavlink_port/FC_+5V"
+Ne 50 "/mavlink_port/FC_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 56 "/mavlink_port/FC_GND"
+Ne 53 "/mavlink_port/FC_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2778,14 +2778,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2812,14 +2812,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 37 "/MCU/NRST"
+Ne 36 "/MCU/NRST"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2846,14 +2846,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2880,14 +2880,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2914,14 +2914,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 48 "/MCU/VCAP_2"
+Ne 46 "/MCU/VCAP_2"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2948,14 +2948,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -2982,14 +2982,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3016,14 +3016,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 47 "/MCU/VCAP1"
+Ne 45 "/MCU/VCAP1"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3050,14 +3050,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 36 "/MCU/MCU_VDDA"
+Ne 35 "/MCU/MCU_VDDA"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3084,14 +3084,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 76 "/video_circuit/CSYNC_FLT_VIN"
+Ne 74 "/video_circuit/CSYNC_FLT_VIN"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3118,14 +3118,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3152,14 +3152,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3186,14 +3186,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3220,14 +3220,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3254,14 +3254,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3288,14 +3288,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3322,14 +3322,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3356,14 +3356,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3390,14 +3390,14 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -3426,42 +3426,42 @@ $PAD
 Sh "1" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 55 "/mavlink_port/FC_FRSKY_TXO"
+Ne 52 "/mavlink_port/FC_FRSKY_TXO"
 Po -2500 0
 $EndPAD
 $PAD
 Sh "2" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 56 "/mavlink_port/FC_GND"
+Ne 53 "/mavlink_port/FC_GND"
 Po -1500 0
 $EndPAD
 $PAD
 Sh "3" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 53 "/mavlink_port/FC_+5V"
+Ne 50 "/mavlink_port/FC_+5V"
 Po -500 0
 $EndPAD
 $PAD
 Sh "4" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 57 "/mavlink_port/FC_MAVLINK_RXI"
+Ne 54 "/mavlink_port/FC_MAVLINK_RXI"
 Po 500 0
 $EndPAD
 $PAD
 Sh "5" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 58 "/mavlink_port/FC_MAVLINK_TXO"
+Ne 55 "/mavlink_port/FC_MAVLINK_TXO"
 Po 1500 0
 $EndPAD
 $PAD
 Sh "6" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 54 "/mavlink_port/FC_FRSKY_RXI"
+Ne 51 "/mavlink_port/FC_FRSKY_RXI"
 Po 2500 0
 $EndPAD
 $EndMODULE  SIL-6
@@ -3484,7 +3484,7 @@ $PAD
 Sh "1" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -2500 0
 $EndPAD
 $PAD
@@ -3498,7 +3498,7 @@ $PAD
 Sh "3" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 94 "/video_out/VIDEO_OUT"
+Ne 85 "/video_circuit/VIDEO_OUT"
 Po -500 0
 $EndPAD
 $PAD
@@ -3535,7 +3535,7 @@ $PAD
 Sh "1" O 709 472 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -1000 0
 $EndPAD
 $PAD
@@ -3549,7 +3549,7 @@ $PAD
 Sh "3" C 787 787 0 0 900
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 49 "/camera/VIDEO_IN"
+Ne 47 "/camera/VIDEO_IN"
 Po 1000 0
 $EndPAD
 $EndMODULE  SIL-3
@@ -3571,14 +3571,14 @@ $PAD
 Sh "1" C 787 787 0 0 1800
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -500 0
 $EndPAD
 $PAD
 Sh "2" C 787 787 0 0 1800
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 6 "/MCU/BOOT0_IN"
+Ne 5 "/MCU/BOOT0_IN"
 Po 500 0
 $EndPAD
 $EndMODULE  SIL-2
@@ -3599,7 +3599,7 @@ $PAD
 Sh "1" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 80 "/video_circuit/RAW_CSYNC_OUT"
+Ne 79 "/video_circuit/RAW_CSYNC_OUT"
 Po -384 850
 $EndPAD
 $PAD
@@ -3613,42 +3613,42 @@ $PAD
 Sh "3" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 77 "/video_circuit/CSYNC_RAW_CMP_REF"
+Ne 75 "/video_circuit/CSYNC_RAW_CMP_REF"
 Po 128 850
 $EndPAD
 $PAD
 Sh "4" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 384 850
 $EndPAD
 $PAD
 Sh "5" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 75 "/video_circuit/CSYNC_FLT_POS_REF"
+Ne 73 "/video_circuit/CSYNC_FLT_POS_REF"
 Po 384 -850
 $EndPAD
 $PAD
 Sh "6" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 76 "/video_circuit/CSYNC_FLT_VIN"
+Ne 74 "/video_circuit/CSYNC_FLT_VIN"
 Po 128 -850
 $EndPAD
 $PAD
 Sh "7" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 74 "/video_circuit/CSYNC_CMP_OUT"
+Ne 72 "/video_circuit/CSYNC_CMP_OUT"
 Po -128 -850
 $EndPAD
 $PAD
 Sh "8" R 150 500 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -384 -850
 $EndPAD
 $SHAPE3D
@@ -3689,21 +3689,21 @@ $PAD
 Sh "3" R 150 500 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 41 "/MCU/RAW_AUDIO_OUT1"
+Ne 39 "/MCU/RAW_AUDIO_OUT1"
 Po 128 -850
 $EndPAD
 $PAD
 Sh "4" R 150 500 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 384 -850
 $EndPAD
 $PAD
 Sh "5" R 150 500 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 42 "/MCU/RAW_AUDIO_OUT2"
+Ne 40 "/MCU/RAW_AUDIO_OUT2"
 Po 384 850
 $EndPAD
 $PAD
@@ -3724,7 +3724,7 @@ $PAD
 Sh "8" R 150 500 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -384 850
 $EndPAD
 $SHAPE3D
@@ -3753,21 +3753,21 @@ $PAD
 Sh "1" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 38 "/MCU/N_WHITE_PX"
+Ne 78 "/video_circuit/N_WHITE_PX"
 Po -400 875
 $EndPAD
 $PAD
 Sh "2" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 78 "/video_circuit/GREY_D"
+Ne 76 "/video_circuit/GREY_D"
 Po -200 875
 $EndPAD
 $PAD
 Sh "3" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 875
 $EndPAD
 $PAD
@@ -3781,14 +3781,14 @@ $PAD
 Sh "5" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 400 875
 $EndPAD
 $PAD
 Sh "6" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 400 -875
 $EndPAD
 $PAD
@@ -3809,14 +3809,14 @@ $PAD
 Sh "9" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 73 "/video_circuit/BLACK"
+Ne 71 "/video_circuit/BLACK"
 Po -200 -875
 $EndPAD
 $PAD
 Sh "10" R 106 394 0 0 900
 Dr 0 0 0
 At SMD N 00888000
-Ne 79 "/video_circuit/N_BLACK_PX"
+Ne 77 "/video_circuit/N_BLACK_PX"
 Po -400 -875
 $EndPAD
 $EndMODULE  MSOP10-0.5
@@ -3839,14 +3839,14 @@ $PAD
 Sh "1" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -400 875
 $EndPAD
 $PAD
 Sh "2" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 78 "/video_circuit/GREY_D"
+Ne 76 "/video_circuit/GREY_D"
 Po -200 875
 $EndPAD
 $PAD
@@ -3860,49 +3860,49 @@ $PAD
 Sh "4" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 73 "/video_circuit/BLACK"
+Ne 71 "/video_circuit/BLACK"
 Po 200 875
 $EndPAD
 $PAD
 Sh "5" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 77 "/video_circuit/CSYNC_RAW_CMP_REF"
+Ne 75 "/video_circuit/CSYNC_RAW_CMP_REF"
 Po 400 875
 $EndPAD
 $PAD
 Sh "6" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 400 -875
 $EndPAD
 $PAD
 Sh "7" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 200 -875
 $EndPAD
 $PAD
 Sh "8" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 72 "/video_circuit/AV_DAC_DATA"
+Ne 69 "/video_circuit/AV_DAC_DATA"
 Po 0 -875
 $EndPAD
 $PAD
 Sh "9" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 2 "/MCU/AV_DAC_NSYNC"
+Ne 70 "/video_circuit/AV_DAC_NSYNC"
 Po -200 -875
 $EndPAD
 $PAD
 Sh "10" R 106 394 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 71 "/video_circuit/AV_DAC_CLK"
+Ne 68 "/video_circuit/AV_DAC_CLK"
 Po -400 -875
 $EndPAD
 $EndMODULE  MSOP10-0.5
@@ -3943,14 +3943,14 @@ $PAD
 Sh "1" R 314 314 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 44 "/MCU/RED_LED_RES"
+Ne 42 "/MCU/RED_LED_RES"
 Po -295 0
 $EndPAD
 $PAD
 Sh "2" R 314 314 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 295 0
 $EndPAD
 $EndMODULE  LED-0603
@@ -3991,14 +3991,14 @@ $PAD
 Sh "1" R 314 314 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -295 0
 $EndPAD
 $PAD
 Sh "2" R 314 314 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 64 "/psu/BLUE_LED_RES"
+Ne 61 "/psu/BLUE_LED_RES"
 Po 295 0
 $EndPAD
 $EndMODULE  LED-0603
@@ -4020,14 +4020,14 @@ $PAD
 Sh "1" R 354 402 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -646 0
 $EndPAD
 $PAD
 Sh "2" R 354 402 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 68 "/psu/SWITCHER_OUT"
+Ne 65 "/psu/SWITCHER_OUT"
 Po 646 0
 $EndPAD
 $EndMODULE  SOD-123
@@ -4049,7 +4049,7 @@ $PAD
 Sh "1" R 354 402 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 50 "/camera/VIDEO_IN_+V"
+Ne 48 "/camera/VIDEO_IN_+V"
 Po -646 0
 $EndPAD
 $PAD
@@ -4078,7 +4078,7 @@ $PAD
 Sh "1" R 354 402 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 51 "/expansion/VIDEO_OUT_+V"
+Ne 94 "/video_out/VIDEO_OUT_+V"
 Po -646 0
 $EndPAD
 $PAD
@@ -4106,14 +4106,14 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 36 "/MCU/MCU_VDDA"
+Ne 35 "/MCU/MCU_VDDA"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -4143,14 +4143,14 @@ $PAD
 Sh "1" O 551 2102 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 65 "/psu/SWITCHER_+5V"
+Ne 62 "/psu/SWITCHER_+5V"
 Po -591 0
 $EndPAD
 $PAD
 Sh "2" O 551 2102 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 68 "/psu/SWITCHER_OUT"
+Ne 65 "/psu/SWITCHER_OUT"
 Po 591 0
 $EndPAD
 $EndMODULE  LPS4018
@@ -4173,140 +4173,140 @@ $PAD
 Sh "1" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 50 "/camera/VIDEO_IN_+V"
+Ne 48 "/camera/VIDEO_IN_+V"
 Po -8500 0
 $EndPAD
 $PAD
 Sh "2" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -7500 0
 $EndPAD
 $PAD
 Sh "3" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 51 "/expansion/VIDEO_OUT_+V"
+Ne 94 "/video_out/VIDEO_OUT_+V"
 Po -6500 0
 $EndPAD
 $PAD
 Sh "4" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -5500 0
 $EndPAD
 $PAD
 Sh "5" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -4500 0
 $EndPAD
 $PAD
 Sh "6" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 19 "/MCU/MCU_PB1"
+Ne 18 "/MCU/MCU_PB1"
 Po -3500 0
 $EndPAD
 $PAD
 Sh "7" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 26 "/MCU/MCU_PB9"
+Ne 29 "/MCU/MCU_PC14"
 Po -2500 0
 $EndPAD
 $PAD
 Sh "8" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 23 "/MCU/MCU_PB6"
+Ne 30 "/MCU/MCU_PC15"
 Po -1500 0
 $EndPAD
 $PAD
 Sh "9" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -500 0
 $EndPAD
 $PAD
 Sh "10" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 500 0
 $EndPAD
 $PAD
 Sh "11" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 34 "/MCU/MCU_PC5"
+Ne 26 "/MCU/MCU_PC0"
 Po 1500 0
 $EndPAD
 $PAD
 Sh "12" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 33 "/MCU/MCU_PC4"
+Ne 27 "/MCU/MCU_PC1"
 Po 2500 0
 $EndPAD
 $PAD
 Sh "13" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 13 "/MCU/MCU_PA1"
+Ne 12 "/MCU/MCU_PA1"
 Po 3500 0
 $EndPAD
 $PAD
 Sh "14" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 12 "/MCU/MCU_PA0"
+Ne 11 "/MCU/MCU_PA0"
 Po 4500 0
 $EndPAD
 $PAD
 Sh "15" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 32 "/MCU/MCU_PC3"
+Ne 31 "/MCU/MCU_PC3"
 Po 5500 0
 $EndPAD
 $PAD
 Sh "16" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 28 "/MCU/MCU_PC1"
+Ne 32 "/MCU/MCU_PC4"
 Po 6500 0
 $EndPAD
 $PAD
 Sh "17" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 27 "/MCU/MCU_PC0"
+Ne 33 "/MCU/MCU_PC5"
 Po 7500 0
 $EndPAD
 $PAD
 Sh "18" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 31 "/MCU/MCU_PC15"
+Ne 34 "/MCU/MCU_PC9"
 Po 8500 0
 $EndPAD
 $PAD
 Sh "19" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 30 "/MCU/MCU_PC14"
+Ne 17 "/MCU/MCU_PA8"
 Po 9500 0
 $EndPAD
 $PAD
 Sh "20" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 10500 0
 $EndPAD
 $EndMODULE  SIL-20
@@ -4329,7 +4329,7 @@ $PAD
 Sh "1" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 52 "/expansion/VIN+"
+Ne 49 "/expansion/VIN+"
 Po -8500 0
 $EndPAD
 $PAD
@@ -4343,126 +4343,126 @@ $PAD
 Sh "3" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -6500 0
 $EndPAD
 $PAD
 Sh "4" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -5500 0
 $EndPAD
 $PAD
 Sh "5" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 35 "/MCU/MCU_PC9"
+Ne 22 "/MCU/MCU_PB6"
 Po -4500 0
 $EndPAD
 $PAD
 Sh "6" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 18 "/MCU/MCU_PA8"
+Ne 25 "/MCU/MCU_PB9"
 Po -3500 0
 $EndPAD
 $PAD
 Sh "7" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 14 "/MCU/MCU_PA11"
+Ne 23 "/MCU/MCU_PB7"
 Po -2500 0
 $EndPAD
 $PAD
 Sh "8" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 15 "/MCU/MCU_PA12"
+Ne 24 "/MCU/MCU_PB8"
 Po -1500 0
 $EndPAD
 $PAD
 Sh "9" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 25 "/MCU/MCU_PB8"
+Ne 21 "/MCU/MCU_PB5"
 Po -500 0
 $EndPAD
 $PAD
 Sh "10" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 24 "/MCU/MCU_PB7"
+Ne 20 "/MCU/MCU_PB4"
 Po 500 0
 $EndPAD
 $PAD
 Sh "11" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 29 "/MCU/MCU_PC12"
+Ne 19 "/MCU/MCU_PB3"
 Po 1500 0
 $EndPAD
 $PAD
 Sh "12" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 20 "/MCU/MCU_PB3"
+Ne 28 "/MCU/MCU_PC12"
 Po 2500 0
 $EndPAD
 $PAD
 Sh "13" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 21 "/MCU/MCU_PB4"
+Ne 13 "/MCU/MCU_PA11"
 Po 3500 0
 $EndPAD
 $PAD
 Sh "14" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 22 "/MCU/MCU_PB5"
+Ne 14 "/MCU/MCU_PA12"
 Po 4500 0
 $EndPAD
 $PAD
 Sh "15" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po 5500 0
 $EndPAD
 $PAD
 Sh "16" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 17 "/MCU/MCU_PA14"
+Ne 16 "/MCU/MCU_PA14"
 Po 6500 0
 $EndPAD
 $PAD
 Sh "17" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 7500 0
 $EndPAD
 $PAD
 Sh "18" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 16 "/MCU/MCU_PA13"
+Ne 15 "/MCU/MCU_PA13"
 Po 8500 0
 $EndPAD
 $PAD
 Sh "19" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 37 "/MCU/NRST"
+Ne 36 "/MCU/NRST"
 Po 9500 0
 $EndPAD
 $PAD
 Sh "20" C 787 787 0 0 0
 Dr 394 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 10500 0
 $EndPAD
 $EndMODULE  SIL-20
@@ -4483,28 +4483,28 @@ $PAD
 Sh "2" R 551 472 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 433 -374
 $EndPAD
 $PAD
 Sh "4" R 551 472 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -433 374
 $EndPAD
 $PAD
 Sh "3" R 551 472 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 39 "/MCU/OSC_IN"
+Ne 37 "/MCU/OSC_IN"
 Po 433 374
 $EndPAD
 $PAD
 Sh "1" R 551 472 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -433 -374
 $EndPAD
 $EndMODULE  DFN2532
@@ -4531,28 +4531,28 @@ $PAD
 Sh "5" R 157 197 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -256 -374
 $EndPAD
 $PAD
 Sh "1" R 157 197 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po -256 374
 $EndPAD
 $PAD
 Sh "2" R 157 197 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 374
 $EndPAD
 $PAD
 Sh "3" R 157 197 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 85 "/video_circuit/VIDEO_IN_CLAMP"
+Ne 84 "/video_circuit/VIDEO_IN_CLAMP"
 Po 256 374
 $EndPAD
 $EndMODULE  SC70-5
@@ -4574,14 +4574,14 @@ $PAD
 Sh "1" R 354 402 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 52 "/expansion/VIN+"
+Ne 49 "/expansion/VIN+"
 Po -646 0
 $EndPAD
 $PAD
 Sh "2" R 354 402 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 70 "/psu/VIN+RECT"
+Ne 67 "/psu/VIN+RECT"
 Po 646 0
 $EndPAD
 $EndMODULE  SOD-123
@@ -4609,7 +4609,7 @@ $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 56 "/mavlink_port/FC_GND"
+Ne 53 "/mavlink_port/FC_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -4643,7 +4643,7 @@ $PAD
 Sh "2" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 56 "/mavlink_port/FC_GND"
+Ne 53 "/mavlink_port/FC_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -4670,7 +4670,7 @@ $PAD
 Sh "1" R 250 450 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 55 "/mavlink_port/FC_FRSKY_TXO"
+Ne 52 "/mavlink_port/FC_FRSKY_TXO"
 Po -300 0
 $EndPAD
 $PAD
@@ -4704,7 +4704,7 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 58 "/mavlink_port/FC_MAVLINK_TXO"
+Ne 55 "/mavlink_port/FC_MAVLINK_TXO"
 Po -300 0
 $EndPAD
 $PAD
@@ -4738,7 +4738,7 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00888000
-Ne 54 "/mavlink_port/FC_FRSKY_RXI"
+Ne 51 "/mavlink_port/FC_FRSKY_RXI"
 Po -300 0
 $EndPAD
 $PAD
@@ -4772,7 +4772,7 @@ $PAD
 Sh "1" R 250 450 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 57 "/mavlink_port/FC_MAVLINK_RXI"
+Ne 54 "/mavlink_port/FC_MAVLINK_RXI"
 Po -300 0
 $EndPAD
 $PAD
@@ -4806,14 +4806,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 19 "/MCU/MCU_PB1"
+Ne 18 "/MCU/MCU_PB1"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -4840,14 +4840,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 52 "/expansion/VIN+"
+Ne 49 "/expansion/VIN+"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 19 "/MCU/MCU_PB1"
+Ne 18 "/MCU/MCU_PB1"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -4874,14 +4874,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 19 "/MCU/MCU_PB1"
+Ne 18 "/MCU/MCU_PB1"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -4903,7 +4903,7 @@ $PAD
 Sh "1" O 787 394 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 40 "/MCU/PIXEL_CLK"
+Ne 38 "/MCU/PIXEL_CLK"
 Po 0 0
 $EndPAD
 $EndMODULE  TEST_PAD
@@ -4919,7 +4919,7 @@ $PAD
 Sh "1" O 709 394 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 3 "/MCU/AV_TELEM_RXI"
+Ne 2 "/MCU/AV_TELEM_RXI"
 Po 0 0
 $EndPAD
 $EndMODULE  TEST_PAD
@@ -4935,7 +4935,7 @@ $PAD
 Sh "1" O 787 394 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 5 "/MCU/AV_TELEM_TXO"
+Ne 4 "/MCU/AV_TELEM_TXO"
 Po 0 0
 $EndPAD
 $EndMODULE  TEST_PAD
@@ -4951,7 +4951,7 @@ $PAD
 Sh "1" O 787 394 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 76 "/video_circuit/CSYNC_FLT_VIN"
+Ne 74 "/video_circuit/CSYNC_FLT_VIN"
 Po 0 0
 $EndPAD
 $EndMODULE  TEST_PAD
@@ -4974,14 +4974,14 @@ $PAD
 Sh "1" R 600 800 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 65 "/psu/SWITCHER_+5V"
+Ne 62 "/psu/SWITCHER_+5V"
 Po -650 0
 $EndPAD
 $PAD
 Sh "2" R 600 800 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 650 0
 $EndPAD
 $SHAPE3D
@@ -5011,14 +5011,14 @@ $PAD
 Sh "1" R 350 550 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -375 0
 $EndPAD
 $PAD
 Sh "2" R 350 550 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 375 0
 $EndPAD
 $SHAPE3D
@@ -5047,14 +5047,14 @@ $PAD
 Sh "1" R 600 800 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 84 "/video_circuit/VIDEO_+5V"
+Ne 83 "/video_circuit/VIDEO_+5V"
 Po -650 0
 $EndPAD
 $PAD
 Sh "2" R 600 800 0 0 900
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 650 0
 $EndPAD
 $SHAPE3D
@@ -5083,14 +5083,14 @@ $PAD
 Sh "1" R 600 800 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 69 "/psu/SWITCHER_VIN"
+Ne 66 "/psu/SWITCHER_VIN"
 Po -650 0
 $EndPAD
 $PAD
 Sh "2" R 600 800 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 650 0
 $EndPAD
 $SHAPE3D
@@ -5117,14 +5117,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 69 "/psu/SWITCHER_VIN"
+Ne 66 "/psu/SWITCHER_VIN"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -5153,14 +5153,14 @@ $PAD
 Sh "1" R 600 800 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 69 "/psu/SWITCHER_VIN"
+Ne 66 "/psu/SWITCHER_VIN"
 Po -650 0
 $EndPAD
 $PAD
 Sh "2" R 600 800 0 0 2700
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 650 0
 $EndPAD
 $SHAPE3D
@@ -5188,12 +5188,12 @@ $PAD
 Sh "1" R 550 550 0 0 0
 Dr 320 0 0
 At STD N 00E0FFFF
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 0 0
 $EndPAD
 $EndMODULE  SIL-1
 $MODULE SM0603
-Po 62975 39050 0 0 455C3716 54F857FA ~~
+Po 64975 38125 0 0 455C3716 54F857FA ~~
 Li SM0603
 Sc 54F857FA
 AR /5433EE23/543A72EF
@@ -5209,14 +5209,14 @@ $PAD
 Sh "1" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 60 "/mavlink_port/MAVLINK_+3.3V"
+Ne 57 "/mavlink_port/MAVLINK_+3.3V"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 0
 Dr 0 0 0
 At SMD N 00440001
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -5243,14 +5243,14 @@ $PAD
 Sh "1" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 52 "/expansion/VIN+"
+Ne 49 "/expansion/VIN+"
 Po -300 0
 $EndPAD
 $PAD
 Sh "2" R 250 450 0 0 1800
 Dr 0 0 0
 At SMD N 00888000
-Ne 61 "/mavlink_port/MAVLINK_GND"
+Ne 58 "/mavlink_port/MAVLINK_GND"
 Po 300 0
 $EndPAD
 $SHAPE3D
@@ -5288,7 +5288,7 @@ $PAD
 Sh "1" O 394 197 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 74 "/video_circuit/CSYNC_CMP_OUT"
+Ne 72 "/video_circuit/CSYNC_CMP_OUT"
 Po 0 0
 $EndPAD
 $EndMODULE  TEST_PAD
@@ -5676,6 +5676,24 @@ Po 0 66500 32000 65000 32000 150
 De 21 0 900 0 0
 $EndDRAWSEGMENT
 $TRACK
+Po 0 58800 38600 58500 39225 60 -1
+De 0 0 1 0 0
+Po 0 52574 38909 52813 39054 60 -1
+De 15 0 1 0 0
+Po 0 52813 39054 53547 39350 60 -1
+De 15 0 1 0 0
+Po 0 53547 39350 58375 39325 60 -1
+De 15 0 1 0 0
+Po 3 58800 38600 58800 38600 250 -1
+De 15 1 1 0 0
+Po 0 58850 38475 58846 38075 60 -1
+De 15 0 1 0 800000
+Po 0 58800 38600 58850 38475 60 -1
+De 15 0 1 0 0
+Po 0 58500 39225 58375 39325 60 -1
+De 15 0 1 0 0
+Po 3 58500 39225 58500 39225 250 -1
+De 15 1 1 0 0
 Po 0 50775 38900 50800 38700 60 -1
 De 15 0 1 0 0
 Po 0 50800 38700 50950 38550 60 -1
@@ -5704,20 +5722,6 @@ Po 0 49800 37575 49800 37525 60 -1
 De 15 0 1 0 0
 Po 0 49806 37876 49826 37876 60 -1
 De 15 0 1 0 400000
-Po 0 58850 38550 58846 38075 60 -1
-De 15 0 1 0 800000
-Po 0 58881 39325 59350 39000 60 -1
-De 15 0 1 0 0
-Po 0 59350 39000 59150 38700 60 -1
-De 15 0 1 0 0
-Po 0 59150 38700 58850 38550 60 -1
-De 15 0 1 0 0
-Po 0 53547 39350 58881 39325 60 -1
-De 15 0 1 0 0
-Po 0 52813 39054 53547 39350 60 -1
-De 15 0 1 0 0
-Po 0 52574 38909 52813 39054 60 -1
-De 15 0 1 0 0
 Po 0 52574 38909 52574 38909 60 -1
 De 15 0 1 0 0
 Po 0 50775 38900 52574 38909 60 -1
@@ -5746,2159 +5750,2253 @@ Po 0 49800 37575 49750 37400 60 -1
 De 15 0 1 0 0
 Po 0 49806 37876 49800 37575 60 -1
 De 15 0 1 0 400000
-Po 0 58058 38075 58058 37602 60 -1
-De 15 0 2 0 400000
-Po 3 58100 32275 58100 32275 250 -1
-De 15 1 2 0 0
-Po 0 58100 32275 57792 31900 60 -1
-De 15 0 2 0 0
-Po 0 57792 31900 55275 31900 60 -1
-De 15 0 2 0 0
-Po 0 55275 31900 54975 32175 60 -1
-De 15 0 2 0 0
-Po 0 54975 32175 53006 32175 60 -1
-De 15 0 2 0 0
-Po 0 53006 32175 52512 32575 60 -1
-De 15 0 2 0 0
-Po 0 52512 32575 52125 32575 60 -1
-De 15 0 2 0 800000
-Po 0 58075 37450 58225 37025 60 -1
-De 0 0 2 0 0
-Po 0 58225 37025 58225 36650 60 -1
-De 0 0 2 0 0
-Po 0 58225 36650 58075 36350 60 -1
-De 0 0 2 0 0
-Po 0 58075 36350 58075 34075 60 -1
-De 0 0 2 0 0
-Po 0 58075 34075 58225 33850 60 -1
-De 0 0 2 0 0
-Po 0 58225 33850 58075 33389 60 -1
-De 0 0 2 0 0
-Po 0 58075 33389 58075 32925 60 -1
-De 0 0 2 0 0
-Po 0 58075 32925 58000 32725 60 -1
-De 0 0 2 0 0
-Po 0 58000 32725 58100 32275 60 -1
-De 0 0 2 0 0
-Po 0 58140 37520 58075 37450 60 -1
-De 0 0 2 0 0
-Po 3 58140 37520 58140 37520 250 -1
-De 15 1 2 0 0
-Po 0 58058 37602 58140 37520 60 -1
-De 15 0 2 0 0
 Po 0 52925 36450 53175 36450 60 -1
-De 15 0 3 0 400000
+De 15 0 2 0 400000
 Po 0 55175 37625 56300 37625 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 55175 37625 55175 37625 60 -1
-De 15 0 3 0 0
-Po 0 56300 37625 57050 37475 60 -1
-De 15 0 3 0 0
-Po 0 57050 37475 57150 37475 60 -1
-De 15 0 3 0 0
-Po 3 57150 37475 57150 37475 250 -1
-De 15 1 3 0 0
-Po 0 57150 37475 57275 37350 60 -1
-De 0 0 3 0 0
+De 15 0 2 0 0
+Po 0 56300 37625 56850 37625 60 -1
+De 15 0 2 0 0
+Po 0 56850 37625 57050 37475 60 -1
+De 15 0 2 0 0
+Po 0 57050 37475 57175 37525 60 -1
+De 15 0 2 0 0
+Po 3 57175 37525 57175 37525 250 -1
+De 15 1 2 0 0
+Po 0 57175 37525 57275 37350 60 -1
+De 0 0 2 0 0
 Po 0 57275 37350 57250 36775 60 -1
-De 0 0 3 0 0
-Po 0 57250 36775 57350 36400 60 -1
-De 0 0 3 0 0
-Po 3 57350 36400 57350 36400 250 -1
-De 15 1 3 0 0
-Po 0 57350 36400 58032 36193 60 -1
-De 15 0 3 0 0
-Po 0 58032 36193 60925 36193 60 -1
-De 15 0 3 0 800000
+De 0 0 2 0 0
+Po 0 57250 36775 57525 36125 60 -1
+De 0 0 2 0 0
+Po 3 57525 36125 57525 36125 250 -1
+De 15 1 2 0 0
+Po 0 57525 36125 59025 36075 60 -1
+De 15 0 2 0 0
+Po 0 59025 36075 59875 35750 60 -1
+De 15 0 2 0 0
+Po 0 59875 35750 60450 36193 60 -1
+De 15 0 2 0 0
+Po 0 60450 36193 60925 36193 60 -1
+De 15 0 2 0 800000
 Po 0 55175 37025 55175 37625 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 54875 36725 55175 37025 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 53475 36725 54875 36725 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 53300 36550 53475 36725 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 53275 36550 53300 36550 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 53175 36450 53275 36550 60 -1
-De 15 0 3 0 0
+De 15 0 2 0 0
 Po 0 53125 36050 53596 36600 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 0 53596 36600 55219 36600 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 0 52950 35850 53125 36050 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 0 51450 35850 52950 35850 60 -1
-De 15 0 4 0 400000
+De 15 0 3 0 400000
 Po 0 56500 37800 56900 37901 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 0 55425 37875 56500 37800 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 3 55425 37875 55425 37875 250 -1
-De 15 1 4 0 0
+De 15 1 3 0 0
 Po 0 55175 36675 55150 37500 60 -1
-De 0 0 4 0 0
+De 0 0 3 0 0
 Po 0 55150 37500 55425 37875 60 -1
-De 0 0 4 0 0
+De 0 0 3 0 0
 Po 3 55175 36675 55175 36675 250 -1
-De 15 1 4 0 0
+De 15 1 3 0 0
 Po 0 55219 36600 55175 36675 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 0 56899 37900 56900 37901 60 -1
-De 15 0 4 0 0
+De 15 0 3 0 0
 Po 0 56900 37901 57074 38075 60 -1
-De 15 0 4 0 800000
+De 15 0 3 0 800000
 Po 0 54575 35500 54825 35500 60 -1
-De 15 0 5 0 400000
-Po 0 59650 36425 60925 36389 60 -1
-De 15 0 5 0 800000
-Po 3 59650 36425 59650 36425 250 -1
-De 15 1 5 0 0
-Po 0 59675 35650 59650 36425 60 -1
-De 0 0 5 0 0
-Po 0 59300 34175 59675 35650 60 -1
-De 0 0 5 0 0
-Po 3 59300 34175 59300 34175 250 -1
-De 15 1 5 0 0
+De 15 0 4 0 400000
+Po 0 59875 36050 60400 36400 60 -1
+De 15 0 4 0 0
+Po 0 60400 36400 60925 36389 60 -1
+De 15 0 4 0 800000
+Po 3 59875 36050 59875 36050 250 -1
+De 15 1 4 0 0
+Po 0 59675 35650 59875 36050 60 -1
+De 0 0 4 0 0
+Po 0 59475 34300 59675 35650 60 -1
+De 0 0 4 0 0
+Po 3 59475 34300 59475 34300 250 -1
+De 15 1 4 0 0
 Po 0 57050 34600 57450 34850 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
 Po 0 57450 34850 57750 34875 60 -1
-De 15 0 5 0 0
-Po 0 57750 34875 59125 34725 60 -1
-De 15 0 5 0 0
-Po 0 59125 34725 59300 34175 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
+Po 0 57750 34875 59025 34400 60 -1
+De 15 0 4 0 0
+Po 0 59025 34400 59475 34300 60 -1
+De 15 0 4 0 0
 Po 0 56625 34075 57050 34600 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
 Po 0 55275 34075 56625 34075 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
 Po 0 55025 34250 55275 34075 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
 Po 0 55025 34375 55025 34250 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
 Po 0 54825 35500 55025 34375 60 -1
-De 15 0 5 0 0
+De 15 0 4 0 0
 Po 0 62325 32850 62325 32225 60 -1
-De 15 0 6 0 0
+De 15 0 5 0 0
 Po 0 62325 32225 62250 32150 60 -1
-De 15 0 6 0 800000
+De 15 0 5 0 800000
 Po 0 57864 33389 57864 33886 60 -1
-De 15 0 6 0 400000
+De 15 0 5 0 400000
 Po 0 62325 33175 62325 32850 60 -1
-De 15 0 6 0 0
+De 15 0 5 0 0
 Po 0 60825 33175 62325 33175 60 -1
-De 15 0 6 0 0
+De 15 0 5 0 0
 Po 0 60650 33350 60825 33175 60 -1
-De 15 0 6 0 0
+De 15 0 5 0 0
 Po 0 60100 34125 60650 33350 60 -1
-De 15 0 6 0 0
-Po 0 59500 34975 60100 34125 60 -1
-De 15 0 6 0 0
-Po 0 58800 35225 59500 34975 60 -1
-De 15 0 6 0 0
-Po 0 57850 35175 58800 35225 60 -1
-De 15 0 6 0 0
+De 15 0 5 0 0
+Po 0 59658 34751 60100 34125 60 -1
+De 15 0 5 0 0
+Po 0 58391 35203 59658 34751 60 -1
+De 15 0 5 0 0
+Po 0 57850 35175 58391 35203 60 -1
+De 15 0 5 0 0
 Po 3 57850 35175 57850 35175 250 -1
-De 15 1 6 0 0
+De 15 1 5 0 0
 Po 0 57900 33875 57850 35175 60 -1
-De 0 0 6 0 0
+De 0 0 5 0 0
 Po 3 57900 33875 57900 33875 250 -1
-De 15 1 6 0 0
+De 15 1 5 0 0
 Po 0 57864 33886 57900 33875 60 -1
-De 15 0 6 0 0
-Po 0 58800 37250 58875 37300 60 -1
-De 15 0 8 0 0
-Po 0 56750 37400 56900 37250 60 -1
-De 15 0 8 0 0
-Po 0 56900 37250 58800 37250 60 -1
-De 15 0 8 0 0
+De 15 0 5 0 0
+Po 0 58800 37250 59650 37225 60 -1
+De 15 0 7 0 0
+Po 0 56775 37400 56925 37250 60 -1
+De 15 0 7 0 0
+Po 0 56925 37250 58800 37250 60 -1
+De 15 0 7 0 0
 Po 0 55475 37250 55725 37250 60 -1
-De 15 0 8 0 400000
+De 15 0 7 0 400000
 Po 0 55725 37250 55850 37400 60 -1
-De 15 0 8 0 0
-Po 0 55850 37400 56750 37400 60 -1
-De 15 0 8 0 0
-Po 0 59000 37125 59000 36700 60 -1
-De 0 0 8 0 0
-Po 0 58875 37300 59000 37125 60 -1
-De 0 0 8 0 0
-Po 3 58875 37300 58875 37300 250 -1
-De 15 1 8 0 0
+De 15 0 7 0 0
+Po 0 55850 37400 56775 37400 60 -1
+De 15 0 7 0 0
+Po 0 59650 36900 59675 36425 60 -1
+De 0 0 7 0 0
+Po 0 59650 37225 59650 36900 60 -1
+De 0 0 7 0 0
+Po 3 59650 37225 59650 37225 250 -1
+De 15 1 7 0 0
 Po 0 59043 33389 59043 33007 60 -1
-De 15 0 8 0 400000
+De 15 0 7 0 400000
 Po 0 59830 33030 59830 33389 60 -1
-De 15 0 8 0 800000
+De 15 0 7 0 800000
 Po 0 59700 32600 59830 33030 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 59300 32600 59700 32600 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 59043 33007 59200 32725 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 59200 32725 59300 32600 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 59043 33389 59050 33800 60 -1
-De 15 0 8 0 400000
-Po 3 59000 36700 59000 36700 250 -1
-De 15 1 8 0 0
-Po 0 59000 33825 59000 36700 60 -1
-De 0 0 8 0 0
+De 15 0 7 0 400000
+Po 3 59675 36425 59675 36425 250 -1
+De 15 1 7 0 0
+Po 0 59000 33825 59675 36425 60 -1
+De 0 0 7 0 0
 Po 3 59000 33825 59000 33825 250 -1
-De 15 1 8 0 0
+De 15 1 7 0 0
 Po 0 59050 33800 59000 33825 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 60500 36700 60500 36750 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 60533 36783 60925 36783 60 -1
-De 15 0 8 0 800000
+De 15 0 7 0 800000
 Po 0 60500 36750 60533 36783 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
 Po 0 60614 36586 60925 36586 60 -1
-De 15 0 8 0 800000
+De 15 0 7 0 800000
 Po 0 60500 36700 60614 36586 60 -1
-De 15 0 8 0 0
-Po 0 59000 36700 60500 36700 60 -1
-De 15 0 8 0 0
+De 15 0 7 0 0
+Po 0 59675 36425 60500 36700 60 -1
+De 15 0 7 0 0
 Po 0 62975 36250 62750 36250 60 -1
-De 0 0 9 0 400000
+De 0 0 8 0 400000
 Po 0 62164 34939 62543 34939 60 -1
-De 15 0 9 0 800000
+De 15 0 8 0 800000
 Po 0 62100 34875 62164 34939 60 -1
-De 15 0 9 0 0
+De 15 0 8 0 0
 Po 3 62100 34875 62100 34875 250 -1
-De 15 1 9 0 0
+De 15 1 8 0 0
 Po 0 62325 34875 62100 34875 60 -1
-De 0 0 9 0 0
+De 0 0 8 0 0
 Po 0 62550 35100 62325 34875 60 -1
-De 0 0 9 0 0
+De 0 0 8 0 0
 Po 0 62550 36050 62550 35100 60 -1
-De 0 0 9 0 0
+De 0 0 8 0 0
 Po 0 62750 36250 62550 36050 60 -1
-De 0 0 9 0 0
+De 0 0 8 0 0
 Po 0 56239 34421 56646 34421 60 -1
-De 15 0 10 0 400000
+De 15 0 9 0 400000
 Po 0 61675 36625 61975 36625 60 -1
-De 0 0 10 0 800000
-Po 0 61425 36375 61675 36625 60 -1
-De 0 0 10 0 0
-Po 0 60725 36375 61425 36375 60 -1
-De 0 0 10 0 0
-Po 0 60250 35475 60725 36375 60 -1
-De 0 0 10 0 0
-Po 3 60250 35475 60250 35475 250 -1
-De 15 1 10 0 0
-Po 0 58775 35600 60250 35475 60 -1
-De 15 0 10 0 0
+De 0 0 9 0 800000
+Po 0 61557 36470 61675 36625 60 -1
+De 0 0 9 0 0
+Po 0 61350 36373 61557 36470 60 -1
+De 0 0 9 0 0
+Po 0 60375 35325 61350 36373 60 -1
+De 0 0 9 0 0
+Po 3 60375 35325 60375 35325 250 -1
+De 15 1 9 0 0
+Po 0 58775 35600 60375 35325 60 -1
+De 15 0 9 0 0
 Po 0 57700 35625 58775 35600 60 -1
-De 15 0 10 0 0
+De 15 0 9 0 0
 Po 3 57700 35625 57700 35625 250 -1
-De 15 1 10 0 0
+De 15 1 9 0 0
 Po 0 57575 35225 57700 35625 60 -1
-De 0 0 10 0 0
+De 0 0 9 0 0
 Po 0 57525 35175 57575 35225 60 -1
-De 0 0 10 0 0
+De 0 0 9 0 0
 Po 3 57525 35175 57525 35175 250 -1
-De 15 1 10 0 0
+De 15 1 9 0 0
 Po 0 57400 35175 57525 35175 60 -1
-De 15 0 10 0 0
+De 15 0 9 0 0
 Po 0 56646 34421 57400 35175 60 -1
-De 15 0 10 0 0
+De 15 0 9 0 0
 Po 0 60925 37177 60925 37525 60 -1
-De 15 0 11 0 400000
+De 15 0 10 0 400000
 Po 0 61000 37600 61150 37600 60 -1
-De 15 0 11 0 800000
+De 15 0 10 0 800000
 Po 0 60925 37525 61000 37600 60 -1
+De 15 0 10 0 0
+Po 0 56239 36783 56600 36775 60 -1
+De 15 0 11 0 400000
+Po 0 59675 38425 60000 40000 60 -1
+De 0 0 11 0 800000
+Po 0 59150 37400 59675 38425 60 -1
+De 0 0 11 0 0
+Po 0 59025 36400 59150 37400 60 -1
+De 0 0 11 0 0
+Po 3 59025 36400 59025 36400 250 -1
+De 15 1 11 0 0
+Po 0 59000 36400 59025 36400 60 -1
 De 15 0 11 0 0
+Po 0 58975 36300 59000 36400 60 -1
+De 15 0 11 0 0
+Po 0 57450 36400 58975 36300 60 -1
+De 15 0 11 0 0
+Po 0 57275 36525 57450 36400 60 -1
+De 15 0 11 0 0
+Po 0 56975 36800 57275 36525 60 -1
+De 15 0 11 0 0
+Po 0 56725 36825 56975 36800 60 -1
+De 15 0 11 0 0
+Po 0 56600 36775 56725 36825 60 -1
+De 15 0 11 0 0
+Po 0 59000 40000 59275 39525 60 -1
+De 0 0 12 0 400000
+Po 0 58720 36980 58850 36850 60 -1
+De 15 0 12 0 0
+Po 3 58850 36850 58850 36850 250 -1
+De 15 1 12 0 0
+Po 0 58850 36850 58850 37650 60 -1
+De 0 0 12 0 0
+Po 0 58850 37650 59250 38050 60 -1
+De 0 0 12 0 0
+Po 0 59250 38050 59250 38275 60 -1
+De 0 0 12 0 0
+Po 0 59250 38275 59425 38450 60 -1
+De 0 0 12 0 0
+Po 0 59425 38450 59425 39375 60 -1
+De 0 0 12 0 0
+Po 0 59425 39375 59275 39525 60 -1
+De 0 0 12 0 0
+Po 0 58720 36980 56239 36980 60 -1
+De 15 0 12 0 800000
 Po 0 60925 35012 60187 35012 60 -1
-De 15 0 14 0 400000
+De 15 0 13 0 400000
 Po 0 59950 31925 59425 31450 60 -1
-De 0 0 14 0 0
+De 0 0 13 0 0
 Po 0 59942 32527 59950 31925 60 -1
-De 0 0 14 0 0
+De 0 0 13 0 0
 Po 0 60050 32700 59942 32527 60 -1
-De 0 0 14 0 0
-Po 0 60050 34875 60050 32700 60 -1
-De 0 0 14 0 0
-Po 0 60150 34975 60050 34875 60 -1
-De 0 0 14 0 0
+De 0 0 13 0 0
+Po 0 60050 34675 60050 32700 60 -1
+De 0 0 13 0 0
+Po 0 60150 34975 60050 34675 60 -1
+De 0 0 13 0 0
 Po 3 60150 34975 60150 34975 250 -1
-De 15 1 14 0 0
+De 15 1 13 0 0
 Po 0 60187 35012 60150 34975 60 -1
-De 15 0 14 0 0
+De 15 0 13 0 0
 Po 0 60925 34815 60515 34815 60 -1
-De 15 0 15 0 400000
+De 15 0 14 0 400000
 Po 0 60550 31775 60275 31500 60 -1
-De 0 0 15 0 0
+De 0 0 14 0 0
 Po 0 60550 32675 60550 31775 60 -1
-De 0 0 15 0 0
+De 0 0 14 0 0
 Po 0 60325 32900 60550 32675 60 -1
-De 0 0 15 0 0
+De 0 0 14 0 0
 Po 0 60325 34625 60325 32900 60 -1
-De 0 0 15 0 0
+De 0 0 14 0 0
 Po 0 60375 34675 60325 34625 60 -1
-De 0 0 15 0 0
+De 0 0 14 0 0
 Po 3 60375 34675 60375 34675 250 -1
-De 15 1 15 0 0
+De 15 1 14 0 0
 Po 0 60515 34815 60375 34675 60 -1
-De 15 0 15 0 0
+De 15 0 14 0 0
 Po 0 60925 34618 61657 34618 60 -1
-De 15 0 16 0 400000
+De 15 0 15 0 400000
 Po 0 64000 33325 64000 31000 60 -1
-De 0 0 16 0 800000
+De 0 0 15 0 800000
 Po 0 63875 33450 64000 33325 60 -1
-De 0 0 16 0 0
+De 0 0 15 0 0
 Po 3 63875 33450 63875 33450 250 -1
-De 15 1 16 0 0
+De 15 1 15 0 0
 Po 0 63775 33550 63875 33450 60 -1
-De 15 0 16 0 0
+De 15 0 15 0 0
 Po 0 62175 33550 63775 33550 60 -1
-De 15 0 16 0 0
+De 15 0 15 0 0
 Po 0 62050 33675 62175 33550 60 -1
-De 15 0 16 0 0
+De 15 0 15 0 0
 Po 0 62050 34225 62050 33675 60 -1
-De 15 0 16 0 0
+De 15 0 15 0 0
 Po 0 61657 34618 62050 34225 60 -1
-De 15 0 16 0 0
+De 15 0 15 0 0
 Po 0 60027 33389 60027 33023 60 -1
-De 15 0 17 0 400000
+De 15 0 16 0 400000
 Po 0 61525 31475 62000 31000 60 -1
-De 0 0 17 0 800000
+De 0 0 16 0 800000
 Po 0 61525 32375 61525 31475 60 -1
-De 0 0 17 0 0
+De 0 0 16 0 0
 Po 0 61200 32700 61525 32375 60 -1
-De 0 0 17 0 0
+De 0 0 16 0 0
 Po 3 61200 32700 61200 32700 250 -1
-De 15 1 17 0 0
+De 15 1 16 0 0
 Po 0 60350 32700 61200 32700 60 -1
-De 15 0 17 0 0
+De 15 0 16 0 0
 Po 0 60027 33023 60350 32700 60 -1
-De 15 0 17 0 0
+De 15 0 16 0 0
+Po 0 65000 40000 65000 39225 60 -1
+De 15 0 17 0 400000
 Po 0 60925 35602 62127 35602 60 -1
-De 15 0 18 0 400000
+De 15 0 17 0 400000
 Po 0 63525 37750 65000 39225 60 -1
-De 15 0 18 0 0
+De 15 0 17 0 0
 Po 0 63525 36050 63525 37750 60 -1
-De 15 0 18 0 0
+De 15 0 17 0 0
 Po 0 63150 35675 63525 36050 60 -1
-De 15 0 18 0 0
+De 15 0 17 0 0
 Po 0 62200 35675 63150 35675 60 -1
-De 15 0 18 0 0
+De 15 0 17 0 0
 Po 0 62127 35602 62200 35675 60 -1
+De 15 0 17 0 0
+Po 0 59043 38075 59050 38525 60 -1
+De 15 0 18 0 400000
+Po 0 58200 39475 52525 39475 60 -1
 De 15 0 18 0 0
-Po 0 59043 38075 59043 38393 60 -1
-De 15 0 19 0 400000
+Po 0 58500 39625 58200 39475 60 -1
+De 15 0 18 0 0
+Po 0 58750 39475 58500 39625 60 -1
+De 15 0 18 0 0
+Po 0 58850 39300 58750 39475 60 -1
+De 15 0 18 0 0
 Po 0 52525 39475 52000 40000 60 -1
-De 15 0 19 0 800000
-Po 0 59175 39475 52525 39475 60 -1
-De 15 0 19 0 0
-Po 0 59650 39000 59175 39475 60 -1
-De 15 0 19 0 0
-Po 0 59650 38925 59650 39000 60 -1
-De 15 0 19 0 0
-Po 0 59375 38650 59650 38925 60 -1
-De 15 0 19 0 0
-Po 0 59300 38650 59375 38650 60 -1
-De 15 0 19 0 0
-Po 0 59043 38393 59300 38650 60 -1
-De 15 0 19 0 0
+De 15 0 18 0 800000
+Po 3 58850 39300 58850 39300 250 -1
+De 15 1 18 0 0
+Po 0 59125 38625 58850 39300 60 -1
+De 0 0 18 0 0
+Po 3 59125 38625 59125 38625 250 -1
+De 15 1 18 0 0
+Po 0 59050 38525 59125 38625 60 -1
+De 15 0 18 0 0
 Po 0 53225 39050 53225 38650 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 53300 38575 53450 38350 60 -1
-De 0 0 19 0 800000
+De 0 0 18 0 800000
 Po 0 53225 38650 53300 38575 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 52725 39050 53225 39050 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 53225 39050 53375 39050 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 53375 39050 53450 38950 60 -1
-De 0 0 19 0 800000
+De 0 0 18 0 800000
 Po 0 52000 40000 52000 39975 60 -1
-De 0 0 19 0 400000
+De 0 0 18 0 400000
 Po 0 52725 39050 52525 39050 60 -1
-De 0 0 19 0 800000
+De 0 0 18 0 800000
 Po 0 52925 39250 52725 39050 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 52925 39300 52925 39250 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 52800 39425 52925 39300 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 52550 39425 52800 39425 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 52000 39975 52550 39425 60 -1
-De 0 0 19 0 0
+De 0 0 18 0 0
 Po 0 58846 33389 58846 33025 60 -1
-De 15 0 20 0 400000
+De 15 0 19 0 400000
 Po 0 58846 33025 59075 32650 60 -1
-De 15 0 20 0 0
+De 15 0 19 0 0
 Po 0 57375 31550 57300 31475 60 -1
-De 0 0 20 0 0
+De 0 0 19 0 0
 Po 0 58450 31550 57375 31550 60 -1
-De 0 0 20 0 0
+De 0 0 19 0 0
 Po 0 59425 31950 58450 31550 60 -1
-De 0 0 20 0 0
+De 0 0 19 0 0
 Po 0 59525 32175 59425 31950 60 -1
-De 0 0 20 0 0
+De 0 0 19 0 0
 Po 0 59525 32175 59525 32175 60 -1
-De 0 0 20 0 0
+De 0 0 19 0 0
 Po 3 59525 32175 59525 32175 250 -1
-De 15 1 20 0 0
+De 15 1 19 0 0
 Po 0 59075 32650 59525 32175 60 -1
-De 15 0 20 0 0
+De 15 0 19 0 0
 Po 0 58649 33389 58649 33025 60 -1
-De 15 0 21 0 400000
+De 15 0 20 0 400000
 Po 0 58649 33025 58825 32800 60 -1
-De 15 0 21 0 0
+De 15 0 20 0 0
 Po 0 56650 31725 56325 31400 60 -1
-De 0 0 21 0 0
+De 0 0 20 0 0
 Po 0 57900 31725 56650 31725 60 -1
-De 0 0 21 0 0
+De 0 0 20 0 0
 Po 0 58350 32000 57900 31725 60 -1
-De 0 0 21 0 0
+De 0 0 20 0 0
 Po 0 58600 32050 58350 32000 60 -1
-De 0 0 21 0 0
+De 0 0 20 0 0
 Po 0 59000 32175 58600 32050 60 -1
-De 0 0 21 0 0
+De 0 0 20 0 0
 Po 0 59025 32350 59000 32175 60 -1
-De 0 0 21 0 0
+De 0 0 20 0 0
 Po 3 59025 32350 59025 32350 250 -1
-De 15 1 21 0 0
+De 15 1 20 0 0
 Po 0 58825 32800 59025 32350 60 -1
-De 15 0 21 0 0
+De 15 0 20 0 0
 Po 0 58452 33389 58452 32927 60 -1
-De 15 0 22 0 400000
+De 15 0 21 0 400000
 Po 0 55400 31375 55275 31450 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 56225 31525 55575 31525 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 55575 31525 55400 31375 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 56575 31900 56225 31525 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 57875 31900 56575 31900 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 58450 32225 57875 31900 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 58450 32650 58400 32462 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 0 58400 32462 58450 32225 60 -1
-De 0 0 22 0 0
+De 0 0 21 0 0
 Po 3 58450 32650 58450 32650 250 -1
-De 15 1 22 0 0
+De 15 1 21 0 0
 Po 0 58452 32927 58450 32650 60 -1
-De 15 0 22 0 0
+De 15 0 21 0 0
 Po 0 58255 33389 58250 32900 60 -1
-De 15 0 23 0 400000
+De 15 0 22 0 400000
 Po 0 54625 31425 54350 31425 60 -1
-De 0 0 23 0 0
+De 0 0 22 0 0
 Po 0 55550 31675 54625 31425 60 -1
-De 0 0 23 0 0
+De 0 0 22 0 0
 Po 0 56050 31697 55550 31675 60 -1
-De 0 0 23 0 0
+De 0 0 22 0 0
 Po 0 56300 32250 56050 31697 60 -1
-De 0 0 23 0 0
+De 0 0 22 0 0
 Po 3 56300 32250 56300 32250 250 -1
-De 15 1 23 0 0
+De 15 1 22 0 0
 Po 0 57600 32225 56300 32250 60 -1
-De 15 0 23 0 0
+De 15 0 22 0 0
 Po 0 58250 32900 58025 32666 60 -1
-De 15 0 23 0 0
+De 15 0 22 0 0
 Po 0 58025 32666 57900 32625 60 -1
-De 15 0 23 0 0
+De 15 0 22 0 0
 Po 0 57900 32625 57600 32225 60 -1
-De 15 0 23 0 0
+De 15 0 22 0 0
 Po 0 58061 33389 58061 33061 60 -1
-De 15 0 24 0 400000
+De 15 0 23 0 400000
 Po 0 53950 31550 53425 31375 60 -1
-De 0 0 24 0 0
+De 0 0 23 0 0
 Po 0 54600 31550 53950 31550 60 -1
-De 0 0 24 0 0
+De 0 0 23 0 0
 Po 0 55275 31825 54600 31550 60 -1
-De 0 0 24 0 0
+De 0 0 23 0 0
 Po 0 55850 31875 55275 31825 60 -1
-De 0 0 24 0 0
+De 0 0 23 0 0
 Po 0 55925 32300 55850 31875 60 -1
-De 0 0 24 0 0
+De 0 0 23 0 0
 Po 3 55925 32300 55925 32300 250 -1
-De 15 1 24 0 0
+De 15 1 23 0 0
 Po 0 55975 32350 55925 32300 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 56125 32500 55975 32350 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 56450 32500 56125 32500 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 56550 32400 56450 32500 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 57475 32400 56550 32400 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 57725 32650 57475 32400 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 57725 32725 57725 32650 60 -1
-De 15 0 24 0 0
+De 15 0 23 0 0
 Po 0 58061 33061 57725 32725 60 -1
-De 15 0 24 0 0
-Po 0 57667 33389 57667 33808 60 -1
-De 15 0 25 0 400000
-Po 0 51325 31650 51225 31550 60 -1
-De 0 0 25 0 0
-Po 0 51475 31750 51325 31650 60 -1
-De 0 0 25 0 0
-Po 0 52775 31800 51475 31750 60 -1
-De 0 0 25 0 0
-Po 0 53550 31875 52775 31800 60 -1
-De 0 0 25 0 0
-Po 0 54225 32000 53550 31875 60 -1
-De 0 0 25 0 0
-Po 0 54525 32075 54225 32000 60 -1
-De 0 0 25 0 0
-Po 0 54950 32200 54525 32075 60 -1
-De 0 0 25 0 0
-Po 0 55275 32325 54950 32200 60 -1
-De 0 0 25 0 0
-Po 0 55450 32525 55275 32325 60 -1
-De 0 0 25 0 0
-Po 0 55450 32900 55450 32525 60 -1
-De 0 0 25 0 0
-Po 3 55450 32900 55450 32900 250 -1
-De 15 1 25 0 0
-Po 0 55450 33725 55450 32900 60 -1
-De 15 0 25 0 0
-Po 0 55375 33800 55450 33725 60 -1
-De 15 0 25 0 0
-Po 0 56750 33825 55375 33800 60 -1
-De 15 0 25 0 0
-Po 0 57025 34050 56750 33825 60 -1
-De 15 0 25 0 0
-Po 0 57450 34025 57025 34050 60 -1
-De 15 0 25 0 0
+De 15 0 23 0 0
+Po 0 55600 32450 55550 32125 60 -1
+De 0 0 24 0 0
 Po 0 57667 33808 57450 34025 60 -1
+De 15 0 24 0 0
+Po 0 57450 34025 57025 34050 60 -1
+De 15 0 24 0 0
+Po 0 57025 34050 56750 33825 60 -1
+De 15 0 24 0 0
+Po 0 56750 33825 55375 33800 60 -1
+De 15 0 24 0 0
+Po 0 55375 33800 55450 33725 60 -1
+De 15 0 24 0 0
+Po 0 55450 33125 55600 32450 60 -1
+De 15 0 24 0 0
+Po 0 55450 33725 55450 33125 60 -1
+De 15 0 24 0 0
+Po 3 55600 32450 55600 32450 250 -1
+De 15 1 24 0 0
+Po 0 57667 33389 57667 33808 60 -1
+De 15 0 24 0 400000
+Po 0 52300 31575 52275 31475 60 -1
+De 0 0 24 0 0
+Po 0 52700 31550 52300 31575 60 -1
+De 0 0 24 0 0
+Po 0 53775 31700 52700 31550 60 -1
+De 0 0 24 0 0
+Po 0 54425 31775 53775 31700 60 -1
+De 0 0 24 0 0
+Po 0 55550 32125 54425 31775 60 -1
+De 0 0 24 0 0
+Po 0 55800 32800 55350 32626 60 -1
+De 0 0 25 0 0
+Po 0 55350 32626 55325 32325 60 -1
+De 0 0 25 0 0
+Po 0 56025 32725 55800 32800 60 -1
 De 15 0 25 0 0
-Po 0 55725 32675 55725 32425 60 -1
-De 15 0 26 0 0
-Po 0 57470 33780 57375 33875 60 -1
-De 15 0 26 0 0
-Po 0 57375 33875 57025 33875 60 -1
-De 15 0 26 0 0
-Po 0 57025 33875 56825 33675 60 -1
-De 15 0 26 0 0
-Po 0 56825 33675 56725 33675 60 -1
-De 15 0 26 0 0
-Po 0 56725 33675 55725 32675 60 -1
-De 15 0 26 0 0
+Po 3 55800 32800 55800 32800 250 -1
+De 15 1 25 0 0
 Po 0 57470 33389 57470 33780 60 -1
-De 15 0 26 0 400000
-Po 0 52475 31600 52275 31400 60 -1
-De 0 0 26 0 0
-Po 0 53625 31600 52475 31600 60 -1
-De 0 0 26 0 0
-Po 0 53725 31700 53625 31600 60 -1
-De 0 0 26 0 0
-Po 0 54450 31700 53725 31700 60 -1
-De 0 0 26 0 0
-Po 0 54750 32000 54450 31700 60 -1
-De 0 0 26 0 0
-Po 0 55300 32000 54750 32000 60 -1
-De 0 0 26 0 0
-Po 0 55600 32300 55300 32000 60 -1
-De 0 0 26 0 0
-Po 3 55600 32300 55600 32300 250 -1
-De 15 1 26 0 0
-Po 0 55725 32425 55600 32300 60 -1
-De 15 0 26 0 0
-Po 0 56239 35602 55802 35602 60 -1
-De 15 0 27 0 400000
-Po 0 55850 38575 56750 39475 60 -1
-De 0 0 27 0 0
-Po 0 55850 37700 55850 38575 60 -1
-De 0 0 27 0 0
-Po 0 55800 37650 55850 37700 60 -1
-De 0 0 27 0 0
-Po 0 55750 37475 55800 37650 60 -1
-De 0 0 27 0 0
-Po 0 55600 37025 55750 37475 60 -1
-De 0 0 27 0 0
-Po 0 55511 36568 55600 37025 60 -1
-De 0 0 27 0 0
-Po 0 55350 36250 55511 36568 60 -1
-De 0 0 27 0 0
-Po 0 55350 35900 55350 36250 60 -1
-De 0 0 27 0 0
-Po 0 55600 35475 55450 35750 60 -1
-De 0 0 27 0 0
-Po 0 55450 35750 55350 35900 60 -1
-De 0 0 27 0 0
-Po 0 55700 35450 55600 35475 60 -1
-De 0 0 27 0 0
-Po 3 55700 35450 55700 35450 250 -1
-De 15 1 27 0 0
+De 15 0 25 0 400000
+Po 0 56725 33675 56025 32975 60 -1
+De 15 0 25 0 0
+Po 0 56825 33675 56725 33675 60 -1
+De 15 0 25 0 0
+Po 0 57025 33875 56825 33675 60 -1
+De 15 0 25 0 0
+Po 0 57375 33875 57025 33875 60 -1
+De 15 0 25 0 0
+Po 0 57470 33780 57375 33875 60 -1
+De 15 0 25 0 0
+Po 0 56025 32975 56025 32725 60 -1
+De 15 0 25 0 0
+Po 0 51200 31600 51175 31500 60 -1
+De 0 0 25 0 0
+Po 0 52550 31775 51200 31600 60 -1
+De 0 0 25 0 0
+Po 0 53150 31775 52550 31775 60 -1
+De 0 0 25 0 0
+Po 0 54050 31925 53150 31775 60 -1
+De 0 0 25 0 0
+Po 0 54650 32100 54050 31925 60 -1
+De 0 0 25 0 0
+Po 0 55325 32325 54650 32100 60 -1
+De 0 0 25 0 0
+Po 0 57000 40000 56750 39475 60 -1
+De 0 0 26 0 400000
 Po 0 55802 35602 55700 35450 60 -1
-De 15 0 27 0 0
+De 15 0 26 0 0
+Po 3 55700 35450 55700 35450 250 -1
+De 15 1 26 0 0
+Po 0 55700 35450 55600 35475 60 -1
+De 0 0 26 0 0
+Po 0 55450 35750 55350 35900 60 -1
+De 0 0 26 0 0
+Po 0 55600 35475 55450 35750 60 -1
+De 0 0 26 0 0
+Po 0 55350 35900 55350 36250 60 -1
+De 0 0 26 0 0
+Po 0 55350 36250 55511 36568 60 -1
+De 0 0 26 0 0
+Po 0 55511 36568 55600 37025 60 -1
+De 0 0 26 0 0
+Po 0 55600 37025 55750 37475 60 -1
+De 0 0 26 0 0
+Po 0 55750 37475 55800 37650 60 -1
+De 0 0 26 0 0
+Po 0 55800 37650 55850 37700 60 -1
+De 0 0 26 0 0
+Po 0 55850 37700 55850 38575 60 -1
+De 0 0 26 0 0
+Po 0 55850 38575 56750 39475 60 -1
+De 0 0 26 0 0
+Po 0 55802 35602 56239 35602 60 -1
+De 15 0 26 0 800000
+Po 0 58000 40000 57800 39500 60 -1
+De 0 0 27 0 400000
 Po 0 56239 35799 55800 35800 60 -1
-De 15 0 28 0 400000
-Po 0 57600 39425 57775 39475 60 -1
-De 0 0 28 0 0
+De 15 0 27 0 400000
+Po 0 57600 39425 57800 39500 60 -1
+De 0 0 27 0 0
 Po 0 56975 39400 57600 39425 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 0 56200 38525 56975 39400 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 0 56150 37750 56200 38525 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 0 55675 36625 56150 37750 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 0 55600 36450 55675 36625 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 0 55500 36200 55600 36450 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 0 55650 35875 55500 36200 60 -1
-De 0 0 28 0 0
+De 0 0 27 0 0
 Po 3 55650 35875 55650 35875 250 -1
-De 15 1 28 0 0
+De 15 1 27 0 0
 Po 0 55800 35800 55650 35875 60 -1
-De 15 0 28 0 0
+De 15 0 27 0 0
 Po 0 59239 33389 59239 32986 60 -1
-De 15 0 29 0 400000
+De 15 0 28 0 400000
 Po 0 59125 31575 58500 31425 60 -1
-De 0 0 29 0 0
+De 0 0 28 0 0
 Po 0 59800 32250 59675 31925 60 -1
-De 0 0 29 0 0
+De 0 0 28 0 0
 Po 0 59675 31925 59125 31575 60 -1
-De 0 0 29 0 0
+De 0 0 28 0 0
 Po 0 59400 32825 59800 32250 60 -1
-De 0 0 29 0 0
+De 0 0 28 0 0
 Po 3 59400 32825 59400 32825 250 -1
-De 15 1 29 0 0
+De 15 1 28 0 0
 Po 0 59239 32986 59400 32825 60 -1
-De 15 0 29 0 0
+De 15 0 28 0 0
 Po 0 56239 34618 55382 34618 60 -1
-De 15 0 30 0 400000
+De 15 0 29 0 400000
 Po 0 53325 39400 53200 39525 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 54275 39400 53325 39400 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 54725 38950 54275 39400 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 54725 37125 54725 38950 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 54950 36900 54725 37125 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 54950 36475 54950 36900 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 55075 36350 54950 36475 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 55100 35600 55075 35925 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 55075 35925 55075 36350 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 0 55100 35600 55100 35600 60 -1
-De 0 0 30 0 0
+De 0 0 29 0 0
 Po 3 55100 35600 55100 35600 250 -1
-De 15 1 30 0 0
+De 15 1 29 0 0
 Po 0 55175 34825 55100 35600 60 -1
-De 15 0 30 0 0
+De 15 0 29 0 0
 Po 0 55382 34618 55175 34825 60 -1
-De 15 0 30 0 0
+De 15 0 29 0 0
+Po 0 54000 40000 54375 39625 60 -1
+De 0 0 30 0 400000
 Po 0 56239 34815 55460 34815 60 -1
-De 15 0 31 0 400000
+De 15 0 30 0 400000
 Po 0 55675 38325 54375 39625 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55675 37800 55675 38325 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55409 37196 55675 37800 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55391 36601 55409 37196 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55200 36425 55316 36464 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55316 36464 55391 36601 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55225 35825 55200 36425 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55375 35375 55325 35700 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 0 55325 35700 55225 35825 60 -1
-De 0 0 31 0 0
+De 0 0 30 0 0
 Po 3 55375 35375 55375 35375 250 -1
-De 15 1 31 0 0
+De 15 1 30 0 0
 Po 0 55400 35250 55375 35375 60 -1
-De 15 0 31 0 0
+De 15 0 30 0 0
 Po 0 55400 34875 55400 35250 60 -1
-De 15 0 31 0 0
+De 15 0 30 0 0
 Po 0 55460 34815 55400 34875 60 -1
+De 15 0 30 0 0
+Po 0 56239 36193 56575 36175 60 -1
+De 15 0 31 0 400000
+Po 0 60700 39275 61000 40000 60 -1
+De 0 0 31 0 800000
+Po 0 59975 38925 60700 39275 60 -1
+De 0 0 31 0 0
+Po 0 59825 38025 59975 38925 60 -1
+De 0 0 31 0 0
+Po 0 59475 37675 59825 38025 60 -1
+De 0 0 31 0 0
+Po 0 59300 37375 59475 37675 60 -1
+De 0 0 31 0 0
+Po 0 59325 37050 59300 37375 60 -1
+De 0 0 31 0 0
+Po 0 59375 36250 59325 37050 60 -1
+De 0 0 31 0 0
+Po 0 59000 35800 59375 36250 60 -1
+De 0 0 31 0 0
+Po 3 59000 35800 59000 35800 250 -1
+De 15 1 31 0 0
+Po 0 58125 35800 59000 35800 60 -1
 De 15 0 31 0 0
-Po 0 58452 38075 58452 38902 60 -1
+Po 0 56575 36175 57375 35900 60 -1
+De 15 0 31 0 0
+Po 0 57375 35900 58125 35800 60 -1
+De 15 0 31 0 0
+Po 0 62000 40000 61825 39500 60 -1
+De 15 0 32 0 400000
+Po 0 58452 38075 58450 38400 60 -1
+De 15 0 32 0 400000
+Po 0 61625 39375 61825 39500 60 -1
+De 15 0 32 0 0
+Po 0 59700 39375 61625 39375 60 -1
+De 15 0 32 0 0
+Po 0 59075 39150 59700 39375 60 -1
+De 15 0 32 0 0
+Po 0 58400 38850 59075 39150 60 -1
+De 15 0 32 0 0
+Po 0 58375 38525 58400 38850 60 -1
+De 15 0 32 0 0
+Po 0 58450 38400 58375 38525 60 -1
+De 15 0 32 0 0
+Po 0 63000 40000 62775 39450 60 -1
 De 15 0 33 0 400000
-Po 0 61375 39075 61800 39500 60 -1
-De 0 0 33 0 0
-Po 0 58678 39075 61375 39075 60 -1
-De 0 0 33 0 0
-Po 0 58600 38900 58678 39075 60 -1
-De 0 0 33 0 0
-Po 3 58600 38900 58600 38900 250 -1
-De 15 1 33 0 0
-Po 0 58452 38902 58600 38900 60 -1
+Po 0 58650 38425 58550 38575 60 -1
 De 15 0 33 0 0
-Po 0 58649 38075 58649 38649 60 -1
+Po 0 58550 38575 58575 38725 60 -1
+De 15 0 33 0 0
+Po 0 58575 38725 58700 38825 60 -1
+De 15 0 33 0 0
+Po 0 58700 38825 59750 39200 60 -1
+De 15 0 33 0 0
+Po 0 59750 39200 62200 39125 60 -1
+De 15 0 33 0 0
+Po 0 62200 39125 62775 39450 60 -1
+De 15 0 33 0 0
+Po 0 58650 38425 58649 38075 60 -1
+De 15 0 33 0 800000
+Po 0 64000 40000 64025 38975 60 -1
 De 15 0 34 0 400000
-Po 0 61900 38925 62400 39425 60 -1
-De 0 0 34 0 0
-Po 0 58980 38925 61900 38925 60 -1
-De 0 0 34 0 0
-Po 0 58925 38850 58980 38925 60 -1
-De 0 0 34 0 0
-Po 3 58925 38850 58925 38850 250 -1
-De 15 1 34 0 0
-Po 0 58649 38649 58925 38850 60 -1
-De 15 0 34 0 0
-Po 0 60925 35799 61649 35799 60 -1
-De 15 0 35 0 400000
-Po 0 64025 38975 64025 39225 60 -1
-De 15 0 35 0 0
-Po 0 63300 38250 64025 38975 60 -1
-De 15 0 35 0 0
-Po 0 63300 36450 63300 38250 60 -1
-De 15 0 35 0 0
-Po 0 63050 36200 63300 36450 60 -1
-De 15 0 35 0 0
-Po 0 62025 36200 63050 36200 60 -1
-De 15 0 35 0 0
-Po 0 61950 36125 62025 36200 60 -1
-De 15 0 35 0 0
-Po 0 61950 36100 61950 36125 60 -1
-De 15 0 35 0 0
 Po 0 61649 35799 61950 36100 60 -1
-De 15 0 35 0 0
+De 15 0 34 0 0
+Po 0 61950 36100 61950 36125 60 -1
+De 15 0 34 0 0
+Po 0 61950 36125 62025 36200 60 -1
+De 15 0 34 0 0
+Po 0 62025 36200 63050 36200 60 -1
+De 15 0 34 0 0
+Po 0 63050 36200 63300 36450 60 -1
+De 15 0 34 0 0
+Po 0 63300 36450 63300 38250 60 -1
+De 15 0 34 0 0
+Po 0 63300 38250 64025 38975 60 -1
+De 15 0 34 0 0
+Po 0 61649 35799 60925 35799 60 -1
+De 15 0 34 0 800000
 Po 0 56925 36350 56925 36450 60 -1
-De 0 0 36 0 400000
+De 0 0 35 0 400000
 Po 0 56925 36450 56775 36600 60 -1
-De 0 0 36 0 0
+De 0 0 35 0 0
 Po 0 56239 36586 56761 36586 60 -1
-De 15 0 36 0 400000
+De 15 0 35 0 400000
 Po 0 56800 36750 56950 36900 60 -1
-De 0 0 36 0 800000
+De 0 0 35 0 800000
 Po 0 56800 36625 56800 36750 60 -1
-De 0 0 36 0 0
+De 0 0 35 0 0
 Po 0 56775 36600 56800 36625 60 -1
-De 0 0 36 0 0
+De 0 0 35 0 0
 Po 3 56775 36600 56775 36600 250 -1
-De 15 1 36 0 0
+De 15 1 35 0 0
 Po 0 56761 36586 56775 36600 60 -1
-De 15 0 36 0 0
+De 15 0 35 0 0
 Po 0 56239 35405 58720 35405 60 -1
-De 15 0 37 0 400000
+De 15 0 36 0 400000
 Po 0 65200 31950 65025 31950 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 65425 32175 65200 31950 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 65425 32925 65425 32175 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 64250 32975 65425 32925 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 63400 33350 64250 32975 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 62300 33325 63400 33350 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 60875 33325 62300 33325 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 58720 35405 59500 35225 60 -1
-De 15 0 37 0 0
+De 15 0 36 0 0
 Po 0 59500 35225 60875 33325 60 -1
-De 15 0 37 0 0
-Po 0 53425 35325 53700 35275 60 -1
-De 15 0 38 0 0
-Po 0 53675 35525 53975 35500 60 -1
-De 15 0 38 0 800000
-Po 0 53700 35275 53675 35525 60 -1
-De 15 0 38 0 0
-Po 0 52350 34600 52775 34600 60 -1
-De 15 0 38 0 400000
-Po 0 53650 34875 53975 34900 60 -1
-De 15 0 38 0 800000
-Po 0 52775 34600 52800 35325 60 -1
-De 15 0 38 0 0
-Po 0 52800 35325 53425 35325 60 -1
-De 15 0 38 0 0
-Po 0 53425 35325 53650 34875 60 -1
-De 15 0 38 0 0
+De 15 0 36 0 0
 Po 0 56239 35012 56525 35000 60 -1
-De 15 0 39 0 400000
+De 15 0 37 0 400000
 Po 0 56601 34776 56601 34458 60 -1
-De 0 0 39 0 800000
+De 0 0 37 0 800000
 Po 0 56725 34850 56601 34776 60 -1
-De 0 0 39 0 0
+De 0 0 37 0 0
 Po 3 56725 34850 56725 34850 250 -1
-De 15 1 39 0 0
+De 15 1 37 0 0
 Po 0 56525 35000 56725 34850 60 -1
-De 15 0 39 0 0
+De 15 0 37 0 0
 Po 0 56239 37177 56702 37177 60 -1
-De 15 0 40 0 400000
+De 15 0 38 0 400000
 Po 0 59950 36975 59950 36975 60 -1
-De 15 0 40 0 0
+De 15 0 38 0 0
 Po 0 59325 37025 59950 36975 60 -1
-De 15 0 40 0 0
-Po 0 56854 37025 59325 37025 60 -1
-De 15 0 40 0 0
-Po 0 56702 37177 56854 37025 60 -1
-De 15 0 40 0 0
-Po 0 59950 36975 59575 36977 60 -1
-De 15 0 40 0 0
-Po 0 59575 36977 59950 36975 60 -1
-De 15 0 40 0 0
-Po 0 59950 36975 59575 36977 60 -1
-De 15 0 40 0 0
-Po 0 59625 33825 59945 35571 60 -1
-De 0 0 40 0 0
-Po 0 59945 35571 59950 36975 60 -1
-De 0 0 40 0 0
+De 15 0 38 0 0
+Po 0 56854 37125 58625 37125 60 -1
+De 15 0 38 0 0
+Po 0 58625 37125 59325 37025 60 -1
+De 15 0 38 0 0
+Po 0 56702 37177 56854 37125 60 -1
+De 15 0 38 0 0
+Po 0 59950 36975 60150 36925 60 -1
+De 15 0 38 0 0
+Po 0 60150 36925 59950 36975 60 -1
+De 15 0 38 0 0
+Po 0 59950 36975 60150 36925 60 -1
+De 15 0 38 0 0
+Po 0 59625 33825 60250 36350 60 -1
+De 0 0 38 0 0
+Po 0 60250 36350 59950 36975 60 -1
+De 0 0 38 0 0
 Po 0 59625 33825 59625 33825 60 -1
-De 15 0 40 0 0
+De 15 0 38 0 0
 Po 3 59625 33825 59625 33825 250 -1
-De 15 1 40 0 0
+De 15 1 38 0 0
 Po 0 59633 33382 59625 33825 60 -1
-De 15 0 40 0 400000
+De 15 0 38 0 400000
 Po 3 59950 36975 59950 36975 250 -1
-De 15 1 40 0 0
+De 15 1 38 0 0
 Po 0 60420 36980 60925 36980 60 -1
-De 15 0 40 0 800000
-Po 0 59575 36977 60420 36980 60 -1
-De 15 0 40 0 0
+De 15 0 38 0 800000
+Po 0 60150 36925 60420 36980 60 -1
+De 15 0 38 0 0
 Po 0 50175 35975 50100 36050 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 51525 38250 51800 38475 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 3 51800 38475 51800 38475 250 -1
-De 15 1 41 0 0
+De 15 1 39 0 0
 Po 0 51800 38475 52050 38725 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 52050 38725 52625 38725 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 52625 38725 52750 38850 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 52750 38850 54525 38850 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 54525 38850 54925 39175 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 54925 39175 57900 39175 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 58029 39190 58090 39060 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 57900 39175 58029 39190 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 57665 38075 57665 38375 60 -1
-De 15 0 41 0 400000
+De 15 0 39 0 400000
 Po 0 57850 38525 57665 38375 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 58100 38575 57850 38525 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 58175 38750 58100 38575 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 58175 38925 58175 38750 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 58090 39060 58175 38925 60 -1
-De 15 0 41 0 0
+De 15 0 39 0 0
 Po 0 49575 35100 49572 34825 60 -1
-De 0 0 41 0 800000
+De 0 0 39 0 800000
 Po 0 51350 37925 51525 38125 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 51335 37719 51350 37925 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 51062 37400 51335 37719 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50775 37400 51062 37400 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50775 36925 50775 37400 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50750 36550 50775 36925 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50225 35447 50175 35975 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 49977 35175 50225 35447 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 49613 35175 49977 35175 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 49575 35100 49613 35175 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 51525 38125 51525 38250 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50475 36550 50750 36550 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50375 36450 50475 36550 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50175 36450 50375 36450 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50100 36375 50175 36450 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 50100 36050 50100 36375 60 -1
-De 0 0 41 0 0
+De 0 0 39 0 0
 Po 0 49316 33125 49316 32534 60 -1
-De 0 0 42 0 400000
+De 0 0 40 0 400000
 Po 0 57862 37562 57862 38075 60 -1
-De 15 0 42 0 800000
+De 15 0 40 0 800000
 Po 0 57800 37500 57862 37562 60 -1
-De 15 0 42 0 0
+De 15 0 40 0 0
 Po 3 57800 37500 57800 37500 250 -1
-De 15 1 42 0 0
+De 15 1 40 0 0
 Po 0 57800 36950 57800 37500 60 -1
-De 0 0 42 0 0
-Po 0 57975 36775 57800 36950 60 -1
-De 0 0 42 0 0
-Po 3 57975 36775 57975 36775 250 -1
-De 15 1 42 0 0
-Po 0 58650 36775 57975 36775 60 -1
-De 15 0 42 0 0
-Po 3 58650 36775 58650 36775 250 -1
-De 15 1 42 0 0
+De 0 0 40 0 0
+Po 0 57950 36625 57800 36950 60 -1
+De 0 0 40 0 0
+Po 3 57950 36625 57950 36625 250 -1
+De 15 1 40 0 0
+Po 0 58625 36625 57950 36625 60 -1
+De 15 0 40 0 0
+Po 3 58625 36625 58625 36625 250 -1
+De 15 1 40 0 0
 Po 0 59225 32050 59275 32450 60 -1
-De 0 0 42 0 0
+De 0 0 40 0 0
 Po 0 59275 32450 58650 33825 60 -1
-De 0 0 42 0 0
-Po 0 58650 33825 58650 36775 60 -1
-De 0 0 42 0 0
+De 0 0 40 0 0
+Po 0 58650 33825 58625 36625 60 -1
+De 0 0 40 0 0
 Po 0 58450 31800 59225 32050 60 -1
-De 0 0 42 0 0
+De 0 0 40 0 0
 Po 3 58450 31800 58450 31800 250 -1
-De 15 1 42 0 0
+De 15 1 40 0 0
 Po 0 49950 31900 54600 31900 60 -1
-De 15 0 42 0 0
+De 15 0 40 0 0
 Po 0 54600 31900 54850 31550 60 -1
-De 15 0 42 0 0
+De 15 0 40 0 0
 Po 0 54850 31550 58050 31557 60 -1
-De 15 0 42 0 0
+De 15 0 40 0 0
 Po 0 58050 31557 58450 31800 60 -1
-De 15 0 42 0 0
+De 15 0 40 0 0
 Po 0 49675 32175 49950 31900 60 -1
-De 15 0 42 0 0
+De 15 0 40 0 0
 Po 3 49675 32175 49675 32175 250 -1
-De 15 1 42 0 0
+De 15 1 40 0 0
 Po 0 49316 32534 49675 32175 60 -1
-De 0 0 42 0 0
-Po 0 59436 38075 59436 37661 60 -1
-De 15 0 43 0 400000
+De 0 0 40 0 0
+Po 0 59436 38075 59429 37750 60 -1
+De 15 0 41 0 400000
 Po 0 60575 37000 61975 37000 60 -1
-De 0 0 43 0 800000
+De 0 0 41 0 800000
 Po 0 60400 37200 60575 37000 60 -1
-De 0 0 43 0 0
+De 0 0 41 0 0
 Po 3 60400 37200 60400 37200 250 -1
-De 15 1 43 0 0
-Po 0 59450 37200 60400 37200 60 -1
-De 15 0 43 0 0
-Po 0 59400 37250 59450 37200 60 -1
-De 15 0 43 0 0
-Po 3 59400 37250 59400 37250 250 -1
-De 15 1 43 0 0
-Po 0 59400 37625 59400 37250 60 -1
-De 0 0 43 0 0
-Po 0 59425 37650 59400 37625 60 -1
-De 0 0 43 0 0
-Po 3 59425 37650 59425 37650 250 -1
-De 15 1 43 0 0
-Po 0 59436 37661 59425 37650 60 -1
-De 15 0 43 0 0
+De 15 1 41 0 0
+Po 0 60053 37230 60400 37200 60 -1
+De 15 0 41 0 0
+Po 0 59825 37400 60053 37230 60 -1
+De 15 0 41 0 0
+Po 0 59429 37750 59825 37400 60 -1
+De 15 0 41 0 0
 Po 0 61750 37600 61950 37600 60 -1
-De 15 0 44 0 400000
+De 15 0 42 0 400000
 Po 0 62000 38150 61795 38150 60 -1
-De 15 0 44 0 800000
+De 15 0 42 0 800000
 Po 0 62050 38100 62000 38150 60 -1
-De 15 0 44 0 0
+De 15 0 42 0 0
 Po 0 62050 37700 62050 38100 60 -1
-De 15 0 44 0 0
+De 15 0 42 0 0
 Po 0 61950 37600 62050 37700 60 -1
-De 15 0 44 0 0
+De 15 0 42 0 0
 Po 0 54575 36125 55829 36125 60 -1
-De 15 0 45 0 400000
+De 15 0 43 0 400000
 Po 0 56235 36000 56239 35996 60 -1
-De 15 0 45 0 800000
+De 15 0 43 0 800000
 Po 0 55904 36000 56235 36000 60 -1
-De 15 0 45 0 0
+De 15 0 43 0 0
 Po 0 55829 36125 55904 36000 60 -1
-De 15 0 45 0 0
+De 15 0 43 0 0
 Po 0 54575 34900 54725 34900 60 -1
-De 15 0 46 0 400000
+De 15 0 44 0 400000
 Po 0 57100 34425 57250 34525 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 56675 33950 56975 34200 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 56975 34200 57100 34425 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 55150 33950 56675 33950 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 54900 34350 54900 34125 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 54900 34125 55150 33950 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 54725 34900 54900 34350 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 57250 34525 57250 34525 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 57250 34525 57500 34600 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 57500 34600 57700 34600 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 57700 34600 58024 34595 60 -1
-De 15 0 46 0 0
-Po 0 58024 34595 58188 34511 60 -1
-De 15 0 46 0 0
-Po 0 58188 34511 58775 34525 60 -1
-De 15 0 46 0 0
-Po 0 58775 34525 58975 34300 60 -1
-De 15 0 46 0 0
-Po 0 58975 34300 59094 34050 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
+Po 0 58024 34595 58850 34150 60 -1
+De 15 0 44 0 0
+Po 0 58850 34150 59094 34050 60 -1
+De 15 0 44 0 0
 Po 0 59094 34050 59425 33700 60 -1
-De 15 0 46 0 0
+De 15 0 44 0 0
 Po 0 59425 33700 59436 33389 60 -1
-De 15 0 46 0 800000
+De 15 0 44 0 800000
 Po 0 59830 38075 59830 38680 60 -1
-De 15 0 47 0 400000
+De 15 0 45 0 400000
 Po 0 59925 38775 60275 38625 60 -1
-De 15 0 47 0 800000
+De 15 0 45 0 800000
 Po 0 59830 38680 59925 38775 60 -1
-De 15 0 47 0 0
+De 15 0 45 0 0
 Po 3 61500 34350 61500 34350 250 -1
-De 15 1 48 0 0
+De 15 1 46 0 0
 Po 0 61429 34421 61500 34350 60 -1
-De 15 0 48 0 0
+De 15 0 46 0 0
 Po 0 60925 34421 61429 34421 60 -1
-De 15 0 48 0 400000
+De 15 0 46 0 400000
 Po 0 61500 34350 61500 34375 60 -1
-De 0 0 48 0 800000
+De 0 0 46 0 800000
 Po 0 48800 36350 48900 36450 60 -1
-De 15 0 49 0 0
+De 15 0 47 0 0
 Po 0 48900 36450 48975 36625 60 -1
-De 15 0 49 0 0
+De 15 0 47 0 0
 Po 0 48000 36000 48400 36000 60 -1
-De 15 0 49 0 400000
+De 15 0 47 0 400000
 Po 0 48875 36275 48950 36050 60 -1
-De 15 0 49 0 0
+De 15 0 47 0 0
 Po 0 48800 36350 48875 36275 60 -1
-De 15 0 49 0 0
+De 15 0 47 0 0
 Po 0 48500 36350 48800 36350 60 -1
-De 15 0 49 0 0
+De 15 0 47 0 0
 Po 0 48400 36000 48500 36350 60 -1
-De 15 0 49 0 0
+De 15 0 47 0 0
 Po 0 47000 40000 47000 38834 60 -1
-De 0 0 50 0 400000
+De 0 0 48 0 400000
 Po 0 47000 38834 47094 38740 60 -1
-De 0 0 50 0 800000
+De 0 0 48 0 800000
 Po 0 51925 39050 51450 39050 60 -1
-De 0 0 52 0 400000
+De 0 0 49 0 400000
 Po 0 46425 31575 47000 31000 60 -1
-De 0 0 52 0 800000
+De 0 0 49 0 800000
 Po 0 46425 40325 46425 31575 60 -1
-De 0 0 52 0 0
+De 0 0 49 0 0
 Po 0 46700 40600 46425 40325 60 -1
-De 0 0 52 0 0
+De 0 0 49 0 0
 Po 0 51250 40600 46700 40600 60 -1
-De 0 0 52 0 0
+De 0 0 49 0 0
 Po 0 51500 40350 51250 40600 60 -1
-De 0 0 52 0 0
+De 0 0 49 0 0
 Po 0 51500 39100 51500 40350 60 -1
-De 0 0 52 0 0
+De 0 0 49 0 0
 Po 0 51450 39050 51500 39100 60 -1
-De 0 0 52 0 0
+De 0 0 49 0 0
 Po 0 47725 32725 48025 32725 60 -1
-De 15 0 52 0 400000
+De 15 0 49 0 400000
 Po 0 47950 32100 47854 32100 60 -1
-De 15 0 52 0 800000
+De 15 0 49 0 800000
 Po 0 48025 32175 47950 32100 60 -1
-De 15 0 52 0 0
+De 15 0 49 0 0
 Po 0 48025 32725 48025 32175 60 -1
-De 15 0 52 0 0
+De 15 0 49 0 0
 Po 0 47000 31000 47000 31025 60 -1
-De 15 0 52 0 400000
+De 15 0 49 0 400000
 Po 0 47650 32100 47854 32100 60 -1
-De 15 0 52 0 800000
+De 15 0 49 0 800000
 Po 0 47475 31925 47650 32100 60 -1
-De 15 0 52 0 0
+De 15 0 49 0 0
 Po 0 47475 31500 47475 31925 60 -1
-De 15 0 52 0 0
+De 15 0 49 0 0
 Po 0 47000 31025 47475 31500 60 -1
-De 15 0 52 0 0
+De 15 0 49 0 0
 Po 0 59633 38075 59633 37742 60 -1
-De 15 0 59 0 400000
+De 15 0 56 0 400000
 Po 0 61736 36439 62543 36439 60 -1
-De 15 0 59 0 800000
+De 15 0 56 0 800000
 Po 0 61400 36675 61736 36439 60 -1
-De 15 0 59 0 0
+De 15 0 56 0 0
 Po 3 61400 36675 61400 36675 250 -1
-De 15 1 59 0 0
+De 15 1 56 0 0
 Po 0 60375 36675 61400 36675 60 -1
-De 0 0 59 0 0
+De 0 0 56 0 0
 Po 0 60056 37290 60375 36675 60 -1
-De 0 0 59 0 0
+De 0 0 56 0 0
 Po 0 60050 37525 60056 37290 60 -1
-De 0 0 59 0 0
+De 0 0 56 0 0
 Po 3 60050 37525 60050 37525 250 -1
-De 15 1 59 0 0
+De 15 1 56 0 0
 Po 0 59633 37742 60050 37525 60 -1
-De 15 0 59 0 0
+De 15 0 56 0 0
 Po 0 50975 38000 50975 38225 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 3 51000 38250 51000 38250 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 50975 38225 51000 38250 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 51275 36125 51275 36525 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 3 51200 36600 51200 36600 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 51200 36600 51450 36600 60 -1
-De 15 0 60 0 800000
+De 15 0 57 0 800000
 Po 0 51275 36525 51200 36600 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 57468 38075 57468 38393 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 57925 38850 57700 38850 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 3 57925 38850 57925 38850 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 57468 38393 57925 38850 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 60900 33825 60725 33825 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 60624 34224 60925 34224 60 -1
-De 15 0 60 0 800000
+De 15 0 57 0 800000
 Po 0 60550 34150 60624 34224 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 3 60550 34150 60550 34150 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 60550 34000 60550 34150 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 60725 33825 60550 34000 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 60027 38075 60150 38075 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 60225 38000 60225 38250 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 0 60250 37975 60225 38000 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 3 60250 37975 60250 37975 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 60150 38075 60250 37975 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 55700 34300 55800 34275 60 -1
-De 1 0 60 0 0
+De 1 0 57 0 0
 Po 0 57075 35750 57175 35650 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 3 57175 35650 57175 35650 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 57075 35750 56925 35750 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 0 55800 34275 57175 35650 60 -1
-De 1 0 60 0 0
+De 1 0 57 0 0
 Po 0 57100 35250 57100 35575 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 57100 35575 56925 35750 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 0 55825 34475 55750 34300 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 55850 34200 55700 34300 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 55750 34300 55850 34200 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 57077 33389 56764 33389 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 56600 33225 56601 33226 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 3 56600 33225 56600 33225 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 56764 33389 56600 33225 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 56239 34224 55824 34224 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 55824 34224 55700 34300 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 3 55700 34300 55700 34300 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 52550 38000 52400 38200 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 53475 37125 53550 36950 60 -1
-De 1 0 60 0 0
+De 1 0 57 0 0
 Po 0 52400 38200 53475 37125 60 -1
-De 1 0 60 0 0
+De 1 0 57 0 0
 Po 3 52400 38200 52400 38200 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 50975 38000 51025 37850 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 50525 37375 50375 37400 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 0 50525 37500 50525 37375 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 50700 37850 50525 37500 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 51025 37850 50700 37850 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 53400 37225 53400 36950 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 53400 36950 53550 36950 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 53826 37114 54275 37091 60 -1
-De 15 0 60 0 800000
+De 15 0 57 0 800000
 Po 0 53550 36950 53826 37114 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 3 53550 36950 53550 36950 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 53550 36950 53550 36950 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 52125 32975 51925 32975 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 51225 32275 51150 32275 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 51925 32975 51225 32275 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 51125 32525 51125 32300 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 51050 32375 50375 32375 60 -1
-De 15 0 60 0 800000
+De 15 0 57 0 800000
 Po 0 51150 32275 51050 32375 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 3 51150 32275 51150 32275 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 51125 32300 51150 32275 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 52350 33800 51875 33800 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 51125 33725 51125 33850 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 0 51275 33575 51125 33725 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 3 51275 33575 51275 33575 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 51700 33625 51275 33575 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 51875 33800 51700 33625 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 51125 33850 51125 33675 60 -1
-De 0 0 60 0 400000
+De 0 0 57 0 400000
 Po 0 50650 33750 50600 33800 60 -1
-De 15 0 60 0 800000
+De 15 0 57 0 800000
 Po 0 50650 33725 50650 33750 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 50825 33475 50650 33725 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 3 50825 33475 50825 33475 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 51075 33625 50825 33475 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 51125 33675 51075 33625 60 -1
-De 0 0 60 0 0
+De 0 0 57 0 0
 Po 0 57077 33389 57075 33075 60 -1
-De 15 0 60 0 400000
+De 15 0 57 0 400000
 Po 0 56825 32775 56850 32675 60 -1
-De 0 0 60 0 800000
+De 0 0 57 0 800000
 Po 3 56825 32775 56825 32775 250 -1
-De 15 1 60 0 0
+De 15 1 57 0 0
 Po 0 57075 33075 56825 32775 60 -1
-De 15 0 60 0 0
+De 15 0 57 0 0
 Po 0 54075 33450 54075 33125 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 3 53925 32975 53925 32975 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 54075 33125 53925 32975 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 0 51350 37000 51350 37325 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 3 51350 37325 51350 37325 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 50675 36125 50450 36125 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 3 50350 36225 50350 36225 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 50350 36225 50450 36225 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 50450 36125 50350 36225 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 0 55625 35125 56275 35125 60 -1
-De 2 0 61 0 0
-Po 0 57700 36150 57550 36650 60 -1
-De 2 0 61 0 0
-Po 0 57575 36025 57700 36150 60 -1
-De 2 0 61 0 0
-Po 0 56350 36025 57575 36025 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
+Po 0 56350 36025 57550 36650 60 -1
+De 2 0 58 0 0
+Po 0 56350 36025 56350 36025 60 -1
+De 2 0 58 0 0
+Po 0 56350 36025 56350 36025 60 -1
+De 2 0 58 0 0
 Po 0 56275 35125 56350 36025 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 57550 36650 57700 37000 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 57700 37000 57475 37225 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 57475 37225 57475 38200 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 57475 38200 56850 38825 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 57550 36725 57550 36650 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 0 57550 36900 57550 36725 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 3 57550 36650 57550 36650 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 57271 38075 57271 38404 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 56875 38850 57100 38850 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 56850 38825 56875 38850 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 56850 38825 56850 38825 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 57271 38404 56850 38825 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 61500 34975 61525 34975 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 61525 33825 61625 33925 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 61625 33925 61625 33925 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 61525 33825 61500 33825 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 3 61500 34975 61500 34975 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 61825 34125 61625 33925 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 61825 34675 61825 34125 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 61525 34975 61825 34675 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 62550 37700 61875 37700 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 62543 37693 62550 37700 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 3 62550 37700 62550 37700 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 62543 37439 62543 37693 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 61875 37700 61100 38475 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 61100 38475 61100 38725 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 61050 38775 60875 38625 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 61100 38725 61050 38775 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 60825 38250 60875 38250 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 61205 38370 61205 38150 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 61100 38475 61205 38370 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 3 61100 38475 61100 38475 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 60875 38250 61100 38475 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 0 55625 35125 55575 35250 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 3 55625 35125 55625 35125 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 55825 35075 55625 35125 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 56375 34525 57375 34300 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 55575 35250 56375 34525 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 56239 36389 55814 36389 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 3 55825 36400 55825 36400 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 55814 36389 55825 36400 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 57367 34458 57349 34458 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 57375 34300 57367 34458 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 57375 34300 57375 34300 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 53025 33725 52075 33725 60 -1
-De 0 0 61 0 C00000
+De 0 0 58 0 C00000
 Po 0 53700 34250 53700 34921 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 53700 34921 53729 35000 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 53025 34475 53475 34475 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 53475 34475 53700 34250 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 53025 34475 52075 34475 60 -1
-De 0 0 61 0 C00000
+De 0 0 58 0 C00000
 Po 0 49075 32925 49050 32925 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 49075 32500 49000 32500 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 49075 32725 49075 32500 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 49075 32725 49075 32725 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 49050 32925 49075 32725 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 48700 34875 48700 35075 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 48975 35350 48975 35675 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 48700 35075 48975 35350 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 52075 33725 52075 33650 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 52075 33650 52525 33200 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 52525 33200 52525 33200 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 52525 33200 52500 33175 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 52500 33175 52125 33175 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 50025 33950 49750 33950 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 49750 33950 48700 35000 60 -1
-De 2 0 61 0 0
+De 2 0 58 0 0
 Po 0 49075 32925 48875 32925 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 3 50025 33950 50025 33950 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 49500 33425 50025 33950 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 49025 33425 49500 33425 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 48850 33250 49025 33425 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 48850 32950 48850 33250 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 48875 32925 48850 32950 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 53025 33725 53025 34475 60 -1
-De 0 0 61 0 C00000
+De 0 0 58 0 C00000
 Po 0 52075 33725 52075 34475 60 -1
-De 0 0 61 0 C00000
+De 0 0 58 0 C00000
 Po 0 50975 35050 50975 34925 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 51125 34775 51125 34450 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 50975 34925 51125 34775 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 0 53400 37825 53250 37900 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 53250 37900 52575 37859 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 3 53250 37900 53250 37900 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 47125 32725 46975 32725 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 46875 32125 47000 32000 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 46875 32650 46875 32125 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 46975 32725 46875 32650 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 48550 34525 48700 35000 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 48700 35000 48700 34875 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 3 48700 35000 48700 35000 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 49425 38624 49425 38850 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 49350 38775 49350 38525 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 0 49425 38850 49350 38775 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 49425 38850 49425 38850 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 49550 38624 49425 38624 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 49425 38624 49294 38624 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 51125 33125 51150 33125 60 -1
-De 0 0 61 0 400000
+De 0 0 58 0 400000
 Po 0 51150 33125 51275 33000 60 -1
-De 0 0 61 0 0
+De 0 0 58 0 0
 Po 3 51275 33000 51275 33000 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 51275 33000 51475 33200 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 51475 33200 52100 33200 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 52100 33200 52125 33175 60 -1
-De 15 0 61 0 800000
+De 15 0 58 0 800000
 Po 0 57274 33389 57275 33050 60 -1
-De 15 0 61 0 400000
+De 15 0 58 0 400000
 Po 0 57450 32775 57450 32675 60 -1
-De 0 0 61 0 800000
+De 0 0 58 0 800000
 Po 3 57450 32775 57450 32775 250 -1
-De 15 1 61 0 0
+De 15 1 58 0 0
 Po 0 57275 33050 57450 32775 60 -1
-De 15 0 61 0 0
+De 15 0 58 0 0
 Po 0 60925 35208 61642 35208 60 -1
-De 15 0 62 0 400000
+De 15 0 59 0 400000
 Po 0 62200 35939 62543 35939 60 -1
-De 15 0 62 0 800000
+De 15 0 59 0 800000
 Po 0 62100 35900 62200 35939 60 -1
-De 15 0 62 0 0
+De 15 0 59 0 0
 Po 3 62100 35900 62100 35900 250 -1
-De 15 1 62 0 0
+De 15 1 59 0 0
 Po 0 62100 35200 62100 35900 60 -1
-De 0 0 62 0 0
+De 0 0 59 0 0
 Po 0 62100 35200 62100 35200 60 -1
-De 0 0 62 0 0
+De 0 0 59 0 0
 Po 3 62100 35200 62100 35200 250 -1
-De 15 1 62 0 0
+De 15 1 59 0 0
 Po 0 61642 35208 62100 35200 60 -1
-De 15 0 62 0 0
+De 15 0 59 0 0
 Po 0 60925 35405 61925 35400 60 -1
-De 15 0 63 0 400000
+De 15 0 60 0 400000
 Po 0 62175 35450 62543 35439 60 -1
-De 15 0 63 0 800000
+De 15 0 60 0 800000
 Po 0 61925 35400 62175 35450 60 -1
-De 15 0 63 0 0
+De 15 0 60 0 0
 Po 0 51260 39260 51520 39260 60 -1
-De 15 0 64 0 400000
+De 15 0 61 0 400000
 Po 0 51520 39260 51785 39220 60 -1
-De 15 0 64 0 800000
+De 15 0 61 0 800000
 Po 0 53284 33525 53284 34916 60 -1
-De 15 0 65 0 400000
+De 15 0 62 0 400000
 Po 0 53025 35175 53025 35775 60 -1
-De 0 0 65 0 800000
+De 0 0 62 0 800000
 Po 0 53125 35075 53025 35175 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 3 53125 35075 53125 35075 250 -1
-De 15 1 65 0 0
+De 15 1 62 0 0
 Po 0 53284 34916 53125 35075 60 -1
-De 15 0 65 0 0
+De 15 0 62 0 0
 Po 0 52925 36525 53250 36525 60 -1
-De 0 0 65 0 400000
+De 0 0 62 0 400000
 Po 0 53375 36425 53375 36300 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53250 36525 53375 36425 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53375 36300 53375 36325 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53375 36325 53375 36300 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53725 36200 53725 36275 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53850 36400 54100 36400 60 -1
-De 0 0 65 0 800000
+De 0 0 62 0 800000
 Po 0 53725 36275 53850 36400 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53025 35775 53025 36200 60 -1
-De 0 0 65 0 400000
+De 0 0 62 0 400000
 Po 0 53775 35775 54100 35775 60 -1
-De 0 0 65 0 800000
+De 0 0 62 0 800000
 Po 0 53725 35825 53775 35775 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53725 36200 53725 35825 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53625 36300 53725 36200 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53125 36300 53375 36300 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53375 36300 53625 36300 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 53025 36200 53125 36300 60 -1
-De 0 0 65 0 0
+De 0 0 62 0 0
 Po 0 54450 33450 54725 33450 60 -1
-De 0 0 66 0 400000
+De 0 0 63 0 400000
 Po 0 54950 33450 54950 33200 60 -1
-De 0 0 66 0 800000
+De 0 0 63 0 800000
 Po 0 54725 33450 54950 33450 60 -1
-De 0 0 66 0 0
+De 0 0 63 0 0
 Po 0 54700 36400 54850 36400 60 -1
-De 0 0 67 0 400000
+De 0 0 64 0 400000
 Po 0 54950 36019 54875 35925 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54875 35925 54850 35775 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54950 36300 54950 36019 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54850 36400 54950 36300 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54475 34250 54550 34250 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54850 35775 54700 35775 60 -1
-De 0 0 67 0 800000
+De 0 0 64 0 800000
 Po 0 54875 35650 54850 35775 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54875 35400 54875 35650 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54675 35400 54875 35400 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54500 35225 54675 35400 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54500 34775 54500 35225 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54575 34700 54500 34775 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54575 34275 54575 34700 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54550 34250 54575 34275 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 53700 33450 53750 33850 60 -1
-De 0 0 67 0 400000
+De 0 0 64 0 400000
 Po 0 54475 34250 54300 34250 60 -1
-De 0 0 67 0 800000
+De 0 0 64 0 800000
 Po 0 54575 34150 54475 34250 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54575 33950 54575 34150 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54475 33850 54575 33950 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54050 33850 54475 33850 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 53750 33850 54050 33850 60 -1
-De 0 0 67 0 0
+De 0 0 64 0 0
 Po 0 54450 32450 54450 32875 60 -1
-De 0 0 68 0 400000
+De 0 0 65 0 400000
 Po 0 54466 32909 54466 33525 60 -1
-De 15 0 68 0 800000
+De 15 0 65 0 800000
 Po 0 54475 32900 54466 32909 60 -1
-De 15 0 68 0 0
+De 15 0 65 0 0
 Po 3 54475 32900 54475 32900 250 -1
-De 15 1 68 0 0
+De 15 1 65 0 0
 Po 0 54450 32875 54475 32900 60 -1
-De 0 0 68 0 0
+De 0 0 65 0 0
 Po 0 54950 32600 54950 32450 60 -1
-De 0 0 68 0 400000
+De 0 0 65 0 400000
 Po 0 54950 32450 54450 32450 60 -1
-De 0 0 68 0 800000
+De 0 0 65 0 800000
 Po 0 54466 33525 54600 33525 60 -1
-De 15 0 68 0 400000
+De 15 0 65 0 400000
 Po 0 54600 33525 54850 33875 60 -1
-De 15 0 68 0 0
+De 15 0 65 0 0
 Po 3 54850 33875 54850 33875 250 -1
-De 15 1 68 0 0
+De 15 1 65 0 0
 Po 0 54850 33875 54875 34550 60 -1
-De 0 0 68 0 0
+De 0 0 65 0 0
 Po 0 54875 34550 55150 35075 60 -1
-De 0 0 68 0 0
+De 0 0 65 0 0
 Po 0 55150 35075 55225 35000 60 -1
-De 0 0 68 0 0
+De 0 0 65 0 0
 Po 0 55225 35000 55021 35000 60 -1
-De 0 0 68 0 800000
+De 0 0 65 0 800000
 Po 0 52075 31975 52825 31975 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 52825 31975 53025 32050 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 53500 32000 53697 32027 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 54075 32375 54075 32450 60 -1
-De 0 0 69 0 800000
+De 0 0 66 0 800000
 Po 0 54075 32100 54075 32375 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 53697 32027 54075 32100 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 53025 32425 53025 32050 60 -1
-De 0 0 69 0 400000
+De 0 0 66 0 400000
 Po 0 53700 32125 53700 32450 60 -1
-De 0 0 69 0 800000
+De 0 0 66 0 800000
 Po 0 53500 32000 53700 32125 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 53075 32000 53500 32000 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 53025 32050 53075 32000 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 50650 31850 50650 32425 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 50600 32475 50700 32275 60 -1
-De 0 0 69 0 800000
+De 0 0 66 0 800000
 Po 0 50650 32425 50600 32475 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 49375 31700 50650 31850 60 -1
-De 0 0 69 0 400000
+De 0 0 66 0 400000
 Po 0 50650 31850 52075 31975 60 -1
-De 0 0 69 0 0
+De 0 0 66 0 0
 Po 0 52075 31975 52075 32425 60 -1
-De 0 0 69 0 800000
+De 0 0 66 0 800000
 Po 0 48800 32025 48800 31950 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 0 48900 31850 48775 31700 60 -1
-De 0 0 70 0 800000
+De 0 0 67 0 800000
 Po 0 48800 31950 48900 31850 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 0 48375 31725 48500 31725 60 -1
-De 15 0 70 0 0
+De 15 0 67 0 0
 Po 0 48475 32475 48400 32500 60 -1
-De 0 0 70 0 800000
+De 0 0 67 0 800000
 Po 0 48325 32325 48475 32475 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 0 48325 32150 48325 32325 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 0 48425 32050 48325 32150 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 0 48775 32050 48425 32050 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 0 48800 32025 48775 32050 60 -1
-De 0 0 70 0 0
+De 0 0 67 0 0
 Po 3 48800 32025 48800 32025 250 -1
-De 15 1 70 0 0
+De 15 1 67 0 0
 Po 0 48500 31725 48800 32025 60 -1
-De 15 0 70 0 0
+De 15 0 67 0 0
 Po 0 49400 32100 49146 32100 60 -1
-De 15 0 70 0 800000
+De 15 0 67 0 800000
 Po 0 49525 31975 49400 32100 60 -1
-De 15 0 70 0 0
+De 15 0 67 0 0
 Po 0 49525 31875 49525 31975 60 -1
-De 15 0 70 0 0
+De 15 0 67 0 0
 Po 0 49375 31725 49525 31875 60 -1
-De 15 0 70 0 0
+De 15 0 67 0 0
 Po 0 48375 31725 49375 31725 60 -1
-De 15 0 70 0 0
+De 15 0 67 0 0
 Po 0 52125 32375 52528 32378 60 -1
-De 15 0 71 0 400000
+De 15 0 68 0 400000
 Po 0 52528 32378 52948 32025 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 52948 32025 54775 32025 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 54775 32025 55175 31725 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 55175 31725 57972 31725 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 57972 31725 58300 32100 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 58300 32100 58600 32075 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 58600 32075 58825 31675 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 58825 31675 60888 31888 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 61650 36000 60925 35996 60 -1
-De 15 0 71 0 800000
+De 15 0 68 0 800000
 Po 0 61575 36200 61650 36000 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 3 61575 36200 61575 36200 250 -1
-De 15 1 71 0 0
+De 15 1 68 0 0
 Po 0 61775 32875 61875 33700 60 -1
-De 0 0 71 0 0
+De 0 0 68 0 0
 Po 0 61875 33700 61875 35025 60 -1
-De 0 0 71 0 0
+De 0 0 68 0 0
 Po 0 61875 35025 61575 36200 60 -1
-De 0 0 71 0 0
+De 0 0 68 0 0
 Po 3 61775 32875 61775 32875 250 -1
-De 15 1 71 0 0
+De 15 1 68 0 0
 Po 0 61650 32800 61775 32875 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 60888 31888 61650 32800 60 -1
-De 15 0 71 0 0
+De 15 0 68 0 0
 Po 0 58255 38075 58255 37725 60 -1
-De 15 0 72 0 400000
+De 15 0 69 0 400000
 Po 0 57675 32050 57943 32474 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 57943 32474 58175 32525 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 58175 32525 58325 32350 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 58325 32350 58700 32425 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 3 58700 32425 58700 32425 250 -1
-De 15 1 72 0 0
+De 15 1 69 0 0
 Po 0 58700 32425 58700 32425 60 -1
-De 0 0 72 0 0
+De 0 0 69 0 0
 Po 0 57675 32050 55575 32025 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 55575 32025 55125 32311 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 55125 32311 53074 32300 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 53074 32300 52470 32773 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
 Po 0 52470 32773 52125 32775 60 -1
-De 15 0 72 0 800000
+De 15 0 69 0 800000
 Po 0 58400 37380 58400 33000 60 -1
-De 0 0 72 0 0
+De 0 0 69 0 0
 Po 0 58400 33000 58675 32775 60 -1
-De 0 0 72 0 0
+De 0 0 69 0 0
 Po 0 58675 32775 58700 32425 60 -1
-De 0 0 72 0 0
+De 0 0 69 0 0
 Po 0 58450 37525 58400 37380 60 -1
-De 0 0 72 0 0
+De 0 0 69 0 0
 Po 3 58450 37525 58450 37525 250 -1
-De 15 1 72 0 0
+De 15 1 69 0 0
 Po 0 58255 37725 58450 37525 60 -1
-De 15 0 72 0 0
+De 15 0 69 0 0
+Po 0 58058 38075 58058 37602 60 -1
+De 15 0 70 0 400000
+Po 3 58100 32275 58100 32275 250 -1
+De 15 1 70 0 0
+Po 0 58100 32275 57792 31900 60 -1
+De 15 0 70 0 0
+Po 0 57792 31900 55275 31900 60 -1
+De 15 0 70 0 0
+Po 0 55275 31900 54975 32175 60 -1
+De 15 0 70 0 0
+Po 0 54975 32175 53006 32175 60 -1
+De 15 0 70 0 0
+Po 0 53006 32175 52512 32575 60 -1
+De 15 0 70 0 0
+Po 0 52512 32575 52125 32575 60 -1
+De 15 0 70 0 800000
+Po 0 58075 37450 58225 37025 60 -1
+De 0 0 70 0 0
+Po 0 58225 37025 58225 36475 60 -1
+De 0 0 70 0 0
+Po 0 58225 36475 58075 36100 60 -1
+De 0 0 70 0 0
+Po 0 58075 36100 58075 34075 60 -1
+De 0 0 70 0 0
+Po 0 58075 34075 58225 33850 60 -1
+De 0 0 70 0 0
+Po 0 58225 33850 58075 33389 60 -1
+De 0 0 70 0 0
+Po 0 58075 33389 58075 32925 60 -1
+De 0 0 70 0 0
+Po 0 58075 32925 58000 32725 60 -1
+De 0 0 70 0 0
+Po 0 58000 32725 58100 32275 60 -1
+De 0 0 70 0 0
+Po 0 58140 37520 58075 37450 60 -1
+De 0 0 70 0 0
+Po 3 58140 37520 58140 37520 250 -1
+De 15 1 70 0 0
+Po 0 58058 37602 58140 37520 60 -1
+De 15 0 70 0 0
 Po 0 50375 32975 50700 32975 60 -1
-De 15 0 73 0 400000
+De 15 0 71 0 400000
 Po 0 50875 34400 50600 34400 60 -1
-De 15 0 73 0 800000
+De 15 0 71 0 800000
 Po 0 51050 33325 51050 34100 60 -1
-De 15 0 73 0 0
+De 15 0 71 0 0
 Po 0 51050 34100 50875 34400 60 -1
-De 15 0 73 0 0
+De 15 0 71 0 0
 Po 0 50700 32975 51050 33325 60 -1
-De 15 0 73 0 0
+De 15 0 71 0 0
 Po 0 54622 37347 54622 37497 60 -1
-De 15 0 74 0 0
+De 15 0 72 0 0
 Po 0 55000 37725 55000 37975 60 -1
-De 15 0 74 0 800000
+De 15 0 72 0 800000
 Po 0 54900 37625 55000 37725 60 -1
-De 15 0 74 0 0
+De 15 0 72 0 0
 Po 0 54750 37625 54900 37625 60 -1
-De 15 0 74 0 0
+De 15 0 72 0 0
 Po 0 54622 37497 54750 37625 60 -1
-De 15 0 74 0 0
+De 15 0 72 0 0
 Po 0 54275 37347 54622 37347 60 -1
-De 15 0 74 0 400000
+De 15 0 72 0 400000
 Po 0 54856 37269 54875 37250 60 -1
-De 15 0 74 0 800000
+De 15 0 72 0 800000
 Po 0 54700 37269 54856 37269 60 -1
-De 15 0 74 0 0
+De 15 0 72 0 0
 Po 0 54622 37347 54700 37269 60 -1
-De 15 0 74 0 0
+De 15 0 72 0 0
 Po 0 55375 38875 55375 38600 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 55375 38300 55800 38225 60 -1
-De 15 0 75 0 800000
+De 15 0 73 0 800000
 Po 0 55375 38600 55375 38300 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 55000 38575 54800 38875 60 -1
-De 15 0 75 0 400000
+De 15 0 73 0 400000
 Po 0 54575 37850 54650 37925 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 54800 38875 55375 38875 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 55375 38875 55800 38800 60 -1
-De 15 0 75 0 800000
+De 15 0 73 0 800000
 Po 0 54275 37859 54575 37850 60 -1
-De 15 0 75 0 400000
+De 15 0 73 0 400000
 Po 0 54650 37925 54650 38750 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 54650 38750 54800 38875 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 54575 37850 54650 37925 60 -1
-De 15 0 75 0 0
+De 15 0 73 0 0
 Po 0 54275 37603 53925 37613 60 -1
-De 15 0 76 0 400000
+De 15 0 74 0 400000
 Po 0 53950 38050 53950 38225 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53800 37925 53950 38050 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53800 37655 53800 37925 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53925 37613 53800 37655 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53625 38475 53725 38375 60 -1
-De 15 0 76 0 400000
+De 15 0 74 0 400000
 Po 0 54175 38300 54175 38525 60 -1
-De 15 0 76 0 800000
+De 15 0 74 0 800000
 Po 0 54100 38225 54175 38300 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53800 38300 53950 38225 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53950 38225 54100 38225 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 53725 38375 53800 38300 60 -1
-De 15 0 76 0 0
+De 15 0 74 0 0
 Po 0 49000 34775 49100 35250 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 52200 37600 50600 38100 60 -1
-De 15 0 77 0 0
+De 15 0 75 0 0
 Po 3 50600 38100 50600 38100 250 -1
-De 15 1 77 0 0
+De 15 1 75 0 0
 Po 0 50600 38100 50020 37700 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 50020 37700 50020 37700 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 50020 37700 50000 37475 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 52575 37603 52200 37600 60 -1
-De 15 0 77 0 400000
+De 15 0 75 0 400000
 Po 0 50084 33175 50375 33175 60 -1
-De 15 0 77 0 800000
+De 15 0 75 0 800000
 Po 3 50375 33525 50375 33525 250 -1
-De 15 1 77 0 0
+De 15 1 75 0 0
 Po 0 49850 33525 50375 33525 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49000 34775 49000 34775 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49000 34775 49075 34075 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49075 34075 49850 33525 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 50375 33525 50084 33175 60 -1
-De 15 0 77 0 0
+De 15 0 75 0 0
 Po 0 50075 35714 50000 35925 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 50000 35925 49875 36125 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49875 36125 49875 36425 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49875 36425 50000 36500 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 50000 36500 50000 37475 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49100 35250 49575 35300 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49575 35300 49893 35300 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 49893 35300 50075 35714 60 -1
-De 0 0 77 0 0
+De 0 0 75 0 0
 Po 0 50375 32575 51200 32575 60 -1
-De 15 0 78 0 400000
+De 15 0 76 0 400000
 Po 0 51500 35050 51600 35150 60 -1
-De 15 0 78 0 800000
+De 15 0 76 0 800000
 Po 3 51500 35050 51500 35050 250 -1
-De 15 1 78 0 0
+De 15 1 76 0 0
 Po 0 51500 33075 51500 33725 60 -1
-De 0 0 78 0 0
+De 0 0 76 0 0
 Po 0 51500 33725 51500 35050 60 -1
-De 0 0 78 0 0
+De 0 0 76 0 0
 Po 0 51600 32975 51500 33075 60 -1
-De 0 0 78 0 0
+De 0 0 76 0 0
 Po 3 51600 32975 51600 32975 250 -1
-De 15 1 78 0 0
+De 15 1 76 0 0
 Po 0 51200 32575 51600 32975 60 -1
-De 15 0 78 0 0
+De 15 0 76 0 0
 Po 0 51600 35150 51825 35150 60 -1
-De 15 0 78 0 400000
+De 15 0 76 0 400000
 Po 0 52050 34400 52350 34400 60 -1
-De 15 0 78 0 800000
+De 15 0 76 0 800000
 Po 0 51900 34550 52050 34400 60 -1
-De 15 0 78 0 0
+De 15 0 76 0 0
 Po 0 51900 35075 51900 34550 60 -1
-De 15 0 78 0 0
+De 15 0 76 0 0
 Po 0 51825 35150 51900 35075 60 -1
-De 15 0 78 0 0
+De 15 0 76 0 0
 Po 0 50600 34600 50800 34600 60 -1
-De 15 0 79 0 400000
+De 15 0 77 0 400000
 Po 0 50800 34600 50950 34800 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 50950 34800 51175 34800 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 53750 36125 53975 36125 60 -1
-De 15 0 79 0 800000
+De 15 0 77 0 800000
 Po 0 53750 36125 53750 36125 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 53150 35700 53750 36125 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 51350 35550 51775 35550 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 51775 35550 52025 35700 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 52025 35700 53150 35700 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 51275 35475 51350 35550 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 51275 34875 51275 35475 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
 Po 0 51175 34800 51275 34875 60 -1
-De 15 0 79 0 0
+De 15 0 77 0 0
+Po 0 53425 35325 53700 35275 60 -1
+De 15 0 78 0 0
+Po 0 53675 35525 53975 35500 60 -1
+De 15 0 78 0 800000
+Po 0 53700 35275 53675 35525 60 -1
+De 15 0 78 0 0
+Po 0 52350 34600 52775 34600 60 -1
+De 15 0 78 0 400000
+Po 0 53650 34875 53975 34900 60 -1
+De 15 0 78 0 800000
+Po 0 52775 34600 52800 35325 60 -1
+De 15 0 78 0 0
+Po 0 52800 35325 53425 35325 60 -1
+De 15 0 78 0 0
+Po 0 53425 35325 53650 34875 60 -1
+De 15 0 78 0 0
 Po 0 53025 38475 52800 38525 60 -1
-De 15 0 80 0 400000
+De 15 0 79 0 400000
 Po 0 53375 37100 52575 37091 60 -1
-De 15 0 80 0 800000
+De 15 0 79 0 800000
 Po 0 53550 38100 53375 37100 60 -1
-De 15 0 80 0 0
+De 15 0 79 0 0
 Po 0 52820 38140 53550 38100 60 -1
-De 15 0 80 0 0
+De 15 0 79 0 0
 Po 0 52800 38525 52820 38140 60 -1
-De 15 0 80 0 0
+De 15 0 79 0 0
 Po 0 47775 34325 48175 34325 60 -1
-De 15 0 81 0 0
+De 15 0 80 0 0
 Po 0 48325 34475 48325 34875 60 -1
-De 15 0 81 0 800000
+De 15 0 80 0 800000
 Po 0 48175 34325 48325 34475 60 -1
-De 15 0 81 0 0
+De 15 0 80 0 0
 Po 0 47775 34050 47775 34325 60 -1
-De 15 0 81 0 400000
+De 15 0 80 0 400000
 Po 0 47775 34325 47775 34650 60 -1
-De 15 0 81 0 800000
+De 15 0 80 0 800000
 Po 0 51000 35150 51000 35400 60 -1
-De 15 0 82 0 400000
+De 15 0 81 0 400000
 Po 0 50750 36400 50750 36600 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 51100 36050 50750 36400 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 51100 35500 51100 36050 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 51000 35400 51100 35500 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 50175 37350 50125 37200 60 -1
-De 15 0 82 0 400000
+De 15 0 81 0 400000
 Po 0 50775 36775 50750 36600 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 50650 36900 50775 36775 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 50075 36900 50650 36900 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 50125 36850 50075 36900 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 50125 37200 50125 36850 60 -1
-De 15 0 82 0 0
+De 15 0 81 0 0
 Po 0 50750 36600 50450 36600 60 -1
-De 15 0 82 0 800000
+De 15 0 81 0 800000
 Po 0 51450 36225 51175 36225 60 -1
-De 15 0 83 0 400000
+De 15 0 82 0 400000
 Po 0 51125 37200 50775 37350 60 -1
-De 15 0 83 0 800000
+De 15 0 82 0 800000
 Po 0 51250 37075 51125 37200 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 51250 36850 51250 37075 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 51250 36850 51250 36850 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 50900 36850 51250 36850 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 50900 36675 50900 36850 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 50925 36450 50900 36675 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 51175 36225 50925 36450 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 51450 36225 52000 36375 60 -1
-De 15 0 83 0 400000
+De 15 0 82 0 400000
 Po 0 52000 36375 52325 36450 60 -1
-De 15 0 83 0 800000
+De 15 0 82 0 800000
 Po 0 52000 36375 52000 36375 60 -1
-De 15 0 83 0 0
+De 15 0 82 0 0
 Po 0 48775 36950 48775 37455 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 49245 37925 49350 37925 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 48775 37455 49245 37925 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49675 32525 49675 32525 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50084 32859 50084 33125 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 50000 32775 50084 32859 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49725 32775 50000 32775 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49675 32525 49725 32775 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50325 32625 49750 32625 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50975 35650 50600 35400 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 50600 35400 50600 34875 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50600 34875 50625 34775 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50625 34775 50625 34100 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50625 34100 50600 33575 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50600 33575 50575 33375 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50575 33375 50525 33287 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50525 33287 50325 32625 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49675 32675 49675 32925 60 -1
-De 15 0 84 0 800000
+De 15 0 83 0 800000
 Po 0 49675 32525 49675 32675 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 3 49675 32525 49675 32525 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 49750 32625 49675 32525 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50125 35525 50125 35600 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 50125 35525 50875 35525 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 50875 35525 50875 35600 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 3 50875 35600 50875 35600 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 50875 35600 50975 35675 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50975 35650 50975 35675 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 49200 37650 49175 37450 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49175 37450 49175 36425 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49175 36425 49175 36425 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49200 37650 49400 37750 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49400 36200 49175 36425 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49725 36100 49400 36200 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49775 35950 49725 36100 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49825 35750 49775 35950 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 3 49825 35750 49825 35750 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 50125 35600 49825 35750 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 3 49400 37750 49400 37750 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 49294 37756 49400 37750 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 49294 37876 49294 37756 60 -1
-De 15 0 84 0 400000
+De 15 0 83 0 400000
 Po 0 50950 35775 50975 35650 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 50975 35650 50950 35775 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 48775 33925 48725 33775 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 48775 34125 48775 33925 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 48725 34150 48775 34125 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 3 48725 34150 48725 34150 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 49925 34325 49200 34325 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 49200 34325 48725 34150 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 49950 34300 49925 34325 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 3 49950 34300 49950 34300 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 50975 35650 50550 35575 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 50550 35575 50450 35325 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50450 35325 50375 34375 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50375 34375 49950 34300 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50975 37000 51000 37025 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 51775 37025 51725 37000 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 51625 37025 51775 37025 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 50975 37000 51000 35800 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 51000 35800 50975 35650 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 51725 37000 52075 36225 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 52075 36225 52075 35775 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 49400 37750 49350 37700 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 49350 37700 49350 37925 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 48325 33875 48325 33650 60 -1
-De 15 0 84 0 400000
+De 15 0 83 0 400000
 Po 0 48325 33650 48600 33650 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 48600 33650 48650 33700 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 48650 33700 48650 33800 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 0 48650 33800 48725 33775 60 -1
-De 15 0 84 0 0
+De 15 0 83 0 0
 Po 3 48725 33775 48725 33775 250 -1
-De 15 1 84 0 0
+De 15 1 83 0 0
 Po 0 48725 33775 48550 33925 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 52325 36525 52175 36525 60 -1
-De 0 0 84 0 400000
+De 0 0 83 0 400000
 Po 0 52050 35800 52075 35775 60 -1
-De 0 0 84 0 800000
+De 0 0 83 0 800000
 Po 0 52075 36450 52050 35800 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 52175 36525 52075 36450 60 -1
-De 0 0 84 0 0
+De 0 0 83 0 0
 Po 0 48975 37350 48975 38135 60 -1
-De 15 0 85 0 400000
+De 15 0 84 0 400000
 Po 0 49806 38386 49806 38624 60 -1
-De 15 0 85 0 800000
+De 15 0 84 0 800000
 Po 0 49700 38280 49806 38386 60 -1
-De 15 0 85 0 0
+De 15 0 84 0 0
 Po 0 49120 38280 49700 38280 60 -1
-De 15 0 85 0 0
+De 15 0 84 0 0
 Po 0 48975 38135 49120 38280 60 -1
+De 15 0 84 0 0
+Po 0 47000 36000 47025 36000 60 -1
+De 15 0 85 0 400000
+Po 0 47900 35425 47900 35250 60 -1
+De 15 0 85 0 0
+Po 0 47875 35450 47900 35425 60 -1
+De 15 0 85 0 0
+Po 0 47575 35450 47875 35450 60 -1
+De 15 0 85 0 0
+Po 0 47025 36000 47575 35450 60 -1
 De 15 0 85 0 0
 Po 0 47775 33450 47775 33275 60 -1
 De 15 0 86 0 400000
@@ -8010,16 +8108,6 @@ Po 0 47880 35000 47000 35000 60 -1
 De 0 0 93 0 800000
 Po 0 48605 35725 47880 35000 60 -1
 De 0 0 93 0 0
-Po 0 47000 36000 47025 36000 60 -1
-De 15 0 94 0 400000
-Po 0 47900 35425 47900 35250 60 -1
-De 15 0 94 0 0
-Po 0 47875 35450 47900 35425 60 -1
-De 15 0 94 0 0
-Po 0 47575 35450 47875 35450 60 -1
-De 15 0 94 0 0
-Po 0 47025 36000 47575 35450 60 -1
-De 15 0 94 0 0
 Po 0 47774 39240 47774 38494 60 -1
 De 0 0 95 0 400000
 Po 0 47560 37560 47000 37000 60 -1
@@ -8040,7 +8128,7 @@ $EndTRACK
 $ZONE
 $EndZONE
 $CZONE_OUTLINE
-ZInfo 54FAAC8D 61 "/mavlink_port/MAVLINK_GND"
+ZInfo 54FAAC8D 58 "/mavlink_port/MAVLINK_GND"
 ZLayer 2
 ZAux 4 E
 ZClearance 197 T
@@ -9816,7 +9904,7 @@ $POLYSCORNERS
 $endPOLYSCORNERS
 $endCZONE_OUTLINE
 $CZONE_OUTLINE
-ZInfo 54FAEC64 60 "/mavlink_port/MAVLINK_+3.3V"
+ZInfo 54FAEC64 57 "/mavlink_port/MAVLINK_+3.3V"
 ZLayer 1
 ZAux 4 E
 ZClearance 197 T

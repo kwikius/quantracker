@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Sat 07 Mar 2015 18:05:34 GMT
+# EESchema Netlist Version 1.1 created  Sat 07 Mar 2015 22:27:51 GMT
 (
  ( /5433EE23/5482DF7C $noname  P7 CONN_1 {Lib=CONN_1}
   (    1 /MCU/AV_TELEM_RXI )
@@ -31,7 +31,7 @@
   (   19 /mavlink_port/MAVLINK_+3.3V )
   (   20 /MCU/RAW_AUDIO_OUT1 )
   (   21 /MCU/RAW_AUDIO_OUT2 )
-  (   22 /MCU/AV_DAC_NSYNC )
+  (   22 /video_circuit/AV_DAC_NSYNC )
   (   23 /video_circuit/AV_DAC_DATA )
   (   24 /MCU/MCU_PC4 )
   (   25 /MCU/MCU_PC5 )
@@ -133,11 +133,11 @@
   (    2 /mavlink_port/MAVLINK_+3.3V )
  )
  ( /5433EE23/546B3A56 $noname  R4 100R {Lib=R}
-  (    1 /MCU/N_WHITE_PX )
+  (    1 /video_circuit/N_WHITE_PX )
   (    2 /MCU/AV_TELEM_TXO )
  )
  ( /5433EE23/546A8268 $noname  R5 100R {Lib=R}
-  (    1 /MCU/N_WHITE_PX )
+  (    1 /video_circuit/N_WHITE_PX )
   (    2 /MCU/SPI_MISO_WHITE )
  )
  ( /5433EE23/54676508 $noname  R6 100R {Lib=R}
@@ -298,23 +298,23 @@
  ( /546D98A5/54746DE4 $noname  P3 CONN_20 {Lib=CONN_20}
   (    1 /camera/VIDEO_IN_+V )
   (    2 /mavlink_port/MAVLINK_GND )
-  (    3 /expansion/VIDEO_OUT_+V )
+  (    3 /video_out/VIDEO_OUT_+V )
   (    4 /mavlink_port/MAVLINK_GND )
   (    5 /video_circuit/VIDEO_+5V )
   (    6 /MCU/MCU_PB1 )
-  (    7 /MCU/MCU_PB9 )
-  (    8 /MCU/MCU_PB6 )
+  (    7 /MCU/MCU_PC14 )
+  (    8 /MCU/MCU_PC15 )
   (    9 /mavlink_port/MAVLINK_GND )
   (   10 /mavlink_port/MAVLINK_GND )
-  (   11 /MCU/MCU_PC5 )
-  (   12 /MCU/MCU_PC4 )
+  (   11 /MCU/MCU_PC0 )
+  (   12 /MCU/MCU_PC1 )
   (   13 /MCU/MCU_PA1 )
   (   14 /MCU/MCU_PA0 )
   (   15 /MCU/MCU_PC3 )
-  (   16 /MCU/MCU_PC1 )
-  (   17 /MCU/MCU_PC0 )
-  (   18 /MCU/MCU_PC15 )
-  (   19 /MCU/MCU_PC14 )
+  (   16 /MCU/MCU_PC4 )
+  (   17 /MCU/MCU_PC5 )
+  (   18 /MCU/MCU_PC9 )
+  (   19 /MCU/MCU_PA8 )
   (   20 /mavlink_port/MAVLINK_GND )
  )
  ( /546D98A5/54746D91 $noname  P2 CONN_20 {Lib=CONN_20}
@@ -322,16 +322,16 @@
   (    2 ? )
   (    3 /mavlink_port/MAVLINK_GND )
   (    4 /mavlink_port/MAVLINK_GND )
-  (    5 /MCU/MCU_PC9 )
-  (    6 /MCU/MCU_PA8 )
-  (    7 /MCU/MCU_PA11 )
-  (    8 /MCU/MCU_PA12 )
-  (    9 /MCU/MCU_PB8 )
-  (   10 /MCU/MCU_PB7 )
-  (   11 /MCU/MCU_PC12 )
-  (   12 /MCU/MCU_PB3 )
-  (   13 /MCU/MCU_PB4 )
-  (   14 /MCU/MCU_PB5 )
+  (    5 /MCU/MCU_PB6 )
+  (    6 /MCU/MCU_PB9 )
+  (    7 /MCU/MCU_PB7 )
+  (    8 /MCU/MCU_PB8 )
+  (    9 /MCU/MCU_PB5 )
+  (   10 /MCU/MCU_PB4 )
+  (   11 /MCU/MCU_PB3 )
+  (   12 /MCU/MCU_PC12 )
+  (   13 /MCU/MCU_PA11 )
+  (   14 /MCU/MCU_PA12 )
   (   15 /mavlink_port/MAVLINK_+3.3V )
   (   16 /MCU/MCU_PA14 )
   (   17 /mavlink_port/MAVLINK_GND )
@@ -420,13 +420,13 @@
   (    8 /video_circuit/VIDEO_+5V )
  )
  ( /54675A51/546F5AD9 $noname  D5 DIODESCH {Lib=DIODESCH}
-  (    1 /expansion/VIDEO_OUT_+V )
+  (    1 /video_out/VIDEO_OUT_+V )
   (    2 N-000084 )
  )
  ( /54675A51/546DBC86 $noname  P5 CONN_5 {Lib=CONN_5}
   (    1 /mavlink_port/MAVLINK_GND )
   (    2 N-000084 )
-  (    3 /video_out/VIDEO_OUT )
+  (    3 /video_circuit/VIDEO_OUT )
   (    4 /video_out/LINE_DAC_OUT2 )
   (    5 /video_out/LINE_DAC_OUT1 )
  )
@@ -510,7 +510,7 @@
   (    2 /video_circuit/CSYNC_CMP_OUT )
  )
  ( /544A4CB8/544CEF88 $noname  R23 75R {Lib=R}
-  (    1 /video_out/VIDEO_OUT )
+  (    1 /video_circuit/VIDEO_OUT )
   (    2 /video_circuit/RAW_VIDOUT )
  )
  ( /544A4CB8/544A415B $noname  R21 40R {Lib=R}
@@ -561,11 +561,11 @@
   (    6 /mavlink_port/MAVLINK_GND )
   (    7 /mavlink_port/MAVLINK_+3.3V )
   (    8 /video_circuit/AV_DAC_DATA )
-  (    9 /MCU/AV_DAC_NSYNC )
+  (    9 /video_circuit/AV_DAC_NSYNC )
   (   10 /video_circuit/AV_DAC_CLK )
  )
  ( /544A4CB8/543013EB MSOP-10  U12 ADG704 {Lib=ADG704}
-  (    1 /MCU/N_WHITE_PX )
+  (    1 /video_circuit/N_WHITE_PX )
   (    2 /video_circuit/GREY_D )
   (    3 /mavlink_port/MAVLINK_GND )
   (    4 /video_circuit/WHITE )
@@ -1009,88 +1009,88 @@ $endlist
 $endfootprintlist
 }
 { Pin List by Nets
-Net 1 "/expansion/VIDEO_OUT_+V" "VIDEO_OUT_+V"
+Net 1 "/video_out/VIDEO_OUT_+V" "VIDEO_OUT_+V"
  P3 3
  D5 1
 Net 2 "/camera/VIDEO_IN_+V" "VIDEO_IN_+V"
- P3 1
  D4 1
+ P3 1
 Net 3 "/MCU/NRST" "NRST"
  U2 7
  P2 19
- R7 2
  C10 1
+ R7 2
 Net 4 "/MCU/RAW_AUDIO_OUT2" "RAW_AUDIO_OUT2"
- U7 5
  U2 21
+ U7 5
 Net 5 "/MCU/MCU_PB1" "MCU_PB1"
+ R31 1
+ U2 27
  P3 6
  R30 2
- U2 27
- R31 1
  C39 1
 Net 6 "/MCU/MCU_PB9" "MCU_PB9"
+ P2 6
  U2 62
- P3 7
 Net 7 "/MCU/CSYNC" "CSYNC"
- U2 54
- U2 50
- U2 36
  U2 35
+ U2 54
+ U2 36
+ U2 50
  R19 1
 Net 8 "/camera/VIDEO_IN" "VIDEO_IN"
  C26 2
  R11 2
  K1 3
 Net 9 "/MCU/ANALOG_VIDEO_IN" "ANALOG_VIDEO_IN"
- U8 2
  U9 1
- U12 7
- U10 4
+ U8 2
  U2 26
+ U12 7
  P12 1
+ U10 4
 Net 10 "/video_circuit/VIDEO_+5V" "VIDEO_+5V"
- U5 3
- C29 1
- U13 5
- P3 5
- C23 1
- U7 8
- U5 1
- C28 1
- D3 1
- U10 5
- C30 1
- C17 1
- L4 1
  C18 1
+ U13 5
+ U10 5
+ L4 1
+ C17 1
+ U7 8
+ C23 1
+ C30 1
+ D3 1
+ C28 1
+ U5 3
+ U5 1
+ C29 1
+ P3 5
 Net 11 "/MCU/MCU_PC12" "MCU_PC12"
  U2 53
- P2 11
+ P2 12
 Net 12 "/MCU/MCU_PA0" "MCU_PA0"
- U2 14
  P3 14
-Net 13 "/video_out/VIDEO_OUT" "VIDEO_OUT"
- R23 1
+ U2 14
+Net 13 "/video_circuit/VIDEO_OUT" "VIDEO_OUT"
  P5 3
+ R23 1
 Net 14 "/MCU/MCU_PA8" "MCU_PA8"
+ P3 19
  U2 41
- P2 6
 Net 15 "/MCU/MCU_PB8" "MCU_PB8"
+ P2 8
  U2 61
- P2 9
 Net 16 "/MCU/RAW_AUDIO_OUT1" "RAW_AUDIO_OUT1"
- U2 20
  U7 3
+ U2 20
 Net 17 "/MCU/MCU_PB6" "MCU_PB6"
+ P2 5
  U2 58
- P3 8
 Net 18 "/MCU/MCU_PA12" "MCU_PA12"
  U2 45
- P2 8
+ P2 14
 Net 19 "/MCU/MCU_PB4" "MCU_PB4"
- P2 13
  U2 56
+ P2 10
 Net 21 "/MCU/MCU_PA13" "MCU_PA13"
  U2 46
  P2 18
@@ -1099,27 +1099,27 @@ Net 22 "/MCU/MCU_PA14" "MCU_PA14"
  U2 49
 Net 23 "/MCU/MCU_PA11" "MCU_PA11"
  U2 44
- P2 7
+ P2 13
 Net 24 "/mavlink_port/FRSKY_RXI" "FRSKY_RXI"
  U2 30
  U6 6
 Net 25 "/MCU/MCU_PC14" "MCU_PC14"
+ P3 7
  U2 3
- P3 19
 Net 26 "/MCU/MCU_PB3" "MCU_PB3"
- P2 12
  U2 55
+ P2 11
 Net 27 "/MCU/MCU_PC0" "MCU_PC0"
+ P3 11
  U2 8
- P3 17
 Net 28 "/video_circuit/N_BLACK_PX" "N_BLACK_PX"
- U12 10
  R6 1
+ U12 10
 Net 29 "/MCU/MCU_PC3" "MCU_PC3"
  U2 11
  P3 15
 Net 30 "/MCU/MCU_PB5" "MCU_PB5"
- P2 14
+ P2 9
  U2 57
 Net 31 "/MCU/MCU_PA1" "MCU_PA1"
  U2 15
@@ -1129,48 +1129,48 @@ Net 32 "/MCU/FRSKY_TXO" "FRSKY_TXO"
  U3 4
 Net 33 "/MCU/MCU_PC5" "MCU_PC5"
  U2 25
- P3 11
+ P3 17
 Net 34 "/MCU/MCU_PC1" "MCU_PC1"
- P3 16
  U2 9
+ P3 12
 Net 35 "/MCU/AV_TELEM_RXI" "AV_TELEM_RXI"
- R17 1
  U2 38
  P7 1
+ R17 1
 Net 36 "/video_circuit/AV_DAC_CLK" "AV_DAC_CLK"
- U2 39
  U11 10
+ U2 39
 Net 37 "/MCU/MCU_PC4" "MCU_PC4"
+ P3 16
  U2 24
- P3 12
 Net 38 "/mavlink_port/MAVLINK_RXI" "MAVLINK_RXI"
- U6 5
  U2 43
+ U6 5
 Net 39 "/mavlink_port/MAVLINK_TXO" "MAVLINK_TXO"
- U6 4
  U2 42
+ U6 4
 Net 40 "/MCU/MCU_PC9" "MCU_PC9"
- P2 5
+ P3 18
  U2 40
-Net 41 "/MCU/AV_DAC_NSYNC" "AV_DAC_NSYNC"
- U11 9
+Net 41 "/video_circuit/AV_DAC_NSYNC" "AV_DAC_NSYNC"
  U2 22
+ U11 9
 Net 42 "/MCU/MCU_PC15" "MCU_PC15"
  U2 4
- P3 18
-Net 43 "/MCU/N_WHITE_PX" "N_WHITE_PX"
+ P3 8
+Net 43 "/video_circuit/N_WHITE_PX" "N_WHITE_PX"
  U12 1
  R5 1
  R4 1
 Net 44 "/MCU/AV_TELEM_RXI_EN" "AV_TELEM_RXI_EN"
- U2 17
  U9 6
+ U2 17
 Net 45 "/video_circuit/AV_DAC_DATA" "AV_DAC_DATA"
  U2 23
  U11 8
 Net 46 "/MCU/MCU_PB7" "MCU_PB7"
  U2 59
- P2 10
+ P2 7
 Net 48 "/mavlink_port/MAVLINK_+3.3V" "MAVLINK_+3.3V"
  C36 1
  C31 1
