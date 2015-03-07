@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 06 Mar 2015 00:28:55 GMT
+EESchema Schematic File Version 2  date Sat 07 Mar 2015 18:05:27 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 6 8
 Title ""
-Date "6 mar 2015"
+Date "7 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,40 +63,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L LINK LK18
-U 1 1 54F8757A
-P 5350 5150
-F 0 "LK18" V 5430 5150 50  0000 C CNN
-F 1 "LINK" V 5350 5150 50  0000 C CNN
-	1    5350 5150
-	0    1    1    0   
-$EndComp
-$Comp
-L LINK LK17
-U 1 1 54F87560
-P 5350 1800
-F 0 "LK17" V 5430 1800 50  0000 C CNN
-F 1 "LINK" V 5350 1800 50  0000 C CNN
-	1    5350 1800
-	0    1    1    0   
-$EndComp
 Connection ~ 7150 4950
 Wire Wire Line
 	7150 4950 7150 4800
 Connection ~ 8050 3500
 Wire Wire Line
 	8050 4400 8050 3500
-Connection ~ 4550 4800
-Wire Wire Line
-	4550 4800 4550 5150
-Wire Wire Line
-	4550 5150 5100 5150
-Connection ~ 6200 2450
-Wire Wire Line
-	6200 2450 6200 1800
-Wire Wire Line
-	6200 1800 5600 1800
 Wire Wire Line
 	2700 2800 2800 2800
 Wire Wire Line
@@ -195,13 +167,6 @@ Wire Wire Line
 Wire Wire Line
 	2800 2250 2800 2350
 Wire Wire Line
-	5100 1800 4850 1800
-Wire Wire Line
-	5600 5150 6000 5150
-Wire Wire Line
-	6000 5150 6000 4950
-Connection ~ 6000 4950
-Wire Wire Line
 	8050 4800 8050 4950
 Connection ~ 8050 4950
 Wire Wire Line
@@ -265,8 +230,6 @@ Text Notes 5100 1600 0    45   ~ 0
 Optional link
 Text Notes 5250 5350 0    45   ~ 0
 Optional link
-Text HLabel 4850 1800 0    45   Input ~ 0
-MAVLINK_+5V
 Text HLabel 2700 2800 0    45   BiDi ~ 0
 MAVLINK_GND
 Text HLabel 2700 2250 0    45   Input ~ 0
