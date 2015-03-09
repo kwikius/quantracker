@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sun 08 Mar 2015 12:24:24 GMT
+EESchema Schematic File Version 2  date Mon 09 Mar 2015 16:29:56 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "8 mar 2015"
+Date "9 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,6 +63,15 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CONN_1 P13
+U 1 1 54FDC7F4
+P 5600 2900
+F 0 "P13" H 5680 2900 40  0000 L CNN
+F 1 "CONN_1" H 5600 2955 30  0001 C CNN
+	1    5600 2900
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
 	6600 3400 6500 3400
 Wire Wire Line
@@ -155,9 +164,9 @@ Wire Wire Line
 Wire Wire Line
 	6500 4400 6600 4400
 Wire Wire Line
-	5100 2850 5300 2850
+	5450 2900 5300 2900
 Wire Wire Line
-	5300 2850 5300 3050
+	5300 2900 5300 3050
 Wire Wire Line
 	5300 3650 5550 3650
 Wire Wire Line
@@ -202,8 +211,6 @@ F 1 "10uF" H 5600 3900 50  0000 L CNN
 	1    5550 4000
 	1    0    0    -1  
 $EndComp
-Text HLabel 5100 2850 0    45   Input ~ 0
-VIN+
 Text HLabel 5200 4300 0    45   BiDi ~ 0
 MCU_GND
 $Comp
