@@ -79,7 +79,10 @@ struct aircraft{
    quan::length_<float>::m             baro_alt;
    uint16_t                            nav_mode;
    uint8_t                             custom_mode;
+   uint8_t                             base_mode;
    gps_t                               gps;
+   uint16_t                            rc_raw_chan[8];
+   uint16_t                            rc_raw_rssi;
                                           
    aircraft():
       throttle{0},
@@ -91,6 +94,9 @@ struct aircraft{
       battery_remaining{0},
       nav_mode{0},
       custom_mode{0},
+      base_mode{0},
+      rc_raw_chan{0,0,0,0,0,0,0,0},
+      rc_raw_rssi{0},
       m_mutex{0}
    {}
    void mutex_init();
