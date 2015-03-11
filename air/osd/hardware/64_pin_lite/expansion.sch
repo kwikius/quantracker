@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 11 Mar 2015 10:11:51 GMT
+EESchema Schematic File Version 2  date Wed 11 Mar 2015 17:51:25 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -63,15 +63,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L CONN_1 P13
-U 1 1 54FDC7F4
-P 5600 2900
-F 0 "P13" H 5680 2900 40  0000 L CNN
-F 1 "CONN_1" H 5600 2955 30  0001 C CNN
-	1    5600 2900
-	1    0    0    -1  
-$EndComp
+Text HLabel 4200 3000 2    45   BiDi ~ 0
+XP_PB1
 Wire Wire Line
 	6600 3400 6500 3400
 Wire Wire Line
@@ -82,15 +75,6 @@ Wire Wire Line
 	6500 1750 6600 1750
 Wire Wire Line
 	6600 1750 6600 1800
-Connection ~ 5300 4300
-Wire Wire Line
-	5550 4200 5550 4300
-Wire Wire Line
-	5550 4300 5200 4300
-Wire Wire Line
-	5300 4200 5300 4300
-Wire Wire Line
-	5300 3550 5300 3700
 Wire Wire Line
 	6500 4300 6600 4300
 Wire Wire Line
@@ -116,7 +100,7 @@ Wire Wire Line
 Wire Wire Line
 	4100 3200 4200 3200
 Wire Wire Line
-	4750 3000 4100 3000
+	4200 3000 4100 3000
 Connection ~ 6200 2500
 Wire Wire Line
 	6200 2350 6200 2500
@@ -164,21 +148,6 @@ Wire Wire Line
 Wire Wire Line
 	6500 4400 6600 4400
 Wire Wire Line
-	5450 2900 5300 2900
-Wire Wire Line
-	5300 2900 5300 3050
-Wire Wire Line
-	5300 3650 5550 3650
-Wire Wire Line
-	5550 3650 5550 3800
-Connection ~ 5300 3650
-Wire Wire Line
-	5300 3600 4650 3600
-Connection ~ 5300 3600
-Wire Wire Line
-	4650 3600 4650 3000
-Connection ~ 4650 3000
-Wire Wire Line
 	4100 3400 4200 3400
 Wire Wire Line
 	6600 3100 6500 3100
@@ -202,53 +171,24 @@ F 1 "CONN_1" H 6600 2005 30  0001 C CNN
 $EndComp
 Text Notes 5500 3350 0    45   ~ 0
 3V max. \nWith values \nshown works \nfrom 2S to 6S\n
-$Comp
-L C C39
-U 1 1 547ED333
-P 5550 4000
-F 0 "C39" H 5600 4100 50  0000 L CNN
-F 1 "10uF" H 5600 3900 50  0000 L CNN
-	1    5550 4000
-	1    0    0    -1  
-$EndComp
-Text HLabel 5200 4300 0    45   BiDi ~ 0
-MCU_GND
-$Comp
-L R R31
-U 1 1 547ED2AB
-P 5300 3950
-F 0 "R31" V 5380 3950 50  0000 C CNN
-F 1 "15K" V 5300 3950 50  0000 C CNN
-	1    5300 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L R R30
-U 1 1 547ED2A5
-P 5300 3300
-F 0 "R30" V 5380 3300 50  0000 C CNN
-F 1 "110K" V 5300 3300 50  0000 C CNN
-	1    5300 3300
-	1    0    0    -1  
-$EndComp
 Text HLabel 6500 4400 0    45   BiDi ~ 0
 XP_GND
 Text HLabel 6500 2800 0    45   Output ~ 0
 XP_GND
 $Comp
-L PWR_FLAG #FLG3
+L PWR_FLAG #FLG03
 U 1 1 5474845E
 P 5550 2550
-F 0 "#FLG3" H 5550 2820 30  0001 C CNN
+F 0 "#FLG03" H 5550 2820 30  0001 C CNN
 F 1 "PWR_FLAG" H 5550 2780 30  0000 C CNN
 	1    5550 2550
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG4
+L PWR_FLAG #FLG04
 U 1 1 54748449
 P 6200 2350
-F 0 "#FLG4" H 6200 2620 30  0001 C CNN
+F 0 "#FLG04" H 6200 2620 30  0001 C CNN
 F 1 "PWR_FLAG" H 6200 2580 30  0000 C CNN
 	1    6200 2350
 	1    0    0    -1  
@@ -343,6 +283,4 @@ Text HLabel 4200 3100 2    45   Input ~ 0
 XP_PC14
 Text HLabel 4200 4400 2    45   BiDi ~ 0
 XP_GND
-Text HLabel 4750 3000 2    45   BiDi ~ 0
-XP_PB1
 $EndSCHEMATC
