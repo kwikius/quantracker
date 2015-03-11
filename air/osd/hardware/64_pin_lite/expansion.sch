@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 09 Mar 2015 16:29:56 GMT
+EESchema Schematic File Version 2  date Wed 11 Mar 2015 10:11:51 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "9 mar 2015"
+Date "11 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -236,19 +236,19 @@ XP_GND
 Text HLabel 6500 2800 0    45   Output ~ 0
 XP_GND
 $Comp
-L PWR_FLAG #FLG03
+L PWR_FLAG #FLG3
 U 1 1 5474845E
 P 5550 2550
-F 0 "#FLG03" H 5550 2820 30  0001 C CNN
+F 0 "#FLG3" H 5550 2820 30  0001 C CNN
 F 1 "PWR_FLAG" H 5550 2780 30  0000 C CNN
 	1    5550 2550
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG04
+L PWR_FLAG #FLG4
 U 1 1 54748449
 P 6200 2350
-F 0 "#FLG04" H 6200 2620 30  0001 C CNN
+F 0 "#FLG4" H 6200 2620 30  0001 C CNN
 F 1 "PWR_FLAG" H 6200 2580 30  0000 C CNN
 	1    6200 2350
 	1    0    0    -1  

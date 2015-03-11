@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 09 Mar 2015 16:29:56 GMT
+EESchema Schematic File Version 2  date Wed 11 Mar 2015 10:11:51 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
-Date "9 mar 2015"
+Date "11 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -333,10 +333,10 @@ SWITCHER_+5V
 Text Label 8800 3300 0    45   ~ 0
 HUB_+3.3V
 $Comp
-L PWR_FLAG #FLG01
+L PWR_FLAG #FLG2
 U 1 1 54F72D02
 P 6850 3050
-F 0 "#FLG01" H 6850 3320 30  0001 C CNN
+F 0 "#FLG2" H 6850 3320 30  0001 C CNN
 F 1 "PWR_FLAG" H 6850 3280 30  0000 C CNN
 	1    6850 3050
 	1    0    0    -1  
@@ -482,10 +482,10 @@ $EndComp
 Text Notes 6400 2750 0    45   ~ 0
 200 mA  @ 5V
 $Comp
-L PWR_FLAG #FLG02
+L PWR_FLAG #FLG1
 U 1 1 547116AD
 P 2300 3250
-F 0 "#FLG02" H 2300 3520 30  0001 C CNN
+F 0 "#FLG1" H 2300 3520 30  0001 C CNN
 F 1 "PWR_FLAG" H 2300 3480 30  0000 C CNN
 	1    2300 3250
 	1    0    0    -1  
