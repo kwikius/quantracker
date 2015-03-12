@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 11 Mar 2015 17:51:25 GMT
+EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -55,7 +55,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "11 mar 2015"
+Date "12 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,8 +63,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 4200 3000 2    45   BiDi ~ 0
-XP_PB1
+Wire Wire Line
+	6600 2700 6500 2700
 Wire Wire Line
 	6600 3400 6500 3400
 Wire Wire Line
@@ -111,15 +111,13 @@ Wire Wire Line
 Wire Wire Line
 	4100 2900 4200 2900
 Wire Wire Line
-	5400 2700 6600 2700
-Wire Wire Line
-	6600 2500 5950 2500
+	5950 2500 6600 2500
 Wire Wire Line
 	4100 2600 4200 2600
 Wire Wire Line
 	4100 2800 4200 2800
 Wire Wire Line
-	5550 2550 5550 2700
+	5550 2700 5550 2550
 Connection ~ 5550 2700
 Wire Wire Line
 	4100 3100 4200 3100
@@ -153,11 +151,20 @@ Wire Wire Line
 	6600 3100 6500 3100
 Wire Wire Line
 	6600 3300 6500 3300
-Text HLabel 6500 3000 0    45   BiDi ~ 0
-XP_PB8
-Text HLabel 4200 3400 2    45   BiDi ~ 0
+Wire Wire Line
+	6600 2600 5650 2600
+Wire Wire Line
+	5650 2600 5650 2700
+Wire Wire Line
+	5650 2700 5400 2700
+Text HLabel 6500 2900 0    45   BiDi ~ 0
 XP_GND
-NoConn ~ 6600 2600
+Text HLabel 4200 3000 2    45   BiDi ~ 0
+XP_PB1
+Text HLabel 6500 2800 0    45   BiDi ~ 0
+XP_PB8
+Text HLabel 4200 3800 2    45   BiDi ~ 0
+XP_GND
 Text HLabel 6500 1750 0    45   Output ~ 0
 VIN-
 $Comp
@@ -169,11 +176,9 @@ F 1 "CONN_1" H 6600 2005 30  0001 C CNN
 	1    6600 1950
 	0    1    1    0   
 $EndComp
-Text Notes 5500 3350 0    45   ~ 0
-3V max. \nWith values \nshown works \nfrom 2S to 6S\n
-Text HLabel 6500 4400 0    45   BiDi ~ 0
+Text HLabel 6500 3600 0    45   BiDi ~ 0
 XP_GND
-Text HLabel 6500 2800 0    45   Output ~ 0
+Text HLabel 6500 3200 0    45   Output ~ 0
 XP_GND
 $Comp
 L PWR_FLAG #FLG03
@@ -193,7 +198,7 @@ F 1 "PWR_FLAG" H 6200 2580 30  0000 C CNN
 	1    6200 2350
 	1    0    0    -1  
 $EndComp
-Text HLabel 6500 4200 0    45   BiDi ~ 0
+Text HLabel 6500 4300 0    45   BiDi ~ 0
 XP_PA13
 Text HLabel 4200 2800 2    45   Output ~ 0
 XP_GND
@@ -231,19 +236,19 @@ Text HLabel 5950 2500 0    45   Output ~ 0
 VIN+
 Text HLabel 4200 3200 2    45   Input ~ 0
 XP_PC15
-Text HLabel 6500 4300 0    45   Output ~ 0
+Text HLabel 6500 4400 0    45   Output ~ 0
 XP_NRST
 Text HLabel 1900 5450 0    45   BiDi ~ 0
 XP_GND
-Text HLabel 6500 4100 0    45   BiDi ~ 0
+Text HLabel 6500 4200 0    45   BiDi ~ 0
 XP_GND
-Text HLabel 6500 4000 0    45   BiDi ~ 0
+Text HLabel 6500 4100 0    45   BiDi ~ 0
 XP_PA14
-Text HLabel 6500 3800 0    45   BiDi ~ 0
+Text HLabel 6500 3900 0    45   BiDi ~ 0
 XP_PA12
-Text HLabel 6500 3700 0    45   BiDi ~ 0
+Text HLabel 6500 3800 0    45   BiDi ~ 0
 XP_PA11
-Text HLabel 6500 3600 0    45   BiDi ~ 0
+Text HLabel 6500 3700 0    45   BiDi ~ 0
 XP_PC12
 Text HLabel 6500 3500 0    45   BiDi ~ 0
 XP_PB3
@@ -251,13 +256,13 @@ Text HLabel 6500 3400 0    45   BiDi ~ 0
 XP_PB4
 Text HLabel 6500 3300 0    45   BiDi ~ 0
 XP_PB5
-Text HLabel 6500 3900 0    45   BiDi ~ 0
+Text HLabel 6500 4000 0    45   BiDi ~ 0
 XP_+3V
-Text HLabel 6500 3200 0    45   BiDi ~ 0
-XP_PB6
 Text HLabel 6500 3100 0    45   BiDi ~ 0
+XP_PB6
+Text HLabel 6500 3000 0    45   BiDi ~ 0
 XP_PB7
-Text HLabel 6500 2900 0    45   BiDi ~ 0
+Text HLabel 6500 2700 0    45   BiDi ~ 0
 XP_PB9
 Text HLabel 4200 4300 2    45   BiDi ~ 0
 XP_PA8
@@ -269,13 +274,13 @@ Text HLabel 4200 4000 2    45   BiDi ~ 0
 XP_PC4
 Text HLabel 4200 3900 2    45   BiDi ~ 0
 XP_PC3
-Text HLabel 4200 3800 2    45   BiDi ~ 0
-XP_PA0
 Text HLabel 4200 3700 2    45   BiDi ~ 0
-XP_PA1
+XP_PA0
 Text HLabel 4200 3600 2    45   BiDi ~ 0
-XP_PC1
+XP_PA1
 Text HLabel 4200 3500 2    45   BiDi ~ 0
+XP_PC1
+Text HLabel 4200 3400 2    45   BiDi ~ 0
 XP_PC0
 Text HLabel 4200 3300 2    45   BiDi ~ 0
 XP_GND
