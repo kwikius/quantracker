@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 1 date Fri 13 Mar 2015 10:23:54 GMT
+PCBNEW-BOARD Version 1 date Fri 13 Mar 2015 11:43:34 GMT
 
 # Created by Pcbnew(2011-05-25)-stable
 
@@ -69,7 +69,7 @@ PadSize 787 787
 PadDrill 394
 Pad2MaskClearance 100
 AuxiliaryAxisOrg 0 0
-PcbPlotParams (pcbplotparams (layerselection 284196871) (usegerberextensions true) (excludeedgelayer true) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output false) (plotreference false) (plotvalue false) (plotothertext false) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 1) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory /home/andy/cpp/projects/quantracker/air/osd/hardware/64_pin_lite/air_osd_v2/))
+PcbPlotParams (pcbplotparams (layerselection 284196871) (usegerberextensions true) (excludeedgelayer true) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output false) (plotreference false) (plotvalue false) (plotothertext false) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 1) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory /home/andy/cpp/projects/quantracker/air/osd/hardware/64_pin_lite/air_osd_v2_1/))
 $EndSETUP
 
 $EQUIPOT
@@ -5341,7 +5341,7 @@ De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "GND"
-Po 50075 40750 197 295 49 1800
+Po 50100 40825 197 295 49 0
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
@@ -5418,7 +5418,7 @@ De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "GND"
-Po 46275 31975 197 295 49 2700
+Po 46300 32000 197 295 49 2700
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
@@ -5770,7 +5770,7 @@ De 21 1 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "GND"
-Po 48000 30325 173 295 43 0
+Po 48000 30250 173 295 43 1800
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
@@ -5839,7 +5839,7 @@ De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "GND"
-Po 46250 38025 173 295 43 900
+Po 46200 38025 173 295 43 2700
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
@@ -5959,7 +5959,7 @@ De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "GND"
-Po 63975 30325 173 295 43 0
+Po 63950 30250 173 295 43 1800
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
@@ -6014,7 +6014,7 @@ De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "PB5"
-Po 55025 30325 173 295 43 0
+Po 54975 30275 173 295 43 1800
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
