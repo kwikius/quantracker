@@ -1,0 +1,25 @@
+PCBNEW-LibModule-V1  Fri 13 Mar 2015 10:49:49 GMT
+# encoding utf-8
+$INDEX
+1PIN
+$EndINDEX
+$MODULE 1PIN
+Po 0 0 0 15 00200000 5502C0AA ~~
+Li 1PIN
+Cd module 1 pin (ou trou mecanique de percage)
+Kw DEV
+Sc 5502C0AA
+AR 
+Op 0 0 0
+T0 0 -1200 400 400 0 100 N V 21 N "1PIN"
+T1 0 1100 400 400 0 100 N I 21 N "P***"
+DC 0 0 0 -900 150 21
+$PAD
+Sh "1" C 1600 1600 0 0 0
+Dr 1200 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE  1PIN
+$EndLIBRARY
