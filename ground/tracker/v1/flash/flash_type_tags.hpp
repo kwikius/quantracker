@@ -19,6 +19,10 @@
 
 #include <quan/three_d/vect.hpp>
 
+//####################################
+// generic should be moved to quan
+//#####################################
+
 // each type in flash needs a typeid
 // these are zero based and are used as indexes
 // in array
@@ -26,6 +30,11 @@ enum flash_type_tags { Vect3F, Bool};
 
 // app level create unique integer tags for each type in the flash
 // accessible using these templates
+// to get the id for a type do 
+//    type_to_id<T>::value
+
+// to get the type from id do
+//     id_to_type<id>::type
 template <typename T> struct type_to_id;
 template <uint32_t id> struct id_to_type;
 

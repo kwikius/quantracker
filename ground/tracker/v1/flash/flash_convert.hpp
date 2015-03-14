@@ -25,6 +25,11 @@
 template <typename T>
 struct flash_convert;
 
+/*
+ bytestream is the representation of the object in flash
+ text is the user comprehensible string representing the object
+*/
+
 template <> struct flash_convert<bool>{
    static bool text_to_bytestream(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
    static bool bytestream_to_text(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
