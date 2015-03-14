@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
-Date "26 jan 2015"
+Date "12 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,99 +63,116 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	10850 3600 9200 3600
+Connection ~ 1100 4300
+Wire Wire Line
+	1500 4050 1500 4300
+Wire Wire Line
+	1500 4300 900  4300
+Connection ~ 900  4300
+Wire Wire Line
+	1100 4300 1100 4200
+Wire Wire Line
+	1000 3450 950  3450
+Wire Wire Line
+	950  3450 950  3850
+Wire Wire Line
+	950  3850 850  3850
+Wire Wire Line
+	7300 6450 7300 5550
+Connection ~ 7300 6450
+Wire Wire Line
+	9200 3200 10650 3200
+Connection ~ 9200 3600
+Connection ~ 9200 3200
+Wire Wire Line
+	7950 1850 7950 3300
+Wire Wire Line
+	8750 2000 8750 3450
+Wire Wire Line
+	9100 5350 9100 6450
+Wire Wire Line
+	8800 6450 8800 5350
+Wire Wire Line
+	8500 6450 8500 5350
+Wire Wire Line
+	8950 6450 8950 5350
+Wire Wire Line
+	8650 6450 8650 5350
+Wire Wire Line
+	7600 1950 7600 3250
 Connection ~ 1900 4600
 Wire Wire Line
-	1900 4300 1900 4600
+	1900 4600 1900 4300
 Connection ~ 2550 3700
 Wire Wire Line
-	2250 3700 2250 3900
-Connection ~ 7350 3400
+	2250 3900 2250 3700
+Connection ~ 6800 3400
 Wire Wire Line
-	7350 3400 7000 3400
+	6800 3400 6450 3400
 Wire Wire Line
-	7000 3400 7000 3450
-Connection ~ 9750 3800
+	6450 3400 6450 3450
+Connection ~ 8100 4600
 Wire Wire Line
-	9750 4000 9750 3800
-Connection ~ 8650 4600
+	8800 4400 8800 4600
 Wire Wire Line
-	9350 4600 9350 4400
-Connection ~ 10000 3950
+	8700 3800 8800 3800
+Connection ~ 6800 3450
 Wire Wire Line
-	10200 4200 10000 4200
+	8750 3450 6800 3450
 Wire Wire Line
-	10000 4200 10000 3550
-Connection ~ 10000 3800
+	7300 3500 7300 3800
+Connection ~ 6800 3500
 Wire Wire Line
-	10000 3950 10200 3950
+	7300 3500 6800 3500
+Connection ~ 6800 3550
 Wire Wire Line
-	10000 3800 9250 3800
-Connection ~ 7350 3450
+	7200 3950 7200 3550
 Wire Wire Line
-	8700 2400 8700 3450
+	7200 3550 6800 3550
 Wire Wire Line
-	8700 3450 7350 3450
+	8100 4600 8100 4400
 Wire Wire Line
-	7850 3500 7850 3800
-Connection ~ 7350 3500
-Wire Wire Line
-	7850 3500 7350 3500
-Connection ~ 7350 3550
-Wire Wire Line
-	7750 3950 7750 3550
-Wire Wire Line
-	7750 3550 7350 3550
-Wire Wire Line
-	8650 4600 8650 4400
-Connection ~ 4300 6200
-Wire Wire Line
-	1500 6200 9550 6200
-Connection ~ 8500 6200
-Wire Wire Line
-	8500 6200 8500 5800
-Connection ~ 8650 6200
-Wire Wire Line
-	8650 6200 8650 5800
-Connection ~ 9100 6200
-Wire Wire Line
-	8800 6200 8800 5800
-Connection ~ 8800 6200
-Wire Wire Line
-	8950 6200 8950 5800
-Connection ~ 8950 6200
+	9500 6450 4300 6450
+Connection ~ 8500 6450
+Connection ~ 8650 6450
+Connection ~ 9100 6450
+Connection ~ 8800 6450
+Connection ~ 8950 6450
 Connection ~ 5400 3850
 Wire Wire Line
 	5400 3850 5700 3850
 Wire Wire Line
 	5700 3850 5700 3750
-Connection ~ 6550 4600
+Connection ~ 6000 4600
 Wire Wire Line
-	7350 4600 7350 4150
-Connection ~ 1450 3450
+	6800 4600 6800 4450
+Connection ~ 1500 3450
 Wire Wire Line
-	1450 3900 1450 3450
+	1500 3450 1500 3650
 Connection ~ 2550 4600
 Connection ~ 2550 3600
 Wire Wire Line
 	2650 3600 2550 3600
 Wire Wire Line
-	4300 4600 4300 6200
+	4300 6450 4300 4600
 Connection ~ 4400 3200
 Wire Wire Line
 	4400 3300 4400 3200
 Connection ~ 3350 4600
 Wire Wire Line
 	3350 4600 3350 4150
-Connection ~ 6550 3200
+Connection ~ 6000 3200
 Wire Wire Line
-	6550 3200 6550 3750
+	6000 3750 6000 3200
 Wire Wire Line
 	4600 4600 4600 4450
 Connection ~ 4600 4600
 Wire Wire Line
-	6550 4600 6550 4150
+	6000 4600 6000 4150
 Wire Wire Line
-	2550 4300 2550 4600
+	2550 4600 2550 4300
 Connection ~ 5400 3200
 Wire Wire Line
 	5400 3200 5400 3300
@@ -188,75 +207,56 @@ Wire Wire Line
 Wire Wire Line
 	4400 3800 4400 3700
 Wire Wire Line
-	6650 3200 5300 3200
+	6100 3200 5300 3200
 Wire Wire Line
-	7250 3200 7550 3200
+	6700 3200 7000 3200
 Wire Wire Line
 	2550 3450 2550 3900
 Connection ~ 2550 3450
 Wire Wire Line
-	1600 3450 1250 3450
+	1600 3450 1400 3450
 Wire Wire Line
 	2200 3450 2650 3450
 Wire Wire Line
-	1450 4300 1450 4600
+	6800 4050 6800 3200
+Connection ~ 6800 3200
 Wire Wire Line
-	7350 3750 7350 3200
-Connection ~ 7350 3200
+	2300 3450 2300 3250
+Connection ~ 2300 3450
 Wire Wire Line
-	2300 3250 2450 3450
-Connection ~ 2450 3450
-Wire Wire Line
-	7400 3200 7400 3050
-Connection ~ 7400 3200
+	6850 3050 6850 3200
+Connection ~ 6850 3200
 Wire Wire Line
 	5700 3350 5700 3250
 Wire Wire Line
 	5700 3250 5400 3250
 Connection ~ 5400 3250
-Connection ~ 7350 4600
+Connection ~ 6800 4600
 Wire Wire Line
-	7000 3850 7000 3950
+	6450 3850 6450 3950
 Wire Wire Line
-	9100 6200 9100 5800
+	7200 4600 7200 4350
+Connection ~ 7200 4600
 Wire Wire Line
-	7750 4600 7750 4350
-Connection ~ 7750 4600
+	6450 4600 6450 4450
+Connection ~ 6450 4600
 Wire Wire Line
-	7000 4600 7000 4450
-Connection ~ 7000 4600
+	7600 3250 6800 3250
+Connection ~ 6800 3250
 Wire Wire Line
-	7350 3250 8150 3250
+	7950 3300 6800 3300
+Connection ~ 6800 3300
 Wire Wire Line
-	8150 3250 8150 2400
-Connection ~ 7350 3250
+	7500 4050 7400 4050
 Wire Wire Line
-	7350 3300 8500 3300
+	7400 4050 7400 3800
+Connection ~ 7400 3800
+Connection ~ 8800 3800
 Wire Wire Line
-	8500 3300 8500 2400
-Connection ~ 7350 3300
+	9200 4400 9200 4600
+Connection ~ 8800 4600
 Wire Wire Line
-	8050 4050 7950 4050
-Wire Wire Line
-	7950 4050 7950 3800
-Connection ~ 7950 3800
-Wire Wire Line
-	10000 3550 10200 3550
-Wire Wire Line
-	10200 3750 10000 3750
-Connection ~ 10000 3750
-Wire Wire Line
-	9350 4000 9350 3800
-Connection ~ 9350 3800
-Wire Wire Line
-	1450 4600 9750 4600
-Wire Wire Line
-	9750 4600 9750 4400
-Connection ~ 9350 4600
-Wire Wire Line
-	7850 3800 8050 3800
-Wire Wire Line
-	850  3450 750  3450
+	7300 3800 7500 3800
 Wire Wire Line
 	2250 4600 2250 4300
 Connection ~ 2250 4600
@@ -265,6 +265,86 @@ Wire Wire Line
 Wire Wire Line
 	1900 3700 1900 3900
 Connection ~ 2250 3700
+Wire Wire Line
+	9200 4000 9200 3000
+Wire Wire Line
+	9200 3000 10700 3000
+Wire Wire Line
+	9200 3400 10600 3400
+Connection ~ 9200 3400
+Wire Wire Line
+	8800 4000 8800 3300
+Wire Wire Line
+	8800 3300 9200 3300
+Connection ~ 9200 3300
+Wire Wire Line
+	9200 4600 900  4600
+Wire Wire Line
+	850  4050 900  4050
+Wire Wire Line
+	900  4050 900  4600
+Wire Wire Line
+	1550 3450 1550 3200
+Wire Wire Line
+	1550 3200 1500 3200
+Connection ~ 1550 3450
+Wire Wire Line
+	950  3700 1100 3700
+Wire Wire Line
+	1100 3700 1100 3800
+Connection ~ 950  3700
+Text HLabel 8950 5350 1    45   Output ~ 0
+VIDEO_OUT_GND
+Text HLabel 9100 5350 1    45   Output ~ 0
+MCU_GND
+Text HLabel 8800 5350 1    45   Output ~ 0
+VIDEO_IN_GND
+Text Label 6450 3900 0    45   ~ 0
+BLUE_LED_RES
+Text Label 4200 3800 0    45   ~ 0
+SWITCHER_CB
+$Comp
+L C C42
+U 1 1 54F874D2
+P 1100 4000
+F 0 "C42" H 1150 4100 50  0000 L CNN
+F 1 "0u1" H 1150 3900 50  0000 L CNN
+F 2 "0603" H 1100 4000 60  0001 C CNN
+F 4 "50 V" H 1100 4000 60  0001 C CNN "Voltage"
+	1    1100 4000
+	1    0    0    -1  
+$EndComp
+Text HLabel 1500 3200 0    45   Input ~ 0
+VIN+RECT
+Text HLabel 850  4050 0    45   Input ~ 0
+VIN-
+Text HLabel 850  3850 0    45   Input ~ 0
+VIN+
+Text Label 4100 3200 0    45   ~ 0
+SWITCHER_OUT
+Text Label 4550 6450 0    45   ~ 0
+HUB_GND
+Text Label 2350 3450 0    45   ~ 0
+SWITCHER_VIN
+Text Label 4750 3900 0    45   ~ 0
+SWITCHER_FB
+Text Label 5500 3200 0    45   ~ 0
+SWITCHER_+5V
+Text Label 8800 3300 0    45   ~ 0
+HUB_+3.3V
+$Comp
+L PWR_FLAG #FLG01
+U 1 1 54F72D02
+P 6850 3050
+F 0 "#FLG01" H 6850 3320 30  0001 C CNN
+F 1 "PWR_FLAG" H 6850 3280 30  0000 C CNN
+	1    6850 3050
+	1    0    0    -1  
+$EndComp
+Text HLabel 7300 5550 1    45   Input ~ 0
+XP_GND
+Text Label 9500 6450 0    45   ~ 0
+HUB_GND
 $Comp
 L C C40
 U 1 1 54846E5A
@@ -286,100 +366,88 @@ $EndComp
 $Comp
 L DIODESCH D6
 U 1 1 547C7672
-P 1050 3450
-F 0 "D6" H 1050 3550 40  0000 C CNN
-F 1 "30V 500mA" H 1050 3350 40  0000 C CNN
-	1    1050 3450
+P 1200 3450
+F 0 "D6" H 1200 3550 40  0000 C CNN
+F 1 "30V 500mA" H 1200 3350 40  0000 C CNN
+	1    1200 3450
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C20
 U 1 1 54749249
-P 9750 4200
-F 0 "C20" H 9800 4300 50  0000 L CNN
-F 1 "0u1" H 9800 4100 50  0000 L CNN
-	1    9750 4200
+P 9200 4200
+F 0 "C20" H 9250 4300 50  0000 L CNN
+F 1 "0u1" H 9250 4100 50  0000 L CNN
+	1    9200 4200
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C19
 U 1 1 547491F8
-P 9350 4200
-F 0 "C19" H 9400 4300 50  0000 L CNN
-F 1 "10uF" H 9400 4100 50  0000 L CNN
-F 4 "10V" H 9350 4200 60  0001 C CNN "Voltage"
-	1    9350 4200
+P 8800 4200
+F 0 "C19" H 8850 4300 50  0000 L CNN
+F 1 "10uF" H 8850 4100 50  0000 L CNN
+F 4 "10V" H 8800 4200 60  0001 C CNN "Voltage"
+	1    8800 4200
 	1    0    0    -1  
 $EndComp
-Text HLabel 10200 4200 2    45   Output ~ 0
+Text HLabel 10850 3600 2    45   Output ~ 0
 XP_3.3V
-Text HLabel 10200 3950 2    45   Output ~ 0
+Text HLabel 10600 3400 2    45   Output ~ 0
 MAVLINK_+3.3V
-Text HLabel 10200 3750 2    45   Output ~ 0
+Text HLabel 10650 3200 2    45   Output ~ 0
 VIDEO_+3.3V
-Text HLabel 10200 3550 2    45   Output ~ 0
+Text HLabel 10700 3000 2    45   Output ~ 0
 MCU_+3.3V
 $Comp
 L LD39015MXXR U5
 U 1 1 5474880F
-P 8650 3900
-F 0 "U5" H 9025 3500 60  0000 C CNN
-F 1 "LD39015MXXR" H 8675 3875 60  0000 C CNN
-	1    8650 3900
+P 8100 3900
+F 0 "U5" H 8475 3500 60  0000 C CNN
+F 1 "LD39015MXXR" H 8125 3875 60  0000 C CNN
+	1    8100 3900
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C18
 U 1 1 5474880E
-P 7750 4150
-F 0 "C18" H 7800 4250 50  0000 L CNN
-F 1 "0u1" H 7800 4050 50  0000 L CNN
-F 4 "10V" H 7750 4150 60  0001 C CNN "Voltage"
-	1    7750 4150
+P 7200 4150
+F 0 "C18" H 7250 4250 50  0000 L CNN
+F 1 "0u1" H 7250 4050 50  0000 L CNN
+F 4 "10V" H 7200 4150 60  0001 C CNN "Voltage"
+	1    7200 4150
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R10
 U 1 1 547467E3
-P 7000 4200
-F 0 "R10" V 7080 4200 50  0000 C CNN
-F 1 "470R" V 7000 4200 50  0000 C CNN
-	1    7000 4200
+P 6450 4200
+F 0 "R10" V 6530 4200 50  0000 C CNN
+F 1 "470R" V 6450 4200 50  0000 C CNN
+	1    6450 4200
 	1    0    0    -1  
 $EndComp
 $Comp
 L LED D3
 U 1 1 547467CD
-P 7000 3650
-F 0 "D3" H 7000 3750 50  0000 C CNN
-F 1 "Blue Led" H 7000 3550 50  0000 C CNN
-F 2 "0603" H 7000 3650 60  0001 C CNN
-	1    7000 3650
+P 6450 3650
+F 0 "D3" H 6450 3750 50  0000 C CNN
+F 1 "Blue Led" H 6450 3550 50  0000 C CNN
+F 2 "0603" H 6450 3650 60  0001 C CNN
+	1    6450 3650
 	0    1    1    0   
 $EndComp
-Text HLabel 750  3450 0    45   Input ~ 0
-VIN+
-Text HLabel 8500 5800 1    45   Output ~ 0
+Text HLabel 8500 5350 1    45   Output ~ 0
 MAVLINK_GND
-Text Label 7550 3200 0    45   ~ 0
+Text Label 7000 3200 0    45   ~ 0
 HUB_+5V
-Text Label 9550 6200 0    45   ~ 0
-HUB_GND
-Text HLabel 8650 5800 1    45   Output ~ 0
+Text HLabel 8650 5350 1    45   Output ~ 0
 VIDEO_GND
-Text HLabel 8950 5800 1    45   Output ~ 0
-VIDEO_OUT_GND
-Text HLabel 9100 5800 1    45   Output ~ 0
-MCU_GND
-Text HLabel 1500 6200 0    45   Input ~ 0
-XP_GND
-Text HLabel 8150 2400 1    45   Output ~ 0
+Text HLabel 7600 1950 1    45   Output ~ 0
 VIDEO_+5V
-Text HLabel 8500 2400 1    45   Output ~ 0
+Text HLabel 7950 1850 1    45   Output ~ 0
 XP_+5V
-Text HLabel 8800 5800 1    45   Output ~ 0
-VIDEO_IN_GND
-Text HLabel 8700 2400 1    45   Output ~ 0
+Text HLabel 8750 2000 1    45   Output ~ 0
 VIDEO_OUT_+5V
 $Comp
 L BD9G101G U4
@@ -404,24 +472,15 @@ $EndComp
 $Comp
 L C C16
 U 1 1 5472708F
-P 6550 3950
-F 0 "C16" H 6600 4050 50  0000 L CNN
-F 1 "10uF" H 6600 3850 50  0000 L CNN
-F 4 "10 V" H 6550 3950 60  0001 C CNN "Voltage"
-	1    6550 3950
+P 6000 3950
+F 0 "C16" H 6050 4050 50  0000 L CNN
+F 1 "10uF" H 6050 3850 50  0000 L CNN
+F 4 "10 V" H 6000 3950 60  0001 C CNN "Voltage"
+	1    6000 3950
 	1    0    0    -1  
 $EndComp
-Text Notes 6950 2850 0    45   ~ 0
+Text Notes 6400 2750 0    45   ~ 0
 200 mA  @ 5V
-$Comp
-L PWR_FLAG #FLG01
-U 1 1 547128B2
-P 7400 3050
-F 0 "#FLG01" H 7400 3320 30  0001 C CNN
-F 1 "PWR_FLAG" H 7400 3280 30  0000 C CNN
-	1    7400 3050
-	1    0    0    -1  
-$EndComp
 $Comp
 L PWR_FLAG #FLG02
 U 1 1 547116AD
@@ -434,31 +493,31 @@ $EndComp
 $Comp
 L INDUCTOR L4
 U 1 1 54711641
-P 6950 3200
-F 0 "L4" V 6900 3200 40  0000 C CNN
-F 1 "2u2" V 7050 3200 40  0000 C CNN
-	1    6950 3200
+P 6400 3200
+F 0 "L4" V 6350 3200 40  0000 C CNN
+F 1 "2u2" V 6500 3200 40  0000 C CNN
+	1    6400 3200
 	0    1    1    0   
 $EndComp
 $Comp
 L C C17
 U 1 1 54711603
-P 7350 3950
-F 0 "C17" H 7400 4050 50  0000 L CNN
-F 1 "10uF" H 7400 3850 50  0000 L CNN
-F 4 "10 V" H 7350 3950 60  0001 C CNN "Voltage"
-	1    7350 3950
+P 6800 4250
+F 0 "C17" H 6850 4350 50  0000 L CNN
+F 1 "10uF" H 6850 4150 50  0000 L CNN
+F 4 "10 V" H 6800 4250 60  0001 C CNN "Voltage"
+	1    6800 4250
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C12
 U 1 1 54711574
-P 1450 4100
-F 0 "C12" H 1500 4200 50  0000 L CNN
-F 1 "0u1" H 1500 4000 50  0000 L CNN
-F 2 "0603" H 1450 4100 60  0001 C CNN
-F 4 "50 V" H 1450 4100 60  0001 C CNN "Voltage"
-	1    1450 4100
+P 1500 3850
+F 0 "C12" H 1550 3950 50  0000 L CNN
+F 1 "0u1" H 1550 3750 50  0000 L CNN
+F 2 "0603" H 1500 3850 60  0001 C CNN
+F 4 "50 V" H 1500 3850 60  0001 C CNN "Voltage"
+	1    1500 3850
 	1    0    0    -1  
 $EndComp
 $Comp

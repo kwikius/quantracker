@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "26 jan 2015"
+Date "12 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,10 +63,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 6600 5350 0    45   ~ 0
-Provide 50 mA on 5V supply
-Text Notes 2550 3650 0    45   ~ 0
-U9 only reqd\nfor receiving\ndata.
+Connection ~ 7600 6250
+Wire Wire Line
+	7600 6250 7600 5950
+Connection ~ 3300 700 
+Wire Wire Line
+	3150 700  6100 700 
 Connection ~ 5700 5900
 Wire Wire Line
 	5850 5900 5700 5900
@@ -73,8 +77,6 @@ Wire Wire Line
 Connection ~ 6250 1850
 Wire Wire Line
 	5700 1850 6250 1850
-Wire Wire Line
-	6450 5450 7250 5450
 Wire Wire Line
 	1250 6550 1550 6550
 Wire Wire Line
@@ -95,9 +97,9 @@ Wire Wire Line
 	2550 1150 2550 950 
 Wire Wire Line
 	2550 950  2400 950 
-Connection ~ 7650 6250
+Connection ~ 7850 6250
 Wire Wire Line
-	7650 6250 7650 6700
+	7850 6250 7850 6700
 Connection ~ 9600 5450
 Wire Wire Line
 	9600 5450 9600 5550
@@ -109,7 +111,7 @@ Wire Wire Line
 	8400 5550 8400 5450
 Connection ~ 6950 5450
 Wire Wire Line
-	6950 5550 6950 5450
+	6950 5450 6950 5550
 Connection ~ 7250 6250
 Wire Wire Line
 	7250 6250 7250 5950
@@ -140,26 +142,26 @@ Wire Wire Line
 Wire Wire Line
 	2900 4100 3200 4100
 Wire Wire Line
-	5600 6400 5800 6400
-Connection ~ 9900 1600
+	5800 6400 5600 6400
+Connection ~ 10000 1600
 Wire Wire Line
-	9900 1600 9900 2400
+	10000 1600 10000 2400
 Wire Wire Line
-	9900 2400 9600 2400
+	10000 2400 9700 2400
 Wire Wire Line
 	2050 1600 1900 1600
 Connection ~ 1350 1600
 Wire Wire Line
 	1350 1900 1350 1600
 Wire Wire Line
-	8100 1500 8050 1500
-Connection ~ 8700 1500
+	8200 1500 8050 1500
+Connection ~ 8800 1500
 Wire Wire Line
-	8700 1600 8700 1500
+	8800 1600 8800 1500
 Wire Wire Line
-	8800 2400 8800 1700
+	8900 2400 8900 1700
 Wire Wire Line
-	1500 1600 1250 1600
+	1250 1600 1500 1600
 Connection ~ 3300 1600
 Wire Wire Line
 	3200 1600 3300 1600
@@ -173,7 +175,7 @@ Wire Wire Line
 Wire Wire Line
 	1850 6050 1550 6050
 Wire Wire Line
-	1550 6050 1550 5050
+	1550 6050 1550 5200
 Wire Wire Line
 	6650 1200 6250 1200
 Connection ~ 3950 7350
@@ -187,13 +189,13 @@ Wire Wire Line
 	3650 7350 3650 6700
 Connection ~ 4200 6250
 Wire Wire Line
-	4200 6250 4600 6250
+	4600 6250 4200 6250
 Wire Wire Line
 	4600 6550 3900 6550
 Wire Wire Line
 	3900 6550 3900 6200
 Wire Wire Line
-	1550 5050 5850 5050
+	1550 5200 5850 5200
 Wire Wire Line
 	6700 6400 6300 6400
 Wire Wire Line
@@ -201,7 +203,7 @@ Wire Wire Line
 Wire Wire Line
 	7500 3500 7500 2100
 Wire Wire Line
-	9350 1200 9350 1000
+	9450 1200 9450 1000
 Wire Wire Line
 	7150 750  7150 650 
 Wire Wire Line
@@ -215,9 +217,7 @@ Wire Wire Line
 Wire Wire Line
 	3650 2350 3850 2350
 Wire Wire Line
-	4800 1200 4800 1000
-Wire Wire Line
-	6100 700  3300 700 
+	4800 1000 4800 1200
 Wire Wire Line
 	6650 1400 6400 1400
 Wire Wire Line
@@ -229,7 +229,7 @@ Wire Wire Line
 Wire Wire Line
 	6650 1600 6550 1600
 Wire Wire Line
-	8800 1700 8850 1700
+	8900 1700 8950 1700
 Wire Wire Line
 	3850 2150 3550 2150
 Wire Wire Line
@@ -260,7 +260,7 @@ Wire Wire Line
 Wire Wire Line
 	6550 1600 6550 2050
 Wire Wire Line
-	5850 5050 5850 2450
+	5850 5200 5850 2450
 Wire Wire Line
 	1850 6350 1300 6350
 Wire Wire Line
@@ -268,10 +268,10 @@ Wire Wire Line
 Wire Wire Line
 	3050 6200 2850 6200
 Wire Wire Line
-	3650 6300 3650 6200
+	3650 6200 3650 6300
 Connection ~ 3650 6200
 Wire Wire Line
-	4200 6050 4200 6700
+	4200 6700 4200 6050
 Wire Wire Line
 	3900 6200 3550 6200
 Wire Wire Line
@@ -280,21 +280,21 @@ Wire Wire Line
 	4400 5550 4750 5550
 Connection ~ 4400 6250
 Wire Wire Line
-	8600 1500 8850 1500
+	8950 1500 8700 1500
 Wire Wire Line
-	8700 2100 8700 2400
+	8800 2100 8800 2400
 Wire Wire Line
-	8700 2400 9100 2400
-Connection ~ 8800 2400
+	8800 2400 9200 2400
+Connection ~ 8900 2400
 Wire Wire Line
-	1300 4900 8000 4900
+	8000 4900 1300 4900
 Connection ~ 1300 4900
 Wire Wire Line
 	1350 2400 1350 2850
 Wire Wire Line
-	9950 1600 9850 1600
+	9950 1600 10050 1600
 Wire Wire Line
-	1750 4250 1300 4250
+	1300 4250 1750 4250
 Connection ~ 1300 4250
 Wire Wire Line
 	6250 1200 6250 3500
@@ -333,7 +333,7 @@ Wire Wire Line
 	7250 5450 7250 5550
 Connection ~ 7250 5450
 Wire Wire Line
-	6650 5450 6650 5550
+	6650 5550 6650 5450
 Wire Wire Line
 	8700 5450 8700 5550
 Connection ~ 8700 5450
@@ -343,18 +343,16 @@ Connection ~ 9300 5450
 Wire Wire Line
 	9900 5450 9900 5550
 Wire Wire Line
-	7650 6700 7350 6700
-Wire Wire Line
-	10450 1600 10550 1600
+	7850 6700 7350 6700
 Connection ~ 1350 2850
 Wire Wire Line
 	7150 2250 7150 2500
 Wire Wire Line
 	7150 2500 6950 2500
 Wire Wire Line
-	9250 2150 9350 2150
+	9350 2150 9450 2150
 Wire Wire Line
-	9350 2150 9350 2000
+	9450 2150 9450 2000
 Wire Wire Line
 	1450 7550 1550 7550
 Wire Wire Line
@@ -366,6 +364,60 @@ Wire Wire Line
 Wire Wire Line
 	3800 6200 3800 5950
 Connection ~ 3800 6200
+Wire Wire Line
+	10550 1600 10600 1600
+Wire Wire Line
+	6450 5450 7600 5450
+Wire Wire Line
+	7600 5450 7600 5550
+$Comp
+L CP1 C44
+U 1 1 550014A9
+P 7600 5750
+F 0 "C44" H 7650 5850 50  0000 L CNN
+F 1 "4U7" H 7650 5650 50  0000 L CNN
+	1    7600 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P12
+U 1 1 54F8F33A
+P 3000 700
+F 0 "P12" H 3080 700 40  0000 L CNN
+F 1 "CONN_1" H 3000 755 30  0001 C CNN
+	1    3000 700 
+	-1   0    0    1   
+$EndComp
+Text Label 2000 1600 1    45   ~ 0
+VIDEO_IN_CLAMP
+Text Label 10000 2000 0    45   ~ 0
+RAW_VIDOUT
+Text Label 8800 2350 2    45   ~ 0
+VIDOUT_BUF_IN-
+Text Label 8850 1500 1    45   ~ 0
+VID_OUT_BUF_IN
+Text Label 5400 5550 0    45   ~ 0
+CSYNC_CMP_OUT
+Text Label 4400 5900 0    45   ~ 0
+CSYNC_FLT_POS_REF
+Text Label 3950 6550 0    45   ~ 0
+CSYNC_FLT_VIN
+Text Label 2350 5200 0    45   ~ 0
+CSYNC_RAW_CMP_REF
+Text Label 2950 6200 1    45   ~ 0
+RAW_CSYNC_OUT
+Text Label 3250 4500 0    45   ~ 0
+RX_CMP_DOUT
+Text Label 1800 3250 0    45   ~ 0
+RX_CMP_DIN
+Text Label 8150 1500 1    45   ~ 0
+VID_MUX_OUT
+Text HLabel 10600 1600 2    60   Output ~ 0
+VIDEO_OUT
+Text Notes 6600 5350 0    45   ~ 0
+Provide 50 mA on 5V supply
+Text Notes 2550 3650 0    45   ~ 0
+U9 only reqd\nfor receiving\ndata.
 $Comp
 L CONN_1 P10
 U 1 1 5482DEBF
@@ -392,7 +444,7 @@ Text Notes 2850 6650 0    45   ~ 0
 LP filter to remove\n4.43361875 MHz\ncolor subcarrier
 Text Notes 1350 4150 0    45   ~ 0
 hyst +-0.05 V
-Text Notes 2650 5650 0    45   ~ 0
+Text Notes 2300 5700 0    45   ~ 0
 Csync circuit
 $Comp
 L MCP6562 U8
@@ -538,9 +590,9 @@ Text HLabel 1450 7550 0    60   BiDi ~ 0
 VIDEO_GND
 Text HLabel 3950 7450 0    60   BiDi ~ 0
 VIDEO_GND
-Text HLabel 9350 1000 0    45   Input ~ 0
+Text HLabel 9450 1000 0    45   Input ~ 0
 VIDEO_+5V
-Text HLabel 9250 2150 0    45   Input ~ 0
+Text HLabel 9350 2150 0    45   Input ~ 0
 VIDEO_GND
 Text HLabel 6950 2500 0    45   Input ~ 0
 VIDEO_GND
@@ -604,10 +656,10 @@ $EndComp
 $Comp
 L R R23
 U 1 1 544CEF88
-P 10200 1600
-F 0 "R23" V 10280 1600 50  0000 C CNN
-F 1 "75R" V 10200 1600 50  0000 C CNN
-	1    10200 1600
+P 10300 1600
+F 0 "R23" V 10380 1600 50  0000 C CNN
+F 1 "75R" V 10300 1600 50  0000 C CNN
+	1    10300 1600
 	0    1    1    0   
 $EndComp
 Text HLabel 8000 4900 2    60   Output ~ 0
@@ -615,32 +667,30 @@ VIDEO_SAMPLE
 $Comp
 L R R21
 U 1 1 544A415B
-P 8700 1850
-F 0 "R21" V 8780 1850 50  0000 C CNN
-F 1 "40R" V 8700 1850 50  0000 C CNN
-	1    8700 1850
+P 8800 1850
+F 0 "R21" V 8880 1850 50  0000 C CNN
+F 1 "40R" V 8800 1850 50  0000 C CNN
+	1    8800 1850
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R22
 U 1 1 544A412C
-P 9350 2400
-F 0 "R22" V 9430 2400 50  0000 C CNN
-F 1 "20R" V 9350 2400 50  0000 C CNN
-	1    9350 2400
+P 9450 2400
+F 0 "R22" V 9530 2400 50  0000 C CNN
+F 1 "20R" V 9450 2400 50  0000 C CNN
+	1    9450 2400
 	0    1    1    0   
 $EndComp
 $Comp
 L R R20
 U 1 1 544A4107
-P 8350 1500
-F 0 "R20" V 8430 1500 50  0000 C CNN
-F 1 "20R" V 8350 1500 50  0000 C CNN
-	1    8350 1500
+P 8450 1500
+F 0 "R20" V 8530 1500 50  0000 C CNN
+F 1 "20R" V 8450 1500 50  0000 C CNN
+	1    8450 1500
 	0    1    1    0   
 $EndComp
-Text HLabel 10550 1600 2    60   Output ~ 0
-VIDEO_OUT
 $Comp
 L FMS6141 U10
 U 1 1 544A2987
@@ -738,12 +788,12 @@ $EndComp
 $Comp
 L OPA830 U13
 U 1 1 541EDCE2
-P 9350 1600
-F 0 "U13" H 9300 1800 60  0000 L CNN
-F 1 "OPA830" H 9300 1350 60  0000 L CNN
-F 2 "SOT23-5" H 9350 1600 60  0001 C CNN
-F 3 "/home/andy/electronics/video/video_amp/opa830.pdf" H 9350 1600 60  0001 C CNN
-	1    9350 1600
+P 9450 1600
+F 0 "U13" H 9400 1800 60  0000 L CNN
+F 1 "OPA830" H 9400 1350 60  0000 L CNN
+F 2 "SOT23-5" H 9450 1600 60  0001 C CNN
+F 3 "/home/andy/electronics/video/video_amp/opa830.pdf" H 9450 1600 60  0001 C CNN
+	1    9450 1600
 	1    0    0    -1  
 $EndComp
 $Comp
