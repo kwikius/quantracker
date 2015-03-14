@@ -40,6 +40,7 @@
 static constexpr uint8_t mavlink_sysid = 1;  // system id
 static constexpr uint8_t mavlink_compid = 1; // component id
 mavlink_system_t mavlink_system = {mavlink_sysid,mavlink_compid}; // 
+static uint8_t swdio_status;
 
 void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 {
@@ -299,7 +300,21 @@ namespace{
 
    void do_mavlink_attitude(mavlink_message_t * pmsg)
    {
+
       the_aircraft.mutex_acquire();
+
+         if(swdio_status == 1)
+         {
+           quan::stm32::set<swdio>();
+           swdio_status = 0;
+         }
+         else
+         {
+           quan::stm32::clear<swdio>();
+           swdio_status = 1;
+         }
+
+
          // static const float pi = 3.141592653589793238462643383279502884197;
          // static const float rad_to_deg = 180.f / pi;
          the_aircraft.attitude.pitch = quan::angle_<float>::rad{mavlink_msg_attitude_get_pitch(pmsg)};
@@ -338,6 +353,20 @@ namespace{
 
 void create_mavlink_task()
 {
+
+#if (SWDIO_DEBUG == SWDIO_DEBUG_MAVLINK_TASK)
+	  quan::stm32::module_enable<swdio::port_type>();
+
+	   quan::stm32::apply<
+	      swdio
+	      , quan::stm32::gpio::mode::output
+	      , quan::stm32::gpio::otype::push_pull
+	      , quan::stm32::gpio::pupd::none
+	      , quan::stm32::gpio::ospeed::slow
+	      , quan::stm32::gpio::ostate::low
+	   >();
+#endif
+
    xTaskCreate(
          read_mavlink,"read_mavlink", 
          512,

@@ -38,6 +38,21 @@ namespace {
 
 void create_draw_task()
 {
+
+#if (SWDIO_DEBUG == SWDIO_DEBUG_DRAW_TASK)
+	  quan::stm32::module_enable<swdio::port_type>();
+
+	   quan::stm32::apply<
+	      swdio
+	      , quan::stm32::gpio::mode::output
+	      , quan::stm32::gpio::otype::push_pull
+	      , quan::stm32::gpio::pupd::none
+	      , quan::stm32::gpio::ospeed::slow
+	      , quan::stm32::gpio::ostate::low
+	   >();
+#endif
+
+
    xTaskCreate(
       draw_task,"draw_task", 
       2500,

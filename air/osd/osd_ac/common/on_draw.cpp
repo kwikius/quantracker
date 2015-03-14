@@ -3,6 +3,8 @@
 #include <quan/uav/osd/features_api.hpp>
 #include "on_draw.hpp"
 #include "osd.hpp"
+#include <quan/stm32/gpio.hpp>
+#include "../../resources.hpp"
 
 using namespace quan::uav::osd;
 
@@ -21,11 +23,13 @@ void quan::uav::osd::on_draw()
 {
 
    draw_compass();
+
    draw_artificial_horizon();
    draw_batteries();
    draw_mode();
    draw_altitude();
    draw_speed();
+
 
    if (home_position_is_set() == true){
       draw_home();
@@ -39,4 +43,8 @@ void quan::uav::osd::on_draw()
          draw_gps_state();
       }
    }
+
+
+
+
 }
