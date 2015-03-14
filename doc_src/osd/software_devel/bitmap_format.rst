@@ -21,6 +21,8 @@ to put it in in rom.
 The format of the data array
 ----------------------------
 
+N.B. This format will probably change 
+
 The array is declared as an array of uint8_t, 
 but should be seen as a linear array of 2 bit values, each representing a pixel.
 The 2 bit values map to colours as follows (Also see `\<quan/uav/osd/colour.hpp\>`_ )

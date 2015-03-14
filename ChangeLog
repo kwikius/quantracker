@@ -1,3 +1,10 @@
+Sat Mar 14 09:28:44 GMT 2015 : devel
+New PCB V2.0 and V2.1 board on order to OSHPark. They are intended to be free of the GPS interference issues.
+Looking at implementing flash vars in osd next
+
+Thu Mar  5 12:39:12 GMT 2015
+OSD - Added some docs on bitmaps and an example to output a bitmap to stdout, to easily test bitmaps
+
 Fri Feb 27 11:50:17 GMT 2015
 OSD - In examples/osd_example1
    startup gps info,

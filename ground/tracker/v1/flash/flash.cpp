@@ -42,6 +42,8 @@ namespace {
    } flash_image;
 
    // array of functions for converting text to a bytestream
+   // Each function in the array converts from text to the type
+   // at the ame index in the flash_type_tags enum
    // The order must be the same as the flash_type_tags enum in flash_type_tags.hpp
    constexpr flash_symtab::pfn_text_to_bytestream text_to_bytestream[] =
    {

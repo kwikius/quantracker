@@ -1,0 +1,2 @@
+To program 
+stm32flash -f -v -w blink.bin /dev/ttyUSB0
