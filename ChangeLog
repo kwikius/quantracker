@@ -1,3 +1,6 @@
+Sat Mar 14 14:39:05 GMT 2015
+Moved Ground tracker flash stuff from local into quan/stm32/flash
+
 Thu Mar  5 12:39:12 GMT 2015
 OSD - Added some docs on bitmaps and an example to output a bitmap to stdout, to easily test bitmaps
 

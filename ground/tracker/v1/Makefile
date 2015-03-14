@@ -46,9 +46,14 @@ TOOLCHAIN_PREFIX = /opt/gcc-arm-none-eabi-4_7-2013q2/
 # (You can find the gcc version by invoking arm-noe-eabi-gcc --version in the $(TOOLCHAIN_PREFIX)/bin/ directory)
 TOOLCHAIN_GCC_VERSION = 4.7.4
 
-FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/flash.cpp
-QUAN_FLASH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash.cpp
-TEXT_TO_BYTESTREAM_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/text_to_bytestream/
+# generic flash
+# stm32f4 flash
+
+STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
+
+GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
+
+# TEXT_TO_BYTESTREAM_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/text_to_bytestream/
 
 # otherwise you are on your own ... !
 ###################################################################
@@ -101,18 +106,22 @@ all: test
 
 Debug : test
 
+quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_convert_bool.o \
+ quan_generic_flash_convert_vect3f.o quan_generic_flash_error.o
+
 local_objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o \
 azimuth_motor_calc.o loop_timer.o elevation_servo.o telemetry.o frsky_serial_port.o \
 led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o text_commands.o \
 compass.o update_mag.o systick.o frsky_bytestuff_telemetry.o cobs_fsk_telemetry.o \
 fsk_filter.o
 
-flash_objects = flash_error.o flash.o flash_menu.o flash_get_set_mag_offset.o \
-flash_convert_bool.o flash_convert_vect3f.o init_values_from_flash.o
+local_flash_objects = flash.o flash_menu.o flash_get_set_mag_offset.o \
+ init_values_from_flash.o
 
-all_objects = startup.o $(local_objects) $(flash_objects) \
-  quan_stm32_flash_funs.o quan_stm32_flash.o
+flash_objects  = $(local_flash_objects) $(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o  
 
+all_objects = startup.o $(local_objects) $(flash_objects) 
+  
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
 
@@ -126,17 +135,17 @@ main.elf : $(all_objects)
 	@ echo "..linking"
 	$(LD)   $(LFLAGS)  -o main.elf $(all_objects) 
 
+$(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
 $(local_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(flash_objects) : %.o : flash/%.cpp
+$(local_flash_objects) : %.o : flash/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-quan_stm32_flash_funs.o : $(FLASH_SRC)
-	$(CC) $(CFLAGS) -o quan_stm32_flash_funs.o $(FLASH_SRC)
-
-quan_stm32_flash.o : $(QUAN_FLASH)
-	$(CC) $(CFLAGS) -o quan_stm32_flash.o $(QUAN_FLASH)
+quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
+	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)
 
 startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 

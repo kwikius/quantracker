@@ -22,11 +22,10 @@
 #include <quan/three_d/vect.hpp>
 #include <quan/conversion/float_convert.hpp>
 #include <quan/conversion/itoa.hpp>
+#include <quan/stm32/flash/flash_error.hpp>
 #include <quan/stm32/detail/flash.hpp>
 #include "../serial_ports.hpp"
 #include "flash.hpp"
-#include "flash_error.hpp"
-
 
 void user_message (const char* str)
 {
@@ -282,6 +281,3 @@ bool flash_menu()
    }
    return true;
 }
-
-
- 

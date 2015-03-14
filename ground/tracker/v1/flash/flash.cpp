@@ -18,11 +18,11 @@
 #include <cstring>
 #include <quan/three_d/vect.hpp>
 #include <quan/stm32/flash.hpp>
+#include <quan/stm32/flash/flash_convert.hpp>
 #include <quan/stm32/detail/flash.hpp>
+#include <quan/stm32/flash/flash_error.hpp>
 #include "../serial_ports.hpp"
 #include "flash.hpp"
-#include "flash_error.hpp"
-#include "flash_convert.hpp"
 #include "flash_type_tags.hpp"
 
 namespace {
@@ -45,8 +45,8 @@ namespace {
    // The order must be the same as the flash_type_tags enum in flash_type_tags.hpp
    constexpr flash_symtab::pfn_text_to_bytestream text_to_bytestream[] =
    {
-      &flash_convert<id_to_type<0>::type>::text_to_bytestream,
-      &flash_convert<id_to_type<1>::type>::text_to_bytestream
+      &quan::stm32::flash::flash_convert<id_to_type<0>::type>::text_to_bytestream,
+      &quan::stm32::flash::flash_convert<id_to_type<1>::type>::text_to_bytestream
    };
    // in converting to bytestream may need to convert then check values
 // otherwise can just use type conv func as here
@@ -73,8 +73,8 @@ namespace {
    /* array of fun_ptrs to convert the bytestream to text*/
    constexpr flash_symtab::pfn_bytestream_to_text bytestream_to_text[] =
    {
-      &flash_convert<id_to_type<0>::type>::bytestream_to_text,
-      &flash_convert<id_to_type<1>::type>::bytestream_to_text
+      &quan::stm32::flash::flash_convert<id_to_type<0>::type>::bytestream_to_text,
+      &quan::stm32::flash::flash_convert<id_to_type<1>::type>::bytestream_to_text
    };
 
    #define EE_SYMTAB_ENTRY(Val,Info, Readonly) { \

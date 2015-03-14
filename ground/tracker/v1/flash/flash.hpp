@@ -21,7 +21,6 @@
 #include <cstdint>
 #include <quan/dynarray.hpp>
 
-
 namespace flash_symtab{
 
       // get the index of the symbol name in the dynarray

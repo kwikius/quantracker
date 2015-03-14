@@ -15,10 +15,10 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 #include <quan/three_d/vect.hpp>
+#include <quan/stm32/flash/flash_convert.hpp>
 #include "../compass.hpp"
 #include "../serial_ports.hpp"
 #include "flash.hpp"
-#include "flash_convert.hpp"
 #include "to_from_flash.hpp"
 
 /*
