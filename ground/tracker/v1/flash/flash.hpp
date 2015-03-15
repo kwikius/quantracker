@@ -51,7 +51,8 @@ namespace flash_symtab{
       bool is_defined(const char* symbol_name);
       uint16_t get_num_elements();
       // convesrion from user text to byte stream
-      typedef bool (*pfn_text_to_bytestream)(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
+      typedef bool (*pfn_text_to_bytestream)(
+         quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src, bool (*pfn)(void*));
       // conversion from byte_stream to user text rep
       typedef bool (*pfn_bytestream_to_text)(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
       // return the string to rep stream fun for the index
