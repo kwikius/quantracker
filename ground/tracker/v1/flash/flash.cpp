@@ -23,7 +23,6 @@
 #include <quan/stm32/flash/flash_error.hpp>
 #include "../serial_ports.hpp"
 #include "flash.hpp"
-//#include "flash_type_tags.hpp"
 
 namespace {
 
@@ -54,13 +53,15 @@ namespace {
       ~app_symtab_t() {}
       uint16_t get_symbol_storage_size (uint16_t symidx) const;
       uint16_t get_symtable_size() const;
+      int32_t get_index( const char* const symbol_name) const;
+      
    };
 //################### 
    // A Representation of the data to be read to or written from Flash
    // as types
    struct flash_variable_type {
       typedef quan::three_d::vect<float> mag_offsets;
-      typedef bool use_compass;
+      typedef bool                       use_compass;
    } ;
 
    // Array of function pointers 
@@ -199,7 +200,13 @@ namespace {
    }
  
 } // namespace
+
+quan::stm32::flash::symbol_table & get_app_symbol_table()
+{
+ return app_symtab;
+}
  
+// virtual
 const char* flash_symtab::get_name (uint16_t symindex)
 {
    if (symindex < app_symtab.get_symtable_size()) {
@@ -209,6 +216,7 @@ const char* flash_symtab::get_name (uint16_t symindex)
    }
 }
  
+//virtual
 const char* flash_symtab::get_info (uint16_t symindex)
 {
    if (symindex < app_symtab.get_symtable_size()) {
@@ -218,8 +226,7 @@ const char* flash_symtab::get_info (uint16_t symindex)
    }
 }
  
-
- 
+//virtual
 bool flash_symtab::get_readonly_status (uint16_t symindex,bool & result)
 {
    if (symindex < app_symtab.get_symtable_size()) {
@@ -230,31 +237,28 @@ bool flash_symtab::get_readonly_status (uint16_t symindex,bool & result)
    }
 }
  
+//ok
 uint16_t app_symtab_t::get_symbol_storage_size (uint16_t symidx) const
 {
    return get_type_size (get_type_index (symidx));
 }
  
+//ok
 uint16_t app_symtab_t::get_symtable_size() const
 {
    return sizeof (names)/sizeof (flash_symtab_entry_t);
 }
- 
-uint16_t flash_symtab::get_num_elements()
-{
-   return app_symtab.get_symtable_size();
-}
- 
-bool flash_symtab::write_from_bytestream (uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value)
-{
-   return quan::stm32::flash::write_symbol (app_symtab,symidx,symbol_value);
-}
- 
-bool flash_symtab::read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value)
-{
-   return quan::stm32::flash::read_symbol (app_symtab,symidx,symbol_value);
-}
 
+int32_t app_symtab_t::get_index (const char* symbol_name)const
+{
+   return get_symtable_index (symbol_name);
+}
+ 
+//uint16_t flash_symtab::get_num_elements()
+//{
+//   return app_symtab.get_symtable_size();
+//}
+ 
 bool flash_symtab::write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)
 {
    uint16_t const symbol_size = flash_symtab::get_size (symbol_index);
@@ -269,7 +273,7 @@ bool flash_symtab::write_from_text (uint16_t symbol_index,quan::dynarray<char> c
    if (! result1) {
       return false;
    }
-   return flash_symtab::write_from_bytestream (symbol_index,bytestream);
+   return app_symtab.write_symbol(symbol_index, bytestream);
 }
  
 bool flash_symtab::read_to_text (
@@ -280,9 +284,12 @@ bool flash_symtab::read_to_text (
    if (!bytestream.good()) {
       return false;
    }
-   if (!flash_symtab::read (symbol_index, bytestream)) {
-      return false;
-   }
+  if (!get_app_symbol_table().read_symbol(symbol_index, bytestream)) {
+         return false;
+      }
+//   if (!flash_symtab::read (symbol_index, bytestream)) {
+//      return false;
+//   }
    auto const rep_to_string_fun = get_bytestream_to_text_fun (symbol_index);
    return rep_to_string_fun (value,bytestream) ;
 }
@@ -290,14 +297,14 @@ bool flash_symtab::read_to_text (
 bool flash_symtab::exists (uint16_t symindex)
 {
    if (symindex < app_symtab.get_symtable_size()) {
-      return quan::stm32::flash::have_symbol (app_symtab,symindex);
+      return app_symtab.have_symbol (symindex);
    } else {
       return false;
    }
 }
 bool flash_symtab::is_defined(const char* symbol_name)
 {
-   int32_t idx =  flash_symtab::get_index(symbol_name);
+   int32_t idx =  app_symtab.get_index(symbol_name);
    return  (idx != -1) && flash_symtab::exists(idx);
 }
  
@@ -306,15 +313,15 @@ uint16_t flash_symtab::get_size (uint16_t symidx)
    return app_symtab.get_symbol_storage_size (symidx);
 }
  
-int32_t flash_symtab::get_index (quan::dynarray<char> const & symbol)
-{
-   return get_symtable_index (symbol.get());
-}
+//int32_t flash_symtab::get_index (quan::dynarray<char> const & symbol)
+//{
+//   return get_symtable_index (symbol.get());
+//}
  
-int32_t flash_symtab::get_index (const char* symbol_name)
-{
-   return get_symtable_index (symbol_name);
-}
+//int32_t flash_symtab::get_index (const char* symbol_name)
+//{
+//   return get_symtable_index (symbol_name);
+//}
  
 // per symbol as string needs to be checked for validity
 flash_symtab::pfn_text_to_bytestream flash_symtab::get_text_to_bytestream_fun (uint16_t symidx)

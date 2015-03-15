@@ -21,12 +21,14 @@
 #include <cstdint>
 #include <quan/dynarray.hpp>
 
+#include <quan/stm32/flash.hpp>
+
 namespace flash_symtab{
 
       // get the index of the symbol name in the dynarray
-      int32_t get_index( quan::dynarray<char> const & symbol_name);
+     // int32_t get_index( quan::dynarray<char> const & symbol_name);
       // get index of the symbol name cstring
-      int32_t get_index ( const char* symbol_name);
+     // int32_t get_index ( const char* symbol_name);
       // return the name of the index
       const char* get_name(uint16_t symindex);
       // get the storage size of the index
@@ -41,15 +43,15 @@ namespace flash_symtab{
       // write index to flash from text
       bool write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value);
       // write index to flash from byte stream 
-      bool write_from_bytestream(uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value);
+    //  bool write_from_bytestream(uint16_t symidx, quan::dynarray<uint8_t> const & symbol_value);
      // ideally symbol_value is prepared with a size from get_size
       // read symbol to byte stream in symbol value
-      bool read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value);
+    //  bool read (uint16_t symidx, quan::dynarray<uint8_t> & symbol_value);
       // does the given symbol index exist
       bool exists(uint16_t symidx);
       // is the symbol defined in flash
       bool is_defined(const char* symbol_name);
-      uint16_t get_num_elements();
+    //  uint16_t get_num_elements();
       // convesrion from user text to byte stream
       typedef bool (*pfn_text_to_bytestream)(
          quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src, bool (*pfn)(void*));
@@ -64,5 +66,7 @@ namespace flash_symtab{
       bool init();
 
 }//namespace flash_symtab
+
+quan::stm32::flash::symbol_table & get_app_symbol_table();
 
 #endif // QUANTRACKER_FLASH_FLASH_HPP_INCLUDED

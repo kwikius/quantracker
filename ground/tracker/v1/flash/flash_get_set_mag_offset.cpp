@@ -30,7 +30,7 @@ template <> struct flash_helper<bool>
 {
    static bool set (const char* str, bool value)
    {
-      int32_t const sym_index = flash_symtab::get_index (str);
+      int32_t const sym_index = get_app_symbol_table().get_index (str);
       if (sym_index == -1) {
             // shouldnt get here
          return false;
@@ -40,12 +40,13 @@ template <> struct flash_helper<bool>
             return false;
       }
       *bytestream.get() = (value == true) ? 1 : 0;
-      return flash_symtab::write_from_bytestream (sym_index, bytestream);
+      return get_app_symbol_table().write_symbol(sym_index, bytestream);
+     //return flash_symtab::write_from_bytestream (sym_index, bytestream);
    }
    
    static bool get (const char* str, bool & value)
    {
-      int32_t const sym_index = flash_symtab::get_index (str);
+      int32_t const sym_index = get_app_symbol_table().get_index (str);
       if (sym_index == -1) {
          // shouldnt get here
          return false;
@@ -55,9 +56,14 @@ template <> struct flash_helper<bool>
       if (!bytestream.good()) {
          return false;
       }
-      if (!flash_symtab::read (sym_index, bytestream)) {
+
+      if (!get_app_symbol_table().read_symbol(sym_index, bytestream)) {
          return false;
       }
+      
+//      if (!flash_symtab::read (sym_index, bytestream)) {
+//         return false;
+//      }
       value = (*bytestream.get() == 1) ? true : false;
       return true;
    }
@@ -70,7 +76,7 @@ struct flash_helper<quan::three_d::vect<float> > {
  
    static bool set (const char* str, quan::three_d::vect<float> const & value)
    {
-      int32_t const sym_index = flash_symtab::get_index (str);
+      int32_t const sym_index = get_app_symbol_table().get_index (str);
       if (sym_index == -1) {
             // shouldnt get here
             return false;
@@ -87,13 +93,14 @@ struct flash_helper<quan::three_d::vect<float> > {
             return false;
          }
       memcpy (bytestream.get(), uconv.ar, sizeof (float) * 3);
-      return flash_symtab::write_from_bytestream (sym_index, bytestream);
+     return get_app_symbol_table().write_symbol(sym_index, bytestream);
+     // return flash_symtab::write_from_bytestream (sym_index, bytestream);
    }
    
    static bool get (const char* name, quan::three_d::vect<float> & dest)
    {
       // get string from flash
-      int32_t const sym_index = flash_symtab::get_index (name);
+      int32_t const sym_index = get_app_symbol_table().get_index (name);
       if (sym_index == -1) {
             // shouldnt get here
             return false;
@@ -103,10 +110,14 @@ struct flash_helper<quan::three_d::vect<float> > {
       if (!bytestream.good()) {
             return false;
          }
+
+     if (!get_app_symbol_table().read_symbol(sym_index, bytestream)) {
+         return false;
+      }
          
-      if (!flash_symtab::read (sym_index, bytestream)) {
-            return false;
-         }
+//      if (!flash_symtab::read (sym_index, bytestream)) {
+//            return false;
+//         }
          
       union {
          uint8_t ar[sizeof (float) * 3];
