@@ -4,6 +4,12 @@
 #define CHAR_SPACING_X 12       // default size of one character including inter-character space
 #define CHAR_SPACING_Y 15       // default size of one character including inter-character space
 
+#define OSD_ITEM_BATTERY_VOLTAGE 0			// Index into OSD data item position and enable arrays
+#define OSD_ITEM_BATTERY_CURRENT 1			// Index into OSD data item position and enable arrays
+#define OSD_ITEM_BATTERY_REMAIN 2			// Index into OSD data item position and enable arrays
+
+#define OSD_ITEM_ARRAY_SIZE 3
+
 
 #define OSD_MODE_CHANNEL 7		// RC channel used to select OSD mode (e.g. page). Valid values 0-7.
 #define OSD_MODE_VALUE_OFF  1000      // This mode if input value less than this value

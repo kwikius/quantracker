@@ -6,6 +6,10 @@
 
 using namespace quan::uav::osd;
 
+static uint8_t osd_items_enable[OSD_ITEM_ARRAY_SIZE];
+static uint16_t osd_items_pos_x[OSD_ITEM_ARRAY_SIZE];
+static uint16_t osd_items_pos_y[OSD_ITEM_ARRAY_SIZE];
+
 
 uint8_t get_osd_mode()
 {
@@ -28,3 +32,7 @@ uint8_t get_osd_mode()
 	return osd_mode;
 }
 
+uint8_t get_osd_item_enabled(uint8_t item_index, uint8_t item_mask)
+{
+	return ((osd_items_enable[item_index] & item_mask) !=0);
+}

@@ -75,6 +75,8 @@ font_ptr font = get_font(FontID::OSD_Charset);
 
 
 #if ((BATTERY_VOLTAGE_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
+//if (get_osd_item_enabled(OSD_ITEM_BATTERY_VOLTAGE, OSD_MODE_PAGE_1))
+{
    pos =
         {BATTERY_VOLTAGE_X,
         (( get_video_mode() == video_mode::pal)
@@ -88,8 +90,8 @@ font_ptr font = get_font(FontID::OSD_Charset);
      draw_text(buf,pos,font);
    }
 
+}
 #endif
-
 
 #if ((BATTERY_CURRENT_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
    pos =
