@@ -67,6 +67,6 @@
 
 //}//namespace flash_symtab
 
-quan::stm32::flash::symbol_table const & get_app_symbol_table();
+//quan::stm32::flash::symbol_table const & get_app_symbol_table();
 
 #endif // QUANTRACKER_FLASH_FLASH_HPP_INCLUDED

@@ -83,7 +83,7 @@ namespace {
          return get_num_errors() == 0;
       }
 
-      auto & symtab = get_app_symbol_table();
+      auto & symtab = quan::stm32::flash::get_app_symbol_table();
       
       int32_t const symbol_index = symtab.get_index (symbol);
       if (symbol_index == -1) {
@@ -119,7 +119,7 @@ namespace {
  
    bool local_show_symbol (uint16_t symbol_index)
    {
-      auto const & symtab = get_app_symbol_table();
+      auto const & symtab = quan::stm32::flash::get_app_symbol_table();
       if (symtab.exists (symbol_index)) {
          quan::dynarray<char> value {1,main_alloc_failed};
          
@@ -136,7 +136,7 @@ namespace {
             return get_num_errors() == 0;
          }
       } else {
-         user_message (get_app_symbol_table().get_name (symbol_index));
+         user_message (quan::stm32::flash::get_app_symbol_table().get_name (symbol_index));
          user_message (" : #undef#\n");
          return true;
       }
@@ -145,8 +145,9 @@ namespace {
  
 bool show_symbols (quan::dynarray<char> const & opt_symbol)
 {
+   auto const & symtab = quan::stm32::flash::get_app_symbol_table();
    if (strlen (opt_symbol.get()) > 0) {
-      int32_t symbol_index = get_app_symbol_table().get_index (opt_symbol);
+      int32_t symbol_index = symtab.get_index (opt_symbol);
       if (symbol_index == -1) {
          user_error ("symbol not found");
          return true;
@@ -156,12 +157,12 @@ bool show_symbols (quan::dynarray<char> const & opt_symbol)
    } else {
       user_message ("------flash symbols-------\n");
    //   for (uint16_t i = 0; i < flash_symtab::get_num_elements(); ++i) {
-       for (uint16_t i = 0; i < get_app_symbol_table().get_symtable_size(); ++i) {
+       for (uint16_t i = 0; i < symtab.get_symtable_size(); ++i) {
          if (! local_show_symbol (i)) {
             return false;
          }
       }
-      user_message ("------------------------\n");
+      user_message ("--------------------------\n");
       return true;
    }
 }

@@ -28,7 +28,7 @@
 
  bool init_values_from_flash()
  {
-    auto & symtab = get_app_symbol_table();
+    auto & symtab = quan::stm32::flash::get_app_symbol_table();
     bool mag_offsets_defined = symtab.is_defined("mag_offsets");
     if ( mag_offsets_defined){
       quan::three_d::vect<float> mag_offset;
