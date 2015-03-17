@@ -28,7 +28,8 @@
 
  bool init_values_from_flash()
  {
-    bool mag_offsets_defined = flash_symtab::is_defined("mag_offsets");
+    auto & symtab = get_app_symbol_table();
+    bool mag_offsets_defined = symtab.is_defined("mag_offsets");
     if ( mag_offsets_defined){
       quan::three_d::vect<float> mag_offset;
       if(get_flash_mag_offset(mag_offset)){
@@ -38,7 +39,7 @@
          return false;
       }
     }
-    if( mag_offsets_defined && flash_symtab::is_defined("use_compass")){
+    if( mag_offsets_defined && symtab.is_defined("use_compass")){
        bool use_compass;
        if(get_flash_use_compass(use_compass)){
          raw_compass::set_use_compass(use_compass);

@@ -55,7 +55,7 @@ namespace{
       debug::serial_port::write("quan_tracker V1.1 startup\n");
       // check for fails on flash
       // really need to do automatically
-      if ( ! flash_symtab::init()){
+      if ( ! get_app_symbol_table().init()){
          debug::serial_port::write("flash init failed\n"); 
          infinite_loop();
       }

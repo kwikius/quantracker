@@ -30,7 +30,8 @@ template <> struct flash_helper<bool>
 {
    static bool set (const char* str, bool value)
    {
-      int32_t const sym_index = get_app_symbol_table().get_index (str);
+      auto const & symtab = get_app_symbol_table();
+      int32_t const sym_index = symtab.get_index (str);
       if (sym_index == -1) {
             // shouldnt get here
          return false;
@@ -40,24 +41,25 @@ template <> struct flash_helper<bool>
             return false;
       }
       *bytestream.get() = (value == true) ? 1 : 0;
-      return get_app_symbol_table().write_symbol(sym_index, bytestream);
+      return symtab.write_symbol(sym_index, bytestream);
      //return flash_symtab::write_from_bytestream (sym_index, bytestream);
    }
    
    static bool get (const char* str, bool & value)
    {
-      int32_t const sym_index = get_app_symbol_table().get_index (str);
+      auto const & symtab = get_app_symbol_table();
+      int32_t const sym_index = symtab.get_index (str);
       if (sym_index == -1) {
          // shouldnt get here
          return false;
       }
-      uint32_t const length = flash_symtab::get_size (sym_index);
+      uint32_t const length = symtab.get_symbol_storage_size (sym_index);
       quan::dynarray<uint8_t> bytestream {length, main_alloc_failed};
       if (!bytestream.good()) {
          return false;
       }
 
-      if (!get_app_symbol_table().read_symbol(sym_index, bytestream)) {
+      if (!symtab.read_symbol(sym_index, bytestream)) {
          return false;
       }
       
@@ -76,7 +78,8 @@ struct flash_helper<quan::three_d::vect<float> > {
  
    static bool set (const char* str, quan::three_d::vect<float> const & value)
    {
-      int32_t const sym_index = get_app_symbol_table().get_index (str);
+      auto const & symtab = get_app_symbol_table();
+      int32_t const sym_index = symtab.get_index (str);
       if (sym_index == -1) {
             // shouldnt get here
             return false;
@@ -93,25 +96,25 @@ struct flash_helper<quan::three_d::vect<float> > {
             return false;
          }
       memcpy (bytestream.get(), uconv.ar, sizeof (float) * 3);
-     return get_app_symbol_table().write_symbol(sym_index, bytestream);
+     return symtab.write_symbol(sym_index, bytestream);
      // return flash_symtab::write_from_bytestream (sym_index, bytestream);
    }
    
    static bool get (const char* name, quan::three_d::vect<float> & dest)
    {
       // get string from flash
-      int32_t const sym_index = get_app_symbol_table().get_index (name);
+      auto const & symtab = get_app_symbol_table();
+      int32_t const sym_index = symtab.get_index (name);
       if (sym_index == -1) {
             // shouldnt get here
             return false;
          }
-      uint32_t const length = flash_symtab::get_size (sym_index);
+      uint32_t const length = symtab.get_symbol_storage_size(sym_index);
       quan::dynarray<uint8_t> bytestream {length, main_alloc_failed};
       if (!bytestream.good()) {
-            return false;
-         }
-
-     if (!get_app_symbol_table().read_symbol(sym_index, bytestream)) {
+         return false;
+      }
+      if (!symtab.read_symbol(sym_index, bytestream)) {
          return false;
       }
          

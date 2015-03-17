@@ -33,13 +33,14 @@ namespace {
    template <typename T> struct type_to_id;
    template <uint32_t id> struct id_to_type;
 
+   //--------- Vect3F
    template <> struct type_to_id<quan::three_d::vect<float> > {
       static constexpr uint32_t value = flash_type_tags::Vect3F;
    };
    template <> struct id_to_type<flash_type_tags::Vect3F>{
       typedef quan::three_d::vect<float> type;
    };
-   //---------
+   //--------- Bool
    template <> struct type_to_id<bool> {
       static constexpr uint32_t value = flash_type_tags::Bool;
    };
@@ -54,7 +55,16 @@ namespace {
       uint16_t get_symbol_storage_size (uint16_t symidx) const;
       uint16_t get_symtable_size() const;
       int32_t get_index( const char* const symbol_name) const;
-      
+      const char* get_name (uint16_t symindex)const;
+      const char* get_info (uint16_t symindex) const;
+      bool get_readonly_status(uint16_t symidx,bool & result)const;
+      bool write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)const;
+      bool read_to_text(uint16_t symbol_index, quan::dynarray<char> & value)const;
+      pfn_text_to_bytestream get_text_to_bytestream_fun( uint16_t symidx) const;
+      pfn_bytestream_to_text get_bytestream_to_text_fun( uint16_t symidx) const;
+      bool exists(uint16_t symidx) const;
+      bool is_defined(const char* symbol_name)const;
+      bool init() const;
    };
 //################### 
    // A Representation of the data to be read to or written from Flash
@@ -70,7 +80,7 @@ namespace {
    // The order and number 
    // must be the same as the flash_type_tags enum above
    // The use of the id_to_type index hopefully helps!
-   constexpr flash_symtab::pfn_text_to_bytestream text_to_bytestream[] =
+   constexpr quan::stm32::flash::symbol_table::pfn_text_to_bytestream text_to_bytestream[] =
    {
       &quan::stm32::flash::flash_convert<id_to_type<0>::type>::text_to_bytestream,
       &quan::stm32::flash::flash_convert<id_to_type<1>::type>::text_to_bytestream
@@ -87,21 +97,20 @@ namespace {
       sizeof (id_to_type<1>::type) 
    };
     
-   // array of function pointers to convert a bytestream to text.
+   // array of function pointers to convert a bytestream to text (user represntation)
    // indexed by id in the flash_type_tags enum
    // the order and number must be the same as the flash_type_tags enum
    // Can be by type, not by object, since
    // it is assumed that only valid object values have been stored in Flash.
-   constexpr flash_symtab::pfn_bytestream_to_text bytestream_to_text[] =
+   constexpr quan::stm32::flash::symbol_table::pfn_bytestream_to_text bytestream_to_text[] =
    {
       &quan::stm32::flash::flash_convert<id_to_type<0>::type>::bytestream_to_text,
       &quan::stm32::flash::flash_convert<id_to_type<1>::type>::bytestream_to_text
    };
 
-//####### The object symtable itself ###########################
 
-   // Use the macro to make flash_symtab_entry_t entries for the names array below
-   // The Name is the string name representing the variable
+   // Use the macro to make flash_symtab_entry_t entries for the names symbol table below
+   // The Name is the string name representing the variable without dquotes
    // the Checkfun is a function which takes a void* arg
    // intended to check the value is in range
    #define EE_SYMTAB_ENTRY(Name, CheckFun,Info, Readonly) { \
@@ -112,12 +121,12 @@ namespace {
             Readonly \
           }
 
-   // A symbol table entry class
+   // The symbol table entry class.
    // name of the symbol
-   // with tag representing the type
-   // and some info
-   // and a range check function. (The void* is changed to a pointer to the type
-   // to be checked
+   // with tag representing the type according to the flash_type_tags enum above
+   // some user help info
+   // and a range check function. 
+   // (The void* is changed to a pointer to the type to be checked)
    struct flash_symtab_entry_t {
       const char* const name;
       uint32_t const type_tag;
@@ -126,36 +135,41 @@ namespace {
       bool readonly;
    };
     
-// mag offsets range check function
-// the void* arg is converted to a pointer to the type to be checked
+// Range check functions for validating user input values to update flash variable values
+// the void* arg is converted to a pointer to the type to be checked 
 // For out of range values an error message should be generated
-// using user_eror function
-   bool mag_offsets_check(void* p)
-   {
-        flash_variable_type::mag_offsets * pv =  (flash_variable_type::mag_offsets*) p;
-        if ( pv == nullptr){
-          return false;
-        }
-        bool value_good = (pv->x < 1000.f) && ( pv->x > -1000.f)
-                  &&  (pv->y < 1000.f) &&  (pv->y > -1000.f)
-                  &&  (pv->z < 1000.f)  && (pv->z > -1000.f);
-         if ( value_good){
-            return true;
-         }else{
-            user_error("mag_offsets out of range");
-            return false;
-         }
-   }
-
-  // use this check funtion if there is no error checking required
+// which is output to the user to help diagnose what is wrong
+// using user_error(str) function
+  
+// use this check funtion if there is no error checking required
    bool nop_check (void* p) { return true;}
 
+ // The function that checks the "mag_offsets" variable is in limits
+   bool mag_offsets_check(void* p)
+   {
+      if ( p == nullptr){
+         return false;
+      }
+      flash_variable_type::mag_offsets * pv = (flash_variable_type::mag_offsets*) p;
+      bool const value_good = (pv->x < 1000.f) && ( pv->x > -1000.f)
+      &&  (pv->y < 1000.f) &&  (pv->y > -1000.f)
+      &&  (pv->z < 1000.f)  && (pv->z > -1000.f);
+      if ( value_good){
+         return true;
+      }else{
+         user_error("mag_offsets range: -999 to 999");
+         return false;
+      }
+   }
+
+//####### The object symtable itself ###########################
+   // One element per Flash variable
    flash_symtab_entry_t constexpr names[] = {
-      EE_SYMTAB_ENTRY(mag_offsets,mag_offsets_check,"[float,float,float] where min=-1000, max=1000",false),
-      EE_SYMTAB_ENTRY(use_compass,nop_check,"true = use compass to set tracker azimuth, else manual", false)
+      EE_SYMTAB_ENTRY(mag_offsets,mag_offsets_check,"[float,float,float] range: -999 to 999",false),
+      EE_SYMTAB_ENTRY(use_compass,nop_check,"true = use compass to set tracker azimuth", false)
    };
     
-   // very slow lookup of a name in the symtab
+   // lookup of a name in the symtab
    // to return a symbol index
    // or -1 if not found
    int32_t get_symtable_index (const char* symbol)
@@ -201,49 +215,50 @@ namespace {
  
 } // namespace
 
-quan::stm32::flash::symbol_table & get_app_symbol_table()
+// function to access the symboltable
+quan::stm32::flash::symbol_table const & get_app_symbol_table()
 {
- return app_symtab;
+   return app_symtab;
 }
  
 // virtual
-const char* flash_symtab::get_name (uint16_t symindex)
-{
-   if (symindex < app_symtab.get_symtable_size()) {
-      return names[symindex].name;
-   } else {
-      return nullptr;
-   }
-}
+//const char* flash_symtab::get_name (uint16_t symindex)
+//{
+//   if (symindex < app_symtab.get_symtable_size()) {
+//      return names[symindex].name;
+//   } else {
+//      return nullptr;
+//   }
+//}
  
-//virtual
-const char* flash_symtab::get_info (uint16_t symindex)
+const char* app_symtab_t::get_info (uint16_t symindex)const
 {
-   if (symindex < app_symtab.get_symtable_size()) {
+   if (symindex < this->get_symtable_size()) {
       return names[symindex].info;
    } else {
       return nullptr;
    }
 }
- 
-//virtual
-bool flash_symtab::get_readonly_status (uint16_t symindex,bool & result)
+
+bool app_symtab_t::get_readonly_status (uint16_t symindex,bool & result)const
 {
-   if (symindex < app_symtab.get_symtable_size()) {
+   if (symindex < this->get_symtable_size()) {
       result = names[symindex].readonly;
       return true;
    } else {
       return false;
    }
 }
- 
-//ok
+
 uint16_t app_symtab_t::get_symbol_storage_size (uint16_t symidx) const
 {
-   return get_type_size (get_type_index (symidx));
+    if (symidx < this->get_symtable_size()) {
+      return get_type_size (get_type_index (symidx));
+    }else{
+      return 0U;
+    }
 }
- 
-//ok
+
 uint16_t app_symtab_t::get_symtable_size() const
 {
    return sizeof (names)/sizeof (flash_symtab_entry_t);
@@ -253,65 +268,78 @@ int32_t app_symtab_t::get_index (const char* symbol_name)const
 {
    return get_symtable_index (symbol_name);
 }
+
+const char* app_symtab_t::get_name (uint16_t symindex)const
+{
+   if (symindex < this->get_symtable_size()) {
+      return names[symindex].name;
+   } else {
+      return nullptr;
+   }
+}
  
 //uint16_t flash_symtab::get_num_elements()
 //{
 //   return app_symtab.get_symtable_size();
 //}
- 
-bool flash_symtab::write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)
+ //bool write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)const;
+bool app_symtab_t::write_from_text (uint16_t symidx,quan::dynarray<char> const & value)const
 {
-   uint16_t const symbol_size = flash_symtab::get_size (symbol_index);
-   // add check not 0 or neg
-   quan::dynarray<uint8_t> bytestream { (size_t) symbol_size,main_alloc_failed};
-   if (!bytestream.good()) {
+   // check index
+   if (symidx < this->get_symtable_size()){
+      uint16_t const symbol_size = this->get_symbol_storage_size(symidx);
+      // add check not 0 or neg
+      quan::dynarray<uint8_t> bytestream { (size_t) symbol_size,main_alloc_failed};
+      if (!bytestream.good()) {
+         return false;
+      }
+      auto const text_to_bytestream_fun = get_text_to_bytestream_fun (symidx);
+      if (!  text_to_bytestream_fun (bytestream,value,get_check_fun(symidx))) {
+         return false;
+      }
+      return this->write_symbol(symidx, bytestream);
+   }else{
       return false;
    }
-   auto const text_to_bytestream_fun = get_text_to_bytestream_fun (symbol_index);
-   auto const check_fun = get_check_fun(symbol_index);
-   bool result1 = text_to_bytestream_fun (bytestream,value,check_fun);
-   if (! result1) {
-      return false;
-   }
-   return app_symtab.write_symbol(symbol_index, bytestream);
 }
  
-bool flash_symtab::read_to_text (
-   uint16_t symbol_index, quan::dynarray<char> & value)
+bool app_symtab_t::read_to_text (
+   uint16_t symbol_index, quan::dynarray<char> & value)const
 {
-   uint16_t const symbol_size = flash_symtab::get_size (symbol_index);
+   uint16_t const symbol_size = this->get_symbol_storage_size (symbol_index);
    quan::dynarray<uint8_t> bytestream {symbol_size,main_alloc_failed};
    if (!bytestream.good()) {
       return false;
    }
-  if (!get_app_symbol_table().read_symbol(symbol_index, bytestream)) {
+  if (!this->read_symbol(symbol_index, bytestream)) {
          return false;
       }
 //   if (!flash_symtab::read (symbol_index, bytestream)) {
 //      return false;
 //   }
-   auto const rep_to_string_fun = get_bytestream_to_text_fun (symbol_index);
+   auto const rep_to_string_fun = this->get_bytestream_to_text_fun (symbol_index);
    return rep_to_string_fun (value,bytestream) ;
 }
  
-bool flash_symtab::exists (uint16_t symindex)
+bool app_symtab_t::exists (uint16_t symidx)const
 {
-   if (symindex < app_symtab.get_symtable_size()) {
-      return app_symtab.have_symbol (symindex);
+   if (symidx < this->get_symtable_size()) {
+      return this->have_symbol(symidx);
    } else {
       return false;
    }
 }
-bool flash_symtab::is_defined(const char* symbol_name)
+
+bool app_symtab_t::is_defined(const char* symbol_name)const
 {
-   int32_t idx =  app_symtab.get_index(symbol_name);
-   return  (idx != -1) && flash_symtab::exists(idx);
+   int32_t symidx =  this->get_index(symbol_name);
+   return  (symidx != -1) && this->exists(symidx);
 }
  
-uint16_t flash_symtab::get_size (uint16_t symidx)
-{
-   return app_symtab.get_symbol_storage_size (symidx);
-}
+//uint16_t app_symtab_t::get_size (uint16_t symidx)const
+//{
+//   return app_symtab.get_symbol_storage_size (symidx);
+//}
  
 //int32_t flash_symtab::get_index (quan::dynarray<char> const & symbol)
 //{
@@ -324,18 +352,20 @@ uint16_t flash_symtab::get_size (uint16_t symidx)
 //}
  
 // per symbol as string needs to be checked for validity
-flash_symtab::pfn_text_to_bytestream flash_symtab::get_text_to_bytestream_fun (uint16_t symidx)
+app_symtab_t::pfn_text_to_bytestream app_symtab_t::get_text_to_bytestream_fun (uint16_t symidx)const
 {
    //return names[symidx].pfn_text_to_bytestream;
    return text_to_bytestream[get_type_index (symidx) ];
 }
 
+
 // coming out data assumed ok.
-flash_symtab::pfn_bytestream_to_text flash_symtab::get_bytestream_to_text_fun (uint16_t symidx)
+app_symtab_t::pfn_bytestream_to_text app_symtab_t::get_bytestream_to_text_fun (uint16_t symidx)const
 {
    return bytestream_to_text[get_type_index (symidx) ];
 }
- 
+
+
 namespace {
  
 /*
@@ -371,7 +401,7 @@ uint8_t flash_check()
 } //namespace
  
 bool init_values_from_flash();
-bool flash_symtab::init()
+bool app_symtab_t::init()const 
 {
    if (flash_check() == 0x00) {
    

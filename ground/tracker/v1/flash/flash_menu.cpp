@@ -82,14 +82,16 @@ namespace {
       if (!parse_symbol_assignment (input,symbol,value)) {
          return get_num_errors() == 0;
       }
+
+      auto & symtab = get_app_symbol_table();
       
-      int32_t const symbol_index = get_app_symbol_table().get_index (symbol);
+      int32_t const symbol_index = symtab.get_index (symbol);
       if (symbol_index == -1) {
          user_error ("symbol not found");
          return get_num_errors() == 0;
       }
      bool is_readonly = false;
-      if (!flash_symtab::get_readonly_status (symbol_index,is_readonly)) {
+      if (!symtab.get_readonly_status (symbol_index,is_readonly)) {
          //shouldnt get here
          return false;
       }
@@ -98,7 +100,7 @@ namespace {
          return true;
       }
 
-      bool const result =  flash_symtab::write_from_text (symbol_index,value) ;
+      bool const result =  symtab.write_from_text (symbol_index,value) ;
 
       user_message("write ");
       if (result) {
@@ -117,15 +119,15 @@ namespace {
  
    bool local_show_symbol (uint16_t symbol_index)
    {
-      if (flash_symtab::exists (symbol_index)) {
-      
+      auto const & symtab = get_app_symbol_table();
+      if (symtab.exists (symbol_index)) {
          quan::dynarray<char> value {1,main_alloc_failed};
          
          if (!value.good()) {
             return false;
          }
-         if (flash_symtab::read_to_text (symbol_index,value)) {
-            user_message (flash_symtab::get_name (symbol_index));
+         if (symtab.read_to_text (symbol_index,value)) {
+            user_message (symtab.get_name (symbol_index));
             user_message (" : ");
             user_message( value.get());
             user_message ("\n");
@@ -134,7 +136,7 @@ namespace {
             return get_num_errors() == 0;
          }
       } else {
-         user_message (flash_symtab::get_name (symbol_index));
+         user_message (get_app_symbol_table().get_name (symbol_index));
          user_message (" : #undef#\n");
          return true;
       }
