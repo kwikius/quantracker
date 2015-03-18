@@ -27,8 +27,7 @@
 
 namespace {
 
-   // The enum holds numeric ids , one for each different type in the flash vars
-   // 
+   // The enum holds numeric ids , one for each different type in the flash vars 
    enum flash_type_tags { Vect3F =0, Bool =1};
    // use these templates to map types to ids and vice versa
    template <typename T> struct type_to_id;
@@ -53,6 +52,8 @@ namespace {
 
 namespace quan{ namespace stm32{ namespace flash{
 
+      // per app ids for types. Since types may be arranged different ways this is 
+      // for the app to define as here
       uint32_t quan::stm32::flash::get_flash_typeid_impl<bool>::apply() 
          {return type_to_id<bool>::value;}
       uint32_t quan::stm32::flash::get_flash_typeid_impl<quan::three_d::vect<float> >::apply() 
@@ -61,7 +62,8 @@ namespace quan{ namespace stm32{ namespace flash{
 
 namespace {
 
-   // The symbol table for this app
+   // The symbol table for this app. Provides the implementation of the 
+   // various data required by the symbol table
    struct app_symtab_t : quan::stm32::flash::symbol_table {
       app_symtab_t() {}
       ~app_symtab_t() {}
@@ -136,7 +138,7 @@ namespace {
    // with tag representing the type according to the flash_type_tags enum above
    // some user help info
    // and a range check function. 
-   // (The void* is changed to a pointer to the type to be checked)
+   // (The void* is actually a pointer to the value to be checked)
    struct flash_symtab_entry_t {
       const char* const name;
       uint32_t const type_tag;
@@ -151,16 +153,18 @@ namespace {
 // which is output to the user to help diagnose what is wrong
 // using user_error(str) function
   
-// use this check funtion if there is no error checking required
+// use this check funtion if there is no error checking required e.g for bool
    bool nop_check (void* p) { return true;}
 
- // The function that checks the "mag_offsets" variable is in limits
+ // Example. The function that checks the "mag_offsets" variable is in limits
    bool mag_offsets_check(void* p)
    {
       if ( p == nullptr){
          return false;
       }
+      // convert the void * to a pointer in the type of the value to be range checked
       flash_variable_type::mag_offsets * pv = (flash_variable_type::mag_offsets*) p;
+      
       bool const value_good = (pv->x < 1000.f) && ( pv->x > -1000.f)
       &&  (pv->y < 1000.f) &&  (pv->y > -1000.f)
       &&  (pv->z < 1000.f)  && (pv->z > -1000.f);
@@ -173,7 +177,7 @@ namespace {
    }
 
 //####### The object symtable itself ###########################
-   // One element per Flash variable
+   // Add  One element per Flash variable
    flash_symtab_entry_t constexpr names[] = {
       EE_SYMTAB_ENTRY(mag_offsets,mag_offsets_check,"[float,float,float] range: -999 to 999",false),
       EE_SYMTAB_ENTRY(use_compass,nop_check,"true = use compass to set tracker azimuth", false)
@@ -181,13 +185,13 @@ namespace {
     
    #undef EE_SYMTAB_ENTRY
 
+   // get  
    uint16_t get_type_index (uint16_t symbol_index)
    {
       return names[symbol_index].type_tag;
    }
    
    // get size of a type by index
-    // prob get rid and use directly
    uint16_t get_type_size (uint16_t typeidx)
    {
       return type_tag_to_size[typeidx];
@@ -276,45 +280,7 @@ const char* app_symtab_t::get_name (uint16_t symbol_index)const
       return nullptr;
    }
 }
- 
-// nv
-//bool app_symtab_t::write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)const
-//{
-//   // check index
-//   if (symbol_index < this->get_symtable_size()){
-//      uint16_t const symbol_size = this->get_symbol_storage_size(symbol_index);
-//      // add check not 0 or neg
-//      quan::dynarray<uint8_t> bytestream { (size_t) symbol_size,main_alloc_failed};
-//      if (!bytestream.good()) {
-//         return false;
-//      }
-//      auto const text_to_bytestream_fun = get_text_to_bytestream_fun (symbol_index);
-//      if (!  text_to_bytestream_fun (bytestream,value,this->get_check_function(symbol_index))) {
-//         return false;
-//      }
-//      return this->write_symbol(symbol_index, bytestream);
-//   }else{
-//      return false;
-//   }
-//}
- 
-//nv
-//bool app_symtab_t::read_to_text (
-//   uint16_t symbol_index, quan::dynarray<char> & value)const
-//{
-//   uint16_t const symbol_size = this->get_symbol_storage_size (symbol_index);
-//   quan::dynarray<uint8_t> bytestream {symbol_size,main_alloc_failed};
-//   if (!bytestream.good()) {
-//      return false;
-//   }
-//   if (!this->read_symbol(symbol_index, bytestream)) {
-//      return false;
-//   }
-//   auto const rep_to_string_fun = this->get_bytestream_to_text_fun (symbol_index);
-//   return rep_to_string_fun (value,bytestream) ;
-//}
 
-// per symbol as string needs to be checked for validity
 app_symtab_t::pfn_text_to_bytestream app_symtab_t::get_text_to_bytestream_fun (uint16_t symbol_index)const
 {
    return text_to_bytestream[get_type_index (symbol_index) ];
