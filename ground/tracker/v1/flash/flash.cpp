@@ -80,7 +80,7 @@ namespace {
       pfn_check_function get_check_function(uint16_t symbol_index)const;
    };
 //################### 
-   // A Representation of the data to be read to or written from Flash
+   // Just holding the data to be read to or written from Flash
    // as types
    struct flash_variable_type {
       typedef quan::three_d::vect<float> mag_offsets;
@@ -146,6 +146,8 @@ namespace {
       const char * const info;
       bool readonly;
    };
+
+   //#################### Per object range checking ########################
     
 // Range check functions for validating user input values to update flash variable values
 // the void* arg is converted to a pointer to the type to be checked 
@@ -153,8 +155,9 @@ namespace {
 // which is output to the user to help diagnose what is wrong
 // using user_error(str) function
   
-// use this check funtion if there is no error checking required e.g for bool
-   bool nop_check (void* p) { return true;}
+// no op range checking
+// use this check function can be used if there is no error checking required e.g for bool
+   constexpr bool nop_check (void* p) { return true;}
 
  // Example. The function that checks the "mag_offsets" variable is in limits
    bool mag_offsets_check(void* p)
@@ -164,14 +167,14 @@ namespace {
       }
       // convert the void * to a pointer in the type of the value to be range checked
       flash_variable_type::mag_offsets * pv = (flash_variable_type::mag_offsets*) p;
-      
+      // check it
       bool const value_good = (pv->x < 1000.f) && ( pv->x > -1000.f)
       &&  (pv->y < 1000.f) &&  (pv->y > -1000.f)
       &&  (pv->z < 1000.f)  && (pv->z > -1000.f);
       if ( value_good){
          return true;
       }else{
-         user_error("mag_offsets range: -999 to 999");
+         quan::user_error("mag_offsets range: -999 to 999");
          return false;
       }
    }
@@ -186,13 +189,13 @@ namespace {
    #undef EE_SYMTAB_ENTRY
 
    // get  
-   uint16_t get_type_index (uint16_t symbol_index)
+   constexpr uint16_t get_type_index (uint16_t symbol_index)
    {
       return names[symbol_index].type_tag;
    }
    
    // get size of a type by index
-   uint16_t get_type_size (uint16_t typeidx)
+   constexpr uint16_t get_type_size (uint16_t typeidx)
    {
       return type_tag_to_size[typeidx];
    }
@@ -309,7 +312,7 @@ uint8_t flash_check_page (uint8_t n)
       = (volatile uint8_t*)quan::stm32::flash::detail::get_page_address (n);
    uint32_t  pn_size = quan::stm32::flash::detail::get_page_size (n);
    if (pn_size ==0) {
-      user_message ("invalid flash page\n");
+      quan::user_message ("invalid flash page\n");
       return 0;
    }
    for (uint32_t i = 0; i < pn_size; ++i) {
@@ -331,17 +334,17 @@ bool app_symtab_t::init()const
 {
    if (flash_check() == 0x00) {
    
-      user_message ("unwritten flash detected... initialising\n");
+      quan::user_message ("unwritten flash detected... initialising\n");
      
       if (! quan::stm32::flash::detail::erase (1)) {
-         user_message ("init flash page1 failed\n");
+         quan::user_message ("init flash page1 failed\n");
          return false ;
       }
       if (! quan::stm32::flash::detail::erase (2)) {
-         user_message ("init flash page2 failed\n");
+         quan::user_message ("init flash page2 failed\n");
          return false;
       }
-       user_message ("\n...flash erased OK\n");
+      quan::user_message ("\n...flash erased OK\n");
    }
    return init_values_from_flash();
 }

@@ -46,6 +46,11 @@ namespace{
       for (;;){;}
    }
 
+   void flush_sp_tx()
+{
+  while (!debug::serial_port::tx_reg_empty()){;}
+}
+
    void initial_setup()
    {
       setup_leds();
@@ -126,7 +131,7 @@ extern "C" void setup()
         flash_menu only returns false on bad error
       */
          debug::serial_port::write("entering Flash read/write mode\n");
-         if ( ! flash_menu()){
+         if ( ! quan::stm32::flash::flash_menu()){
             infinite_loop();
          }
          //maybe want to reboot?
