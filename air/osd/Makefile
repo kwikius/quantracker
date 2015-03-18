@@ -149,7 +149,7 @@ STARTUP = startup.s
 # custom linker script 
 LINKER_SCRIPT = stm32f4.ld
 #LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
-FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/flash.cpp
+FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
 #SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 SYSTEM_INIT = system_init.cpp
