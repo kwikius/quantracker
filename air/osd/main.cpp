@@ -60,8 +60,12 @@ void create_leds_task();
 #endif
 void draw_loop();
 
+void mode_check();
+
 int main()
 {
+  mode_check();
+
   setup();
 
   create_mavlink_task();

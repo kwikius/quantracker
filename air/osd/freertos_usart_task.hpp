@@ -31,6 +31,7 @@
 #include <queue.h>
 #include <quan/stm32/config.hpp>
 #include <quan/stm32/usart.hpp>
+#include <quan/stm32/gpio.hpp>
 #include <quan/stm32/get_alternate_function.hpp>
 #include <quan/stm32/usart/detail/get_irq_number.hpp>
 #include <quan/stm32/usart/get_alternate_function.hpp>
