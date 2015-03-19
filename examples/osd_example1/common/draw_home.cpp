@@ -4,15 +4,15 @@
 #include <quan/uav/osd/get_home_position.hpp>
 #include <quan/uav/get_distance.hpp>
 #include "osd.hpp"
+#include "symbology.hpp"
 
 using namespace quan::uav::osd;
 
 void draw_home()
 {
-
    bitmap_ptr home_image = get_bitmap(BitmapID::home_image);
    if (home_image) {
-      pxp_type pos{-160,70};
+      pxp_type pos = get_display_home_position();
       size_type vect = get_size(home_image) / 2;
       draw_bitmap (home_image,pos);
       char buf[30];

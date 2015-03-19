@@ -51,6 +51,7 @@ void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 }
 
 void signal_new_heartbeat();
+bool initialise_flash();
 
 namespace{
 
@@ -122,6 +123,7 @@ namespace{
       the_aircraft.mutex_init();
 #if  (QUAN_OSD_BOARD_TYPE == 4)
       mavlink_tx_rx_task::enable();
+      initialise_flash();
 #else
       posdata_tx_rx_task::enable();
 #endif

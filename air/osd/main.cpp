@@ -64,6 +64,7 @@ void mode_check();
 
 int main()
 {
+  // if user wants to mod flash vars
   mode_check();
 
   setup();

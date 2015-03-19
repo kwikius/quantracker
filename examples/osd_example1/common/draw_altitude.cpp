@@ -3,7 +3,7 @@
 #include <quan/uav/osd/api.hpp>
 #include <quan/uav/osd/get_aircraft_position.hpp>
 #include <quan/uav/osd/get_home_position.hpp>
-//#include <quan/uav/osd/home_position_is_set.hpp>
+
 #include "osd.hpp"
 
 using namespace quan::uav::osd;
