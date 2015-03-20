@@ -30,11 +30,11 @@ namespace {
    enum flash_type_tags { Bool = 0, Vect3I32 =1, Vect3F =2, NumTypeTags};
 
    // use these local templates to map types to ids and vice versa
-   template <typename T> struct type_to_id;
+   template <typename T> struct type_to_flash_id;
    template <uint32_t id> struct id_to_type;
 
     //--------- for Bool
-   template <> struct type_to_id<bool> {
+   template <> struct type_to_flash_id<bool> {
       static constexpr uint32_t value = flash_type_tags::Bool;
    };
    template <> struct id_to_type<flash_type_tags::Bool>{
@@ -42,7 +42,7 @@ namespace {
    };
 
    //--------- for Vect3I32
-   template <> struct type_to_id<quan::three_d::vect<int32_t> > {
+   template <> struct type_to_flash_id<quan::three_d::vect<int32_t> > {
       static constexpr uint32_t value = flash_type_tags::Vect3I32;
    };
    template <> struct id_to_type<flash_type_tags::Vect3I32>{
@@ -50,7 +50,7 @@ namespace {
    };
 
    //--------- for Vect3F
-   template <> struct type_to_id<quan::three_d::vect<float> > {
+   template <> struct type_to_flash_id<quan::three_d::vect<float> > {
       static constexpr uint32_t value = flash_type_tags::Vect3F;
    };
    template <> struct id_to_type<flash_type_tags::Vect3F>{
@@ -70,13 +70,13 @@ namespace quan{ namespace stm32{ namespace flash{
 
       // provide specialisations  done like this so that order change is picked up
       uint32_t quan::stm32::flash::get_flash_typeid_impl<bool>::apply() 
-         {return type_to_id<bool>::value;}
+         {return type_to_flash_id<bool>::value;}
 
       uint32_t quan::stm32::flash::get_flash_typeid_impl<quan::three_d::vect<int32_t> >::apply() 
-         {return type_to_id<quan::three_d::vect<int32_t> >::value;}
+         {return type_to_flash_id<quan::three_d::vect<int32_t> >::value;}
 
       uint32_t quan::stm32::flash::get_flash_typeid_impl<quan::three_d::vect<float> >::apply() 
-         {return type_to_id<quan::three_d::vect<float> >::value;}
+         {return type_to_flash_id<quan::three_d::vect<float> >::value;}
      
       // and these are explicit instantiations of these functions for the linker to find 
       template  uint32_t get_flash_typeid<bool>();
@@ -182,7 +182,7 @@ namespace {
 // using user_error(str) function
   
 // no op range checking
-// use this check function can be used if there is no error checking required e.g for bool
+// This check function can be used if there is no error checking required e.g for bool
    constexpr bool nop_check (void* p) { return true;}
 
  // Example. checks the "mag_offsets" variable is in limits
@@ -233,7 +233,7 @@ namespace {
    // intended to check the value is in range
    #define EE_SYMTAB_ENTRY(Name, CheckFun,Info, Readonly) { \
             #Name, \
-            type_to_id<flash_variable_type::Name >::value ,\
+            type_to_flash_id<flash_variable_type::Name >::value ,\
             CheckFun, \
             Info ,\
             Readonly \
@@ -266,6 +266,7 @@ namespace {
    app_symtab_t app_symtab;
 
 } // namespace
+
 
 bool app_symtab_t::get_typeid(uint16_t symbol_index, uint32_t & dest) const
 {
