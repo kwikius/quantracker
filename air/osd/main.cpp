@@ -61,12 +61,27 @@ void create_leds_task();
 void draw_loop();
 
 void mode_check();
+bool initialise_flash();
 
 int main()
 {
-  // if user wants to mod flash vars
-  mode_check();
+  //check if user wants to mod flash vars
+  if (! initialise_flash()){
+      // set heartbeat_led on permanently symbolise fail
+       quan::stm32::module_enable< heartbeat_led_pin::port_type>();
+         quan::stm32::apply<
+            heartbeat_led_pin
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::high
+         >();
+      while (1){;}
+  }
 
+  mode_check();
+  
   setup();
 
   create_mavlink_task();

@@ -15,6 +15,12 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+/*
+ Flash variables implementation.
+ Flash variables of various types can be defined.
+
+*/
+
 #include <cstring>
 #include <quan/three_d/vect.hpp>
 #include <quan/stm32/flash.hpp>
@@ -27,17 +33,22 @@
 namespace {
 
    // The enum holds numeric ids , one for each different type in the flash vars 
-   enum flash_type_tags { Bool = 0, Vect3I32 =1, Vect3F =2, NumTypeTags};
+   
+   enum flash_type_tags { 
+         Bool 
+         ,Vect3I32  
+         ,Vect3F
+         ,NumTypeTags}; // Use NumTypeTags to check array sizes etc
 
    // use these local templates to map types to ids and vice versa
    template <typename T> struct type_to_flash_id;
-   template <uint32_t id> struct id_to_type;
+   template <uint32_t id> struct flash_id_to_type;
 
     //--------- for Bool
    template <> struct type_to_flash_id<bool> {
       static constexpr uint32_t value = flash_type_tags::Bool;
    };
-   template <> struct id_to_type<flash_type_tags::Bool>{
+   template <> struct flash_id_to_type<flash_type_tags::Bool>{
       typedef bool type;
    };
 
@@ -45,7 +56,7 @@ namespace {
    template <> struct type_to_flash_id<quan::three_d::vect<int32_t> > {
       static constexpr uint32_t value = flash_type_tags::Vect3I32;
    };
-   template <> struct id_to_type<flash_type_tags::Vect3I32>{
+   template <> struct flash_id_to_type<flash_type_tags::Vect3I32>{
       typedef quan::three_d::vect<int32_t> type;
    };
 
@@ -53,7 +64,7 @@ namespace {
    template <> struct type_to_flash_id<quan::three_d::vect<float> > {
       static constexpr uint32_t value = flash_type_tags::Vect3F;
    };
-   template <> struct id_to_type<flash_type_tags::Vect3F>{
+   template <> struct flash_id_to_type<flash_type_tags::Vect3F>{
       typedef quan::three_d::vect<float> type;
    };
   
@@ -104,26 +115,19 @@ namespace {
       pfn_check_function get_check_function(uint16_t symbol_index)const;
    };
 //################### 
-   // Just holding the data to be read to or written from Flash
-   // as types
-   struct flash_variable_type {
-      typedef quan::three_d::vect<float> mag_offsets;
-      typedef quan::three_d::vect<int32_t> display_home_pos;
-      typedef quan::three_d::vect<int32_t> display_compass_pos;
-      typedef bool                       use_compass;
-   } ;
 
-   // Array of function pointers 
+
+   // An Array of function pointers 
    // for converting a type as text to a bytestream
    // indexed by id in the flash_type_tags enum
    // The order and number 
    // must be the same as the flash_type_tags enum above
-   // The use of the id_to_type index hopefully helps!
+   // The use of the flash_id_to_type index hopefully helps!
    constexpr quan::stm32::flash::symbol_table::pfn_text_to_bytestream text_to_bytestream[] =
    {
-      &quan::stm32::flash::flash_convert<id_to_type<0>::type>::text_to_bytestream
-      ,&quan::stm32::flash::flash_convert<id_to_type<1>::type>::text_to_bytestream
-      ,&quan::stm32::flash::flash_convert<id_to_type<2>::type>::text_to_bytestream
+      &quan::stm32::flash::flash_convert<flash_id_to_type<0>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<1>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<2>::type>::text_to_bytestream
    };
    static_assert ((sizeof(text_to_bytestream) 
          / sizeof(quan::stm32::flash::symbol_table::pfn_text_to_bytestream)) 
@@ -136,9 +140,9 @@ namespace {
    // There must be a separate entry for each different flash type
    constexpr uint32_t type_tag_to_size[] =
    {
-      sizeof (id_to_type<0>::type)
-      ,sizeof (id_to_type<1>::type) 
-      ,sizeof (id_to_type<2>::type)
+      sizeof (flash_id_to_type<0>::type)
+      ,sizeof (flash_id_to_type<1>::type) 
+      ,sizeof (flash_id_to_type<2>::type)
    };
    static_assert ((sizeof(type_tag_to_size) / sizeof(uint32_t))
       == flash_type_tags::NumTypeTags,"missing elements");
@@ -150,41 +154,39 @@ namespace {
    // it is assumed that only valid object values have been stored in Flash.
    constexpr quan::stm32::flash::symbol_table::pfn_bytestream_to_text bytestream_to_text[] =
    {
-      &quan::stm32::flash::flash_convert<id_to_type<0>::type>::bytestream_to_text
-      ,&quan::stm32::flash::flash_convert<id_to_type<1>::type>::bytestream_to_text
-      ,&quan::stm32::flash::flash_convert<id_to_type<2>::type>::bytestream_to_text
+      &quan::stm32::flash::flash_convert<flash_id_to_type<0>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<1>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<2>::type>::bytestream_to_text
    };
    static_assert ((sizeof(bytestream_to_text) 
          / sizeof(quan::stm32::flash::symbol_table::pfn_bytestream_to_text)) 
       == flash_type_tags::NumTypeTags,"missing elements");
 
-
-   // The symbol table entry class.
-   // name of the symbol
-   // with tag representing the type according to the flash_type_tags enum above
-   // some user help info
-   // and a range check function. 
-   // (The void* is actually a pointer to the value to be checked)
-   struct flash_symtab_entry_t {
-      const char* const name;
-      uint32_t const type_tag;
-      bool (*pfn_validity_check)(void*);
-      const char * const info;
-      bool readonly;
-   };
-
+// ####################### acces to types via the lookup name ####################
+   // This structure is just used to map the type of each flash variable to its name
+   // for use by the EE_SYMTAB_ENTRY macro below. The order isnt important
+   // except for neatness !
+   // no reference/const/volatile/pointers/T(*)(...) here please, just unadorned value_types!
+   struct flash_variable_type {
+      typedef quan::three_d::vect<float>     mag_offsets;
+      typedef bool                           use_compass;
+      typedef quan::three_d::vect<int32_t>   display_home_pos;
+      typedef quan::three_d::vect<int32_t>   display_compass_pos;
+   } ;
    //#################### Per object range checking ########################
     
-// Range check functions for validating user input values to update flash variable values
-// the void* arg is converted to a pointer to the type to be checked 
+// Range check callback functions are used per object rather than per type
+// for validating user input values before they are used to update flash variable values
+// the void* arg is converted to a pointer to the type to be checked.
 // For out of range values an error message should be generated
 // which is output to the user to help diagnose what is wrong
 // using user_error(str) function
-  
-// no op range checking
-// This check function can be used if there is no error checking required e.g for bool
+ // examples follow...
+ //----------------
+// no-op range checking
+// This check function can be used if there is no error checking required e.g for bool variables
    constexpr bool nop_check (void* p) { return true;}
-
+//-----------------
  // Example. checks the "mag_offsets" variable is in limits
    bool mag_offsets_check(void* p)
    {
@@ -204,7 +206,7 @@ namespace {
          return false;
       }
    }
-
+//-----------------
    // check that display pos vars are in range
    bool display_pos_check(void* p)
    {
@@ -214,7 +216,6 @@ namespace {
       // convert the void * to a pointer in the type of the value to be range checked
       // type of home_pos used, assumes all same type
       flash_variable_type::display_home_pos * pv = (flash_variable_type::display_home_pos*) p;
-      // check it
       bool const value_good = (pv->x < 500) && ( pv->x > -500)
       &&  (pv->y < 500) &&  (pv->y > -500)
       &&  (pv->z < 500)  && (pv->z > -500);
@@ -226,11 +227,16 @@ namespace {
       }
    }
 
+   // The symbol table entry structure for a flash variable
+   struct flash_symtab_entry_t {
+      const char* const name;  // user name of the symbol
+      uint32_t const type_tag;  // id representing the type of the variable
+      bool (*pfn_validity_check)(void*); //range check function 
+      const char * const info; // some help about the flash variable
+      bool readonly;  // if the value is readonly ( not writable from user flash menu)
+   };
 
-   // Use the macro to make flash_symtab_entry_t entries for the names symbol table below
-   // The Name is the string name representing the variable without dquotes
-   // the Checkfun is a function which takes a void* arg
-   // intended to check the value is in range
+   // Use the macro to add flash_symtab_entry_t entries for the names symbol table below
    #define EE_SYMTAB_ENTRY(Name, CheckFun,Info, Readonly) { \
             #Name, \
             type_to_flash_id<flash_variable_type::Name >::value ,\
@@ -241,16 +247,17 @@ namespace {
 
 //####### The object symtable itself ###########################
    // Add  One element per Flash variable
+   // n.b the mag_offsets and use_compass vars aint used
+   // but just there to flesh out table a bit for testing :)
    flash_symtab_entry_t constexpr names[] = {
       EE_SYMTAB_ENTRY(mag_offsets,mag_offsets_check,"[float,float,float] range: -999 to 999",false)
       ,EE_SYMTAB_ENTRY(use_compass,nop_check,"true = use compass to set tracker azimuth", false)
       ,EE_SYMTAB_ENTRY(display_home_pos,display_pos_check,"[x,y_pal,y_ntsc] range: -499 to 499",false)
       ,EE_SYMTAB_ENTRY(display_compass_pos,display_pos_check,"[x,y_pal,y_ntsc] range: -499 to 499",false)
    };
-    
+    // ok we are done with this !
    #undef EE_SYMTAB_ENTRY
-
-   // get  
+ 
    constexpr uint16_t get_type_index (uint16_t symbol_index)
    {
       return names[symbol_index].type_tag;
@@ -281,7 +288,7 @@ bool app_symtab_t::get_typeid(uint16_t symbol_index, uint32_t & dest) const
 app_symtab_t::pfn_check_function app_symtab_t::get_check_function(uint16_t symbol_index)const
 {
    if (symbol_index < this->get_symtable_size()) {
-         return names[symbol_index].pfn_validity_check;
+      return names[symbol_index].pfn_validity_check;
    } else {
       return nullptr;
    }
@@ -398,21 +405,25 @@ bool app_symtab_t::init()const
 {
    if (flash_check() == 0x00) {
    
-      quan::user_message ("unwritten flash detected... initialising\n");
+     // quan::user_message ("unwritten flash detected... initialising\n");
      
       if (! quan::stm32::flash::detail::erase (1)) {
-         quan::user_message ("init flash page1 failed\n");
+         quan::error (fn_any,quan::detail::stm32_flash_erase_page_failed);
          return false ;
       }
       if (! quan::stm32::flash::detail::erase (2)) {
-         quan::user_message ("init flash page2 failed\n");
+         quan::error(fn_any,quan::detail::stm32_flash_erase_page_failed);
          return false;
       }
-      quan::user_message ("...flash erased OK\n");
+      //quan::user_message ("...flash erased OK\n");
    }
    return init_values_from_flash();
 }
 
+// if returns false
+// then something bad happened
+// then try the report_errors function once you have a user i/o (e.g in mavlink_task startup
+// or maybe should create a fail task
 bool initialise_flash()
 {
   return app_symtab.init();

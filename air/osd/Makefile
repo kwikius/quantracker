@@ -103,7 +103,7 @@ video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_s
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
- heartbeat_task.o rtos_hooks.o mode_check.o flash.o
+ heartbeat_task.o rtos_hooks.o mode_check.o flash.o symbology.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -147,6 +147,7 @@ SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
+#DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
@@ -188,9 +189,6 @@ board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
 board_type4_disco : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_DISCOVERY
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
-
-# for float printf format etc
-# CFLAG_EXTRAS += -Wl,-u,vsprintf -lm
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
@@ -253,9 +251,6 @@ system_init.o : $(SYSTEM_INIT)
 
 startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
-
-#flash_funs.o : $(FLASH_SRC)
-#	$(CC) $(CFLAGS) -o flash_funs.o $(FLASH_SRC)
 
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections

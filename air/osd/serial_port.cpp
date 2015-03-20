@@ -37,7 +37,7 @@ extern "C" void USART2_IRQHandler()
    ,"invalid usart for serial_port irq");
    frsky_tx_rx_task::irq_handler();
 }
-
+   
 #if (QUAN_OSD_BOARD_TYPE == 4)
 extern "C" void USART1_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART1_IRQHandler()
@@ -53,8 +53,8 @@ extern "C" void USART3_IRQHandler()
 #else
      posdata_usart,quan::stm32::usart3
 #endif
-   >::value
-   ,"invalid usart for serial_port irq");
+   >::value ,"invalid usart for serial_port irq");
+
 #if (QUAN_OSD_BOARD_TYPE == 4)
    mavlink_tx_rx_task::irq_handler();
 #else

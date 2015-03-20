@@ -19,8 +19,11 @@
 /* Heap size will be set to this if allocing memory*/
 _HeapSize = 0x12000;
 
-/* linker checks that stack is bigger than this */
-_MinStackSize = 0xA000; 
+/* linker checks that stack is bigger than this.
+ n.b under FreeRtos, not clear how much is needed
+since task stacks are allocated on the heap
+*/
+_MinStackSize = 0x8000; 
 
 MEMORY
 {
