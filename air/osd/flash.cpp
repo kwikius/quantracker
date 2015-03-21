@@ -131,7 +131,7 @@ namespace {
    };
    static_assert ((sizeof(text_to_bytestream) 
          / sizeof(quan::stm32::flash::symbol_table::pfn_text_to_bytestream)) 
-      == flash_type_tags::NumTypeTags,"missing elements");
+      == flash_type_tags::NumTypeTags,"text_to_bytestream invalid number of elements");
 
    // Array describing the size of a type in flash
    // indexed by id in the flash_type_tags enum
@@ -145,7 +145,7 @@ namespace {
       ,sizeof (flash_id_to_type<2>::type)
    };
    static_assert ((sizeof(type_tag_to_size) / sizeof(uint32_t))
-      == flash_type_tags::NumTypeTags,"missing elements");
+      == flash_type_tags::NumTypeTags,"type_tag_to_size invalid number of elements");
     
    // array of function pointers to convert a bytestream to text (user represntation)
    // indexed by id in the flash_type_tags enum
@@ -160,9 +160,9 @@ namespace {
    };
    static_assert ((sizeof(bytestream_to_text) 
          / sizeof(quan::stm32::flash::symbol_table::pfn_bytestream_to_text)) 
-      == flash_type_tags::NumTypeTags,"missing elements");
+      == flash_type_tags::NumTypeTags,"bytestream_to_text invalid number of elements");
 
-// ####################### acces to types via the lookup name ####################
+// ####################### access to types via the lookup name ####################
    // This structure is just used to map the type of each flash variable to its name
    // for use by the EE_SYMTAB_ENTRY macro below. The order isnt important
    // except for neatness !
@@ -184,13 +184,14 @@ namespace {
  // examples follow...
  //----------------
 // no-op range checking
-// This check function can be used if there is no error checking required e.g for bool variables
+// This check function can be used if there is no validity checking required e.g for bool variables
    constexpr bool nop_check (void* p) { return true;}
 //-----------------
  // Example. checks the "mag_offsets" variable is in limits
    bool mag_offsets_check(void* p)
    {
       if ( p == nullptr){
+         //todo add error
          return false;
       }
       // convert the void * to a pointer in the type of the value to be range checked
@@ -250,10 +251,10 @@ namespace {
    // n.b the mag_offsets and use_compass vars aint used
    // but just there to flesh out table a bit for testing :)
    flash_symtab_entry_t constexpr names[] = {
-      EE_SYMTAB_ENTRY(mag_offsets,mag_offsets_check,"[float,float,float] range: -999 to 999",false)
+      EE_SYMTAB_ENTRY(mag_offsets,mag_offsets_check,"[float x, float y, float z] range: -999 to 999",false)
       ,EE_SYMTAB_ENTRY(use_compass,nop_check,"true = use compass to set tracker azimuth", false)
-      ,EE_SYMTAB_ENTRY(display_home_pos,display_pos_check,"[x,y_pal,y_ntsc] range: -499 to 499",false)
-      ,EE_SYMTAB_ENTRY(display_compass_pos,display_pos_check,"[x,y_pal,y_ntsc] range: -499 to 499",false)
+      ,EE_SYMTAB_ENTRY(display_home_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
+      ,EE_SYMTAB_ENTRY(display_compass_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
    };
     // ok we are done with this !
    #undef EE_SYMTAB_ENTRY
