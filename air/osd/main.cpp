@@ -66,6 +66,8 @@ bool initialise_flash();
 int main()
 {
   //check if user wants to mod flash vars
+  // also setss up flash on new firmware
+  // without which flash cant be modified
   if (! initialise_flash()){
       // set heartbeat_led on permanently symbolise fail
        quan::stm32::module_enable< heartbeat_led_pin::port_type>();
@@ -81,6 +83,7 @@ int main()
   }
 
   mode_check();
+  
   
   setup();
 

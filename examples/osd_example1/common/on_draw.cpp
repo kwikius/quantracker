@@ -3,6 +3,7 @@
 #include <quan/uav/osd/features_api.hpp>
 #include "on_draw.hpp"
 #include "osd.hpp"
+#include "symbology.hpp"
 
 using namespace quan::uav::osd;
 
@@ -18,9 +19,12 @@ TODO add Va (airspeed) Vg( groundspeed)
 
 void quan::uav::osd::on_draw()
 {
-
-   draw_compass();
-   draw_artificial_horizon();
+   if ( osd_show_compass() == true){
+      draw_compass();
+   }
+   if (osd_show_afcl_horizon() == true){
+      draw_artificial_horizon();
+   }
    draw_batteries();
    if (home_position_is_set() == true){
       draw_altitude();

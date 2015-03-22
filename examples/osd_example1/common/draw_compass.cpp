@@ -19,7 +19,7 @@ void draw_compass ()
       = quan::uav::get_bearing(home_pos,aircraft_pos);
    
    quan::two_d::rotation const rotate {heading}; 
-   pxp_type const pos = get_display_compass_position();
+   pxp_type const pos = get_osd_compass_position();
    int constexpr radius = 25;
    draw_circle(radius + 2,pos, colour_type::black);
    // should prob make this a bitmap for speed

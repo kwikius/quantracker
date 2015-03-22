@@ -12,7 +12,7 @@ void draw_home()
 {
    bitmap_ptr home_image = get_bitmap(BitmapID::home_image);
    if (home_image) {
-      pxp_type pos = get_display_home_position();
+      pxp_type pos = get_osd_home_position();
       size_type vect = get_size(home_image) / 2;
       draw_bitmap (home_image,pos);
       char buf[30];
