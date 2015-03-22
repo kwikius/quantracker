@@ -1,0 +1,59 @@
+PCBNEW-LibModule-V1  Fri 13 Mar 2015 10:51:19 GMT
+# encoding utf-8
+$INDEX
+P4
+$EndINDEX
+$MODULE P4
+Po 0 0 0 15 54FF46D9 5502C11A ~~
+Li P4
+Cd Connecteur 6 pins
+Kw CONN DEV
+Sc 5502C11A
+AR /546C8634/546C98A1
+Op 0 0 0
+T0 -984 -295 197 197 0 49 N I 21 N "P4"
+T1 0 -394 197 197 0 49 N I 21 N "CONN_6"
+$PAD
+Sh "1" C 787 787 0 0 0
+Dr 394 0 0
+At STD N 00E0FFFF
+Ne 4 "/mavlink_port/FC_GND"
+Po -2500 0
+$EndPAD
+$PAD
+Sh "2" C 787 787 0 0 0
+Dr 394 0 0
+At STD N 00E0FFFF
+Ne 3 "/mavlink_port/FC_FRSKY_TXO"
+Po -1500 0
+$EndPAD
+$PAD
+Sh "3" C 787 787 0 0 0
+Dr 394 0 0
+At STD N 00E0FFFF
+Ne 1 "/mavlink_port/FC_+5V"
+Po -500 0
+$EndPAD
+$PAD
+Sh "4" C 787 787 0 0 0
+Dr 394 0 0
+At STD N 00E0FFFF
+Ne 5 "/mavlink_port/FC_MAVLINK_RXI"
+Po 500 0
+$EndPAD
+$PAD
+Sh "5" C 787 787 0 0 0
+Dr 394 0 0
+At STD N 00E0FFFF
+Ne 6 "/mavlink_port/FC_MAVLINK_TXO"
+Po 1500 0
+$EndPAD
+$PAD
+Sh "6" C 787 787 0 0 0
+Dr 394 0 0
+At STD N 00E0FFFF
+Ne 2 "/mavlink_port/FC_FRSKY_RXI"
+Po 2500 0
+$EndPAD
+$EndMODULE  P4
+$EndLIBRARY

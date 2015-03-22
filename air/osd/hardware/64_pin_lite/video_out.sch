@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 7 8
 Title ""
-Date "26 jan 2015"
+Date "12 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,6 +63,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Label 6000 3550 0    45   ~ 0
+LINE_DAC_OUT2
+Text Label 6000 2350 0    45   ~ 0
+LINE_DAC_OUT1
+Text Label 4800 4050 0    45   ~ 0
+BUF_DAC_OUT2
+Text Label 4800 2900 0    45   ~ 0
+BUF_DAC_OUT1
 Wire Wire Line
 	5150 2350 4950 2350
 Connection ~ 3150 4900
@@ -179,10 +189,10 @@ VIDEO_OUT_GND
 $Comp
 L CONN_5 P5
 U 1 1 546DBC86
-P 8900 2550
-F 0 "P5" V 8850 2550 50  0000 C CNN
-F 1 "CONN_5" V 8950 2550 50  0000 C CNN
-	1    8900 2550
+P 8950 2550
+F 0 "P5" V 8900 2550 50  0000 C CNN
+F 1 "CONN_5" V 9000 2550 50  0000 C CNN
+	1    8950 2550
 	1    0    0    1   
 $EndComp
 Text HLabel 8250 2550 0    45   Input ~ 0

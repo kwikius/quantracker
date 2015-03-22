@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 26 Jan 2015 12:32:55 GMT
+EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -47,13 +47,15 @@ LIBS:opa830
 LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
+LIBS:R0link
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 8
 Title ""
-Date "26 jan 2015"
+Date "12 mar 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,6 +63,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Label 6650 1475 0    45   ~ 0
+RED_LED_RES
+Text Label 5100 5825 1    45   ~ 0
+BOOT1
+Text Label 8950 2825 0    45   ~ 0
+VCAP_2
+Text Label 5550 6450 0    45   ~ 0
+VCAP1
 Connection ~ 8800 4475
 Wire Wire Line
 	8800 4475 8800 4575
@@ -197,9 +207,9 @@ Wire Wire Line
 Wire Wire Line
 	4050 1125 4050 2025
 Wire Wire Line
-	8950 2900 8950 2800
+	8950 2900 8950 2820
 Wire Wire Line
-	8950 2800 6300 2825
+	8950 2820 6300 2825
 Wire Wire Line
 	5550 7000 5550 5525
 Wire Wire Line
@@ -285,9 +295,9 @@ Wire Wire Line
 Wire Wire Line
 	6450 775  6650 775 
 Wire Wire Line
-	6650 775  6650 975 
+	6650 775  6650 850 
 Wire Wire Line
-	6650 1475 6650 1575
+	6650 1350 6650 1575
 Wire Wire Line
 	5100 5925 5100 5525
 Wire Wire Line
@@ -543,10 +553,10 @@ $EndComp
 $Comp
 L R R2
 U 1 1 546E5ED3
-P 6650 1225
-F 0 "R2" V 6730 1225 50  0000 C CNN
-F 1 "470R" V 6650 1225 50  0000 C CNN
-	1    6650 1225
+P 6650 1100
+F 0 "R2" V 6730 1100 50  0000 C CNN
+F 1 "470R" V 6650 1100 50  0000 C CNN
+	1    6650 1100
 	1    0    0    -1  
 $EndComp
 Text HLabel 6650 2075 0    45   BiDi ~ 0

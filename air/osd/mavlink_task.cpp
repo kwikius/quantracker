@@ -23,20 +23,16 @@
 */
 
 #include <cstdint>
-
 #include <FreeRTOS.h>
 #include <task.h>
 #include <semphr.h>
-
 #include "mavlink.hpp"
-
 #include "aircraft.hpp"
 #include "resources.hpp"
 
-
 // see qgroundcontrol.org/dev/mavlink_onboard_integration_tutorial
 // Not quite sure what values these should be though...
- // think they are don't care here
+// think they are don't care here
 static constexpr uint8_t mavlink_sysid = 1;  // system id
 static constexpr uint8_t mavlink_compid = 1; // component id
 mavlink_system_t mavlink_system = {mavlink_sysid,mavlink_compid}; // 
@@ -52,7 +48,6 @@ void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 }
 
 void signal_new_heartbeat();
-
 namespace{
 
    uint8_t  apm_mav_type;
@@ -368,11 +363,12 @@ void create_mavlink_task()
 #endif
 
    xTaskCreate(
-         read_mavlink,"read_mavlink", 
-         512,
-         &dummy_param,
-         task_priority::mavlink,
-         &task_handle);
+      read_mavlink,"read_mavlink", 
+      512,
+      &dummy_param,
+      task_priority::mavlink,
+      &task_handle
+   );
 }
 
 

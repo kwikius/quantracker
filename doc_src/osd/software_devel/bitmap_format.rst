@@ -21,6 +21,8 @@ to put it in in rom.
 The format of the data array
 ----------------------------
 
+N.B. This format will probably change 
+
 The array is declared as an array of uint8_t, 
 but should be seen as a linear array of 2 bit values, each representing a pixel.
 The 2 bit values map to colours as follows (Also see `\<quan/uav/osd/colour.hpp\>`_ )
@@ -82,7 +84,7 @@ The default ouput looks like so:
 .. _`\<quan/uav/osd/basic_bitmap.hpp\>`: https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp
 .. _`quantracker/examples/osd_example1/board/bitmaps.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp
 .. _`\<quan/uav/osd/colour.hpp\>` : https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp
-.. _`quantracker/examples/cmd_line_output/main.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/cmd_line_output/main.cpp
+.. _`quantracker/examples/cmd_line_output/main.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_bmp_output/main.cpp
 .. _`OSD Index`: ../index.html
 
 .. [1] Putting things in an anonymous namespace in a C++ source file is similar to one useage of static in C. 

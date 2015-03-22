@@ -175,5 +175,6 @@ extern "C" void setup()
 #else
   posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
 #endif
+  // todo set sign
   frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
 }
