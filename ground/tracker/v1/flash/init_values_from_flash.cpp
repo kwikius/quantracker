@@ -15,10 +15,10 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 #include <quan/three_d/vect.hpp>
+#include <quan/stm32/flash/flash_convert.hpp>
 #include "../compass.hpp"
 #include "../serial_ports.hpp"
 #include "flash.hpp"
-#include "flash_convert.hpp"
 #include "to_from_flash.hpp"
 
 /*
@@ -28,7 +28,8 @@
 
  bool init_values_from_flash()
  {
-    bool mag_offsets_defined = flash_symtab::is_defined("mag_offsets");
+    auto & symtab = quan::stm32::flash::get_app_symbol_table();
+    bool mag_offsets_defined = symtab.is_defined("mag_offsets");
     if ( mag_offsets_defined){
       quan::three_d::vect<float> mag_offset;
       if(get_flash_mag_offset(mag_offset)){
@@ -38,7 +39,7 @@
          return false;
       }
     }
-    if( mag_offsets_defined && flash_symtab::is_defined("use_compass")){
+    if( mag_offsets_defined && symtab.is_defined("use_compass")){
        bool use_compass;
        if(get_flash_use_compass(use_compass)){
          raw_compass::set_use_compass(use_compass);

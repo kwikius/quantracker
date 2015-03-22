@@ -60,7 +60,8 @@ struct video_params {
       static constexpr uint8_t bits_pixel = 2;
       static constexpr uint8_t num_buffers = 2;
       struct buffer {
-         static constexpr uint32_t memory_size = 0x1F000;
+         //static constexpr uint32_t memory_size = 0x1F000;
+         static constexpr uint32_t memory_size = 0xD000;
          static constexpr uint32_t length = (memory_size / (bits_pixel * num_buffers)) - 4 ;
          typedef black_white_buffer_t<length> type;
       };

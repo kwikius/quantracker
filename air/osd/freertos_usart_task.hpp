@@ -31,6 +31,7 @@
 #include <queue.h>
 #include <quan/stm32/config.hpp>
 #include <quan/stm32/usart.hpp>
+#include <quan/stm32/gpio.hpp>
 #include <quan/stm32/get_alternate_function.hpp>
 #include <quan/stm32/usart/detail/get_irq_number.hpp>
 #include <quan/stm32/usart/get_alternate_function.hpp>
@@ -74,10 +75,10 @@ namespace quan{ namespace stm32{namespace freertos{
       // blocking ( if q full)
       static void put (CharType ch)
       {
-          xQueueSendToBack(m_txo_queue_handle,&ch,portMAX_DELAY);
-          typedef Usart usart_type;
-          constexpr uint8_t usart_cr1_txeie = 7;
-          usart_type::get()->cr1. template bb_setbit<usart_cr1_txeie>();
+         xQueueSendToBack(m_txo_queue_handle,&ch,portMAX_DELAY);
+         typedef Usart usart_type;
+         constexpr uint8_t usart_cr1_txeie = 7;
+         usart_type::get()->cr1. template bb_setbit<usart_cr1_txeie>();
       }
 
       static void irq_handler()
@@ -115,6 +116,7 @@ namespace quan{ namespace stm32{namespace freertos{
       {
         m_rxi_queue_handle = xQueueCreate(RX_q_size, sizeof(char));
         if (m_rxi_queue_handle == 0){
+            //prob out of memory
             //flash_led
             // error loop()
         }
@@ -124,6 +126,7 @@ namespace quan{ namespace stm32{namespace freertos{
         // todo check already inited
         m_txo_queue_handle = xQueueCreate(TX_q_size, sizeof(char));
         if (m_txo_queue_handle == 0){
+             //prob out of memory
             //flash_led
             // error loop()
         }

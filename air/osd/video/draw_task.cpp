@@ -40,7 +40,7 @@ void create_draw_task()
 {
    xTaskCreate(
       draw_task,"draw_task", 
-      2500,
+      5000, 
       &dummy_param,
       task_priority::draw,
       &task_handle

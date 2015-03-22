@@ -5,6 +5,7 @@
 #include <quan/meta/integer_min.hpp>
 #include <quan/meta/integer_max.hpp>
 #include <quan/constrain.hpp>
+#include "symbology.hpp"
 
 using namespace quan::uav::osd;
 
@@ -97,8 +98,9 @@ void draw_artificial_horizon()
 {
    auto const & attitude = get_aircraft_attitude();
    // hack just so we dont worry about it going round the back
-   if ( abs(attitude.pitch) < angle_type{30}) {
-      rotation rotate {attitude.pitch,attitude.roll};
+   auto pitch = attitude.pitch  +  osd_get_afcl_horizon_pitch_adj();
+   if ( abs(pitch) < angle_type{30}) {
+      rotation rotate {pitch,attitude.roll};
       constexpr int32_t width = 127;
       constexpr int32_t outer_h_bar_len = 16;
       constexpr int32_t outer_stop_height = 8;
