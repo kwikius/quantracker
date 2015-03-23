@@ -88,6 +88,6 @@ The default ouput looks like so:
 .. _`OSD Index`: ../index.html
 
 .. [1] Putting things in an anonymous namespace in a C++ source file is similar to one useage of static in C. 
-         You can use static too, but an anonymous namespace can be neater.
+       You can use static too, but an anonymous namespace can be neater.
 
 `OSD Index`_

@@ -54,6 +54,7 @@ quan::uav::osd::angle_type osd_get_afcl_horizon_pitch_adj()
 // if returns false look to the report errors mechanism to find the error
 // When called there aint no user io
 // so will need to check for and report  errors in mavlink_task at startup
+#if !( defined (QUANTRACKER_AIR_OSD_PC_SIM_MODE))
 bool init_values_from_flash()
 {
    auto & symtab = quan::stm32::flash::get_app_symbol_table();
@@ -134,3 +135,4 @@ bool init_values_from_flash()
  
    return true;
 }
+#endif
