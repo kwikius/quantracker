@@ -47,7 +47,8 @@ QUAN_INCLUDE_PATH = /media/sf_VM_Shared/QuantrackerOSD/quan-trunk
 # Its is OK to leave this as here first time through to check everything works
 # (currently points to the included example)
 
-USER_SOURCE_PATH = ../../examples/osd_ac/
+#USER_SOURCE_PATH = ../../examples/osd_ac/
+USER_SOURCE_PATH = ../../examples/osd_example1/
 
 # The user sources which must be in the "common" subdirectory of $(USER_SOURCE_PATH)
 # Must have a .cpp extension to work
@@ -55,10 +56,11 @@ USER_SOURCE_PATH = ../../examples/osd_ac/
 # Its is OK to leave this as here first time through to check everything works
 # (currently points to the included example)
 
+#USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
+#draw_compass.cpp draw_home.cpp draw_batteries.cpp draw_gps_state.cpp draw_mode.cpp \
+#osd_control.cpp draw_speed.cpp
 USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
-draw_compass.cpp draw_home.cpp draw_batteries.cpp draw_gps_state.cpp draw_mode.cpp \
-osd_control.cpp draw_speed.cpp
-
+draw_compass.cpp draw_home.cpp draw_batteries.cpp draw_gps_state.cpp
 ################################## OTHER OPTIONS ######################
 
 # Optional. if not set defaults to O. You will need optimisation of at least O
