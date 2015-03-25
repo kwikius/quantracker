@@ -1,0 +1,21 @@
+README for flash_vars.exe
+
+This app can be used to upload a file of flash variables to the OSD
+There should be a sample file called osd_params.txt in this directory.
+in the file empty lines and lines starting with '#' should be ignored
+
+sample invocation:
+# ./flash_vars.exe -write osd_params.txt -port /dev/ttyUSB0
+
+Until its automated, you can create a flash vars file by capturing the output of the 'show' command
+
+Issues. 
+Check that the OSD is on and connected in flash menu mode. 
+**If it isnt this app doesnt notice** So do look at the output
+You can tell if its working by the text or lack of returned by the OSD.
+
+
+
+
+
+
