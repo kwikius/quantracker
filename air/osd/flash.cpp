@@ -524,11 +524,11 @@ bool app_symtab_t::init()const
      // quan::user_message ("unwritten flash detected... initialising\n");
      
       if (! quan::stm32::flash::detail::erase (1)) {
-         quan::error (fn_any,quan::detail::stm32_flash_erase_page_failed);
+         quan::error (quan::detail::function_id::stm32_flash_symtab_init,quan::detail::stm32_flash_erase_page_failed);
          return false ;
       }
       if (! quan::stm32::flash::detail::erase (2)) {
-         quan::error(fn_any,quan::detail::stm32_flash_erase_page_failed);
+         quan::error(quan::detail::function_id::stm32_flash_symtab_init,quan::detail::stm32_flash_erase_page_failed);
          return false;
       }
       //quan::user_message ("...flash erased OK\n");
