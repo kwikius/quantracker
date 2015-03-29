@@ -342,82 +342,48 @@ ul.auto-toc {
 
 
 <p><a class="reference external" href="../index.html">OSD Index</a></p>
-<div class="section" id="bitmap-source-format">
-<h1>Bitmap source format</h1>
-<div class="section" id="structure-of-a-bitmap">
-<h2>Structure of a bitmap</h2>
-<p>To create a custom bitmap, derive your custom class from the basic_bitmap base class
-defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp">&lt;quan/uav/osd/basic_bitmap.hpp&gt;</a> .</p>
-<p>It will probably help to also look at the examples
-in <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp">quantracker/examples/osd_example1/board/bitmaps.cpp</a>.</p>
-<p>The bitmap structure itself is relatively simple.
-The get_data and get_size functions implement the virtual functions
-in the basic_bitmap base class.  The array is declared constexpr as a hint to the compiler
-to put it in in rom.</p>
-<div class="section" id="the-format-of-the-data-array">
-<h3>The format of the data array</h3>
-<p>N.B. This format will probably change</p>
-<p>The array is declared as an array of uint8_t,
-but should be seen as a linear array of 2 bit values, each representing a pixel.
-The 2 bit values map to colours as follows (Also see <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp">&lt;quan/uav/osd/colour.hpp&gt;</a> )</p>
+<div class="section" id="flash-variables">
+<h1>Flash Variables</h1>
+<p>The OSD has a mechanism for persistent storage of variables in Flash memory.
+The stm32f4 mpu doesnt have EEPROM memory but it is possible to write to Flash <a class="footnote-reference" href="#flash-wear" id="id1">[1]</a> .</p>
+<p>Each flash variable must have a unique name.
+and each Flash variable must have a type. Currently available types are:</p>
 <blockquote>
 <ul class="simple">
-<li>0b00 = grey</li>
-<li>0b01 = white</li>
-<li>0b10 = black</li>
-<li>0b11 = transparent</li>
+<li>bool</li>
+<li>int8_t</li>
+<li>int16_t</li>
+<li>int32_t</li>
+<li>uint8_t</li>
+<li>uint16_t</li>
+<li>uint32_t</li>
+<li>float</li>
+<li>three_d::vect&lt;int32_t&gt;</li>
+<li>three_d::vect&lt;float&gt;</li>
+<li>char[10] <a class="footnote-reference" href="#tba" id="id2">[2]</a></li>
+<li>char[20]</li>
+<li>char[30]</li>
+<li>char[40]</li>
 </ul>
 </blockquote>
-<p>The array is split into rows based on what the get_size function you provided returns.</p>
-</div>
-</div>
-<div class="section" id="joining-it-together">
-<h2>Joining it together</h2>
-<p>To see how to join it up, look in  <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp">quantracker/examples/osd_example1/board/bitmaps.cpp</a> ,
-which has all the bitmaps for the example.</p>
-<p>First look at the end of bitmaps.cpp where the get_bitmap(uint32_t id) function is defined.
-As you can see, the function looks up the particular bitmap up in the bitmap_array defined above.
-Note also that all bitmaps are declared in an anonymous namespace <a class="footnote-reference" href="#id2" id="id1">[1]</a> .</p>
-<p>In the example ,all the available bitmaps are defined in this file, which gets unwieldy.
-If you want to put your bitmaps in different source files,
-you can of course just #include them inline inside the anonymous namespace in this file,
-which gives the same effect but is easier to work with.</p>
-</div>
-<div class="section" id="testing-bitmaps">
-<h2>Testing bitmaps</h2>
-<p>For a quick test of your own bitmaps , have a look at the example in
-<a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_bmp_output/main.cpp">quantracker/examples/cmd_line_output/main.cpp</a> , which outputs an ascii-art bitmap on the commandline.
-The default ouput looks like so:</p>
-<pre class="literal-block">
-~~     ~~~~~~~~
-~  ###  ~~~  ~~
-  #   ## ~ ## ~
- ##     #  ## ~
- ##      ##  ~~
- ##      ##  ~~
- ###    #  #  ~
-  ###  #    # ~
-~ ####      #
-~~ ####      #
-~~~ ####     #
-~~~~ ####    #
-~~~~ ########
-~~~~ ## ####  ~
-~~~  ##      ~~
-~~  #### ~~~~~~
-   ######   ~~~
- ########## ~~~
-            ~~~
-</pre>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<table class="docutils footnote" frame="void" id="flash-wear" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Putting things in an anonymous namespace in a C++ source file is similar to one useage of static in C.
-You can use static too, but an anonymous namespace can be neater.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Excessive Wear on the flash is prevented as follows.
+2 flash pages are used.
+When the flash variable value is changed, a new version of the variable is
+appended to flash page (if there is room) until the whole page is used up.
+Once the page is filled the flash variables are all copied to the other page
+and the cycle repeats.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="tba" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>null terminatd strings To be added.</td></tr>
 </tbody>
 </table>
 <p><a class="reference external" href="../index.html">OSD Index</a></p>
-</div>
 </div>
 </div>
 </body>

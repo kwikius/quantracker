@@ -9,7 +9,7 @@ root_html = $(patsubst %.rst,../doc/%.html,$(root_rst))
 osd_rst = index.rst craft_features_widgets.rst
 osd_html = $(patsubst %.rst,../doc/osd/%.html,$(osd_rst))
 
-osd_software_devel_rst = bitmap_format.rst
+osd_software_devel_rst = bitmap_format.rst flash_variables.rst
 osd_software_devel_html = $(patsubst %.rst,../doc/osd/software_devel/%.html,$(osd_software_devel_rst))
 
 blink_html = ../doc/air/osd/board_test/blink/readme.html

@@ -103,7 +103,7 @@ video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_s
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
- heartbeat_task.o rtos_hooks.o mode_check.o flash.o symbology.o
+ heartbeat_task.o rtos_hooks.o mode_check.o flash.o 
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -152,7 +152,7 @@ DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 #DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
-
+# DEFINES += QUAN_FLASH_DEBUG
 STARTUP = startup.s
 # custom linker script 
 LINKER_SCRIPT = stm32f4.ld
