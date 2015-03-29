@@ -516,6 +516,7 @@ uint8_t flash_check()
 
 } //namespace
  
+// defined in symbology.cpp
 bool init_values_from_flash();
 bool app_symtab_t::init()const 
 {
