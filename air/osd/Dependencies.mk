@@ -60,7 +60,7 @@ USER_SOURCE_PATH = ../../examples/osd_example1/
 #draw_compass.cpp draw_home.cpp draw_batteries.cpp draw_gps_state.cpp draw_mode.cpp \
 #osd_control.cpp draw_speed.cpp
 USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
-draw_compass.cpp draw_home.cpp draw_batteries.cpp draw_gps_state.cpp
+draw_compass.cpp draw_home.cpp draw_gps_state.cpp draw_batteries.cpp symbology.cpp
 ################################## OTHER OPTIONS ######################
 
 # Optional. if not set defaults to O. You will need optimisation of at least O
