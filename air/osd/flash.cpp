@@ -37,6 +37,7 @@ namespace {
       bool get_typeid(int32_t symbol_index, uint32_t & dest) const;
       bool init() const;
       pfn_check_function get_check_function(int32_t symbol_index)const;
+      quan::stm32::flash::symtab_entry_t const * get_symbol_table()const;
    };
 
 // ####################### access to types via the lookup name ####################
@@ -105,16 +106,9 @@ namespace {
       }
    }
 
-   // The symbol table entry structure for a flash variable
-   struct flash_symtab_entry_t {
-      const char* const name;  // user name of the symbol
-      uint32_t const type_tag;  // id representing the type of the variable
-      bool (*pfn_validity_check)(void*); //range check function 
-      const char * const info; // some help about the flash variable
-      bool readonly;  // if the value is readonly ( not writable from user flash menu)
-   };
 
-   // Use the macro to add flash_symtab_entry_t entries for the names symbol table below
+
+   // Use the macro to add symtab_entry_t entries for the names symbol table below
    #define EE_SYMTAB_ENTRY(Name, CheckFun,Info, Readonly) { \
             #Name, \
             quan::stm32::flash::type_to_flash_id<flash_variable_type::Name >::value ,\
@@ -125,7 +119,7 @@ namespace {
 
 //####### The object symtable itself ###########################
  
-   flash_symtab_entry_t constexpr names[] = {
+   quan::stm32::flash::symtab_entry_t constexpr names[] = {
        EE_SYMTAB_ENTRY(show_home, nop_check,"true/false to show home distance",false)
       ,EE_SYMTAB_ENTRY(osd_home_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
       ,EE_SYMTAB_ENTRY(show_compass, nop_check,"true/false to show compass",false)
@@ -140,12 +134,7 @@ namespace {
    };
     // ok we are done with this !
    #undef EE_SYMTAB_ENTRY
- 
-   // requires valid symbol_index -- not checked
-//   constexpr uint16_t get_type_index (int32_t symbol_index)
-//   {
-//      return names[static_cast<uint16_t>(symbol_index)].type_tag;
-//   }
+
    
    uint16_t get_type_size (uint16_t typeidx)
    {
@@ -156,17 +145,24 @@ namespace {
    //instantiate the application symbol table
    app_symtab_t app_symtab;
 
-    // get size of a type by index
-   // requires valid type_index -- not checked
-
 
 } // namespace
+
+quan::stm32::flash::symtab_entry_t const * app_symtab_t::get_symbol_table()const
+{
+   return names;
+}
+
+uint16_t app_symtab_t::get_symtable_size() const
+{
+   return sizeof (names)/sizeof (quan::stm32::flash::symtab_entry_t);
+}
 
 
 bool app_symtab_t::get_typeid(int32_t symbol_index, uint32_t & dest) const
 {
     if( this->is_valid_symbol_index(symbol_index)){
-       dest = names[static_cast<uint16_t>(symbol_index)].type_tag;
+       dest = this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag;
        return true;
     }else{
       return false;
@@ -175,7 +171,7 @@ bool app_symtab_t::get_typeid(int32_t symbol_index, uint32_t & dest) const
  // requires valid symbol_index -- not checked
 app_symtab_t::pfn_check_function app_symtab_t::get_check_function(int32_t symbol_index)const
 {
-   return names[static_cast<uint16_t>(symbol_index)].pfn_validity_check;
+   return this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].pfn_validity_check;
 }
 
 // implement global function to access the symboltable
@@ -187,7 +183,7 @@ quan::stm32::flash::symbol_table const & quan::stm32::flash::get_app_symbol_tabl
 const char* app_symtab_t::get_info (int32_t symbol_index)const
 {
    if (this->is_valid_symbol_index(symbol_index)) {
-      return names[static_cast<uint16_t>(symbol_index)].info;
+      return this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].info;
    } else {
       return nullptr;
    }
@@ -196,7 +192,7 @@ const char* app_symtab_t::get_info (int32_t symbol_index)const
 bool app_symtab_t::get_readonly_status (int32_t symbol_index,bool & result)const
 {
    if (this->is_valid_symbol_index(symbol_index)) {
-      result = names[static_cast<uint16_t>(symbol_index)].readonly;
+      result = this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].readonly;
       return true;
    } else {
       return false;
@@ -206,17 +202,14 @@ bool app_symtab_t::get_readonly_status (int32_t symbol_index,bool & result)const
 uint16_t app_symtab_t::get_symbol_storage_size (int32_t symbol_index) const
 {
     if (this->is_valid_symbol_index(symbol_index)) {
-      return get_type_size (names[static_cast<uint16_t>(symbol_index)].type_tag);
+      return get_type_size (this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag);
       //return get_type_size (get_type_index (symbol_index));
     }else{
       return 0U;
     }
 }
 
-uint16_t app_symtab_t::get_symtable_size() const
-{
-   return sizeof (names)/sizeof (flash_symtab_entry_t);
-}
+
 
 /*
  slow but who cares really ?
@@ -224,7 +217,9 @@ uint16_t app_symtab_t::get_symtable_size() const
 int32_t app_symtab_t::get_index (const char* symbol_name)const
 {
       int32_t count = 0;
-      for (auto entry : names) {
+      for ( uint32_t i = 0, end = this->get_symtable_size(); i < end; ++i){
+    //  for (auto entry : this->get_symbol_table()) {
+         auto const & entry = this->get_symbol_table()[i];
          if (strcmp (entry.name, symbol_name) == 0) {
             return count;
          } else {
@@ -237,7 +232,7 @@ int32_t app_symtab_t::get_index (const char* symbol_name)const
 const char* app_symtab_t::get_name (int32_t symbol_index)const
 {
    if (this->is_valid_symbol_index(symbol_index)) {
-      return names[symbol_index].name;
+      return this->get_symbol_table()[symbol_index].name;
    } else {
       return nullptr;
    }
