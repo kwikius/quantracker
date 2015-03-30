@@ -49,8 +49,8 @@ void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 
 void signal_new_heartbeat();
 namespace{
-
-   uint8_t  apm_mav_type;
+  // info from $(MAVLINK_INCLUDE_PATH)/
+   uint8_t  apm_mav_type;  // 
    uint8_t  apm_mav_system; 
    uint8_t  apm_mav_component;
 

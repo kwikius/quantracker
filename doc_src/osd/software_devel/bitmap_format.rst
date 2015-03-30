@@ -13,6 +13,10 @@ defined in `\<quan/uav/osd/basic_bitmap.hpp\>`_ .
 It will probably help to also look at the examples 
 in `quantracker/examples/osd_example1/board/bitmaps.cpp`_.
 
+
+N.B. This format will probably change at some point so it is advisable the osd_maker app to
+generate bitmaps and fonts rather than craetng them by hand.
+
 The bitmap structure itself is relatively simple. 
 The get_data and get_size functions implement the virtual functions
 in the basic_bitmap base class.  The array is declared constexpr as a hint to the compiler 
@@ -20,8 +24,6 @@ to put it in in rom.
 
 The format of the data array
 ----------------------------
-
-N.B. This format will probably change 
 
 The array is declared as an array of uint8_t, 
 but should be seen as a linear array of 2 bit values, each representing a pixel.

@@ -21,10 +21,19 @@
 #include <quan/user.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 
+/*
+ A custom flash symbol table.
+ The file can be used as a template to create your own symbol table.
+ All that is necessary is to change the variable definitions in the symbol table
+ and optionally add a range check function to the flash variable
+
+*/
+
+// the flash symbol table is placed in an anonymous namespace
+// to reduce the amount of global names
 namespace {
 
-   // The symbol table for this app. Provides the implementation of the 
-   // various virtual functions data required by the symbol table
+   // The symbol table for this app. 
    struct app_symtab_t : quan::stm32::flash::symbol_table {
       app_symtab_t() {}
       ~app_symtab_t() {}
@@ -33,11 +42,10 @@ namespace {
    };
 
 // ####################### access to types via the lookup name ####################
-   // Not required for your implementation
-   // This structure is just used to map the type of each flash variable to its name
-   // for use by the EE_SYMTAB_ENTRY macro below. The order isnt important
-   // except for neatness !
-   // no reference/const/volatile/pointers/T(*)(...) here please, just unadorned value_types!
+   // This structure is used to map the type of each flash variable to its lookup name
+   // for use by the EE_SYMTAB_ENTRY macro below. so for example,
+   // the variable looked up as "show_home", has a typedef named show_home, aliasing a bool.
+   // The order isnt important except for neatness !
    struct flash_variable_type {
       typedef bool                           show_home;
       typedef quan::three_d::vect<int32_t>   osd_home_pos;
@@ -86,6 +94,7 @@ namespace {
          return false;
       }
    }
+   // limit the pitch offset used to adjust the artificial horizon, to +- 20 degrees
    bool afcl_horizon_pitch_adj_check(void* p)
    {
       if ( p == nullptr){
@@ -100,9 +109,9 @@ namespace {
       }
    }
 
-//####### The object symtable itself ###########################
+//####### The flash_variables symtable itself ###########################
  
-   quan::stm32::flash::symtab_entry_t constexpr names[] = {
+   quan::stm32::flash::symtab_entry_t constexpr flash_variables_symtab[] = {
 
       #define EE_SYMTAB_ENTRY(Name, CheckFun,Info, Readonly) { \
          #Name, \
@@ -131,16 +140,16 @@ namespace {
 
 } // namespace
 
-// implement functional access to the symtab
-quan::stm32::flash::symtab_entry_t const * app_symtab_t::get_symbol_table()const
-{
-   return names;
-}
-
 // implement get size of symtab
 uint16_t app_symtab_t::get_symtable_size() const
 {
-   return sizeof (names)/sizeof (quan::stm32::flash::symtab_entry_t);
+   return sizeof (flash_variables_symtab)/sizeof (quan::stm32::flash::symtab_entry_t);
+}
+
+// implement functional access to the symtab
+quan::stm32::flash::symtab_entry_t const * app_symtab_t::get_symbol_table()const
+{
+   return flash_variables_symtab;
 }
 
 // implement global function to access the symboltable
@@ -148,20 +157,3 @@ quan::stm32::flash::symbol_table const & quan::stm32::flash::get_app_symbol_tabl
 {
    return app_symtab;
 }
-
-// move all this stuff.........................
-// defined in symbology.cpp
-bool init_values_from_flash();
-
-// if returns false
-// then something bad happened
-// then try the report_errors function once you have a user i/o (e.g in mavlink_task startup
-// or maybe should create a fail task
-bool initialise_flash()
-{
-  if (!quan::stm32::flash::get_app_symbol_table().init()){
-      return false;
-  }
-  return init_values_from_flash();
-}
- 
