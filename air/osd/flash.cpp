@@ -53,19 +53,21 @@ namespace {
    //#################### Per object range checking ########################
     
 // Range check callback functions are used per object rather than per type
-// for validating user input values before they are used to update flash variable values
+// for validating user input values before they are used to update flash variable values.
+//
 // the void* arg is converted to a pointer to the type to be checked.
+//
 // For out of range values an error message should be generated
 // which is output to the user to help diagnose what is wrong
 // using user_error(str) function
- // examples follow...
- //----------------
+// examples follow...
+//----------------
 // no-op range checking
 // This check function can be used if there is no validity checking required e.g for bool variables
    constexpr bool nop_check (void* p) { return true;}
 //-----------------
 
-   // check that display pos vars are in range
+   // check that display pos vars are in a sensible range
    bool display_pos_check(void* p)
    {
       if ( p == nullptr){

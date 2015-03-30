@@ -134,5 +134,15 @@ bool init_values_from_flash()
    }
  
    return true;
+
+
+}
+
+bool initialise_flash()
+{
+  if (!quan::stm32::flash::get_app_symbol_table().init()){
+      return false;
+  }
+  return init_values_from_flash();
 }
 #endif
