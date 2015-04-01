@@ -21,19 +21,22 @@ TOOLCHAIN_GCC_VERSION = 4.8.3
 ### The quan library                                          
 ## Download : https://github.com/kwikius/quan-trunk/archive/master.zip 
 
-QUAN_INCLUDE_PATH = /media/sf_VM_Shared/QuantrackerOSD/quan-trunk
+#QUAN_INCLUDE_PATH = /media/sf_VM_Shared/QuantrackerOSD/quan-trunk
+QUAN_INCLUDE_PATH = /home/andrew/Documents/QuantrackerOSD/quan-trunk
 
 ######################################################################
 ### MAVlink
 ## Download : https://github.com/mavlink/c_library/archive/master.zip
 
- MAVLINK_INCLUDE_PATH = /media/sf_VM_Shared/QuantrackerOSD/mavlink
+#MAVLINK_INCLUDE_PATH = /media/sf_VM_Shared/QuantrackerOSD/mavlink
+MAVLINK_INCLUDE_PATH = /home/andrew/Documents/QuantrackerOSD/mavlink
 
 #######################################################################
 ### FreeRTOS                                               
 ## Download: http://downloads.sourceforge.net/project/freertos/FreeRTOS/V8.2.0/FreeRTOSV8.2.0.zip
 
- FREE_RTOS_DIR = /media/sf_VM_Shared/QuantrackerOSD/FreeRTOSV8.2.0/FreeRTOS/
+#FREE_RTOS_DIR = /media/sf_VM_Shared/QuantrackerOSD/FreeRTOSV8.2.0/FreeRTOS/
+FREE_RTOS_DIR = /home/andrew/Documents/QuantrackerOSD/FreeRTOSV8.2.0/FreeRTOS/
 
 #######################################################################
 ### The STM32F4 standard peripherals library               
@@ -47,8 +50,8 @@ QUAN_INCLUDE_PATH = /media/sf_VM_Shared/QuantrackerOSD/quan-trunk
 # Its is OK to leave this as here first time through to check everything works
 # (currently points to the included example)
 
-#USER_SOURCE_PATH = ../../examples/osd_ac/
-USER_SOURCE_PATH = ../../examples/osd_example1/
+USER_SOURCE_PATH = ../../examples/osd_ac/
+#USER_SOURCE_PATH = ../../examples/osd_example1/
 
 # The user sources which must be in the "common" subdirectory of $(USER_SOURCE_PATH)
 # Must have a .cpp extension to work
@@ -56,11 +59,11 @@ USER_SOURCE_PATH = ../../examples/osd_example1/
 # Its is OK to leave this as here first time through to check everything works
 # (currently points to the included example)
 
-#USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
-#draw_compass.cpp draw_home.cpp draw_batteries.cpp draw_gps_state.cpp draw_mode.cpp \
-#osd_control.cpp draw_speed.cpp
-USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
-draw_compass.cpp draw_home.cpp draw_gps_state.cpp draw_batteries.cpp symbology.cpp
+USER_SOURCE_FILES = on_draw.cpp flash.cpp symbology.cpp draw_altitude.cpp  \
+draw_artificial_horizon.cpp draw_compass.cpp draw_home.cpp draw_batteries.cpp \
+draw_gps_state.cpp draw_mode.cpp osd_control.cpp draw_speed.cpp
+#USER_SOURCE_FILES = on_draw.cpp flash.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
+#draw_compass.cpp draw_home.cpp draw_gps_state.cpp draw_batteries.cpp symbology.cpp
 ################################## OTHER OPTIONS ######################
 
 # Optional. if not set defaults to O. You will need optimisation of at least O

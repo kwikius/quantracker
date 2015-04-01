@@ -3,6 +3,7 @@
 #include <quan/uav/osd/features_api.hpp>
 #include "on_draw.hpp"
 #include "osd.hpp"
+#include "symbology.hpp"
 
 using namespace quan::uav::osd;
 

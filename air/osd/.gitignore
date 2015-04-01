@@ -1,2 +1,5 @@
 *.mk~
 *.goutputstream-8AXCVX
+*.bin
+*.elf
+*.lst
