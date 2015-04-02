@@ -24,7 +24,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include "freertos_usart_task.hpp"
+#include <quan/stm32/freertos/freertos_usart_task.hpp>
 #include <quan/voltage.hpp>
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/spi.hpp>
