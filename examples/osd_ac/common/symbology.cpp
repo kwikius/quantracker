@@ -10,14 +10,39 @@ namespace {
    bool want_home = true;
    quan::uav::osd::pal_ntsc_pos osd_home_position = {-160,70,60};
    bool want_compass = true;
-   quan::uav::osd::pal_ntsc_pos osd_compass_position = {0,-115,-65};
+   quan::uav::osd::pal_ntsc_pos osd_compass_position = {0,-115,-80};
    bool want_gps_no_fix = true;
    quan::uav::osd::pal_ntsc_pos osd_gps_no_fix_position = {-160,70,50};
    bool want_altitude = true;
-   quan::uav::osd::pal_ntsc_pos osd_altitude_position = {-160,50,30};
+   quan::uav::osd::pal_ntsc_pos osd_altitude_position = {95, -15, -15};
+   bool want_baro_altitude = true;
+   quan::uav::osd::pal_ntsc_pos osd_baro_altitude_position = {95, 0, 0};
    bool want_afcl_horizon = true;
    quan::uav::osd::angle_type  osd_afcl_horiz_pitch_adj{0}; 
-
+   bool want_gps_fix_type = true;
+   quan::uav::osd::pal_ntsc_pos osd_gps_fix_type_position = {-170,75,75};
+   bool want_gps_num_sats = true;
+   quan::uav::osd::pal_ntsc_pos osd_gps_num_sats_position = {-80,75,75};
+   bool want_gps_hdop = true;
+   quan::uav::osd::pal_ntsc_pos osd_gps_hdop_position = {-60,75,75};
+   bool want_flight_mode = true;
+   quan::uav::osd::pal_ntsc_pos osd_flight_mode_position = {118,90,90};
+   bool want_armed_mode = true;
+   quan::uav::osd::pal_ntsc_pos osd_armed_mode_position = {-170,90,90};
+   bool want_airspeed = true;
+   quan::uav::osd::pal_ntsc_pos osd_airspeed_position = {-170,0,0};
+   bool want_groundspeed = true;
+   quan::uav::osd::pal_ntsc_pos osd_groundspeed_position = {-170,-15,-15};
+   bool want_latitude = true;
+   quan::uav::osd::pal_ntsc_pos osd_latitude_position = {-170,-110,-110};
+   bool want_longitude = true;
+   quan::uav::osd::pal_ntsc_pos osd_longitude_position = {33,-110,-110};
+   bool want_aircraft_battery_voltage = true;
+   quan::uav::osd::pal_ntsc_pos osd_aircraft_battery_voltage_position = {106, 75, 75};
+   bool want_aircraft_battery_current = true;
+   quan::uav::osd::pal_ntsc_pos osd_aircraft_battery_current_position = {106, 60, 60};
+   bool want_aircraft_battery_remaining = true;
+   quan::uav::osd::pal_ntsc_pos osd_aircraft_battery_remaining_position = {118, 45, 45};
 }
 
 bool osd_show_altitude() { return want_altitude;}
@@ -25,10 +50,89 @@ bool osd_show_home() { return want_home;}
 bool osd_show_compass() { return want_compass;}
 bool osd_show_gps_no_fix() { return want_gps_no_fix;}
 bool osd_show_afcl_horizon() { return want_afcl_horizon;}
+bool osd_show_gps_fix_type() { return want_gps_fix_type;}
+bool osd_show_gps_num_sats() { return want_gps_num_sats;}
+bool osd_show_gps_hdop() { return want_gps_hdop;}
+bool osd_show_flight_mode() { return want_flight_mode;}
+bool osd_show_armed_mode() { return want_armed_mode;}
+bool osd_show_airspeed() { return want_airspeed;}
+bool osd_show_groundspeed() { return want_groundspeed;}
+bool osd_show_latitude() { return want_latitude;}
+bool osd_show_longitude() { return want_longitude;}
+bool osd_show_baro_altitude() { return want_baro_altitude;}
+bool osd_show_aircraft_battery_voltage() { return want_aircraft_battery_voltage;}
+bool osd_show_aircraft_battery_current() { return want_aircraft_battery_current;}
+bool osd_show_aircraft_battery_remaining() { return want_aircraft_battery_remaining;}
+
+
+quan::uav::osd::pxp_type get_osd_gps_fix_type_position()
+{
+   return  osd_gps_fix_type_position;
+}
+
+quan::uav::osd::pxp_type get_osd_gps_num_sats_position()
+{
+   return  osd_gps_num_sats_position;
+}
+
+quan::uav::osd::pxp_type get_osd_gps_hdop_position()
+{
+   return  osd_gps_hdop_position;
+}
+
+quan::uav::osd::pxp_type get_osd_flight_mode_position()
+{
+   return  osd_flight_mode_position;
+}
+
+quan::uav::osd::pxp_type get_osd_armed_mode_position()
+{
+   return  osd_armed_mode_position;
+}
+
+quan::uav::osd::pxp_type get_osd_airspeed_position()
+{
+   return  osd_airspeed_position;
+}
+
+quan::uav::osd::pxp_type get_osd_groundspeed_position()
+{
+   return  osd_groundspeed_position;
+}
+
+quan::uav::osd::pxp_type get_osd_latitude_position()
+{
+   return  osd_latitude_position;
+}
+
+quan::uav::osd::pxp_type get_osd_longitude_position()
+{
+   return  osd_longitude_position;
+}
 
 quan::uav::osd::pxp_type get_osd_altitude_position()
 {
    return  osd_altitude_position;
+}
+
+quan::uav::osd::pxp_type get_osd_baro_altitude_position()
+{
+   return  osd_baro_altitude_position;
+}
+
+quan::uav::osd::pxp_type get_osd_aircraft_battery_voltage_position()
+{
+   return  osd_aircraft_battery_voltage_position;
+}
+
+quan::uav::osd::pxp_type get_osd_aircraft_battery_current_position()
+{
+   return  osd_aircraft_battery_current_position;
+}
+
+quan::uav::osd::pxp_type get_osd_aircraft_battery_remaining_position()
+{
+   return  osd_aircraft_battery_remaining_position;
 }
 
 quan::uav::osd::pxp_type get_osd_home_position()
@@ -126,13 +230,209 @@ bool init_values_from_flash()
       }
    }
 
-    if ( symtab.is_symbol_name_defined_in_flash("osd_afcl_horizon_pitch_adj")){
+   if ( symtab.is_symbol_name_defined_in_flash("osd_afcl_horizon_pitch_adj")){
       int16_t v;
       if ( quan::stm32::flash::get_flash_value("osd_afcl_horizon_pitch_adj",v)){
           osd_afcl_horiz_pitch_adj = quan::uav::osd::angle_type{v};
       }
    }
- 
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_gps_fix_type")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_gps_fix_type",v)){
+          want_gps_fix_type = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_gps_fix_type_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_gps_fix_type_pos",v)){
+          osd_gps_fix_type_position.set_xpos(v.x);
+          osd_gps_fix_type_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_gps_num_sats")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_gps_num_sats",v)){
+          want_gps_num_sats = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_gps_num_sats_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_gps_num_sats_pos",v)){
+          osd_gps_num_sats_position.set_xpos(v.x);
+          osd_gps_num_sats_position.set_ypos(v.y,v.z);
+       }
+    }
+
+   if ( symtab.is_symbol_name_defined_in_flash("show_gps_hdop")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_gps_hdop",v)){
+          want_gps_hdop = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_gps_hdop_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_gps_hdop_pos",v)){
+          osd_gps_hdop_position.set_xpos(v.x);
+          osd_gps_hdop_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_flight_mode")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_flight_mode",v)){
+          want_flight_mode = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_flight_mode_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_flight_mode_pos",v)){
+          osd_flight_mode_position.set_xpos(v.x);
+          osd_flight_mode_position.set_ypos(v.y,v.z);
+       }
+    }
+
+   if ( symtab.is_symbol_name_defined_in_flash("show_armed_mode")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_armed_mode",v)){
+          want_armed_mode = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_armed_mode_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_armed_mode_pos",v)){
+          osd_armed_mode_position.set_xpos(v.x);
+          osd_armed_mode_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_airspeed")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_airspeed",v)){
+          want_airspeed = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_airspeed_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_airspeed_pos",v)){
+          osd_airspeed_position.set_xpos(v.x);
+          osd_airspeed_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_groundspeed")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_groundspeed",v)){
+          want_groundspeed = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_groundspeed_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_groundspeed_pos",v)){
+          osd_groundspeed_position.set_xpos(v.x);
+          osd_groundspeed_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_latitude")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_latitude",v)){
+          want_latitude = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_latitude_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_latitude_pos",v)){
+          osd_latitude_position.set_xpos(v.x);
+          osd_latitude_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_longitude")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_longitude",v)){
+          want_longitude = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_longitude_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_longitude_pos",v)){
+          osd_longitude_position.set_xpos(v.x);
+          osd_longitude_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_baro_altitude")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_baro_altitude",v)){
+          want_baro_altitude = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_baro_altitude_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_baro_altitude_pos",v)){
+          osd_baro_altitude_position.set_xpos(v.x);
+          osd_baro_altitude_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_aircraft_battery_voltage")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_aircraft_battery_voltage",v)){
+          want_aircraft_battery_voltage = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_aircraft_battery_voltage_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_aircraft_battery_voltage_pos",v)){
+          osd_aircraft_battery_voltage_position.set_xpos(v.x);
+          osd_aircraft_battery_voltage_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_aircraft_battery_current")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_aircraft_battery_current",v)){
+          want_aircraft_battery_current = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_aircraft_battery_current_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_aircraft_battery_current_pos",v)){
+          osd_aircraft_battery_current_position.set_xpos(v.x);
+          osd_aircraft_battery_current_position.set_ypos(v.y,v.z);
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("show_aircraft_battery_remaining")){
+       bool v = false;
+       if ( quan::stm32::flash::get_flash_value("show_aircraft_battery_remaining",v)){
+          want_aircraft_battery_remaining = v;
+       }
+    }
+
+    if ( symtab.is_symbol_name_defined_in_flash("osd_aircraft_battery_remaining_pos")){
+       quan::three_d::vect<int32_t> v;
+       if ( quan::stm32::flash::get_flash_value("osd_aircraft_battery_remaining_pos",v)){
+          osd_aircraft_battery_remaining_position.set_xpos(v.x);
+          osd_aircraft_battery_remaining_position.set_ypos(v.y,v.z);
+       }
+    }
+
+
    return true;
 
 

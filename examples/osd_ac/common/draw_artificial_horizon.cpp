@@ -1,6 +1,7 @@
 #include <quan/uav/osd/api.hpp>
 #include <quan/two_d/rotation.hpp>
 #include <quan/uav/osd/get_aircraft_attitude.hpp>
+#include "symbology.hpp"
 #include "osd.hpp"
 #include <quan/meta/integer_min.hpp>
 #include <quan/meta/integer_max.hpp>
@@ -95,40 +96,44 @@ ideally use a better calc to clip stuff to the diplay
 */
 void draw_artificial_horizon()
 {
-   auto const & attitude = get_aircraft_attitude();
-   // hack just so we dont worry about it going round the back
-   if ( abs(attitude.pitch) < angle_type{30}) {
-      rotation rotate {attitude.pitch,attitude.roll};
-      constexpr int32_t width = 127;
-      constexpr int32_t outer_h_bar_len = 16;
-      constexpr int32_t outer_stop_height = 8;
-      constexpr int32_t centre_rad = 5;
-      
-      pxp_type left_end { -width / 2, 0};
-      pxp_type right_end {width / 2, 0};
-      
-      for (int32_t i = -1; i < 2; ++i) {
-               const colour_type c = (i) ? colour_type::black : colour_type::white;
-               draw_line (
-                  rotate (left_end + pxp_type {1, i}),
-                  rotate (left_end + pxp_type {outer_h_bar_len , i}), c
-               );
-               draw_line (
-                  rotate (right_end + pxp_type {0, i}),
-                  rotate (right_end + pxp_type { -outer_h_bar_len, i}), c
-               );
-               draw_line (
-                  rotate (pxp_type {left_end.x - i, outer_stop_height / 2}),
-                  rotate (pxp_type {left_end.x - i, -outer_stop_height / 2}), c
-               );
-               draw_line (
-                  rotate (pxp_type {right_end.x + i, outer_stop_height / 2}),
-                  rotate (pxp_type {right_end.x + i, -outer_stop_height / 2}), c
-               );
-               draw_circle (centre_rad + i, {0, 0}, c);
-               draw_circle (centre_rad + i, rotate ( {0, 0}), c);
-               draw_line (rotate (pxp_type { -20, i}), rotate (pxp_type { -centre_rad - 1 , i}), c);
-               draw_line (rotate (pxp_type {20, i}), rotate (pxp_type {centre_rad + 1, i}), c);
-            }
-  }
+
+	if (osd_show_afcl_horizon() == true)
+	{
+	   auto const & attitude = get_aircraft_attitude();
+	   // hack just so we dont worry about it going round the back
+	   if ( abs(attitude.pitch) < angle_type{30}) {
+		  rotation rotate {attitude.pitch,attitude.roll};
+		  constexpr int32_t width = 127;
+		  constexpr int32_t outer_h_bar_len = 16;
+		  constexpr int32_t outer_stop_height = 8;
+		  constexpr int32_t centre_rad = 5;
+
+		  pxp_type left_end { -width / 2, 0};
+		  pxp_type right_end {width / 2, 0};
+
+		  for (int32_t i = -1; i < 2; ++i) {
+				   const colour_type c = (i) ? colour_type::black : colour_type::white;
+				   draw_line (
+					  rotate (left_end + pxp_type {1, i}),
+					  rotate (left_end + pxp_type {outer_h_bar_len , i}), c
+				   );
+				   draw_line (
+					  rotate (right_end + pxp_type {0, i}),
+					  rotate (right_end + pxp_type { -outer_h_bar_len, i}), c
+				   );
+				   draw_line (
+					  rotate (pxp_type {left_end.x - i, outer_stop_height / 2}),
+					  rotate (pxp_type {left_end.x - i, -outer_stop_height / 2}), c
+				   );
+				   draw_line (
+					  rotate (pxp_type {right_end.x + i, outer_stop_height / 2}),
+					  rotate (pxp_type {right_end.x + i, -outer_stop_height / 2}), c
+				   );
+				   draw_circle (centre_rad + i, {0, 0}, c);
+				   draw_circle (centre_rad + i, rotate ( {0, 0}), c);
+				   draw_line (rotate (pxp_type { -20, i}), rotate (pxp_type { -centre_rad - 1 , i}), c);
+				   draw_line (rotate (pxp_type {20, i}), rotate (pxp_type {centre_rad + 1, i}), c);
+				}
+	  }
+	}
 }

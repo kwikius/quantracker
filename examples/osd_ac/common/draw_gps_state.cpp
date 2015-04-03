@@ -6,6 +6,7 @@
 #include <quan/uav/osd/features_api.hpp>
 #include <quan/constrain.hpp>
 #include "on_draw.hpp"
+#include "symbology.hpp"
 #include "osd.hpp"
 #include "symbology_config.hpp"
 
@@ -30,54 +31,48 @@ void draw_gps_state()
    pxp_type pos;
    char buf[30];
 
-#if ((GPS_FIX_TYPE_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
-
-   pos = {GPS_FIX_TYPE_X,
-          (( get_video_mode() == video_mode::pal)
-          ?GPS_FIX_TYPE_Y_PAL:GPS_FIX_TYPE_Y_NTSC)};
-
-   if (font)
+   if ( osd_show_gps_fix_type() == true)
    {
-      uint8_t const fix_type = read_gps_fix_type();
-      if ( fix_type < 5){
-         sprintf(buf,"%s", fix_type_strings[fix_type]);
-         draw_text(buf,pos,font);
-      }
-   }
-#endif
+	   pos = get_osd_gps_fix_type_position();
 
-#if ((GPS_NUM_SATS_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
+	   if (font)
+	   {
+		  uint8_t const fix_type = read_gps_fix_type();
+		  if ( fix_type < 5){
+			 sprintf(buf,"%s", fix_type_strings[fix_type]);
+			 draw_text(buf,pos,font);
+		  }
+	   }
+	}
 
-   pos = {GPS_NUM_SATS_X,
-          (( get_video_mode() == video_mode::pal)
-          ?GPS_NUM_SATS_Y_PAL:GPS_NUM_SATS_Y_NTSC)};
-   if (font)
+   if ( osd_show_gps_num_sats() == true)
    {
-     sprintf(buf,"%d", static_cast<int>(read_gps_num_sats()));
-     draw_text(buf,pos,font);
+	   pos = get_osd_gps_num_sats_position();
+	   if (font)
+	   {
+		 sprintf(buf,"%d", static_cast<int>(read_gps_num_sats()));
+		 draw_text(buf,pos,font);
+	   }
    }
-#endif
 
-#if ((GPS_HDOP_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
-
-   pos = {GPS_HDOP_X,
-          (( get_video_mode() == video_mode::pal)
-          ?GPS_HDOP_Y_PAL:GPS_HDOP_Y_NTSC)};
-
-   if (font)
+   if ( osd_show_gps_hdop() == true)
    {
-	  quan::length_<uint16_t>::cm cur_hdop;
-	  uint16_t display_hdop;
+	   pos = get_osd_gps_hdop_position();
 
-	  display_hdop = cur_hdop.numeric_value();
+	   if (font)
+	   {
+		  quan::length_<uint16_t>::cm cur_hdop;
+		  uint16_t display_hdop;
 
-	  quan::constrain<uint16_t> (
-			  display_hdop
-	        , 0
-	        , 999);
+		  display_hdop = cur_hdop.numeric_value();
 
-      sprintf(buf,"%3d", display_hdop);
-      draw_text(buf,pos,font);
+		  quan::constrain<uint16_t> (
+				  display_hdop
+				, 0
+				, 999);
+
+		  sprintf(buf,"%3d", display_hdop);
+		  draw_text(buf,pos,font);
+	   }
    }
-#endif
 }

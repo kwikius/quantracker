@@ -5,6 +5,7 @@
 #include <quan/uav/osd/get_aircraft_position.hpp>
 #include <quan/uav/osd/features_api.hpp>
 #include "on_draw.hpp"
+#include "symbology.hpp"
 #include "osd.hpp"
 #include "symbology_config.hpp"
 
@@ -40,46 +41,39 @@ void draw_mode()
    pxp_type pos;
    char buf[30];
 
-#if ((FLIGHT_MODE_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
+	if ( osd_show_flight_mode() == true)
+	{
+	   pos = get_osd_flight_mode_position();
 
-   pos = {FLIGHT_MODE_X,
-          (( get_video_mode() == video_mode::pal)
-          ?FLIGHT_MODE_Y_PAL:FLIGHT_MODE_Y_NTSC)};
+	   if (font){
 
+		  uint8_t const mode = get_custom_mode();
 
-   if (font){
+		  if ( mode < 17){
+			 sprintf(buf,"%s", mode_strings[mode]);
+		  }
 
-      uint8_t const mode = get_custom_mode();
-
-      if ( mode < 17){
-         sprintf(buf,"%s", mode_strings[mode]);
-      }
-
-      draw_text(buf,pos,font);
-   }
-#endif
+		  draw_text(buf,pos,font);
+	   }
+	}
 
 
-#if ((ARMED_MODE_ENABLE & ENABLE_ON_PAGE_ALL) != 0)
+	if ( osd_show_armed_mode() == true)
+	{
+	   pos = get_osd_armed_mode_position();
 
-   pos = {ARMED_MODE_X,
-          (( get_video_mode() == video_mode::pal)
-          ?ARMED_MODE_Y_PAL:ARMED_MODE_Y_NTSC)};
+	   if (font){
 
+		  uint8_t const mode = get_base_mode();
 
-   if (font){
+		  if ((mode & 0x80)!=0){
+			 sprintf(buf,"%s", "armed");
+		  }
+		  else {
+			 sprintf(buf,"%s", "no-arm");
+		  }
 
-      uint8_t const mode = get_base_mode();
-
-      if ((mode & 0x80)!=0){
-         sprintf(buf,"%s", "armed");
-      }
-      else {
-         sprintf(buf,"%s", "no-arm");
-      }
-
-      draw_text(buf,pos,font);
-   }
-#endif
-
+		  draw_text(buf,pos,font);
+	   }
+	}
 }
