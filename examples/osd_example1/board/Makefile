@@ -19,8 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
-
-HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../Dependencies.mk"; then echo "True"; fi)
+HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../../Dependencies.mk"; then echo "True"; fi)
 
 ifeq ($(HAVE_DEPENDENCIES_FILE), )
   quantracker-make-help:
@@ -34,7 +33,7 @@ ifeq ($(HAVE_DEPENDENCIES_FILE), )
 	@echo '   #                                                               #'
 	@echo '   #            Please read "Sample-Dependencies.mk" .             #'
 	@echo '   #            in the main quantracker directory                  #'
-   @echo '   #            for further Details.                               #'
+	@echo '   #            for further Details.                               #'
 	@echo '   #                                                               #'
 	@echo '   #################################################################'
 	@echo ' '	
@@ -44,9 +43,8 @@ APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 DEFINES = 
 
-
 # You will need a custom Dependencies.mk
-include ../../Dependencies.mk
+include ../../../Dependencies.mk
 
 ###############################################################
 ifeq ($(TOOLCHAIN_PREFIX), )
@@ -73,7 +71,6 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
@@ -83,36 +80,35 @@ $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 RTOS_INCLUDES = \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
-$(APP_SRC_PATH)
+$(abspath ../../../air/osd)
 
-#STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
+STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
 
-#GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
+GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 TARGET_PROCESSOR = STM32F4
 
-# rem 
-video_objects = video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o graphics_api.o draw_task.o telemetry_task.o sync_sep.o black_level.o dac.o
+# in the board directory
+local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
+fsk_task.o frsky_task.o frsky_zapp1.o led_task.o mavlink_task.o  settings.o \
+heartbeat_task.o  mode_check.o board_graphics_api.o led.o
 
-#local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
- #fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
-# heartbeat_task.o rtos_hooks.o mode_check.o  
+# in the common directory
+USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
+draw_compass.cpp draw_home.cpp draw_gps_state.cpp draw_batteries.cpp symbology.cpp \
+flash.cpp aircraft.cpp
 
-rtos_objects = tasks.o queue.o list.o timers.o 
-stm32_objects = misc.o
+#......... Put in separate graphics lib...............
+GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
+graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
+draw_line.o draw_text.o flood_fill.o
 
-#GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
+#...............Put in separate flash lib ...................................
+quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
+quan_generic_flash_menu.o
 
-#graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
-#draw_line.o draw_text.o flood_fill.o
-
-#quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
-#quan_generic_flash_menu.o
-
-#user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
-
-#user_resources = bitmaps.o fonts.o
+user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
+user_resources = bitmaps.o fonts.o
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -138,7 +134,6 @@ LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
 SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
-AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
@@ -147,15 +142,11 @@ DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 #DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
-# DEFINES += QUAN_FLASH_DEBUG
-STARTUP = startup.s
-# custom linker script 
-LINKER_SCRIPT = stm32f4.ld
-#LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
-#FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
-#SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
+#DEFINES += QUAN_FLASH_DEBUG
 
-SYSTEM_INIT = system_init.cpp
+# custom linker script 
+LINKER_SCRIPT = ../../../air/osd/stm32f4.ld
+
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
@@ -169,8 +160,7 @@ endif
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-#INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
-INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
+INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
@@ -190,8 +180,8 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
-#LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
- # $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
+LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
+ $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary
 ODFLAGS = -d 
@@ -203,43 +193,39 @@ board_type3 : test
 board_type4 : test
 board_type4_disco : test
 
-objects = $(video_objects) $(rtos_objects) $(stm32_objects) \
-startup.o system_init.o port.o heap_3.o rtos_hooks.o
+objects = $(local_objects)  $(graphics_api_objects) $(user_objects) $(user_resources) \
+$(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o 
 
 clean:
-	-rm -rf *.a *.o *.elf *.bin *.lst
+	-rm -rf *.o *.elf *.bin *.lst
 
-test: quantracker_air_osd.a
+test: main.elf
+	@ echo "...copying"
+	$(CP) $(CPFLAGS) main.elf main.bin
+	$(OD) $(ODFLAGS) main.elf > main.lst
+	$(SIZ) -A main.elf
 
-quantracker_air_osd.a : $(objects)
-	$(AR) rcs $@ $(objects)
+main.elf: $(objects) 
+	@ echo "..linking"
+	$(LD) $(LFLAGS) -o main.elf $(objects) ../../../air/osd/quantracker_air_osd.a
 
-$(video_objects): %.o : video/%.cpp
+$(local_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-system_init.o : $(SYSTEM_INIT)
-	$(CC) $(CFLAGS) -o system_init.o $(SYSTEM_INIT)
-
-startup.o: $(STARTUP)
-	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
-
-C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
- $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
-
-$(stm32_objects) : %.o : $(STM32_SRC_DIR)%.c
-	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
-
-$(rtos_objects) : %.o : $(FREE_RTOS_DIR)Source/%.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-rtos_hooks.o : rtos_hooks.cpp 
+$(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
+
+quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
+	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)
+
+$(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(user_objects) : %.o : ../common/%.cpp
+	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+
+$(user_resources) : %.o : %.cpp
+	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 #-----------------------------------------
 upload : test

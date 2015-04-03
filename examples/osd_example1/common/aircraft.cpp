@@ -1,11 +1,5 @@
 /*
- Copyright (c) 2013 -2015 Andy Little 
-
- With Grateful Acknowledgements to the prior work of:
-   Sami Korhonen(Openpilot.org)
-   taulabs ( taulabs.com) 
-   brainFPV ( brainfpv.com)
-   Thomas Oldbury (super-osd.com)
+ Copyright (c) 2012 - 2015 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -21,15 +15,22 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-void draw_compass();
-void draw_artificial_horizon( );
-void draw_home();
-void draw_altitude();
+#include "aircraft.hpp"
 
-void on_draw()
+aircraft the_aircraft;
+
+if !defined QUANTRACKER_AIR_OSD_PC_SIM_MODE
+
+void aircraft::mutex_init()
 {
-     draw_compass();
-     draw_artificial_horizon();
-     draw_home();
-     draw_altitude();
+   m_mutex = xSemaphoreCreateMutex();
 }
+void aircraft::mutex_acquire()
+{
+   xSemaphoreTake(m_mutex,portMAX_DELAY);
+}
+void aircraft::mutex_release()
+{
+   xSemaphoreGive(m_mutex);
+}
+#endif

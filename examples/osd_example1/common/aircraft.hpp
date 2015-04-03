@@ -24,8 +24,11 @@
 #else 
 #include <cstdint>
 #endif
+
+#if !defined QUANTRACKER_AIR_OSD_PC_SIM_MODE
 #include <FreeRTOS.h>
 #include <semphr.h>
+#endif
 
 #ifdef QUAN_STM32F4
 #include <quan/stm32f4/config.hpp>
@@ -90,14 +93,18 @@ struct aircraft{
       battery_current{0},
       battery_remaining{0},
       nav_mode{0},
-      custom_mode{0},
-      m_mutex{0}
+      custom_mode{0}
+#if !defined QUANTRACKER_AIR_OSD_PC_SIM_MODE
+      ,m_mutex{0}
+#endif
    {}
+#if !defined QUANTRACKER_AIR_OSD_PC_SIM_MODE
    void mutex_init();
    void mutex_acquire();
    void mutex_release();
    private:
       SemaphoreHandle_t m_mutex;
+#endif
 };
 
 extern aircraft the_aircraft;

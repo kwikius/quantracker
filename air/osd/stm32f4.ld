@@ -150,14 +150,14 @@ SECTIONS
    { 
      KEEP (*(.display_buffer*))
     . = ALIGN(4);
-     video_buffer.o (.display_buffer) 
+     /* video_buffer.o (.display_buffer) */
    }> video_ram 
 
    .telem_buffer (NOLOAD) :
    { 
      KEEP (*(.telem_buffer*))
     . = ALIGN(4);
-     video_buffer.o (.telem_buffer)
+    /* video_buffer.o (.telem_buffer) */
    }> telem_ram 
    
 

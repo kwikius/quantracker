@@ -17,7 +17,7 @@
 #include "resources.hpp"
 #include "config.hpp"
 #include "frsky.hpp"
-#include "aircraft.hpp"
+#include "../common/aircraft.hpp"
 
 #include "settings.hpp"
 

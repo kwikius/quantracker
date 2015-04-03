@@ -20,7 +20,7 @@
 #include <quan/tracker/zapp3_encode.hpp>
 #include "fsk.hpp"
 #include "resources.hpp"
-#include "aircraft.hpp"
+#include "../common/aircraft.hpp"
 
 namespace {
 

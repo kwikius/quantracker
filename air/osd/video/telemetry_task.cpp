@@ -33,9 +33,9 @@
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 
-#include "../resources.hpp"
-#include "video_cfg.hpp"
-#include "video_buffer.hpp"
+#include "resources.hpp"
+#include "../../../air/osd/video/video_cfg.hpp"
+#include "../../../air/osd/video/video_buffer.hpp"
 
 /*
    get the data to transmit into ar provided by the caller

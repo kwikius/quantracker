@@ -27,7 +27,7 @@
 #include <task.h>
 #include <semphr.h>
 #include "mavlink.hpp"
-#include "aircraft.hpp"
+#include "../common/aircraft.hpp"
 #include "resources.hpp"
 
 // see qgroundcontrol.org/dev/mavlink_onboard_integration_tutorial

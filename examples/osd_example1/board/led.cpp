@@ -26,7 +26,7 @@
 #include <quan/meta/for_each.hpp>
 #endif
 
-#include "../resources.hpp"
+#include "resources.hpp"
 
 namespace {
       

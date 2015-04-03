@@ -41,18 +41,20 @@ GRAPHICS_API_SRC_PATH = $(QUAN_INCLUDE_PATH)quan_matters/src/uav/osd/
 DEFINES = QUANTRACKER_AIR_OSD_PC_SIM_MODE
 
 #########################################################
-
-sources =  draw_altitude.cpp draw_artificial_horizon.cpp \
+# 
+common_sources =  draw_altitude.cpp draw_artificial_horizon.cpp \
 draw_compass.cpp draw_home.cpp on_draw.cpp draw_gps_state.cpp \
-draw_batteries.cpp symbology.cpp
+draw_batteries.cpp symbology.cpp 
 
 # in $(GRAPHICS_API_SRC_PATH)
 graphics_api_sources = draw_arc.cpp draw_bitmap.cpp draw_circle.cpp \
-draw_line.cpp draw_text.cpp flood_fill.cpp sim_graphics_api.cpp
+draw_line.cpp draw_text.cpp flood_fill.cpp 
 
-objects = $(patsubst %.cpp,%.o,$(sources))
+common_objects = $(patsubst %.cpp,%.o,$(common_sources)) 
 
 graphics_api_objects = $(patsubst %.cpp,%.o,$(graphics_api_sources))
+
+objects = $(common_objects) sim_graphics_api.o
 
 CFLAGS = -Wall -std=c++11 -fPIC -Os -fvisibility=hidden
 
@@ -69,7 +71,7 @@ all : $(DLL_NAME)
 $(DLL_NAME) : $(objects) osd_graphics_api.a
 ~ $(LD) $(LFLAGS) -o $(DLL_NAME) $(objects) osd_graphics_api.a 
 
-$(objects) : %.o : ../common/%.cpp
+$(common_objects) : %.o : ../common/%.cpp
 ~ $(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINE_ARGS) $< -o $@
 
 # The graphics api lib pc version
@@ -78,6 +80,9 @@ osd_graphics_api.a : $(graphics_api_objects)
 
 $(graphics_api_objects): %.o: $(GRAPHICS_API_SRC_PATH)%.cpp
 ~ $(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@ 
+
+sim_graphics_api.o : sim_graphics_api.cpp
+~ $(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINE_ARGS) $< -o $@
 
 clean_obj:
 ~ -rm -rf $(objects) *.so
