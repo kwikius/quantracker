@@ -1,0 +1,113 @@
+eeschema (2011-05-25)-stable  >> Creation date: Tue 31 Mar 2015 08:22:18 BST
+
+#Cmp ( order = Reference )
+| C1         0u1         
+| C2         0u1         
+| C3         2u2         
+| C4         0u1         
+| C5         0u1         
+| C6         2u2         
+| C7         0u1         
+| C8         0u1         
+| C9         4u7         
+| C10        0u1         
+| C11        4u7         
+| C12        0u1         
+| C13        4u7         
+| C14        15nF        
+| C15        0u15        
+| C16        10uF        
+| C17        10uF        
+| C18        0u1         
+| C19        10uF        
+| C20        0u1         
+| C21        0u1         
+| C22        0u1         
+| C23        0u1         
+| C24        33uF        
+| C25        33uF        
+| C26        0u1         
+| C27        250pF       
+| C28        0u1         
+| C29        0u1         
+| C30        4U7         
+| C31        4u7         
+| C32        0u1         
+| C33        0u1         
+| C34        0u1         
+| C35        0u1         
+| C36        0u1         
+| C37        470pF       
+| C38        470pF       
+| C40        0u1         
+| C41        4u7         
+| C42        0u1         
+| C43        0u1         
+| C44        4U7         
+| D1         RED LED     
+| D2         30V  500mA  
+| D3         Blue Led    
+| D4         30V 500 mA    
+| D5         30V 500 mA    
+| D6         30V 500mA  
+| D7         RED LED         
+| K1         CONN_3      
+| L1         22nH        
+| L2         2u2  (used 22nH)       
+| L3         LPS4018-473MR
+| L4         2u2    (used 22nH)     
+| P1         CONN_2      
+| P2         CONN_20     
+| P3         CONN_20     
+| P4         CONN_6      
+| P5         CONN_5      
+| P6         CONN_1    (pad)  
+| P7         CONN_1     (pad) 
+| P8         CONN_1    (pad)  
+| P9         CONN_1    (pad)  
+| P10        CONN_1     (pad) 
+| P11        CONN_1    (pad)  
+| P12        CONN_1    (pad)  
+| R1         10K         
+| R2         470R        
+| R3         470R        
+| R4         100R        
+| R5         100R        
+| R6         100R        
+| R7         10K         
+| R8         4K1         
+| R9         680R        
+| R10        470R   (Used 1K)     
+| R11        75R         
+| R12        33K         
+| R13        1K2         
+| R14        1K          
+| R15        1K          
+| R16        1K          
+| R17        100R        
+| R18        2K          
+| R19        100R        
+| R20        20R         
+| R21        40R         
+| R22        20R         
+| R23        75R         
+| R24        680R           
+| R26        100R        
+| R27        100R        
+| R28        100R        
+| R29        100R        
+| U1         SI501       
+| U2         STM32F405RGT6
+| U3         74LVC1G86   
+| U4         BD9G101G    
+| U5         LD39015MXXR 
+| U6         SI8642      
+| U7         LM358       
+| U8         MCP6562     
+| U9         TLV3501     
+| U10        FMS6141     
+| U11        DAC084S085  
+| U12        ADG704      
+| U13        OPA830      
+
+
