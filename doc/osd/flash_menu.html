@@ -341,17 +341,65 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="../index.html">Quantracker Index</a></p>
-<div class="section" id="quantracker-osd-index">
-<h1>Quantracker OSD Index</h1>
-<ul class="simple">
-<li><a class="reference external" href="craft_features_widgets.html">Craft features and widgets</a></li>
-<li><a class="reference external" href="software_devel/bitmap_format.html">Bitmap source format</a></li>
-<li><a class="reference external" href="software_devel/flash_variables.html">Flash variables</a></li>
-<li><a class="reference external" href="flash_menu.html">Flash menu</a></li>
-<li><a class="reference external" href="osd_maker/index.html">osd_maker</a></li>
+<p><a class="reference external" href="index.html">OSD Index</a></p>
+<div class="section" id="quantracker-air-osd-flash-menu">
+<h1>Quantracker Air OSD Flash Menu</h1>
+<dl class="docutils">
+<dt>The flash menu mode can be entered as follows:</dt>
+<dd><p class="first">Create a connector which joins txo, rxi power and ground pins as uusal ,
+but also connects the secondary tx0 and rxi pins with a jumper.</p>
+<p class="last">Start a serial port console at 9600 baud with 8 bits, no parity and 1 stop bit.
+When you switch on the OSD it should present you with:</p>
+</dd>
+</dl>
+<pre class="literal-block">
+Quantracker Air OSD 2.1
+~~~~Flash menu mode~~~~
+</pre>
+<p>The various functions are available as commands.</p>
+<blockquote>
+<ul>
+<li><dl class="first docutils">
+<dt>help</dt>
+<dd><p class="first last">Displays a list of the available commands with options</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>info</dt>
+<dd><p class="first last">Displays some useful info. For info about a particular variable type the name
+of the variable after the command</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>show</dt>
+<dd><p class="first last">Displays the current values of the variables.
+For value of a particular variable type the name
+of the variable after the command. Varaiables not yet defined are shown as '#undef#'
+In case of undefined variables default values are used in the osd.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>set</dt>
+<dd><p class="first last">Set variable to value. Requires the name of the variable and a value in correct format.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>exit</dt>
+<dd><p class="first last">Exit the flash menu mode and start showing the OSD.</p>
+</dd>
+</dl>
+</li>
 </ul>
-<p><a class="reference external" href="../index.html">Quantracker Index</a></p>
+</blockquote>
+<dl class="docutils">
+<dt>To set the values of flash variables at one go you can also use the app in</dt>
+<dd><a class="reference external" href="https://github.com/kwikius/quantracker/tree/devel/air/osd/utilities/flash_vars_upload">quantracker/air/osd/utilities/flash_vars_upload/</a> . See the reame there for details.</dd>
+</dl>
+<p><a class="reference external" href="index.html">OSD Index</a></p>
 </div>
 </div>
 </body>

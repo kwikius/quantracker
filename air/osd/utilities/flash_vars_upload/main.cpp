@@ -73,6 +73,27 @@ std::vector<param> params;
   e.g osd_setup -write  /home/me/osd_cool_mods.txt -port /dev/ttyUSB0
 
 */
+/*
+ getline with '\r' or '\n'
+*/
+int getline1( std::istream & in,std::string & str)
+{
+   // prob set a max length?
+  for (;;){
+     if(( !in) || in.eof()){
+      return str.length();
+     }else{
+        char ch;
+        in.get(ch);
+        if (( ch == '\n') || ( ch == '\r')){
+          return str.length();
+        }else{
+          str += ch;
+          continue;
+        }
+     }
+  }
+}
 
 int main (int argc, char const* argv[])
 {
@@ -105,7 +126,7 @@ int main (int argc, char const* argv[])
       std::cout << "reading \"" << argv[2] << "\"\n";
       while (in && ! in.eof()) {
          std::string str;
-         getline (in, str);
+         getline1 (in, str);
          char buf[500];
          strncpy (buf, str.c_str(),500);
          auto name = strtok (buf, " \t:");
@@ -119,7 +140,7 @@ int main (int argc, char const* argv[])
                   std::cout << "expected colon\n";
                   continue;
                }
-               auto value = strtok (NULL, " \n\r");
+               auto value = strtok (NULL, "\n\r");
                if (value) {
                   std::cout << name << " value = " << value << '\n';
                   params.push_back ({name, value});
@@ -131,7 +152,7 @@ int main (int argc, char const* argv[])
          }
       } 
       std::cout << "\n-----------------Preparing to Upload-------------------------\n\n";
-#if 0   
+#if 0  
      // to test without opening port    
       for (auto p : params) {
          std::cout << "set " << (p.name.c_str()) << " " << p.value.c_str() << '\n';
@@ -157,7 +178,7 @@ int main (int argc, char const* argv[])
       while (get_next_char (sp, dummy_ch, quan::time::s {0.25})) {
          std::cout << dummy_ch ;
       }
-      delay (quan::time::s {0.5});      
+      delay (quan::time::s {0.25});      
       // write new file values to apm
       for (auto p : params) {
          std::cout << "setting " << p.name << " : " << p.value << '\n';
@@ -168,14 +189,19 @@ int main (int argc, char const* argv[])
          sp.write (p.value.c_str(), p.value.length());
          sp.write ("\r");
          std::cout << "OSD returned :\n";
-         while (get_next_char (sp, dummy_ch, quan::time::s {0.2})) {
+         while (get_next_char (sp, dummy_ch, quan::time::s {0.1})) {
             std::cout << dummy_ch ;
          }
 
          delay (quan::time::s {.2});
       }
+      sp.write("exit\r");
+      while (get_next_char (sp, dummy_ch, quan::time::s {0.2})) {
+            std::cout << dummy_ch ;
+      }
       std::cout << "\nOSD Flash Variables Updated from \"" << argv[2] << "\"\n\n >~~~~ bye :) ~~~~>\n\n";
 #endif
+
    }  
 }
  
