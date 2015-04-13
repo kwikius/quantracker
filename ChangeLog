@@ -1,3 +1,7 @@
+Sat Apr 11 22:45:36 BST 2015
+Errata. The DAC output pins on the OSD board have switched channels between V1 and V2 PCB.
+(Looks like a slip up in the hierarchical labelling)
+
 Mon Mar 30 08:10:16 BST 2015 : devel
 Moved flash symbol table out of library code into user space so it
 is now easy to create a custom flash symbol table. 

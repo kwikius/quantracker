@@ -21,6 +21,37 @@
 #include "resources.hpp"
 #include "frsky.hpp"
 
+#include <quan/stm32/flash.hpp>
+#include <quan/stm32/flash/flash_convert.hpp>
+
+namespace {
+
+   void setup_frsky_sign_pin()
+   {
+
+      quan::stm32::module_enable<frsky_txo_sign_pin::port_type>();
+      quan::stm32::apply<
+         frsky_txo_sign_pin
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::slow
+         , quan::stm32::gpio::ostate::low
+      >();
+
+      bool frsky_telem_sign = true;
+      auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+      if ( symtab.is_symbol_name_defined_in_flash("frsky_invert_telem")){
+         quan::stm32::flash::get_flash_value("frsky_invert_telem",frsky_telem_sign);
+      }
+      if ( frsky_telem_sign){
+          quan::stm32::set<frsky_txo_sign_pin>();
+      }else{
+          quan::stm32::clear<frsky_txo_sign_pin>();
+      }
+   }
+}
+
 namespace frsky{
 
    void send_message()
@@ -30,7 +61,9 @@ namespace frsky{
 
    void frsky_task(void * param)
    {
+      setup_frsky_sign_pin();
       frsky_tx_rx_task::enable();
+
       TickType_t last_wakeup = xTaskGetTickCount();
 
       for (;;){
