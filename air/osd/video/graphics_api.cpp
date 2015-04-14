@@ -34,6 +34,7 @@
 
 #include "video_buffer.hpp"
 #include "video_cfg.hpp"
+#include "video_cfg.hpp"
 
    quan::uav::osd::pxp_type  
    quan::uav::osd::transform_to_raw(pxp_type const & pos)
@@ -138,6 +139,19 @@
         return the_aircraft.heading;
     }
 
+    quan::velocity_<float>::m_per_s
+     quan::uav::osd::get_airspeed()
+     {
+       // atomic
+         return the_aircraft.airspeed;
+     }
+
+    quan::velocity_<float>::m_per_s
+     quan::uav::osd::get_groundspeed()
+     {
+       // atomic
+         return the_aircraft.groundspeed;
+     }
 
    bool quan::uav::osd::position_is_good()
    {
@@ -176,12 +190,19 @@
       return the_aircraft.gps.fix_type;
 
    }
+
    uint8_t quan::uav::osd::read_gps_num_sats()
    {
        // atomic
        return the_aircraft.gps.num_sats;
    }
+   quan::length_<uint16_t>::cm
+   quan::uav::osd::read_gps_hdop()
+   {
+      //atomic
+      return the_aircraft.gps.hdop;
 
+   }
    // for now!
    uint8_t quan::uav::osd::get_num_batteries()
    {
@@ -197,4 +218,44 @@
       return the_aircraft.battery_voltage;
    }
 
-   
+   quan::current_<float>::A  quan::uav::osd::get_battery_current(uint8_t n)
+    {
+       return the_aircraft.battery_current;
+    }
+
+   float quan::uav::osd::get_battery_remaining(uint8_t n)
+    {
+       return the_aircraft.battery_remaining;
+    }
+
+
+   uint8_t quan::uav::osd::get_base_mode()
+    {
+       //atomic
+       return the_aircraft.base_mode;
+
+    }
+
+   uint8_t quan::uav::osd::get_custom_mode()
+    {
+       //atomic
+       return the_aircraft.custom_mode;
+
+    }
+
+   uint16_t quan::uav::osd::get_rssi()
+   {
+      return the_aircraft.rc_raw_rssi;
+   }
+
+   uint16_t quan::uav::osd::get_rc_raw_chan(uint8_t channel)
+   {
+      return the_aircraft.rc_raw_chan[channel];
+   }
+
+   quan::length_<float>::m
+   quan::uav::osd::get_baro_alt()
+        {
+          // atomic
+            return the_aircraft.baro_alt;
+        }
