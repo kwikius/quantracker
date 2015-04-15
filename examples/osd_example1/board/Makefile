@@ -98,11 +98,6 @@ USER_SOURCE_FILES = on_draw.cpp draw_altitude.cpp draw_artificial_horizon.cpp \
 draw_compass.cpp draw_home.cpp draw_gps_state.cpp draw_batteries.cpp symbology.cpp \
 flash.cpp aircraft.cpp
 
-#......... Put in separate graphics lib...............
-GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
-graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
-draw_line.o draw_text.o flood_fill.o
-
 #...............Put in separate flash lib ...................................
 quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
 quan_generic_flash_menu.o
@@ -137,12 +132,9 @@ SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
-#DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
-DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
-#DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
-#DEFINES += QUAN_FLASH_DEBUG
+# DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 
 # custom linker script 
 LINKER_SCRIPT = ../../../air/osd/stm32f4.ld
@@ -167,12 +159,7 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 # QUAN_DISPLAY_INTERLACED 
 DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION)
 
-#board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
-#board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY
-board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3 QUAN_DISCOVERY
-#V1 of the finished board
-board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
-board_type4_disco : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_DISCOVERY
+board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_OSD_SOFTWARE_SYNCSEP
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
@@ -187,13 +174,10 @@ CPFLAGS = -Obinary
 ODFLAGS = -d 
 
 all: board_type4
-#board_type1 : test
-#board_type2 : test
-board_type3 : test
-board_type4 : test
-board_type4_disco : test
 
-objects = $(local_objects)  $(graphics_api_objects) $(user_objects) $(user_resources) \
+board_type4 : test
+
+objects = $(local_objects) $(user_objects) $(user_resources) \
 $(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o 
 
 clean:
@@ -207,7 +191,8 @@ test: main.elf
 
 main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf $(objects) ../../../lib/osd/quantracker_air_osd.a
+	$(LD) $(LFLAGS) -o main.elf $(objects) ../../../lib/osd/quantracker_air_osd.a \
+../../../lib/osd/quantracker_air_graphics_api.a \
 
 $(local_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
@@ -217,9 +202,6 @@ $(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cp
 
 quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
 	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)
-
-$(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
-	$(CC) $(CFLAGS) $< -o $@
 
 $(user_objects) : %.o : ../common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
