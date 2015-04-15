@@ -47,7 +47,7 @@ MAVLINK_INCLUDE_PATH = /home/andy/cpp/lib
 # Advisable to try this first to check everything works
 # dont forget the trailing "/" on the directory path
 
-USER_SOURCE_PATH = ../../examples/osd_example1/
+#USER_SOURCE_PATH = ../../examples/osd_example1/
 
 # The user sources in the above dir (in the "common" subdirectory
 # Must have a .cpp extension

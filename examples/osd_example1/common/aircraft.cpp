@@ -19,7 +19,7 @@
 
 aircraft the_aircraft;
 
-if !defined QUANTRACKER_AIR_OSD_PC_SIM_MODE
+#if !defined QUANTRACKER_AIR_OSD_PC_SIM_MODE
 
 void aircraft::mutex_init()
 {

@@ -73,7 +73,6 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
@@ -85,34 +84,13 @@ $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
 
-#STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
-
-#GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
-
 TARGET_PROCESSOR = STM32F4
-
-# rem 
+ 
 video_objects = video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
  video_dma.o video_setup.o graphics_api.o draw_task.o telemetry_task.o sync_sep.o black_level.o dac.o
 
-#local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
- #fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
-# heartbeat_task.o rtos_hooks.o mode_check.o  
-
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
-
-#GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
-
-#graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
-#draw_line.o draw_text.o flood_fill.o
-
-#quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
-#quan_generic_flash_menu.o
-
-#user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
-
-#user_resources = bitmaps.o fonts.o
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -124,6 +102,18 @@ endif
 
 ifeq ( $(TELEMETRY_DIRECTION), )
 TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
+endif
+
+# TODO in code will prob make rx/tx telem a runtime switch
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
+OUTPUT_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_tx.a
+else 
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
+OUTPUT_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_rx.a
+else 
+# ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_NONE) 
+OUTPUT_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd.a
+endif
 endif
 
 #required for Ubuntu 12.x placid as system headers have been put in strange places
@@ -142,18 +132,14 @@ AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
-#DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
-#DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
+
 # DEFINES += QUAN_FLASH_DEBUG
 STARTUP = startup.s
 # custom linker script 
 LINKER_SCRIPT = stm32f4.ld
-#LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
-#FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
-#SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 SYSTEM_INIT = system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
@@ -169,7 +155,6 @@ endif
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-#INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
@@ -190,9 +175,6 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
-#LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
- # $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
-
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
@@ -207,11 +189,11 @@ objects = $(video_objects) $(rtos_objects) $(stm32_objects) \
 startup.o system_init.o port.o heap_3.o rtos_hooks.o
 
 clean:
-	-rm -rf *.a *.o *.elf *.bin *.lst
+	-rm -rf *.a *.o *.elf *.bin *.lst $(OUTPUT_ARCHIVE_FILE)
 
-test: quantracker_air_osd.a
+test: $(OUTPUT_ARCHIVE_FILE)
 
-quantracker_air_osd.a : $(objects)
+$(OUTPUT_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
 $(video_objects): %.o : video/%.cpp
@@ -240,13 +222,6 @@ heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 
 rtos_hooks.o : rtos_hooks.cpp 
 	$(CC) $(CFLAGS) $< -o $@
-
-#-----------------------------------------
-upload : test
-	st-flash write main.bin 0x8000000
-
-upload_sp : test
-	stm32flash -f -v -w main.bin /dev/ttyUSB0
 
 #deps conditional
 endif

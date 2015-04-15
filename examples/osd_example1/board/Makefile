@@ -207,7 +207,7 @@ test: main.elf
 
 main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf $(objects) ../../../air/osd/quantracker_air_osd.a
+	$(LD) $(LFLAGS) -o main.elf $(objects) ../../../lib/osd/quantracker_air_osd.a
 
 $(local_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
