@@ -124,6 +124,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM
 PB0  TIM8_CH2
 PB1  TIM8_CH3
 */
+#define TEST_OUTPUT_PIN_ENABLE 1
 typedef quan::mcu::pin<quan::stm32::gpiob,2>    test_output_pin;
 
 #if defined QUAN_DISCOVERY

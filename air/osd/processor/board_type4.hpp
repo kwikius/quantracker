@@ -32,6 +32,12 @@
 #include <quan/stm32/spi.hpp>
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/usart.hpp>
+
+
+#define SWDIO_DEBUG_DRAW_TASK 1
+#define SWDIO_DEBUG_MAVLINK_TASK 2
+#define SWDIO_DEBUG SWDIO_DEBUG_MAVLINK_TASK
+
 //timers used
 typedef quan::stm32::tim2                       video_columns_gate_timer;
 typedef quan::stm32::tim3                       video_rows_line_counter;

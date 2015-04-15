@@ -63,7 +63,7 @@ void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
 
 
 
-#if 0
+#if TEST_OUTPUT_PIN_ENABLE
    void setup_test_pin()
    {
       quan::stm32::module_enable< test_output_pin::port_type>();
