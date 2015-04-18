@@ -179,11 +179,8 @@ CPFLAGS = -Obinary
 ODFLAGS = -d 
 
 all: board_type4
-#board_type1 : test
-#board_type2 : test
-board_type3 : test
+
 board_type4 : test
-board_type4_disco : test
 
 objects = $(video_objects) $(rtos_objects) $(stm32_objects) \
 startup.o system_init.o port.o heap_3.o rtos_hooks.o
