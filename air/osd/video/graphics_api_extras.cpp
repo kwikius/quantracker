@@ -1,4 +1,17 @@
+#include "../aircraft.hpp"
+#include <quan/uav/osd/api.hpp>
+#include <quan/uav/osd/features_api.hpp>
+#include <quan/uav/osd/basic_bitmap.hpp>
+#include <quan/uav/osd/basic_font.hpp>
 
+#include <quan/uav/osd/get_aircraft_position.hpp>
+#include <quan/uav/osd/get_home_position.hpp>
+#include <quan/uav/osd/get_aircraft_attitude.hpp>
+#include <quan/uav/osd/get_aircraft_heading.hpp>
+
+#include "video_buffer.hpp"
+#include "video_cfg.hpp"
+#include "video_cfg.hpp"
 
 // prob should put these in separate file ....
 
