@@ -54,7 +54,7 @@ void create_heartbeat_task();
 void create_frsky_task();
 void create_fsk_task();
 void create_draw_task();
-void create_telem_task();
+//void create_telem_task();
 #if ( QUAN_OSD_BOARD_TYPE !=4)
 void create_leds_task();
 #endif
@@ -92,7 +92,7 @@ int main()
   create_heartbeat_task();
   create_fsk_task();
   create_draw_task();
-  create_telem_task();
+ // create_telem_task();
 #if ( QUAN_OSD_BOARD_TYPE !=4)
   create_leds_task();
 #endif
