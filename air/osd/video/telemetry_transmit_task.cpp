@@ -20,7 +20,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
 #include <cstdio>
 #include <cstring>
 
@@ -171,7 +171,8 @@ void av_telem_dma_setup();
  
 void av_telem_setup()
 {
-  // av_telem_usart_setup();
-  // av_telem_dma_setup();
+   av_telem_usart_setup();
+   av_telem_dma_setup();
 }
+#endif
  
