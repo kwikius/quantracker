@@ -3,7 +3,8 @@
 #include <quan/constrain.hpp>
 #include <quan/uav/osd/features_api.hpp>
 #include "osd.hpp"
-#include "symbology.hpp"#include "symbology_config.hpp"
+#include "symbology.hpp"
+#include "symbology_config.hpp"
 
 using namespace quan::uav::osd;
 
