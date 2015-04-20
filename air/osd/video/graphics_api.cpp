@@ -29,6 +29,7 @@
 
 #include "video_buffer.hpp"
 #include "video_cfg.hpp"
+#include "video_cfg.hpp"
 
    quan::uav::osd::pxp_type  
    quan::uav::osd::transform_to_raw(pxp_type const & pos)

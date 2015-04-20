@@ -47,6 +47,7 @@ namespace {
    // the variable looked up as "show_home", has a typedef named show_home, aliasing a bool.
    // The order isnt important except for neatness !
    struct flash_variable_type {
+      typedef bool                           frsky_invert_telem;
       typedef bool                           show_home;
       typedef quan::three_d::vect<int32_t>   osd_home_pos;
       typedef bool                           show_compass;
@@ -121,7 +122,8 @@ namespace {
          Readonly \
        }
 
-       EE_SYMTAB_ENTRY(show_home, nop_check,"true/false to show home distance",false)
+       EE_SYMTAB_ENTRY(frsky_invert_telem,nop_check,"true/false to invert frsky serial output",false)
+      ,EE_SYMTAB_ENTRY(show_home, nop_check,"true/false to show home distance",false)
       ,EE_SYMTAB_ENTRY(osd_home_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
       ,EE_SYMTAB_ENTRY(show_compass, nop_check,"true/false to show compass",false)
       ,EE_SYMTAB_ENTRY(osd_compass_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)

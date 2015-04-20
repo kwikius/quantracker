@@ -2,16 +2,17 @@
 # sample invocation:
 # ./flash_vars.exe -write osd_params.txt -port /dev/ttyUSB0  
 
+frsky_invert_telem : true
 show_home : true
-osd_home_pos : [-110,49,29]
+osd_home_pos : [-160,70,60]
 show_compass : true
-osd_compass_pos : [0,-114,-65]
+osd_compass_pos : [0,-117,-65]
 show_altitude : true
-osd_altitude_pos : [100,-117,-65]
+osd_altitude_pos : [-160,50,40]
 show_gps_no_fix : false
 osd_gps_no_fix_pos : [-100,50,30]
 show_afcl_horizon : true
-osd_afcl_horizon_pitch_adj : 6
+osd_afcl_horizon_pitch_adj : 0
 
 
 
