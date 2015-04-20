@@ -96,7 +96,3 @@
    {
       return p->get_size();
    }
-
-
-
-   
