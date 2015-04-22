@@ -36,17 +36,24 @@ INCLUDES = -I$(QUAN_INCLUDE_PATH) -I$(C_INCLUDE_PATH)
 
 GRAPHICS_API_SRC_PATH = $(QUAN_INCLUDE_PATH)quan_matters/src/uav/osd/
 
+DEFINES = QUANTRACKER_AIR_OSD_PC_SIM_MODE
+
 #########################################################
 
-sources =  draw_altitude.cpp draw_artificial_horizon.cpp \
-draw_compass.cpp draw_home.cpp on_draw.cpp draw_gps_state.cpp \
-draw_batteries.cpp
+#sources =  draw_altitude.cpp draw_artificial_horizon.cpp \
+#draw_compass.cpp draw_home.cpp on_draw.cpp draw_gps_state.cpp \
+#draw_batteries.cpp
 
 # in $(GRAPHICS_API_SRC_PATH)
 graphics_api_sources = draw_arc.cpp draw_bitmap.cpp draw_circle.cpp \
 draw_line.cpp draw_text.cpp flood_fill.cpp sim_graphics_api.cpp
 
-objects = $(patsubst %.cpp,%.o,$(sources))
+#objects = $(patsubst %.cpp,%.o,$(sources))
+
+common_objects = on_draw.o draw_altitude.o draw_artificial_horizon.o \
+draw_compass.o draw_home.o draw_gps_state.o draw_batteries.o \
+symbology.o  aircraft.o draw_lat_lon.o draw_mode.o \
+draw_speed.o osd_control.o graphics_api_extras.o
 
 graphics_api_objects = $(patsubst %.cpp,%.o,$(graphics_api_sources))
 
@@ -54,17 +61,19 @@ CFLAGS = -Wall -std=c++11 -fPIC -Os -fvisibility=hidden
 
 LFLAGS = -shared -Wall -std=c++11 
 
+DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
+
 .PHONY : clean clean_graphics_lib all
 
 all : $(DLL_NAME)
 
 .RECIPEPREFIX = ~
 
-$(DLL_NAME) : $(objects) osd_graphics_api.a
-~ $(LD) $(LFLAGS) -o $(DLL_NAME) $(objects) osd_graphics_api.a 
+$(DLL_NAME) : $(common_objects) osd_graphics_api.a
+~ $(LD) $(LFLAGS) -o $(DLL_NAME) $(common_objects) osd_graphics_api.a 
 
-$(objects) : %.o : ../common/%.cpp
-~ $(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
+$(common_objects) : %.o : ../common/%.cpp
+~ $(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINE_ARGS) $< -o $@
 
 # The graphics api lib pc version
 osd_graphics_api.a : $(graphics_api_objects)
@@ -74,10 +83,10 @@ $(graphics_api_objects): %.o: $(GRAPHICS_API_SRC_PATH)%.cpp
 ~ $(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@ 
 
 clean_obj:
-~ -rm -rf $(objects) *.so
+~ -rm -rf $(common_objects) *.so
 
 clean_graphics_lib:
 ~ -rm $(graphics_api_objects) osd_graphics_api.a
 
 clean : 
-~ -rm -rf $(graphics_api_objects) $(objects) osd_graphics_api.a *.so
+~ -rm -rf $(graphics_api_objects) $(common_objects) osd_graphics_api.a *.so
