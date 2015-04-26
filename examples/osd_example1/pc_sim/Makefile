@@ -16,7 +16,7 @@
 
 # modify to change the name of the dll
 
-DLL_NAME = osd_draw.so
+DLL_NAME = quantracker_examples_osd_example1.so
 
 ######################## #######################################
 # mod these to your compiler must be a C++11 gcc compiler
@@ -47,6 +47,7 @@ draw_compass.cpp draw_home.cpp on_draw.cpp draw_gps_state.cpp \
 draw_batteries.cpp symbology.cpp 
 
 # in $(GRAPHICS_API_SRC_PATH)
+# should make a static lib of this 
 graphics_api_sources = draw_arc.cpp draw_bitmap.cpp draw_circle.cpp \
 draw_line.cpp draw_text.cpp flood_fill.cpp 
 

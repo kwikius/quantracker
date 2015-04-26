@@ -16,7 +16,7 @@
 
 # modify to change the name of the dll
 
-DLL_NAME = osd_draw.so
+DLL_NAME = quantracker_examples_ac_osd.so
 
 ######################## #######################################
 # mod these to your compiler must be a C++11 gcc compiler
