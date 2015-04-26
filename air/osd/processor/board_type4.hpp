@@ -24,13 +24,20 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include "freertos_usart_task.hpp"
-#include "freertos_usart_task_tx_only.hpp"
+#include <quan/stm32/freertos/freertos_usart_task.hpp>
+#include <quan/stm32/freertos/freertos_usart_task_tx_only.hpp>
+#include <quan/stm32/serial_port_lite.hpp>
 #include <quan/voltage.hpp>
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/spi.hpp>
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/usart.hpp>
+
+
+#define SWDIO_DEBUG_DRAW_TASK 1
+#define SWDIO_DEBUG_MAVLINK_TASK 2
+#define SWDIO_DEBUG SWDIO_DEBUG_MAVLINK_TASK
+
 //timers used
 typedef quan::stm32::tim2                       video_columns_gate_timer;
 typedef quan::stm32::tim3                       video_rows_line_counter;
@@ -214,10 +221,16 @@ PH1 OSC_OUT
 */
 typedef quan::stm32::freertos::usart_tx_rx_task<
    mavlink_usart,
-   2,20, 
+   100,100, 
    mavlink_txo_pin,mavlink_rxi_pin,
    uint8_t
 > mavlink_tx_rx_task;
+
+typedef quan::stm32::serial_port_lite<
+      mavlink_usart,
+      mavlink_txo_pin,
+      mavlink_rxi_pin
+> flash_menu_sp;
 
 typedef quan::stm32::freertos::usart_tx_rx_task<
    frsky_usart,

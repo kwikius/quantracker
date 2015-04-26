@@ -350,6 +350,8 @@ ul.auto-toc {
 defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp">&lt;quan/uav/osd/basic_bitmap.hpp&gt;</a> .</p>
 <p>It will probably help to also look at the examples
 in <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp">quantracker/examples/osd_example1/board/bitmaps.cpp</a>.</p>
+<p>N.B. This format will probably change at some point so it is advisable the osd_maker app to
+generate bitmaps and fonts rather than craetng them by hand.</p>
 <p>The bitmap structure itself is relatively simple.
 The get_data and get_size functions implement the virtual functions
 in the basic_bitmap base class.  The array is declared constexpr as a hint to the compiler

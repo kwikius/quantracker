@@ -1,6 +1,18 @@
+Sat Apr 11 22:45:36 BST 2015
+Errata. The DAC output pins on the OSD board have switched channels between V1 and V2 PCB.
+(Looks like a slip up in the hierarchical labelling)
+
+Mon Mar 30 08:10:16 BST 2015 : devel
+Moved flash symbol table out of library code into user space so it
+is now easy to create a custom flash symbol table. 
+See /quantracker/examples/osd_example1/common/flash.cpp for details
+
 Sat Mar 14 09:28:44 GMT 2015 : devel
 New PCB V2.0 and V2.1 board on order to OSHPark. They are intended to be free of the GPS interference issues.
 Looking at implementing flash vars in osd next
+
+Sat Mar 14 14:39:05 GMT 2015
+Moved Ground tracker flash stuff from local into quan/stm32/flash
 
 Thu Mar  5 12:39:12 GMT 2015
 OSD - Added some docs on bitmaps and an example to output a bitmap to stdout, to easily test bitmaps

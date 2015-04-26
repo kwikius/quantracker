@@ -24,7 +24,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include "freertos_usart_task.hpp"
+#include <quan/stm32/freertos/freertos_usart_task.hpp>
 #include <quan/voltage.hpp>
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/spi.hpp>
@@ -124,6 +124,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM
 PB0  TIM8_CH2
 PB1  TIM8_CH3
 */
+#define TEST_OUTPUT_PIN_ENABLE 1
 typedef quan::mcu::pin<quan::stm32::gpiob,2>    test_output_pin;
 
 #if defined QUAN_DISCOVERY

@@ -96,6 +96,8 @@ video_cfg::get_video_mode()
 
 typedef video_cfg::video_mode_t video_mode_t;
  
+
+namespace {
 void sync_sep_reset()
 {
   initial_first_edge_captured = false;
@@ -120,6 +122,7 @@ void sync_sep_error_reset()
   video_mode = video_mode_t::unknown;
 }
 
+}// namespace 
 void sync_sep_enable()
 {
   sync_sep_reset();
@@ -127,6 +130,8 @@ void sync_sep_enable()
   sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
   sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
 }
+
+namespace {
 
 void sync_sep_disable()
 {
@@ -160,7 +165,7 @@ void sync_sep_new_frame()
       break;
    }
 }
-
+}
 void sync_sep_setup()
 {
    quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();

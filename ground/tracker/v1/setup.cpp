@@ -22,7 +22,7 @@
 #include "leds.hpp"
 #include "switch_input.hpp"
 #include "compass.hpp"
-#include "flash/flash.hpp"
+#include "quan/stm32/flash.hpp"
 #include <quan/stm32/systick.hpp>
 
 void setup_systick();
@@ -46,6 +46,11 @@ namespace{
       for (;;){;}
    }
 
+   void flush_sp_tx()
+{
+  while (!debug::serial_port::tx_reg_empty()){;}
+}
+
    void initial_setup()
    {
       setup_leds();
@@ -55,7 +60,7 @@ namespace{
       debug::serial_port::write("quan_tracker V1.1 startup\n");
       // check for fails on flash
       // really need to do automatically
-      if ( ! flash_symtab::init()){
+      if ( ! quan::stm32::flash::get_app_symbol_table().init()){
          debug::serial_port::write("flash init failed\n"); 
          infinite_loop();
       }
@@ -126,7 +131,7 @@ extern "C" void setup()
         flash_menu only returns false on bad error
       */
          debug::serial_port::write("entering Flash read/write mode\n");
-         if ( ! flash_menu()){
+         if ( ! quan::stm32::flash::flash_menu()){
             infinite_loop();
          }
          //maybe want to reboot?

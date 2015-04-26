@@ -98,7 +98,9 @@ void video_setup()
      vsync_setup();
      odd_even_setup();
 #endif
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
      av_telem_setup();
+#endif
      video_cfg::setup();
      video_buffers::init();
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP

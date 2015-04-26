@@ -91,15 +91,19 @@ $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
 
+STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
+
+GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
+
 TARGET_PROCESSOR = STM32F4
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o graphics_api.o telemetry_task.o \
+ video_dma.o video_setup.o graphics_api.o graphics_api_extras.o telemetry_task.o \
  draw_task.o sync_sep.o led.o black_level.o dac.o
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
- heartbeat_task.o rtos_hooks.o
+ heartbeat_task.o rtos_hooks.o mode_check.o  
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -108,6 +112,9 @@ GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 
 graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
 draw_line.o draw_text.o flood_fill.o
+
+quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
+quan_generic_flash_menu.o
 
 user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
 
@@ -140,16 +147,17 @@ SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
+#DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 #DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
-
+# DEFINES += QUAN_FLASH_DEBUG
 STARTUP = startup.s
 # custom linker script 
 LINKER_SCRIPT = stm32f4.ld
 #LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
-FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/flash.cpp
+#FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
 #SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 SYSTEM_INIT = system_init.cpp
@@ -182,9 +190,6 @@ board_type4_disco : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_DISCOVERY
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
-# for float printf format etc
-# CFLAG_EXTRAS += -Wl,-u,vsprintf -lm
-
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
@@ -204,7 +209,8 @@ board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
 $(stm32_objects) $(graphics_api_objects) $(user_objects) $(user_resources) \
-startup.o system_init.o flash_funs.o port.o heap_3.o
+$(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o \
+startup.o system_init.o port.o heap_3.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -225,6 +231,12 @@ $(video_objects): %.o : video/%.cpp
 $(local_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
+$(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
+	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)
+
 $(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
@@ -239,9 +251,6 @@ system_init.o : $(SYSTEM_INIT)
 
 startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
-
-flash_funs.o : $(FLASH_SRC)
-	$(CC) $(CFLAGS) -o flash_funs.o $(FLASH_SRC)
 
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections

@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 1 date Fri 13 Mar 2015 11:43:34 GMT
+PCBNEW-BOARD Version 1 date Wed 01 Apr 2015 11:08:42 BST
 
 # Created by Pcbnew(2011-05-25)-stable
 
@@ -21,7 +21,7 @@ $EndGENERAL
 $SHEETDESCR
 Sheet A4 11700 8267
 Title ""
-Date "13 mar 2015"
+Date "1 apr 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -65,11 +65,11 @@ TextPcbSize 600 800
 EdgeModWidth 150
 TextModSize 600 600
 TextModWidth 120
-PadSize 787 787
-PadDrill 394
+PadSize 600 600
+PadDrill 320
 Pad2MaskClearance 100
 AuxiliaryAxisOrg 0 0
-PcbPlotParams (pcbplotparams (layerselection 284196871) (usegerberextensions true) (excludeedgelayer true) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output false) (plotreference false) (plotvalue false) (plotothertext false) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 1) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory /home/andy/cpp/projects/quantracker/air/osd/hardware/64_pin_lite/air_osd_v2_1/))
+PcbPlotParams (pcbplotparams (layerselection 2097152) (usegerberextensions true) (excludeedgelayer false) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output true) (plotreference true) (plotvalue false) (plotothertext false) (plotinvisibletext false) (padsonsilk true) (subtractmaskfromsilk false) (outputformat 2) (mirror false) (drillshape 1) (scaleselection 0) (outputdirectory /home/andy/cpp/projects/quantracker/air/osd/hardware/64_pin_lite/air_osd_v2_1/silk/))
 $EndSETUP
 
 $EQUIPOT
@@ -603,12 +603,12 @@ AddNet "/psu/SWITCHER_VIN"
 AddNet "/psu/VIN+RECT"
 $EndNCLASS
 $MODULE DFN2532
-Po 57000 34125 2700 0 55002094 5474A0E9 ~~
+Po 57000 34125 2700 0 5519522E 5474A0E9 ~~
 Li DFN2532
 Sc 5474A0E9
 AR /5433EE23/5474804A
 Op 0 0 0
-T0 0 0 197 197 2700 49 M I 20 N "U1"
+T0 0 0 197 197 2700 49 M V 20 N "U1"
 T1 0 0 197 197 2700 49 M I 20 N "SI501"
 DS -984 -689 -984 886 150 20
 DS -984 886 984 886 150 20
@@ -677,14 +677,14 @@ Po 1000 0
 $EndPAD
 $EndMODULE  SIL-3
 $MODULE SIL-1
-Po 47000 32000 0 15 54FF4788 54F75415 ~~
+Po 47000 32000 0 15 551952B1 54F75415 ~~
 Li SIL-1
 Cd Connecteurs 1 pin
 Kw CONN DEV
 Sc 54F75415
 AR /546D98A5/54F74E74
 Op 0 0 0
-T0 -1100 0 197 197 0 49 N V 21 N "P11"
+T0 -575 -475 197 197 0 49 N V 21 N "P11"
 T1 0 -1000 197 197 0 49 N I 21 N "CONN_1"
 $PAD
 Sh "1" R 550 550 0 0 0
@@ -741,14 +741,14 @@ Po 1500 0
 $EndPAD
 $EndMODULE  SIL-5
 $MODULE SIL-6
-Po 66000 35500 900 15 54FF46D9 5474A162 ~~
+Po 66000 35500 900 15 5519529D 5474A162 ~~
 Li SIL-6
 Cd Connecteur 6 pins
 Kw CONN DEV
 Sc 5474A162
 AR /546C8634/546C98A1
 Op 0 0 0
-T0 -984 -295 197 197 900 49 N I 21 N "P4"
+T0 0 575 197 197 900 49 N V 21 N "P4"
 T1 0 -394 197 197 900 49 N I 21 N "CONN_6"
 $PAD
 Sh "1" C 787 787 0 0 900
@@ -794,14 +794,14 @@ Po 2500 0
 $EndPAD
 $EndMODULE  SIL-6
 $MODULE SIL-20
-Po 55500 40000 0 15 54FF4634 5475D6B3 ~~
+Po 55500 40000 0 15 55195283 5475D6B3 ~~
 Li SIL-20
 Cd Connecteur 18 pins
 Kw CONN DEV
 Sc 5475D6B3
 AR /546D98A5/54746DE4
 Op 0 0 0
-T0 -8071 -295 197 197 0 49 N I 21 N "P3"
+T0 -8075 -550 197 197 0 49 N V 21 N "P3"
 T1 2461 394 197 197 0 49 N I 21 N "CONN_20"
 $PAD
 Sh "1" C 787 787 0 0 0
@@ -945,14 +945,14 @@ Po 10500 0
 $EndPAD
 $EndMODULE  SIL-20
 $MODULE SIL-20
-Po 55500 31000 0 15 54FF45E5 5475D6B5 ~~
+Po 55500 31000 0 15 551952B6 5475D6B5 ~~
 Li SIL-20
 Cd Connecteur 18 pins
 Kw CONN DEV
 Sc 5475D6B5
 AR /546D98A5/54746D91
 Op 0 0 0
-T0 -8071 -394 197 197 0 49 N I 21 N "P2"
+T0 -7025 -550 197 197 0 49 N V 21 N "P2"
 T1 -7480 0 197 197 0 49 N I 21 N "CONN_20"
 $PAD
 Sh "1" C 787 787 0 0 0
@@ -4352,12 +4352,12 @@ Po 295 0
 $EndPAD
 $EndMODULE  LED-0603
 $MODULE SOD-123
-Po 54425 35000 0 0 54F87F27 5475D653 ~~
+Po 54425 35000 0 0 55195225 5475D653 ~~
 Li SOD-123
 Sc 5475D653
 AR /546F1A19/5433B3CA
 Op 0 0 0
-T0 -50 -50 197 197 0 49 M I 20 N "D2"
+T0 -50 -50 197 197 0 49 M V 20 N "D2"
 T1 50 -250 197 197 0 49 M I 20 N "30V__500mA"
 DS -669 -394 -669 -315 150 20
 DS 709 -394 709 -315 150 20
@@ -4381,12 +4381,12 @@ Po 646 0
 $EndPAD
 $EndMODULE  SOD-123
 $MODULE SOD-123
-Po 47740 38740 0 0 54F883E1 5475D655 ~~
+Po 47740 38740 0 0 55195243 5475D655 ~~
 Li SOD-123
 Sc 5475D655
 AR /546F3145/546F5A7F
 Op 0 0 0
-T0 50 -150 197 197 0 49 M I 20 N "D4"
+T0 50 -150 197 197 0 49 M V 20 N "D4"
 T1 50 200 197 197 0 49 M I 20 N "DIODESCH"
 DS -669 -394 -669 -315 150 20
 DS 709 -394 709 -315 150 20
@@ -4410,12 +4410,12 @@ Po 646 0
 $EndPAD
 $EndMODULE  SOD-123
 $MODULE SOD-123
-Po 48420 39240 1800 0 54F883EF 5475D657 ~~
+Po 48420 39240 1800 0 55195237 5475D657 ~~
 Li SOD-123
 Sc 5475D657
 AR /54675A51/546F5AD9
 Op 0 0 0
-T0 50 -150 197 197 1800 49 M I 20 N "D5"
+T0 50 -150 197 197 1800 49 M V 20 N "D5"
 T1 50 150 197 197 1800 49 M I 20 N "DIODESCH"
 DS -669 -394 -669 -315 150 20
 DS 709 -394 709 -315 150 20
@@ -4473,12 +4473,12 @@ Ro 0.000000 0.000000 0.000000
 $EndSHAPE3D
 $EndMODULE  SM0603
 $MODULE LPS4018
-Po 53875 33525 0 15 54F88649 5475D65F ~~
+Po 53875 33525 0 15 551951D7 5475D65F ~~
 Li LPS4018
 Sc 5475D65F
 AR /546F1A19/5433B3CB
 Op 0 0 0
-T0 0 -200 197 197 0 49 N I 21 N "L3"
+T0 0 -200 197 197 0 49 N V 21 N "L3"
 T1 79 1496 197 197 2700 49 N I 21 N "LPS4018-473MR"
 DS -630 -945 591 -945 150 21
 DS 591 -945 1063 -472 150 21
@@ -4552,12 +4552,12 @@ Po 256 374
 $EndPAD
 $EndMODULE  SC70-5
 $MODULE SOD-123
-Po 48500 32100 0 15 54FF4490 547C7700 ~~
+Po 48500 32100 0 15 551951CF 547C7700 ~~
 Li SOD-123
 Sc 547C7700
 AR /546F1A19/547C7672
 Op 0 0 0
-T0 0 100 197 197 0 49 N I 21 N "D6"
+T0 0 100 197 197 0 49 N V 21 N "D6"
 T1 118 787 197 197 0 49 N I 21 N "30V_500mA"
 DS -669 394 -669 315 150 21
 DS 709 394 709 315 150 21
@@ -5823,7 +5823,7 @@ Po 64016 35472 173 295 43 900
 De 20 0 0 Normal
 $EndTEXTPCB
 $TEXTPCB
-Te "TXO2"
+Te "RXI2"
 Po 66875 33050 173 295 43 900
 De 20 0 0 Normal
 $EndTEXTPCB

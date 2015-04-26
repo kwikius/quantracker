@@ -23,23 +23,20 @@
 */
 
 #include <cstdint>
-
 #include <FreeRTOS.h>
 #include <task.h>
 #include <semphr.h>
-
 #include "mavlink.hpp"
-
 #include "aircraft.hpp"
 #include "resources.hpp"
 
-
 // see qgroundcontrol.org/dev/mavlink_onboard_integration_tutorial
 // Not quite sure what values these should be though...
- // think they are don't care here
+// think they are don't care here
 static constexpr uint8_t mavlink_sysid = 1;  // system id
 static constexpr uint8_t mavlink_compid = 1; // component id
 mavlink_system_t mavlink_system = {mavlink_sysid,mavlink_compid}; // 
+static uint8_t swdio_status;
 
 void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 {
@@ -51,10 +48,9 @@ void comm_send_ch(mavlink_channel_t chan, uint8_t ch)
 }
 
 void signal_new_heartbeat();
-
 namespace{
-
-   uint8_t  apm_mav_type;
+  // info from $(MAVLINK_INCLUDE_PATH)/
+   uint8_t  apm_mav_type;  // 
    uint8_t  apm_mav_system; 
    uint8_t  apm_mav_component;
 
@@ -104,6 +100,7 @@ namespace{
 #endif
   void do_mavlink_vfr_hud(mavlink_message_t * pmsg);
   void do_mavlink_attitude(mavlink_message_t * pmsg);
+  void do_mavlink_rc_channels_raw(mavlink_message_t * pmsg);
 
    void read_mavlink(void * param)
    {
@@ -162,6 +159,9 @@ namespace{
                case MAVLINK_MSG_ID_ATTITUDE:
                   do_mavlink_attitude(&msg);
                break;
+               case MAVLINK_MSG_ID_RC_CHANNELS_RAW:
+            	  do_mavlink_rc_channels_raw(&msg);
+               break;
                default:
                break;
             }
@@ -178,7 +178,8 @@ namespace{
       apm_mav_type      = mavlink_msg_heartbeat_get_type(pmsg);
 
 #ifdef MAVLINK10 
-      the_aircraft.mutex_acquire();            
+      the_aircraft.mutex_acquire();
+         the_aircraft.base_mode = mavlink_msg_heartbeat_get_base_mode(pmsg);
          the_aircraft.custom_mode = mavlink_msg_heartbeat_get_custom_mode(pmsg);
          the_aircraft.nav_mode = 0;
       the_aircraft.mutex_release(); 
@@ -200,6 +201,9 @@ namespace{
          the_aircraft.battery_voltage
             = quan::voltage_<float>::mV{mavlink_msg_sys_status_get_voltage_battery(pmsg)};
         // = mavlink_msg_sys_status_get_voltage_battery(pmsg) / 1000.f;
+
+         the_aircraft.battery_current
+            = quan::current_<float>::A{mavlink_msg_sys_status_get_current_battery(pmsg)/100.0};   // mavlink value scaled in mA*10
 #endif            
          the_aircraft.battery_remaining = mavlink_msg_sys_status_get_battery_remaining(pmsg);
       the_aircraft.mutex_release();
@@ -291,7 +295,21 @@ namespace{
 
    void do_mavlink_attitude(mavlink_message_t * pmsg)
    {
+
       the_aircraft.mutex_acquire();
+
+         if(swdio_status == 1)
+         {
+           quan::stm32::set<swdio>();
+           swdio_status = 0;
+         }
+         else
+         {
+           quan::stm32::clear<swdio>();
+           swdio_status = 1;
+         }
+
+
          // static const float pi = 3.141592653589793238462643383279502884197;
          // static const float rad_to_deg = 180.f / pi;
          the_aircraft.attitude.pitch = quan::angle_<float>::rad{mavlink_msg_attitude_get_pitch(pmsg)};
@@ -306,6 +324,23 @@ namespace{
       the_aircraft.mutex_release();
    }
 
+   void do_mavlink_rc_channels_raw(mavlink_message_t * pmsg)
+   {
+      the_aircraft.mutex_acquire();
+
+        the_aircraft.rc_raw_chan[0] = mavlink_msg_rc_channels_raw_get_chan1_raw(pmsg);
+        the_aircraft.rc_raw_chan[1] = mavlink_msg_rc_channels_raw_get_chan2_raw(pmsg);
+        the_aircraft.rc_raw_chan[2] = mavlink_msg_rc_channels_raw_get_chan3_raw(pmsg);
+        the_aircraft.rc_raw_chan[3] = mavlink_msg_rc_channels_raw_get_chan4_raw(pmsg);
+        the_aircraft.rc_raw_chan[4] = mavlink_msg_rc_channels_raw_get_chan5_raw(pmsg);
+        the_aircraft.rc_raw_chan[5] = mavlink_msg_rc_channels_raw_get_chan6_raw(pmsg);
+        the_aircraft.rc_raw_chan[6] = mavlink_msg_rc_channels_raw_get_chan7_raw(pmsg);
+        the_aircraft.rc_raw_chan[7] = mavlink_msg_rc_channels_raw_get_chan8_raw(pmsg);
+        the_aircraft.rc_raw_rssi = mavlink_msg_rc_channels_raw_get_rssi(pmsg);
+
+      the_aircraft.mutex_release();
+   }
+
    char dummy_param  =0;
    TaskHandle_t task_handle = NULL;
 
@@ -313,12 +348,27 @@ namespace{
 
 void create_mavlink_task()
 {
+
+#if (SWDIO_DEBUG == SWDIO_DEBUG_MAVLINK_TASK)
+	  quan::stm32::module_enable<swdio::port_type>();
+
+	   quan::stm32::apply<
+	      swdio
+	      , quan::stm32::gpio::mode::output
+	      , quan::stm32::gpio::otype::push_pull
+	      , quan::stm32::gpio::pupd::none
+	      , quan::stm32::gpio::ospeed::slow
+	      , quan::stm32::gpio::ostate::low
+	   >();
+#endif
+
    xTaskCreate(
-         read_mavlink,"read_mavlink", 
-         512,
-         &dummy_param,
-         task_priority::mavlink,
-         &task_handle);
+      read_mavlink,"read_mavlink", 
+      512,
+      &dummy_param,
+      task_priority::mavlink,
+      &task_handle
+   );
 }
 
 
