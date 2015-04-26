@@ -44,7 +44,7 @@ main.o : main.cpp
 osd_sim.o : osd_sim.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-user_flash.o : ../../../../examples/osd_example1/common/flash.cpp
+user_flash.o : ../../../../examples/osd_ac/common/flash.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 quan_flash.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/flash.cpp
