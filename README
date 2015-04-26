@@ -22,6 +22,8 @@ Acknowledgments
    
         Thanks to VEX Robotics for permission to use their step file of the VEX turntable
 
+        Thanks to Andrew Fernie for his work on the Hardware and Software.
+
 Dependencies
 
    The GNU gcc compiler. The source code is written in C++11, and requires gcc4.7 or higher
@@ -29,34 +31,44 @@ Dependencies
    available from 
 
          https://launchpad.net/gcc-arm-embedded
+         (wget https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2 -O gcc-arm)
+
 
    The STM32F4 standard peripherals library
    available from
 
          http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
-      
+         (wget http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip -O stm32f4_dsp_stdperiph_lib.zip)
+
    My quan library 
    available from
          
          https://github.com/kwikius/quan-trunk
+         (wget https://github.com/kwikius/quantracker/archive/master.zip -O quantracker.zip)
 
    FreeRTOS
    available from
 
          http://www.freertos.org/a00104.html
+         (wget http://downloads.sourceforge.net/project/freertos/FreeRTOS/V8.2.0/FreeRTOSV8.2.0.zip -O freertos.zip)
 
    MAVlink
    available from
  
         https://github.com/mavlink/mavlink
+        (wget https://github.com/mavlink/c_library/archive/master.zip -O mavlink.zip)
+         TODO May need some file dir renaming to get the directories right for compiling
+      
 
 Once these are installed you will need to modify the paths in the Makefiles to suit your configuration.
+See the file Sample-Dependencies.mk in the root directory for details of how to fill in dependencies
 
------
+The ground tracker relies on some means on the aircraft to get the telemetry back to the tracker
 
-You will also need an airborne option to send the data to the tracker from the aircraft.
+The OSD can however be built as stand alone item. There are currenetly 2 customised example OSD,s in the quantracker/examples directory.
+airborne option to send the data to the tracker from the aircraft.
 
-So far there are 2 airborne options
+So far there are several airborne options
 
   1) Use the OSD airborne module which uses the Video link direct to send telemetry.
      This is currently in development but the design is all open source and in the repo.
