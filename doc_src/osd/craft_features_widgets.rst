@@ -1,9 +1,14 @@
 
 `OSD Index`_
 
+
 =========================================
 craft, features and widgets.
 =========================================
+
+This section deals with my ramblings on how to categorise the things you might put on the OSD. 
+The current solution is to split the OSD into ones own personal project,
+however there should be eventually be a library or libraries of common stuff. 
 
    Craft
          Could be one of:
