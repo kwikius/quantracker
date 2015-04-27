@@ -372,23 +372,12 @@ If its not working, verify that stm32flash's parent directory is in your path.</
 <h2>Stm32Flash Hardware</h2>
 <blockquote>
 <p>To flash with stm32Flash you need A PC serial port.
-A USB serial connector is fine. You can use a 6 pin Arduino Serial connector,
-<em>but unfortunately you will need to swap two of the connector pins</em> <a class="footnote-reference" href="#id5" id="id1">[1]</a>.
-Swapping pins is not difficult. Use a pin or knifeblade to
-lift the little tab and remove the Black wire (pin1) and the Brown wire
-(pin2) and put the Black wire back in where the Brown wire was
-and the Brown wire where the black wire was.</p>
-<img alt="mavlink_sp_pinout.png" src="mavlink_sp_pinout.png" />
+A USB serial connector is fine. You can use a 6 pin Arduino Serial connector <a class="footnote-reference" href="#id5" id="id1">[1]</a>.</p>
+<img alt="V2_1_mavlink_sp_pinout.png" src="V2_1_mavlink_sp_pinout.png" />
+<p>If you have a V1 board, <a class="reference external" href="v1_board.html">click here for the pinout</a></p>
 <p>Alternatively you can use any usb serial connector.</p>
 <p>You will need to make a power connector to supply between 8 and 12 Volts <a class="footnote-reference" href="#id6" id="id2">[2]</a>
-to the board and a switch to be able to switch it on and off.
-(I made up a servo connector to a 3S Lipo Balance lead connector and my switch
-consisted of plugging the balance lead end together, as its polarised.
-If you do this, solder header pins into pin 2 (V+) and 3 (V-),
-but leave pin1 with no pin at all. This is simply because it is easy to connect
-the two +ve pins together resulting in shorting the battery (tell me how I know!)).
-Its another minor issue on this board and for V2 will have
-to change this but for now just leave that header pin off.</p>
+to the board and ideally a switch to be able to switch it on and off.</p>
 <p>When using this method of uploading, it is important to follow the sequence
 exactly as described, including the connection sequence.</p>
 <ul>
@@ -405,7 +394,7 @@ recognising the startup sequence correctly <a class="footnote-reference" href="#
 <li><p class="first">Connect the serial connector to the board and the PC.</p>
 </li>
 <li><p class="first">Verify all connectors are the correct way round.
-Unfortunately none of the connectors are polarised, so check and check again.</p>
+The connectors are not polarised, so check and check again.</p>
 </li>
 <li><p class="first">At a command prompt navigate to the directory with the 'xxxx.bin' binary in.</p>
 </li>
@@ -523,7 +512,7 @@ Resetting device... done.
 <table class="docutils footnote" frame="void" id="id5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>I got my wires crossed when designing V1 of the board</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>You only need to connect the pins in bold in the diagram.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id6" rules="none">

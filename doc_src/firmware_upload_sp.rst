@@ -20,28 +20,16 @@ Stm32Flash Hardware
 --------------------
       
   To flash with stm32Flash you need A PC serial port. 
-  A USB serial connector is fine. You can use a 6 pin Arduino Serial connector, 
-  *but unfortunately you will need to swap two of the connector pins* [1]_. 
-  Swapping pins is not difficult. Use a pin or knifeblade to
-  lift the little tab and remove the Black wire (pin1) and the Brown wire 
-  (pin2) and put the Black wire back in where the Brown wire was
-  and the Brown wire where the black wire was. 
+  A USB serial connector is fine. You can use a 6 pin Arduino Serial connector [1]_.
+   
+  .. image:: V2_1_mavlink_sp_pinout.png
 
-
-  .. image:: mavlink_sp_pinout.png
-
+  If you have a V1 board, `click here for the pinout`_
 
   Alternatively you can use any usb serial connector.
 
   You will need to make a power connector to supply between 8 and 12 Volts [2]_ 
-  to the board and a switch to be able to switch it on and off.
-  (I made up a servo connector to a 3S Lipo Balance lead connector and my switch 
-  consisted of plugging the balance lead end together, as its polarised. 
-  If you do this, solder header pins into pin 2 (V+) and 3 (V-), 
-  but leave pin1 with no pin at all. This is simply because it is easy to connect
-  the two +ve pins together resulting in shorting the battery (tell me how I know!)). 
-  Its another minor issue on this board and for V2 will have
-  to change this but for now just leave that header pin off.
+  to the board and ideally a switch to be able to switch it on and off.
    
   When using this method of uploading, it is important to follow the sequence 
   exactly as described, including the connection sequence. 
@@ -59,7 +47,7 @@ Stm32Flash Hardware
   *   Connect the serial connector to the board and the PC.
   *   
       Verify all connectors are the correct way round. 
-      Unfortunately none of the connectors are polarised, so check and check again.
+      The connectors are not polarised, so check and check again.
 
   *   At a command prompt navigate to the directory with the 'xxxx.bin' binary in.
   *   
@@ -154,8 +142,9 @@ Index_
 
 .. _Stm32Flash: http://stm32flash.googlecode.com
 .. _Index: index.html
+.. _`click here for the pinout`: v1_board.html
 
-.. [1] I got my wires crossed when designing V1 of the board
+.. [1] You only need to connect the pins in bold in the diagram.
 .. [2] It should be ok to power the board from up to 25 volts. It just hasnt been verified yet.
        Use the 12V power supply inputs rather than the 3V or 5V breakouts to power the board
        , since the startup time of the psu gives a smooth wakeup from reset.

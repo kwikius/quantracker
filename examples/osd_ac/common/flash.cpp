@@ -101,7 +101,9 @@ namespace {
       typedef bool                           show_aircraft_battery_remaining;
       typedef uint8_t                        osd_aircraft_battery_remaining_control;
       typedef quan::three_d::vect<int32_t>   osd_aircraft_battery_remaining_pos;
-	  typedef uint8_t                        osd_page_select_channel;
+	   typedef uint8_t                        osd_page_select_channel;
+      typedef uint32_t                       osd_afcl_horizon_eye_distance;
+                                            
    } ;
    //#################### Per object range checking ########################
     
@@ -189,6 +191,21 @@ namespace {
       }
    }
 
+   bool afcl_horizon_eye_distance_check(void * p)
+   {
+      if ( p == nullptr){
+         return false;
+      }
+      flash_variable_type::osd_afcl_horizon_eye_distance * pv = (flash_variable_type::osd_afcl_horizon_eye_distance*) p;
+      if ( (*pv >= 20) &&  (*pv <= 2000)){
+         return true;
+      }else{
+         quan::user_error("eye distance range 20 to 2000");
+         return false;
+      }
+
+   }
+
 //####### The flash_variables symtable itself ###########################
  
    quan::stm32::flash::symtab_entry_t constexpr flash_variables_symtab[] = {
@@ -256,6 +273,7 @@ namespace {
       ,EE_SYMTAB_ENTRY(osd_aircraft_battery_remaining_control,display_control_check,"Four low order bits = enable display on four pages. Range: 0 to 15",false)
       ,EE_SYMTAB_ENTRY(osd_aircraft_battery_remaining_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
       ,EE_SYMTAB_ENTRY(osd_page_select_channel,page_select_channel_check,"RC channel to be used to select the symbology page. Range: 1 to 8",false)
+      ,EE_SYMTAB_ENTRY(osd_afcl_horizon_eye_distance,afcl_horizon_eye_distance_check,"Relative pixel distance to eye,uint32_t range 20 to 2000",false)
 
       #undef EE_SYMTAB_ENTRY
    };
