@@ -26,6 +26,7 @@ namespace {
    bool want_afcl_horizon = true;
    uint8_t osd_afcl_horizon_page_control = 0x03;
    quan::uav::osd::angle_type  osd_afcl_horiz_pitch_adj{0}; 
+   uint32_t osd_afcl_horizon_eye_distance = 200;
    bool want_gps_fix_type = true;
    uint8_t osd_gps_fix_type_page_control = 0x03;
    quan::uav::osd::pal_ntsc_pos osd_gps_fix_type_position = {-170,75,75};
@@ -586,9 +587,13 @@ bool init_values_from_flash()
         }
     }
 
+    if ( symtab.is_symbol_name_defined_in_flash("osd_afcl_horizon_eye_distance")){
+        uint32_t v;
+        if ( quan::stm32::flash::get_flash_value("osd_afcl_horizon_eye_distance",v)){
+        	osd_afcl_horizon_eye_distance=v;
+        }
+    }
    return true;
-
-
 }
 
 bool initialise_flash()

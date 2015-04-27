@@ -57,6 +57,8 @@ quan::uav::osd::pxp_type get_osd_aircraft_battery_remaining_position();
 bool osd_show_afcl_horizon();
 quan::uav::osd::angle_type osd_get_afcl_horizon_pitch_adj();
 
+uint32_t osd_get_afcl_horizon_eye_distance();
+
 uint8_t osd_get_page_select_channel_number();
 
 #endif // QUANTRACKER_AIR_OSD_EXAMPLES_SYMBOLOGY_HPP_INCLUDED

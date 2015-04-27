@@ -87,14 +87,16 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
          +  `The OSD V2.1 PCB is available from OSHPark`_
          +  `The OSD source code is available from Github`_
 
-      * Compact
-      * Freestanding - can be used with or without the tracker
+      * Compact.
+      * Freestanding - can be used with or without the tracker.
       * Works with Ardupilot, Compatible with MinimOSD. 
-      * supports PAL and NTSC cameras (can switch between protocols dynamically)
-      * Vector graphics
-      * Hugely customisable display, using "osd_maker" App for helping to create the display
-      * Digitally isolated Serial port to eliminate ground loops
+      * supports PAL and NTSC cameras (can switch between protocols dynamically).
+      * Vector graphics.
+      * Hugely customisable display, using "osd_maker" App for helping to create the display.
+      * Digitally isolated Serial port to help eliminate ground loops.
       * Very versatile Expansion port with I2C, SPI etc, means the OSD can be upgraded to a full FC
+
+   Here are some videos of the OSD in action:
 
 .. raw:: html
 
