@@ -84,7 +84,7 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
 
    Features
       * Open source software and hardware 
-         +  `The OSD PCB is available from OSHPark`_
+         +  `The OSD V2.1 PCB is available from OSHPark`_
          +  `The OSD source code is available from Github`_
 
       * Compact
@@ -100,18 +100,18 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
 
    <table><tr>
    <td>
-   <iframe width="420" height="315" src="https://www.youtube.com/embed/sYU1tqfJ1o0" 
+   <iframe width="420" height="315" src="https://www.youtube.com/embed/p4sV_m2vvSE" 
    frameborder="0" allowfullscreen></iframe>
    </td>
    <td>
-   <iframe width="420" height="315" src="https://www.youtube.com/embed/qwAV_8OBe3k" 
+   <iframe width="420" height="315" src="https://www.youtube.com/embed/Czrd15weBXM" 
    frameborder="0" allowfullscreen></iframe>
    </td>
    </tr></table>
 
 Index_
 
-.. _`The OSD PCB is available from OSHPark`: https://oshpark.com/shared_projects/KlRxcZaZ
+.. _`The OSD V2.1 PCB is available from OSHPark`: https://oshpark.com/shared_projects/yiU4RsLa
 .. _`The source code is available from Github`: https://github.com/kwikius/quantracker/tree/master
 .. _`The OSD source code is available from Github`: https://github.com/kwikius/quantracker/tree/master/air/osd
 .. _Index: index.html
