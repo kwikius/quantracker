@@ -6,11 +6,13 @@ Quantracker Air OSD Flash Menu
 ------------------------------
 
 The flash menu mode can be entered as follows:
-   Create a connector which joins txo, rxi power and ground pins as uusal ,
-   but also connects the secondary tx0 and rxi pins with a jumper.
-   
-   Start a serial port console at 9600 baud with 8 bits, no parity and 1 stop bit.
-   When you switch on the OSD it should present you with:
+Create a connector which joins txo, rxi power and ground pins as uusal ,
+but also connects the secondary tx0 and rxi pins with a jumper as shown
+
+.. image:: V2_1_flash_connector.png
+
+Start a serial port console at 9600 baud with 8 bits, no parity and 1 stop bit.
+When you switch on the OSD it should present you with:
 
 ::
 

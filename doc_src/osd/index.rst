@@ -5,6 +5,7 @@ Quantracker OSD Index
 =====================
 
 * `Getting started with the OSD`_
+* `Example Firmwares`_
 * `Uploading the firmware`_
 * `Flash menu`_
 
@@ -17,6 +18,7 @@ Developing
 * `Bitmap source format`_
 * `Craft features and widgets`_
 
+.. _`Example Firmwares`: example_firmwares.html
 .. _`Getting started with the OSD`: ../osd_getting_started.html
 .. _`Craft features and widgets`: craft_features_widgets.html
 .. _`Bitmap source format`: software_devel/bitmap_format.html 

@@ -3,7 +3,8 @@
 root_rst = intro.rst firmware_upload.rst firmware_upload_sp.rst \
 firmware_upload_st_link.rst osd_getting_started.rst index.rst \
 trouble_shooting.rst v1_board.rst
-osd_rst = index.rst craft_features_widgets.rst flash_menu.rst
+osd_rst = index.rst craft_features_widgets.rst flash_menu.rst \
+example_firmwares.rst
 osd_software_devel_rst = bitmap_format.rst flash_variables.rst
 osd_maker_rst = index.rst
 
