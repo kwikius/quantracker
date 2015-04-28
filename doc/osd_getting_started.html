@@ -341,31 +341,36 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="index.html">Index</a></p>
+<p><a class="reference external" href="index.html">Index</a>
+<a class="reference external" href="osd/index.html">OSD index</a></p>
 <div class="section" id="getting-started-with-the-quantracker-air-osd">
 <h1>Getting started with the Quantracker Air OSD</h1>
 <div class="section" id="the-board-layout">
 <h2>The Board layout</h2>
-<p>The V2.1 board differs from the V1 board. <a class="reference external" href="v1_board.html">Click here For details of the V1 board</a></p>
+<p>The board is entirely Open Source hardware and software.
+<a class="reference external" href="https://oshpark.com/shared_projects/yiU4RsLa">The V2.1 pcb is currently available at OSHPark</a> .
+<a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v2_1/schematic_pdf">The full schematic is available here as a set of pdfs</a> .
+<a class="reference external" href="https://github.com/kwikius/quantracker">The source code is available on GitHub</a> .</p>
+<p>The V2.1 board pinout differs from the V1 board. ( <a class="reference external" href="v1_board.html">Click here For details of the V1 board</a> though not recommended for new projects)</p>
 <blockquote>
 <img alt="V2_1_osd_board.png" src="V2_1_osd_board.png" />
 </blockquote>
-<p>The above diagram highlights the connections of the board <a class="footnote-reference" href="#id4" id="id1">[1]</a>.</p>
+<p>The above diagram highlights the connections of the board <a class="footnote-reference" href="#id5" id="id1">[1]</a>.</p>
 <p>The initial board firmware is designed to be used with Ardupilot and
-the layout of the board connectors is designed to be compatible with MinimOSD <a class="footnote-reference" href="#id5" id="id2">[2]</a> .
+the layout of the board connectors is designed to be compatible with MinimOSD <a class="footnote-reference" href="#id6" id="id2">[2]</a> .
 The 6 pin header at the right hand end of the diagram is
-used for the MAVLink serial connection.
+used for the MAVLink serial connection, for communicating setup parameters and to flash
+firmware onto the board.
 The Header at the left end is used for connecting the Camera
-and the Video transmitter <a class="footnote-reference" href="#id6" id="id3">[3]</a> .
-The board firmware supports PAL and NTSC cameras</p>
-<p>As well as its use as a MAVLink port, the serial port can also be used to flash
-firmware onto the board using a stock FTDI module.</p>
-<p>The board is entirely Open Source hardware and software.</p>
-<p><a class="reference external" href="https://oshpark.com/shared_projects/yiU4RsLa">The pcb is currently available at OSHPark</a> .</p>
+and the Video transmitter <a class="footnote-reference" href="#id7" id="id3">[3]</a> .  Power to the video transmitter and camera can be provided at the breakout pins
+labelled VIDI+IN and VIDO+In respectively. There is a diode on each from the input to the output.
+If your Camera and Vtx are 12 V,it is easiest to solder a wire link to VIDI+IN and VIDO+In
+from the VIN+ pin top left of the board <a class="footnote-reference" href="#id8" id="id4">[4]</a> .
+The 2 pin header labelled prog is used to put the board in programming mode.</p>
+<p>The board firmware automatically detects PAL and NTSC cameras.</p>
 <p>We hope soon to try to get some finished boards available too.</p>
-<p><a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v2_1/schematic_pdf">The full schematic is available here as a set of pdfs</a>  .</p>
 <p>For more info , please look at the <a class="reference external" href="osd/index.html">OSD index</a>.</p>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="id5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are many other available pins, which are broken out from
@@ -376,20 +381,27 @@ With an abundance of open source flight control software , it is hoped to realis
 that shortly.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>There are minor differences.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>The output to the Video transmitter also provides 2 buffered Audio channels.
 Options include sending FSK telemetry data and uses a a Variometer, voice alerts etc.</td></tr>
 </tbody>
 </table>
-<p><a class="reference external" href="index.html">Index</a></p>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>This could probably be made neater on the next version of the board</td></tr>
+</tbody>
+</table>
+<p><a class="reference external" href="osd/index.html">OSD index</a>
+<a class="reference external" href="index.html">Index</a></p>
 </div>
 </div>
 </div>
