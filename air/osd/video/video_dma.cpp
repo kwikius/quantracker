@@ -127,7 +127,7 @@ void av_telem_dma_setup()
    // set threshold full
    stream->FCR |= (0b11 << 0);
    // setup periph_reg
-   stream->PAR = (uint32_t)&av_telemetry_usart::get()->dr;
+   stream->PAR = (uint32_t)&av_telem_usart::get()->dr;
 #if 0
 //#error enabled but no handler
 #if (QUAN_OSD_BOARD_TYPE == 4)

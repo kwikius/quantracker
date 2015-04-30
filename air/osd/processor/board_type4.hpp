@@ -48,6 +48,9 @@ typedef quan::stm32::tim10                      video_level_dac_irq_timer;
 typedef quan::stm32::tim12                      sync_sep_timer;
 
 /*Timers potentially avail for expansion some multiplexed with other functions ( with i/o)
+ N.B. Timer1 CH2 could go out on PA9 (currently Mavlink TX via digitally isolated port
+ which might make a nice digitally isolated ESC pwm rc output
+ PA10 (Mavlink Rx)  could be used for PPMSUM capture on TIM1 CH3 
 TIM1_CH1 
 TIM1_CH2-3( on 100 pin part)
 TIM1_CH4

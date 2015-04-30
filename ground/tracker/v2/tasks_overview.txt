@@ -1,0 +1,18 @@
+Tracker tasks
+
+on_draw
+read telemetry
+update tracking position - send commands to motor and servos ( or update the targets)
+send RCTx pulses
+read mag
+read compass
+
+---
+osd_resources.hpp - resources used by osd
+tracker_resources.hpp - resources used by tracker
+
+stick to custom board not using STM32F4 Discovery
+
+
+
+

@@ -1,0 +1,7 @@
+#ifndef QUANTRACKER_GROUND_TRACKER_V2_RESOURCES_HPP_INCLUDED
+#define QUANTRACKER_GROUND_TRACKER_V2_RESOURCES_HPP_INCLUDED
+
+#include "resources/osd_resources.hpp"
+#include "resources/tracker_resources.hpp"
+
+#endif // QUANTRACKER_GROUND_TRACKER_V2_RESOURCES_HPP_INCLUDED

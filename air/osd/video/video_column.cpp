@@ -358,11 +358,11 @@ void video_cfg::columns::telem::enable()
        DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
        DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
 #endif      
-       av_telemetry_usart::get()->cr2.clearbit<14>(); //(LINEN)
-       av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
-       av_telemetry_usart::get()->cr3.setbit<11>(); //(ONEBIT)
-       av_telemetry_usart::get()->sr = 0;
-       av_telemetry_usart::get()->cr1.setbit<13>(); // ( UE)
+       av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
+       av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
+       av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
+       av_telem_usart::get()->sr = 0;
+       av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
        stream->CR |= (1 << 0); // (EN)
 #endif // defined QUAN_OSD_TELEM_RECEIVER
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -390,8 +390,8 @@ void video_cfg::columns::telem::disable()
    #else
       DMA2_Stream5->CR &= ~(1 << 0); // (EN)
    #endif
-      av_telemetry_usart::get()->cr3.clearbit<6>(); //( DMAR)
-      av_telemetry_usart::get()->cr1.clearbit<13>(); // ( UE)
+      av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
+      av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
      // av_telemetry_usart::get()->cr1.clearbit<2>(); // ( RXE)
     //  quan::stm32::disable<av_telemetry_usart>();
     //  quan::stm32::module_reset<av_telemetry_usart>();
