@@ -23,8 +23,6 @@
 #include <quan/uav/osd/api.hpp>
 
 #include "resources.hpp"
-//#include "video/graphics_api.hpp"
-//#include "video/video_buffer.hpp"
 
 extern "C" void setup();
 
