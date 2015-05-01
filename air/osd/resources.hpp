@@ -294,7 +294,9 @@ struct interrupt_priority {
 };
 
 struct task_priority{
-   static constexpr uint32_t av_telemetry =( tskIDLE_PRIORITY + 2UL ) ;
+
+   static constexpr uint32_t av_telemetry_tx =( tskIDLE_PRIORITY + 2UL ) ;
+   static constexpr uint32_t av_telemetry_tx =( tskIDLE_PRIORITY + 2UL ) ;
    static constexpr uint32_t fsk = ( tskIDLE_PRIORITY + 1UL );
    static constexpr uint32_t mavlink = ( tskIDLE_PRIORITY + 4UL );
    static constexpr uint32_t frsky = ( tskIDLE_PRIORITY + 3UL );

@@ -253,11 +253,21 @@ struct interrupt_priority {
 };
 
 struct task_priority{
-   static constexpr uint32_t av_telemetry =( tskIDLE_PRIORITY + 2UL ) ;
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+
+   static constexpr uint32_t av_telemetry_tx =( tskIDLE_PRIORITY + 3UL ) ;
+#endif
+#if defined QUAN_OSD_TELEM_RECEIVER
+   static constexpr uint32_t av_telemetry_rx =( tskIDLE_PRIORITY + 3UL ) ;
+#endif
+    static constexpr uint32_t draw =( tskIDLE_PRIORITY + 2UL ) ;
+
+// these prob dont belong here should prob be in user namespace
+ // somehow to get priority
    static constexpr uint32_t fsk = ( tskIDLE_PRIORITY + 1UL );
    static constexpr uint32_t mavlink = ( tskIDLE_PRIORITY + 4UL );
    static constexpr uint32_t frsky = ( tskIDLE_PRIORITY + 3UL );
-   static constexpr uint32_t draw =( tskIDLE_PRIORITY + 2UL ) ;
+
    static constexpr uint32_t heartbeat = ( tskIDLE_PRIORITY + 1UL );
 
 };

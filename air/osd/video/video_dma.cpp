@@ -98,9 +98,9 @@ void pixel_dma_setup()
  ( use stream 1 to save stream 2 for
 */
 
-void av_telem_dma_setup()
+#if (defined QUAN_OSD_TELEM_RECEIVER)
+void av_telem_rx_dma_setup()
 {
-#if defined QUAN_OSD_TELEM_RECEIVER
    RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
    for ( uint8_t i = 0; i < 20; ++i){
       asm volatile ("nop" : : :);
@@ -128,15 +128,9 @@ void av_telem_dma_setup()
    stream->FCR |= (0b11 << 0);
    // setup periph_reg
    stream->PAR = (uint32_t)&av_telem_usart::get()->dr;
-#if 0
-//#error enabled but no handler
-#if (QUAN_OSD_BOARD_TYPE == 4)
-    NVIC_SetPriority(DMA2_Stream1_IRQn,interrupt_priority::video);
-    NVIC_EnableIRQ(DMA2_Stream1_IRQn);
-#else
-    NVIC_SetPriority(DMA2_Stream5_IRQn,interrupt_priority::video);
-    NVIC_EnableIRQ(DMA2_Stream5_IRQn);
-#endif
-#endif
-#endif
+  // no irq so no NVIC
 }
+#endif
+
+
+

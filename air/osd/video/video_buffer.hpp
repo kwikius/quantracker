@@ -200,7 +200,7 @@ struct video_buffers {
          static void reset_read_buffer()
          {
             uint32_t const active_buffer_len = get_full_bytes_per_line() * m_size.y;
-            memset (manager.m_write_buffer->white,0xff,active_buffer_len);
+            memset (manager.m_read_buffer->white,0xff,active_buffer_len);
          }
 
          static uint8_t * get_white_read_pos() 
@@ -225,8 +225,6 @@ struct video_buffers {
          {
             return get_data_bytes_per_line() * get_num_lines();
          }
-
-         
       };
 
       struct rx{
@@ -237,6 +235,12 @@ struct video_buffers {
          static uint32_t get_num_data_bytes()
          {
             return tx::get_num_data_bytes();
+         }
+
+         static void reset_read_buffer()
+         {
+            uint32_t const active_buffer_len = get_num_data_bytes();
+            memset ((void*)&manager.m_read_buffer,0x00,active_buffer_len);
          }
          
       };

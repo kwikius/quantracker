@@ -20,7 +20,9 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
+#if !(defined QUAN_OSD_TELEM_TRANSMITTER)
+#error only for use with telem transmitter
+#endif
 #include <cstdio>
 #include <cstring>
 
@@ -46,39 +48,42 @@
    May need a header
 */
 
-void create_telem_swap_semaphores();
-void swap_telem_buffers();
+void create_telem_tx_swap_semaphores();
+void swap_telem_tx_buffers();
+void put_telemetry_tx_data();;
 
 namespace {
 
-   uint8_t* telem_buffer = nullptr;
-   bool init_telem_buffer()
+   uint8_t* telem_tx_buffer = nullptr;
+   bool init_telem_tx_buffer()
    {
-      telem_buffer = (uint8_t*) pvPortMalloc(video_buffers::telem::tx::get_num_data_bytes());
-      return telem_buffer != nullptr;
+      telem_tx_buffer = (uint8_t*) pvPortMalloc(video_buffers::telem::tx::get_num_data_bytes());
+      return telem_tx_buffer != nullptr;
    }
 
-   void do_time ()
+// shouldnt be here . 
+//Should be external so definable by user
+// might be better to do a get read_new_telem_tx data_from(buffer)
+   void put_new_telemetry_tx_data ()
    {
        int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)
        int32_t min_now = static_cast<int32_t>(time_now / 60000);
        int32_t s_now   = (time_now / 1000) - (min_now * 60);
-       sprintf((char*)telem_buffer,"time = %03lu min %02lu s", min_now,s_now);
+       sprintf((char*)telem_tx_buffer,"time = %03lu min %02lu s", min_now,s_now);
              // fill the rest with zeroes
        uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
-       auto len = strlen ((char*)telem_buffer) +1;
-       memset (telem_buffer + len ,0,data_size -  len  );
-       video_buffers::telem::tx::write_data(telem_buffer);
+       auto len = strlen ((char*)telem_tx_buffer) +1;
+       memset (telem_tx_buffer + len ,0,data_size -  len  );
+       video_buffers::telem::tx::write_data(telem_tx_buffer);
    }
 
-   void telem_task(void* params)
+   void telem_tx_task(void* params)
    {
-      create_telem_swap_semaphores();
-      if ( init_telem_buffer() == true ){
+      create_telem_tx_swap_semaphores();
+      if ( init_telem_tx_buffer() == true ){
          for(;;){
-            typedef video_buffers::telem::tx tx;
-            do_time();
-            swap_telem_buffers();
+            put_telemetry_tx_data();
+            swap_telem_tx_buffers();
          }
       }
    }
@@ -88,91 +93,34 @@ namespace {
 
 }//namespace
 
-void create_telem_task()
+void create_telem_tx_task()
 {
    xTaskCreate(
-      telem_task,"telem_task", 
+      telem_tx_task,"telem_task", 
       600,
       &dummy_param,
-      task_priority::av_telemetry,
+      task_priority::av_telemetry_tx,
       &task_handle
    );
 }
 
-namespace {
- 
-   void av_telem_usart_setup()
-   {
-//todo redo transmitter using usart
-#if defined QUAN_OSD_TELEM_RECEIVER
-      quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
-      quan::stm32::apply<
-         telem_cmp_enable_pin    // TIM2_CH2 or TIM2_CH4 for boardtype 4 (PA3)
-         ,quan::stm32::gpio::mode::af1 // same for all boardtypes 
-         ,quan::stm32::gpio::pupd::pull_up
-      >();
-
-      quan::stm32::module_enable<av_video_rxi::port_type>();
-      quan::stm32::apply<
-         av_video_rxi
-#if (QUAN_OSD_BOARD_TYPE == 4)
-         ,quan::stm32::gpio::mode::af8 // PC7  USART6_RX
-#else
-         ,quan::stm32::gpio::mode::af7
-#endif
-         ,quan::stm32::gpio::pupd::pull_up
-      >();
-      
-      quan::stm32::module_reset<av_telemetry_usart>();
-      quan::stm32::module_enable<av_telemetry_usart>();
-      
-      quan::stm32::apply<
-         av_telemetry_usart
-         ,quan::stm32::usart::asynchronous
-         ,quan::stm32::usart::transmitter<false>
-         ,quan::stm32::usart::receiver<true>
-         ,quan::stm32::usart::baud_rate<2000000,false>
-         ,quan::stm32::usart::parity::none
-         ,quan::stm32::usart::data_bits<8>
-         ,quan::stm32::usart::stop_bits<1>
-         ,quan::stm32::usart::rts<false>
-         ,quan::stm32::usart::cts<false>
-         ,quan::stm32::usart::i_en::cts<false>
-         ,quan::stm32::usart::i_en::lbd<false>
-         ,quan::stm32::usart::i_en::txe<false>
-         ,quan::stm32::usart::i_en::tc<false>
-         ,quan::stm32::usart::i_en::rxne<false>
-         ,quan::stm32::usart::i_en::idle<false>
-         ,quan::stm32::usart::i_en::pe<false>
-         ,quan::stm32::usart::i_en::error<false>
-      >();
-     // av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
-      av_telemetry_usart::get()->cr1.setbit<2>(); // ( RE)
-#else  // transmitter
-  #if (QUAN_OSD_BOARD_TYPE == 4) 
-      quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
-      quan::stm32::apply<
-         telem_cmp_enable_pin   
-         ,quan::stm32::gpio::mode::input // Shutdown TLV3501 kep cmp disabled
-         ,quan::stm32::gpio::pupd::pull_up
-      >();
-      quan::stm32::module_enable<av_telem_rx::port_type>();
-      quan::stm32::apply<
-         av_telem_rx   
-         ,quan::stm32::gpio::mode::input //cmp output hiz pulled up
-         ,quan::stm32::gpio::pupd::pull_up
-      >();
-  #endif
-#endif
-   }
-}//namespace 
-
-void av_telem_dma_setup();
- 
-void av_telem_setup()
+void av_telem_tx_setup()
 {
-   av_telem_usart_setup();
-   av_telem_dma_setup();
-}
+//todo redo transmitter using usart
+// Shutdown TLV3501 output
+#if (QUAN_OSD_BOARD_TYPE == 4) 
+   quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
+   quan::stm32::apply<
+      telem_cmp_enable_pin   
+      ,quan::stm32::gpio::mode::input 
+      ,quan::stm32::gpio::pupd::pull_up
+   >();
+   quan::stm32::module_enable<av_telem_rx::port_type>();
+   quan::stm32::apply<
+      av_telem_rx   
+      ,quan::stm32::gpio::mode::input //cmp output hiz pulled up
+      ,quan::stm32::gpio::pupd::pull_up
+   >();
 #endif
- 
+}
+

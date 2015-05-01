@@ -97,9 +97,19 @@ GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 TARGET_PROCESSOR = STM32F4
 
+TELEMETRY_DIRECTION = QUAN_OSD_TELEM_RECEIVER
+
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o graphics_api.o graphics_api_extras.o telemetry_task.o \
- draw_task.o sync_sep.o led.o black_level.o dac.o
+ video_dma.o video_setup.o graphics_api.o graphics_api_extras.o draw_task.o sync_sep.o \
+led.o black_level.o dac.o
+
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
+video_objects += telemetry_transmit_task.o
+else
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
+video_objects += telemetry_receive_task.o
+endif
+endif
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
@@ -128,9 +138,7 @@ ifeq ( $(CFLAG_EXTRAS), )
 CFLAG_EXTRAS = -fno-math-errno
 endif
 
-ifeq ( $(TELEMETRY_DIRECTION), )
-TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
-endif
+
 
 #required for Ubuntu 12.x placid as system headers have been put in strange places
 # these have beeen defined to thos in my bash .profile
@@ -179,7 +187,7 @@ INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
 # QUAN_DISPLAY_INTERLACED 
-DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION)
+DEFINES += HSE_VALUE=8000000 
 
 #board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
 #board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY

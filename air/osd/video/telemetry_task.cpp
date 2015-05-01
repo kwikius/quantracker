@@ -21,6 +21,8 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#error use the telemetry_transmit_task.cpp and or telemetry_receive_task.cpp sources 
+
 #include <cstdio>
 #include <cstring>
 
