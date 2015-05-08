@@ -20,7 +20,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
 
-HAVE_DEPENDENCIES_FILE := $(shell if test -f "./Dependencies.mk"; then echo "True"; fi)
+HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../Dependencies.mk"; then echo "True"; fi)
 
 ifeq ($(HAVE_DEPENDENCIES_FILE), )
   quantracker-make-help:
@@ -45,7 +45,7 @@ DEFINES =
 
 
 # You will need a custom Dependencies.mk
-include Dependencies.mk
+include ../../Dependencies.mk
 
 ###############################################################
 ifeq ($(TOOLCHAIN_PREFIX), )
@@ -72,13 +72,13 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-ifeq ($(USER_SOURCE_PATH), )
-$(error "USER_SOURCE_PATH must be defined to the path to the path to your custom sources - see README.")
-endif
+#ifeq ($(USER_SOURCE_PATH), )
+#$(error "USER_SOURCE_PATH must be defined to the path to the path to your custom sources - see README.")
+#endif
 
-ifeq ($(USER_SOURCE_FILES), )
-$(error "USER_SOURCE_FILES must be defined to the list of your custom source files - see README.")
-endif
+#ifeq ($(USER_SOURCE_FILES), )
+#$(error "USER_SOURCE_FILES must be defined to the list of your custom source files - see README.")
+#endif
 
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
@@ -117,7 +117,10 @@ video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
  fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o settings.o \
- heartbeat_task.o rtos_hooks.o mode_check.o
+ heartbeat_task.o rtos_hooks.o mode_check.o 
+
+# for testing
+local_objects += on_draw.o
 
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
 local_objects += rx_telemetry.o
@@ -134,7 +137,7 @@ draw_line.o draw_text.o flood_fill.o
 quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
 quan_generic_flash_menu.o
 
-user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
+#user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
 
 user_resources = bitmaps.o fonts.o
 
@@ -145,8 +148,6 @@ endif
 ifeq ( $(CFLAG_EXTRAS), )
 CFLAG_EXTRAS = -fno-math-errno
 endif
-
-
 
 #required for Ubuntu 12.x placid as system headers have been put in strange places
 # these have beeen defined to thos in my bash .profile
@@ -175,6 +176,9 @@ LINKER_SCRIPT = stm32f4.ld
 #LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
 #FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
 #SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
+
+# just for fonts
+USER_SOURCE_PATH = ../../examples/osd_example1/
 
 SYSTEM_INIT = system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
@@ -216,6 +220,7 @@ LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
+
 all: board_type4
 #board_type1 : test
 #board_type2 : test
@@ -256,8 +261,8 @@ quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
 $(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(user_objects) : %.o : $(USER_SOURCE_PATH)common/%.cpp
-	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+#$(user_objects) : %.o : $(USER_SOURCE_PATH)common/%.cpp
+#	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 $(user_resources) : %.o : $(USER_SOURCE_PATH)board/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@

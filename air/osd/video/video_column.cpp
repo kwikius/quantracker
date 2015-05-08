@@ -347,12 +347,12 @@ void video_cfg::columns::telem::enable()
    service_telem_tx_buffers();
    // just resets the index
    video_buffers::telem::tx::manager.read_reset();
+#endif
    // pixel clk timing
    spi_clock::timer::get()->cnt = 0;
    // div 2 for slower clk so compensate in faster bus clk
    spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
    spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
-#endif
 
    // pixel timer gate timing
    gate_timer::get()->cnt = 0;
