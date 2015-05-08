@@ -112,9 +112,9 @@ namespace {
          ,quan::stm32::gpio::pupd::pull_up
       >();
 
-      quan::stm32::module_enable<av_video_rxi::port_type>();
+      quan::stm32::module_enable<av_telem_rx::port_type>();
       quan::stm32::apply<
-         av_video_rxi
+         av_telem_rx
 #if (QUAN_OSD_BOARD_TYPE == 4)
          ,quan::stm32::gpio::mode::af8 // PC7  USART6_RX
 #else
@@ -123,11 +123,11 @@ namespace {
          ,quan::stm32::gpio::pupd::pull_up
       >();
       
-      quan::stm32::module_reset<av_telemetry_usart>();
-      quan::stm32::module_enable<av_telemetry_usart>();
+      quan::stm32::module_reset<av_telem_usart>();
+      quan::stm32::module_enable<av_telem_usart>();
       
       quan::stm32::apply<
-         av_telemetry_usart
+         av_telem_usart
          ,quan::stm32::usart::asynchronous
          ,quan::stm32::usart::transmitter<false>
          ,quan::stm32::usart::receiver<true>
@@ -147,7 +147,7 @@ namespace {
          ,quan::stm32::usart::i_en::error<false>
       >();
      // av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
-      av_telemetry_usart::get()->cr1.setbit<2>(); // ( RE)
+      av_telem_usart::get()->cr1.setbit<2>(); // ( RE)
 #else  // transmitter
   #if (QUAN_OSD_BOARD_TYPE == 4) 
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
@@ -171,7 +171,6 @@ void av_telem_dma_setup();
  
 void av_telem_setup()
 {
-  // av_telem_usart_setup();
-  // av_telem_dma_setup();
+   av_telem_usart_setup();
+   av_telem_dma_setup();
 }
- 
