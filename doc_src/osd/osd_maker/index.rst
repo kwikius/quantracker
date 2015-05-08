@@ -1,5 +1,8 @@
 `Quantracker Index`_
 
+`OSD Index`_
+
+
 ---------------------
 Quantracker OSD_maker
 ---------------------
@@ -27,12 +30,14 @@ Some features
    *  Output source code and firmware
    *  Setup parameters of firmware
 
-
-
-
 .. _`Quantracker Index`: ../index.html
+.. _`OSD Index`: ../index.html
+
+`OSD Index`_
 
 `Quantracker Index`_
+
+
 
 
 

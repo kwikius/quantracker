@@ -34,7 +34,12 @@ void create_draw_task();
 void create_telem_task();
 void create_tracker_task(){}
 
-void quan::uav::osd::on_draw(){}
+/*
+If trsnamitter put something top of screen
+if receiver put something bottom of screen
+*/
+void quan::uav::osd::on_draw()
+{}
 
 int main()
 {

@@ -97,23 +97,31 @@ GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 TARGET_PROCESSOR = STM32F4
 
-TELEMETRY_DIRECTION = QUAN_OSD_TELEM_RECEIVER
+#TELEMETRY_DIRECTION = QUAN_OSD_TELEM_RECEIVER
+#TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
 
-video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o graphics_api.o graphics_api_extras.o draw_task.o sync_sep.o \
-led.o black_level.o dac.o
-
+# add a prefix
+TELEMETRY_PREFIX = 
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-video_objects += telemetry_transmit_task.o
+TELEMETRY_PREFIX = transmit_
 else
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-video_objects += telemetry_receive_task.o
+TELEMETRY_PREFIX = receive_
 endif
 endif
+unprefixed_video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
+ video_dma.o video_setup.o graphics_api.o graphics_api_extras.o draw_task.o sync_sep.o \
+led.o black_level.o dac.o telemetry_task.o
+
+video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
 local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
- fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
- heartbeat_task.o rtos_hooks.o mode_check.o  
+ fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o settings.o \
+ heartbeat_task.o rtos_hooks.o mode_check.o
+
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
+local_objects += rx_telemetry.o
+endif
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -233,7 +241,7 @@ main.elf: $(objects)
 	@ echo "..linking"
 	$(LD) $(LFLAGS) -o main.elf $(objects)
 
-$(video_objects): %.o : video/%.cpp
+$(video_objects): $(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(local_objects): %.o : %.cpp

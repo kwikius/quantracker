@@ -32272,8 +32272,8 @@ Disassembly of section .text:
  801f55e:	6061      	str	r1, [r4, #4]
  801f560:	4620      	mov	r0, r4
  801f562:	bd70      	pop	{r4, r5, r6, pc}
- 801f564:	10000126 	.word	0x10000126
- 801f568:	1000012a 	.word	0x1000012a
+ 801f564:	1000012a 	.word	0x1000012a
+ 801f568:	10000128 	.word	0x10000128
  801f56c:	10000130 	.word	0x10000130
  801f570:	1000012c 	.word	0x1000012c
  801f574:	10000136 	.word	0x10000136
@@ -32841,8 +32841,8 @@ Disassembly of section .text:
  801faa0:	1000152e 	.word	0x1000152e
  801faa4:	10001530 	.word	0x10001530
  801faa8:	10001540 	.word	0x10001540
- 801faac:	10000126 	.word	0x10000126
- 801fab0:	1000012a 	.word	0x1000012a
+ 801faac:	1000012a 	.word	0x1000012a
+ 801fab0:	10000128 	.word	0x10000128
  801fab4:	1000012c 	.word	0x1000012c
  801fab8:	10000136 	.word	0x10000136
  801fabc:	100016d4 	.word	0x100016d4
@@ -36320,7 +36320,7 @@ Disassembly of section .text:
  8021c84:	f013 0107 	ands.w	r1, r3, #7
  8021c88:	bf18      	it	ne
  8021c8a:	2101      	movne	r1, #1
- 8021c8c:	6860      	ldr	r0, [r4, #4]
+ 8021c8c:	6820      	ldr	r0, [r4, #0]
  8021c8e:	eb01 03d3 	add.w	r3, r1, r3, lsr #3
  8021c92:	fb02 f203 	mul.w	r2, r2, r3
  8021c96:	21ff      	movs	r1, #255	; 0xff
@@ -36364,8 +36364,8 @@ Disassembly of section .text:
  8021cfc:	0001bc04 	.word	0x0001bc04
  8021d00:	20018800 	.word	0x20018800
  8021d04:	2111bc04 	.word	0x2111bc04
- 8021d08:	1000012a 	.word	0x1000012a
- 8021d0c:	10000126 	.word	0x10000126
+ 8021d08:	10000128 	.word	0x10000128
+ 8021d0c:	1000012a 	.word	0x1000012a
  8021d10:	2001bc00 	.word	0x2001bc00
  8021d14:	10000136 	.word	0x10000136
  8021d18:	10000130 	.word	0x10000130
@@ -36375,7 +36375,7 @@ Disassembly of section .text:
  8021d28:	100016ac 	.word	0x100016ac
  8021d2c:	10000134 	.word	0x10000134
  8021d30:	1000012e 	.word	0x1000012e
- 8021d34:	10000128 	.word	0x10000128
+ 8021d34:	10000126 	.word	0x10000126
  8021d38:	10000124 	.word	0x10000124
  8021d3c:	0001f004 	.word	0x0001f004
  8021d40:	2111f004 	.word	0x2111f004
@@ -36546,8 +36546,8 @@ Disassembly of section .text:
  8021ef2:	f7fe ff73 	bl	8020ddc <xQueueGenericSendFromISR>
  8021ef6:	e7e1      	b.n	8021ebc <_ZN9video_cfg7columns3osd6enableEv+0x74>
  8021ef8:	10000138 	.word	0x10000138
- 8021efc:	10000126 	.word	0x10000126
- 8021f00:	1000012a 	.word	0x1000012a
+ 8021efc:	1000012a 	.word	0x1000012a
+ 8021f00:	10000128 	.word	0x10000128
  8021f04:	100016e4 	.word	0x100016e4
  8021f08:	100016b4 	.word	0x100016b4
  8021f0c:	100016dc 	.word	0x100016dc
@@ -36572,7 +36572,7 @@ Disassembly of section .text:
 08021f3c <_ZN9video_cfg7columns5telem6enableEv>:
  8021f3c:	f240 133a 	movw	r3, #314	; 0x13a
  8021f40:	f2c1 0300 	movt	r3, #4096	; 0x1000
- 8021f44:	f240 1128 	movw	r1, #296	; 0x128
+ 8021f44:	f240 1126 	movw	r1, #294	; 0x126
  8021f48:	f2c1 0100 	movt	r1, #4096	; 0x1000
  8021f4c:	f240 1224 	movw	r2, #292	; 0x124
  8021f50:	b410      	push	{r4}
@@ -36625,8 +36625,8 @@ Disassembly of section .text:
  8021fca:	4770      	bx	lr
 
 08021fcc <_ZN9video_cfg7columns3osd5beginEv>:
- 8021fcc:	f240 1126 	movw	r1, #294	; 0x126
- 8021fd0:	f240 122a 	movw	r2, #298	; 0x12a
+ 8021fcc:	f240 112a 	movw	r1, #298	; 0x12a
+ 8021fd0:	f240 1228 	movw	r2, #296	; 0x128
  8021fd4:	f2c1 0100 	movt	r1, #4096	; 0x1000
  8021fd8:	f2c1 0200 	movt	r2, #4096	; 0x1000
  8021fdc:	f241 63b4 	movw	r3, #5812	; 0x16b4
@@ -36879,8 +36879,8 @@ Disassembly of section .text:
  80222a4:	e7ae      	b.n	8022204 <TIM2_IRQHandler+0x24>
  80222a6:	bf00      	nop
  80222a8:	100016e8 	.word	0x100016e8
- 80222ac:	1000012a 	.word	0x1000012a
- 80222b0:	10000126 	.word	0x10000126
+ 80222ac:	10000128 	.word	0x10000128
+ 80222b0:	1000012a 	.word	0x1000012a
  80222b4:	100016b4 	.word	0x100016b4
 
 080222b8 <_ZN9video_cfg4rows5setupEv>:

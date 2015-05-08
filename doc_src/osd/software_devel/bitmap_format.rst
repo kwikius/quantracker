@@ -14,7 +14,8 @@ It will probably help to also look at the examples
 in `quantracker/examples/osd_example1/board/bitmaps.cpp`_.
 
 
-N.B. This format will probably change at some point so it is advisable the osd_maker app to
+N.B. This format will probably change at some point(probably to 2 arrays , 1 for each bit) 
+so it is advisable to use the `osd_maker`_ app to
 generate bitmaps and fonts rather than craetng them by hand.
 
 The bitmap structure itself is relatively simple. 
@@ -57,7 +58,8 @@ Testing bitmaps
 ...............
 
 For a quick test of your own bitmaps , have a look at the example in
-`devel : quantracker/examples/cmd_line_output/main.cpp`_ , which outputs an ascii-art bitmap on the commandline. 
+`devel : quantracker/examples/cmd_line_bmp_output/main.cpp`_ , which outputs an ascii-art bitmap on the commandline.
+(Build it with make in that directory). 
 The default ouput looks like so:
 
 ::
@@ -86,8 +88,9 @@ The default ouput looks like so:
 .. _`\<quan/uav/osd/basic_bitmap.hpp\>`: https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp
 .. _`quantracker/examples/osd_example1/board/bitmaps.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp
 .. _`\<quan/uav/osd/colour.hpp\>` : https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp
-.. _`devel : quantracker/examples/cmd_line_output/main.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_output/main.cpp
+.. _`devel : quantracker/examples/cmd_line_bmp_output/main.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_bmp_output/main.cpp
 .. _`OSD Index`: ../index.html
+.. _`osd_maker`: ../osd_maker/index.html
 
 .. [1] Putting things in an anonymous namespace in a C++ source file is similar to one useage of static in C. 
        You can use static too, but an anonymous namespace can be neater.

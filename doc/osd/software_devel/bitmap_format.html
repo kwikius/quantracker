@@ -350,7 +350,8 @@ ul.auto-toc {
 defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp">&lt;quan/uav/osd/basic_bitmap.hpp&gt;</a> .</p>
 <p>It will probably help to also look at the examples
 in <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp">quantracker/examples/osd_example1/board/bitmaps.cpp</a>.</p>
-<p>N.B. This format will probably change at some point so it is advisable the osd_maker app to
+<p>N.B. This format will probably change at some point(probably to 2 arrays , 1 for each bit)
+so it is advisable to use the <a class="reference external" href="../osd_maker/index.html">osd_maker</a> app to
 generate bitmaps and fonts rather than craetng them by hand.</p>
 <p>The bitmap structure itself is relatively simple.
 The get_data and get_size functions implement the virtual functions
@@ -358,7 +359,6 @@ in the basic_bitmap base class.  The array is declared constexpr as a hint to th
 to put it in in rom.</p>
 <div class="section" id="the-format-of-the-data-array">
 <h3>The format of the data array</h3>
-<p>N.B. This format will probably change</p>
 <p>The array is declared as an array of uint8_t,
 but should be seen as a linear array of 2 bit values, each representing a pixel.
 The 2 bit values map to colours as follows (Also see <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp">&lt;quan/uav/osd/colour.hpp&gt;</a> )</p>
@@ -388,7 +388,8 @@ which gives the same effect but is easier to work with.</p>
 <div class="section" id="testing-bitmaps">
 <h2>Testing bitmaps</h2>
 <p>For a quick test of your own bitmaps , have a look at the example in
-<a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_output/main.cpp">devel : quantracker/examples/cmd_line_output/main.cpp</a> , which outputs an ascii-art bitmap on the commandline.
+<a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_bmp_output/main.cpp">devel : quantracker/examples/cmd_line_bmp_output/main.cpp</a> , which outputs an ascii-art bitmap on the commandline.
+(Build it with make in that directory).
 The default ouput looks like so:</p>
 <pre class="literal-block">
 ~~     ~~~~~~~~

@@ -50,8 +50,10 @@
 // using LM1881
 
 //##############  TODO CHECK FOR NTSC #########################
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
 uint16_t video_cfg::rows::telem::m_begin = 3;//11;
 uint16_t video_cfg::rows::telem::m_end = 16;//26;
+#endif
 //#############################################################
 // make sure first active row is x2 more than last telem row
 // dont think need to change for interlaced/ non interlaced
@@ -64,6 +66,7 @@ uint16_t video_cfg::rows::telem::m_end = 16;//26;
 uint16_t video_cfg::rows::osd::m_begin = 132;
 uint16_t video_cfg::rows::osd::m_end_pal = 480;
 uint16_t video_cfg::rows::osd::m_end_ntsc = 480;
+bool video_cfg::rows::m_cur_row_odd = true;
 #else
 uint16_t video_cfg::rows::osd::m_begin = 34;
 // BALDLY just reduce this to 500 for NTSC?
@@ -73,8 +76,7 @@ uint16_t video_cfg::rows::osd::m_end_ntsc = 500;
 //###############################################################
 video_cfg::rows::mode video_cfg::rows::m_cur_mode = mode::idle;
 
-bool video_cfg::rows::m_cur_row_odd = true;
-
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
 // on first edge of hsync 
 // start of first telem row
 void video_cfg::rows::telem::begin()
@@ -90,6 +92,7 @@ void video_cfg::rows::telem::end()
    video_cfg::columns::telem::disable();
    m_cur_mode = mode::idle;
 }
+#endif
 
 // on first edge of hsync
 // start of first osd row
@@ -194,9 +197,10 @@ void video_cfg::rows::setup()
       ccmr2.oc4pe = false; // want to be able to update on the fly
       line_counter::get()->ccmr2.set (ccmr2.value);
    }
-
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
    line_counter::get()->ccr2 = telem::m_begin -1 ;
    line_counter::get()->ccr3 = telem::m_end - 1;
+#endif
    // interlace means jump 2 rows per clk
    line_counter::get()->ccr4 = osd::m_begin/2-1 ;
    line_counter::get()->arr = osd::get_end()/2 - 2;
@@ -222,11 +226,15 @@ extern "C" void TIM3_IRQHandler()
    uint16_t const sr = rows::line_counter::get()->sr.get();
    if ( sr & (1 << 2)) { // cc2_if
       rows::line_counter::get()->sr.bb_clearbit<2>();
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
       rows::telem::begin();
+#endif
    }else {
       if( sr & (1 << 3)){ // cc3_if
         rows::line_counter::get()->sr.bb_clearbit<3>();
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
         rows::telem::end();
+#endif
       }else{
          if( sr & (1 << 4)){ //cc4_if
             rows::line_counter::get()->sr.bb_clearbit<4>();

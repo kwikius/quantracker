@@ -1,10 +1,10 @@
-// Overview On
-To make the OSD a library and move user customisations to user space
 
-- Move the Sample-Dependencies.mk and Dependencies.mk to the quantracker root dir,
-since the dependedncies apply globally
+Fri May  8 08:44:36 BST 2015
+ Redid osd_lib.mk makefile so that object_files for tx_telemetry and rx_telemetry are prefixed
+so dont clash with non- telemetry versions.
 
-- Move the aircraft.cpp and aircraft.hpp to user space
+------------------
+Prior to  Fri May  8 08:44:36 BST 2015
+make the OSD a library and move user customisations to user space
 
-- the Makefile in quantracker/air/osd just makes the OSD library.
-To build a particular app use the Makefile in the user space
+

@@ -397,9 +397,12 @@ void on_hsync_second_edge()
                                  return;
                               }
                            }
+#if defined (QUAN_DISPLAY_INTERLACED)
                            video_cfg::rows::set_even_frame();
+#endif
                         }else {
                            if ( sync_counter == 5){
+#if defined (QUAN_DISPLAY_INTERLACED)
                               if ( video_mode == video_mode_t::pal){
                                   video_cfg::rows::set_odd_frame();
                               }else{
@@ -407,6 +410,7 @@ void on_hsync_second_edge()
                                  // assume its ntsc
                                  video_cfg::rows::set_even_frame();
                               }
+#endif
                            }else{
                               if ( sync_counter == 6){
                                  if ( video_mode != video_mode_t::ntsc){
@@ -417,7 +421,9 @@ void on_hsync_second_edge()
                                        return;
                                     }
                                  }
+#if defined (QUAN_DISPLAY_INTERLACED)
                                  video_cfg::rows::set_odd_frame();
+#endif
                               }else{ // invalid number of pre-equalise pulses
                                  sync_sep_error_reset(); // unexpected
                                  return;

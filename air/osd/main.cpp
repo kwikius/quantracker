@@ -22,7 +22,7 @@
 #include <task.h>
 
 #include "resources.hpp"
-#include "video/graphics_api.hpp"
+//#include "video/graphics_api.hpp"
 #include "video/video_buffer.hpp"
 
 #ifndef QUAN_OSD_BOARD_TYPE
@@ -56,15 +56,14 @@ void create_fsk_task();
 void create_draw_task();
 #if defined QUAN_OSD_TELEM_TRANSMITTER
 void create_telem_tx_task();
-#else
+#endif
 #if defined QUAN_OSD_TELEM_RECEIVER
 void create_telem_rx_task();
 #endif
-#endif
+
 #if ( QUAN_OSD_BOARD_TYPE !=4)
 void create_leds_task();
 #endif
-void draw_loop();
 
 void mode_check();
 bool initialise_flash();
@@ -90,14 +89,19 @@ int main()
 
   mode_check();
   
-  
   setup();
 
-  create_mavlink_task();
-  create_frsky_task();
+ // create_mavlink_task();
+ // create_frsky_task();
   create_heartbeat_task();
   create_fsk_task();
   create_draw_task();
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+  create_telem_tx_task();
+#endif
+#if defined QUAN_OSD_TELEM_RECEIVER
+  create_telem_rx_task();
+#endif
 
 //  create_telem_task();
 #if ( QUAN_OSD_BOARD_TYPE !=4)
