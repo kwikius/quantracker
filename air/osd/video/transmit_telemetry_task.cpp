@@ -70,7 +70,7 @@ namespace {
        int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)
        int32_t min_now = static_cast<int32_t>(time_now / 60000);
        int32_t s_now   = (time_now / 1000) - (min_now * 60);
-       sprintf((char*)telem_tx_buffer,"time = %03lu min %02lu s", min_now,s_now);
+       sprintf((char*)telem_tx_buffer,"time = %03d min %02d s", min_now,s_now);
              // fill the rest with zeroes
        uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
        auto len = strlen ((char*)telem_tx_buffer) +1;
