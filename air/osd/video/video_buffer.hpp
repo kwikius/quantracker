@@ -44,7 +44,6 @@ struct black_white_buffer_t {
    }
 };
 
-#if (defined QUAN_OSD_TELEM_TRANSMITTER) 
 template <uint32_t Length>
 struct white_buffer_t {
    uint32_t * bb_white;
@@ -54,7 +53,6 @@ struct white_buffer_t {
       bb_white = quan::stm32::get_sram_bitband_address (white,0);
    }
 };
-#endif
 
 struct video_params {
  
@@ -69,16 +67,14 @@ struct video_params {
       };
       static constexpr uint32_t max_pixels = buffer::length * 8U;
    };
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
+// n.b only need a tx or rx but for testing do both...
    struct telem {
       static constexpr uint32_t memory_size = 0x1000;
       struct tx {
          struct buffer {
             static constexpr uint32_t memory_size = 0x400;
-#if (defined QUAN_OSD_TELEM_TRANSMITTER)
             static constexpr uint32_t length = (memory_size / 4U) - 4U ;
             typedef white_buffer_t<length> type;
-#endif
          };
       };
       struct rx {
@@ -90,7 +86,6 @@ struct video_params {
          };
       };
    };
-#endif
 };
 
 template <typename Buffer> struct double_buffer_manager {
@@ -179,7 +174,7 @@ struct video_buffers {
       static quan::two_d::vect<uint32_t> m_display_size; //pixels
       static video_params::osd::buffer::type m_buffers[2];
    };
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
+
    struct telem{
       struct tx{
          static  constexpr uint32_t sol_bits = 4U;
@@ -188,7 +183,6 @@ struct video_buffers {
          {
             return (m_size.x / 8U) + ((m_size.x % 8U) ? 1 : 0);
          }
-#if (defined QUAN_OSD_TELEM_TRANSMITTER)
          static void reset_write_buffer()
          {
 //
@@ -206,7 +200,7 @@ struct video_buffers {
          static void reset_read_buffer()
          {
             uint32_t const active_buffer_len = get_full_bytes_per_line() * m_size.y;
-            memset (manager.m_read_buffer->white,0xff,active_buffer_len);
+            memset (manager.m_write_buffer->white,0xff,active_buffer_len);
          }
 
          static uint8_t * get_white_read_pos() 
@@ -216,7 +210,6 @@ struct video_buffers {
          
          static double_buffer_manager<video_params::telem::tx::buffer::type> manager;
          static video_params::telem::tx::buffer::type m_buffers[2];
-#endif
          static quan::two_d::vect<uint32_t> m_size; 
  
        //  static bool m_want_tx;
@@ -232,9 +225,10 @@ struct video_buffers {
          {
             return get_data_bytes_per_line() * get_num_lines();
          }
+
+         
       };
 
-#if (defined QUAN_OSD_TELEM_RECEIVER)
       struct rx{
 
          static double_buffer_manager<video_params::telem::rx::buffer::type> manager;
@@ -244,17 +238,10 @@ struct video_buffers {
          {
             return tx::get_num_data_bytes();
          }
-
-         static void reset_read_buffer()
-         {
-            uint32_t const active_buffer_len = get_num_data_bytes();
-            memset ((void*)&manager.m_read_buffer,0x00,active_buffer_len);
-         }
          
       };
-#endif
    };
-#endif
+
 };
  
 #endif // OSD_VIDEO_BUFFER_HPP_INCLUDED

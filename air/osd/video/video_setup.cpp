@@ -79,12 +79,7 @@ void video_cfg::setup()
      rows::setup();
 }
  
-#if (defined QUAN_OSD_TELEM_TRANSMITTER) 
-     void av_telem_tx_setup();
-#endif
-#if (defined QUAN_OSD_TELEM_RECEIVER)
-     void av_telem_rx_setup();
-#endif
+void av_telem_setup();
 void pixel_dma_setup();
 void spi_setup();
  
@@ -103,11 +98,8 @@ void video_setup()
      vsync_setup();
      odd_even_setup();
 #endif
-#if (defined QUAN_OSD_TELEM_TRANSMITTER) 
-     av_telem_tx_setup();
-#endif
-#if (defined QUAN_OSD_TELEM_RECEIVER)
-     av_telem_rx_setup();
+#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
+     av_telem_setup();
 #endif
      video_cfg::setup();
      video_buffers::init();

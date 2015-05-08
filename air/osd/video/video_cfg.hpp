@@ -44,7 +44,6 @@ struct video_cfg {
      // typedef quan::stm32::tim3 line_counter;
       typedef video_rows_line_counter line_counter;
       static void setup();
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
       struct telem {
          static void begin();
          static void end();
@@ -55,7 +54,6 @@ struct video_cfg {
             return m_end - m_begin;
          }
       };
-#endif
       struct osd {
          
          static void begin();
@@ -74,19 +72,13 @@ struct video_cfg {
             return get_end();
          }
       };
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))      
+      
       enum class mode {
          idle,telemetry, osd
       };
-#else
-      enum class mode {
-         idle, osd
-      };
-#endif
       static mode get_current_mode() {
          return m_cur_mode;
       }
-#if defined (QUAN_DISPLAY_INTERLACED)
       static bool is_odd_frame()
       {
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
@@ -95,19 +87,14 @@ struct video_cfg {
          return quan::stm32::get<video_in::odd_even_pin>() == true;
 #endif
       }
-#endif // QUAN_DISPLAY_INTERLACED
-#if defined (QUAN_DISPLAY_INTERLACED)
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
       static void set_odd_frame(){ m_cur_row_odd = true;}
       static void set_even_frame(){ m_cur_row_odd = false;}
 #endif     
-#endif
 private:
       static mode m_cur_mode;
-#if defined (QUAN_DISPLAY_INTERLACED)
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
       static bool m_cur_row_odd;
-#endif
 #endif
    };
    
@@ -124,7 +111,6 @@ private:
       static_assert (raw_timer_frequency == quan::frequency::Hz {84000000.0f},"unexpected timer frequency");
 
       static void setup();
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
       struct telem{
          static void enable();
          static void disable();
@@ -137,7 +123,6 @@ private:
             return m_end - m_begin;
          }
        };
-#endif
        struct osd{
          static void enable();
          static void disable();

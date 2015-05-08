@@ -40,17 +40,9 @@ namespace {
    SemaphoreHandle_t h_osd_buffers_swapped = 0;
    BaseType_t HigherPriorityTaskWoken_osd = 0;
 
-#if defined QUAN_OSD_TELEM_TRANSMITTER
-   SemaphoreHandle_t h_request_telem_tx_buffers_swap =0;
-   SemaphoreHandle_t h_telem_tx_buffers_swapped = 0;
-   BaseType_t HigherPriorityTaskWoken_telem_tx = 0;
-#endif
-
-#if defined QUAN_OSD_TELEM_RECEIVER
-   SemaphoreHandle_t h_request_telem_rx_buffers_swap =0;
-   SemaphoreHandle_t h_telem_rx_buffers_swapped = 0;
-   BaseType_t HigherPriorityTaskWoken_telem_rx = 0;
-#endif
+   SemaphoreHandle_t h_request_telem_buffers_swap =0;
+   SemaphoreHandle_t h_telem_buffers_swapped = 0;
+   BaseType_t HigherPriorityTaskWoken_telem = 0;
 
 }
 
@@ -63,111 +55,64 @@ void create_osd_swap_semaphores()
 #if defined QUAN_OSD_TELEM_TRANSMITTER
 void create_telem_tx_swap_semaphores()
 {
-   //The tasks holds this semaphore
-   // it releases it when it wants to swap tx buffers
-   h_request_telem_tx_buffers_swap = xSemaphoreCreateBinary();
-   h_telem_tx_buffers_swapped = xSemaphoreCreateBinary();
+   h_request_telem_buffers_swap = xSemaphoreCreateBinary();
+   h_telem_buffers_swapped = xSemaphoreCreateBinary();
 }
-// call from task
+
 void swap_telem_tx_buffers()
 {
-   // done with read buffer so clear it
-   video_buffers::telem::tx::reset_read_buffer();
-   xSemaphoreGive(h_request_telem_tx_buffers_swap);
-   xSemaphoreTake(h_telem_tx_buffers_swapped,portMAX_DELAY);
-   
-}
-#endif
-
-#if defined QUAN_OSD_TELEM_RECEIVER
-void create_telem_rx_swap_semaphores()
-{
-   //The task holds this semaphore
-   // it releases it when it wants to swap rx buffers
-   h_request_telem_rx_buffers_swap = xSemaphoreCreateBinary();
-   // irq holds this semaphore. Releases it when buffers have been swapped
-   h_telem_rx_buffers_swapped = xSemaphoreCreateBinary();
-}
-// call from task
-void swap_telem_rx_buffers()
-{
-   // done with read buffer
-   // now must be cleared by task for irq to write
-   //  as doing in irq would take excessive time
-   // If irq always filled all buffer then this isnt necessary
-   // so check this idea
-   video_buffers::telem::rx::reset_read_buffer();
-   // request a swap of buffers
-   xSemaphoreGive(h_request_telem_rx_buffers_swap);
-   // block waiting for buffers to be swapped
-   xSemaphoreTake(h_telem_rx_buffers_swapped,portMAX_DELAY);
+   xSemaphoreGive(h_request_telem_buffers_swap);
+   xSemaphoreTake(h_telem_buffers_swapped,portMAX_DELAY);
+   video_buffers::telem::tx::reset_write_buffer();
 }
 #endif
 
 //call from task
 void swap_osd_buffers()
 {
-   // signify that task wants to swap buffers
    xSemaphoreGive(h_request_osd_buffers_swap);
-   // block until buffers have been swapped by IRQ
    xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY);
-   // buffers are swapped. onward...
    video_buffers::osd::clear_write_buffer();
 }
+// call from task
+
 
 namespace {
 // call from ISR
-
-   // call at begining of visible part of frame
+/*
+Draw loop differs from telem loop
+as it has unknown length
+*/
+   //int count = 0;
    void service_osd_buffers()
    {
-     // does task want buffers swapped?
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
+#if 0
+        if ( ++count == 50){
+            count = 0;
+            quan::stm32::complement<orange_led_pin>();
+        }
+ #endif      
         video_buffers::osd::manager.swap();
-        // signify that buffers have been swapped
         xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken_osd);
      }
    }
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-   // call at beginning of telem part of frame
-   // for lowest latency
    void service_telem_tx_buffers()
    {
-      // task wasts buffers swapped?
-      if(xSemaphoreTakeFromISR(h_request_telem_tx_buffers_swap,NULL) == pdTRUE){
+      if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
+#if 0
+        if ( ++count == 50){
+            count = 0;
+            quan::stm32::complement<heartbeat_led_pin>();
+        }
+#endif
         video_buffers::telem::tx::manager.swap();
-        // tell task buffers swapped and can continue
-        xSemaphoreGiveFromISR(h_telem_tx_buffers_swapped,&HigherPriorityTaskWoken_telem_tx);
+        xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);
      }
    }
-  
 #endif
-
-#if defined QUAN_OSD_TELEM_RECEIVER
-
-  /*
-      call from isr at end of telem part of frame for lowest latency
-      check if task wants read buffers swapped then swap
-      them at the end of the frame
-      ideally.
-  */
-   void service_telem_rx_buffers()
-   {
-      // as above
-      if(xSemaphoreTakeFromISR(h_request_telem_rx_buffers_swap,NULL) == pdTRUE){
-         video_buffers::telem::rx::manager.swap();
-         xSemaphoreGiveFromISR(h_telem_rx_buffers_swapped,&HigherPriorityTaskWoken_telem_rx);
-      }
-   }
-   /*
-      call from isr when swapped buffers have been filled with fresh data
-      to say data can be read
-   */
-
-  
-#endif
-
-} //namespace
+}
 
 // columns gate_timer is TIM2
 // start and end px ( from vsync rising edge
@@ -194,11 +139,24 @@ uint16_t video_cfg::columns::osd::m_end = 389;
 // say 2 MHz clock
 // (start must give >= 8usec from hsync rising edge - TODO check this)
 // must be divisable by 8
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
 uint16_t video_cfg::columns::telem::m_begin = 12;
 // One after last bit in bit units from bit 0
 uint16_t video_cfg::columns::telem::m_end = 110;
+#if 0
+namespace {
+   #if (QUAN_OSD_BOARD_TYPE==3) || (QUAN_OSD_BOARD_TYPE==4)
+   static constexpr bool transmitter = true;
+   #else
+   static constexpr bool transmitter = false;
+   #endif
+   #if QUAN_OSD_BOARD_TYPE==1
+   static constexpr bool receiver = true;
+   #else
+   static constexpr bool receiver = false;
+   #endif
+}
 #endif
+
 //bool is_receiver(){return receiver;}
 // called by row line_counter
 
@@ -247,9 +205,12 @@ void video_cfg::columns::osd::enable()
    gate_timer::get()->sr.bb_clearbit<6>(); //(TIF)
    gate_timer::get()->dier.bb_setbit<6>(); // (TIE)
 
-   // (swaps buffers if task requested)
+   // swaps buffers if necessary
    service_osd_buffers();
-   // just inits buffer read idx to 0
+//   if (  ! video_buffers::osd::manager.swapped()) {
+//      video_buffers::osd::manager.swap();
+//   }
+
    video_buffers::osd::manager.read_reset();
 
 #if defined (QUAN_DISPLAY_INTERLACED)
@@ -334,34 +295,44 @@ void spi_ll_setup()
  
  
 }//namespace
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
+ 
 // called on first edge of hsync
 // at start of first telem row
 void video_cfg::columns::telem::enable()
 {
+   /*
+   make these constants for a bit more speed
+   telem_spi_clock_arr_init
+   telem_spi_clk_ccr1_init
+   telem_gate_timer_ccr2_init
+   telem_gate_timer_arr_init
+*/
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-   // get any new data from task swapped in to transmit
-   // and release old buffer for task to write next data to
-   service_telem_tx_buffers();
-   // just resets the index
-   video_buffers::telem::tx::manager.read_reset();
+      // get any data to buffer
+//      if (! video_buffers::telem::tx::manager.swapped()) {
+//         video_buffers::telem::tx::manager.swap();
+         service_telem_tx_buffers();
+      
+         video_buffers::telem::tx::manager.read_reset();
+        // video_buffers::telem::tx::m_want_tx= true;
+         // pixel clk timing
+         spi_clock::timer::get()->cnt = 0;
+         // div 2 for slower clk so compensate in faster bus clk
+         spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
+         spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
+     // }
 #endif
-   // pixel clk timing
-   spi_clock::timer::get()->cnt = 0;
-   // div 2 for slower clk so compensate in faster bus clk
-   spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
-   spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
-
    // pixel timer gate timing
    gate_timer::get()->cnt = 0;
 //##############################check use of ccr2 here#####################
 #if (QUAN_OSD_BOARD_TYPE == 4)
-   gate_timer::get()->ccr4 = m_begin * clks_bit - 1;
+    gate_timer::get()->ccr4 = m_begin * clks_bit - 1;
 #else
    gate_timer::get()->ccr2 = m_begin * clks_bit - 1;
 #endif
+//################################################################
    gate_timer::get()->arr = (m_end - 1)  * clks_bit - 1 ;
 #if defined QUAN_OSD_TELEM_RECEIVER
    #if (QUAN_OSD_BOARD_TYPE == 4)
@@ -373,36 +344,38 @@ void video_cfg::columns::telem::enable()
    gate_timer::get()->sr.bb_clearbit<6>();  // (TIF)
    gate_timer::get()->dier.bb_setbit<6>();  // (TIE)
    // change gate to trigger mode ready for TRGI edge to start gate_timer
+
+//##############################
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
 
 #if defined QUAN_OSD_TELEM_RECEIVER
-   uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
+      uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
 #if (QUAN_OSD_BOARD_TYPE == 4)
-   DMA_Stream_TypeDef *stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
+      DMA_Stream_TypeDef *stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
 #else
-   DMA_Stream_TypeDef *stream = DMA2_Stream5; // USART1_RX DMA2 stream 5 Cha 4
+      DMA_Stream_TypeDef *stream = DMA2_Stream5; // USART1_RX DMA2 stream 5 Cha 4
 #endif
-   stream->M0AR = (uint32_t)ptr;
-   stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
+       stream->M0AR = (uint32_t)ptr;
+       stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
 #if (QUAN_OSD_BOARD_TYPE == 4)
-   DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
-   DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Dma2 Stream 1
+       DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
+       DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Dma2 Stream 1
 #else
-   DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
-   DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
+       DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
+       DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
 #endif      
-   av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
-   av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
-   av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
-   av_telem_usart::get()->sr = 0;
-   av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
-   stream->CR |= (1 << 0); // (EN)
+       av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
+       av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
+       av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
+       av_telem_usart::get()->sr = 0;
+       av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
+       stream->CR |= (1 << 0); // (EN)
 #endif // defined QUAN_OSD_TELEM_RECEIVER
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-   portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem_tx);
-#endif  
+      portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
+#endif
 }
-
+ void set_text_data( const char* text);
 // called on second edge of hsync
 // at next after last telem row
 // poss could sample A2D value in centre of line here
@@ -423,14 +396,12 @@ void video_cfg::columns::telem::disable()
    #else
       DMA2_Stream5->CR &= ~(1 << 0); // (EN)
    #endif
-   av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
-   av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
-    // leave sp enabled hence commented
-    // av_telemetry_usart::get()->cr1.clearbit<2>(); // ( RXE)
+      av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
+      av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
+     // av_telemetry_usart::get()->cr1.clearbit<2>(); // ( RXE)
     //  quan::stm32::disable<av_telemetry_usart>();
     //  quan::stm32::module_reset<av_telemetry_usart>();
-    service_telem_rx_buffers();
-    portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem_rx);
+      video_buffers::telem::rx::manager.swap();
  #endif
 }
  
@@ -438,8 +409,8 @@ void video_cfg::columns::telem::disable()
 // start of telem rows
 void video_cfg::columns::telem::begin()
 {
-   // if tx configure dma for telem tx (TODO)
-   // if rx configure dma for telem rx
+   // if tx configure dma for telem tx
+   // if rx  configure dma for telem rx
   // if (video_buffers::telem::tx::m_want_tx) {
 #if defined QUAN_OSD_TELEM_TRANSMITTER
 
@@ -462,11 +433,12 @@ void video_cfg::columns::telem::begin()
       DMA1_Stream5->CR |= (1 << 0); // (EN)
 #endif
    // receiver
-   // nothing to do
+   // enable usart dma
 }
 
 void video_cfg::columns::telem::end()
 {
+  // if (video_buffers::telem::tx::m_want_tx) {
 #if defined QUAN_OSD_TELEM_TRANSMITTER
       // gate_timer::get()->sr.bb_clearbit<6>();// TIF
       gate_timer::get()->dier.bb_setbit<6>(); // TIE
@@ -480,7 +452,6 @@ void video_cfg::columns::telem::end()
       DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
  #endif
 }
-#endif // #if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
 // called at rising edge of hsync
 // start of osd rows
 void video_cfg::columns::osd::begin()
@@ -517,15 +488,11 @@ void video_cfg::columns::tif_irq()
    gate_timer::get()->dier.bb_clearbit<6>(); // (TIE)
    // assume transfer complete
    // so dma disabled
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
    if (video_cfg::rows::get_current_mode() == rows::mode::telemetry) {
       telem::begin();
    } else { //osd pixels output
-#endif
       osd::begin();
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
    }
-#endif
 }
  
 void video_cfg::columns::osd::end()
@@ -550,15 +517,11 @@ void video_cfg::columns::osd::end()
 // at end of line
 void video_cfg::columns::uif_irq()
 {
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
    if (video_cfg::rows::get_current_mode() == rows::mode::telemetry) {
       telem::end();
    } else {
-#endif
       osd::end();
-#if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
    }
-#endif
 }
 // columns gate gate_timer on TIM2
 // triggered by hsync (TIM2_CH1) tim2_hsync_pin when enabled

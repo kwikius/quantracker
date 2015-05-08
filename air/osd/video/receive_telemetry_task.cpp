@@ -132,7 +132,7 @@ namespace{
    }
 }
 void av_telem_rx_dma_setup();
-void av_telem_rx_setup()
+void av_telem_setup()
 {
    av_telem_rx_usart_setup();
    av_telem_rx_dma_setup();

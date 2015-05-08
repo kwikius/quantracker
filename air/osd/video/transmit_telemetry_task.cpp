@@ -68,8 +68,8 @@ namespace {
    void put_telemetry_tx_data()
    {
        int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)
-       int32_t min_now = static_cast<int32_t>(time_now / 60000);
-       int32_t s_now   = (time_now / 1000) - (min_now * 60);
+       int min_now = static_cast<int>(time_now / 60000);
+       int s_now   = static_cast<int>((time_now / 1000) - (min_now * 60));
        sprintf((char*)telem_tx_buffer,"time = %03d min %02d s", min_now,s_now);
              // fill the rest with zeroes
        uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
@@ -105,7 +105,7 @@ void create_telem_tx_task()
    );
 }
 
-void av_telem_tx_setup()
+void av_telem_setup()
 {
 //todo redo transmitter using usart
 // Shutdown TLV3501 output
