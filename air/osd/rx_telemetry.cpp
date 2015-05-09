@@ -43,12 +43,6 @@ bool rx_telemetry::refresh()
    return result;
 }
 
-// if len ! same as buffer_length
-// dont copy and return false
-// would only be due to some drastic mods to video mode
-// telem baud etc
-// called from other task when it wants to get the latets telemetry_rx data
-
 bool rx_telemetry::read(char * buffer, size_t len)
 {
    if (m_buffer == nullptr){
@@ -58,9 +52,9 @@ bool rx_telemetry::read(char * buffer, size_t len)
       return false;
    }
    this->mutex_acquire();
-   bool const result = (len == m_buffer_length);
+   bool const result = (len <= m_buffer_length);
    if (result){
-      memcpy(buffer,this->m_buffer,m_buffer_length);
+      memcpy(buffer,this->m_buffer,len);
    }
    this->mutex_release();
    return result;
