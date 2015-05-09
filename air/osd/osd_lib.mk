@@ -177,7 +177,7 @@ DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
 .PHONY: clean
 clean:
-	-rm -rf ../../lib/osd/quantracker_air_osd*.a *.o *.elf *.bin *.lst 
+	-rm -rf $(OSD_ARCHIVE_FILE) *.o *.elf *.bin *.lst 
 
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
