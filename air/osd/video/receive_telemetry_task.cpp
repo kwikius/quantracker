@@ -56,7 +56,7 @@ namespace {
 
    void telem_rx_task(void* params)
    {
-      the_rx_telemetry.init();
+     
       create_telem_rx_swap_semaphores();
       
       for (;;){
@@ -72,6 +72,7 @@ namespace {
 
 void create_telem_rx_task()
 {
+   the_rx_telemetry.init();
    xTaskCreate(
       telem_rx_task,"telem_task", 
       600,
