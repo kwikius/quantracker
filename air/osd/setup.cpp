@@ -61,8 +61,6 @@ void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
 
 #endif
 
-
-
 #if TEST_OUTPUT_PIN_ENABLE
    void setup_test_pin()
    {
@@ -169,12 +167,12 @@ extern "C" void setup()
 #if (QUAN_OSD_BOARD_TYPE != 1 )
   Dac_setup();
 #endif
-  fsk::setup();
+ // fsk::setup();
  #if QUAN_OSD_BOARD_TYPE == 4
-  mavlink_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
+  //mavlink_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
 #else
-  posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
+  //posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
 #endif
   // todo set sign
-  frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
+  //frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
 }

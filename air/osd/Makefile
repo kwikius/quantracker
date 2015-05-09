@@ -115,9 +115,11 @@ led.o black_level.o dac.o telemetry_task.o
 
 video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
-local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
- fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o settings.o \
- heartbeat_task.o rtos_hooks.o mode_check.o 
+#local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
+# fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o settings.o \
+# heartbeat_task.o rtos_hooks.o mode_check.o 
+
+local_objects = main.o spbrk.o setup.o rtos_hooks.o 
 
 # for testing
 local_objects += on_draw.o
@@ -168,14 +170,9 @@ ifeq ($(TARGET_PROCESSOR), STM32F4)
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 # Define if using software sync sep rather than LM1881
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
-#DEFINES += QUAN_STM32F4 QUAN_OSD_TELEM_RECEIVER
-# DEFINES += QUAN_FLASH_DEBUG
 STARTUP = startup.s
 # custom linker script 
 LINKER_SCRIPT = stm32f4.ld
-#LINKER_SCRIPT = $(MAKE_SCRIPTS_PATH)/stm32f4.ld
-#FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
-#SYSTICK_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 # just for fonts
 USER_SOURCE_PATH = ../../examples/osd_example1/
@@ -201,12 +198,7 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 # QUAN_DISPLAY_INTERLACED 
 DEFINES += HSE_VALUE=8000000 
 
-#board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
-#board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY
-board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3 QUAN_DISCOVERY
-#V1 of the finished board
 board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
-board_type4_disco : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_DISCOVERY
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
@@ -222,11 +214,7 @@ ODFLAGS = -d
 
 
 all: board_type4
-#board_type1 : test
-#board_type2 : test
-board_type3 : test
 board_type4 : test
-board_type4_disco : test
 
 objects = $(video_objects) $(local_objects) $(rtos_objects) \
 $(stm32_objects) $(graphics_api_objects) $(user_objects) $(user_resources) \

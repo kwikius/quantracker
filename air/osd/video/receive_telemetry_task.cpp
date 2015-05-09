@@ -58,7 +58,7 @@ namespace {
    {
       the_rx_telemetry.init();
       create_telem_rx_swap_semaphores();
-
+      
       for (;;){
          swap_telem_rx_buffers();
          on_telem_receive();
@@ -84,8 +84,6 @@ void create_telem_rx_task()
 namespace{
    void av_telem_rx_usart_setup()
    {
-   //todo redo transmitter using usart
-
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
          telem_cmp_enable_pin    // TIM2_CH2 or TIM2_CH4 for boardtype 4 (PA3)

@@ -40,6 +40,7 @@ namespace {
    SemaphoreHandle_t h_osd_buffers_swapped = 0;
    BaseType_t HigherPriorityTaskWoken_osd = 0;
 
+// used for tx and rx telem
    SemaphoreHandle_t h_request_telem_buffers_swap =0;
    SemaphoreHandle_t h_telem_buffers_swapped = 0;
    BaseType_t HigherPriorityTaskWoken_telem = 0;
@@ -67,6 +68,24 @@ void swap_telem_tx_buffers()
 }
 #endif
 
+
+#if defined QUAN_OSD_TELEM_RECEIVER
+void create_telem_rx_swap_semaphores()
+{
+   h_request_telem_buffers_swap = xSemaphoreCreateBinary();
+   h_telem_buffers_swapped = xSemaphoreCreateBinary();
+}
+// call from task
+void swap_telem_rx_buffers()
+{
+   video_buffers::telem::rx::reset_read_buffer();
+   xSemaphoreGive(h_request_telem_buffers_swap);
+   // read buffer becomes write buffer
+   // write buffer becomes read_buffer
+   xSemaphoreTake(h_telem_buffers_swapped,portMAX_DELAY);
+}
+#endif
+
 //call from task
 void swap_osd_buffers()
 {
@@ -74,8 +93,6 @@ void swap_osd_buffers()
    xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY);
    video_buffers::osd::clear_write_buffer();
 }
-// call from task
-
 
 namespace {
 // call from ISR
@@ -84,6 +101,7 @@ Draw loop differs from telem loop
 as it has unknown length
 */
    //int count = 0;
+
    void service_osd_buffers()
    {
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){
@@ -112,7 +130,18 @@ as it has unknown length
      }
    }
 #endif
+
+#if defined QUAN_OSD_TELEM_RECEIVER
+   void service_telem_rx_buffers()
+   {
+      if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
+          video_buffers::telem::rx::manager.swap();
+          xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);
+      }
+   }
+#endif
 }
+
 
 // columns gate_timer is TIM2
 // start and end px ( from vsync rising edge
@@ -122,6 +151,9 @@ as it has unknown length
 // pixel 0 hypothetically starts at 2nd edge of hsync when gated timer starts
 // (start of line must be greater than time_from_second_edge = 5.75 usec from second edge of hsync
 // mbegin  >= time_from_second_edge * pixel_clk_frequency;
+
+
+
 #if defined (QUAN_DISPLAY_INTERLACED)
 uint16_t video_cfg::columns::osd::m_begin = 90;
 // one after last visible pixel in pixel units from pixel 0
@@ -363,7 +395,10 @@ void video_cfg::columns::telem::enable()
 #else
        DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
        DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
-#endif      
+#endif   
+    //   quan::stm32::enable<av_telem_usart>();
+    //   quan::stm32::module_reset<av_telem_usart>();
+
        av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
        av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
        av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
@@ -375,7 +410,7 @@ void video_cfg::columns::telem::enable()
       portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
 #endif
 }
- void set_text_data( const char* text);
+ //void set_text_data( const char* text);
 // called on second edge of hsync
 // at next after last telem row
 // poss could sample A2D value in centre of line here
@@ -392,16 +427,26 @@ void video_cfg::columns::telem::disable()
    gate_timer::get()->ccer.bb_clearbit<4>(); //(CC2E)
    #endif
    #if (QUAN_OSD_BOARD_TYPE == 4)
+    //###########DEBUG############################
+      if (DMA2_Stream1->NDTR == video_buffers::telem::rx::get_num_data_bytes()){
+         quan::stm32::set<heartbeat_led_pin>();
+      }else{
+         quan::stm32::clear<heartbeat_led_pin>();
+      }
+      // disable the usart DMA
       DMA2_Stream1->CR &= ~(1 << 0); // (EN)
    #else
       DMA2_Stream5->CR &= ~(1 << 0); // (EN)
    #endif
+      // 
       av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
       av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
      // av_telemetry_usart::get()->cr1.clearbit<2>(); // ( RXE)
-    //  quan::stm32::disable<av_telemetry_usart>();
-    //  quan::stm32::module_reset<av_telemetry_usart>();
-      video_buffers::telem::rx::manager.swap();
+     // quan::stm32::disable<av_telem_usart>();
+    //  quan::stm32::module_reset<av_telem_usart>();
+     // video_buffers::telem::rx::manager.swap();
+     service_telem_rx_buffers();
+     portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
  #endif
 }
  
@@ -434,6 +479,7 @@ void video_cfg::columns::telem::begin()
 #endif
    // receiver
    // enable usart dma
+    // receiver DMA channel
 }
 
 void video_cfg::columns::telem::end()

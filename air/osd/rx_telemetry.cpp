@@ -11,6 +11,7 @@ void rx_telemetry::init()
    m_buffer_length = video_buffers::telem::rx::get_num_data_bytes();
    m_buffer = (char*) pvPortMalloc (m_buffer_length);
    memset(m_buffer,0,m_buffer_length);
+   this->mutex_init();
 }
 
 void rx_telemetry::mutex_init()
@@ -28,6 +29,9 @@ void rx_telemetry::mutex_release()
    xSemaphoreGive(m_mutex);
 }
 
+// called by receive_telemetry_task 
+// when new data has been acquired
+// The data is copied in to the_telemetry buffer
 bool rx_telemetry::refresh()
 {
    this->mutex_acquire();
@@ -43,8 +47,16 @@ bool rx_telemetry::refresh()
 // dont copy and return false
 // would only be due to some drastic mods to video mode
 // telem baud etc
+// called from other task when it wants to get the latets telemetry_rx data
+
 bool rx_telemetry::read(char * buffer, size_t len)
 {
+   if (m_buffer == nullptr){
+      return false;
+   }
+   if ( m_buffer_length == 0){
+      return false;
+   }
    this->mutex_acquire();
    bool const result = (len == m_buffer_length);
    if (result){
