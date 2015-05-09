@@ -4,8 +4,12 @@
 #include "FreeRTOS.h"
 #include <semphr.h>
 
-void on_telem_receive();
+
 void create_telem_rx_task();
+
+namespace detail{
+ void on_telemetry_receive();
+}
 // stores the latest telemetry data
 // automatically refreshed by the osd telemetry susbsystem
 // 
@@ -24,7 +28,7 @@ private:
    void mutex_init();
    SemaphoreHandle_t m_mutex;
    size_t m_buffer_length;
-   friend void on_telem_receive();
+   friend void detail::on_telemetry_receive();
    friend void create_telem_rx_task();
    // do a reinit if data speed changes
    

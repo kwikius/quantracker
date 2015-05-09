@@ -44,24 +44,20 @@
 void create_telem_rx_swap_semaphores();
 void swap_telem_rx_buffers();
 
-// TODO this should be external
-void on_telem_receive();
-
-void on_telem_receive()
-{
-   the_rx_telemetry.refresh();
+namespace detail{
+  void on_telemetry_receive()
+   {
+      the_rx_telemetry.refresh();
+   }
 }
 
 namespace {
 
    void telem_rx_task(void* params)
    {
-     
-      create_telem_rx_swap_semaphores();
-      
       for (;;){
          swap_telem_rx_buffers();
-         on_telem_receive();
+         detail::on_telemetry_receive();
       }
    }
 
@@ -72,6 +68,7 @@ namespace {
 
 void create_telem_rx_task()
 {
+   create_telem_rx_swap_semaphores();
    the_rx_telemetry.init();
    xTaskCreate(
       telem_rx_task,"telem_task", 
