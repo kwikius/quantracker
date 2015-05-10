@@ -51,7 +51,11 @@ void spi_setup()
       #error undefined board type
     #endif
 #endif
+#if QUAN_OSD_BOARD_TYPE == 1
+      ,quan::stm32::gpio::pupd::none
+#else
       ,quan::stm32::gpio::pupd::pull_up
+#endif
       ,quan::stm32::gpio::ospeed::fast
       ,quan::stm32::gpio::ostate::high
    >();
@@ -76,10 +80,14 @@ void spi_setup()
       #error undefined board type
     #endif
 #endif
+// prob shoulnt be for Boardtype1 since goes to 5V
+#if QUAN_OSD_BOARD_TYPE == 1
+      ,quan::stm32::gpio::pupd::none
+#else
       ,quan::stm32::gpio::pupd::pull_up
+#endif
       ,quan::stm32::gpio::ospeed::fast
       ,quan::stm32::gpio::ostate::high
    >();
 
-   //spi_ll_setup();
 }
