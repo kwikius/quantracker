@@ -73,11 +73,28 @@ namespace {
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
-   // 
+   
    static quan::uav::osd::video_mode public_video_mode 
       = quan::uav::osd::video_mode::unknown;
 
+   bool request_suspend_osd_flag = false;
+   bool osd_suspended_flag = true;
 }; // namespace
+
+void request_osd_suspend()
+{
+   request_suspend_osd_flag = true;
+}
+
+void request_osd_resume()
+{
+   request_suspend_osd_flag = false;
+}
+
+bool osd_suspended()
+{
+   return osd_suspended_flag;
+}
 
 namespace quan{ namespace uav{ namespace osd{
 
@@ -121,14 +138,20 @@ void sync_sep_error_reset()
   syncmode = syncmode_t::start;
   video_mode = video_mode_t::unknown;
 }
-
+ 
 }// namespace 
+
+
+namespace detail{
 void sync_sep_enable()
 {
   sync_sep_reset();
+  
   sync_sep_timer::get()->sr = 0;
   sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
   sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
+  osd_suspended_flag = request_suspend_osd_flag;
+}
 }
 
 namespace {
@@ -250,6 +273,7 @@ void sync_sep_setup()
 namespace {
 // on first edge
 // measure time from last first_edge
+   bool outputs_set = false;
 void  calc_line_period() 
 {
   if (initial_first_edge_captured) {
@@ -269,8 +293,54 @@ void  calc_line_period()
             }
        }
   } else {// just get initial capture value and exit
-       last_sync_first_edge = sync_sep_timer::get()->ccr1;
-       initial_first_edge_captured = true;
+       if (!osd_suspended_flag){
+         last_sync_first_edge = sync_sep_timer::get()->ccr1;
+         initial_first_edge_captured = true;
+       }else{
+         if (! request_suspend_osd_flag){
+#if 0
+            quan::stm32::apply<
+               video_mux_out_white_miso  //PB4 or PC11 on boardtype 4
+               ,quan::stm32::gpio::mode::af6 // same for both pins
+               ,quan::stm32::gpio::otype::push_pull
+               ,quan::stm32::gpio::pupd::none
+               ,quan::stm32::gpio::ospeed::fast
+               ,quan::stm32::gpio::ostate::high
+            >();
+
+              quan::stm32::apply<
+               video_mux_out_black_miso  //PB4 or PC11 on boardtype 4
+               ,quan::stm32::gpio::mode::af6 // same for both pins
+               ,quan::stm32::gpio::otype::push_pull
+               ,quan::stm32::gpio::pupd::none
+               ,quan::stm32::gpio::ospeed::fast
+               ,quan::stm32::gpio::ostate::high
+            >();
+#endif
+            outputs_set = true;
+            osd_suspended_flag = false;
+         }else{
+            if ( !outputs_set){
+#if 0
+              quan::stm32::apply<
+               video_mux_out_black_miso  //PB4 or PC11 on boardtype 4
+               ,quan::stm32::gpio::mode::output,
+                 quan::stm32::gpio::ostate::high
+               >();
+             quan::stm32::apply<
+               video_mux_out_white_miso  //PB4 or PC11 on boardtype 4
+               ,quan::stm32::gpio::mode::output,
+                 quan::stm32::gpio::ostate::high
+               >();
+#endif
+             outputs_set = true;
+            }
+
+            //video_mux_out_white_miso
+           // video_mux_out_white_miso
+           // video_mux_out_black_miso
+         }
+       }
   } 
 }
  

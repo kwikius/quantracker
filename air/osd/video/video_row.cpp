@@ -98,7 +98,9 @@ void video_cfg::rows::osd::begin()
 }
 
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
-void sync_sep_enable();
+namespace detail{
+   void sync_sep_enable();
+}
 #endif
 // at end of this frame half ( odd or even)
 // reset the hsync count for next
@@ -110,7 +112,7 @@ void video_cfg::rows::osd::end()
   // counting rows of next frame half
    line_counter::get()->cnt = 0;
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
-   sync_sep_enable();
+   detail::sync_sep_enable();
 #endif
 }
 

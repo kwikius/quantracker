@@ -90,7 +90,9 @@ void pixel_dma_setup();
 void spi_setup();
  
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
-void sync_sep_enable();
+namespace detail{
+   void sync_sep_enable();
+}
 void sync_sep_setup();
 #endif
 
@@ -113,6 +115,6 @@ void video_setup()
      video_buffers::init();
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
      sync_sep_setup();
-     sync_sep_enable();
+     detail::sync_sep_enable();
 #endif
 }

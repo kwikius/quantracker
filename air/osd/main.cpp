@@ -54,8 +54,10 @@ void create_heartbeat_task();
 void create_frsky_task();
 void create_fsk_task();
 void create_draw_task();
+
 #if defined QUAN_OSD_TELEM_TRANSMITTER
 void create_vsync_telem_tx_task();
+void create_osd_suspend_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
 void create_vsync_telem_rx_task();
@@ -71,6 +73,7 @@ int main()
   create_draw_task();
 #if defined QUAN_OSD_TELEM_TRANSMITTER
   create_vsync_telem_tx_task();
+  create_osd_suspend_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
   create_vsync_telem_rx_task();

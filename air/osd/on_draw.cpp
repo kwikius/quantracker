@@ -14,7 +14,7 @@ namespace quan{ namespace uav { namespace osd{
       pxp_type pos  ={50,50};
       text_ptr text = "Receiver";
       #elif defined QUAN_OSD_TELEM_TRANSMITTER
-      pxp_type pos  ={-50,50};
+      pxp_type pos  ={-100,50};
       text_ptr text = "Transmitter";
       #else
       pxp_type pos  ={0,0};

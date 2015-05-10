@@ -62,6 +62,6 @@ MAVLINK_INCLUDE_PATH = /home/andy/cpp/lib
 # NB telem_none not tested yet
 # one of QUAN_OSD_TELEM_RECEIVER QUAN_OSD_TELEM_TRANSMITTER QUAN_OSD_TELEM_NONE
 
-QUAN_TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
+#QUAN_TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
 
 ##########################################################################

@@ -60,9 +60,9 @@ ifeq ($(QUAN_INCLUDE_PATH), )
 $(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
 endif
 
-ifeq ($(MAVLINK_INCLUDE_PATH), )
-$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
-endif
+#ifeq ($(MAVLINK_INCLUDE_PATH), )
+#$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
+#endif
 
 ifeq ($(FREE_RTOS_DIR), )
 $(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
@@ -123,6 +123,10 @@ local_objects = main.o spbrk.o setup.o rtos_hooks.o
 
 # for testing
 local_objects += on_draw.o
+
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
+local_objects += osd_suspend_task.o
+endif
 
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
 local_objects += rx_telemetry.o
