@@ -48,10 +48,10 @@
    Alternatively, if its the same data then its length should be known
    May need a header
 */
-
-void create_telem_tx_swap_semaphores();
-void swap_telem_tx_buffers();
-//void put_telemetry_tx_data();
+namespace detail{
+   void create_telem_tx_swap_semaphores();
+   void swap_telem_tx_buffers();
+}
 
 namespace {
 
@@ -80,11 +80,11 @@ namespace {
 
    void telem_tx_task(void* params)
    {
-      create_telem_tx_swap_semaphores();
+  
       if ( init_telem_tx_buffer() == true ){
          for(;;){
             put_telemetry_tx_data();
-            swap_telem_tx_buffers();
+            detail::swap_telem_tx_buffers();
          }
       }
    }
@@ -94,18 +94,19 @@ namespace {
 
 }//namespace
 
-void create_telem_tx_task()
+void create_vsync_telem_tx_task()
 {
+   detail::create_telem_tx_swap_semaphores();
    xTaskCreate(
-      telem_tx_task,"telem_task", 
+      telem_tx_task,"telem_tx_task", 
       600,
       &dummy_param,
-      task_priority::av_telemetry_tx,
+      task_priority::vsync_telem_tx,
       &task_handle
    );
 }
 
-void av_telem_setup()
+void vsync_telem_tx_task_setup()
 {
 //todo redo transmitter using usart
 // Shutdown TLV3501 output
