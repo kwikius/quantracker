@@ -27,15 +27,19 @@ void request_osd_resume();
 bool osd_suspended();
 
 namespace {
+   int32_t count = 0;
    void osd_suspend_task( void *param)
    {
         for(;;) {
+           if ( count < 5){
+            ++count;
            vTaskDelay(5000);
            request_osd_suspend();
            while (!osd_suspended()){;}
            vTaskDelay(1000);
            request_osd_resume();
            while (osd_suspended()){;}
+           }
         }
    }
    char dummy_param = 0;

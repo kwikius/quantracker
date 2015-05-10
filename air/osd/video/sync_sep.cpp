@@ -150,7 +150,9 @@ void sync_sep_enable()
   sync_sep_timer::get()->sr = 0;
   sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
   sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
-  osd_suspended_flag = request_suspend_osd_flag;
+   if ( request_suspend_osd_flag){
+     osd_suspended_flag = true;
+   }
 }
 }
 
@@ -297,7 +299,9 @@ void  calc_line_period()
          last_sync_first_edge = sync_sep_timer::get()->ccr1;
          initial_first_edge_captured = true;
        }else{
+         // osd suspended
          if (! request_suspend_osd_flag){
+              // change back to spi mode
 #if 0
             quan::stm32::apply<
                video_mux_out_white_miso  //PB4 or PC11 on boardtype 4
@@ -317,10 +321,12 @@ void  calc_line_period()
                ,quan::stm32::gpio::ostate::high
             >();
 #endif
-            outputs_set = true;
+            outputs_set = false;
             osd_suspended_flag = false;
          }else{
+            // osd suspended 
             if ( !outputs_set){
+               // set pass thru mode
 #if 0
               quan::stm32::apply<
                video_mux_out_black_miso  //PB4 or PC11 on boardtype 4
