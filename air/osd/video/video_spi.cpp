@@ -24,8 +24,11 @@
 #include "../resources.hpp"
 #include <quan/stm32/rcc.hpp>
 
+// just setup the spi pins here
+// actual spi setup is done variously
 void spi_setup()
 {
+   
    // rcc
   // black on spi2, white on spi3
    quan::stm32::module_enable<video_mux_out_black_sck::port_type>();
@@ -48,7 +51,7 @@ void spi_setup()
       #error undefined board type
     #endif
 #endif
-      ,quan::stm32::gpio::pupd::none
+      ,quan::stm32::gpio::pupd::pull_up
       ,quan::stm32::gpio::ospeed::fast
       ,quan::stm32::gpio::ostate::high
    >();
@@ -73,7 +76,7 @@ void spi_setup()
       #error undefined board type
     #endif
 #endif
-      ,quan::stm32::gpio::pupd::none
+      ,quan::stm32::gpio::pupd::pull_up
       ,quan::stm32::gpio::ospeed::fast
       ,quan::stm32::gpio::ostate::high
    >();

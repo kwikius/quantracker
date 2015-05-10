@@ -48,10 +48,13 @@ namespace {
 
 void create_osd_suspend_task( )
 {
-     xTaskCreate( osd_suspend_task, "osd_suspend",configMINIMAL_STACK_SIZE,
-     &dummy_param,
-      task_priority::heartbeat,
-      &task_handle
+     xTaskCreate( 
+         osd_suspend_task,
+         "osd_suspend",
+         configMINIMAL_STACK_SIZE,
+         &dummy_param,
+         task_priority::heartbeat,
+         &task_handle
       );
 }
 

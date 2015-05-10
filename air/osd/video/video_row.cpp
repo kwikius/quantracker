@@ -110,7 +110,8 @@ void video_cfg::rows::osd::end()
    m_cur_mode = mode::idle;
    // clear the row line_counter ready for
   // counting rows of next frame half
-   line_counter::get()->cnt = 0;
+  // line_counter::get()->cnt = 0;
+   video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>() ;// CEN
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
    detail::sync_sep_enable();
 #endif
