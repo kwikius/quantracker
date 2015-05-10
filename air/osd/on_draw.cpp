@@ -6,8 +6,9 @@
 
 namespace quan{ namespace uav { namespace osd{
 
-   char t_buffer [1000];
-   
+   // buffer is bigger here than necessary think at 2 Mbaud the num bytes == 117
+   char t_buffer [128];
+   // implement on_draw
    void on_draw(){
       #if defined QUAN_OSD_TELEM_RECEIVER
       pxp_type pos  ={50,50};
