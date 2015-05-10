@@ -4,8 +4,8 @@
 #include "FreeRTOS.h"
 #include <semphr.h>
 
-
-void create_telem_rx_task();
+// keep public
+void create_vsync_telem_rx_task();
 
 namespace detail{
  void on_telemetry_receive();
@@ -29,7 +29,7 @@ private:
    SemaphoreHandle_t m_mutex;
    size_t m_buffer_length;
    friend void detail::on_telemetry_receive();
-   friend void create_telem_rx_task();
+   friend void create_vsync_telem_rx_task();
    // do a reinit if data speed changes
    
 };
