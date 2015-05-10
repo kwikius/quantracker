@@ -255,10 +255,10 @@ struct interrupt_priority {
 struct task_priority{
 #if defined QUAN_OSD_TELEM_TRANSMITTER
 
-   static constexpr uint32_t av_telemetry_tx =( tskIDLE_PRIORITY + 3UL ) ;
+   static constexpr uint32_t vsync_telem_tx =( tskIDLE_PRIORITY + 3UL ) ;
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
-   static constexpr uint32_t av_telemetry_rx =( tskIDLE_PRIORITY + 3UL ) ;
+   static constexpr uint32_t vsync_telem_rx =( tskIDLE_PRIORITY + 3UL ) ;
 #endif
     static constexpr uint32_t draw =( tskIDLE_PRIORITY + 2UL ) ;
 
