@@ -1,3 +1,6 @@
+Sat May  9 18:25:30 BST 201
+   vsync tx and rx tested and working in air/osd/makefile
+   also added libs for these but not tested yet
 
 Fri May  8 08:44:36 BST 2015
  Redid osd_lib.mk makefile so that object_files for tx_telemetry and rx_telemetry are prefixed

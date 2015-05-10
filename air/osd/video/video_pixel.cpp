@@ -150,4 +150,3 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
        //go .. Need CEN for gated mode
        timer::get()->cr1 |= ( 1<< 0); // (CEN)
    }
-

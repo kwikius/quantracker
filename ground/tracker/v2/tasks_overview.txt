@@ -1,17 +1,28 @@
 Tracker tasks
 
-on_draw
-read telemetry
-update tracking position - send commands to motor and servos ( or update the targets)
-send RCTx pulses
-read mag
-read compass
+draw_task
+  Output any diagnostics etc
+telem_task
+   get the telem data from the various input streams
+   and put to a common place
+tracker task
+   calculate the new position from the data
+   if in running mode send commands to move to the new position
+pan_motor_task
+   do clacs and send outputs to reposition pan motor
 
 ---
 osd_resources.hpp - resources used by osd
 tracker_resources.hpp - resources used by tracker
 
 stick to custom board not using STM32F4 Discovery
+
+First task is calibration.
+1 compass calibration
+2 Relative angles of tracker upper and antenna mount
+Could use switches at limits to get relative angles
+
+
 
 
 

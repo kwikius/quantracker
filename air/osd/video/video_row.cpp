@@ -28,8 +28,6 @@
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
 
-//#include "video.hpp"
-
 // row line_counter on TIM3 (16 bit)
 // if ! defined QUAN_OSD_SOFTWARE_SYNCSEP
 // vsync on TIM3_CH1 -> TI used as trigger ITR
@@ -97,7 +95,6 @@ void video_cfg::rows::osd::begin()
 {
   m_cur_mode = mode::osd;
   video_cfg::columns::osd::enable();
-  
 }
 
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
@@ -183,7 +180,6 @@ void video_cfg::rows::setup()
       ccer.cc2e = true;  // enable cc2 output for telem begin
       line_counter::get()->ccer.set (ccer.value);
    }
-
    {
       quan::stm32::tim::ccmr2_t ccmr2 = line_counter::get()->ccmr2.get();
       ccmr2.cc3s = 0b00; // ch3 output for telem end
