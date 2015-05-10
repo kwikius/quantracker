@@ -32,7 +32,6 @@
 #include "FreeRTOS.h"
 #include <task.h>
 
-//#include <quan/dynarray.hpp>
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 
@@ -41,22 +40,21 @@
 #include "../../../air/osd/video/video_buffer.hpp"
 #include "../rx_telemetry.hpp"
 
-void create_telem_rx_swap_semaphores();
-void swap_telem_rx_buffers();
-
 namespace detail{
+  void create_telem_rx_swap_semaphores();
+  void swap_telem_rx_buffers();
   void on_telemetry_receive()
-   {
+  {
       the_rx_telemetry.refresh();
-   }
+  }
 }
 
 namespace {
 
-   void telem_rx_task(void* params)
+   void vsync_telem_rx_task(void* params)
    {
       for (;;){
-         swap_telem_rx_buffers();
+         detail::swap_telem_rx_buffers();
          detail::on_telemetry_receive();
       }
    }
@@ -66,21 +64,21 @@ namespace {
 
 }//namespace
 
-void create_telem_rx_task()
+void create_vsync_telem_rx_task()
 {
-   create_telem_rx_swap_semaphores();
+   detail::create_telem_rx_swap_semaphores();
    the_rx_telemetry.init();
    xTaskCreate(
-      telem_rx_task,"telem_task", 
+      vsync_telem_rx_task,"vsync_telem_rx_task", 
       600,
       &dummy_param,
-      task_priority::av_telemetry_rx,
+      task_priority::vsync_telem_rx,
       &task_handle
    );
 }
 
 namespace{
-   void av_telem_rx_usart_setup()
+   void vsync_telem_rx_task_usart_setup()
    {
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
@@ -126,10 +124,46 @@ namespace{
      // av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
       av_telem_usart::get()->cr1.setbit<2>(); // ( RE)
    }
-}
-void av_telem_rx_dma_setup();
-void av_telem_setup()
+
+   /*
+ for boardtype 4 dma is on USART6  DMA2 Channel 5 stream 1 or 2
+ ( use stream 1 to save stream 2 for
+*/
+   void vsync_telem_rx_task_dma_setup()
+   {
+      RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
+      for ( uint8_t i = 0; i < 20; ++i){
+         asm volatile ("nop" : : :);
+      }
+      RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA2RST;
+      RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA2RST;
+   #if (QUAN_OSD_BOARD_TYPE == 4)
+      DMA_Stream_TypeDef *stream = DMA2_Stream1;
+      constexpr uint32_t dma_channel = 5U;
+   #else
+      DMA_Stream_TypeDef *stream = DMA2_Stream5;
+      constexpr uint32_t dma_channel = 4U;
+   #endif
+      if (  stream->CR & (1 << 0)){
+         stream->CR &= ~(1 << 0); // (EN)
+         while(stream->CR & (1 << 0)){;}
+      }
+      stream->CR = 
+         ( dma_channel << 25)     // select channel
+         | (0b10 << 16) // medium high priority
+         |( 1 << 10) ;  // (MINC);      
+
+      stream->FCR |= (1 << 2) ;// (DMDIS)
+      // set threshold full
+      stream->FCR |= (0b11 << 0);
+      // setup periph_reg
+      stream->PAR = (uint32_t)&av_telem_usart::get()->dr;
+     // no irq so no NVIC
+   }
+} // namespace
+
+void vsync_telem_rx_task_setup()
 {
-   av_telem_rx_usart_setup();
-   av_telem_rx_dma_setup();
+   vsync_telem_rx_task_usart_setup();
+   vsync_telem_rx_task_dma_setup();
 }
