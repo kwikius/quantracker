@@ -3130,7 +3130,7 @@ Disassembly of section .text:
  800e0bc:	f04f 32ff 	mov.w	r2, #4294967295
  800e0c0:	f000 fff4 	bl	800f0ac <xQueueGenericReceive>
  800e0c4:	f89d 3007 	ldrb.w	r3, [sp, #7]
- 800e0c8:	2b0a      	cmp	r3, #10
+ 800e0c8:	2b0d      	cmp	r3, #13
  800e0ca:	d123      	bne.n	800e114 <_ZN12_GLOBAL__N_112tracker_modeEPv+0x84>
  800e0cc:	f10d 0107 	add.w	r1, sp, #7
  800e0d0:	2300      	movs	r3, #0
@@ -3138,7 +3138,7 @@ Disassembly of section .text:
  800e0d4:	f04f 32ff 	mov.w	r2, #4294967295
  800e0d8:	f000 ffe8 	bl	800f0ac <xQueueGenericReceive>
  800e0dc:	f89d 1007 	ldrb.w	r1, [sp, #7]
- 800e0e0:	290a      	cmp	r1, #10
+ 800e0e0:	290d      	cmp	r1, #13
  800e0e2:	d117      	bne.n	800e114 <_ZN12_GLOBAL__N_112tracker_modeEPv+0x84>
  800e0e4:	2300      	movs	r3, #0
  800e0e6:	6820      	ldr	r0, [r4, #0]
@@ -3146,7 +3146,7 @@ Disassembly of section .text:
  800e0ec:	f04f 32ff 	mov.w	r2, #4294967295
  800e0f0:	f000 ffdc 	bl	800f0ac <xQueueGenericReceive>
  800e0f4:	f89d 0007 	ldrb.w	r0, [sp, #7]
- 800e0f8:	280a      	cmp	r0, #10
+ 800e0f8:	280d      	cmp	r0, #13
  800e0fa:	d10b      	bne.n	800e114 <_ZN12_GLOBAL__N_112tracker_modeEPv+0x84>
  800e0fc:	4808      	ldr	r0, [pc, #32]	; (800e120 <_ZN12_GLOBAL__N_112tracker_modeEPv+0x90>)
  800e0fe:	f7ff ff65 	bl	800dfcc <_ZN4quan5stm328freertos16usart_tx_rx_taskINS0_5usart6moduleILm1073811456EEELm100ELm100ENS_3mcu3pinINS0_4gpio6moduleILm1073872896EEELm9EEENS7_ISA_Lm10EEEcE5writeEPKc>
