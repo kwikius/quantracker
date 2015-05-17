@@ -42,7 +42,7 @@ if receiver put something bottom of screen
 */
 void quan::uav::osd::on_draw()
 {
-  quan::stm32::set<heartbeat_led_pin>();
+
   auto font= quan::uav::osd::get_font(0);
    if (font){
      quan::uav::osd::draw_text("Hello World",{0,0},font);
