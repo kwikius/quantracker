@@ -80,6 +80,8 @@ endif
 #$(error "USER_SOURCE_FILES must be defined to the list of your custom source files - see README.")
 #endif
 
+USER_SOURCE_PATH = ../../../examples/osd_example1/
+
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
@@ -98,13 +100,14 @@ GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 TARGET_PROCESSOR = STM32F4
 
 video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o graphics_api.o graphics_api_extras.o telemetry_task.o \
+ video_dma.o video_setup.o graphics_api.o graphics_api_extras.o receive_telemetry_task.o \
  draw_task.o sync_sep.o led.o black_level.o dac.o
 
 #local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
 # fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
 # heartbeat_task.o rtos_hooks.o mode_check.o  
-local_objects = main.o spbrk.o setup.o rtos_hooks.o
+local_objects = main.o spbrk.o setup.o rtos_hooks.o sliprings_sp_irq.o \
+tracker_mode_task.o rx_telemetry.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -120,6 +123,7 @@ quan_generic_flash_menu.o
 #user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
 
 #user_resources = bitmaps.o fonts.o
+user_resources = fonts.o
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O

@@ -386,9 +386,9 @@ void video_cfg::columns::telem::disable()
    #if (QUAN_OSD_BOARD_TYPE == 4)
     //###########DEBUG############################
       if (DMA2_Stream1->NDTR == video_buffers::telem::rx::get_num_data_bytes()){
-         quan::stm32::set<heartbeat_led_pin>();
-      }else{
          quan::stm32::clear<heartbeat_led_pin>();
+      }else{
+         quan::stm32::set<heartbeat_led_pin>();
       }
       // disable the usart DMA
       DMA2_Stream1->CR &= ~(1 << 0); // (EN)

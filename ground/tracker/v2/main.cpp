@@ -31,30 +31,43 @@ bool initialise_flash(){return true;}
 bool signal_exit_failure(){return true;}
 
 void create_draw_task();
-void create_telem_task();
-void create_tracker_task(){}
+//void create_telem_task(){}
+//void create_tracker_task(){}
+void create_tracker_mode_task();
+void create_vsync_telem_rx_task();
 
 /*
-If trsnamitter put something top of screen
+If transmitter put something top of screen
 if receiver put something bottom of screen
 */
 void quan::uav::osd::on_draw()
-{}
+{
+  quan::stm32::set<heartbeat_led_pin>();
+  auto font= quan::uav::osd::get_font(0);
+   if (font){
+     quan::uav::osd::draw_text("Hello World",{0,0},font);
+   }else{
+     // quan::stm32::set<heartbeat_led_pin>();
+   }
+ }
 
 int main()
 {
+   setup();
 
-  if (! initialise_flash()){
-      signal_exit_failure();
-  }
+   create_tracker_mode_task();
+//  if (! initialise_flash()){
+//      signal_exit_failure();
+//  }
+//
+//  mode_check();
+//  
 
-  mode_check();
-  
-  setup();
-
+//
   create_draw_task();
-  create_telem_task();
-  create_tracker_task();
+//  create_telem_task();
+//  create_tracker_task();
+  create_vsync_telem_rx_task();
 
   vTaskStartScheduler();
 

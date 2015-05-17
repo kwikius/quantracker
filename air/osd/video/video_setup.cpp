@@ -96,6 +96,7 @@ namespace detail{
 void sync_sep_setup();
 #endif
 
+void Dac_setup();
 void video_setup()
 {
      spi_setup();
@@ -117,4 +118,5 @@ void video_setup()
      sync_sep_setup();
      detail::sync_sep_enable();
 #endif
+     Dac_setup();
 }

@@ -1,4 +1,4 @@
-update=Wed 02 Jul 2014 14:17:19 BST
+update=Tue 12 May 2015 10:15:44 BST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -81,7 +81,7 @@ LibName10=dip_sockets
 version=1
 [eeschema]
 version=1
-LibDir=/home/andy/cpp/projects/quantracker/ground/tracker/v1/hardware;/home/andy/electronics/kicad/lib
+LibDir=/home/andy/cpp/projects/quantracker/ground/tracker/v1/hardware
 NetFmt=1
 HPGLSpd=20
 HPGLDm=15
@@ -143,4 +143,4 @@ LibName29=opto
 LibName30=atmel
 LibName31=contrib
 LibName32=valves
-LibName33=/home/andy/electronics/kicad/projects/modem_rx/tcm3105
+LibName33=/home/andy/cpp/projects/quantracker/kicad/lib/quantracker_air_osd_v2_1

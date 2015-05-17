@@ -61,7 +61,7 @@ extern "C" void vApplicationMallocFailedHook( )
    #if (( QUAN_OSD_BOARD_TYPE !=4) || (defined QUAN_DISCOVERY))
    quan::stm32::set<blue_led_pin>();
    #else
-     quan::stm32::set<heartbeat_led_pin>(); 
+    // quan::stm32::set<heartbeat_led_pin>(); 
    #endif
 	for( ;; );
 }
@@ -75,7 +75,7 @@ extern "C" void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTask
 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
 	function is called if a stack overflow is detected. */
 	taskDISABLE_INTERRUPTS();
-   quan::stm32::set<heartbeat_led_pin>();
+   //quan::stm32::set<heartbeat_led_pin>();
 	for( ;; );
 }
 

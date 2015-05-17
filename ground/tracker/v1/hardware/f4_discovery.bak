@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 05 Aug 2014 11:45:41 BST
+EESchema Schematic File Version 2  date Tue 05 Aug 2014 16:19:25 BST
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -892,8 +892,6 @@ F 1 "24C16" H 7050 1150 60  0000 C CNN
 	1    6850 1500
 	1    0    0    -1  
 $EndComp
-Text Label 9500 7200 0    60   ~ 0
-AV_TELEM_CDT
 Text Label 7950 9000 0    60   ~ 0
 AV_TELEM_IN
 $Comp
