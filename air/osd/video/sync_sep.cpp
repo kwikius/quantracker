@@ -73,11 +73,28 @@ namespace {
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
-   // 
+   
    static quan::uav::osd::video_mode public_video_mode 
       = quan::uav::osd::video_mode::unknown;
 
+   volatile bool request_suspend_osd_flag = false;
+   volatile bool osd_suspended_flag = true;
 }; // namespace
+
+void request_osd_suspend()
+{
+   request_suspend_osd_flag = true;
+}
+
+void request_osd_resume()
+{
+   request_suspend_osd_flag = false;
+}
+
+bool osd_suspended()
+{
+   return osd_suspended_flag;
+}
 
 namespace quan{ namespace uav{ namespace osd{
 
@@ -96,7 +113,6 @@ video_cfg::get_video_mode()
 
 typedef video_cfg::video_mode_t video_mode_t;
  
-
 namespace {
 void sync_sep_reset()
 {
@@ -121,14 +137,21 @@ void sync_sep_error_reset()
   syncmode = syncmode_t::start;
   video_mode = video_mode_t::unknown;
 }
-
+ 
 }// namespace 
+
+namespace detail{
 void sync_sep_enable()
 {
   sync_sep_reset();
+  
   sync_sep_timer::get()->sr = 0;
   sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
   sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
+   if ( request_suspend_osd_flag){
+     osd_suspended_flag = true;
+   }
+}
 }
 
 namespace {
@@ -261,16 +284,23 @@ void  calc_line_period()
        constexpr uint16_t one_and_a_quarter_line = 80U * clocks_usec;
        if ( (line_length > one_quarter_line) && (line_length < three_quarter_line)) {
             line_period = line_period_t::half;
-       } else {
-            if ( (line_length < one_and_a_quarter_line) && (line_length >= three_quarter_line)) {
-                 line_period = line_period_t::full;
-            } else {
-                 sync_sep_reset();
-            }
+       }else{
+         if ( (line_length < one_and_a_quarter_line) && (line_length >= three_quarter_line)) {
+              line_period = line_period_t::full;
+         } else {
+              sync_sep_reset();
+         }
        }
   } else {// just get initial capture value and exit
-       last_sync_first_edge = sync_sep_timer::get()->ccr1;
-       initial_first_edge_captured = true;
+    if (!osd_suspended_flag){
+      last_sync_first_edge = sync_sep_timer::get()->ccr1;
+      initial_first_edge_captured = true;
+    }else{// osd suspended
+      if (! request_suspend_osd_flag){
+         // want restart
+         osd_suspended_flag = false;
+      }
+    }
   } 
 }
  
@@ -397,9 +427,12 @@ void on_hsync_second_edge()
                                  return;
                               }
                            }
+#if defined (QUAN_DISPLAY_INTERLACED)
                            video_cfg::rows::set_even_frame();
+#endif
                         }else {
                            if ( sync_counter == 5){
+#if defined (QUAN_DISPLAY_INTERLACED)
                               if ( video_mode == video_mode_t::pal){
                                   video_cfg::rows::set_odd_frame();
                               }else{
@@ -407,6 +440,7 @@ void on_hsync_second_edge()
                                  // assume its ntsc
                                  video_cfg::rows::set_even_frame();
                               }
+#endif
                            }else{
                               if ( sync_counter == 6){
                                  if ( video_mode != video_mode_t::ntsc){
@@ -417,7 +451,9 @@ void on_hsync_second_edge()
                                        return;
                                     }
                                  }
+#if defined (QUAN_DISPLAY_INTERLACED)
                                  video_cfg::rows::set_odd_frame();
+#endif
                               }else{ // invalid number of pre-equalise pulses
                                  sync_sep_error_reset(); // unexpected
                                  return;

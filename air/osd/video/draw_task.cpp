@@ -18,17 +18,18 @@
 #include "../resources.hpp"
 #include <quan/uav/osd/api.hpp>
 
-void swap_osd_buffers();
-void create_osd_swap_semaphores();
 
+namespace detail{
+   void swap_osd_buffers();
+   void create_osd_swap_semaphores();
+}
 namespace {
 
    void draw_task(void * params)
    {
-       create_osd_swap_semaphores();
        for (;;){
          quan::uav::osd::on_draw();
-         swap_osd_buffers();
+         detail::swap_osd_buffers();
       }
    }
 
@@ -38,6 +39,7 @@ namespace {
 
 void create_draw_task()
 {
+    detail::create_osd_swap_semaphores();
 
 #if (SWDIO_DEBUG == SWDIO_DEBUG_DRAW_TASK)
 	  quan::stm32::module_enable<swdio::port_type>();
@@ -51,7 +53,6 @@ void create_draw_task()
 	      , quan::stm32::gpio::ostate::low
 	   >();
 #endif
-
 
    xTaskCreate(
       draw_task,"draw_task", 

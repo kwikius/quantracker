@@ -84,6 +84,8 @@ $(abspath ../../../air/osd)
 
 TARGET_PROCESSOR = STM32F4
 
+STATIC_LIBRARY_PATH = ../../../lib/osd/
+
 # in the board directory
 board_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
 fsk_task.o frsky_task.o frsky_zapp1.o mavlink_task.o settings.o \
@@ -93,6 +95,12 @@ heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o
 common_objects = on_draw.o draw_altitude.o draw_artificial_horizon.o \
 draw_compass.o draw_home.o draw_gps_state.o draw_batteries.o symbology.o \
 flash.o aircraft.o
+
+static_library_files = quantracker_air_osd.a \
+quantracker_air_graphics_api.a \
+flash_variables.a
+
+static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -162,12 +170,9 @@ test: main.elf
 	$(OD) $(ODFLAGS) main.elf > main.lst
 	$(SIZ) -A main.elf
 
-main.elf: $(objects) 
+main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf $(objects) \
-../../../lib/osd/quantracker_air_osd.a \
-../../../lib/osd/quantracker_air_graphics_api.a \
-../../../lib/osd/flash_variables.a \
+	$(LD) $(LFLAGS) -o main.elf $(objects) $(static_libraries) 
 
 $(board_objects): %.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@

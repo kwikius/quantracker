@@ -233,10 +233,18 @@ struct video_buffers {
 
          static double_buffer_manager<video_params::telem::rx::buffer::type> manager;
          static video_params::telem::rx::buffer::type m_buffers[2];
-
+          
          static uint32_t get_num_data_bytes()
          {
             return tx::get_num_data_bytes();
+         }
+         static void reset_read_buffer()
+         {
+             memset(&manager.m_read_buffer[0],0,get_num_data_bytes());
+         }
+         static void reset_write_buffer()
+         {
+            memset(&manager.m_write_buffer[0],0,get_num_data_bytes());
          }
          
       };

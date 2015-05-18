@@ -75,6 +75,11 @@ void video_buffers::init()
     telem::tx::reset_read_buffer();
     telem::tx::reset_write_buffer(); 
     telem::tx::manager.read_reset();
+    
+    telem::rx::reset_read_buffer();
+    telem::rx::reset_write_buffer(); 
+    telem::rx::manager.read_reset();
+    
 }
 // call reset_write_buffer first
 // for data 1 is space 0 is mark

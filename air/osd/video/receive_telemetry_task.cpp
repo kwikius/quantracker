@@ -20,6 +20,9 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
+#if !(defined QUAN_OSD_TELEM_RECEIVER)
+#error only for use with telem receiver
+#endif
 
 #include <cstdio>
 #include <cstring>
@@ -29,31 +32,31 @@
 #include "FreeRTOS.h"
 #include <task.h>
 
-//#include <quan/dynarray.hpp>
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 
 #include "resources.hpp"
 #include "../../../air/osd/video/video_cfg.hpp"
 #include "../../../air/osd/video/video_buffer.hpp"
+#include "../rx_telemetry.hpp"
 
-void create_telem_swap_semaphores();
-void swap_telem_buffers();
+namespace detail{
+  void create_telem_rx_swap_semaphores();
+  void swap_telem_rx_buffers();
+  void on_telemetry_receive()
+  {
+      the_rx_telemetry.refresh();
+  }
+}
 
 namespace {
 
-   uint8_t* telem_buffer = nullptr;
-   bool init_telem_buffer()
+   void vsync_telem_rx_task(void* params)
    {
-      telem_buffer = (uint8_t*) pvPortMalloc(video_buffers::telem::tx::get_num_data_bytes());
-      return telem_buffer != nullptr;
-   }
-
-  
-
-   void telem_rx_task(void* params)
-   {
- // TODO
+      for (;;){
+         detail::swap_telem_rx_buffers();
+         detail::on_telemetry_receive();
+      }
    }
 
    char dummy_param = 0;
@@ -61,23 +64,22 @@ namespace {
 
 }//namespace
 
-void create_telem_rx_task()
+void create_vsync_telem_rx_task()
 {
+   detail::create_telem_rx_swap_semaphores();
+   the_rx_telemetry.init();
    xTaskCreate(
-      telem_task,"telem_task", 
+      vsync_telem_rx_task,"vsync_telem_rx_task", 
       600,
       &dummy_param,
-      task_priority::av_telemetry,
+      task_priority::vsync_telem_rx,
       &task_handle
    );
 }
 
-namespace {
- 
-   void av_telem_usart_setup()
+namespace{
+   void vsync_telem_rx_task_usart_setup()
    {
-//todo redo transmitter using usart
-#if defined QUAN_OSD_TELEM_RECEIVER
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
          telem_cmp_enable_pin    // TIM2_CH2 or TIM2_CH4 for boardtype 4 (PA3)
@@ -85,22 +87,22 @@ namespace {
          ,quan::stm32::gpio::pupd::pull_up
       >();
 
-      quan::stm32::module_enable<av_video_rxi::port_type>();
+      quan::stm32::module_enable<av_telem_rx::port_type>();
       quan::stm32::apply<
-         av_video_rxi
-#if (QUAN_OSD_BOARD_TYPE == 4)
+         av_telem_rx
+   #if (QUAN_OSD_BOARD_TYPE == 4)
          ,quan::stm32::gpio::mode::af8 // PC7  USART6_RX
-#else
+   #else
          ,quan::stm32::gpio::mode::af7
-#endif
+   #endif
          ,quan::stm32::gpio::pupd::pull_up
       >();
       
-      quan::stm32::module_reset<av_telemetry_usart>();
-      quan::stm32::module_enable<av_telemetry_usart>();
+      quan::stm32::module_reset<av_telem_usart>();
+      quan::stm32::module_enable<av_telem_usart>();
       
       quan::stm32::apply<
-         av_telemetry_usart
+         av_telem_usart
          ,quan::stm32::usart::asynchronous
          ,quan::stm32::usart::transmitter<false>
          ,quan::stm32::usart::receiver<true>
@@ -119,33 +121,49 @@ namespace {
          ,quan::stm32::usart::i_en::pe<false>
          ,quan::stm32::usart::i_en::error<false>
       >();
-     // av_telemetry_usart::get()->cr3.setbit<6>(); //( DMAR)
-      av_telemetry_usart::get()->cr1.setbit<2>(); // ( RE)
-#else  // transmitter
-  #if (QUAN_OSD_BOARD_TYPE == 4) 
-      quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
-      quan::stm32::apply<
-         telem_cmp_enable_pin   
-         ,quan::stm32::gpio::mode::input // Shutdown TLV3501 kep cmp disabled
-         ,quan::stm32::gpio::pupd::pull_up
-      >();
-      quan::stm32::module_enable<av_telem_rx::port_type>();
-      quan::stm32::apply<
-         av_telem_rx   
-         ,quan::stm32::gpio::mode::input //cmp output hiz pulled up
-         ,quan::stm32::gpio::pupd::pull_up
-      >();
-  #endif
-#endif
+     // av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
+      av_telem_usart::get()->cr1.setbit<2>(); // ( RE)
    }
-}//namespace 
 
-//void av_telem_dma_setup();
- 
-void av_telem_rx_setup()
+   /*
+ for boardtype 4 dma is on USART6  DMA2 Channel 5 stream 1 or 2
+ ( use stream 1 to save stream 2 for
+*/
+   void vsync_telem_rx_task_dma_setup()
+   {
+      RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
+      for ( uint8_t i = 0; i < 20; ++i){
+         asm volatile ("nop" : : :);
+      }
+      RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA2RST;
+      RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA2RST;
+   #if (QUAN_OSD_BOARD_TYPE == 4)
+      DMA_Stream_TypeDef *stream = DMA2_Stream1;
+      constexpr uint32_t dma_channel = 5U;
+   #else
+      DMA_Stream_TypeDef *stream = DMA2_Stream5;
+      constexpr uint32_t dma_channel = 4U;
+   #endif
+      if (  stream->CR & (1 << 0)){
+         stream->CR &= ~(1 << 0); // (EN)
+         while(stream->CR & (1 << 0)){;}
+      }
+      stream->CR = 
+         ( dma_channel << 25)     // select channel
+         | (0b10 << 16) // medium high priority
+         |( 1 << 10) ;  // (MINC);      
+
+      stream->FCR |= (1 << 2) ;// (DMDIS)
+      // set threshold full
+      stream->FCR |= (0b11 << 0);
+      // setup periph_reg
+      stream->PAR = (uint32_t)&av_telem_usart::get()->dr;
+     // no irq so no NVIC
+   }
+} // namespace
+
+void vsync_telem_rx_task_setup()
 {
-   av_telem_usart_setup();
- //  av_telem_dma_setup();
+   vsync_telem_rx_task_usart_setup();
+   vsync_telem_rx_task_dma_setup();
 }
-
- 

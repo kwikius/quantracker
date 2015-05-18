@@ -19,11 +19,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
-#TDOD N.B currently clean before making each archive since defines may make objects different
+# to build with telem receive
+# invoke with make TELEMETRY_DIRECTION=QUAN_OSD_TELEM_RECEIVER -f osd_lib.mk
+# to build with telem transmit
+# invoke with make TELEMETRY_DIRECTION=QUAN_OSD_TELEM_TRANSMITTER -f osd_lib.mk
+#
 
 HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../Dependencies.mk"; then echo "True"; fi)
 
-ifeq ($(HAVE_DEPENDENCIES_FILE), )
+ifneq ($(HAVE_DEPENDENCIES_FILE),True)
   quantracker-make-help:
 	@echo ' '
 	@echo '   ########## HELP - OSD firmware build needs more info ############'
@@ -35,7 +39,7 @@ ifeq ($(HAVE_DEPENDENCIES_FILE), )
 	@echo '   #                                                               #'
 	@echo '   #            Please read "Sample-Dependencies.mk" .             #'
 	@echo '   #            in the main quantracker directory                  #'
-   @echo '   #            for further Details.                               #'
+	@echo '   #            for further Details.                               #'
 	@echo '   #                                                               #'
 	@echo '   #################################################################'
 	@echo ' '	
@@ -61,10 +65,6 @@ ifeq ($(QUAN_INCLUDE_PATH), )
 $(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
 endif
 
-ifeq ($(MAVLINK_INCLUDE_PATH), )
-$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
-endif
-
 ifeq ($(FREE_RTOS_DIR), )
 $(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
 endif
@@ -73,6 +73,7 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
+# source directory for the STM32 std peripheral library
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
@@ -85,8 +86,6 @@ $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
 
 TARGET_PROCESSOR = STM32F4
-
-
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -105,7 +104,7 @@ LIBRARY_PATH=
 CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc
 AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
-  
+
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS STM32F40_41xxx \
@@ -123,7 +122,6 @@ INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERS
 else
 $(error no target processor defined)
 endif
-#endif
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
@@ -132,65 +130,65 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd.a 
-
 rtos_objects = tasks.o queue.o list.o timers.o
-
 stm32_objects = misc.o
-
-video_objects = video_buffer.o video_column.o video_row.o \
-video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
-draw_task.o  sync_sep.o black_level.o dac.o 
-
-osd_telem_tx : DEFINES += QUAN_OSD_TELEM_TRANSMITTER
-OSD_TX_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_tx.a
-tx_video_objects = telemetry_transmit_task.o $(video_objects)
-
-osd_telem_rx : DEFINES += QUAN_OSD_TELEM_RECEIVER
-OSD_RX_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_rx.a
-rx_video_objects = telemetry_receive_task.o $(video_objects)
-
 system_objects = $(rtos_objects) $(stm32_objects) \
 startup.o system_init.o port.o heap_3.o rtos_hooks.o
 
+# (later add a different prefix for video_objects dependent
+# on telem transmitter telem_receiver or no telem)
+unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
+video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
+draw_task.o  sync_sep.o black_level.o dac.o 
+
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
+OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_tx.a
+TELEMETRY_PREFIX = lib_tx_
+DEFINES += QUAN_OSD_TELEM_TRANSMITTER
+else
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
+OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_rx.a
+TELEMETRY_PREFIX = lib_rx_
+DEFINES += QUAN_OSD_TELEM_RECEIVER
+else
+OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd.a
+TELEMETRY_PREFIX = lib_
+endif
+endif
+
+video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+
 objects = $(video_objects) $(system_objects)
-tx_objects = $(tx_video_objects) $(system_objects)
-rx_objects = $(rx_video_objects) $(system_objects)
 
-all : osd
+# add the telemetry tasks to the lib if required
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
+objects += transmit_telemetry_task.o
+else
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
+objects += receive_telemetry_task.o
+endif
+endif
 
-.PHONY: osd
-osd : $(OSD_ARCHIVE_FILE)
-
-# Ignore Will be incorporated into main lib
-.PHONY: osd_telem_tx
-osd_telem_tx : $(OSD_TX_ARCHIVE_FILE)
-
-# Ignore Will be incorporated into main lib
-.PHONY: osd_telem_rx
-osd_telem_rx : $(OSD_RX_ARCHIVE_FILE)
+all : $(OSD_ARCHIVE_FILE)
    
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
-.PHONY: clean 
+.PHONY: clean
 clean:
-	-rm -rf ../../lib/osd/quantracker_air_osd*.a *.o *.elf *.bin *.lst 
-
-$(OSD_TX_ARCHIVE_FILE) : $(tx_objects)
-	$(AR) rcs $@ $(objects)
-
-$(OSD_RX_ARCHIVE_FILE) : $(rx_objects)
-	$(AR) rcs $@ $(objects)
+	-rm -rf $(OSD_ARCHIVE_FILE) *.o *.elf *.bin *.lst 
 
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-telemetry_transmit_task.o : %.o : video/%.cpp
+transmit_telemetry_task.o : %.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(video_objects): %.o : video/%.cpp
+receive_telemetry_task.o : %.o : video/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(video_objects): $(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 system_init.o : $(SYSTEM_INIT)
