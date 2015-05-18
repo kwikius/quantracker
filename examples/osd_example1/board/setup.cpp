@@ -154,7 +154,6 @@ namespace {
       >();
    }
 #endif
-
 }
  
 extern "C" void setup()
