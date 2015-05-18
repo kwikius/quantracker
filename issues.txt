@@ -1,0 +1,11 @@
+
+Mon 18 May 2015 15:17:59 BST 
+If you get error messages from the baord  when writing in the flash menu. It may be due to an old version of the libraries
+Currently the libraries amake files are in air/osd/ dir. Also After building a particulat library, do make clean to remove any objcet files which may cause a problem.
+TODO move all this stuff out of there!
+
+Mon 18 May 2015 15:17:45 BST 
+If set up as transmitter or receiver then hangs if you dont
+add receive_telemetry_task etc. A common issue with frertos where Semaphores are called without being inialised
+also need local rx_telemtry stuff. Overall needs thought as to how it should work.
+maybe should be folded into draw_task. Anyway needs documentation.
