@@ -355,11 +355,7 @@ void video_cfg::columns::telem::enable()
 #else
        DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
        DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
-<<<<<<< HEAD
 #endif      
-=======
-#endif
->>>>>>> rtos_tracker
        av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
        av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
        av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)

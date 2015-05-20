@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 16 May 2015 15:45:47 BST
+EESchema Schematic File Version 2  date Wed 20 May 2015 18:56:24 BST
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "16 may 2015"
+Date "20 may 2015"
 Rev ""
 Comp ""
 Comment1 ""

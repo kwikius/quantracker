@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 16 May 2015 15:45:47 BST
+EESchema Schematic File Version 2  date Wed 20 May 2015 18:56:24 BST
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 3
 Title ""
-Date "16 may 2015"
+Date "20 may 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -65,8 +65,6 @@ Wire Wire Line
 Wire Wire Line
 	7000 4050 6700 4050
 Wire Wire Line
-	4750 3950 4450 3950
-Wire Wire Line
 	5850 4900 5850 4750
 Wire Wire Line
 	5550 4900 5550 4750
@@ -77,7 +75,7 @@ Wire Wire Line
 Wire Wire Line
 	4750 4250 4500 4250
 Wire Wire Line
-	4750 3450 4450 3450
+	4750 3450 4350 3450
 Wire Wire Line
 	4750 2950 4450 2950
 Wire Wire Line
@@ -87,7 +85,7 @@ Wire Wire Line
 Wire Wire Line
 	4750 3150 4450 3150
 Wire Wire Line
-	4750 3350 4450 3350
+	4750 3350 4300 3350
 Wire Wire Line
 	4750 4150 4500 4150
 Wire Wire Line
@@ -100,8 +98,6 @@ Wire Wire Line
 	5750 4900 5750 4750
 Wire Wire Line
 	5950 4900 5950 4750
-Wire Wire Line
-	4750 3850 4450 3850
 Wire Wire Line
 	4750 4050 4450 4050
 Wire Wire Line
@@ -221,17 +217,17 @@ Text Notes 3400 3700 2    60   ~ 0
 USART4_TXO/TIM5_CH1/TIM8_ETR/ADC123_IN0
 Text Notes 3350 3600 2    60   ~ 0
 USART4-RXI/TIM5_CH2/ADC123_IN1
-Text Notes 3900 3500 2    60   ~ 0
+Text Notes 3500 3500 2    60   ~ 0
 ADC123_IN11\n
-Text Notes 3900 3400 2    60   ~ 0
+Text Notes 3500 3400 2    60   ~ 0
 ADC123_IN10\n
 Text Notes 3500 3000 2    60   ~ 0
 TIM1_CH3N/TIM8_CH3N/ADC12_IN9\n
 Text HLabel 4450 4050 0    60   Input ~ 0
 VIDEO_RSSI
-Text HLabel 4450 3950 0    60   Input ~ 0
+Text HLabel 4350 3450 0    60   Input ~ 0
 MOTOR_CURRENT
-Text HLabel 4450 3850 0    60   Input ~ 0
+Text HLabel 4300 3350 0    60   Input ~ 0
 MOTOR_SPEED
 Text HLabel 7000 4050 2    60   Output ~ 0
 LED3

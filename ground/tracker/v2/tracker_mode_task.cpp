@@ -20,7 +20,9 @@ namespace {
          if ( cmdline_mode){
             sp_task::write("in cmdline mode\n");
          }else{
-            sp_task::write ("not cmdline mode\n");
+            // start tracking
+            sp_task::write("start tracking\n");
+    
          }
          for (;;){
              quan::stm32::set<heartbeat_led_pin>();

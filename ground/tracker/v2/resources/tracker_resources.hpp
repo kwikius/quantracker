@@ -8,16 +8,53 @@
 #include <quan/stm32/usart.hpp>
 
 #include <quan/stm32/freertos/freertos_usart_task.hpp>
+#include "common_resources.hpp"
 
 /*
 non OSD resources used by the tracker
+no fsk if want dma for v sampling
+remove qdrt would free up some timers etc
 also add some leds
 push buttons etc
 
 --- pan motor
        motor_direction           PC14
        motor pwm                 PB8  
+*/
+//timers not available - used by osd
+/*
+typedef quan::stm32::tim2                       video_columns_gate_timer;
+typedef quan::stm32::tim3                       video_rows_line_counter;
+typedef quan::stm32::tim9                       spi_clock_timer;
+typedef quan::stm32::tim10                      video_level_dac_irq_timer;
+typedef quan::stm32::tim12                      sync_sep_timer;
+*/
+typedef quan::mcu::pin<quan::stm32::gpiob,8>   pan_motor_pwm_pin;
+typedef quan::mcu::pin<quan::stm32::gpioc,14>  pan_motor_dir_pin;
 
+typedef quan::mcu::pin<quan::stm32::gpioc,0>   pan_motor_emf_adc_pin;
+typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
+
+/*
+   ADC needs tim1/ tim2/tim3/tim4/tim5 or tim8
+   available timers
+   tim1   rc pwm 16 bit 4 channels - ADC trigger
+*/
+
+/*
+   tim4  - ADC trigger
+   tim5 ** used by QDRT 
+   tim6  best for DAC
+   tim7  best for DAC
+   tim8    // 16 bit 4 channels   - ADC trigger
+   tim11   tilt servo pwm
+   tim13
+   tim14
+*/
+ // 16 bit single channle timer
+ // set up for 1 us clock
+ typedef quan::stm32::tim13  pan_motor_timer ;
+/*
 ( for qdrt either lose a sp or a i2c )
  Currently choose to lose a SP so that I2C1 can be used  by LCD
 
@@ -60,9 +97,6 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
 --- GPS
        tx                        Mavlink Port  TX2
        rx                        Mavlink Port RX2
---- fsk
-       audioL  --- analog in     PC0  ADCXX
-       audioR  --- analog in     PC1  ADCXX
 --- LCD
        
 ---  RC out

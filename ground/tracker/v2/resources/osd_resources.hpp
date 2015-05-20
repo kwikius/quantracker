@@ -43,6 +43,7 @@
 //timers used
 typedef quan::stm32::tim2                       video_columns_gate_timer;
 typedef quan::stm32::tim3                       video_rows_line_counter;
+
 typedef quan::stm32::tim9                       spi_clock_timer;
 typedef quan::stm32::tim10                      video_level_dac_irq_timer;
 typedef quan::stm32::tim12                      sync_sep_timer;
