@@ -50,17 +50,17 @@ namespace {
    auto constexpr output_angular_velocity_per_mV = rad_per_s{quan::angle::two_pi} / quan::voltage::mV{12000};
 
    // proportional constant
-   auto constexpr kP = 0.05f/rad_per_s{rad{1.f}};
+   auto  kP = 0.1f/rad_per_s{rad{1.f}};
    // differential constant is always 2 x proportional
-   auto constexpr kD = 0.1f/rad_per_s{rad{1.f}};
+   auto  kD = 0.2f/rad_per_s{rad{1.f}};
    // 0.1 gives a minimum on pulse of 2 ms 
    // needs to be big enough to move the motor rateher
    // than just causing buzzing
-   float constexpr min_duty_cycle = 0.15f;
+   float min_duty_cycle = 0.05f;
    // constant for current dependent delay
    // after switching off motor
    // set here to a spike of 4 ms per 1 A current
-   auto constexpr current_spike_constant = quan::time::us{4000.f}/quan::current::mA{1000.f};
+   auto constexpr current_spike_constant = quan::time::us{2000.f}/quan::current::mA{1000.f};
 
    
 
@@ -78,9 +78,9 @@ namespace {
    // duty cycle as fraction of period somewhere between -1 and 1
    // (accumulated)
    float duty_cycle = 0.f;
-   // abs(duty_cycle) max limit
+   // std::abs(duty_cycle) max limit
    // need some velocity samples!
-   constexpr float max_duty_cycle = 0.75f;
+    float max_duty_cycle = 0.75f;
 
    // velocity error from prev iter
    rad_per_s old_velocity_error{rad{0.f}};
@@ -134,15 +134,16 @@ namespace {
       ( num_backemf_samples > 0)
          ? (back_emf_sum / num_backemf_samples) - emf_zero_volts_rail
          : quan::voltage::mV{0};
-//      rad_per_s const actual_output_velocity = motor_back_emf * output_angular_velocity_per_mV;
-//      // get term proportional to velocity error
-//      rad_per_s const velocity_error = target_output_angular_velocity - actual_output_velocity;
-//      duty_cycle += kP * velocity_error;
-//      // get term proportional to rate of change of velocity error
-//      rad_per_s const velocity_error_de_dt = velocity_error - old_velocity_error;
-//      old_velocity_error = velocity_error;
-//      duty_cycle += kD * velocity_error_de_dt;
-      duty_cycle = target_output_angular_velocity.numeric_value();
+      
+      rad_per_s const actual_output_velocity = motor_back_emf * output_angular_velocity_per_mV;
+      // get term proportional to velocity error
+      rad_per_s const velocity_error = target_output_angular_velocity - actual_output_velocity;
+      duty_cycle += kP * velocity_error;
+      // get term proportional to rate of change of velocity error
+      rad_per_s const velocity_error_de_dt = velocity_error - old_velocity_error;
+      old_velocity_error = velocity_error;
+      duty_cycle += kD * velocity_error_de_dt;
+     // duty_cycle = target_output_angular_velocity.numeric_value();
       auto const abs_duty_cycle = std::fabs(duty_cycle);
       static_assert(std::is_same<decltype(abs_duty_cycle),float const>::value,"odd");
       if ( abs_duty_cycle > min_duty_cycle){
@@ -424,8 +425,6 @@ quan::voltage::mV tracker::pan::get_current_0v_rail()
    return current_zero_volts_rail;
 }
 
-
-
 void tracker::pan::enable(bool b)
 {
    if (b){
@@ -463,12 +462,28 @@ void tracker::pan::set_angular_velocity(tracker::rad_per_s const & v)
 
 rad_per_s tracker::pan::get_angular_velocity()
 {
+   
   return motor_back_emf * output_angular_velocity_per_mV;
 }
 
 rad_per_s tracker::pan::get_target_angular_velocity()
 {
   return target_output_angular_velocity;
+}
+
+void tracker::pan::set_kP(float val)
+{
+  kP = val / rad_per_s{rad{1.f}};
+}
+
+void tracker::pan::set_kD(float val)
+{
+  kD = val / rad_per_s{rad{1.f}};
+}
+
+void tracker::pan::set_kC(float val)
+{
+  min_duty_cycle = val ;
 }
 
 namespace tracker_detail{

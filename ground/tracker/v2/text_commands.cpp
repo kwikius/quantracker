@@ -41,6 +41,7 @@
    "Z" --> set zero (North)
    "kP%f" --> set proportional term %f
    "kD%f" --> set differential term %f
+   "kC%f"  --> min duty cycle  term %f
    "H%i" ---> set elev servo pos;
    "V%f"  --> set target pan angular velocity
 
@@ -226,51 +227,41 @@ namespace {
          break;
          case 'k': 
             if ( len > 3){
-               switch (buf[1]){
-                  case 'P' : 
-                  case 'D' : {
-                    quan::detail::converter<float,char*> conv;
-                   // float const v = conv(buf + 2);
-                    if (conv.get_errno() ==0){
-                        switch (buf[1]){
-                           case 'P' : {
-                             #if 0
-                              azimuth::motor::set_kP(v);
-                              char buf1[50];
-                              sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
-                              debug_serial_port::write(buf1);
-                              #else
-                                 debug_serial_port::write("TODO\n");
-                              #endif
-                           }
-                           break;
-                           case 'D':
-                              #if 0
-                              azimuth::motor::set_kD(v);
-                              char buf1[50];
-                              sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
-                              debug_serial_port::write(buf1);
-                               #else
-                                 debug_serial_port::write("TODO\n");
-                              #endif
-                           break;
-                           default:
-                              debug_serial_port::write("internal error\n");
-                           break;
+                 quan::detail::converter<float,char*> conv;
+                 float const v = conv(buf + 2);
+                 if (conv.get_errno() ==0){
+                     switch (buf[1]){
+                        case 'P' : {
+                           tracker::pan::set_kP(v);
+                           char buf1[50];
+                           sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
+                           debug_serial_port::write(buf1);
                         }
-                    }else{
-                        debug_serial_port::write("float conv error\n");
-                    }
-                  }
-                  break;
-                  default :
-                     debug_serial_port::write("unknown command\n");
-                  break;
-               }
-            }
-            else{
-               debug_serial_port::write("expctd kP or kD + float\n");
-            } 
+                        break;
+                        case 'D':{
+                           tracker::pan::set_kD(v);
+                           char buf1[50];
+                           sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
+                           debug_serial_port::write(buf1);
+                        }
+                        break;
+                        case 'C':{
+                           tracker::pan::set_kC(v);
+                           char buf1[50];
+                           sprintf(buf1,"kC  <~ %f : OK!\n",static_cast<double>(v));
+                           debug_serial_port::write(buf1);
+                        }
+                        break;
+                        default:
+                           debug_serial_port::write("unknown k command\n");
+                        break;
+                     }
+                 }else{ //
+                     debug_serial_port::write("float conv error\n");
+                 }
+               }else{ 
+                 debug_serial_port::write("expctd kP kD kD + float\n");
+               } 
          break;
          case 'G' :
              if ( len > 1){
@@ -387,6 +378,7 @@ namespace {
                           sprintf(buf1,"actual angular velocity = %.3f rad.s-1\n",vn);
                           debug_serial_port::write(buf1);
                       }
+                      break;
                       case 't': {
                           tracker::rad_per_s v = tracker::pan::get_target_angular_velocity();
                           // n.b implicit conversion from radians value_type

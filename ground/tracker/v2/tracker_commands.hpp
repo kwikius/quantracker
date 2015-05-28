@@ -45,6 +45,9 @@ other
          static void move(deg const & target_angle, rad_per_s const & dtheta_at_target_bearing);
          static quan::voltage::mV get_back_emf_0v_rail();
          static quan::voltage::mV get_current_0v_rail();
+         static void set_kP(float val);
+         static void set_kD(float val);
+         static void set_kC(float val);
       };
       struct tilt{
          static void enable(bool b);
