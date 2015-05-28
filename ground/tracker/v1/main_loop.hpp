@@ -60,6 +60,7 @@ struct main_loop{
        elevation_servo_pulse_len = pos;  
    }
 
+   // 0 deg is horizontal, 90 deg is vertical
    static void set_elevation(quan::angle::deg);
 
    static quan::time_<uint32_t>::us get_elevation_servo()
