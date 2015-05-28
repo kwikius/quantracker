@@ -42,8 +42,7 @@ if receiver put something bottom of screen
 */
 void quan::uav::osd::on_draw()
 {
-
-  auto font= quan::uav::osd::get_font(0);
+   auto font= quan::uav::osd::get_font(0);
    if (font){
      quan::uav::osd::draw_text("Hello World",{0,0},font);
    }else{
@@ -63,10 +62,8 @@ int main()
 //  mode_check();
 //  
 
-//
+// should be the same
   create_draw_task();
-//  create_telem_task();
-//  create_tracker_task();
   create_vsync_telem_rx_task();
 
   vTaskStartScheduler();
