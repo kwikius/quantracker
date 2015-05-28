@@ -1,6 +1,8 @@
 
 #include "resources.hpp"
 
+void parse_commandline();
+
 namespace {
 
       typedef sliprings_tx_rx_task sp_task;
@@ -10,6 +12,7 @@ namespace {
          
          sp_task::enable();
          bool cmdline_mode = true;
+          sp_task::write("Quantracker Ground V2\n");
          // look for 3 x ret
          for (int count = 0;count < 3; ++count){
            if ( sp_task::get() != '\r'){
@@ -19,13 +22,16 @@ namespace {
          }
          if ( cmdline_mode){
             sp_task::write("in cmdline mode\n");
+            for (;;){
+               parse_commandline();
+            }
          }else{
             // start tracking
             sp_task::write("start tracking\n");
     
          }
          for (;;){
-             quan::stm32::set<heartbeat_led_pin>();
+           //  quan::stm32::set<heartbeat_led_pin>();
             asm volatile ("nop":::);
          }
       }
