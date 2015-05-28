@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 20 May 2015 18:56:24 BST
+EESchema Schematic File Version 2  date Thu 21 May 2015 21:44:38 BST
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 3
 Title ""
-Date "20 may 2015"
+Date "21 may 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -125,10 +125,10 @@ I2C1_SCL/TIM4_CH1 /CAN2_TX \n
 Text HLabel 8600 1250 2    60   Output ~ 0
 PAN_SERVO_PWM
 $Comp
-L R R?
+L R R18
 U 1 1 55521193
 P 8150 1250
-F 0 "R?" V 8230 1250 50  0000 C CNN
+F 0 "R18" V 8230 1250 50  0000 C CNN
 F 1 "R" V 8150 1250 50  0000 C CNN
 	1    8150 1250
 	0    1    1    0   
@@ -142,10 +142,10 @@ TILT_SERVO_PWM_RAW
 Text Label 6850 2650 0    60   ~ 0
 TILT_SERVO_PWM_RAW
 $Comp
-L R R?
+L R R17
 U 1 1 555210EC
 P 8100 1000
-F 0 "R?" V 8180 1000 50  0000 C CNN
+F 0 "R17" V 8180 1000 50  0000 C CNN
 F 1 "R" V 8100 1000 50  0000 C CNN
 	1    8100 1000
 	0    1    1    0   
@@ -155,10 +155,10 @@ Video Out
 Text Notes 2000 4600 2    60   ~ 0
 Video In
 $Comp
-L CONN_3 K?
+L CONN_3 K2
 U 1 1 55520FE6
 P 1850 6150
-F 0 "K?" V 1800 6150 50  0000 C CNN
+F 0 "K2" V 1800 6150 50  0000 C CNN
 F 1 "CONN_3" V 1900 6150 40  0000 C CNN
 	1    1850 6150
 	-1   0    0    -1  
@@ -166,10 +166,10 @@ $EndComp
 Text Notes 1700 2250 2    60   ~ 0
 GPS
 $Comp
-L CONN_4 P?
+L CONN_4 P5
 U 1 1 55520E37
 P 1850 2550
-F 0 "P?" V 1800 2550 50  0000 C CNN
+F 0 "P5" V 1800 2550 50  0000 C CNN
 F 1 "CONN_4" V 1900 2550 50  0000 C CNN
 	1    1850 2550
 	-1   0    0    1   
@@ -177,10 +177,10 @@ $EndComp
 Text Notes 2050 1250 2    60   ~ 0
 Magnetometer
 $Comp
-L CONN_6 P?
+L CONN_6 P4
 U 1 1 55520DE1
 P 1850 1650
-F 0 "P?" V 1800 1650 60  0000 C CNN
+F 0 "P4" V 1800 1650 60  0000 C CNN
 F 1 "CONN_6" V 1900 1650 60  0000 C CNN
 	1    1850 1650
 	-1   0    0    1   
@@ -217,18 +217,18 @@ Text Notes 3400 3700 2    60   ~ 0
 USART4_TXO/TIM5_CH1/TIM8_ETR/ADC123_IN0
 Text Notes 3350 3600 2    60   ~ 0
 USART4-RXI/TIM5_CH2/ADC123_IN1
-Text Notes 3500 3500 2    60   ~ 0
+Text Notes 3250 3500 2    60   ~ 0
 ADC123_IN11\n
-Text Notes 3500 3400 2    60   ~ 0
+Text Notes 3300 3400 2    60   ~ 0
 ADC123_IN10\n
 Text Notes 3500 3000 2    60   ~ 0
 TIM1_CH3N/TIM8_CH3N/ADC12_IN9\n
 Text HLabel 4450 4050 0    60   Input ~ 0
 VIDEO_RSSI
 Text HLabel 4350 3450 0    60   Input ~ 0
-MOTOR_CURRENT
+PAN_MOTOR_CURRENT
 Text HLabel 4300 3350 0    60   Input ~ 0
-MOTOR_SPEED
+PAN_MOTOR_EMF
 Text HLabel 7000 4050 2    60   Output ~ 0
 LED3
 Text HLabel 7000 4250 2    60   Output ~ 0
@@ -270,10 +270,10 @@ LED1
 Text HLabel 4450 3050 0    60   Output ~ 0
 PAN_MOTOR_DIR
 $Comp
-L OSD_V2_1 M?
+L OSD_V2_1 M1
 U 1 1 5551CEC6
 P 5700 3350
-F 0 "M?" H 5750 3100 60  0000 C CNN
+F 0 "M1" H 5750 3100 60  0000 C CNN
 F 1 "OSD_V2_1" H 5700 3350 60  0000 C CNN
 	1    5700 3350
 	1    0    0    -1  
