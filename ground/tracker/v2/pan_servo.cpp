@@ -3,6 +3,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+#include <quan/stm32/sys_freq.hpp>
 #include <quan/angle.hpp>
 #include <quan/reciprocal_time.hpp>
 #include <quan/frequency.hpp>
@@ -13,13 +14,16 @@
 #include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/stm32/push_pop_fp.hpp>
 #include "resources/tracker_resources.hpp"
-
+#include "resources/osd_resources.hpp"
+#include "tracker_commands.hpp"
 /*
    pan servo
+   With current test rig
+   Clockwise rotation of the spindle gives a positive back emf
+   setting Dir = 1 gives positive rotation
 */
 
 namespace {
-
 
    // Potentially useful output units
    // assuming we want to track in radians per sec
@@ -30,31 +34,35 @@ namespace {
 
    // this value updated by the external tracker logic
    // The servo is servoing on this value
-   rad_per_s target_output_angular_velocity{rad{0}};
+   rad_per_s target_output_angular_velocity{rad{0.f}};
 
    // the angular velocity we want the tracker pan output to be at 
    // nominal 1/50th sec pan_motor_pwm_period
-   constexpr quan::time_<uint32_t>::us pan_motor_pwm_period{20000U};
+   constexpr quan::time::us pan_motor_pwm_period{20000.f};
 
+   // using LD39015 3.3V reg voltage output accuracy quoted as +- 2%
+   // 
    constexpr quan::voltage::mV volts_per_bit = quan::voltage::mV{3300.f}/4096.f;
 
  // ################ flash variables ############
    // default to 1 rev per sec with 12v input
    // needs to be measured for a particular setup
-   auto output_angular_velocity_per_mV = rad_per_s{quan::angle::two_pi} / quan::voltage::mV{12000};
+   auto constexpr output_angular_velocity_per_mV = rad_per_s{quan::angle::two_pi} / quan::voltage::mV{12000};
 
    // proportional constant
-   auto kP = 0.1f/rad_per_s{rad{1.f}};
+   auto constexpr kP = 0.05f/rad_per_s{rad{1.f}};
    // differential constant is always 2 x proportional
-   auto kD = 0.2f/rad_per_s{rad{1.f}};
+   auto constexpr kD = 0.1f/rad_per_s{rad{1.f}};
    // 0.1 gives a minimum on pulse of 2 ms 
    // needs to be big enough to move the motor rateher
    // than just causing buzzing
-   float min_duty_cycle = 0.1f;
+   float constexpr min_duty_cycle = 0.15f;
    // constant for current dependent delay
    // after switching off motor
    // set here to a spike of 4 ms per 1 A current
-   auto current_spike_constant = quan::time::us{4000.f}/quan::current::mA{1000.f};
+   auto constexpr current_spike_constant = quan::time::us{4000.f}/quan::current::mA{1000.f};
+
+   
 
    //####### end flash variables ###############
 
@@ -77,16 +85,22 @@ namespace {
    // velocity error from prev iter
    rad_per_s old_velocity_error{rad{0.f}};
 
+   bool pan_motor_enabled = false;
+
    // keeps a tally of how much of cycle used by each section
-   quan::time_<uint32_t>::us cycle_time_left = pan_motor_pwm_period;
+   quan::time::us cycle_time_left = pan_motor_pwm_period;
    void section_start_new_cycle();
    // set initial interrupt
    void (*pf_timer_irq_section_function)() = &section_start_new_cycle;
    
-   void set_next_timer_irq(quan::time_<uint32_t>::us t, void(*pfn)())
+   void set_next_timer_irq(quan::time::us t, void(*pfn)())
    {
      pf_timer_irq_section_function = pfn;
-     pan_motor_timer::get()->arr = t.numeric_value();
+     int32_t time_to_irq = static_cast<int32_t>(t.numeric_value());
+     if ( time_to_irq < 0){
+         time_to_irq = 10;
+     }
+     pan_motor_timer::get()->arr = time_to_irq;
      cycle_time_left -= t;
      pan_motor_timer::get()->cnt = 0U;
      quan::stm32::enable<pan_motor_timer>();
@@ -100,27 +114,37 @@ namespace {
    // used to record number of velocity samples this cycle
    uint32_t num_backemf_samples = 0U;
 
+   // recalced each cycles
+   quan::voltage::mV motor_back_emf{0};
+   quan::current::mA motor_current{0};
    // the pid loop on velocity
+   int led_counter = 0;
    void section_start_new_cycle()
    {
+      ++led_counter;
+      if (led_counter == 50){
+         led_counter = 0;
+        // quan::stm32::complement<heartbeat_led_pin>();
+      }
       // reinvigorate for new cycle
       cycle_time_left = pan_motor_pwm_period;
       // get motor angular velocity by averaging samples from last cycle
       // but avoid divison by zero
-      quan::voltage::mV const motor_back_emf =
-      ( num_backemf_samples != 0)
+      motor_back_emf =
+      ( num_backemf_samples > 0)
          ? (back_emf_sum / num_backemf_samples) - emf_zero_volts_rail
          : quan::voltage::mV{0};
-      rad_per_s const actual_output_velocity = motor_back_emf * output_angular_velocity_per_mV;
-      // get term proportional to velocity error
-      rad_per_s const velocity_error = target_output_angular_velocity - actual_output_velocity;
-      duty_cycle += kP * velocity_error;
-      // get term proportional to rate of change of velocity error
-      rad_per_s const velocity_error_de_dt = velocity_error - old_velocity_error;
-      old_velocity_error = velocity_error;
-      duty_cycle -= kD * velocity_error_de_dt;
-      
-      auto const abs_duty_cycle = abs(duty_cycle);
+//      rad_per_s const actual_output_velocity = motor_back_emf * output_angular_velocity_per_mV;
+//      // get term proportional to velocity error
+//      rad_per_s const velocity_error = target_output_angular_velocity - actual_output_velocity;
+//      duty_cycle += kP * velocity_error;
+//      // get term proportional to rate of change of velocity error
+//      rad_per_s const velocity_error_de_dt = velocity_error - old_velocity_error;
+//      old_velocity_error = velocity_error;
+//      duty_cycle += kD * velocity_error_de_dt;
+      duty_cycle = target_output_angular_velocity.numeric_value();
+      auto const abs_duty_cycle = std::fabs(duty_cycle);
+      static_assert(std::is_same<decltype(abs_duty_cycle),float const>::value,"odd");
       if ( abs_duty_cycle > min_duty_cycle){
          if ( abs_duty_cycle > max_duty_cycle){
             int const sign_duty_cycle = (duty_cycle > 0.f)?1:-1;
@@ -144,11 +168,13 @@ namespace {
 
    void switch_on_motor()
    {
+      quan::stm32::set<heartbeat_led_pin>();
       quan::stm32::set<pan_motor_pwm_pin>();
    }
 
    void switch_off_motor()
    {
+      quan::stm32::clear<heartbeat_led_pin>();
       quan::stm32::clear<pan_motor_pwm_pin>();
    }
 
@@ -157,17 +183,20 @@ namespace {
    void section_switch_on_motor2();
    void section_switch_on_motor()
    {
-      int const direction = (duty_cycle >= 0.f) ? 1 : -1;
+    
+      int const direction = ((duty_cycle >= 0.f) ? 1 : -1);
       set_motor_direction(direction);
-      // due to mosfet inverter to provide not_direction on L298
-      // give ample time for direction logic output to stabilise before switching motor on
-      set_next_timer_irq(quan::time::us{10}, &section_switch_on_motor2);
+       // on L298 give ample time for direction logic output to stabilise
+       // before switching motor on
+      set_next_timer_irq(quan::time::us{10.f}, &section_switch_on_motor2);
    }
    // Now really do switch motor on!
    void section_switch_on_motor2()
    {
-      switch_on_motor();
-      set_next_timer_irq(duty_cycle * pan_motor_pwm_period, &section_pre_end_duty_cycle);
+      if (pan_motor_enabled){
+         switch_on_motor();
+      }
+      set_next_timer_irq(std::fabs(duty_cycle) * pan_motor_pwm_period, &section_pre_end_duty_cycle);
    }
    
    void start_pan_motor_current_conversion()
@@ -202,7 +231,8 @@ namespace {
    void section_switch_off_motor()
    {
       // dont care about current direction
-      quan::current::mA const current = abs(read_a2d_current());
+      motor_current = read_a2d_current();
+      quan::current::mA const current = quan::abs(motor_current);
       switch_off_motor();
       set_next_timer_irq(current * current_spike_constant,&section_start_backemf_sampling);
    }
@@ -221,8 +251,10 @@ namespace {
 
    void section_start_backemf_sampling()
    {
+      
       back_emf_sum = quan::voltage::mV{0};
-      int32_t const num_samples = static_cast<int32_t>(cycle_time_left / time_between_backemf_samples);
+      int32_t const num_samples 
+         = static_cast<int32_t>(cycle_time_left / time_between_backemf_samples);
        
       if ( num_samples > 0){
          num_backemf_samples = num_samples;
@@ -236,6 +268,7 @@ namespace {
    // called from ADC irq
    void section_get_velocity()
    {
+      
       back_emf_sum += read_a2d_voltage();
       if ( --num_backemf_samples_left > 0){
          set_next_timer_irq(time_between_backemf_samples,&start_backemf_conversion);
@@ -261,13 +294,13 @@ namespace {
          ,gpio::ospeed::slow 
          ,gpio::ostate::low
       >();
-
+      // direction = 1
       apply<
          pan_motor_dir_pin
          ,gpio::mode::output
          ,gpio::otype::push_pull
          ,gpio::ospeed::slow
-         ,gpio::ostate::low
+         ,gpio::ostate::high
       >();
 
       // analog pins
@@ -315,18 +348,23 @@ namespace {
      Timer::get()->dier. template bb_setbit<0>(); // (UIE)
    }
 
+   template <typename Timer>
+   inline void disable_overflow_interrupt()
+   {
+     Timer::get()->dier. template bb_clearbit<0>(); // (UIE)
+   }
+
    void setup_timer()
    {
       module_enable<pan_motor_timer>();
       set_timer_clock<pan_motor_timer>(quan::time::us{1});
       set_one_shot_mode<pan_motor_timer>();
-      enable_overflow_interrupt<pan_motor_timer>();
-
+      // interrupt will be enabled in 
       NVIC_SetPriority(TIM8_UP_TIM13_IRQn,local_interrupt_priority::pan_motor);
       NVIC_EnableIRQ(TIM8_UP_TIM13_IRQn);
    }
 
-   // USE ADC1
+   // uses ADC1
    void setup_voltage_and_current_adcs()
    { // voltage on pc0  ADC123_IN10, 
       // current on pc1 ADC123_IN11
@@ -336,33 +374,36 @@ namespace {
       // reset ADC1
       quan::stm32::rcc::get()->apb2rstr.bb_setbit<8>(); // (ADC1)
       quan::stm32::rcc::get()->apb2rstr.bb_clearbit<8>();
-      // set ADC prescale to 4 to give 21 MHz adc clock
-      ADC->CCR = (ADC->CCR & ~(0b10 << 16)) | (0b01 << 16);
+      // set ADC prescale not > 21 MHz
+      ADC->CCR |= (0b11 << 16); // 8 Cyc if APB2 == sysclk
+      //ADC->CCR |= (0b01 << 16);   // 4 Cyc if APB2 == syclk / 2
       //set up sample time for channels
-      // to 56 cycles say 2- 3 usec
-      ADC1->SMPR1 = 
-      (ADC1->SMPR1 & ~((0b100 << 3) | 0b100)) 
-         | ((0b011 << 3) | 0b011 ) ; // (SMP11 5:3) (SMP10 2:0)
+      // to 0b100 == 84 cycles == 4 usec
+      ADC1->SMPR1 |= (0b100 << 3) | 0b100  ; // (SMP11 5:3) (SMP10 2:0)
       ADC1->CR1  |= (1 << 5) ; // (EOCIE)
       NVIC_SetPriority(ADC_IRQn,local_interrupt_priority::pan_motor);
       NVIC_EnableIRQ (ADC_IRQn);
       ADC1->CR2 |= (1 << 0) ;  //(ADON)
+      //wait 2 - 3 usecs after ADON for startup
+      uint32_t wait = 0;
+      uint32_t constexpr done = quan::stm32::get_sysclk_frequency()/1000000U;
+      while(wait < done){
+         ++ wait;
+         asm volatile("nop":::);
+      }
    }
 
-   // assumes right aligned adc,ADON
+   // assumes right aligned adc,ADON == 1
    quan::voltage::mV do_synchronous_conversion()
    {
        // save state
        auto const adc_cr1 = ADC1->CR1;
        auto const adc_cr2 = ADC1->CR2;
-      // todo
-      // auto const adc_smpr1 = ADC1->SMPR1;
        ADC1->CR1 = 0;
-       ADC1->CR2 = 0;
-       // select velocity channel
-       ADC1->SQR3 = 10;
+       ADC1->CR2 = 1U; // leave only (ADON)
        ADC1->CR2 |= (1 << 30);  // (SWSTART)
-       while ( !(ADC1->SR & (1 << 1) ) ){;} 
+       // just poll as interrupt is off
+       while ( !(ADC1->SR & (1 << 1) ) ){;} // (EOC)
        auto const result = volts_per_bit * ((uint32_t)ADC1->DR) ;
        // EOC cleared by read
        // restore state
@@ -371,56 +412,91 @@ namespace {
        return result;
    }
 
-   void set_pan_motor_zero_rails()
-   {
-      quan::voltage::mV average_voltage_zero{1650};
-      quan::voltage::mV average_current_zero{1650};
-      constexpr float filt = 0.01;
-      constexpr uint32_t max_voltage_count = 500;
-      constexpr uint32_t max_current_count = 500;
-      uint32_t voltage_count = 0;
-      uint32_t current_count = 0;
-      for (;;){
-         ADC1->SQR3 = 10;
-         quan::voltage::mV next_voltage_zero = do_synchronous_conversion();
-         average_voltage_zero = average_voltage_zero * (1 - filt) + next_voltage_zero * filt;
-         if ( abs(average_voltage_zero - next_voltage_zero) < quan::voltage::mV{10}){
-             if ( voltage_count < max_voltage_count){
-               ++voltage_count;
-             }
-         }else{ // outside range so restart
-            voltage_count = 0;
-         }
-
-         ADC1->SQR3 = 11;
-         quan::voltage::mV next_current_zero = do_synchronous_conversion();
-         average_current_zero = average_current_zero * (1 - filt) + next_current_zero * filt;
-         if ( abs(average_current_zero - next_current_zero) < quan::voltage::mV{10}){
-             if ( current_count < max_current_count){
-               ++current_count;
-             }
-         }else{ // outside range so restart
-            current_count = 0;
-         }
-         // got closure?
-         if ( (voltage_count == max_voltage_count) && ( current_count == max_current_count) ){
-            emf_zero_volts_rail = average_voltage_zero;
-            current_zero_volts_rail = average_current_zero;
-            return;
-         }
-      } // ~for
-
-   } 
 } // namespace
 
-void pan_motor_setup()
+quan::voltage::mV tracker::pan::get_back_emf_0v_rail()
 {
-     setup_pins();
-     setup_timer();
-     set_pan_motor_zero_rails();
-
-    // start by setting arr, clear cnt and enable timer
+   return emf_zero_volts_rail;
 }
+
+quan::voltage::mV tracker::pan::get_current_0v_rail()
+{
+   return current_zero_volts_rail;
+}
+
+
+
+void tracker::pan::enable(bool b)
+{
+   if (b){
+      if (! pan_motor_enabled){
+         duty_cycle = 0.f;
+         motor_back_emf = quan::voltage::mV{0};
+         motor_current = quan::current::mA{0};
+         pf_timer_irq_section_function = &section_start_new_cycle;
+         pan_motor_timer::get()->sr = 0;
+         pan_motor_timer::get()->arr = 100;
+         pan_motor_timer::get()->cnt = 0;
+         old_velocity_error = rad_per_s{rad{0}};
+         pan_motor_enabled = true;
+         quan::stm32::enable<pan_motor_timer>();
+         
+         enable_overflow_interrupt<pan_motor_timer>();
+      }
+   }else{
+      disable_overflow_interrupt<pan_motor_timer>();
+      pan_motor_enabled = false;
+      switch_off_motor();
+      quan::stm32::disable<pan_motor_timer>();
+   }
+}
+
+bool tracker::pan::enabled()
+{
+   return pan_motor_enabled;
+}
+
+void tracker::pan::set_angular_velocity(tracker::rad_per_s const & v)
+{
+   target_output_angular_velocity = v;
+}
+
+rad_per_s tracker::pan::get_angular_velocity()
+{
+  return motor_back_emf * output_angular_velocity_per_mV;
+}
+
+rad_per_s tracker::pan::get_target_angular_velocity()
+{
+  return target_output_angular_velocity;
+}
+
+namespace tracker_detail{
+
+   void set_pan_motor_zero_rails()
+   {
+      quan::voltage_<double>::mV average_voltage_zero{0};
+      quan::voltage_<double>::mV average_current_zero{0};
+      for (uint32_t i =0; i < 4096;++i){
+         ADC1->SQR3 = 10;
+         average_voltage_zero += do_synchronous_conversion();
+         ADC1->SQR3 = 11;
+         average_current_zero += do_synchronous_conversion();
+      } // ~for
+      emf_zero_volts_rail = static_cast<quan::voltage::mV>(average_voltage_zero/4096.0);
+      current_zero_volts_rail = static_cast<quan::voltage::mV>(average_current_zero/4096.0);
+   }
+
+   void pan_motor_setup()
+   {
+        
+        setup_pins();
+        setup_timer();
+        setup_voltage_and_current_adcs();
+        set_pan_motor_zero_rails();
+   }
+}
+
 /*
  nb need to push fp regs in all these interrupts
 */
@@ -428,10 +504,11 @@ extern "C" void ADC_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
 extern "C" void ADC_IRQHandler()
 {
-  if ( ADC1->SR & ( 1 << 2) ) { // (EOC)
-       ADC1->SR &= ~( 1 << 2);
+  if ( ADC1->SR & ( 1 << 1) ) { // (EOC)
+      // (EOC cleared by read)
+     // quan::stm32::set<heartbeat_led_pin>();
       quan::stm32::push_FPregs();
-      if (ADC1->SQR3 == 11){
+      if (ADC1->SQR3 == 10){
          section_get_velocity();
       }else{
          section_switch_off_motor();
@@ -445,8 +522,8 @@ extern "C" void TIM8_UP_TIM13_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM8_UP_TIM13_IRQHandler()
 {
     
-    if ( pan_motor_timer::get()->sr.bb_getbit<0>()){
-      pan_motor_timer::get()->sr.bb_clearbit<0>();
+    if ( pan_motor_timer::get()->sr.bb_getbit<0>()){ // (UIF)
+      pan_motor_timer::get()->sr.bb_clearbit<0>(); // (UIF)
       quan::stm32::push_FPregs();
       pf_timer_irq_section_function();
       quan::stm32::pop_FPregs();
