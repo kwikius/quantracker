@@ -170,6 +170,25 @@ struct video_buffers {
          manager.m_write_buffer->bb_black[buffer_bit_pos] = val;
          manager.m_write_buffer->bb_white[buffer_bit_pos] = val >> 1 ;
       }
+
+      static uint8_t get_colour(quan::two_d::vect<int32_t> const & px )
+      {
+         if ( (px.x < 0)
+               || (px.y < 0)
+               || (static_cast<uint32_t> (px.y) > (m_display_size.y-1) )
+               || (static_cast<uint32_t> (px.x) > (m_display_size.x-1))
+            )
+         {
+            return 3; //transparent
+         }
+         uint32_t const buffer_bit_pos
+         = static_cast<uint32_t> (px.y) * (m_display_size.x + 8)
+           + static_cast<uint32_t> (px.x) + 1U;
+         uint8_t colour = ((manager.m_write_buffer->bb_black[buffer_bit_pos] !=0 )?2:0);
+         colour |= ((manager.m_write_buffer->bb_white[buffer_bit_pos]!=0)?1:0);
+         return colour;
+      }
+
       static double_buffer_manager<video_params::osd::buffer::type> manager;
       static quan::two_d::vect<uint32_t> m_display_size; //pixels
       static video_params::osd::buffer::type m_buffers[2];

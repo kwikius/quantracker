@@ -52,7 +52,8 @@
    quan::uav::osd::colour_type    
    quan::uav::osd::get_pixel_raw(pxp_type const & px)
    {
-      return  quan::uav::osd::colour_type::transparent;// get_device().get_pixel_raw(px);
+      return static_cast<quan::uav::osd::colour_type>(video_buffers::osd::get_colour(px));
+     // return  quan::uav::osd::colour_type::transparent;// get_device().get_pixel_raw(px);
    }
 //#############################################
 
