@@ -56,7 +56,7 @@ namespace {
 #if 1
          float z1 = in.y * sin_pitch + z * cos_pitch;
          
-         if (abs (z1) < 0.5f) {
+         if (std::fabs(z1) < 0.5f) {
                int const sign_z1 = (z1 < 0.f) ? -1.f : 1.f;
                z1 = 0.5f * sign_z1;
             }
