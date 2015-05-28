@@ -98,7 +98,8 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-objects = draw_arc.o draw_bitmap.o draw_circle.o draw_line.o draw_text.o flood_fill.o
+objects = draw_arc.o draw_bitmap.o draw_circle.o draw_line.o draw_text.o flood_fill.o \
+draw_box.o
 
 all: $(OUTPUT_ARCHIVE_FILE)
 
