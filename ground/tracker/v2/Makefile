@@ -107,7 +107,7 @@ video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_s
 # fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
 # heartbeat_task.o rtos_hooks.o mode_check.o  
 local_objects = main.o spbrk.o setup.o rtos_hooks.o sliprings_sp_irq.o \
-tracker_mode_task.o rx_telemetry.o pan_servo.o
+tracker_mode_task.o rx_telemetry.o pan_servo.o text_commands.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
@@ -115,7 +115,7 @@ stm32_objects = misc.o
 GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 
 graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
-draw_line.o draw_text.o flood_fill.o
+draw_line.o draw_text.o draw_box.o flood_fill.o
 
 quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
 quan_generic_flash_menu.o
