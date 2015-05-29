@@ -22,6 +22,10 @@
    With current test rig
    Clockwise rotation of the spindle gives a positive back emf
    setting Dir = 1 gives positive rotation
+   Interrupts are chained
+   Since they are low priority, ensure that there is a minimum delay
+   (say 20 us) so that interrupts always serviced
+    Need to sort a  way to recover if interrupts missed .. watchdog?
 */
 
 namespace {
@@ -135,7 +139,10 @@ namespace {
       ( num_backemf_samples > 0)
          ? (back_emf_sum / num_backemf_samples) - emf_zero_volts_rail
          : quan::voltage::mV{0};
-      
+      // constrain to a min
+      if (quan::abs(motor_back_emf) < quan::voltage::mV{5}){
+         motor_back_emf = quan::voltage::mV{0};
+      }
       rad_per_s const actual_output_velocity = motor_back_emf * output_angular_velocity_per_mV;
       // get term proportional to velocity error
       rad_per_s const velocity_error = target_output_angular_velocity - actual_output_velocity;
@@ -144,9 +151,13 @@ namespace {
       rad_per_s const velocity_error_de_dt = velocity_error - old_velocity_error;
       old_velocity_error = velocity_error;
       duty_cycle += kD * velocity_error_de_dt;
+
      // duty_cycle = target_output_angular_velocity.numeric_value();
       auto const abs_duty_cycle = std::fabs(duty_cycle);
-      static_assert(std::is_same<decltype(abs_duty_cycle),float const>::value,"odd");
+      if ( abs_duty_cycle < 0.01f){
+         duty_cycle = 0.f;
+      }
+     // static_assert(std::is_same<decltype(abs_duty_cycle),float const>::value,"odd");
       if ( abs_duty_cycle > min_duty_cycle){
          if ( abs_duty_cycle > max_duty_cycle){
             int const sign_duty_cycle = (duty_cycle > 0.f)?1:-1;
@@ -190,7 +201,7 @@ namespace {
       set_motor_direction(direction);
        // on L298 give ample time for direction logic output to stabilise
        // before switching motor on
-      set_next_timer_irq(quan::time::us{10.f}, &section_switch_on_motor2);
+      set_next_timer_irq(quan::time::us{20.f}, &section_switch_on_motor2);
    }
    // Now really do switch motor on!
    void section_switch_on_motor2()
