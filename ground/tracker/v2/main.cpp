@@ -20,9 +20,7 @@
 
 #include <FreeRTOS.h>
 #include <task.h>
-#include <quan/uav/osd/api.hpp>
 
-#include "resources.hpp"
 
 extern "C" void setup();
 
@@ -40,15 +38,7 @@ void create_vsync_telem_rx_task();
 If transmitter put something top of screen
 if receiver put something bottom of screen
 */
-void quan::uav::osd::on_draw()
-{
-   auto font= quan::uav::osd::get_font(0);
-   if (font){
-     quan::uav::osd::draw_text("Hello World",{0,0},font);
-   }else{
-     // quan::stm32::set<heartbeat_led_pin>();
-   }
- }
+
 
 int main()
 {

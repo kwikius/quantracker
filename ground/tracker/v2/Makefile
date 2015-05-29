@@ -107,7 +107,7 @@ video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_s
 # fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
 # heartbeat_task.o rtos_hooks.o mode_check.o  
 local_objects = main.o spbrk.o setup.o rtos_hooks.o sliprings_sp_irq.o \
-tracker_mode_task.o rx_telemetry.o pan_servo.o text_commands.o
+tracker_mode_task.o rx_telemetry.o pan_servo.o text_commands.o on_draw.o
 
 rtos_objects = tasks.o queue.o list.o timers.o 
 stm32_objects = misc.o
