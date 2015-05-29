@@ -34,16 +34,16 @@ show_inner_bearing_bracket = true;
 show_inner_bearing_holder_p2 = true;
 show_outer_bearing_holder = true;
 show_circlip = true;
-show_outer_bearing_holder_p2 = false;
-show_motor = false;
-show_main_gear = false;
-show_pinion = false;
-show_pinion_as_cylinder = false;
-show_pinion_as_gear = false;
-show_section = false;
-show_motor_mount =false;
+show_outer_bearing_holder_p2 = true;
+show_motor = true;
+show_main_gear = true;
+show_pinion = true;
+show_pinion_as_cylinder = true;
+show_pinion_as_gear = true;
+show_section = true;
+show_motor_mount = true;
 
-do_print_transform = true;// false;
+do_print_transform = false;// false;
 
 module main_gear(){
    shroud_height = 2;

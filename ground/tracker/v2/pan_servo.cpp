@@ -52,9 +52,12 @@ namespace {
  // ################ flash variables ############
    // default to 1 rev per sec with 12v input
    // needs to be measured for a particular setup
-   auto constexpr output_angular_velocity_per_mV = rad_per_s{quan::angle::two_pi} / quan::voltage::mV{12000};
+   auto constexpr output_angular_velocity_per_mV 
+   = rad_per_s{quan::angle::two_pi} 
+         / quan::voltage::mV{12000};
 
-   // proportional constant
+   // proportional constant tried with kP =0.3 and kD = 0.6 on small motor
+   // works ok
    auto  kP = 0.1f/rad_per_s{rad{1.f}};
    // differential constant is always 2 x proportional
    auto  kD = 0.2f/rad_per_s{rad{1.f}};
@@ -64,10 +67,8 @@ namespace {
    float min_duty_cycle = 0.05f;
    // constant for current dependent delay
    // after switching off motor
-   // set here to a spike of 4 ms per 1 A current
+   // set here to a spike of 2 ms per 1 A current
    auto constexpr current_spike_constant = quan::time::us{2000.f}/quan::current::mA{1000.f};
-
-   
 
    //####### end flash variables ###############
 
