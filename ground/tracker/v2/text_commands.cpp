@@ -229,25 +229,23 @@ namespace {
             if ( len > 3){
                  quan::detail::converter<float,char*> conv;
                  float const v = conv(buf + 2);
+                 char buf1[50];
                  if (conv.get_errno() ==0){
                      switch (buf[1]){
                         case 'P' : {
                            tracker::pan::set_kP(v);
-                           char buf1[50];
                            sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
                            debug_serial_port::write(buf1);
                         }
                         break;
                         case 'D':{
                            tracker::pan::set_kD(v);
-                           char buf1[50];
                            sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
                            debug_serial_port::write(buf1);
                         }
                         break;
                         case 'C':{
                            tracker::pan::set_kC(v);
-                           char buf1[50];
                            sprintf(buf1,"kC  <~ %f : OK!\n",static_cast<double>(v));
                            debug_serial_port::write(buf1);
                         }
