@@ -3,6 +3,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+#include <quan/max.hpp>
 #include <quan/stm32/sys_freq.hpp>
 #include <quan/angle.hpp>
 #include <quan/reciprocal_time.hpp>
@@ -118,14 +119,14 @@ namespace {
    quan::voltage::mV motor_back_emf{0};
    quan::current::mA motor_current{0};
    // the pid loop on velocity
-   int led_counter = 0;
+  // int led_counter = 0;
    void section_start_new_cycle()
    {
-      ++led_counter;
-      if (led_counter == 50){
-         led_counter = 0;
-        // quan::stm32::complement<heartbeat_led_pin>();
-      }
+//      ++led_counter;
+//      if (led_counter == 50){
+//         led_counter = 0;
+//        // quan::stm32::complement<heartbeat_led_pin>();
+//      }
       // reinvigorate for new cycle
       cycle_time_left = pan_motor_pwm_period;
       // get motor angular velocity by averaging samples from last cycle
@@ -235,7 +236,8 @@ namespace {
       motor_current = read_a2d_current();
       quan::current::mA const current = quan::abs(motor_current);
       switch_off_motor();
-      set_next_timer_irq(current * current_spike_constant,&section_start_backemf_sampling);
+      quan::time::us const spike_time = quan::max(current * current_spike_constant, quan::time::us{1000});
+      set_next_timer_irq(spike_time,&section_start_backemf_sampling);
    }
 
    uint32_t num_backemf_samples_left = 0U;
@@ -427,21 +429,19 @@ quan::voltage::mV tracker::pan::get_current_0v_rail()
 
 void tracker::pan::enable(bool b)
 {
+   
    if (b){
-      if (! pan_motor_enabled){
-         duty_cycle = 0.f;
-         motor_back_emf = quan::voltage::mV{0};
-         motor_current = quan::current::mA{0};
-         pf_timer_irq_section_function = &section_start_new_cycle;
-         pan_motor_timer::get()->sr = 0;
-         pan_motor_timer::get()->arr = 100;
-         pan_motor_timer::get()->cnt = 0;
-         old_velocity_error = rad_per_s{rad{0}};
-         pan_motor_enabled = true;
-         quan::stm32::enable<pan_motor_timer>();
-         
-         enable_overflow_interrupt<pan_motor_timer>();
-      }
+      duty_cycle = 0.f;
+      motor_back_emf = quan::voltage::mV{0};
+      motor_current = quan::current::mA{0};
+      pf_timer_irq_section_function = &section_start_new_cycle;
+      pan_motor_timer::get()->sr = 0;
+      pan_motor_timer::get()->arr = 100;
+      pan_motor_timer::get()->cnt = 0;
+      old_velocity_error = rad_per_s{rad{0}};
+      pan_motor_enabled = true;
+      quan::stm32::enable<pan_motor_timer>();
+      enable_overflow_interrupt<pan_motor_timer>();
    }else{
       disable_overflow_interrupt<pan_motor_timer>();
       pan_motor_enabled = false;
@@ -462,7 +462,6 @@ void tracker::pan::set_angular_velocity(tracker::rad_per_s const & v)
 
 rad_per_s tracker::pan::get_angular_velocity()
 {
-   
   return motor_back_emf * output_angular_velocity_per_mV;
 }
 
@@ -530,6 +529,8 @@ extern "C" void ADC_IRQHandler()
       } 
       quan::stm32::pop_FPregs();
   }
+  // set heartbeat led
+  // otherwise clear irq?
 }
 
 extern "C" void TIM8_UP_TIM13_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
