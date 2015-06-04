@@ -1,0 +1,16 @@
+-------------------------
+CAD drawing of V2 tracker
+-------------------------
+
+Conventions
+When horizontal and facing north, tracker looks along increasing x axis
+When standing upright facing North, then Increasing Y is West
+Increasing Z is up.
+
+Axes.
+The Tracker tilts around the Y axis.
+The tracker pans around the Z axis.
+So the intersction of the pan and tilt axes is at [0,0,0]
+
+
+

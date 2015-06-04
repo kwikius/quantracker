@@ -1,0 +1,9 @@
+# Macro Begin: /home/andy/cpp/projects/quantracker/ground/tracker/v2/hardware/mechanical/macros/macro2.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+import FreeCAD
+
+App.ActiveDocument.addObject("Part::Sphere","Sphere3")
+App.ActiveDocument.recompute()
+FreeCAD.getDocument("ballrace30x42x7").getObject("Sphere3").Radius = 2.50
+App.getDocument("ballrace30x42x7").Sphere3.Placement=App.Placement(App.Vector(-18,0,3.5),App.Rotation(0,0,0,1))
+
+# Macro End: /home/andy/cpp/projects/quantracker/ground/tracker/v2/hardware/mechanical/macros/macro2.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++

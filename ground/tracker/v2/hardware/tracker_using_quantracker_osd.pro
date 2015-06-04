@@ -1,4 +1,4 @@
-update=Mon 11 May 2015 17:55:34 BST
+update=Mon 01 Jun 2015 12:43:16 BST
 last_client=eeschema
 [eeschema]
 version=1
@@ -66,3 +66,4 @@ LibName31=contrib
 LibName32=valves
 LibName33=/home/andy/electronics/kicad/projects/modem_rx/tcm3105
 LibName34=/home/andy/cpp/projects/quantracker/kicad/lib/quantracker_air_osd_v2_1
+LibName35=/home/andy/cpp/projects/quantracker/kicad/lib/mc34931

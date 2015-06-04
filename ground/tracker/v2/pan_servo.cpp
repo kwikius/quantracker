@@ -26,6 +26,10 @@
    Since they are low priority, ensure that there is a minimum delay
    (say 20 us) so that interrupts always serviced
     Need to sort a  way to recover if interrupts missed .. watchdog?
+
+    Change so that Uif is set to period longer than max of pwm period
+    Use compare to do chained interrupts and use uif to reset to start if
+    no compare before overflow. Uif should provide a warning if tripped
 */
 
 namespace {

@@ -1,0 +1,13 @@
+# Macro Begin: /home/andy/cpp/projects/quantracker/ground/tracker/v2/hardware/mechanical/macros/macro1/macro1.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+import FreeCAD
+import Part
+
+App.ActiveDocument.addObject("Part::Sphere","Sphere")
+App.ActiveDocument.recompute()
+#Gui.SendMsgToActiveView("ViewFit")
+FreeCAD.getDocument("Unnamed").getObject("Sphere").Radius = 0.00
+FreeCAD.getDocument("Unnamed").getObject("Sphere").Radius = 2.00
+FreeCAD.getDocument("Unnamed").getObject("Sphere").Radius = 2.50
+#Gui.ActiveDocument.setEdit('Sphere',0)
+from FreeCAD import Base
+# Macro End: /home/andy/cpp/projects/quantracker/ground/tracker/v2/hardware/mechanical/macros/macro1/macro1.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++

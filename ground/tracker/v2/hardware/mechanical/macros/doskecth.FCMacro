@@ -1,0 +1,11 @@
+# Macro Begin: /home/andy/cpp/projects/quantracker/ground/tracker/v2/hardware/mechanical/macros/doskecth.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+import FreeCAD
+import Sketcher
+
+App.activeDocument().addObject('Sketcher::SketchObject','Sketch')
+App.activeDocument().Sketch.Placement = App.Placement(App.Vector(0.000000,0.000000,0.000000),App.Rotation(0.000000,0.000000,0.000000,1.000000))
+#Gui.activeDocument().activeView().setCamera('#Inventor V2.1 ascii \n OrthographicCamera {\n viewportMapping ADJUST_CAMERA \n position 0 0 87 \n orientation 0 0 1  0 \n nearDistance -112.88701 \n farDistance 287.28702 \n aspectRatio 1 \n focalDistance 87 \n height 143.52005 }')
+#Gui.activeDocument().setEdit('Sketch')
+App.ActiveDocument.Sketch.addGeometry(Part.Line(App.Vector(-87.672028,46.384018,0),App.Vector(-65.832024,25.792009,0)))
+App.ActiveDocument.recompute()
+# Macro End: /home/andy/cpp/projects/quantracker/ground/tracker/v2/hardware/mechanical/macros/doskecth.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++

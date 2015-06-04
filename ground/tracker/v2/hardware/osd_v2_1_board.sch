@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 29 May 2015 09:32:36 BST
+EESchema Schematic File Version 2  date Mon 01 Jun 2015 18:53:27 BST
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -33,14 +33,15 @@ LIBS:contrib
 LIBS:valves
 LIBS:tcm3105
 LIBS:quantracker_air_osd_v2_1
+LIBS:mc34931
 LIBS:tracker_using_quantracker_osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 3 3
+Sheet 4 4
 Title ""
-Date "28 may 2015"
+Date "1 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -49,69 +50,73 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	6950 3050 6700 3050
+	4750 2550 4400 2550
 Wire Wire Line
-	4450 3650 4750 3650
-Wire Wire Line
-	8400 1250 8600 1250
-Wire Wire Line
-	7850 1000 7650 1000
-Wire Wire Line
-	8600 1000 8350 1000
-Wire Wire Line
-	7050 3950 6700 3950
-Wire Wire Line
-	7000 3850 6700 3850
-Wire Wire Line
-	7000 4050 6700 4050
-Wire Wire Line
-	5850 4900 5850 4750
-Wire Wire Line
-	5550 4900 5550 4750
-Wire Wire Line
-	7000 3650 6700 3650
-Wire Wire Line
-	7000 3350 6700 3350
-Wire Wire Line
-	4750 4250 4500 4250
-Wire Wire Line
-	4750 3450 4350 3450
-Wire Wire Line
-	4750 2950 4450 2950
-Wire Wire Line
-	6850 2750 6700 2750
-Wire Wire Line
-	4750 3050 4450 3050
-Wire Wire Line
-	4750 3150 4450 3150
-Wire Wire Line
-	4750 3350 4300 3350
-Wire Wire Line
-	4750 4150 4500 4150
-Wire Wire Line
-	7000 3250 6700 3250
-Wire Wire Line
-	7000 3450 6700 3450
-Wire Wire Line
-	7000 3750 6700 3750
-Wire Wire Line
-	5750 4900 5750 4750
-Wire Wire Line
-	5950 4900 5950 4750
-Wire Wire Line
-	4750 4050 4450 4050
-Wire Wire Line
-	7000 4250 6700 4250
-Wire Wire Line
-	4750 2850 4450 2850
-Wire Wire Line
-	6850 2650 6700 2650
-Wire Wire Line
-	7900 1250 7650 1250
+	6950 2950 6700 2950
 Wire Wire Line
 	4750 3550 4450 3550
 Wire Wire Line
-	6950 2950 6700 2950
+	7900 1250 7650 1250
+Wire Wire Line
+	6850 2650 6700 2650
+Wire Wire Line
+	4750 2850 4450 2850
+Wire Wire Line
+	7000 4250 6700 4250
+Wire Wire Line
+	4750 4050 4450 4050
+Wire Wire Line
+	5950 4900 5950 4750
+Wire Wire Line
+	5750 4900 5750 4750
+Wire Wire Line
+	7000 3750 6700 3750
+Wire Wire Line
+	7000 3450 6700 3450
+Wire Wire Line
+	7000 3250 6700 3250
+Wire Wire Line
+	4750 4150 4500 4150
+Wire Wire Line
+	4750 3350 4300 3350
+Wire Wire Line
+	4750 3150 4450 3150
+Wire Wire Line
+	4750 3050 4450 3050
+Wire Wire Line
+	6850 2750 6700 2750
+Wire Wire Line
+	4750 2950 4450 2950
+Wire Wire Line
+	4750 3450 4350 3450
+Wire Wire Line
+	4750 4250 4500 4250
+Wire Wire Line
+	7000 3350 6700 3350
+Wire Wire Line
+	7000 3650 6700 3650
+Wire Wire Line
+	5550 4900 5550 4750
+Wire Wire Line
+	5850 4900 5850 4750
+Wire Wire Line
+	7000 4050 6700 4050
+Wire Wire Line
+	7000 3850 6700 3850
+Wire Wire Line
+	7050 3950 6700 3950
+Wire Wire Line
+	8600 1000 8350 1000
+Wire Wire Line
+	7850 1000 7650 1000
+Wire Wire Line
+	8400 1250 8600 1250
+Wire Wire Line
+	4450 3650 4750 3650
+Wire Wire Line
+	6950 3050 6700 3050
+Text HLabel 4400 2550 0    60   Input ~ 0
+MCU_GND
 Text HLabel 6950 3050 2    60   Input ~ 0
 LCD_SCL
 Text HLabel 6950 2950 2    60   Input ~ 0
@@ -262,9 +267,9 @@ SLIPRINGS_TXO
 Text HLabel 8600 1000 2    60   Output ~ 0
 TILT_SERVO_PWM
 Text HLabel 4450 3550 0    60   Input ~ 0
-PAN_MOTOR_QDRTB
+USART4_RXI
 Text HLabel 4450 3650 0    60   Input ~ 0
-PAN_MOTOR_QDRTA
+USART4_TXO
 Text HLabel 4450 3150 0    60   Output ~ 0
 LED1
 Text HLabel 4450 3050 0    60   Output ~ 0
