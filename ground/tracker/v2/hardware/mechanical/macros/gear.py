@@ -24,8 +24,9 @@ class _InvoluteGear:
     # pitch diameter = Modules  * NumberOfTeeth
 
      # Modules = pitch_dia/num_teeth
+        obj.NumberOfTeeth = 51
       #  obj.NumberOfTeeth = 47 # main gear
-        obj.NumberOfTeeth = 11
+     #   obj.NumberOfTeeth = 11
         circular_pitch = 4 # mm
    #     pitch_dia = obj.NumberOfTeeth *circular_pitch / math.pi
         obj.Modules =  circular_pitch / math.pi
