@@ -22,7 +22,6 @@ class _InvoluteGear:
         obj.addProperty("App::PropertyBool","ExternalGear","Gear","True=external Gear False=internal Gear ")
         
     # pitch diameter = Modules  * NumberOfTeeth
-
      # Modules = pitch_dia/num_teeth
         obj.NumberOfTeeth = 51
       #  obj.NumberOfTeeth = 47 # main gear
@@ -196,7 +195,5 @@ class _InvoluteGearTaskPanel:
         
                     
     def reject(self):
-        #print 'reject(self)'
+        print 'reject(self)'
         FreeCADGui.ActiveDocument.resetEdit()
-
-

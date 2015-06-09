@@ -1,0 +1,21 @@
+
+
+cctv power socket is a 5.5 mm x 2.1 mm socket
+Multicomp Part MJ-14SR 
+www.farnell.com/datasheets/1662463.pdf
+
+4 pole jack socket
+Pro-signal Part MJ-064H 
+www.soselectronic.com/a_info/resource/f/mj064h.pdf
+
+Tilt servo
+HD-1501MG www.hobbyking.co.uk/hobbyking/store/__9617__Turnigy_Metal_Gear_Servo_60g_15_5kg_16sec.html
+
+Pan motor ebay
+16 mm 250 400 rpm 12 v
+
+
+
+
+
+
