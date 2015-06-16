@@ -8,7 +8,7 @@ Quantracker OSD Index
 * `Example Firmwares`_
 * `Uploading the firmware`_
 * `Flash menu`_
-* `Downloads'
+* `Downloads`_
 
 ----------------
 Developing
@@ -29,7 +29,7 @@ Developing
 .. _`Quantracker Index`: ../index.html
 .. _`Uploading the firmware`: ../firmware_upload.html 
 .. _`Testing and troubleshooting`: ../trouble_shooting.html
-.. _'Downloads': Downloads.html
+.. _`Downloads`: downloads.html
 
 `Quantracker Index`_
 

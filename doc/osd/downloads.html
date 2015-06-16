@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title></title>
+<title>OSD firmware downloads</title>
 <style type="text/css">
 
 /*
@@ -338,29 +338,27 @@ ul.auto-toc {
 </style>
 </head>
 <body>
-<div class="document">
+<div class="document" id="osd-firmware-downloads">
+<h1 class="title">OSD firmware downloads</h1>
 
-
-<p><a class="reference external" href="../index.html">Quantracker Index</a></p>
-<div class="section" id="quantracker-osd-index">
-<h1>Quantracker OSD Index</h1>
-<ul class="simple">
-<li><a class="reference external" href="../osd_getting_started.html">Getting started with the OSD</a></li>
-<li><a class="reference external" href="example_firmwares.html">Example Firmwares</a></li>
-<li><a class="reference external" href="../firmware_upload.html">Uploading the firmware</a></li>
-<li><a class="reference external" href="flash_menu.html">Flash menu</a></li>
-<li><a class="reference external" href="downloads.html">Downloads</a></li>
+<p>Since the board is a Dev board we are currently providing  some example firmwraes that are designed to be customised.
+As the OSD develops we hope to  develop some classic themes. Below are the firmwares that we have currently.</p>
+<div class="section" id="example1">
+<h1>Example1</h1>
+<p>Download from Github <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/main.bin">firmware_example1.bin</a></p>
+<p>This OSD firmware is designed as a minimal but useful display for use with fixed wing aircraft.</p>
+<dl class="docutils">
+<dt>The display widgets consist of</dt>
+<dd><ul class="first simple">
+<li>a compass with integral home arrow,</li>
+<li>an artificial horizon</li>
+<li>battery voltage</li>
 </ul>
-<div class="section" id="developing">
-<h2>Developing</h2>
-<ul class="simple">
-<li><a class="reference external" href="osd_maker/index.html">osd_maker</a></li>
-<li><a class="reference external" href="software_devel/flash_variables.html">Flash variables</a></li>
-<li><a class="reference external" href="software_devel/bitmap_format.html">Bitmap source format</a></li>
-<li><a class="reference external" href="craft_features_widgets.html">Craft features and widgets</a></li>
-</ul>
-<p><a class="reference external" href="../index.html">Quantracker Index</a></p>
-</div>
+<p>When the OSD display starts up and while it is waiting for a GPS lock, it displays the number of satellites and the gps status.</p>
+<p class="last">Once a valid satellite fix is obtained, the OSD assumes it is at the home position and the Display stops showing satelliete status
+and shows the altitude and distance from home.</p>
+</dd>
+</dl>
 </div>
 </div>
 </body>
