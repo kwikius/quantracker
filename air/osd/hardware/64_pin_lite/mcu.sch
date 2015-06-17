@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 17 Jun 2015 00:34:32 BST
+EESchema Schematic File Version 2  date Wed 17 Jun 2015 13:02:02 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -56,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 8
 Title ""
-Date "16 jun 2015"
+Date "17 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -64,30 +64,40 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 6650 1475 0    45   ~ 0
-RED_LED_RES
-Text Label 5100 5825 1    45   ~ 0
-BOOT1
-Text Label 8950 2825 0    45   ~ 0
-VCAP_2
-Text Label 5550 6450 0    45   ~ 0
-VCAP1
-Connection ~ 8800 4475
+Connection ~ 9100 4150
 Wire Wire Line
-	8800 4475 8800 4575
+	9100 4150 9100 4000
 Wire Wire Line
-	8800 4575 8700 4575
+	9100 4000 9100 4000
+Connection ~ 9050 5000
+Wire Wire Line
+	9050 4900 9050 5000
+Connection ~ 8950 5225
+Wire Wire Line
+	8950 5225 8950 5325
+Wire Wire Line
+	8950 5325 8850 5325
 Connection ~ 1975 4925
 Wire Wire Line
 	1975 4925 1975 5300
 Wire Wire Line
 	1975 5300 2150 5300
 Wire Wire Line
-	8500 6225 10275 6225
+	7200 6675 7550 6675
+Wire Wire Line
+	7550 6675 7900 6675
+Wire Wire Line
+	7900 6675 8250 6675
+Wire Wire Line
+	8250 6675 8650 6675
+Wire Wire Line
+	8650 6675 8975 6675
 Wire Wire Line
 	2250 1600 2400 1600
 Wire Wire Line
-	1150 1000 1650 1000
+	1150 1000 1300 1000
+Wire Wire Line
+	1300 1000 1650 1000
 Wire Wire Line
 	1650 1000 1650 1100
 Wire Wire Line
@@ -96,23 +106,37 @@ Connection ~ 1450 2675
 Wire Wire Line
 	1450 2775 1450 2675
 Wire Wire Line
-	8500 5350 8500 5675
-Connection ~ 9950 5475
+	7200 6125 7200 5925
 Wire Wire Line
-	10275 5675 10275 5475
+	7200 5925 7200 5800
+Connection ~ 8650 5925
 Wire Wire Line
-	10275 5475 8275 5475
+	8975 6125 8975 5925
+Wire Wire Line
+	8975 5925 8650 5925
+Wire Wire Line
+	8650 5925 8250 5925
+Wire Wire Line
+	8250 5925 7900 5925
+Wire Wire Line
+	7900 5925 7550 5925
+Wire Wire Line
+	7550 5925 7200 5925
+Wire Wire Line
+	7200 5925 6975 5925
 Connection ~ 2425 6850
 Wire Wire Line
-	2600 6850 1725 6850
-Connection ~ 9550 6225
+	1725 6850 2425 6850
 Wire Wire Line
-	9550 6225 9550 6075
-Connection ~ 8850 6225
+	2425 6850 2600 6850
+Connection ~ 8250 6675
 Wire Wire Line
-	8850 6225 8850 6075
+	8250 6675 8250 6525
+Connection ~ 7550 6675
 Wire Wire Line
-	9950 6075 9950 6225
+	7550 6675 7550 6525
+Wire Wire Line
+	8650 6525 8650 6675
 Wire Wire Line
 	9900 1375 9900 1475
 Wire Wire Line
@@ -121,19 +145,21 @@ Wire Wire Line
 	9450 1175 9550 1175
 Wire Wire Line
 	5100 6425 5100 6575
-Connection ~ 8500 5475
+Connection ~ 7200 5925
 Wire Wire Line
 	2425 6700 2425 6850
 Connection ~ 2425 6050
 Wire Wire Line
-	2550 6050 2350 6050
+	2350 6050 2425 6050
+Wire Wire Line
+	2425 6050 2550 6050
 Wire Wire Line
 	2425 6300 2425 6050
-Connection ~ 9200 5475
+Connection ~ 7900 5925
 Wire Wire Line
-	9200 5475 9200 5675
+	7900 5925 7900 6125
 Wire Wire Line
-	9950 5475 9950 5675
+	8650 5925 8650 6125
 Wire Wire Line
 	4400 6925 4200 6925
 Wire Wire Line
@@ -159,7 +185,9 @@ Wire Wire Line
 Wire Wire Line
 	2750 3275 2650 3275
 Wire Wire Line
-	1225 2675 2750 2675
+	2750 2675 1450 2675
+Wire Wire Line
+	1450 2675 1225 2675
 Wire Wire Line
 	4800 5625 4800 5525
 Wire Wire Line
@@ -194,15 +222,17 @@ Wire Wire Line
 	3900 2025 3900 1925
 Wire Wire Line
 	3600 2025 3600 1925
-Connection ~ 9825 4350
+Connection ~ 10175 5100
 Wire Wire Line
-	9950 4350 9825 4350
+	10300 5100 10175 5100
 Wire Wire Line
 	8250 3575 6300 3575
 Wire Wire Line
-	9725 4250 9825 4250
+	10075 5000 10175 5000
 Wire Wire Line
-	9225 4800 8975 4800
+	9575 5550 9350 5550
+Wire Wire Line
+	9350 5550 8725 5550
 Wire Wire Line
 	3200 1125 4050 1125
 Wire Wire Line
@@ -214,15 +244,21 @@ Wire Wire Line
 Wire Wire Line
 	5550 7000 5550 5525
 Wire Wire Line
-	9725 4800 9825 4800
+	10075 5550 10175 5550
 Wire Wire Line
-	9225 4250 8975 4250
+	9575 5000 9050 5000
 Wire Wire Line
-	9700 4475 9825 4475
+	9050 5000 8725 5000
 Wire Wire Line
-	9825 4475 9825 4250
+	10050 5225 10175 5225
 Wire Wire Line
-	8525 4475 9200 4475
+	10175 5225 10175 5100
+Wire Wire Line
+	10175 5100 10175 5000
+Wire Wire Line
+	9550 5225 8950 5225
+Wire Wire Line
+	8950 5225 8675 5225
 Wire Wire Line
 	3450 2025 3450 1925
 Wire Wire Line
@@ -240,7 +276,9 @@ Wire Wire Line
 Wire Wire Line
 	6300 2975 6400 2975
 Wire Wire Line
-	6300 4175 7775 4175
+	7775 4175 7325 4175
+Wire Wire Line
+	7325 4175 6300 4175
 Wire Wire Line
 	6300 4475 6400 4475
 Wire Wire Line
@@ -270,7 +308,9 @@ Wire Wire Line
 Wire Wire Line
 	2750 4625 2650 4625
 Wire Wire Line
-	1450 4925 2750 4925
+	2750 4925 1975 4925
+Wire Wire Line
+	1975 4925 1450 4925
 Wire Wire Line
 	6400 3275 6300 3275
 Wire Wire Line
@@ -282,11 +322,11 @@ Wire Wire Line
 Wire Wire Line
 	4350 6800 4425 6800
 Wire Wire Line
-	8850 5475 8850 5675
-Connection ~ 8850 5475
+	7550 5925 7550 6125
+Connection ~ 7550 5925
 Wire Wire Line
-	9550 5475 9550 5675
-Connection ~ 9550 5475
+	8250 5925 8250 6125
+Connection ~ 8250 5925
 Wire Wire Line
 	8925 3825 8950 3825
 Wire Wire Line
@@ -310,16 +350,18 @@ Wire Wire Line
 Wire Wire Line
 	9900 675  9900 775 
 Wire Wire Line
-	8500 6075 8500 6375
-Connection ~ 8500 6225
+	7200 6525 7200 6675
 Wire Wire Line
-	9200 6225 9200 6075
-Connection ~ 9200 6225
+	7200 6675 7200 6825
+Connection ~ 7200 6675
 Wire Wire Line
-	8500 6375 8325 6375
+	7900 6675 7900 6525
+Connection ~ 7900 6675
 Wire Wire Line
-	10275 6225 10275 6075
-Connection ~ 9950 6225
+	7200 6825 7025 6825
+Wire Wire Line
+	8975 6675 8975 6525
+Connection ~ 8650 6675
 Wire Wire Line
 	5400 7575 5550 7575
 Wire Wire Line
@@ -338,24 +380,28 @@ Connection ~ 7925 1600
 Wire Wire Line
 	7675 1600 7925 1600
 Wire Wire Line
-	10200 3600 10200 3675
+	10450 3600 10450 3675
 Wire Wire Line
-	10200 3675 10050 3675
+	10450 3675 10300 3675
 Wire Wire Line
-	9800 3125 10200 3125
+	10050 3125 10450 3125
 Wire Wire Line
 	7725 2250 7925 2250
 Wire Wire Line
 	7925 2250 7925 2150
 Wire Wire Line
-	10200 3200 10200 3050
-Connection ~ 10200 3125
+	10450 3050 10450 3125
+Wire Wire Line
+	10450 3125 10450 3200
+Connection ~ 10450 3125
 Wire Wire Line
 	8025 1175 7925 1175
 Wire Wire Line
-	7925 1175 7925 1650
+	7925 1175 7925 1600
 Wire Wire Line
-	10200 2550 10200 2400
+	7925 1600 7925 1650
+Wire Wire Line
+	10450 2550 10450 2400
 Wire Wire Line
 	3600 5625 3600 5525
 Wire Wire Line
@@ -376,6 +422,45 @@ Wire Wire Line
 Wire Wire Line
 	7325 4300 7325 4175
 Connection ~ 7325 4175
+Wire Wire Line
+	9350 4900 9350 5550
+Connection ~ 9350 5550
+Wire Wire Line
+	9050 4400 9050 4150
+Wire Wire Line
+	9050 4150 9100 4150
+Wire Wire Line
+	9100 4150 9350 4150
+Wire Wire Line
+	9350 4150 9350 4400
+Text Label 9100 4000 0    45   ~ 0
+MCU_+3.3V
+$Comp
+L R R?
+U 1 1 55814873
+P 9350 4650
+F 0 "R?" V 9430 4650 50  0000 C CNN
+F 1 "47K" V 9350 4650 50  0000 C CNN
+	1    9350 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 55814870
+P 9050 4650
+F 0 "R?" V 9130 4650 50  0000 C CNN
+F 1 "47K" V 9050 4650 50  0000 C CNN
+	1    9050 4650
+	1    0    0    -1  
+$EndComp
+Text Label 6650 1475 0    45   ~ 0
+RED_LED_RES
+Text Label 5100 5825 1    45   ~ 0
+BOOT1
+Text Label 8950 2825 0    45   ~ 0
+VCAP_2
+Text Label 5550 6450 0    45   ~ 0
+VCAP1
 $Comp
 L CONN_1 P7
 U 1 1 5482DF7C
@@ -388,10 +473,10 @@ $EndComp
 $Comp
 L CONN_1 P8
 U 1 1 5482DF35
-P 8550 4575
-F 0 "P8" H 8630 4575 40  0000 L CNN
-F 1 "CONN_1" H 8550 4630 30  0001 C CNN
-	1    8550 4575
+P 8700 5325
+F 0 "P8" H 8780 5325 40  0000 L CNN
+F 1 "CONN_1" H 8700 5380 30  0001 C CNN
+	1    8700 5325
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -405,7 +490,7 @@ F 1 "CONN_1" H 2300 5355 30  0001 C CNN
 $EndComp
 Text HLabel 2650 3575 0    45   Input ~ 0
 NRST
-Text HLabel 9800 3125 0    45   Input ~ 0
+Text HLabel 10050 3125 0    45   Input ~ 0
 NRST
 $Comp
 L STM32F405RGT6 U2
@@ -434,7 +519,7 @@ Text Label 7675 1600 2    45   ~ 0
 BOOT0_IN
 Text Label 7925 825  2    45   ~ 0
 MCU_+3.3V
-Text Label 10200 2400 0    45   ~ 0
+Text Label 10450 2400 0    45   ~ 0
 MCU_+3.3V
 $Comp
 L R R3
@@ -452,21 +537,21 @@ Prog  Jumper
 $Comp
 L R R7
 U 1 1 54734400
-P 10200 2800
-F 0 "R7" V 10280 2800 50  0000 C CNN
-F 1 "10K" V 10200 2800 50  0000 C CNN
-	1    10200 2800
+P 10450 2800
+F 0 "R7" V 10530 2800 50  0000 C CNN
+F 1 "10K" V 10450 2800 50  0000 C CNN
+	1    10450 2800
 	1    0    0    -1  
 $EndComp
-Text HLabel 10050 3675 0    45   BiDi ~ 0
+Text HLabel 10300 3675 0    45   BiDi ~ 0
 MCU_GND
 $Comp
 L C C10
 U 1 1 547343FF
-P 10200 3400
-F 0 "C10" H 10250 3500 50  0000 L CNN
-F 1 "0u1" H 10250 3300 50  0000 L CNN
-	1    10200 3400
+P 10450 3400
+F 0 "C10" H 10500 3500 50  0000 L CNN
+F 1 "0u1" H 10500 3300 50  0000 L CNN
+	1    10450 3400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -478,7 +563,7 @@ F 1 "CONN_2" V 8425 1075 40  0000 C CNN
 	1    8375 1075
 	1    0    0    -1  
 $EndComp
-Text HLabel 8275 5475 0    45   Input ~ 0
+Text HLabel 6975 5925 0    45   Input ~ 0
 MCU_+3.3V
 Text Notes 5125 1450 1    45   ~ 0
 USART5_TXO
@@ -504,10 +589,10 @@ $EndComp
 $Comp
 L CP1 C11
 U 1 1 5470A08D
-P 10275 5875
-F 0 "C11" H 10325 5975 50  0000 L CNN
-F 1 "4u7" H 10325 5775 50  0000 L CNN
-	1    10275 5875
+P 8975 6325
+F 0 "C11" H 9025 6425 50  0000 L CNN
+F 1 "4u7" H 9025 6225 50  0000 L CNN
+	1    8975 6325
 	1    0    0    -1  
 $EndComp
 Text Label 2600 6850 0    45   ~ 0
@@ -564,7 +649,7 @@ Text HLabel 6650 2075 0    45   BiDi ~ 0
 MCU_GND
 Text Label 1675 6050 2    45   ~ 0
 MCU_+3.3V
-Text Label 8500 5350 0    45   ~ 0
+Text Label 7200 5800 0    45   ~ 0
 MCU_+3.3V
 Text Label 3750 5625 3    45   ~ 0
 MCU_+3.3V
@@ -582,7 +667,7 @@ Text HLabel 5400 7575 0    45   BiDi ~ 0
 MCU_GND
 Text HLabel 5100 6575 3    45   BiDi ~ 0
 MCU_GND
-Text HLabel 8325 6375 0    45   BiDi ~ 0
+Text HLabel 7025 6825 0    45   BiDi ~ 0
 MCU_GND
 Text HLabel 8925 3825 0    45   BiDi ~ 0
 MCU_GND
@@ -744,17 +829,17 @@ Text HLabel 5550 1925 1    45   Input ~ 0
 CSYNC
 Text HLabel 4950 1925 1    45   Input ~ 0
 CSYNC
-Text Label 8525 4475 2    45   ~ 0
+Text Label 8675 5225 2    45   ~ 0
 AV_TELEM_TXO
 Text Label 6475 4325 0    45   ~ 0
 AV_TELEM_TXO
 $Comp
 L R R4
 U 1 1 546B3A56
-P 9450 4475
-F 0 "R4" V 9550 4525 50  0000 C CNN
-F 1 "100R" V 9450 4475 50  0000 C CNN
-	1    9450 4475
+P 9800 5225
+F 0 "R4" V 9900 5275 50  0000 C CNN
+F 1 "100R" V 9800 5225 50  0000 C CNN
+	1    9800 5225
 	0    1    1    0   
 $EndComp
 Text HLabel 7775 4175 2    45   Input ~ 0
@@ -774,13 +859,13 @@ RAW_FRSKY_TXO
 $Comp
 L R R5
 U 1 1 546A8268
-P 9475 4250
-F 0 "R5" V 9555 4250 50  0000 C CNN
-F 1 "100R" V 9475 4250 50  0000 C CNN
-	1    9475 4250
+P 9825 5000
+F 0 "R5" V 9905 5000 50  0000 C CNN
+F 1 "100R" V 9825 5000 50  0000 C CNN
+	1    9825 5000
 	0    1    1    0   
 $EndComp
-Text Label 8975 4250 2    45   ~ 0
+Text Label 8725 5000 2    45   ~ 0
 SPI_MISO_WHITE
 Text Label 5250 5625 3    45   ~ 0
 RAW_FRSKY_TXO
@@ -804,7 +889,7 @@ Text Label 6400 4775 0    45   ~ 0
 PIXEL_CLK
 Text Notes 5450 4750 0    45   ~ 0
 SPI2_CLK (BLACK)
-Text Label 8975 4800 2    45   ~ 0
+Text Label 8725 5550 2    45   ~ 0
 SPI_MISO_BLACK
 Text Label 2650 4025 2    45   ~ 0
 SPI_MISO_BLACK
@@ -813,10 +898,10 @@ MAVLINK_TXO
 $Comp
 L R R6
 U 1 1 54676508
-P 9475 4800
-F 0 "R6" V 9555 4800 50  0000 C CNN
-F 1 "100R" V 9475 4800 50  0000 C CNN
-	1    9475 4800
+P 9825 5550
+F 0 "R6" V 9905 5550 50  0000 C CNN
+F 1 "100R" V 9825 5550 50  0000 C CNN
+	1    9825 5550
 	0    1    1    0   
 $EndComp
 Text HLabel 4050 5625 3    45   Output ~ 0
@@ -848,50 +933,50 @@ $EndComp
 $Comp
 L CP1 C9
 U 1 1 543A7353
-P 9950 5875
-F 0 "C9" H 10000 5975 50  0000 L CNN
-F 1 "4u7" H 10000 5775 50  0000 L CNN
-	1    9950 5875
+P 8650 6325
+F 0 "C9" H 8700 6425 50  0000 L CNN
+F 1 "4u7" H 8700 6225 50  0000 L CNN
+	1    8650 6325
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C8
 U 1 1 543A72F3
-P 9550 5875
-F 0 "C8" H 9600 5975 50  0000 L CNN
-F 1 "0u1" H 9600 5775 50  0000 L CNN
-	1    9550 5875
+P 8250 6325
+F 0 "C8" H 8300 6425 50  0000 L CNN
+F 1 "0u1" H 8300 6225 50  0000 L CNN
+	1    8250 6325
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C7
 U 1 1 543A72EF
-P 9200 5875
-F 0 "C7" H 9250 5975 50  0000 L CNN
-F 1 "0u1" H 9250 5775 50  0000 L CNN
-	1    9200 5875
+P 7900 6325
+F 0 "C7" H 7950 6425 50  0000 L CNN
+F 1 "0u1" H 7950 6225 50  0000 L CNN
+	1    7900 6325
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C5
 U 1 1 543A72EC
-P 8850 5875
-F 0 "C5" H 8900 5975 50  0000 L CNN
-F 1 "0u1" H 8900 5775 50  0000 L CNN
-	1    8850 5875
+P 7550 6325
+F 0 "C5" H 7600 6425 50  0000 L CNN
+F 1 "0u1" H 7600 6225 50  0000 L CNN
+	1    7550 6325
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C4
 U 1 1 543A72BA
-P 8500 5875
-F 0 "C4" H 8550 5975 50  0000 L CNN
-F 1 "0u1" H 8550 5775 50  0000 L CNN
-	1    8500 5875
+P 7200 6325
+F 0 "C4" H 7250 6425 50  0000 L CNN
+F 1 "0u1" H 7250 6225 50  0000 L CNN
+	1    7200 6325
 	1    0    0    -1  
 $EndComp
-Text HLabel 9950 4350 2    60   Output ~ 0
+Text HLabel 10300 5100 2    60   Output ~ 0
 N_WHITE_PX
-Text HLabel 9825 4800 2    60   Output ~ 0
+Text HLabel 10175 5550 2    60   Output ~ 0
 N_BLACK_PX
 $EndSCHEMATC

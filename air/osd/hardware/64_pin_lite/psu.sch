@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 17 Jun 2015 00:34:32 BST
+EESchema Schematic File Version 2  date Wed 17 Jun 2015 13:02:02 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -56,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
-Date "16 jun 2015"
+Date "17 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -508,7 +508,7 @@ L INDUCTOR L4
 U 1 1 54711641
 P 7150 3200
 F 0 "L4" V 7100 3200 40  0000 C CNN
-F 1 "2u2" V 7250 3200 40  0000 C CNN
+F 1 "22nH" V 7250 3200 40  0000 C CNN
 	1    7150 3200
 	0    1    1    0   
 $EndComp
@@ -538,7 +538,7 @@ L INDUCTOR L2
 U 1 1 547114E5
 P 2650 3450
 F 0 "L2" V 2600 3450 40  0000 C CNN
-F 1 "2u2" V 2750 3450 40  0000 C CNN
+F 1 "22nH" V 2750 3450 40  0000 C CNN
 F 2 "0603" H 2650 3450 60  0001 C CNN
 F 4 "MLZ1608A2R2WT" V 2650 3450 60  0001 C CNN "man_oc"
 F 5 "Farnell 2215629" V 2650 3450 60  0001 C CNN "OC"
