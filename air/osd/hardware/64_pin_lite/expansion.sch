@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
+EESchema Schematic File Version 2  date Wed 17 Jun 2015 00:34:32 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -48,6 +48,7 @@ LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
+LIBS:emi_filter
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -55,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "12 mar 2015"
+Date "16 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,6 +64,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 4050 2750
+Wire Wire Line
+	4350 1900 4050 1900
+Wire Wire Line
+	4050 1900 4050 2750
+Connection ~ 5950 2150
+Wire Wire Line
+	4850 2150 5950 2150
 Wire Wire Line
 	6600 2700 6500 2700
 Wire Wire Line
@@ -88,51 +97,51 @@ Wire Wire Line
 Wire Wire Line
 	6500 2900 6600 2900
 Wire Wire Line
-	4100 4400 4200 4400
+	3450 4450 3550 4450
 Wire Wire Line
-	4100 4200 4200 4200
+	3450 4250 3550 4250
 Wire Wire Line
-	4100 4000 4200 4000
+	3450 4050 3550 4050
 Wire Wire Line
-	4100 3800 4200 3800
+	3450 3850 3550 3850
 Wire Wire Line
-	4100 3600 4200 3600
+	3450 3650 3550 3650
 Wire Wire Line
-	4100 3200 4200 3200
+	3450 3250 3550 3250
 Wire Wire Line
-	4200 3000 4100 3000
+	3550 3050 3450 3050
 Connection ~ 6200 2500
 Wire Wire Line
 	6200 2350 6200 2500
 Wire Wire Line
-	4100 2700 4200 2700
+	3450 2750 4350 2750
 Wire Wire Line
-	4100 2500 4200 2500
+	3450 2550 4350 2550
 Wire Wire Line
-	4100 2900 4200 2900
+	3450 2950 3550 2950
 Wire Wire Line
-	5950 2500 6600 2500
+	6600 2500 5850 2500
 Wire Wire Line
-	4100 2600 4200 2600
+	3450 2650 3550 2650
 Wire Wire Line
-	4100 2800 4200 2800
+	3450 2850 3550 2850
 Wire Wire Line
 	5550 2700 5550 2550
 Connection ~ 5550 2700
 Wire Wire Line
-	4100 3100 4200 3100
+	3450 3150 3550 3150
 Wire Wire Line
-	4100 3300 4200 3300
+	3450 3350 3550 3350
 Wire Wire Line
-	4100 3500 4200 3500
+	3450 3550 3550 3550
 Wire Wire Line
-	4100 3700 4200 3700
+	3450 3750 3550 3750
 Wire Wire Line
-	4100 3900 4200 3900
+	3450 3950 3550 3950
 Wire Wire Line
-	4100 4100 4200 4100
+	3450 4150 3550 4150
 Wire Wire Line
-	4100 4300 4200 4300
+	3450 4350 3550 4350
 Wire Wire Line
 	6500 2800 6600 2800
 Wire Wire Line
@@ -146,7 +155,7 @@ Wire Wire Line
 Wire Wire Line
 	6500 4400 6600 4400
 Wire Wire Line
-	4100 3400 4200 3400
+	3450 3450 3550 3450
 Wire Wire Line
 	6600 3100 6500 3100
 Wire Wire Line
@@ -157,13 +166,41 @@ Wire Wire Line
 	5650 2600 5650 2700
 Wire Wire Line
 	5650 2700 5400 2700
+Wire Wire Line
+	4850 1900 5950 1900
+Wire Wire Line
+	5950 1900 5950 2500
+Connection ~ 5950 2500
+Wire Wire Line
+	4350 2150 4200 2150
+Wire Wire Line
+	4200 2150 4200 2550
+Connection ~ 4200 2550
+$Comp
+L R R30
+U 1 1 5580AC4E
+P 4600 2150
+F 0 "R30" V 4680 2150 50  0000 C CNN
+F 1 "0R link" V 4600 2150 50  0000 C CNN
+	1    4600 2150
+	0    1    1    0   
+$EndComp
+$Comp
+L R R25
+U 1 1 5580AC49
+P 4600 1900
+F 0 "R25" V 4680 1900 50  0000 C CNN
+F 1 "0R link" V 4600 1900 50  0000 C CNN
+	1    4600 1900
+	0    1    1    0   
+$EndComp
 Text HLabel 6500 2900 0    45   BiDi ~ 0
 XP_GND
-Text HLabel 4200 3000 2    45   BiDi ~ 0
+Text HLabel 3550 3050 2    45   BiDi ~ 0
 XP_PB1
 Text HLabel 6500 2800 0    45   BiDi ~ 0
 XP_PB8
-Text HLabel 4200 3800 2    45   BiDi ~ 0
+Text HLabel 3550 3850 2    45   BiDi ~ 0
 XP_GND
 Text HLabel 6500 1750 0    45   Output ~ 0
 VIN-
@@ -200,25 +237,25 @@ F 1 "PWR_FLAG" H 6200 2580 30  0000 C CNN
 $EndComp
 Text HLabel 6500 4300 0    45   BiDi ~ 0
 XP_PA13
-Text HLabel 4200 2800 2    45   Output ~ 0
+Text HLabel 3550 2850 2    45   Output ~ 0
 XP_GND
-Text HLabel 4200 2600 2    45   Output ~ 0
+Text HLabel 3550 2650 2    45   Output ~ 0
 XP_GND
-Text HLabel 4200 2700 2    45   Output ~ 0
+Text HLabel 4350 2750 2    45   Output ~ 0
 VIDEO_OUT_+V
-Text HLabel 4200 2500 2    45   Output ~ 0
+Text HLabel 4350 2550 2    45   Output ~ 0
 VIDEO_IN_+V
 Text HLabel 5400 2700 0    45   Output ~ 0
 XP_GND
-Text HLabel 4200 2900 2    45   Output ~ 0
+Text HLabel 3550 2950 2    45   Output ~ 0
 XP_+5V
 $Comp
 L CONN_20 P3
 U 1 1 54746DE4
-P 3750 3450
-F 0 "P3" V 3700 3450 60  0000 C CNN
-F 1 "CONN_20" V 3800 3450 60  0000 C CNN
-	1    3750 3450
+P 3100 3500
+F 0 "P3" V 3050 3500 60  0000 C CNN
+F 1 "CONN_20" V 3150 3500 60  0000 C CNN
+	1    3100 3500
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -232,9 +269,9 @@ F 1 "CONN_20" V 7000 3450 60  0000 C CNN
 $EndComp
 Text HLabel 1900 5550 0    45   BiDi ~ 0
 XP_GND
-Text HLabel 5950 2500 0    45   Output ~ 0
+Text HLabel 5850 2500 0    45   Output ~ 0
 VIN+
-Text HLabel 4200 3200 2    45   Input ~ 0
+Text HLabel 3550 3250 2    45   Input ~ 0
 XP_PC15
 Text HLabel 6500 4400 0    45   Output ~ 0
 XP_NRST
@@ -264,28 +301,28 @@ Text HLabel 6500 3000 0    45   BiDi ~ 0
 XP_PB7
 Text HLabel 6500 2700 0    45   BiDi ~ 0
 XP_PB9
-Text HLabel 4200 4300 2    45   BiDi ~ 0
+Text HLabel 3550 4350 2    45   BiDi ~ 0
 XP_PA8
-Text HLabel 4200 4200 2    45   BiDi ~ 0
+Text HLabel 3550 4250 2    45   BiDi ~ 0
 XP_PC9
-Text HLabel 4200 4100 2    45   BiDi ~ 0
+Text HLabel 3550 4150 2    45   BiDi ~ 0
 XP_PC5
-Text HLabel 4200 4000 2    45   BiDi ~ 0
+Text HLabel 3550 4050 2    45   BiDi ~ 0
 XP_PC4
-Text HLabel 4200 3900 2    45   BiDi ~ 0
+Text HLabel 3550 3950 2    45   BiDi ~ 0
 XP_PC3
-Text HLabel 4200 3700 2    45   BiDi ~ 0
+Text HLabel 3550 3750 2    45   BiDi ~ 0
 XP_PA0
-Text HLabel 4200 3600 2    45   BiDi ~ 0
+Text HLabel 3550 3650 2    45   BiDi ~ 0
 XP_PA1
-Text HLabel 4200 3500 2    45   BiDi ~ 0
+Text HLabel 3550 3550 2    45   BiDi ~ 0
 XP_PC1
-Text HLabel 4200 3400 2    45   BiDi ~ 0
+Text HLabel 3550 3450 2    45   BiDi ~ 0
 XP_PC0
-Text HLabel 4200 3300 2    45   BiDi ~ 0
+Text HLabel 3550 3350 2    45   BiDi ~ 0
 XP_GND
-Text HLabel 4200 3100 2    45   Input ~ 0
+Text HLabel 3550 3150 2    45   Input ~ 0
 XP_PC14
-Text HLabel 4200 4400 2    45   BiDi ~ 0
+Text HLabel 3550 4450 2    45   BiDi ~ 0
 XP_GND
 $EndSCHEMATC

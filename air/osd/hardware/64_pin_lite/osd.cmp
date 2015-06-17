@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 11 Mar 2015 10:12:44 GMT
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 17 Jun 2015 00:36:44 BST
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -267,9 +267,9 @@ IdModule  = SM0603;
 EndCmp
 
 BeginCmp
-TimeStamp = /546D98A5/547ED333;
+TimeStamp = /546F3145/5580ACEA;
 Reference = C39;
-ValeurCmp = 10uF;
+ValeurCmp = 0u1;
 IdModule  = SM0603;
 EndCmp
 
@@ -305,6 +305,13 @@ BeginCmp
 TimeStamp = /544A4CB8/550014A9;
 Reference = C44;
 ValeurCmp = 4U7;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54675A51/5580B0E2;
+Reference = C45;
+ValeurCmp = 0u1;
 IdModule  = SM0603;
 EndCmp
 
@@ -355,6 +362,27 @@ TimeStamp = /546C8634/54FC3E4D;
 Reference = D7;
 ValeurCmp = LED;
 IdModule  = LED-0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546F1A19/55805A51;
+Reference = FI1;
+ValeurCmp = NFL18ST207X1C3;
+IdModule  = EMI3T603;
+EndCmp
+
+BeginCmp
+TimeStamp = /546F3145/5580AD25;
+Reference = FI2;
+ValeurCmp = NFL18ST207X1C3;
+IdModule  = EMI3T603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54675A51/5580B15C;
+Reference = FI3;
+ValeurCmp = NFL18ST207X1C3;
+IdModule  = EMI3T603;
 EndCmp
 
 BeginCmp
@@ -474,13 +502,6 @@ TimeStamp = /544A4CB8/54F8F33A;
 Reference = P12;
 ValeurCmp = CONN_1;
 IdModule  = TEST_PAD;
-EndCmp
-
-BeginCmp
-TimeStamp = /546D98A5/54FDC7F4;
-Reference = P13;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
 EndCmp
 
 BeginCmp
@@ -652,6 +673,13 @@ IdModule  = SM0603;
 EndCmp
 
 BeginCmp
+TimeStamp = /546D98A5/5580AC49;
+Reference = R25;
+ValeurCmp = 0R_link;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
 TimeStamp = /546C8634/547D813B;
 Reference = R26;
 ValeurCmp = 100R;
@@ -680,16 +708,9 @@ IdModule  = SM0603;
 EndCmp
 
 BeginCmp
-TimeStamp = /546D98A5/547ED2A5;
+TimeStamp = /546D98A5/5580AC4E;
 Reference = R30;
-ValeurCmp = 110K;
-IdModule  = SM0603;
-EndCmp
-
-BeginCmp
-TimeStamp = /546D98A5/547ED2AB;
-Reference = R31;
-ValeurCmp = 15K;
+ValeurCmp = 0R_link;
 IdModule  = SM0603;
 EndCmp
 

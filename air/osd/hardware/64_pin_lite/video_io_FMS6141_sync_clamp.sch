@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
+EESchema Schematic File Version 2  date Wed 17 Jun 2015 00:34:32 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -48,6 +48,7 @@ LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
+LIBS:emi_filter
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -55,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "12 mar 2015"
+Date "16 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""

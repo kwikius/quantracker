@@ -1,4 +1,4 @@
-update=Tue 16 Jun 2015 14:02:18 BST
+update=Wed 17 Jun 2015 02:04:08 BST
 last_client=kicad
 [pcbnew]
 [pcbnew/libraries]
@@ -18,12 +18,8 @@ LibName13=/home/andy/electronics/kicad/modules/SIL-20
 LibName14=/home/andy/electronics/kicad/modules/DFN2532
 LibName15=/home/andy/electronics/kicad/modules/SC70-5
 LibName16=/home/andy/electronics/kicad/modules/TEST_PAD
+LibName17=/home/andy/cpp/projects/quantracker/kicad/lib/EMI3T603
 LibDir=
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [eeschema]
 version=1
 LibDir=../../../../kicad/lib
@@ -105,5 +101,11 @@ LibName46=si8642
 LibName47=tlv3501
 LibName48=74lvc1g86
 LibName49=R0link
+LibName50=emi_filter
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [general]
 version=1

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 12 Mar 2015 15:44:15 GMT
+EESchema Schematic File Version 2  date Wed 17 Jun 2015 00:34:32 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -48,6 +48,7 @@ LIBS:si8642
 LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
+LIBS:emi_filter
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -55,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 8
 Title ""
-Date "12 mar 2015"
+Date "16 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -410,10 +411,10 @@ F26 "VIDEO_IN_+V" O L 2700 4650 60
 F27 "XP_NRST" O L 2700 6500 60 
 F28 "VIN-" O L 2700 4400 60 
 F29 "VIN+" O L 2700 4500 60 
-F31 "XP_PB9" I R 4050 5900 60 
-F32 "XP_PB7" B R 4050 5700 60 
-F33 "XP_PB6" B R 4050 5600 60 
-F34 "XP_PB8" I R 4050 5800 60 
+F30 "XP_PB9" I R 4050 5900 60 
+F31 "XP_PB7" B R 4050 5700 60 
+F32 "XP_PB6" B R 4050 5600 60 
+F33 "XP_PB8" I R 4050 5800 60 
 $EndSheet
 $Sheet
 S 3150 2800 900  950 
