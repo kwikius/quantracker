@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Jun 2015 01:15:50 BST
+EESchema Schematic File Version 2  date Thu 18 Jun 2015 16:03:42 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5

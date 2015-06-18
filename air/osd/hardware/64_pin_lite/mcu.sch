@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Jun 2015 01:15:50 BST
+EESchema Schematic File Version 2  date Thu 18 Jun 2015 16:03:42 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -395,7 +395,7 @@ F 2 "0603" H 9350 4650 60  0001 C CNN
 F 3 "D" H 9350 4650 60  0001 C CNN
 F 4 "M" H 9350 4650 60  0001 C CNN "MFG Name"
 F 5 "P" H 9350 4650 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 9350 4650 60  0001 C CNN "Description"
+F 6 "Resistor/47K/10%/0603" H 9350 4650 60  0001 C CNN "Description"
 	1    9350 4650
 	1    0    0    -1  
 $EndComp
@@ -409,7 +409,7 @@ F 2 "0603" H 9050 4650 60  0001 C CNN
 F 3 "D" H 9050 4650 60  0001 C CNN
 F 4 "M" H 9050 4650 60  0001 C CNN "MFG Name"
 F 5 "P" H 9050 4650 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 9050 4650 60  0001 C CNN "Description"
+F 6 "Resistor/47K/10%/0603" H 9050 4650 60  0001 C CNN "Description"
 	1    9050 4650
 	1    0    0    -1  
 $EndComp
@@ -500,7 +500,7 @@ F 2 "0603" H 7925 1900 60  0001 C CNN
 F 3 "D" H 7925 1900 60  0001 C CNN
 F 4 "M" H 7925 1900 60  0001 C CNN "MFG Name"
 F 5 "P" H 7925 1900 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 7925 1900 60  0001 C CNN "Description"
+F 6 "Resistor/470R/+-10%/0603" H 7925 1900 60  0001 C CNN "Description"
 	1    7925 1900
 	1    0    0    -1  
 $EndComp
@@ -518,7 +518,7 @@ F 2 "0603" H 10450 2800 60  0001 C CNN
 F 3 "D" H 10450 2800 60  0001 C CNN
 F 4 "M" H 10450 2800 60  0001 C CNN "MFG Name"
 F 5 "P" H 10450 2800 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 10450 2800 60  0001 C CNN "Description"
+F 6 "Resistor/10K/+-10%/0603" H 10450 2800 60  0001 C CNN "Description"
 	1    10450 2800
 	1    0    0    -1  
 $EndComp
@@ -618,6 +618,10 @@ P 5100 6175
 F 0 "R1" V 5175 6350 50  0000 C CNN
 F 1 "10K" V 5100 6175 50  0000 C CNN
 F 2 "0603" H 5100 6175 60  0001 C CNN
+F 3 "D" H 5100 6175 60  0001 C CNN
+F 4 "M" H 5100 6175 60  0001 C CNN "MFG Name"
+F 5 "P" H 5100 6175 60  0001 C CNN "MFG Part Num"
+F 6 "Resistor/1K/+-10%/0603" H 5100 6175 60  0001 C CNN "Description"
 	1    5100 6175
 	-1   0    0    1   
 $EndComp
@@ -649,7 +653,7 @@ F 2 "0603" H 6650 1100 60  0001 C CNN
 F 3 "D" H 6650 1100 60  0001 C CNN
 F 4 "M" H 6650 1100 60  0001 C CNN "MFG Name"
 F 5 "P" H 6650 1100 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 6650 1100 60  0001 C CNN "Description"
+F 6 "Resistor/470R/+-10%/0603" H 6650 1100 60  0001 C CNN "Description"
 	1    6650 1100
 	1    0    0    -1  
 $EndComp
@@ -711,6 +715,11 @@ U 1 1 546CA64B
 P 2050 6050
 F 0 "L1" V 2000 6050 40  0000 C CNN
 F 1 "22nH" V 2150 6050 40  0000 C CNN
+F 2 "0603" H 2050 6050 60  0001 C CNN
+F 3 "media.digikey.com/pdf/Data Sheets/Samsung PDF/CIH_Series.pdf" H 2050 6050 60  0001 C CNN
+F 4 "Samsung" H 2050 6050 60  0001 C CNN "MFG Name"
+F 5 "CIH10T22NJNC" H 2050 6050 60  0001 C CNN "MFG Part Num"
+F 6 "Inductor/22nH/+-10%/0.4R/0603" H 2050 6050 60  0001 C CNN "Description"
 	1    2050 6050
 	0    1    1    0   
 $EndComp
@@ -856,7 +865,7 @@ F 2 "0603" H 9800 5225 60  0001 C CNN
 F 3 "D" H 9800 5225 60  0001 C CNN
 F 4 "M" H 9800 5225 60  0001 C CNN "MFG Name"
 F 5 "P" H 9800 5225 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 9800 5225 60  0001 C CNN "Description"
+F 6 "Resistor/100R/+-10%/0603" H 9800 5225 60  0001 C CNN "Description"
 	1    9800 5225
 	0    1    1    0   
 $EndComp
@@ -884,7 +893,7 @@ F 2 "0603" H 9825 5000 60  0001 C CNN
 F 3 "D" H 9825 5000 60  0001 C CNN
 F 4 "M" H 9825 5000 60  0001 C CNN "MFG Name"
 F 5 "P" H 9825 5000 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 9825 5000 60  0001 C CNN "Description"
+F 6 "Resistor/100R/+-10%/0603" H 9825 5000 60  0001 C CNN "Description"
 	1    9825 5000
 	0    1    1    0   
 $EndComp
@@ -928,7 +937,7 @@ F 2 "0603" H 9825 5550 60  0001 C CNN
 F 3 "D" H 9825 5550 60  0001 C CNN
 F 4 "M" H 9825 5550 60  0001 C CNN "MFG Name"
 F 5 "P" H 9825 5550 60  0001 C CNN "MFG Part Num"
-F 6 "D" H 9825 5550 60  0001 C CNN "Description"
+F 6 "Resistor/100R/+-10%/0603" H 9825 5550 60  0001 C CNN "Description"
 	1    9825 5550
 	0    1    1    0   
 $EndComp
