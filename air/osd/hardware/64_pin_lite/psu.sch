@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 17 Jun 2015 13:12:03 BST
+EESchema Schematic File Version 2  date Thu 18 Jun 2015 01:15:50 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -56,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
-Date "17 jun 2015"
+Date "18 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -64,9 +64,20 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Connection ~ 1300 4300
-Wire Wire Line
-	1300 3900 1300 4300
+$Comp
+L INDUCTOR L5
+U 1 1 5582041F
+P 1300 3750
+F 0 "L5" V 1250 3750 40  0000 C CNN
+F 1 "BLM18EG601SN1" V 1400 3750 40  0000 C CNN
+F 2 "0603" H 1300 3750 60  0001 C CNN
+F 3 "search.murata.co.jp/Cearamy/image/img/A03X/QNFA9107.pdf" H 1300 3750 60  0001 C CNN
+F 4 "Murata" H 1300 3750 60  0001 C CNN "MFG Name"
+F 5 "BLM18EG601SN1" H 1300 3750 60  0001 C CNN "MFG Part Num"
+F 6 "Bead/EMI supression" H 1300 3750 60  0001 C CNN "Description"
+	1    1300 3750
+	0    1    1    0   
+$EndComp
 Connection ~ 1700 3700
 Wire Wire Line
 	1850 3800 1850 3700
@@ -76,9 +87,9 @@ Connection ~ 2300 3450
 Wire Wire Line
 	2250 3200 2300 3200
 Wire Wire Line
-	2300 3200 2300 3450
+	2300 3450 2300 3200
 Wire Wire Line
-	1650 4300 1650 4600
+	1650 4600 1650 4300
 Wire Wire Line
 	900  4300 2250 4300
 Wire Wire Line
@@ -87,17 +98,17 @@ Connection ~ 9950 3300
 Wire Wire Line
 	9950 3300 9550 3300
 Wire Wire Line
-	9550 3300 9550 4000
+	9550 4000 9550 3300
 Connection ~ 9950 3400
 Wire Wire Line
 	9950 3400 10600 3400
 Wire Wire Line
-	10700 3000 9950 3000
+	9950 3000 10700 3000
 Wire Wire Line
-	9950 3000 9950 4000
+	9950 4000 9950 3000
 Connection ~ 3000 3700
 Wire Wire Line
-	2650 3900 2650 3700
+	2650 3700 2650 3900
 Wire Wire Line
 	2650 3700 3300 3700
 Connection ~ 3000 4600
@@ -131,7 +142,7 @@ Wire Wire Line
 Connection ~ 7550 4600
 Connection ~ 6150 3250
 Wire Wire Line
-	6150 3250 6450 3250
+	6450 3250 6150 3250
 Wire Wire Line
 	6450 3250 6450 3350
 Connection ~ 7600 3200
@@ -204,7 +215,7 @@ Wire Wire Line
 	5150 3300 5150 3200
 Connection ~ 5150 3200
 Wire Wire Line
-	5050 4600 5050 6450
+	5050 6450 5050 4600
 Wire Wire Line
 	3400 3600 3300 3600
 Connection ~ 3300 3600
@@ -226,7 +237,7 @@ Connection ~ 9850 6450
 Connection ~ 9400 6450
 Connection ~ 9250 6450
 Wire Wire Line
-	5050 6450 10250 6450
+	10250 6450 5050 6450
 Wire Wire Line
 	8850 4600 8850 4400
 Wire Wire Line
@@ -282,9 +293,9 @@ Connection ~ 8050 6450
 Wire Wire Line
 	8050 6450 8050 5550
 Wire Wire Line
-	1600 3750 1700 3750
+	1700 3750 1600 3750
 Wire Wire Line
-	1000 3750 900  3750
+	1000 3750 800  3750
 Wire Wire Line
 	1700 3750 1700 3450
 Wire Wire Line
@@ -297,15 +308,6 @@ Wire Wire Line
 Connection ~ 1850 4300
 Wire Wire Line
 	10850 3600 9950 3600
-$Comp
-L EMI_FILTER3 FI1
-U 1 1 55805A51
-P 1300 3750
-F 0 "FI1" H 1450 3900 60  0000 C CNN
-F 1 "NFL18ST207X1C3" H 1250 4050 60  0000 C CNN
-	1    1300 3750
-	1    0    0    -1  
-$EndComp
 Text HLabel 9700 5350 1    45   Output ~ 0
 VIDEO_OUT_GND
 Text HLabel 9850 5350 1    45   Output ~ 0
@@ -321,9 +323,12 @@ L C C42
 U 1 1 54F874D2
 P 1850 4000
 F 0 "C42" H 1900 4100 50  0000 L CNN
-F 1 "0u1" H 1900 3900 50  0000 L CNN
+F 1 "0.1uF" H 1900 3900 50  0000 L CNN
 F 2 "0603" H 1850 4000 60  0001 C CNN
-F 4 "50 V" H 1850 4000 60  0001 C CNN "Voltage"
+F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 7900 6325 60  0001 C CNN
+F 4 "Samsung" H 7900 6325 60  0001 C CNN "MFG Name"
+F 5 "CL10B104KB8SFNC" H 7900 6325 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 7900 6325 60  0001 C CNN "Description"
 	1    1850 4000
 	1    0    0    -1  
 $EndComp
@@ -331,7 +336,7 @@ Text HLabel 2250 3200 0    45   Input ~ 0
 VIN+RECT
 Text HLabel 900  4300 0    45   Input ~ 0
 VIN-
-Text HLabel 900  3750 0    45   Input ~ 0
+Text HLabel 800  3750 0    45   Input ~ 0
 VIN+
 Text Label 4850 3200 0    45   ~ 0
 SWITCHER_OUT
@@ -363,7 +368,12 @@ L C C40
 U 1 1 54846E5A
 P 2650 4100
 F 0 "C40" H 2700 4200 50  0000 L CNN
-F 1 "0u1" H 2700 4000 50  0000 L CNN
+F 1 "0.1uF" H 2700 4000 50  0000 L CNN
+F 2 "0603" H 2650 4100 60  0001 C CNN
+F 3 "D" H 2650 4100 60  0001 C CNN
+F 4 "M" H 2650 4100 60  0001 C CNN "MFG Name"
+F 5 "P" H 2650 4100 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/50V/X7R/0603" H 2650 4100 60  0001 C CNN "Description"
 	1    2650 4100
 	1    0    0    -1  
 $EndComp
@@ -372,7 +382,12 @@ L C C41
 U 1 1 54846DC1
 P 3000 4100
 F 0 "C41" H 3050 4200 50  0000 L CNN
-F 1 "4u7" H 3050 4000 50  0000 L CNN
+F 1 "4.7uF" H 3050 4000 50  0000 L CNN
+F 2 "1206" H 3000 4100 60  0001 C CNN
+F 3 "D" H 3000 4100 60  0001 C CNN
+F 4 "M" H 3000 4100 60  0001 C CNN "MFG Name"
+F 5 "P" H 3000 4100 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/4.7uF/50V/+-20%/X7R/1206" H 3000 4100 60  0001 C CNN "Description"
 	1    3000 4100
 	1    0    0    -1  
 $EndComp
@@ -381,7 +396,12 @@ L DIODESCH D6
 U 1 1 547C7672
 P 1950 3450
 F 0 "D6" H 1950 3550 40  0000 C CNN
-F 1 "30V 500mA" H 1950 3350 40  0000 C CNN
+F 1 "30V/500mA" H 1950 3350 40  0000 C CNN
+F 2 "SOD-123" H 1950 3450 60  0001 C CNN
+F 3 "www.farnell.com/datasheets/85890.pdf" H 1950 3450 60  0001 C CNN
+F 4 "On Semiconductor" H 1950 3450 60  0001 C CNN "MFG Name"
+F 5 "MBR0530T1G" H 1950 3450 60  0001 C CNN "MFG Part Num"
+F 6 "Diode/Schottky/30V/500mA/" H 1950 3450 60  0001 C CNN "Description"
 	1    1950 3450
 	1    0    0    -1  
 $EndComp
@@ -468,8 +488,11 @@ U 1 1 5472F34B
 P 4100 3650
 F 0 "U4" H 4100 3800 60  0000 C CNN
 F 1 "BD9G101G" H 4100 3950 60  0000 C CNN
-F 4 "BD9101G" H 4100 3650 60  0001 C CNN "manu_oc"
-F 5 "Farnell 2373587" H 4100 3650 60  0001 C CNN "OC"
+F 2 "SOT23-6" H 4100 3650 60  0001 C CNN
+F 3 "rohmfs.rohm.com/en/products/databook/datasheet/ic/power/switchinh_regulator/bd9g101g-e.pdf" H 4100 3650 60  0001 C CNN
+F 4 "Rohm Semiconductor" H 4100 3650 60  0001 C CNN "MFG Name"
+F 5 "BD9101G" H 4100 3650 60  0001 C CNN "MFG Part Num"
+F 6 "Switching_Regulator_IC" H 4100 3650 60  0001 C CNN "Description"
 	1    4100 3650
 	1    0    0    -1  
 $EndComp
@@ -527,9 +550,12 @@ L C C12
 U 1 1 54711574
 P 2250 3850
 F 0 "C12" H 2300 3950 50  0000 L CNN
-F 1 "0u1" H 2300 3750 50  0000 L CNN
+F 1 "0.1uF" H 2300 3750 50  0000 L CNN
 F 2 "0603" H 2250 3850 60  0001 C CNN
-F 4 "50 V" H 2250 3850 60  0001 C CNN "Voltage"
+F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 7900 6325 60  0001 C CNN
+F 4 "Samsung" H 7900 6325 60  0001 C CNN "MFG Name"
+F 5 "CL10B104KB8SFNC" H 7900 6325 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 7900 6325 60  0001 C CNN "Description"
 	1    2250 3850
 	1    0    0    -1  
 $EndComp
@@ -540,8 +566,10 @@ P 2650 3450
 F 0 "L2" V 2600 3450 40  0000 C CNN
 F 1 "22nH" V 2750 3450 40  0000 C CNN
 F 2 "0603" H 2650 3450 60  0001 C CNN
-F 4 "MLZ1608A2R2WT" V 2650 3450 60  0001 C CNN "man_oc"
-F 5 "Farnell 2215629" V 2650 3450 60  0001 C CNN "OC"
+F 3 "D" H 2650 3450 60  0001 C CNN
+F 4 "M" H 2650 3450 60  0001 C CNN "MFG Name"
+F 5 "P" H 2650 3450 60  0001 C CNN "MFG Part Num"
+F 6 "D" H 2650 3450 60  0001 C CNN "Description"
 	1    2650 3450
 	0    1    1    0   
 $EndComp
@@ -559,9 +587,13 @@ L DIODESCH D2
 U 1 1 5433B3CA
 P 5350 4250
 F 0 "D2" H 5350 4350 40  0000 C CNN
-F 1 "30V  500mA" H 5350 4150 40  0000 C CNN
+F 1 "30V/500mA" H 5350 4150 40  0000 C CNN
 F 2 "SOD-123" H 5350 4250 60  0001 C CNN
-F 4 "30V" H 5350 4250 60  0001 C CNN "Voltage"
+F 3 "D" H 5350 4250 60  0001 C CNN
+F 4 "M" H 5350 4250 60  0001 C CNN "MFG Name"
+F 5 "P" H 5350 4250 60  0001 C CNN "MFG Part Num"
+F 6 "Diode/Schottky/30V/500mA/SOD-123" H 5350 4250 60  0001 C CNN "Description"
+F 7 "30V" H 5350 4250 60  0001 C CNN "Voltage"
 	1    5350 4250
 	0    -1   -1   0   
 $EndComp
@@ -589,6 +621,11 @@ U 1 1 5433B3C6
 P 5150 3500
 F 0 "C14" H 5200 3600 50  0000 L CNN
 F 1 "15nF" H 5200 3400 50  0000 L CNN
+F 2 "F" H 5150 3500 60  0001 C CNN
+F 3 "D" H 5150 3500 60  0001 C CNN
+F 4 "M" H 5150 3500 60  0001 C CNN "MFG Name"
+F 5 "P" H 5150 3500 60  0001 C CNN "MFG Part Num"
+F 6 "D" H 5150 3500 60  0001 C CNN "Description"
 	1    5150 3500
 	-1   0    0    1   
 $EndComp
@@ -597,9 +634,12 @@ L C C13
 U 1 1 5433B3C5
 P 3300 4100
 F 0 "C13" H 3350 4200 50  0000 L CNN
-F 1 "4u7" H 3350 4000 50  0000 L CNN
-F 2 "0805" H 3300 4100 60  0001 C CNN
-F 4 "50 V" H 3300 4100 60  0001 C CNN "Voltage"
+F 1 "4.7uF" H 3350 4000 50  0000 L CNN
+F 2 "1206" H 3300 4100 60  0001 C CNN
+F 3 "D" H 3300 4100 60  0001 C CNN
+F 4 "M" H 3300 4100 60  0001 C CNN "MFG Name"
+F 5 "P" H 3300 4100 60  0001 C CNN "MFG Part Num"
+F 6 "D" H 3300 4100 60  0001 C CNN "Description"
 	1    3300 4100
 	1    0    0    -1  
 $EndComp

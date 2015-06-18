@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 17 Jun 2015 13:12:03 BST
+EESchema Schematic File Version 2  date Thu 18 Jun 2015 01:15:50 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -56,7 +56,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "17 jun 2015"
+Date "18 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -781,8 +781,10 @@ U 1 1 543013EB
 P 7200 1500
 F 0 "U12" H 7350 1400 60  0000 C CNN
 F 1 "ADG704" H 7400 1650 60  0000 C CNN
-F 2 "MSOP-10" H 7200 1500 60  0001 C CNN
-F 3 "/home/andy/electronics/video/videomux/ADG704.pdf" H 7200 1500 60  0001 C CNN
+F 2 "MSOP10 ( uSOIC10)" H 7200 1500 60  0001 C CNN
+F 3 "www.analog.com/media/en/technical-documentation/data-sheets/ADG704.pdf" H 7200 1500 60  0001 C CNN
+F 4 "Analog Devices" H 7200 1500 60  0001 C CNN "MFG Name"
+F 5 "ADG704BRMZ" H 7200 1500 60  0001 C CNN "MFG Part Num"
 	1    7200 1500
 	1    0    0    -1  
 $EndComp
