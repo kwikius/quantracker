@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Jun 2015 19:52:51 BST
+EESchema Schematic File Version 2  date Fri 19 Jun 2015 22:46:51 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -49,13 +49,15 @@ LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
 LIBS:emi_filter
+LIBS:fiducial
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 8
 Title ""
-Date "18 jun 2015"
+Date "19 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,6 +65,66 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+NoConn ~ 9300 6550
+NoConn ~ 8450 6550
+NoConn ~ 7600 6500
+NoConn ~ 9250 5650
+NoConn ~ 8450 5650
+NoConn ~ 7600 5650
+$Comp
+L FIDUCIAL FID6
+U 1 1 5584890E
+P 9300 6550
+F 0 "FID6" H 9300 6350 60  0000 C CNN
+F 1 "FIDUCIAL" H 9250 6750 60  0000 C CNN
+	1    9300 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L FIDUCIAL FID4
+U 1 1 5584890C
+P 8450 6550
+F 0 "FID4" H 8450 6350 60  0000 C CNN
+F 1 "FIDUCIAL" H 8400 6750 60  0000 C CNN
+	1    8450 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L FIDUCIAL FID2
+U 1 1 55848908
+P 7600 6500
+F 0 "FID2" H 7600 6300 60  0000 C CNN
+F 1 "FIDUCIAL" H 7550 6700 60  0000 C CNN
+	1    7600 6500
+	1    0    0    -1  
+$EndComp
+$Comp
+L FIDUCIAL FID5
+U 1 1 55848904
+P 9250 5650
+F 0 "FID5" H 9250 5450 60  0000 C CNN
+F 1 "FIDUCIAL" H 9200 5850 60  0000 C CNN
+	1    9250 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L FIDUCIAL FID3
+U 1 1 558488FF
+P 8450 5650
+F 0 "FID3" H 8450 5450 60  0000 C CNN
+F 1 "FIDUCIAL" H 8400 5850 60  0000 C CNN
+	1    8450 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L FIDUCIAL FID1
+U 1 1 558488FC
+P 7600 5650
+F 0 "FID1" H 7600 5450 60  0000 C CNN
+F 1 "FIDUCIAL" H 7550 5850 60  0000 C CNN
+	1    7600 5650
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
 	4700 5900 4050 5900
 Wire Wire Line

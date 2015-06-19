@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Jun 2015 19:52:51 BST
+EESchema Schematic File Version 2  date Fri 19 Jun 2015 22:46:51 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -49,13 +49,15 @@ LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
 LIBS:emi_filter
+LIBS:fiducial
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "18 jun 2015"
+Date "19 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -377,9 +379,9 @@ P 7600 5750
 F 0 "C44" H 7650 5850 50  0000 L CNN
 F 1 "4.7uF" H 7650 5650 50  0000 L CNN
 F 2 "0603" H 7600 5750 60  0001 C CNN
-F 3 "www.yageo.com/documents/recent/UPY-GPHC_X5R-t0-50V_19.pdf" H 7600 5750 60  0001 C CNN
-F 4 "Yageo" H 7600 5750 60  0001 C CNN "MFG Name"
-F 5 "CC0603KRX5R6BB475" H 7600 5750 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 7600 5750 60  0001 C CNN
+F 4 "M" H 7600 5750 60  0001 C CNN "MFG Name"
+F 5 "P" H 7600 5750 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/4.70.uF/10V/+-10%/X5R/0603" H 7600 5750 60  0001 C CNN "Description"
 	1    7600 5750
 	1    0    0    -1  
@@ -629,9 +631,9 @@ P 8400 5750
 F 0 "C31" H 8450 5850 50  0000 L CNN
 F 1 "4.7uF" H 8450 5650 50  0000 L CNN
 F 2 "0603" H 8400 5750 60  0001 C CNN
-F 3 "www.yageo.com/documents/recent/UPY-GPHC_X5R-t0-50V_19.pdf" H 8400 5750 60  0001 C CNN
-F 4 "Yageo" H 8400 5750 60  0001 C CNN "MFG Name"
-F 5 "CC0603KRX5R6BB475" H 8400 5750 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 8400 5750 60  0001 C CNN
+F 4 "M" H 8400 5750 60  0001 C CNN "MFG Name"
+F 5 "P" H 8400 5750 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/4.70.uF/10V/+-10%/X5R/0603" H 8400 5750 60  0001 C CNN "Description"
 	1    8400 5750
 	1    0    0    -1  
@@ -756,7 +758,7 @@ U 1 1 544CEF88
 P 10300 1600
 F 0 "R23" V 10380 1600 50  0000 C CNN
 F 1 "75R" V 10300 1600 50  0000 C CNN
-F 2 "0605" H 10300 1600 60  0001 C CNN
+F 2 "0603" H 10300 1600 60  0001 C CNN
 F 3 "D" H 10300 1600 60  0001 C CNN
 F 4 "M" H 10300 1600 60  0001 C CNN "MFG Name"
 F 5 "P" H 10300 1600 60  0001 C CNN "MFG Part Num"
@@ -873,9 +875,9 @@ P 3650 6500
 F 0 "C27" H 3700 6350 50  0000 L CNN
 F 1 "240pF" H 3400 6600 50  0000 L CNN
 F 2 "0603" H 3650 6500 60  0001 C CNN
-F 3 "www.murate.com/~/media/webrenewal/support/library/catalog/products/capacitor/mlcc/c02e.ashx" H 3650 6500 60  0001 C CNN
-F 4 "Murata" H 3650 6500 60  0001 C CNN "MFG Name"
-F 5 "GRM1885C2A241JA01D" H 3650 6500 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 3650 6500 60  0001 C CNN
+F 4 "M" H 3650 6500 60  0001 C CNN "MFG Name"
+F 5 "P" H 3650 6500 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/240pF/10V/+-5%/NPO/0603" H 3650 6500 60  0001 C CNN "Description"
 	1    3650 6500
 	1    0    0    -1  
@@ -928,7 +930,7 @@ U 1 1 543013EB
 P 7200 1500
 F 0 "U12" H 7350 1400 60  0000 C CNN
 F 1 "ADG704" H 7400 1650 60  0000 C CNN
-F 2 "MSOP-10 " H 7200 1500 60  0001 C CNN
+F 2 "MSOP-10" H 7200 1500 60  0001 C CNN
 F 3 "www.analog.com/media/en/technical-documentation/data-sheets/ADG704.pdf" H 7200 1500 60  0001 C CNN
 F 4 "Analog Devices" H 7200 1500 60  0001 C CNN "MFG Name"
 F 5 "ADG704BRMZ" H 7200 1500 60  0001 C CNN "MFG Part Num"

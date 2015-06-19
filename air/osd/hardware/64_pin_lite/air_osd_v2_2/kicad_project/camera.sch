@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Jun 2015 19:52:51 BST
+EESchema Schematic File Version 2  date Fri 19 Jun 2015 22:46:51 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -49,13 +49,15 @@ LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
 LIBS:emi_filter
+LIBS:fiducial
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 4 8
 Title ""
-Date "18 jun 2015"
+Date "19 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -68,11 +70,11 @@ L INDUCTOR L6
 U 1 1 5582ABE4
 P 5100 3450
 F 0 "L6" V 5050 3450 40  0000 C CNN
-F 1 "BLM18HG471SN1" V 5200 3450 40  0000 C CNN
+F 1 "BLM18EG601SN1" V 5200 3450 40  0000 C CNN
 F 2 "0603" H 5100 3450 60  0001 C CNN
 F 3 "D" H 5100 3450 60  0001 C CNN
 F 4 "Murata" H 5100 3450 60  0001 C CNN "MFG Name"
-F 5 "BLM18HG471SN1" H 5100 3450 60  0001 C CNN "MFG Part Num"
+F 5 "BLM18EG601SN1" H 5100 3450 60  0001 C CNN "MFG Part Num"
 F 6 "EMI Suppression filter" H 5100 3450 60  0001 C CNN "Description"
 	1    5100 3450
 	0    1    1    0   
@@ -85,17 +87,13 @@ Wire Wire Line
 Wire Wire Line
 	4050 4350 4050 4100
 Wire Wire Line
-	4800 3450 4050 3450
-Wire Wire Line
-	4050 3450 3450 3450
+	4800 3450 3450 3450
 Wire Wire Line
 	5400 3450 6950 3450
 Wire Wire Line
 	6950 3350 6750 3350
 Wire Wire Line
-	6600 3550 6750 3550
-Wire Wire Line
-	6750 3550 6950 3550
+	6600 3550 6950 3550
 Wire Wire Line
 	3050 3450 2700 3450
 Wire Wire Line

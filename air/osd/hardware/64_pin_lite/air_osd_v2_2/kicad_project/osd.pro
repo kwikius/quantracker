@@ -1,5 +1,5 @@
-update=Thu 18 Jun 2015 18:55:45 BST
-last_client=eeschema
+update=Fri 19 Jun 2015 22:30:31 BST
+last_client=cvpcb
 [pcbnew]
 [pcbnew/libraries]
 LibName1=sockets
@@ -19,12 +19,8 @@ LibName14=/home/andy/electronics/kicad/modules/DFN2532
 LibName15=/home/andy/electronics/kicad/modules/SC70-5
 LibName16=/home/andy/electronics/kicad/modules/TEST_PAD
 LibName17=/home/andy/cpp/projects/quantracker/kicad/lib/EMI3T603
+LibName18=/home/andy/cpp/projects/quantracker/kicad/lib/Fiducial
 LibDir=
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [general]
 version=1
 [eeschema]
@@ -109,3 +105,9 @@ LibName47=tlv3501
 LibName48=74lvc1g86
 LibName49=R0link
 LibName50=emi_filter
+LibName51=fiducial
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Jun 2015 19:52:51 BST
+EESchema Schematic File Version 2  date Fri 19 Jun 2015 22:46:51 BST
 LIBS:lm358
 LIBS:conn_6
 LIBS:conn_5
@@ -49,13 +49,15 @@ LIBS:tlv3501
 LIBS:74lvc1g86
 LIBS:R0link
 LIBS:emi_filter
+LIBS:fiducial
+LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 8
 Title ""
-Date "18 jun 2015"
+Date "19 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -71,12 +73,12 @@ Wire Wire Line
 	9050 4900 9050 5000
 Connection ~ 8950 5225
 Wire Wire Line
-	8950 5325 8950 5225
+	8950 5225 8950 5325
 Wire Wire Line
 	8950 5325 8850 5325
 Connection ~ 1975 4925
 Wire Wire Line
-	1975 5300 1975 4925
+	1975 4925 1975 5300
 Wire Wire Line
 	1975 5300 2150 5300
 Wire Wire Line
@@ -96,9 +98,9 @@ Wire Wire Line
 	7200 6125 7200 5800
 Connection ~ 8650 5925
 Wire Wire Line
-	8975 5925 8975 6125
+	8975 6125 8975 5925
 Wire Wire Line
-	6975 5925 8975 5925
+	8975 5925 6975 5925
 Connection ~ 2425 6850
 Wire Wire Line
 	1725 6850 2600 6850
@@ -197,7 +199,7 @@ Wire Wire Line
 Wire Wire Line
 	8250 3575 6300 3575
 Wire Wire Line
-	10175 5000 10075 5000
+	10075 5000 10175 5000
 Wire Wire Line
 	9575 5550 8725 5550
 Wire Wire Line
@@ -215,9 +217,9 @@ Wire Wire Line
 Wire Wire Line
 	9575 5000 8725 5000
 Wire Wire Line
-	10175 5225 10050 5225
+	10050 5225 10175 5225
 Wire Wire Line
-	10175 5000 10175 5225
+	10175 5225 10175 5000
 Wire Wire Line
 	9550 5225 8675 5225
 Wire Wire Line
@@ -348,9 +350,9 @@ Wire Wire Line
 	10450 3050 10450 3200
 Connection ~ 10450 3125
 Wire Wire Line
-	7925 1175 8025 1175
+	8025 1175 7925 1175
 Wire Wire Line
-	7925 1650 7925 1175
+	7925 1175 7925 1650
 Wire Wire Line
 	10450 2550 10450 2400
 Wire Wire Line
@@ -377,7 +379,7 @@ Wire Wire Line
 	9350 4900 9350 5550
 Connection ~ 9350 5550
 Wire Wire Line
-	9050 4150 9050 4400
+	9050 4400 9050 4150
 Wire Wire Line
 	9050 4150 9350 4150
 Wire Wire Line
@@ -545,9 +547,9 @@ P 10450 3400
 F 0 "C10" H 10500 3500 50  0000 L CNN
 F 1 "0.1uF" H 10500 3300 50  0000 L CNN
 F 2 "0603" H 10450 3400 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 1450 2975 60  0001 C CNN
-F 4 "Samsung" H 1450 2975 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 1450 2975 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 1450 2975 60  0001 C CNN
+F 4 "M" H 1450 2975 60  0001 C CNN "MFG Name"
+F 5 "P" H 1450 2975 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603 " H 1450 2975 60  0001 C CNN "Description"
 	1    10450 3400
 	1    0    0    -1  
@@ -558,7 +560,7 @@ U 1 1 547343FE
 P 8375 1075
 F 0 "P1" V 8325 1075 40  0000 C CNN
 F 1 "SIL2" V 8425 1075 40  0000 C CNN
-F 2 "SIL6" H 8375 1075 60  0001 C CNN
+F 2 "SIL2" H 8375 1075 60  0001 C CNN
 F 4 "0.1 in pitch header/2 contacts" H 8375 1075 60  0001 C CNN "Description"
 	1    8375 1075
 	1    0    0    -1  
@@ -584,9 +586,9 @@ P 1450 2975
 F 0 "C1" H 1500 3075 50  0000 L CNN
 F 1 "0.1uF" H 1500 2875 50  0000 L CNN
 F 2 "0603" H 1450 2975 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 1450 2975 60  0001 C CNN
-F 4 "Samsung" H 1450 2975 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 1450 2975 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 1450 2975 60  0001 C CNN
+F 4 "M" H 1450 2975 60  0001 C CNN "MFG Name"
+F 5 "P" H 1450 2975 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603 " H 1450 2975 60  0001 C CNN "Description"
 	1    1450 2975
 	1    0    0    -1  
@@ -598,9 +600,9 @@ P 8975 6325
 F 0 "C11" H 9025 6425 50  0000 L CNN
 F 1 "4.7uF" H 9050 6200 50  0000 L CNN
 F 2 "0603" H 8650 6325 60  0001 C CNN
-F 3 "www.yageo.com/documents/recent/UPY-GPHC_X5R-4V-to-50V_19.pdf" H 8650 6325 60  0001 C CNN
-F 4 "Yageo" H 8650 6325 60  0001 C CNN "MFG Name"
-F 5 "CC0603KRX5R6BB475" H 8650 6325 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 8650 6325 60  0001 C CNN
+F 4 "M" H 8650 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 8650 6325 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/4.7uF/10V/+-10%/X5R/0603" H 8650 6325 60  0001 C CNN "Description"
 	1    8975 6325
 	1    0    0    -1  
@@ -652,9 +654,9 @@ P 6650 1775
 F 0 "D1" H 6650 1875 50  0000 C CNN
 F 1 "Red Led" V 6400 1475 50  0000 C CNN
 F 2 "0603" H 6650 1775 60  0001 C CNN
-F 3 "https://www.kingbrightusa.com/images/catalog/spec/APT1608EC.pdf" H 6650 1775 60  0001 C CNN
-F 4 "Kingbright" H 6650 1775 60  0001 C CNN "MFG Name"
-F 5 "APT1608EC" H 6650 1775 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 6650 1775 60  0001 C CNN
+F 4 "M" H 6650 1775 60  0001 C CNN "MFG Name"
+F 5 "P" H 6650 1775 60  0001 C CNN "MFG Part Num"
 F 6 "LED/Red/0603" H 6650 1775 60  0001 C CNN "Description"
 	1    6650 1775
 	0    1    1    0   
@@ -718,9 +720,9 @@ P 2425 6500
 F 0 "C2" H 2475 6600 50  0000 L CNN
 F 1 "0.1uF" H 2475 6400 50  0000 L CNN
 F 2 "0603" H 2425 6500 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 2425 6500 60  0001 C CNN
-F 4 "Samsung" H 2425 6500 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 2425 6500 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 2425 6500 60  0001 C CNN
+F 4 "M" H 2425 6500 60  0001 C CNN "MFG Name"
+F 5 "P" H 2425 6500 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 2425 6500 60  0001 C CNN "Description"
 	1    2425 6500
 	1    0    0    -1  
@@ -972,9 +974,9 @@ P 5550 7200
 F 0 "C3" H 5600 7300 50  0000 L CNN
 F 1 "2.2uF" H 5600 7100 50  0000 L CNN
 F 2 "0603" H 5550 7200 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 5550 7200 60  0001 C CNN
-F 4 "Samsung" H 5550 7200 60  0001 C CNN "MFG Name"
-F 5 "CL10F225ZP8NNNC" H 5550 7200 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 5550 7200 60  0001 C CNN
+F 4 "M" H 5550 7200 60  0001 C CNN "MFG Name"
+F 5 "P" H 5550 7200 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/2.2uF/10V/-20%+80%/Y5V/0603" H 5550 7200 60  0001 C CNN "Description"
 	1    5550 7200
 	1    0    0    -1  
@@ -986,9 +988,9 @@ P 8950 3100
 F 0 "C6" H 9000 3200 50  0000 L CNN
 F 1 "2.2uF" H 9000 3000 50  0000 L CNN
 F 2 "0603" H 8950 3100 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 8950 3100 60  0001 C CNN
-F 4 "Samsung" H 8950 3100 60  0001 C CNN "MFG Name"
-F 5 "CL10F225ZP8NNNC" H 8950 3100 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 8950 3100 60  0001 C CNN
+F 4 "M" H 8950 3100 60  0001 C CNN "MFG Name"
+F 5 "P" H 8950 3100 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/2.2uF/10V/-20%+80%/Y5V/0603" H 8950 3100 60  0001 C CNN "Description"
 	1    8950 3100
 	1    0    0    -1  
@@ -1000,9 +1002,9 @@ P 8650 6325
 F 0 "C9" H 8700 6425 50  0000 L CNN
 F 1 "4.7uF" H 8700 6225 50  0000 L CNN
 F 2 "0603" H 8650 6325 60  0001 C CNN
-F 3 "www.yageo.com/documents/recent/UPY-GPHC_X5R-4V-to-50V_19.pdf" H 8650 6325 60  0001 C CNN
-F 4 "Yageo" H 8650 6325 60  0001 C CNN "MFG Name"
-F 5 "CC0603KRX5R6BB475" H 8650 6325 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 8650 6325 60  0001 C CNN
+F 4 "M" H 8650 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 8650 6325 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/4.7uF/10V/+-10%/X5R/0603" H 8650 6325 60  0001 C CNN "Description"
 	1    8650 6325
 	1    0    0    -1  
@@ -1014,9 +1016,9 @@ P 8250 6325
 F 0 "C8" H 8300 6425 50  0000 L CNN
 F 1 "0.1uF" H 8300 6225 50  0000 L CNN
 F 2 "0603" H 8250 6325 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 7900 6325 60  0001 C CNN
-F 4 "Samsung" H 7900 6325 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 7900 6325 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 7900 6325 60  0001 C CNN
+F 4 "M" H 7900 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 7900 6325 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7900 6325 60  0001 C CNN "Description"
 	1    8250 6325
 	1    0    0    -1  
@@ -1028,9 +1030,9 @@ P 7900 6325
 F 0 "C7" H 7950 6425 50  0000 L CNN
 F 1 "0.1uF" H 7950 6225 50  0000 L CNN
 F 2 "0603" H 7900 6325 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 7900 6325 60  0001 C CNN
-F 4 "Samsung" H 7900 6325 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 7900 6325 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 7900 6325 60  0001 C CNN
+F 4 "M" H 7900 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 7900 6325 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7900 6325 60  0001 C CNN "Description"
 	1    7900 6325
 	1    0    0    -1  
@@ -1042,9 +1044,9 @@ P 7550 6325
 F 0 "C5" H 7600 6425 50  0000 L CNN
 F 1 "0.1uF" H 7600 6225 50  0000 L CNN
 F 2 "0603" H 7550 6325 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 7550 6325 60  0001 C CNN
-F 4 "Samsung" H 7550 6325 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 7550 6325 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 7550 6325 60  0001 C CNN
+F 4 "M" H 7550 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 7550 6325 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7550 6325 60  0001 C CNN "Description"
 	1    7550 6325
 	1    0    0    -1  
@@ -1056,9 +1058,9 @@ P 7200 6325
 F 0 "C4" H 7250 6425 50  0000 L CNN
 F 1 "0.1uF" H 7250 6225 50  0000 L CNN
 F 2 "0603" H 7200 6325 60  0001 C CNN
-F 3 "www.samsungsemi.com/global/support/library/product-catalog/__icsFiles/afieldfile/2014/11/13/MLCC.pdf" H 7200 6325 60  0001 C CNN
-F 4 "Samsung" H 7200 6325 60  0001 C CNN "MFG Name"
-F 5 "CL10B104KB8SFNC" H 7200 6325 60  0001 C CNN "MFG Part Num"
+F 3 "D" H 7200 6325 60  0001 C CNN
+F 4 "M" H 7200 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 7200 6325 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7200 6325 60  0001 C CNN "Description"
 	1    7200 6325
 	1    0    0    -1  
