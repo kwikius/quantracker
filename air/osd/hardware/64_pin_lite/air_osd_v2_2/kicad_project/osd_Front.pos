@@ -1,0 +1,50 @@
+### Module positions - created on Fri 19 Jun 2015 21:24:56 BST ###
+### Printed by PcbNew version pcbnew (2011-05-25)-stable
+## Unit = inches, Angle = deg.
+## Side : Front
+# Ref    Val                  PosX       PosY        Rot     Side
+C3       2.2uF                6.0750     3.7800       0.0    Front
+C22      0.1uF                6.5225     3.7300     270.0    Front
+C23      0.1uF                4.9525     3.3175     180.0    Front
+C26      0.1uF                4.9375     3.6975      90.0    Front
+C27      240pF                5.3350     3.8775     180.0    Front
+C38      470pF                6.5200     3.5925     270.0    Front
+C42      0.1uF                4.7725     3.2800     180.0    Front
+C45      0.1uF                4.9000     3.9125       0.0    Front
+D1       Red_Led              6.2450     3.8400       0.0    Front
+D3       Blue_Led             5.1050     3.8875       0.0    Front
+D5       MBR0530T1G           4.7400     3.9000       0.0    Front
+D6       MBR0530T1G           4.9775     3.1900       0.0    Front
+D7       Red_Led              6.4700     3.3450       0.0    Front
+L3       LPS4018-473MR        5.3875     3.3525       0.0    Front
+L5       BLM18EG601SN1        4.8150     3.1929     180.0    Front
+L7       BLM18PG471SN1        4.8850     3.8125     270.0    Front
+R2       470R                 6.1625     3.7700     270.0    Front
+R4       100R                 5.4275     3.5500       0.0    Front
+R5       100R                 5.4275     3.4900       0.0    Front
+R6       100R                 5.4275     3.6125       0.0    Front
+R11      75R                  4.9375     3.5925     270.0    Front
+R12      33K                  5.0650     3.7200     180.0    Front
+R13      1.2K                 5.3350     3.8225     180.0    Front
+R14      1K                   5.6100     3.8150     180.0    Front
+R15      1K                   5.6100     3.8700       0.0    Front
+R16      1K                   5.1400     3.5150     180.0    Front
+R17      100R                 5.2575     3.6525     180.0    Front
+R18      2K                   5.5025     3.8325     270.0    Front
+R19      100R                 5.5175     3.7250     180.0    Front
+R20      20R                  4.9925     3.5150       0.0    Front
+R21      40.2R                4.9525     3.4350      90.0    Front
+R22      20R                  4.7775     3.3775      90.0    Front
+R23      75R                  4.7775     3.4825      90.0    Front
+R24      470R                 6.4725     3.2950       0.0    Front
+R25      0R                   4.6350     3.2950     270.0    Front
+R28      100R                 6.5217     3.4567     270.0    Front
+U2       STM32F405RGT6        5.8550     3.5700     270.0    Front
+U6       SI8642               6.3543     3.5689     270.0    Front
+U8       MCP6562              5.3425     3.7475     270.0    Front
+U9       TLV3501              5.0950     3.6225     270.0    Front
+U10      FMS6141              4.9900     3.8250       0.0    Front
+U11      DAC084S085           5.1475     3.2850     270.0    Front
+U12      ADG704               5.1475     3.4200      90.0    Front
+U13      OPA830               4.8700     3.4375       0.0    Front
+## End

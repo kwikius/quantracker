@@ -1,0 +1,51 @@
+Quantracker Air OSD V2.2
+
+All diode and LED Footprints
+quadrant = 3, terminal#1 = Anode (+ve terminal)
+
+U1 Si501 DFN2532  
+quadrant = 3
+
+U2 STM32F4 TQFP64
+quadrant = 3
+
+U3 74LVC1G86 SOT23-5
+quadrant = 3
+
+U4 BD9G101G SOT23-6
+quadrant = 3
+
+U5 LD3901 SOT23-5
+quadrant = 3
+
+U6 Si8642 SOIC16E ( narrow SOIC16)
+quadrant = 3
+
+U7 LM358 MSOP-8
+quadrant = 3
+
+U8 MCP6562 MSOP-8
+quadrant = 3
+
+U9 TLV3501 SOT23-5
+quadrant = 3
+
+U10 FMS6141 SC70-5
+quadrant = 3
+
+U11 DAC084 MSOP-10
+quadrant = 3
+
+U12 ADG704 MSOP-10
+quadrant = 10
+
+U13 OPA830
+quadrant = 3
+
+
+
+
+
+
+
+

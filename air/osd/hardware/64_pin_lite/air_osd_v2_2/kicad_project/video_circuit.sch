@@ -1,12 +1,4 @@
-EESchema Schematic File Version 2  date Fri 19 Jun 2015 22:46:51 BST
-LIBS:lm358
-LIBS:conn_6
-LIBS:conn_5
-LIBS:conn_3
-LIBS:conn_2
-LIBS:conn_20
-LIBS:si501
-LIBS:stm32f405rgt6
+EESchema Schematic File Version 2  date Sat 20 Jun 2015 08:50:59 BST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,19 +29,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:adg704
-LIBS:bd9g101g
-LIBS:dac084s085
-LIBS:fms6141
-LIBS:ld39015mxxr
-LIBS:mcp6562
-LIBS:opa830
-LIBS:si8642
-LIBS:tlv3501
-LIBS:74lvc1g86
-LIBS:R0link
-LIBS:emi_filter
-LIBS:fiducial
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -57,7 +36,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "19 jun 2015"
+Date "20 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
