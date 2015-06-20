@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 20 Jun 2015 08:50:59 BST
+EESchema Schematic File Version 2  date Sat 20 Jun 2015 09:00:36 BST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -715,8 +715,6 @@ F 6 "Comparator/Single/Hi_Z" H 2400 4100 60  0001 C CNN "Description"
 	1    2400 4100
 	1    0    0    -1  
 $EndComp
-Text Notes 8200 2650 0    60   ~ 0
-for AC output Use a voltage divider at ouput of DAC \n(Could add variable res to change gain)\n Use e.g TSH122 Video Driver with SAG and\n AC couple output
 $Comp
 L R R19
 U 1 1 544D2243
