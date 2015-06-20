@@ -21,7 +21,7 @@ The V2.1 board pinout differs from the V1 board. ( `Click here For details of th
 
 The above diagram highlights the connections of the board [1]_. 
  
-The initial board firmware is designed to be used with Ardupilot and
+The initial `board firmwares`_ are designed to be used with Ardupilot and
 the layout of the board connectors is designed to be compatible with MinimOSD [2]_ .
 The 6 pin header at the right hand end of the diagram is 
 used for the MAVLink serial connection, for communicating setup parameters and to flash
@@ -38,7 +38,6 @@ The board firmware automatically detects PAL and NTSC cameras.
 We hope soon to try to get some finished boards available too.
 
 
-
 For more info , please look at the `OSD index`_.
 
 .. _`OSD index`: osd/index.html
@@ -48,6 +47,7 @@ For more info , please look at the `OSD index`_.
 .. _`The V2.1 pcb is currently available at OSHPark`: https://oshpark.com/shared_projects/yiU4RsLa
 .. _`Click here For details of the V1 board`: v1_board.html
 .. _`The source code is available on GitHub`: https://github.com/kwikius/quantracker
+.. _`board firmwares`: osd/firmwares.html
                                                
 .. [1] There are many other available pins, which are broken out from
        the STM32F4 processor. For a more complete view of the functions 

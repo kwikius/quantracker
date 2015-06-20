@@ -341,38 +341,30 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="index.html">OSD Index</a></p>
-<div class="section" id="example-firmwares">
-<h1>Example firmwares</h1>
-<p>Curently there are 2 example firmwares</p>
+<p><a class="reference external" href="../index.html">OSD index</a></p>
+<div class="section" id="source-code-organisation">
+<h1>Source Code Organisation</h1>
+<p>Top level directories. N.B this is a wish list at the momemnt! We'll get there :)</p>
 <dl class="docutils">
-<dt>osd_example1:</dt>
-<dd><p class="first">This OSD firmware is designed as a minimal but useful display for use with fixed wing aircraft
-The firmware  provides:</p>
-<ul class="simple">
-<li>home distance</li>
-<li>altitude</li>
-<li>compass</li>
-<li>home arrow</li>
-<li>battery level</li>
-</ul>
-<p class="last"><a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/main.bin?raw=true">Download osd_example1 firmware</a></p>
-</dd>
+<dt>include/</dt>
+<dd>Headers for each part of the project</dd>
+<dt>src/</dt>
+<dd>c++ source code for each part of the project</dd>
+<dt>obj/</dt>
+<dd>For your own object code.</dd>
+<dt>bin/</dt>
+<dd>for your binary image files.</dd>
+<dt>lib/</dt>
+<dd>static libraries.</dd>
+<dt>doc/</dt>
+<dd>local documentation</dd>
+<dt>dos_src/</dt>
+<dd>src files for the documentation, mainly using Restructured text</dd>
+<dt>Downloads/</dt>
+<dd>Archived binary image files</dd>
 </dl>
-<iframe width="420" height="315" src="https://www.youtube.com/embed/p4sV_m2vvSE"
-frameborder="0" allowfullscreen></iframe><dl class="docutils">
-<dt>osd_ac:</dt>
-<dd><blockquote class="first">
-More advanced firmware that provides:</blockquote>
-<ul class="simple">
-<li>4 configurable pages switchable from an RC channel</li>
-<li>Many Mavlink variables that can be switched in or out per page</li>
-</ul>
-<p class="last"><a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_ac/board/main.bin?raw=true">Download osd_ac firmware</a></p>
-</dd>
-</dl>
-<iframe width="420" height="315" src="https://www.youtube.com/embed/Czrd15weBXM"
-frameborder="0" allowfullscreen></iframe><p><a class="reference external" href="index.html">OSD Index</a></p>
+<hr class="docutils" />
+<p><a class="reference external" href="../index.html">OSD index</a></p>
 </div>
 </div>
 </body>
