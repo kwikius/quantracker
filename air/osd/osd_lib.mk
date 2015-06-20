@@ -110,6 +110,21 @@ ifeq ($(TARGET_PROCESSOR), STM32F4)
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS STM32F40_41xxx \
  QUAN_OSD_SOFTWARE_SYNCSEP  HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4
 
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
+OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_tx.a
+TELEMETRY_PREFIX = lib_tx_
+DEFINES += QUAN_OSD_TELEM_TRANSMITTER
+else
+ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
+OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_rx.a
+TELEMETRY_PREFIX = lib_rx_
+DEFINES += QUAN_OSD_TELEM_RECEIVER
+else
+OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd.a
+TELEMETRY_PREFIX = lib_
+endif
+endif
+
 SYSTEM_INIT = system_init.cpp
 STARTUP = startup.s
 
@@ -122,6 +137,10 @@ INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERS
 else
 $(error no target processor defined)
 endif
+
+INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
+
+DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
@@ -141,21 +160,6 @@ unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
 draw_task.o  sync_sep.o black_level.o dac.o 
 
-ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_tx.a
-TELEMETRY_PREFIX = lib_tx_
-DEFINES += QUAN_OSD_TELEM_TRANSMITTER
-else
-ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_rx.a
-TELEMETRY_PREFIX = lib_rx_
-DEFINES += QUAN_OSD_TELEM_RECEIVER
-else
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd.a
-TELEMETRY_PREFIX = lib_
-endif
-endif
-
 video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
 objects = $(video_objects) $(system_objects)
@@ -171,10 +175,6 @@ endif
 
 all : $(OSD_ARCHIVE_FILE)
    
-INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
-
-DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
-
 .PHONY: clean
 clean:
 	-rm -rf $(OSD_ARCHIVE_FILE) *.o *.elf *.bin *.lst 
