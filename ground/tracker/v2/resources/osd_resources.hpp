@@ -10,6 +10,8 @@
    brainFPV ( brainfpv.com)
    Thomas Oldbury (super-osd.com)
 
+ Much Thanks also to Andrew Fernie
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
@@ -24,10 +26,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-//#include <quan/stm32/freertos/freertos_usart_task.hpp>
-//#include <quan/stm32/freertos/freertos_usart_task_tx_only.hpp>
-//#include <quan/stm32/serial_port_lite.hpp>
-#include <quan/voltage.hpp>
+//#include <quan/voltage.hpp>
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/spi.hpp>
 #include <quan/stm32/tim.hpp>
