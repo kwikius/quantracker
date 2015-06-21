@@ -14,6 +14,8 @@
 
 # To find the version of arm-gcc run ./gcc --version 
 # from within $(TOOLCHAIN_PREFIX)arm-none-eabi/bin directory
+# Or alternatively look in the /bin directory and see the postfix on arm-none-eabi-gcc there
+# as later versions dont seem to include this
 
  TOOLCHAIN_GCC_VERSION = 4.7.4
 
