@@ -39,6 +39,8 @@ ifeq ($(HAVE_DEPENDENCIES_FILE), )
 	@echo ' '	
 else
 
+APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
 DEFINES = 
 
 # You will need a custom Dependencies.mk
@@ -62,6 +64,10 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
+ifeq ($(FREE_RTOS_DIR), )
+$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
+endif
+
 CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
 
@@ -71,7 +77,12 @@ STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
-INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH)
+RTOS_INCLUDES = \
+$(FREE_RTOS_DIR)Source/include/ \
+$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
+$(APP_SRC_PATH)
+
+INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
