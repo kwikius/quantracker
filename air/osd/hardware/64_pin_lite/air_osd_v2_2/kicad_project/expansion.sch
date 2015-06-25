@@ -1,4 +1,9 @@
-EESchema Schematic File Version 2  date Sun 21 Jun 2015 14:24:06 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+LIBS:conn_20
+LIBS:conn_6
+LIBS:conn_5
+LIBS:conn_3
+LIBS:conn_2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,6 +34,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:diodesch_ipc7531_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -36,7 +42,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "20 jun 2015"
+Date "25 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""

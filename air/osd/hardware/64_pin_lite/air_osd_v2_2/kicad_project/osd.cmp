@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Fri 19 Jun 2015 22:30:49 BST
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Thu 25 Jun 2015 07:52:35 BST
 
 BeginCmp
 TimeStamp = /5433EE23/5470A326;
@@ -326,7 +326,7 @@ BeginCmp
 TimeStamp = /546F1A19/5433B3CA;
 Reference = D2;
 ValeurCmp = MBR0530T1G;
-IdModule  = SOD-123;
+IdModule  = SOD-123_IPC7351_2005;
 EndCmp
 
 BeginCmp
@@ -351,10 +351,10 @@ IdModule  = SOD-123;
 EndCmp
 
 BeginCmp
-TimeStamp = /546F1A19/547C7672;
+TimeStamp = /546F1A19/558B9B72;
 Reference = D6;
 ValeurCmp = MBR0530T1G;
-IdModule  = SOD-123;
+IdModule  = SOD-123_IPC7351_2005;
 EndCmp
 
 BeginCmp

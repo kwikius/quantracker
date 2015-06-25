@@ -1,4 +1,9 @@
-EESchema Schematic File Version 2  date Sun 21 Jun 2015 14:24:06 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+LIBS:conn_20
+LIBS:conn_6
+LIBS:conn_5
+LIBS:conn_3
+LIBS:conn_2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,6 +34,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:diodesch_ipc7531_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -36,7 +42,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 8
 Title ""
-Date "20 jun 2015"
+Date "25 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -631,7 +637,7 @@ L LED D1
 U 1 1 546E5ED4
 P 6650 1775
 F 0 "D1" H 6650 1875 50  0000 C CNN
-F 1 "Red Led" V 6400 1475 50  0000 C CNN
+F 1 "Red_Led" V 6400 1475 50  0000 C CNN
 F 2 "0603" H 6650 1775 60  0001 C CNN
 F 3 "D" H 6650 1775 60  0001 C CNN
 F 4 "M" H 6650 1775 60  0001 C CNN "MFG Name"

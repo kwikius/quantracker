@@ -1,4 +1,9 @@
-EESchema Schematic File Version 2  date Sun 21 Jun 2015 14:24:06 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+LIBS:conn_20
+LIBS:conn_6
+LIBS:conn_5
+LIBS:conn_3
+LIBS:conn_2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,6 +34,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:diodesch_ipc7531_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -36,7 +42,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
-Date "20 jun 2015"
+Date "25 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -44,20 +50,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L INDUCTOR L5
-U 1 1 5582041F
-P 1300 3750
-F 0 "L5" V 1250 3750 40  0000 C CNN
-F 1 "BLM18EG601SN1" V 1400 3750 40  0000 C CNN
-F 2 "0603" H 1300 3750 60  0001 C CNN
-F 3 "search.murata.co.jp/Cearamy/image/img/A03X/QNFA9107.pdf" H 1300 3750 60  0001 C CNN
-F 4 "Murata" H 1300 3750 60  0001 C CNN "MFG Name"
-F 5 "BLM18EG601SN1" H 1300 3750 60  0001 C CNN "MFG Part Num"
-F 6 "Bead/EMI supression" H 1300 3750 60  0001 C CNN "Description"
-	1    1300 3750
-	0    1    1    0   
-$EndComp
+Wire Wire Line
+	2100 3450 2350 3450
 Connection ~ 1700 3700
 Wire Wire Line
 	1850 3800 1850 3700
@@ -128,16 +122,14 @@ Wire Wire Line
 Connection ~ 7600 3200
 Wire Wire Line
 	7600 3050 7600 3200
-Connection ~ 3050 3450
+Connection ~ 3000 3450
 Wire Wire Line
-	3050 3450 3050 3250
+	3000 3450 3000 3250
 Connection ~ 7550 3200
 Wire Wire Line
 	7550 3200 7550 4050
 Wire Wire Line
 	3400 3450 2950 3450
-Wire Wire Line
-	2150 3450 2350 3450
 Connection ~ 3300 3450
 Wire Wire Line
 	3300 3900 3300 3450
@@ -169,7 +161,7 @@ Wire Wire Line
 	4850 3900 6150 3900
 Connection ~ 5350 3200
 Wire Wire Line
-	5350 3200 5350 4050
+	5350 3200 5350 4100
 Connection ~ 6150 4600
 Wire Wire Line
 	6150 4600 6150 4500
@@ -184,7 +176,7 @@ Wire Wire Line
 	6750 4600 6750 4150
 Connection ~ 5350 4600
 Wire Wire Line
-	5350 4600 5350 4450
+	5350 4600 5350 4400
 Wire Wire Line
 	6750 3750 6750 3200
 Connection ~ 6750 3200
@@ -277,10 +269,6 @@ Wire Wire Line
 Wire Wire Line
 	1000 3750 800  3750
 Wire Wire Line
-	1700 3750 1700 3450
-Wire Wire Line
-	1700 3450 1750 3450
-Wire Wire Line
 	1850 4300 1850 4200
 Connection ~ 1650 4300
 Wire Wire Line
@@ -288,6 +276,33 @@ Wire Wire Line
 Connection ~ 1850 4300
 Wire Wire Line
 	10850 3600 9950 3600
+Wire Wire Line
+	1700 3750 1700 3450
+Wire Wire Line
+	1700 3450 1800 3450
+$Comp
+L DIODESCH_IPC7531_2005 D6
+U 1 1 558B9B72
+P 1950 3450
+F 0 "D6" H 1950 3550 40  0000 C CNN
+F 1 "MBR0530T1G" H 1950 3350 40  0000 C CNN
+	1    1950 3450
+	-1   0    0    1   
+$EndComp
+$Comp
+L INDUCTOR L5
+U 1 1 5582041F
+P 1300 3750
+F 0 "L5" V 1250 3750 40  0000 C CNN
+F 1 "BLM18EG601SN1" V 1400 3750 40  0000 C CNN
+F 2 "0603" H 1300 3750 60  0001 C CNN
+F 3 "search.murata.co.jp/Cearamy/image/img/A03X/QNFA9107.pdf" H 1300 3750 60  0001 C CNN
+F 4 "Murata" H 1300 3750 60  0001 C CNN "MFG Name"
+F 5 "BLM18EG601SN1" H 1300 3750 60  0001 C CNN "MFG Part Num"
+F 6 "Bead/EMI supression" H 1300 3750 60  0001 C CNN "Description"
+	1    1300 3750
+	0    1    1    0   
+$EndComp
 Text HLabel 9700 5350 1    45   Output ~ 0
 VIDEO_OUT_GND
 Text HLabel 9850 5350 1    45   Output ~ 0
@@ -322,7 +337,7 @@ Text Label 4850 3200 0    45   ~ 0
 SWITCHER_OUT
 Text Label 5300 6450 0    45   ~ 0
 HUB_GND
-Text Label 3100 3450 0    45   ~ 0
+Text Label 3050 3450 0    45   ~ 0
 SWITCHER_VIN
 Text Label 5500 3900 0    45   ~ 0
 SWITCHER_FB
@@ -353,7 +368,7 @@ F 2 "0603" H 2650 4100 60  0001 C CNN
 F 3 "D" H 2650 4100 60  0001 C CNN
 F 4 "M" H 2650 4100 60  0001 C CNN "MFG Name"
 F 5 "P" H 2650 4100 60  0001 C CNN "MFG Part Num"
-F 6 "Capacitor/0.1uF/50V/X7R/0603" H 2650 4100 60  0001 C CNN "Description"
+F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 2650 4100 60  0001 C CNN "Description"
 	1    2650 4100
 	1    0    0    -1  
 $EndComp
@@ -369,20 +384,6 @@ F 4 "M" H 3000 4100 60  0001 C CNN "MFG Name"
 F 5 "P" H 3000 4100 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/4.7uF/50V/+-20%/X5R/1206" H 3000 4100 60  0001 C CNN "Description"
 	1    3000 4100
-	1    0    0    -1  
-$EndComp
-$Comp
-L DIODESCH D6
-U 1 1 547C7672
-P 1950 3450
-F 0 "D6" H 1950 3550 40  0000 C CNN
-F 1 "MBR0530T1G" H 1950 3350 40  0000 C CNN
-F 2 "SOD-123" H 1950 3450 60  0001 C CNN
-F 3 "www.farnell.com/datasheets/85890.pdf" H 1950 3450 60  0001 C CNN
-F 4 "On Semiconductor" H 1950 3450 60  0001 C CNN "MFG Name"
-F 5 "MBR0530T1G" H 1950 3450 60  0001 C CNN "MFG Part Num"
-F 6 "Diode/Schottky/30V/500mA/" H 1950 3450 60  0001 C CNN "Description"
-	1    1950 3450
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -445,8 +446,7 @@ F 2 "0603" H 7950 4150 60  0001 C CNN
 F 3 "D" H 7950 4150 60  0001 C CNN
 F 4 "M" H 7950 4150 60  0001 C CNN "MFG Name"
 F 5 "P" H 7950 4150 60  0001 C CNN "MFG Part Num"
-F 6 "Capacitor/0.1uF/10V/+-20%/X7R/0603" H 7950 4150 60  0001 C CNN "Description"
-F 7 "10V" H 7950 4150 60  0001 C CNN "Voltage"
+F 6 "Capacitor/0.1uF/50V/+-20%/X7R/0603" H 7950 4150 60  0001 C CNN "Description"
 	1    7950 4150
 	1    0    0    -1  
 $EndComp
@@ -469,7 +469,7 @@ L LED D3
 U 1 1 547467CD
 P 7200 3650
 F 0 "D3" H 7200 3750 50  0000 C CNN
-F 1 "Blue Led" H 7200 3550 50  0000 C CNN
+F 1 "Blue_Led" H 7200 3550 50  0000 C CNN
 F 2 "0603" H 7200 3650 60  0001 C CNN
 F 3 "D" H 7200 3650 60  0001 C CNN
 F 4 "M" H 7200 3650 60  0001 C CNN "MFG Name"
@@ -537,10 +537,10 @@ Text Notes 7150 2750 0    45   ~ 0
 $Comp
 L PWR_FLAG #FLG02
 U 1 1 547116AD
-P 3050 3250
-F 0 "#FLG02" H 3050 3520 30  0001 C CNN
-F 1 "PWR_FLAG" H 3050 3480 30  0000 C CNN
-	1    3050 3250
+P 3000 3250
+F 0 "#FLG02" H 3000 3520 30  0001 C CNN
+F 1 "PWR_FLAG" H 3000 3480 30  0000 C CNN
+	1    3000 3250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -567,7 +567,6 @@ F 3 "D" H 7550 4250 60  0001 C CNN
 F 4 "M" H 7550 4250 60  0001 C CNN "MFG Name"
 F 5 "P" H 7550 4250 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/10uF/50V/+-10%/X5R/1206" H 7550 4250 60  0001 C CNN "Description"
-F 7 "10 V" H 7550 4250 60  0001 C CNN "Voltage"
 	1    7550 4250
 	1    0    0    -1  
 $EndComp
@@ -605,7 +604,7 @@ U 1 1 5433B3CB
 P 5750 3200
 F 0 "L3" V 5700 3200 40  0000 C CNN
 F 1 "LPS4018-473MR" V 5900 3200 40  0000 C CNN
-F 2 "Custom/4mmx4mmx1.8 mm" H 5750 3200 60  0001 C CNN
+F 2 "LPS4018" H 5750 3200 60  0001 C CNN
 F 3 "www.coilcraft.com/pdfs/lps4018.pdf" H 5750 3200 60  0001 C CNN
 F 4 "Coilcraft" H 5750 3200 60  0001 C CNN "MFG Name"
 F 5 "LPS4018-473MR" H 5750 3200 60  0001 C CNN "MFG Part Num"
@@ -614,7 +613,7 @@ F 6 "Inductor/47uH" H 5750 3200 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L DIODESCH D2
+L DIODESCH_IPC7531_2005 D2
 U 1 1 5433B3CA
 P 5350 4250
 F 0 "D2" H 5350 4350 40  0000 C CNN
@@ -623,9 +622,9 @@ F 2 "SOD-123" H 5350 4250 60  0001 C CNN
 F 3 "D" H 5350 4250 60  0001 C CNN
 F 4 "On Semiconductor" H 5350 4250 60  0001 C CNN "MFG Name"
 F 5 "MBR0530T1G" H 5350 4250 60  0001 C CNN "MFG Part Num"
-F 6 "Diode/Schottky/30V/500mA/SOD-123" H 5350 4250 60  0001 C CNN "Description"
+F 6 "Diode/Schottky/30V/0.5A/SOD-123" H 5350 4250 60  0001 C CNN "Description"
 	1    5350 4250
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L R R8

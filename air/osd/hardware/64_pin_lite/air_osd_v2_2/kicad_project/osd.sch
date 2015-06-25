@@ -1,4 +1,9 @@
-EESchema Schematic File Version 2  date Sun 21 Jun 2015 14:24:06 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+LIBS:conn_20
+LIBS:conn_6
+LIBS:conn_5
+LIBS:conn_3
+LIBS:conn_2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,6 +34,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:diodesch_ipc7531_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -36,7 +42,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 8
 Title ""
-Date "20 jun 2015"
+Date "25 jun 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -56,6 +62,11 @@ U 1 1 5584890E
 P 9300 6550
 F 0 "FID6" H 9300 6350 60  0000 C CNN
 F 1 "FIDUCIAL" H 9250 6750 60  0000 C CNN
+F 2 "FIDUCIAL" H 9300 6550 60  0001 C CNN
+F 3 "none" H 9300 6550 60  0001 C CNN
+F 4 "none" H 9300 6550 60  0001 C CNN "MFG Name"
+F 5 "none" H 9300 6550 60  0001 C CNN "MFG Part Num"
+F 6 "fiducial" H 9300 6550 60  0001 C CNN "Description"
 	1    9300 6550
 	1    0    0    -1  
 $EndComp
@@ -65,6 +76,11 @@ U 1 1 5584890C
 P 8450 6550
 F 0 "FID4" H 8450 6350 60  0000 C CNN
 F 1 "FIDUCIAL" H 8400 6750 60  0000 C CNN
+F 2 "FIDUCIAL" H 8450 6550 60  0001 C CNN
+F 3 "none" H 8450 6550 60  0001 C CNN
+F 4 "none" H 8450 6550 60  0001 C CNN "MFG Name"
+F 5 "none" H 8450 6550 60  0001 C CNN "MFG Part Num"
+F 6 "fiducial" H 8450 6550 60  0001 C CNN "Description"
 	1    8450 6550
 	1    0    0    -1  
 $EndComp
@@ -74,6 +90,11 @@ U 1 1 55848908
 P 7600 6500
 F 0 "FID2" H 7600 6300 60  0000 C CNN
 F 1 "FIDUCIAL" H 7550 6700 60  0000 C CNN
+F 2 "FIDUCIAL" H 7600 6500 60  0001 C CNN
+F 3 "none" H 7600 6500 60  0001 C CNN
+F 4 "none" H 7600 6500 60  0001 C CNN "MFG Name"
+F 5 "none" H 7600 6500 60  0001 C CNN "MFG Part Num"
+F 6 "fiducial" H 7600 6500 60  0001 C CNN "Description"
 	1    7600 6500
 	1    0    0    -1  
 $EndComp
@@ -83,6 +104,11 @@ U 1 1 55848904
 P 9250 5650
 F 0 "FID5" H 9250 5450 60  0000 C CNN
 F 1 "FIDUCIAL" H 9200 5850 60  0000 C CNN
+F 2 "FIDUCIAL" H 9250 5650 60  0001 C CNN
+F 3 "none" H 9250 5650 60  0001 C CNN
+F 4 "none" H 9250 5650 60  0001 C CNN "MFG Name"
+F 5 "none" H 9250 5650 60  0001 C CNN "MFG Part Num"
+F 6 "fiducial" H 9250 5650 60  0001 C CNN "Description"
 	1    9250 5650
 	1    0    0    -1  
 $EndComp
@@ -92,6 +118,11 @@ U 1 1 558488FF
 P 8450 5650
 F 0 "FID3" H 8450 5450 60  0000 C CNN
 F 1 "FIDUCIAL" H 8400 5850 60  0000 C CNN
+F 2 "FIDUCIAL" H 8450 5650 60  0001 C CNN
+F 3 "none" H 8450 5650 60  0001 C CNN
+F 4 "none" H 8450 5650 60  0001 C CNN "MFG Name"
+F 5 "none" H 8450 5650 60  0001 C CNN "MFG Part Num"
+F 6 "fiducial" H 8450 5650 60  0001 C CNN "Description"
 	1    8450 5650
 	1    0    0    -1  
 $EndComp
@@ -101,6 +132,11 @@ U 1 1 558488FC
 P 7600 5650
 F 0 "FID1" H 7600 5450 60  0000 C CNN
 F 1 "FIDUCIAL" H 7550 5850 60  0000 C CNN
+F 2 "FIDUCIAL" H 7600 5650 60  0001 C CNN
+F 3 "none" H 7600 5650 60  0001 C CNN
+F 4 "none" H 7600 5650 60  0001 C CNN "MFG Name"
+F 5 "none" H 7600 5650 60  0001 C CNN "MFG Part Num"
+F 6 "fiducial" H 7600 5650 60  0001 C CNN "Description"
 	1    7600 5650
 	1    0    0    -1  
 $EndComp
