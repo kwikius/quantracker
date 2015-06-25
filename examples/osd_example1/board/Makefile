@@ -84,7 +84,14 @@ $(abspath ../../../air/osd)
 
 TARGET_PROCESSOR = STM32F4
 
+# static libaries 
 STATIC_LIBRARY_PATH = ../../../lib/osd/
+
+static_library_files = quantracker_air_osd.a \
+quantracker_air_graphics_api.a \
+flash_variables.a
+
+static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 # in the board directory
 board_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
@@ -95,12 +102,6 @@ heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o
 common_objects = on_draw.o draw_altitude.o draw_artificial_horizon.o \
 draw_compass.o draw_home.o draw_gps_state.o draw_batteries.o symbology.o \
 flash.o aircraft.o
-
-static_library_files = quantracker_air_osd.a \
-quantracker_air_graphics_api.a \
-flash_variables.a
-
-static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -179,6 +180,9 @@ $(board_objects): %.o : %.cpp
 
 $(common_objects) : %.o : ../common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+
+$(static_libraries) :
+	make -C ../../../air/osd -f all_osd_libs.mk
 
 #-----------------------------------------
 upload : test

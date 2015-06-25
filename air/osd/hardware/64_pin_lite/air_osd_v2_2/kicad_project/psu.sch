@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 13:32:01 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -35,6 +35,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:diodesch_ipc7531_2005
+LIBS:led_ipc-7351_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -50,6 +51,20 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L LED_IPC-7351_2005 D3
+U 1 1 558BAE9C
+P 7200 3650
+F 0 "D3" H 7200 3500 50  0000 C CNN
+F 1 "Blue_Led" H 7200 3800 50  0000 C CNN
+F 2 "0603" H 7200 3650 60  0001 C CNN
+F 3 "D" H 7200 3650 60  0001 C CNN
+F 4 "M" H 7200 3650 60  0001 C CNN "MFG Name"
+F 5 "P" H 7200 3650 60  0001 C CNN "MFG Part Num"
+F 6 "Led/Blue/0603" H 7200 3650 60  0001 C CNN "Description"
+	1    7200 3650
+	0    -1   -1   0   
+$EndComp
 Wire Wire Line
 	2100 3450 2350 3450
 Connection ~ 1700 3700
@@ -112,7 +127,7 @@ Connection ~ 7950 4600
 Wire Wire Line
 	7950 4600 7950 4350
 Wire Wire Line
-	7200 3850 7200 3950
+	7200 3800 7200 3950
 Connection ~ 7550 4600
 Connection ~ 6150 3250
 Wire Wire Line
@@ -231,7 +246,7 @@ Wire Wire Line
 	9550 4400 9550 4600
 Connection ~ 8850 4600
 Wire Wire Line
-	7200 3450 7200 3400
+	7200 3500 7200 3400
 Wire Wire Line
 	7200 3400 7550 3400
 Connection ~ 7550 3400
@@ -286,6 +301,11 @@ U 1 1 558B9B72
 P 1950 3450
 F 0 "D6" H 1950 3550 40  0000 C CNN
 F 1 "MBR0530T1G" H 1950 3350 40  0000 C CNN
+F 2 "SOD-123" H 1950 3450 60  0001 C CNN
+F 3 "D" H 1950 3450 60  0001 C CNN
+F 4 "On Semiconductor" H 1950 3450 60  0001 C CNN "MFG Name"
+F 5 "MBR0530T10G" H 1950 3450 60  0001 C CNN "MFG Part Num"
+F 6 "Diode Schottky/30V/500mA/SOD-123" H 1950 3450 60  0001 C CNN "Description"
 	1    1950 3450
 	-1   0    0    1   
 $EndComp
@@ -299,7 +319,7 @@ F 2 "0603" H 1300 3750 60  0001 C CNN
 F 3 "search.murata.co.jp/Cearamy/image/img/A03X/QNFA9107.pdf" H 1300 3750 60  0001 C CNN
 F 4 "Murata" H 1300 3750 60  0001 C CNN "MFG Name"
 F 5 "BLM18EG601SN1" H 1300 3750 60  0001 C CNN "MFG Part Num"
-F 6 "Bead/EMI supression" H 1300 3750 60  0001 C CNN "Description"
+F 6 "Inductor/Bead/0603" H 1300 3750 60  0001 C CNN "Description"
 	1    1300 3750
 	0    1    1    0   
 $EndComp
@@ -464,20 +484,6 @@ F 6 "Resistor/470R/+-10%/0603" H 7200 4200 60  0001 C CNN "Description"
 	1    7200 4200
 	1    0    0    -1  
 $EndComp
-$Comp
-L LED D3
-U 1 1 547467CD
-P 7200 3650
-F 0 "D3" H 7200 3750 50  0000 C CNN
-F 1 "Blue_Led" H 7200 3550 50  0000 C CNN
-F 2 "0603" H 7200 3650 60  0001 C CNN
-F 3 "D" H 7200 3650 60  0001 C CNN
-F 4 "M" H 7200 3650 60  0001 C CNN "MFG Name"
-F 5 "P" H 7200 3650 60  0001 C CNN "MFG Part Num"
-F 6 "Led/Blue/0603" H 7200 3650 60  0001 C CNN "Description"
-	1    7200 3650
-	0    1    1    0   
-$EndComp
 Text HLabel 9250 5350 1    45   Output ~ 0
 MAVLINK_GND
 Text Label 7750 3200 0    45   ~ 0
@@ -550,9 +556,10 @@ P 7150 3200
 F 0 "L4" V 7100 3200 40  0000 C CNN
 F 1 "22nH" V 7250 3200 40  0000 C CNN
 F 2 "0603" H 7150 3200 60  0001 C CNN
+F 3 "D" H 7150 3200 60  0001 C CNN
 F 4 "Samsung" H 7150 3200 60  0001 C CNN "MFG Name"
 F 5 "CIH10T22NJNC" H 7150 3200 60  0001 C CNN "MFG Part Num"
-F 6 "Inductor/22nH/0603" H 7150 3200 60  0001 C CNN "Description"
+F 6 "Inductor/22nH/+-10%/0.4R/0603" H 7150 3200 60  0001 C CNN "Description"
 	1    7150 3200
 	0    1    1    0   
 $EndComp
@@ -594,7 +601,7 @@ F 2 "0603" H 2650 3450 60  0001 C CNN
 F 3 "D" H 2650 3450 60  0001 C CNN
 F 4 "Samsung" H 2650 3450 60  0001 C CNN "MFG Name"
 F 5 "CIH10T22NJNC" H 2650 3450 60  0001 C CNN "MFG Part Num"
-F 6 "Inductor/22nH/" H 2650 3450 60  0001 C CNN "Description"
+F 6 "Inductor/22nH/+-10%/0.4R/0603" H 2650 3450 60  0001 C CNN "Description"
 	1    2650 3450
 	0    1    1    0   
 $EndComp
@@ -622,7 +629,7 @@ F 2 "SOD-123" H 5350 4250 60  0001 C CNN
 F 3 "D" H 5350 4250 60  0001 C CNN
 F 4 "On Semiconductor" H 5350 4250 60  0001 C CNN "MFG Name"
 F 5 "MBR0530T1G" H 5350 4250 60  0001 C CNN "MFG Part Num"
-F 6 "Diode/Schottky/30V/0.5A/SOD-123" H 5350 4250 60  0001 C CNN "Description"
+F 6 "Diode/Schottky/30V/500mA/SOD-123" H 5350 4250 60  0001 C CNN "Description"
 	1    5350 4250
 	0    1    1    0   
 $EndComp

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 13:32:01 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -35,6 +35,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:diodesch_ipc7531_2005
+LIBS:led_ipc-7351_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END

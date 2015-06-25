@@ -1,0 +1,57 @@
+Quantracker Air OSD V2.2 Component orientation for Pick and Place.
+
+*Units*
+  - The units of position in the Placement File are inches
+  - The units of rotation are degrees
+
+*Rotations for top and bottom layer components.*
+	- A positive rotation of a component is assumed to be counterclockwise when looking down onto the top surface of the PCB, whether the component is on the Top or Bottom layer.
+
+*Component Origin for measurements*
+   - All components in this PCB are basically symmetrical and rectangular. The component origin is measured around the mean centre position of their nearest enclosing rectangle
+
+*Component X Y Positions*
+   - All components X and Y positions are measured looking down onto the top surface of the PCB, irrespective of whether the component is on the Top or Bottom layer.
+   - X increases to the right and Y increases down.
+   - The Fiducials FID1 (Front) and FID4 (Back) are placed at X = 0 , Y = 0
+   
+*Component Zero Rotations Orientation*
+	The Component Zero rotations Orientation in ~./components/placement_bom.csv ( for components on the Top layer) have been calculated to conform
+	functionally to IPC-7351 Feb 2005 Section 16. Bottom layer components orientations are as if a component on the Top was rotated 180 degrees around the X axis
+
+	*Top Layer Components*
+
+		*All SMD 2 terminal non-polarised Capacitors, Resistors and Inductors* 
+	   	- Both pins have equal Y position.
+
+      *All Diode and LED Footprints*
+	    	- Both pins have equal Y position.
+       	- Cathode Pin(terminal 1 in schematic) is on the left.
+   
+		*All IC's*
+			- Pin 1 on upper left.
+ 
+ 	*Bottom Layer Components*
+ 
+ 		*All SMD non-polarised Capacitors, Resistors and Inductors* 
+			- Both pins have equal Y position.
+ 
+ 		*All diode and LED footprints*
+   		- Both pins have equal Y position.
+   		- Cathode Pin is on the left.
+ 
+ 		*All IC's* 
+  			- Pin 1 on Lower Left.
+
+
+
+
+
+
+
+
+
+
+
+
+

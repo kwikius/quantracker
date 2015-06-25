@@ -342,29 +342,87 @@ ul.auto-toc {
 
 
 <p><a class="reference external" href="../index.html">OSD index</a></p>
-<div class="section" id="getting-the-quantracker-osd-toolchain">
-<h1>Getting the Quantracker OSD toolchain</h1>
-<p>You need The following dependencies. The versions here will probably have been superceded now.
-The latest stable versions are to be preferred.</p>
+<div class="section" id="getting-the-quantracker-osd-toolchain-and-dependencies">
+<h1>Getting the Quantracker OSD toolchain and Dependencies</h1>
+<p>TODO: Windows version</p>
+<p>You need The <a class="reference internal" href="#quantracker-dependencies">quantracker dependencies</a> below.
+If you already have a dependency installed, no problem
+since we can direct the toolchain to use it ( see the last part of this section).
+If you dont, then it is up to you where you wish to install the dependencies.
+For myself, I use an external 'lib' directory in my home directory
+and install everying in there for simplicity. This avoids cluttering the system directories, but
+you may use multiple directories or  if you wish.</p>
+<p>Once the libraries have been downloaded, follow the per-dependency installation instructions
+below to install them. You may wish to combine the next step here..</p>
+<p>Next, in order to get the compiler to find everything , Enter the quantracker directory
+,open the <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/Sample-Dependencies.mk">Sample-Dependencies.mk</a> in a text editor and save it as a file
+named 'Dependencies.mk' in the same root quantracker directory. Edit the defines therein
+to point to the downloaded dependency libraries. N.B.  follow carefully the format for each in the
+Sample-Dependencies.mk template. There are some inconsistencies for which I apologise.</p>
+<p>That completes the basic installation.</p>
+</div>
+<div class="section" id="testing-everything-is-installed">
+<h1>Testing everything is installed</h1>
+<p>Note: In the following I assume that you have renamed the quantracker download root directory to
+'quantracker'. if not just substitute your own version of the name.</p>
+<p>To test the installation you will build some libraries inside the quantracker distro.</p>
+<p>At the command line enter the root quantracker directory and type 'make osd_libs'. If all goes well
+building the libraries will take a few minutes.
+If you see error messages they will probably be because some header can be found.
+In that case check that you have entered your paths to the dependencies correctly in your Dependencies.mk.
+(in most cases The relevant dependency not found  may be clear from the  error messages.)</p>
+<p>If the osd libraries have been built correctly they should now appear in the quantracker/lib/osd/ subdirectory
+as follows:</p>
+<ul class="simple">
+<li>flash_variables.a</li>
+<li>quantracker_air_graphics_api.a</li>
+<li>quantracker_air_osd.a</li>
+<li>quantracker_air_osd_rx.a</li>
+<li>quantracker_air_osd_tx.a</li>
+<li>README</li>
+</ul>
+</div>
+<div class="section" id="building-a-sample-firmware">
+<h1>Building a sample firmware</h1>
+</div>
+<div class="section" id="the-quantracker-dependencies">
+<span id="quantracker-dependencies"></span><h1>The Quantracker Dependencies</h1>
+<p>The versions here will probably have been superceded now.
+The latest stable versions are to be preferred, but to get started the ones linked here should work fine.</p>
 <dl class="docutils">
 <dt><a class="reference external" href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2">arm-gcc</a></dt>
-<dd>arm-gcc compiler.
-TODO installation</dd>
+<dd><dl class="first last docutils">
+<dt>arm-gcc compiler.</dt>
+<dd>To install, simply unzip to its target directory.</dd>
+</dl>
+</dd>
 <dt><a class="reference external" href="https://github.com/mavlink/c_library/archive/master.zip">mavlink</a></dt>
-<dd>mavlink library.
-TODO installation</dd>
+<dd><dl class="first last docutils">
+<dt>mavlink library.</dt>
+<dd>To install, unzip to its target directory and then
+Rename the root directory that appears('c_library-master') to 'mavlink'</dd>
+</dl>
+</dd>
 <dt><a class="reference external" href="https://github.com/kwikius/quan-trunk/archive/master.zip">quan</a></dt>
-<dd>quan library
-TODO installation</dd>
+<dd><dl class="first last docutils">
+<dt>The quan library.</dt>
+<dd>To install , simply unzip to its target directory</dd>
+</dl>
+</dd>
 <dt><a class="reference external" href="http://downloads.sourceforge.net/project/freertos/FreeRTOS/V8.2.0/FreeRTOSV8.2.0.zip">freertos</a></dt>
-<dd>freeRTOS real-time operating system.
-TODO installation</dd>
+<dd><dl class="first last docutils">
+<dt>freeRTOS real-time operating system.</dt>
+<dd>To install, simply unzip to its target directory</dd>
+</dl>
+</dd>
 <dt><a class="reference external" href="https://github.com/kwikius/quantracker/archive/master.zip">quantracker</a></dt>
-<dd>The quantracker source code and utilities.
-TODO installation</dd>
+<dd><dl class="first last docutils">
+<dt>The quantracker source code and utilities.</dt>
+<dd>To install simply unzip to its target directory</dd>
+</dl>
+</dd>
 <dt><a class="reference external" href="http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip">stm32</a></dt>
-<dd>stm32f4 std peripherals library.
-TODO installation</dd>
+<dd>stm32f4 std peripherals library.</dd>
 </dl>
 <hr class="docutils" />
 <p><a class="reference external" href="../index.html">OSD index</a></p>

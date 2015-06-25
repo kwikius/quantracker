@@ -4,11 +4,10 @@
 Quantracker OSD Index
 =====================
 
---------------------
-Installing and Using
---------------------
+---------------------------------
+OSD Installation and Introduction
+---------------------------------
 
-* `OSD features`_
 * `Getting started with the OSD`_
 * `Downloading the Firmware`_
 * `Uploading the firmware to the OSD board`_

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 13:32:01 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -35,6 +35,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:diodesch_ipc7531_2005
+LIBS:led_ipc-7351_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -51,6 +52,20 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
+L DIODESCH_IPC7531_2005 D5
+U 1 1 558BBB81
+P 6650 2650
+F 0 "D5" H 6650 2750 40  0000 C CNN
+F 1 "MBR0530T1G" H 6650 2550 40  0000 C CNN
+F 2 "SOD-123" H 6650 2650 60  0001 C CNN
+F 3 "D" H 6650 2650 60  0001 C CNN
+F 4 "On Semiconductor" H 6650 2650 60  0001 C CNN "MFG Name"
+F 5 "MBR0530T1G" H 6650 2650 60  0001 C CNN "MFG Part Num"
+F 6 "Diode/Schottky/30V/500mA/SOD-123" H 6650 2650 60  0001 C CNN "Description"
+	1    6650 2650
+	-1   0    0    1   
+$EndComp
+$Comp
 L INDUCTOR L7
 U 1 1 55828ED5
 P 7850 2650
@@ -60,7 +75,7 @@ F 2 "0603" H 7850 2650 60  0001 C CNN
 F 3 "search.murata.co.jp/Ceramy/image/img/PDF/ENG/L0110S0100BLM18P.pdf" H 7850 2650 60  0001 C CNN
 F 4 "Murata" H 7850 2650 60  0001 C CNN "MFG Name"
 F 5 "BLM18EG601SN1" H 7850 2650 60  0001 C CNN "MFG Part Num"
-F 6 "Inductor/0603" H 7850 2650 60  0001 C CNN "Description"
+F 6 "Inductor/Bead/0603" H 7850 2650 60  0001 C CNN "Description"
 	1    7850 2650
 	0    1    1    0   
 $EndComp
@@ -119,11 +134,11 @@ Connection ~ 4800 3600
 Wire Wire Line
 	4950 2400 4950 2350
 Wire Wire Line
-	6450 2650 6350 2650
+	6500 2650 6350 2650
 Wire Wire Line
 	9100 2650 8150 2650
 Wire Wire Line
-	6850 2650 7550 2650
+	6800 2650 7550 2650
 Wire Wire Line
 	3150 5850 3150 5950
 Wire Wire Line
@@ -216,20 +231,6 @@ F 4 "On Semiconductor" H 3250 5400 60  0001 C CNN "MFG Name"
 F 5 "LM358DMR2G" H 3250 5400 60  0001 C CNN "MFG Part Num"
 F 6 "OpAmp/Dual/MSOP-8" H 3250 5400 60  0001 C CNN "Description"
 	3    3250 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L DIODESCH D5
-U 1 1 546F5AD9
-P 6650 2650
-F 0 "D5" H 6650 2750 40  0000 C CNN
-F 1 "MBR0530T1G" H 6650 2550 40  0000 C CNN
-F 2 "SOD-123" H 6650 2650 60  0001 C CNN
-F 3 "D" H 6650 2650 60  0001 C CNN
-F 4 "M" H 6650 2650 60  0001 C CNN "MFG Name"
-F 5 "P" H 6650 2650 60  0001 C CNN "MFG Part Num"
-F 6 "Diode/Schottky/30V/0.5A/SOD-123" H 6650 2650 60  0001 C CNN "Description"
-	1    6650 2650
 	1    0    0    -1  
 $EndComp
 Text HLabel 3400 2300 0    60   Input ~ 0

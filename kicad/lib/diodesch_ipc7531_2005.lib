@@ -1,4 +1,4 @@
-EESchema-LIBRARY Version 2.3  Date: Thu 25 Jun 2015 07:28:36 BST
+EESchema-LIBRARY Version 2.3  Date: Thu 25 Jun 2015 08:47:28 BST
 #encoding utf-8
 #
 # DIODESCH_IPC7531_2005
@@ -11,8 +11,8 @@ $FPLIST
  S*
 $ENDFPLIST
 DRAW
-P 4 0 1 15  -50 0  45 50  45 -50  -50 0 N
-P 6 0 1 15  -26 25  -26 50  -51 50  -51 -50  -76 -50  -76 -25 N
+P 4 0 1 10  -50 0  45 50  45 -50  -50 0 N
+P 6 0 1 10  -26 25  -26 50  -51 50  -51 -50  -76 -50  -76 -25 N
 X Ca 1 -150 0 100 R 40 40 1 1 P
 X An 2 150 0 100 L 40 40 1 1 P
 ENDDRAW

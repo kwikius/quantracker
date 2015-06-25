@@ -1,0 +1,124 @@
+ref;value;footprint;Field1;Field2;Field3;Field4;Field5;Field6;Field7;Field8
+C1;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603 
+C2;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C3;2.2uF;0603;M;P;Capacitor/2.2uF/10V/-20%+80%/Y5V/0603
+C4;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C5;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C6;2.2uF;0603;M;P;Capacitor/2.2uF/10V/-20%+80%/Y5V/0603
+C7;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C8;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C9;4.7uF;0603;M;P;Capacitor/4.7uF/10V/+-10%/X5R/0603
+C10;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603 
+C11;4.7uF;0603;M;P;Capacitor/4.7uF/10V/+-10%/X5R/0603
+C12;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-10%/X7R/0603
+C13;4.7uF;1206;M;P;Capacitor/4.7uF/50V/+-20%/X5R/1206
+C14;15nF;0603;M;P;Capacitor/15nF/50V/+-10%/X7R/0603
+C15;0.15uF;0603;M;P;Capacitor/0.15uF/35V/+-10%/X7R/0603
+C16;10uF;1206;M;P;Capacitor/10uF/50V/+-10%/X5R/1206
+C17;10uF;1206;M;P;Capacitor/10uF/50V/+-10%/X5R/1206
+C18;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-20%/X7R/0603
+C19;10uF;0805;M;P;Capacitor/10uF/10V/-20%+80%/Y5V/0805
+C20;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-20%/X7R/0603
+C21;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-10%/X7R/0603
+C22;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-10%/X7R/0603
+C23;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C24;33uF;0805;M;P;Capacitor/33uF/10V/+-20%/X5R/0805
+C25;33uF;0805;M;P;Capacitor/33uF/10V/+-20%/X5R/0603
+C26;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C27;240pF;0603;M;P;Capacitor/240pF/10V/+-5%/NPO/0603
+C28;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C29;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C30;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C31;4.7uF;0603;M;P;Capacitor/4.70.uF/10V/+-10%/X5R/0603
+C32;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C33;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C34;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C35;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C36;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C37;470pF;0603;M;P;Capacitor/470pF/16V/+-10%/X7R/0603
+C38;470pF;0603;M;P;Capacitor/470pF/16V/+-10%/X7R/0603
+C39;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C40;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-10%/X7R/0603
+C41;4.7uF;1206;M;P;Capacitor/4.7uF/50V/+-20%/X5R/1206
+C42;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-10%/X7R/0603
+C43;0.1uF;0603;M;P;Capacitor/0.1uF/10V/+-10%/X7R/0603
+C44;4.7uF;0603;M;P;Capacitor/4.70.uF/10V/+-10%/X5R/0603
+C45;0.1uF;0603;M;P;Capacitor/0.1uF/50V/+-10%/X7R/0603
+D1;Red_Led;0603;M;P;Led/Red/0603
+D2;MBR0530T1G;SOD-123;On Semiconductor;MBR0530T1G;Diode/Schottky/30V/500mA/SOD-123
+D3;Blue_Led;0603;M;P;Led/Blue/0603
+D4;MBR0530T1G;SOD-123;On Semiconductor;MBR0530T1G;Diode/Schottky/30V/500mA/SOD-123
+D5;MBR0530T1G;SOD-123;On Semiconductor;MBR0530T1G;Diode/Schottky/30V/500mA/SOD-123
+D6;MBR0530T1G;SOD-123;On Semiconductor;MBR0530T10G;Diode Schottky/30V/500mA/SOD-123
+D7;Red_Led;0603;M;P;Led/Red/0603
+FID1;FIDUCIAL;FIDUCIAL;none;none;fiducial
+FID2;FIDUCIAL;FIDUCIAL;none;none;fiducial
+FID3;FIDUCIAL;FIDUCIAL;none;none;fiducial
+FID4;FIDUCIAL;FIDUCIAL;none;none;fiducial
+FID5;FIDUCIAL;FIDUCIAL;none;none;fiducial
+FID6;FIDUCIAL;FIDUCIAL;none;none;fiducial
+K1;SIL3;SIL3;0.1 in pitch header connector/3 contacts
+L1;22nH;0603;Samsung;CIH10T22NJNC;Inductor/22nH/+-10%/0.4R/0603
+L2;22nH;0603;Samsung;CIH10T22NJNC;Inductor/22nH/+-10%/0.4R/0603
+L3;LPS4018-473MR;LPS4018;Coilcraft;LPS4018-473MR;Inductor/47uH
+L4;22nH;0603;Samsung;CIH10T22NJNC;Inductor/22nH/+-10%/0.4R/0603
+L5;BLM18EG601SN1;0603;Murata;BLM18EG601SN1;Inductor/Bead/0603
+L6;BLM18EG601SN1;0603;Murata;BLM18EG601SN1;Inductor/Bead/0603
+L7;BLM18EG601SN1;0603;Murata;BLM18EG601SN1;Inductor/Bead/0603
+P1;SIL2;SIL2;0.1 in pitch header/2 contacts
+P2;SIL20;SIL20;0.1 in pitch header/20 contacts
+P3;SIL20;SIL20;0.1 in pitch header/20 contacts
+P4;SIL6;SIL6;0.1 in pitch header/6 contacts
+P5;SIL5;SIL5;0.1 in pitch header/5 contacts
+P6;Pad;none;none;none;Test pad
+P7;Pad;none;none;none;Test Pad
+P8;Pad;none;none;none;Test Pad
+P9;Pad;none;none;none;Test Pad
+P10;Pad;none;none;none;Test Pad
+P11;SIL1;SIL1;0.1 in pitch header/1 contact
+P12;Pad;none;none;none;Test Pad
+R1;10K;0603;M;P;Resistor/1K/+-10%/0603
+R2;470R;0603;M;P;Resistor/470R/+-10%/0603
+R3;470R;0603;M;P;Resistor/470R/+-10%/0603
+R4;100R;0603;M;P;Resistor/100R/+-10%/0603
+R5;100R;0603;M;P;Resistor/100R/+-10%/0603
+R6;100R;0603;M;P;Resistor/100R/+-10%/0603
+R7;10K;0603;M;P;Resistor/10K/+-10%/0603
+R8;4.1K;0603;M;P;Resistor/4.1K/+-1%/0603
+R9;680R;0603;M;P;Resistor/680R/+-1%/0603
+R10;470R;0603;M;P;Resistor/470R/+-10%/0603
+R11;75R;0603;M;P;Resistor/75R/+-1%/0603
+R12;33K;0603;M;P;Resistor/33K/+-1%/0603
+R13;1.2K;0603;M;P;Resistor/1.2K/+-1%/0603
+R14;1K;0603;M;P;Resistor/1K/+-1%/0603
+R15;1K;0603;M;P;Resistor/1K/+-1%/0603
+R16;1K;0603;M;P;Resistor/1K/+-1%/0603
+R17;100R;0603;M;P;Resistor/100R/+-10%/0603
+R18;2K;0603;M;P;Resistor/2K/+-1%/0603
+R19;100R;0603;M;P;Resistor/100R/+-10%/0603
+R20;20R;0603;M;P;Resistor/20R/+-1%/0603
+R21;40.2R;0603;M;P;Resistor/40.2R/1%/0603
+R22;20R;0603;M;P;Resistor/20R/+-1%/0603
+R23;75R;0603;M;P;Resistor/75R/+-1%/0603
+R24;470R;0603;M;P;Resistor/470R/+-10%/0603
+R25;0R;0603;M;P;Resistor(Link)/0R/0603
+R26;100R;0603;M;P;Resistor/100R/+-10%/0603
+R27;100R;0603;M;P;Resistor/100R/+-10%/0603
+R28;100R;0603;M;P;Resistor/100R/+-10%/0603
+R29;100R;0603;M;P;Resistor/100R/+-10%/0603
+R30;0R;0603;M;P;Resistor(Link)/0R/0603
+R31;47K;0603;M;P;Resistor/47K/10%/0603
+R32;47K;0603;M;P;Resistor/47K/10%/0603
+U1;SI501;DFN2532;Silicon Labs;SI501ABA8M00000CAF;8 MHZ Oscillator in DFN 2.5mm x 3.2 mm
+U2;STM32F405RGT6;LQFP64;ST Microelectronics;STM32F405RGT6
+U3;74LVC1G86;SOT23-5;Texas Instruments;SN74LVC1G86DBVR;Single_XOR_Gate/SOT23-5
+U4;BD9G101G;SOT23-6;Rohm Semiconductor;BD9101G;Switching_Regulator_IC
+U5;LD39015MXXR;SOT23-5;ST Microelectronics;LD39015M33R;VoltageReg/3.3V/SOT23-5
+U6;SI8642;NSOIC-16;Silicon Labs;SI8642AB-B-IS1;Digital isolator/NSOIC-16
+U7;LM358DMR2G;MSOP-8;On Semiconductor;LM358DMR2G;OpAmp/Dual/MSOP-8
+U8;MCP6562;MSOP-8;Microchip;MPC6562-E/MS;Comparator/Dual/MSOP-8
+U9;TLV3501;SOT23-6;Texas Instruments (Burr-Brown);TLV3501AIDBVT;Comparator/Single/Hi_Z
+U10;FMS6141;SC70-5;Fairchild Semiconductor;FMS6141S5X;Video Amp/SyncClamp/4th Order Filter/G=2
+U11;DAC084S085;MSOP-10;Texas Instruments;DAC084SO85CIMM;DAC/8Bit/Quad channel/MSOP-10
+U12;ADG704;MSOP-10;Analog Devices;ADG704BRMZ;Analog Mux switch/4 channel/MSOP-10
+U13;OPA830;SOT23-5;Texas Instruments;OPA830IDBVT;VideoAmp

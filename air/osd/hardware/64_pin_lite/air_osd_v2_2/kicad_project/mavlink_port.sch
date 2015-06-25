@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 13:32:01 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -35,6 +35,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:diodesch_ipc7531_2005
+LIBS:led_ipc-7351_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -50,10 +51,24 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L LED_IPC-7351_2005 D7
+U 1 1 558BBFDE
+P 9100 1650
+F 0 "D7" H 9100 1450 50  0000 C CNN
+F 1 "Red_Led" H 9150 1900 50  0000 C CNN
+F 2 "0603" H 9100 1650 60  0001 C CNN
+F 3 "D" H 9100 1650 60  0001 C CNN
+F 4 "M" H 9100 1650 60  0001 C CNN "MFG Name"
+F 5 "P" H 9100 1650 60  0001 C CNN "MFG Part Num"
+F 6 "Led/Red/0603" H 9100 1650 60  0001 C CNN "Description"
+	1    9100 1650
+	0    -1   -1   0   
+$EndComp
 Wire Wire Line
 	9350 1350 9100 1350
 Wire Wire Line
-	9100 1350 9100 1450
+	9100 1350 9100 1500
 Wire Wire Line
 	9100 2450 9100 2500
 Wire Wire Line
@@ -174,7 +189,7 @@ Wire Wire Line
 	7250 2000 7250 1850
 Connection ~ 7700 2000
 Wire Wire Line
-	9100 1950 9100 1850
+	9100 1950 9100 1800
 Text Label 9250 2500 0    45   ~ 0
 FC_GND
 Text Label 9350 1350 0    45   ~ 0
@@ -192,20 +207,6 @@ F 5 "P" H 9100 2200 60  0001 C CNN "MFG Part Num"
 F 6 "Resistor/470R/+-10%/0603" H 9100 2200 60  0001 C CNN "Description"
 	1    9100 2200
 	-1   0    0    1   
-$EndComp
-$Comp
-L LED D7
-U 1 1 54FC3E4D
-P 9100 1650
-F 0 "D7" H 9100 1750 50  0000 C CNN
-F 1 "Red_Led" H 9100 1550 50  0000 C CNN
-F 2 "0603" H 9100 1650 60  0001 C CNN
-F 3 "D" H 9100 1650 60  0001 C CNN
-F 4 "M" H 9100 1650 60  0001 C CNN "MFG Name"
-F 5 "P" H 9100 1650 60  0001 C CNN "MFG Part Num"
-F 6 "Led/Red/0603" H 9100 1650 60  0001 C CNN "Description"
-	1    9100 1650
-	0    1    1    0   
 $EndComp
 $Comp
 L C C43

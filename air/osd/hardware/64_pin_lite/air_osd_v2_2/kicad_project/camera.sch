@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 25 Jun 2015 08:05:44 BST
+EESchema Schematic File Version 2  date Thu 25 Jun 2015 13:32:01 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -35,6 +35,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:diodesch_ipc7531_2005
+LIBS:led_ipc-7351_2005
 LIBS:osd-cache
 EELAYER 25  0
 EELAYER END
@@ -51,6 +52,20 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
+L DIODESCH_IPC7531_2005 D4
+U 1 1 558BB778
+P 3250 3450
+F 0 "D4" H 3250 3550 40  0000 C CNN
+F 1 "MBR0530T1G" H 3250 3350 40  0000 C CNN
+F 2 "SOD-123" H 3250 3450 60  0001 C CNN
+F 3 "D" H 3250 3450 60  0001 C CNN
+F 4 "On Semiconductor" H 3250 3450 60  0001 C CNN "MFG Name"
+F 5 "MBR0530T1G" H 3250 3450 60  0001 C CNN "MFG Part Num"
+F 6 "Diode/Schottky/30V/500mA/SOD-123" H 3250 3450 60  0001 C CNN "Description"
+	1    3250 3450
+	-1   0    0    1   
+$EndComp
+$Comp
 L INDUCTOR L6
 U 1 1 5582ABE4
 P 5100 3450
@@ -60,7 +75,7 @@ F 2 "0603" H 5100 3450 60  0001 C CNN
 F 3 "D" H 5100 3450 60  0001 C CNN
 F 4 "Murata" H 5100 3450 60  0001 C CNN "MFG Name"
 F 5 "BLM18EG601SN1" H 5100 3450 60  0001 C CNN "MFG Part Num"
-F 6 "EMI Suppression filter" H 5100 3450 60  0001 C CNN "Description"
+F 6 "Inductor/Bead/0603" H 5100 3450 60  0001 C CNN "Description"
 	1    5100 3450
 	0    1    1    0   
 $EndComp
@@ -72,7 +87,7 @@ Wire Wire Line
 Wire Wire Line
 	4050 4350 4050 4100
 Wire Wire Line
-	4800 3450 3450 3450
+	4800 3450 3400 3450
 Wire Wire Line
 	5400 3450 6950 3450
 Wire Wire Line
@@ -80,7 +95,7 @@ Wire Wire Line
 Wire Wire Line
 	6600 3550 6950 3550
 Wire Wire Line
-	3050 3450 2700 3450
+	3100 3450 2700 3450
 Wire Wire Line
 	4050 3700 4050 3450
 Connection ~ 4050 3450
@@ -100,20 +115,6 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 4050 3900 60  0001 C CNN "Description
 $EndComp
 Text HLabel 2700 3450 0    45   Input ~ 0
 VIDEO_IN_+V
-$Comp
-L DIODESCH D4
-U 1 1 546F5A7F
-P 3250 3450
-F 0 "D4" H 3250 3550 40  0000 C CNN
-F 1 "MBR0530T1G" H 3250 3350 40  0000 C CNN
-F 2 "SOD-123" H 3250 3450 60  0001 C CNN
-F 3 "www.onsemi.com/pub_link/Collateral/MBR0530T1-D.pdf" H 3250 3450 60  0001 C CNN
-F 4 "ON Semiconductor" H 3250 3450 60  0001 C CNN "MFG Name"
-F 5 "MBR0530T1G" H 3250 3450 60  0001 C CNN "MFG Part Num"
-F 6 "Diode/Schottky/30V/0.5A/SOD-123" H 3250 3450 60  0001 C CNN "Description"
-	1    3250 3450
-	1    0    0    -1  
-$EndComp
 Text HLabel 6750 3350 0    45   Output ~ 0
 VIDEO_IN
 Text HLabel 6600 3550 0    45   Input ~ 0

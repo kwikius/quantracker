@@ -2,9 +2,30 @@
 # if no arguments given then do info
 ifneq ($(MAKECMDGOALS),)
 
+.PHONY: ground_tracker_v1 osd_libs clean_osd_libs \
+osd_example1 clean_osd_example1 osd_ac clean_osd_ac
+
 ground_tracker_v1:
 	make -C ground/tracker/v1
 
+osd_libs:
+	make -C air/osd/ -f all_osd_libs.mk
+
+clean_osd_libs:
+	make -C air/osd/ -f all_osd_libs.mk clean
+
+osd_example1: 
+	make -C examples/osd_example1/board
+
+clean_osd_example1:
+	make -C examples/osd_example1/board clean
+  
+osd_ac: 
+	make -C examples/osd_ac/board
+
+clean_osd_ac:
+	make -C examples/osd_ac/board
+   
 else
 quantracker-make-help:
 	@echo '------------------------------------------------------'
