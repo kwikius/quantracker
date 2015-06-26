@@ -1,12 +1,10 @@
-update=Thu 25 Jun 2015 14:35:47 BST
-last_client=eeschema
+update=Fri 26 Jun 2015 00:54:38 BST
+last_client=kicad
 [cvpcb]
 version=1
 NetIExt=net
 [cvpcb/libraries]
 EquName1=devcms
-[general]
-version=1
 [pcbnew]
 version=1
 PadDrlX=0
@@ -107,3 +105,5 @@ LibName34=contrib
 LibName35=valves
 LibName36=/home/andy/cpp/projects/quantracker/kicad/lib/diodesch_ipc7531_2005
 LibName37=led_ipc-7351_2005
+[general]
+version=1

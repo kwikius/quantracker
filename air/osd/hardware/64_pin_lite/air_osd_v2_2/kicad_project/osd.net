@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Thu 25 Jun 2015 10:54:01 BST
+# EESchema Netlist Version 1.1 created  Fri 26 Jun 2015 07:08:07 BST
 (
  ( /5584890E FIDUCIAL  FID6 FIDUCIAL {Lib=FIDUCIAL}
   (    1 ? )
@@ -18,7 +18,7 @@
  ( /558488FC FIDUCIAL  FID1 FIDUCIAL {Lib=FIDUCIAL}
   (    1 ? )
  )
- ( /5433EE23/558BB4B7 $noname  D1 Red_Led {Lib=LED_IPC-7351_2005}
+ ( /5433EE23/558BB4B7 0603  D1 Red_Led {Lib=LED_IPC-7351_2005}
   (    1 /mavlink_port/MAVLINK_GND )
   (    2 /MCU/RED_LED_RES )
  )
@@ -198,11 +198,11 @@
   (    1 /mavlink_port/MAVLINK_+3.3V )
   (    2 /mavlink_port/MAVLINK_GND )
  )
- ( /546F1A19/558BAE9C $noname  D3 Blue_Led {Lib=LED_IPC-7351_2005}
+ ( /546F1A19/558BAE9C 0603  D3 Blue_Led {Lib=LED_IPC-7351_2005}
   (    1 /psu/BLUE_LED_RES )
   (    2 /psu/VIDEO_+5V )
  )
- ( /546F1A19/558B9B72 $noname  D6 MBR0530T1G {Lib=DIODESCH_IPC7531_2005}
+ ( /546F1A19/558B9B72 SOD-123  D6 MBR0530T1G {Lib=DIODESCH_IPC7531_2005}
   (    1 /psu/VIN+RECT )
   (    2 N-000107 )
  )
@@ -301,7 +301,7 @@
   (    1 /psu/SWITCHER_VIN )
   (    2 /mavlink_port/MAVLINK_GND )
  )
- ( /546F3145/558BB778 $noname  D4 MBR0530T1G {Lib=DIODESCH_IPC7531_2005}
+ ( /546F3145/558BB778 SOD-123  D4 MBR0530T1G {Lib=DIODESCH_IPC7531_2005}
   (    1 N-000112 )
   (    2 /camera/VIDEO_IN_+V )
  )
@@ -373,7 +373,7 @@
   (   19 /MCU/MCU_PA13 )
   (   20 /MCU/NRST )
  )
- ( /546C8634/558BBFDE $noname  D7 Red_Led {Lib=LED_IPC-7351_2005}
+ ( /546C8634/558BBFDE 0603  D7 Red_Led {Lib=LED_IPC-7351_2005}
   (    1 N-000096 )
   (    2 /mavlink_port/FC_+5V )
  )
@@ -443,7 +443,7 @@
   (    5 /mavlink_port/FC_MAVLINK_TXO )
   (    6 /mavlink_port/FC_FRSKY_RXI )
  )
- ( /54675A51/558BBB81 $noname  D5 MBR0530T1G {Lib=DIODESCH_IPC7531_2005}
+ ( /54675A51/558BBB81 SOD-123  D5 MBR0530T1G {Lib=DIODESCH_IPC7531_2005}
   (    1 N-000092 )
   (    2 /video_out/VIDEO_OUT_+V )
  )

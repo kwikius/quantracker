@@ -1,4 +1,4 @@
-### Module positions - created on Thu 25 Jun 2015 15:52:54 BST ###
+### Module positions - created on Fri 26 Jun 2015 07:11:15 BST ###
 ### Printed by PcbNew version pcbnew (2011-05-25)-stable
 ## Unit = inches, Angle = deg.
 ## Side : Back
@@ -16,7 +16,7 @@ C11      4.7uF                1.3525    -0.2750      90.0    Back
 C12      0.1uF                0.1375    -0.8500     270.0    Back
 C13      4.7uF                0.5525    -0.7675     270.0    Back
 C14      15nF                 0.7525    -0.7850      90.0    Back
-C15      0.15uF               0.6825    -0.4975       0.0    Back
+C15      0.15uF               0.6725    -0.4975       0.0    Back
 C16      10uF                 0.5525    -0.5625      90.0    Back
 C17      10uF                 0.4575    -0.5625      90.0    Back
 C18      0.1uF                0.3626    -0.5628      90.0    Back
@@ -40,7 +40,7 @@ C40      0.1uF                0.2825    -0.8475     180.0    Back
 C41      4.7uF                0.4575    -0.7675     270.0    Back
 C43      0.1uF                1.7264    -0.7600     180.0    Back
 C44      4.7uF                0.0350    -0.6300     270.0    Back
-D2       MBR0530T1G           0.6925    -0.5725     180.0    Back
+D2       MBR0530T1G           0.6925    -0.5825     180.0    Back
 D4       MBR0530T1G          -0.0025    -0.1800     180.0    Back
 FID4     FIDUCIAL             0.0000     0.0000       0.0    Back
 FID5     FIDUCIAL             1.8000     0.0000       0.0    Back
@@ -52,7 +52,7 @@ L6       BLM18EG601SN1        0.1400    -0.2750     270.0    Back
 R1       10K                  1.0835    -0.2648       0.0    Back
 R3       470R                 1.4800    -0.7500       0.0    Back
 R7       10K                  1.5025    -0.9000       0.0    Back
-R8       4.1K                 0.6825    -0.4350       0.0    Back
+R8       4.1K                 0.6725    -0.4300       0.0    Back
 R9       680R                 0.6800    -0.6525     180.0    Back
 R10      470R                 0.3500    -0.1525     180.0    Back
 R13      1.2K                 0.6043    -0.2246     180.0    Back

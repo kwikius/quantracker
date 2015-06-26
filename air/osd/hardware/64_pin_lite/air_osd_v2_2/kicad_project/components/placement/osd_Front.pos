@@ -1,4 +1,4 @@
-### Module positions - created on Thu 25 Jun 2015 15:52:54 BST ###
+### Module positions - created on Fri 26 Jun 2015 07:11:15 BST ###
 ### Printed by PcbNew version pcbnew (2011-05-25)-stable
 ## Unit = inches, Angle = deg.
 ## Side : Front
@@ -23,9 +23,9 @@ L3       LPS4018-473MR        0.6375    -0.7225       0.0    Front
 L5       BLM18EG601SN1        0.0650    -0.8850     180.0    Front
 L7       BLM18EG601SN1        0.1350    -0.2625     270.0    Front
 R2       470R                 1.4125    -0.3050     270.0    Front
-R4       100R                 0.6775    -0.5250       0.0    Front
+R4       100R                 0.6650    -0.5250       0.0    Front
 R5       100R                 0.6775    -0.5850       0.0    Front
-R6       100R                 0.6775    -0.4625       0.0    Front
+R6       100R                 0.6975    -0.4500       0.0    Front
 R11      75R                  0.1875    -0.4825     270.0    Front
 R12      33K                  0.3150    -0.3550     180.0    Front
 R14      1K                   0.8600    -0.2600     180.0    Front
