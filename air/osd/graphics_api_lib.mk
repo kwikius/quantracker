@@ -73,24 +73,26 @@ AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
 
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
-STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
+STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
-RTOS_INCLUDES = \
+RTOS_INCLUDES := \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
 
-INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
+INCLUDES := $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
-TARGET_PROCESSOR = STM32F4
+TARGET_PROCESSOR := STM32F4
 
-GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
+GRAPHICS_API_PATH := $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 
-OUTPUT_ARCHIVE_FILE = ../../lib/osd/quantracker_air_graphics_api.a
+OUTPUT_ARCHIVE_FILE := ../../lib/osd/quantracker_air_graphics_api.a
+
+OBJDIR := obj/graphics_api/
 
 ifeq ( $(CFLAG_EXTRAS), )
 CFLAG_EXTRAS = -fno-math-errno
@@ -109,18 +111,20 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-objects = draw_arc.o draw_bitmap.o draw_circle.o draw_line.o draw_text.o flood_fill.o \
+un_obj_objects = draw_arc.o draw_bitmap.o draw_circle.o draw_line.o draw_text.o flood_fill.o \
 draw_box.o
+
+objects  := $(patsubst %, $(OBJDIR)%,$(un_obj_objects))
 
 all: $(OUTPUT_ARCHIVE_FILE)
 
 $(OUTPUT_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
+$(objects) : $(OBJDIR)%.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	-rm -rf *.o $(OUTPUT_ARCHIVE_FILE)
+	-rm -rf $(OBJDIR)*.o $(OUTPUT_ARCHIVE_FILE)
 
 endif

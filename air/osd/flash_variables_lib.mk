@@ -73,22 +73,21 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
+STM32_SRC_DIR := $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
-STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
+STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
-RTOS_INCLUDES = \
+RTOS_INCLUDES := \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
 
-TARGET_PROCESSOR = STM32F4
+TARGET_PROCESSOR := STM32F4
  
-
 ifeq ($(OPTIMISATION_LEVEL), )
-OPTIMISATION_LEVEL = O
+OPTIMISATION_LEVEL := O
 endif
 
 ifeq ( $(CFLAG_EXTRAS), )
@@ -96,12 +95,13 @@ CFLAG_EXTRAS = -fno-math-errno
 endif
 
 ifeq ( $(TELEMETRY_DIRECTION), )
-TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
+TELEMETRY_DIRECTION := QUAN_OSD_TELEM_TRANSMITTER
 endif
 
 
-OUTPUT_ARCHIVE_FILE = ../../lib/osd/flash_variables.a
+OUTPUT_ARCHIVE_FILE := ../../lib/osd/flash_variables.a
 
+OBJDIR := obj/flash_variables/
 
 #required for Ubuntu 12.x placid as system headers have been put in strange places
 # these have beeen defined to thos in my bash .profile
@@ -124,17 +124,17 @@ DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
 
 # DEFINES += QUAN_FLASH_DEBUG
-STARTUP = startup.s
+STARTUP := startup.s
 # custom linker script 
-LINKER_SCRIPT = stm32f4.ld
+LINKER_SCRIPT := stm32f4.ld
 
-SYSTEM_INIT = system_init.cpp
+SYSTEM_INIT := system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
 INCLUDES = $(STM32_INCLUDES)
 
-INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
+INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 else
 $(error no target processor defined)
 endif
@@ -144,23 +144,16 @@ INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
 INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
 
-INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
+INCLUDE_ARGS := $(patsubst %,-I%,$(INCLUDES))
 
 # QUAN_DISPLAY_INTERLACED 
-DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION)
+DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION) QUAN_OSD_BOARD_TYPE=4
 
-#board_type1 : DEFINES += QUAN_OSD_BOARD_TYPE=1 QUAN_DISCOVERY
-#board_type2 : DEFINES += QUAN_OSD_BOARD_TYPE=2 QUAN_DISCOVERY
-board_type3 : DEFINES += QUAN_OSD_BOARD_TYPE=3 QUAN_DISCOVERY
-#V1 of the finished board
-board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
-board_type4_disco : DEFINES += QUAN_OSD_BOARD_TYPE=4 QUAN_DISCOVERY
+STM32F4_SPECIFIC_FLASH_SRC := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
 
-STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
+GENERIC_FLASH_SRC_PATH := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
-GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
-
-DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
+DEFINE_ARGS := $(patsubst %,-D%,$(DEFINES))
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
@@ -169,24 +162,21 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
-all: board_type4
-board_type4 : test
+all: $(OUTPUT_ARCHIVE_FILE)
 
-quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
-quan_generic_flash_menu.o
+un_obj_quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o 
+quan_generic_flash_objects =  $(patsubst %, $(OBJDIR)%,$(un_obj_quan_generic_flash_objects))
 
-objects =  $(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o
+objects = $(quan_generic_flash_objects) $(OBJDIR)quan_stm32_f4_specific_flash.o
 
-$(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
+$(quan_generic_flash_objects) : $(OBJDIR)quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
-	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)
+$(OBJDIR)quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	-rm -rf *.o $(OUTPUT_ARCHIVE_FILE)
-
-test: $(OUTPUT_ARCHIVE_FILE)
+	-rm -rf $(OBJDIR)*.o $(OUTPUT_ARCHIVE_FILE)
 
 $(OUTPUT_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
