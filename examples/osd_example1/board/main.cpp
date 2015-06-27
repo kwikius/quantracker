@@ -22,7 +22,6 @@
 #include <task.h>
 
 #include "resources.hpp"
-#include "video/graphics_api.hpp"
 #include "video/video_buffer.hpp"
 
 #ifndef QUAN_OSD_BOARD_TYPE
