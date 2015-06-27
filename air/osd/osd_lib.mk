@@ -74,13 +74,13 @@ $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std p
 endif
 
 # source directory for the STM32 std peripheral library
-STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
+STM32_SRC_DIR := $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
-STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
+STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
-RTOS_INCLUDES = \
+RTOS_INCLUDES := \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
@@ -88,7 +88,7 @@ $(APP_SRC_PATH)
 TARGET_PROCESSOR = STM32F4
 
 ifeq ($(OPTIMISATION_LEVEL), )
-OPTIMISATION_LEVEL = O
+OPTIMISATION_LEVEL := O
 endif
 
 ifeq ( $(CFLAG_EXTRAS), )
@@ -111,38 +111,41 @@ DEFINES += QUAN_STM32F4 QUAN_FREERTOS STM32F40_41xxx \
  QUAN_OSD_SOFTWARE_SYNCSEP  HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4
 
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_tx.a
-TELEMETRY_PREFIX = lib_tx_
+OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd_tx.a
+HAS_TELEMETRY := True
+TELEMETRY_PREFIX := lib_tx_
 DEFINES += QUAN_OSD_TELEM_TRANSMITTER
 else
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd_rx.a
-TELEMETRY_PREFIX = lib_rx_
+OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd_rx.a
+HAS_TELEMETRY := True
+TELEMETRY_PREFIX := lib_rx_
 DEFINES += QUAN_OSD_TELEM_RECEIVER
 else
-OSD_ARCHIVE_FILE = ../../lib/osd/quantracker_air_osd.a
-TELEMETRY_PREFIX = lib_
+OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd.a
+HAS_TELEMETRY := False
+TELEMETRY_PREFIX := lib_
 endif
 endif
 
-OBJDIR = obj/
+OBJDIR := obj/
 
-SYSTEM_INIT = system_init.cpp
-STARTUP = startup.s
+SYSTEM_INIT := system_init.cpp
+STARTUP := startup.s
 
-PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
+PROCESSOR_FLAGS := -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
+INCLUDES := $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
 
-INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
+INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 else
 $(error no target processor defined)
 endif
 
-INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
+INCLUDE_ARGS := $(patsubst %,-I%,$(INCLUDES))
 
-DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
+DEFINE_ARGS := $(patsubst %,-D%,$(DEFINES))
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
@@ -151,32 +154,30 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
-unobj_rtos_objects = tasks.o queue.o list.o timers.o
-rtos_objects = $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
+unobj_rtos_objects := tasks.o queue.o list.o timers.o
+rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
 
-unobj_stm32_objects = misc.o
-stm32_objects = $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
+unobj_stm32_objects := misc.o
+stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
 
-unobj_system_objects = $(unobj_rtos_objects) $(unobj_stm32_objects) \
+unobj_system_objects := $(unobj_rtos_objects) $(unobj_stm32_objects) \
 startup.o system_init.o port.o heap_3.o rtos_hooks.o
-system_objects = $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
+system_objects := $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
 
+# -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
 draw_task.o  sync_sep.o black_level.o dac.o 
 
-video_objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
-
-objects =  $(video_objects) $(system_objects)
-
 # add the telemetry tasks to the lib if required
-ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-objects += $(OBJDIR)transmit_telemetry_task.o
-else
-ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-objects += $(OBJDIR)receive_telemetry_task.o
+ifeq ($(HAS_TELEMETRY),True)
+unprefixed_video_objects += telemetry_task.o
 endif
-endif
+
+video_objects := $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+# ------------------------------------------------
+
+objects := $(video_objects) $(system_objects)
 
 all : $(OSD_ARCHIVE_FILE)
    
@@ -186,12 +187,6 @@ clean:
 
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
-
-$(OBJDIR)transmit_telemetry_task.o : $(OBJDIR)%.o : video/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
-
-$(OBJDIR)receive_telemetry_task.o : $(OBJDIR)%.o : video/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
 
 $(video_objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
