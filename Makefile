@@ -24,20 +24,32 @@ osd_ac:
 	make -C examples/osd_ac/board
 
 clean_osd_ac:
-	make -C examples/osd_ac/board
-   
+	make -C examples/osd_ac/board clean
+
 else
 quantracker-make-help:
-	@echo '------------------------------------------------------'
-	@echo 'Welcome to the quantracker DIY Antenna Tracker project. '
-	@echo 'The project is growing and I opted to start to merge all the related projects' 
-	@echo 'as subdirectories in the github/kwikius/quantracker project.'
-	@echo 'As a first step I moved the original quantracker project into ground/tracker/v1/'
 	@echo ''
-	@echo 'You can build that project using the Makefile there if you wish, or'
-	@echo ', if you want to build the original DIY Antenna Tracker from this Makefile' 
-	@echo ', you can use the command '\''make ground_tracker_v1'\'' from here. '
-	@echo 'The resulting binaries will be in the ground/tracker/v1/ subdirectory'
-	@echo '-----------------------------------------------'
+	@echo ''
+	@echo '********************************************************************'
+	@echo ''
+	@echo 'Welcome to the Quantracker DIY Antenna Tracker and OSD  project.' 
+	@echo ''
+	@echo ''
+	@echo '********************** Making OSD examples *************************'
+	@echo Before making Air OSD projects, first invoke \'make osd_libs\' to build
+	@echo the static libraries.
+	@echo ''
+	@echo invoke \'make osd_ac\' to make the osd_ac example. \(\'make clean_osd_ac\' to clean\)
+	@echo invoke \'make osd_example1\' to build the osd_example1 example. \(\'make clean_osd_example1\' to clean\)
+	@echo ''
+	@echo '********************** Making Antenna Tracker V1 ********************'
+	@echo You can build that project using the Makefile there if you wish, or
+	@echo , if you want to build the original DIY Antenna Tracker from this Makefile
+	@echo , invoke \'make ground_tracker_v1\' from here.
+	@echo The resulting binaries will be in the ground/tracker/v1/ subdirectory.
+	@echo ''
+	@echo '********************************************************************'
+	@echo ''
+	@echo ''
 	
 endif
