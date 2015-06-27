@@ -1,5 +1,5 @@
-Index_
-`OSD index`_
+
+`OSD Index`_
 
 ============================================
 Getting started with the Quantracker Air OSD
@@ -40,7 +40,7 @@ We hope soon to try to get some finished boards available too.
 
 For more info , please look at the `OSD index`_.
 
-.. _`OSD index`: osd/index.html
+.. _`OSD Index`: osd/index.html
 .. _Index: index.html
 .. _`see the mcu schematic`: https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v1/schematic_pdf/osd-MCU.pdf?raw=true
 .. _`The full schematic is available here as a set of pdfs`: https://github.com/kwikius/quantracker/blob/master/air/osd/hardware/64_pin_lite/air_osd_v2_1/schematic_pdf
@@ -63,7 +63,7 @@ For more info , please look at the `OSD index`_.
 
 .. [4] This could probably be made neater on the next version of the board
 
-`OSD index`_
-Index_
+`OSD Index`_
+
 
 

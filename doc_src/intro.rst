@@ -1,12 +1,9 @@
-Index_
+`Quantracker Index`_
 
-===========
-Quantracker 
-===========
+=============================================== 
+Introducing Quantracker Antenna Tracker and OSD
+===============================================
 
------------------------
-Antenna Tracker and OSD
------------------------
 
    * `The Antenna Tracker`_
          + `More on the Antenna Tracker...`_
@@ -102,7 +99,7 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
 
    <table><tr>
    <td>
-   <iframe width="420" height="315" src="https://www.youtube.com/embed/p4sV_m2vvSE" 
+   <iframe width="420" height="315" src="https://www.youtube.com/embed/cclQAswRa8s" 
    frameborder="0" allowfullscreen></iframe>
    </td>
    <td>
@@ -111,11 +108,11 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
    </td>
    </tr></table>
 
-Index_
+`Quantracker Index`_
 
 .. _`The OSD V2.1 PCB is available from OSHPark`: https://oshpark.com/shared_projects/yiU4RsLa
 .. _`The source code is available from Github`: https://github.com/kwikius/quantracker/tree/master
 .. _`The OSD source code is available from Github`: https://github.com/kwikius/quantracker/tree/master/air/osd
-.. _Index: index.html
+.. _`Quantracker Index`: index.html
 .. _`More on the Antenna Tracker...`: ../../antenna_tracker/index.html
 .. _`More on the OSD...` : osd_getting_started.html

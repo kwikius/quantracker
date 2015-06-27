@@ -1,4 +1,4 @@
-Index_
+
 `OSD Index`_
 
 =========================================
@@ -17,6 +17,6 @@ There are 2 methods of uploading the Tracker and OSD firmwares
 .. _`OSD Index`: osd/index.html
 
 `OSD Index`_
-Index_
+
 
 
