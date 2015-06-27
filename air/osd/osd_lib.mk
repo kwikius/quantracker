@@ -125,6 +125,8 @@ TELEMETRY_PREFIX = lib_
 endif
 endif
 
+OBJDIR = obj/
+
 SYSTEM_INIT = system_init.cpp
 STARTUP = startup.s
 
@@ -149,27 +151,30 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
-rtos_objects = tasks.o queue.o list.o timers.o
-stm32_objects = misc.o
-system_objects = $(rtos_objects) $(stm32_objects) \
-startup.o system_init.o port.o heap_3.o rtos_hooks.o
+unobj_rtos_objects = tasks.o queue.o list.o timers.o
+rtos_objects = $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
 
-# (later add a different prefix for video_objects dependent
-# on telem transmitter telem_receiver or no telem)
+unobj_stm32_objects = misc.o
+stm32_objects = $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
+
+unobj_system_objects = $(unobj_rtos_objects) $(unobj_stm32_objects) \
+startup.o system_init.o port.o heap_3.o rtos_hooks.o
+system_objects = $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
+
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
 draw_task.o  sync_sep.o black_level.o dac.o 
 
-video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+video_objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
-objects = $(video_objects) $(system_objects)
+objects =  $(video_objects) $(system_objects)
 
 # add the telemetry tasks to the lib if required
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-objects += transmit_telemetry_task.o
+objects += $(OBJDIR)transmit_telemetry_task.o
 else
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-objects += receive_telemetry_task.o
+objects += $(OBJDIR)receive_telemetry_task.o
 endif
 endif
 
@@ -177,39 +182,39 @@ all : $(OSD_ARCHIVE_FILE)
    
 .PHONY: clean
 clean:
-	-rm -rf $(OSD_ARCHIVE_FILE) *.o *.elf *.bin *.lst 
+	-rm -rf $(OSD_ARCHIVE_FILE) $(OBJDIR)*.o  
 
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-transmit_telemetry_task.o : %.o : video/%.cpp
+$(OBJDIR)transmit_telemetry_task.o : $(OBJDIR)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-receive_telemetry_task.o : %.o : video/%.cpp
+$(OBJDIR)receive_telemetry_task.o : $(OBJDIR)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(video_objects): $(TELEMETRY_PREFIX)%.o : video/%.cpp
+$(video_objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-system_init.o : $(SYSTEM_INIT)
-	$(CC) $(CFLAGS) -o system_init.o $(SYSTEM_INIT)
+$(OBJDIR)system_init.o : $(SYSTEM_INIT)
+	$(CC) $(CFLAGS) $< -o $@
 
-startup.o: $(STARTUP)
-	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
+$(OBJDIR)startup.o: $(STARTUP)
+	$(CC) $(CFLAGS) $< -o $@ 
 
-$(stm32_objects) : %.o : $(STM32_SRC_DIR)%.c
+$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
 	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
-$(rtos_objects) : %.o : $(FREE_RTOS_DIR)Source/%.c
+$(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
+$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
+$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-rtos_hooks.o : rtos_hooks.cpp 
+$(OBJDIR)rtos_hooks.o : rtos_hooks.cpp 
 	$(CC) $(CFLAGS) $< -o $@
 
 #deps conditional
