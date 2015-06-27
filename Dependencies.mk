@@ -52,7 +52,6 @@ MAVLINK_INCLUDE_PATH = /home/andy/cpp/lib
 # The user sources in the above dir (in the "common" subdirectory
 # Must have a .cpp extension
 
-
 ########################################################################
 # Optional. if not set defaults to O. You will need optimisation of at least O
 
