@@ -1,3 +1,4 @@
+
 `Quantracker Index`_
 
 =====================
@@ -37,6 +38,7 @@ Developing
 .. _`Quantracker Index`: ../index.html
 .. _`Uploading the firmware to the OSD board`: ../firmware_upload.html 
 .. _`Testing and troubleshooting`: ../trouble_shooting.html
+.. _`Home`: ../../../../index.html
 
 `Quantracker Index`_
 
