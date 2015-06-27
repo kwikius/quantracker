@@ -128,7 +128,7 @@ TELEMETRY_PREFIX := lib_
 endif
 endif
 
-OBJDIR := obj/
+OBJDIR := obj/osd_lib/
 
 SYSTEM_INIT := system_init.cpp
 STARTUP := startup.s
