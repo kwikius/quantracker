@@ -1,4 +1,4 @@
-DIY Antenna Tracker using an STM32F4 discovery board.
+DIY Antenna Tracker and OSD using STM32F4 .
 
 Ground side tracker.
    Uses a Pololu style servo motor with encoder to give continuous Azimuth rotation
@@ -7,7 +7,7 @@ Airborne side
    uses an OSD with telemetry via the video to send telemetry data to the tracker.
    or an Arduino ( basic option if you have a FrSky Telemetry RC system)
 
-see my website http://www.zoomworks.org/fpv/antenna_tracker/index.html for more info about the project.
+see my website http://www.zoomworks.org/fpv/quantracker/doc/index.html for more info about the project.
 
 See the Changelog file in this directory for changes after 16/07/2013
 
@@ -22,7 +22,7 @@ Acknowledgments
    
         Thanks to VEX Robotics for permission to use their step file of the VEX turntable
 
-        Thanks to Andrew Fernie for his work on the Hardware and Software.
+        Special Thanks to Andrew Fernie for his work on the Hardware and Software.
 
 Dependencies
 
