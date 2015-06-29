@@ -49,7 +49,7 @@ quantracker-make-help:
 	@echo invoke \'make upload_osd_ac\' to upload via the serial port 
 	@echo ''
 	@echo invoke \'make osd_example1\' to build the osd_example1 example. \(\'make clean_osd_example1\' to clean\)
-	@echo invoke \'make upload_example1\' to upload via the serial port
+	@echo invoke \'make upload_osd_example1\' to upload via the serial port
 	@echo ''
 	@echo '************ Making Antenna Tracker V1 ********************'
 	@echo ''
