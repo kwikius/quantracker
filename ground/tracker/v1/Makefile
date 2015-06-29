@@ -107,20 +107,20 @@ all: test
 Debug : test
 
 quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
-quan_generic_flash_menu.o
+quan_generic_flash_menu.o quan_malloc_free.o
 
 local_objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o \
 azimuth_motor_calc.o loop_timer.o elevation_servo.o telemetry.o frsky_serial_port.o \
 led.o switch_input.o serial_port.o setup.o spbrk.o system_init.o text_commands.o \
 compass.o update_mag.o systick.o frsky_bytestuff_telemetry.o cobs_fsk_telemetry.o \
-fsk_filter.o user.o
+fsk_filter.o user.o flash.o
 
-local_flash_objects = flash.o flash_get_set.o \
- init_values_from_flash.o
+#local_flash_objects = flash.o flash_get_set.o \
+ #init_values_from_flash.o
 
-flash_objects  = $(local_flash_objects) $(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o  
-
-all_objects = startup.o $(local_objects) $(flash_objects) 
+flash_objects  = $(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o 
+ 
+all_objects = startup.o $(local_objects) $(flash_objects)
   
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -131,7 +131,7 @@ test: main.elf
 	$(OD) $(ODFLAGS) main.elf > main.lst
 	$(SIZ) -A main.elf
 
-main.elf : $(all_objects)
+main.elf : $(all_objects) 
 	@ echo "..linking"
 	$(LD)   $(LFLAGS)  -o main.elf $(all_objects) 
 
@@ -143,6 +143,8 @@ $(local_objects): %.o : %.cpp
 
 $(local_flash_objects) : %.o : flash/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
+
+quan_malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free.cpp
 
 quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
 	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)

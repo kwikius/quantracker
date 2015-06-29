@@ -1,4 +1,5 @@
 #include <quan/error.hpp>
+#include <quan/user.hpp>
 #include "serial_ports.hpp"
 
 void quan::user_message (const char* str)

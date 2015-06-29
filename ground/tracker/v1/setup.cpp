@@ -25,10 +25,12 @@
 #include "quan/stm32/flash.hpp"
 #include <quan/stm32/systick.hpp>
 
+
+
 void setup_systick();
 void setup_fsk_demod();
 bool flash_menu();
-void flush_sp_tx();
+
 void setInteractiveRunMode();
 
 // blink error led forever???
@@ -112,6 +114,15 @@ namespace{
       // shouldnt get here
       return user_next_mode::Fail;
    }
+}
+
+namespace quan{
+
+  // required for flash lib
+  void user_flush_sptx()
+  {
+      flush_sp_tx();
+  }
 }
 
 extern "C" void setup()

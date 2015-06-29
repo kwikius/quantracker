@@ -144,8 +144,10 @@ rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
 unobj_stm32_objects := misc.o
 stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
 
-unobj_system_objects := $(unobj_rtos_objects) $(unobj_stm32_objects) \
-startup.o system_init.o port.o heap_3.o rtos_hooks.o
+unobj_quan_objects = malloc_free.o
+
+unobj_system_objects := $(unobj_rtos_objects) $(unobj_stm32_objects) $(unobj_quan_objects) \
+startup.o system_init.o port.o heap_3.o rtos_hooks.o 
 
 objects := $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
 
@@ -177,6 +179,9 @@ $(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
 $(OBJDIR)rtos_hooks.o : rtos_hooks.cpp 
+	$(CC) $(CFLAGS) $< -o $@
+
+$(OBJDIR)malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 #deps conditional

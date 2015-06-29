@@ -19,7 +19,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
-
 HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../Dependencies.mk"; then echo "True"; fi)
 
 ifeq ($(HAVE_DEPENDENCIES_FILE), )
@@ -44,7 +43,6 @@ APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 DEFINES = 
 
-
 # You will need a custom Dependencies.mk
 include ../../Dependencies.mk
 
@@ -61,13 +59,9 @@ ifeq ($(QUAN_INCLUDE_PATH), )
 $(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
 endif
 
-ifeq ($(MAVLINK_INCLUDE_PATH), )
-$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
-endif
-
-ifeq ($(FREE_RTOS_DIR), )
-$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
-endif
+#ifeq ($(FREE_RTOS_DIR), )
+#$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
+#endif
 
 ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
@@ -79,10 +73,10 @@ STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
-RTOS_INCLUDES := \
-$(FREE_RTOS_DIR)Source/include/ \
-$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
-$(APP_SRC_PATH)
+#RTOS_INCLUDES := \
+#$(FREE_RTOS_DIR)Source/include/ \
+#$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
+#$(APP_SRC_PATH)
 
 TARGET_PROCESSOR := STM32F4
  
@@ -93,11 +87,6 @@ endif
 ifeq ( $(CFLAG_EXTRAS), )
 CFLAG_EXTRAS = -fno-math-errno
 endif
-
-ifeq ( $(TELEMETRY_DIRECTION), )
-TELEMETRY_DIRECTION := QUAN_OSD_TELEM_TRANSMITTER
-endif
-
 
 OUTPUT_ARCHIVE_FILE := ../../lib/osd/flash_variables.a
 
@@ -119,35 +108,33 @@ AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
-DEFINES += QUAN_STM32F4 QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx
-# Define if using software sync sep rather than LM1881
-DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
+DEFINES += QUAN_STM32F4 QUAN_FREERTOS STM32F40_41xxx
 
 # DEFINES += QUAN_FLASH_DEBUG
-STARTUP := startup.s
+#STARTUP := startup.s
 # custom linker script 
-LINKER_SCRIPT := stm32f4.ld
+#LINKER_SCRIPT := stm32f4.ld
 
-SYSTEM_INIT := system_init.cpp
+#SYSTEM_INIT := system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
 INCLUDES = $(STM32_INCLUDES)
 
-INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
+#INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 else
 $(error no target processor defined)
 endif
 #endif
 
-INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
+#INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
+INCLUDES += $(QUAN_INCLUDE_PATH) 
 
 INCLUDE_ARGS := $(patsubst %,-I%,$(INCLUDES))
 
 # QUAN_DISPLAY_INTERLACED 
-DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION) QUAN_OSD_BOARD_TYPE=4
+DEFINES += HSE_VALUE=8000000  
 
 STM32F4_SPECIFIC_FLASH_SRC := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
 
