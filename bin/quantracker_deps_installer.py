@@ -112,20 +112,21 @@ os.rename("stm32flash/stm32flash",target_deps_dir + "bin/stm32flash")
 print("Quantracker Dependencies installed")
 
 print("writing Dependencies.mk")
-# open a file
 f = open('Dependencies.mk','w')
-
 f.write('TOOLCHAIN_GCC_VERSION := 4.9.3\n')
-f.write('STM32FLASH := ' + target_deps_dir + 'bin/stm32flash')
+f.write('STM32FLASH := ' + target_deps_dir + 'bin/stm32flash\n')
 f.write('OPTIMISATION_LEVEL := O3\n')
 f.write('QUANTRACKER_DEPENDENCY_LIBS_DIR := ' + target_deps_dir + '\n')
 f.write('TOOLCHAIN_PREFIX := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)gcc-arm-none-eabi-4_9-2014q4/\n')
 f.write('QUAN_INCLUDE_PATH := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)quan-trunk-master/\n')
 f.write('MAVLINK_INCLUDE_PATH := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)\n')
-f.write('FREE_RTOS_DIR := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)/FreeRTOSV8.2.0/FreeRTOS/\n')
+f.write('FREE_RTOS_DIR := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)FreeRTOSV8.2.0/FreeRTOS/\n')
 f.write('STM32_STD_PERIPH_LIB_DIR := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)STM32F4xx_DSP_StdPeriph_Lib_V1.5.1/Libraries/\n')
 f.close()
 os.rename('Dependencies.mk',  target_deps_dir + '/quantracker-master/Dependencies.mk')
+
+#TODO check for different dependency versions. These wont stay current for long
+# sort re half done uploads
 
 
 

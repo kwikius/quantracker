@@ -43,6 +43,8 @@ APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 DEFINES = 
 
+OBJDIR = obj/
+BINDIR = bin/
 
 # You will need a custom Dependencies.mk
 include ../../../Dependencies.mk
@@ -99,31 +101,38 @@ GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 TARGET_PROCESSOR = STM32F4
 
-video_objects =  video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
- video_dma.o video_setup.o graphics_api.o graphics_api_extras.o receive_telemetry_task.o \
- draw_task.o sync_sep.o led.o black_level.o dac.o
+video_objects = video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
+video_dma.o video_setup.o graphics_api.o graphics_api_extras.o receive_telemetry_task.o \
+draw_task.o sync_sep.o led.o black_level.o dac.o
 
-#local_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
-# fsk_task.o frsky_task.o frsky_zapp1.o led_task.o aircraft.o mavlink_task.o  settings.o \
-# heartbeat_task.o rtos_hooks.o mode_check.o  
+obj_video_objects = $(patsubst %,$(OBJDIR)%,$(video_objects))
+
 local_objects = main.o spbrk.o setup.o rtos_hooks.o sliprings_sp_irq.o \
 tracker_mode_task.o rx_telemetry.o pan_servo.o text_commands.o on_draw.o
 
+obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
+
 rtos_objects = tasks.o queue.o list.o timers.o 
+obj_rtos_objects = $(patsubst %,$(OBJDIR)%,$(rtos_objects))
+
 stm32_objects = misc.o
+obj_stm32_objects = $(patsubst %,$(OBJDIR)%,$(stm32_objects))
 
 GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 
 graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
 draw_line.o draw_text.o draw_box.o flood_fill.o
+obj_graphics_api_objects = $(patsubst %,$(OBJDIR)%,$(graphics_api_objects))
 
 quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
 quan_generic_flash_menu.o
+obj_quan_generic_flash_objects = $(patsubst %,$(OBJDIR)%,$(quan_generic_flash_objects))
 
 #user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
 
 #user_resources = bitmaps.o fonts.o
 user_resources = fonts.o
+obj_user_resources = $(patsubst %,$(OBJDIR)%,$(user_resources))
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -195,72 +204,72 @@ all: board_type4
 
 board_type4 : test
 
-objects = $(video_objects) $(local_objects) $(rtos_objects) \
-$(stm32_objects) $(graphics_api_objects) $(user_objects) $(user_resources) \
-$(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o \
-startup.o system_init.o port.o heap_3.o
+objects = $(obj_video_objects) $(obj_local_objects) $(obj_rtos_objects) \
+$(obj_stm32_objects) $(obj_graphics_api_objects) $(obj_user_objects) $(obj_user_resources) \
+$(obj_quan_generic_flash_objects) $(OBJDIR)quan_stm32_f4_specific_flash.o \
+$(OBJDIR)startup.o $(OBJDIR)system_init.o $(OBJDIR)port.o $(OBJDIR)heap_3.o
 
 clean:
-	-rm -rf *.o *.elf *.bin *.lst
+	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst
 
-test: main.elf
+test: $(BINDIR)main.elf
 	@ echo "...copying"
-	$(CP) $(CPFLAGS) main.elf main.bin
-	$(OD) $(ODFLAGS) main.elf > main.lst
-	$(SIZ) -A main.elf
+	$(CP) $(CPFLAGS) $(BINDIR)main.elf $(BINDIR)main.bin
+	$(OD) $(ODFLAGS) $(BINDIR)main.elf > $(BINDIR)main.lst
+	$(SIZ) -A $(BINDIR)main.elf
 
-main.elf: $(objects) 
+$(BINDIR)main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf $(objects)
+	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects)
 
-$(video_objects): %.o : ../../../air/osd/video/%.cpp
+$(obj_video_objects): $(OBJDIR)%.o : ../../../air/osd/video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(local_objects): %.o : %.cpp
+$(obj_local_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
+$(obj_quan_generic_flash_objects) : $(OBJDIR)quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
-	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)
-
-$(graphics_api_objects) : %.o : $(GRAPHICS_API_PATH)%.cpp
+$(OBJDIR)quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
 	$(CC) $(CFLAGS) $< -o $@
 
-$(user_objects) : %.o : $(USER_SOURCE_PATH)common/%.cpp
+$(obj_graphics_api_objects) : $(OBJDIR)%.o : $(GRAPHICS_API_PATH)%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(obj_user_objects) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
-$(user_resources) : %.o : $(USER_SOURCE_PATH)board/%.cpp
+$(obj_user_resources) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)board/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
-system_init.o : $(SYSTEM_INIT)
-	$(CC) $(CFLAGS) -o system_init.o $(SYSTEM_INIT)
+$(OBJDIR)system_init.o : $(SYSTEM_INIT)
+	$(CC) $(CFLAGS) $< -o $@
 
-startup.o: $(STARTUP)
-	$(CC) $(CFLAGS) -o startup.o $(STARTUP) 
+$(OBJDIR)startup.o: $(STARTUP)
+	$(CC) $(CFLAGS) $< -o $@ 
 
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
-$(stm32_objects) : %.o : $(STM32_SRC_DIR)%.c
+$(obj_stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
 	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
-$(rtos_objects) : %.o : $(FREE_RTOS_DIR)Source/%.c
+$(obj_rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
+$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
+$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
 #-----------------------------------------
 upload : test
-	st-flash write main.bin 0x8000000
+	st-flash write $(BINDIR)main.bin 0x8000000
 
 upload_sp : test
-	$(STM32FLASH) -f -v -w main.bin /dev/ttyUSB0
+	$(STM32FLASH) -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
 
 #deps conditional
 endif

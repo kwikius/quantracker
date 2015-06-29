@@ -1,5 +1,5 @@
 
-main.elf:     file format elf32-littlearm
+bin/main.elf:     file format elf32-littlearm
 
 
 Disassembly of section .text:
