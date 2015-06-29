@@ -285,7 +285,7 @@ upload : test
 	st-flash write main.bin 0x8000000
 
 upload_sp : test
-	stm32flash -f -v -w main.bin /dev/ttyUSB0
+	$(STM32FLASH) -f -v -w main.bin /dev/ttyUSB0
 
 #deps conditional
 endif

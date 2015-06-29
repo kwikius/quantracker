@@ -19,6 +19,10 @@
 
  TOOLCHAIN_GCC_VERSION = 4.7.4
 
+# Path to stm32flash
+
+STM32FLASH = stm32flash
+
 ######################################################################
 ### The quan library                                          
 ## Download : https://github.com/kwikius/quan-trunk/archive/master.zip 
