@@ -1,3 +1,6 @@
+Mon Jun 29 20:11:23 BST 2015
+indirect malloc using quan::malloc Now requires quan-1-0-4 
+
 Sun Jun 28 14:19:23 BST 2015
 Split out system parts of quantracker_air_osd[_rx | _tx]
 to a separate quantracker_air system lib
