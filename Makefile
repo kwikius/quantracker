@@ -21,7 +21,7 @@ osd_example1:
 clean_osd_example1:
 	make -C examples/osd_example1/board clean
 
-upload_osd_exapmple1:
+upload_osd_example1:
 	make -C examples/osd_example1/board upload_sp
   
 osd_ac: 
