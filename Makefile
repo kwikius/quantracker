@@ -30,13 +30,13 @@ else
 quantracker-make-help:
 	@echo ''
 	@echo ''
-	@echo '********************************************************************'
-	@echo ''
-	@echo 'Welcome to the Quantracker DIY Antenna Tracker and OSD  project.' 
-	@echo ''
-	@echo ''
-	@echo '********************** Making OSD examples *************************'
-	@echo Before making Air OSD projects, first invoke \'make osd_libs\' to build
+	@echo '**********************************************************'
+	@echo '*                                                        *'
+	@echo '*            Welcome to the Quantracker                  *' 
+	@echo '*                                                        *'
+	@echo '*                                                        *'
+	@echo '********************** Making OSD examples ***************'
+	@echo  first invoke \'make osd_libs\' to build
 	@echo the static libraries.
 	@echo ''
 	@echo invoke \'make osd_ac\' to make the osd_ac example. \(\'make clean_osd_ac\' to clean\)

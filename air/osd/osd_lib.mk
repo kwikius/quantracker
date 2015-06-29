@@ -154,6 +154,7 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
+# ------------could be system ---------------------
 unobj_rtos_objects := tasks.o queue.o list.o timers.o
 rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
 
@@ -174,10 +175,11 @@ ifeq ($(HAS_TELEMETRY),True)
 unprefixed_video_objects += telemetry_task.o
 endif
 
-video_objects := $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+objects := $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 # ------------------------------------------------
 
-objects := $(video_objects) $(system_objects)
+# objects := $(video_objects) $(system_objects)
+#objects := $(video_objects) 
 
 all : $(OSD_ARCHIVE_FILE)
    
@@ -188,29 +190,29 @@ clean:
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(video_objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
+$(objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(OBJDIR)system_init.o : $(SYSTEM_INIT)
-	$(CC) $(CFLAGS) $< -o $@
+#$(OBJDIR)system_init.o : $(SYSTEM_INIT)
+#	$(CC) $(CFLAGS) $< -o $@
 
-$(OBJDIR)startup.o: $(STARTUP)
-	$(CC) $(CFLAGS) $< -o $@ 
+#$(OBJDIR)startup.o: $(STARTUP)
+#	$(CC) $(CFLAGS) $< -o $@ 
 
-$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
-	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
+#$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
+#	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
-$(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+#$(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
+#	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+#$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
+#	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+#$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
+#	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-$(OBJDIR)rtos_hooks.o : rtos_hooks.cpp 
-	$(CC) $(CFLAGS) $< -o $@
+#$(OBJDIR)rtos_hooks.o : rtos_hooks.cpp 
+#	$(CC) $(CFLAGS) $< -o $@
 
 #deps conditional
 endif

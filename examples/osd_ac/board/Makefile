@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
-
+#ifeq (1,)
 HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../../Dependencies.mk"; then echo "True"; fi)
 
 ifeq ($(HAVE_DEPENDENCIES_FILE), )
@@ -38,13 +38,17 @@ ifeq ($(HAVE_DEPENDENCIES_FILE), )
 	@echo '   #################################################################'
 	@echo ' '	
 else
+# You will need a custom Dependencies.mk
+include ../../../Dependencies.mk
 # need the sourcedir for freertos compile
 APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
-DEFINES = 
+# the subdir for object files
+OBJDIR = obj/
+# the sub-directory for 
+BINDIR = bin/
 
-# You will need a custom Dependencies.mk
-include ../../../Dependencies.mk
+DEFINES = 
 
 ###############################################################
 ifeq ($(TOOLCHAIN_PREFIX), )
@@ -87,23 +91,28 @@ TARGET_PROCESSOR = STM32F4
 # static libaries 
 STATIC_LIBRARY_PATH = ../../../lib/osd/
 
-static_library_files = quantracker_air_osd.a \
-quantracker_air_graphics_api.a \
-flash_variables.a
+static_library_files = \
+   quantracker_air_system.a \
+   quantracker_air_osd.a \
+   quantracker_air_graphics_api.a \
+   flash_variables.a
 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 # in the board directory
 board_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
 fsk_task.o frsky_task.o frsky_zapp1.o mavlink_task.o settings.o \
-heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o \
-fonts.o 
+heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o
+
+obj_board_objects = $(patsubst %,$(OBJDIR)%,$(board_objects))
 
 # in the common directory
 common_objects = on_draw.o draw_altitude.o draw_artificial_horizon.o \
 draw_compass.o draw_home.o draw_gps_state.o draw_batteries.o \
 symbology.o flash.o aircraft.o draw_lat_lon.o draw_mode.o \
 draw_speed.o osd_control.o graphics_api_extras.o
+
+obj_common_objects = $(patsubst %,$(OBJDIR)%,$(common_objects))
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O
@@ -150,7 +159,7 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
-CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
+CFLAGS  = -Wall -Wdouble-promotion -Wno-unused-local-typedefs -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
@@ -162,25 +171,25 @@ ODFLAGS = -d
 
 all: test
 
-objects = $(board_objects) $(common_objects) 
+objects = $(obj_board_objects) $(obj_common_objects) 
 
 clean:
-	-rm -rf *.o *.elf *.bin *.lst
+	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst
 
-test: main.elf
+test: $(BINDIR)main.elf
 	@ echo "...copying"
-	$(CP) $(CPFLAGS) main.elf main.bin
-	$(OD) $(ODFLAGS) main.elf > main.lst
-	$(SIZ) -A main.elf
+	$(CP) $(CPFLAGS) $(BINDIR)main.elf $(BINDIR)main.bin
+	$(OD) $(ODFLAGS) $(BINDIR)main.elf > $(BINDIR)main.lst
+	$(SIZ) -A $(BINDIR)main.elf
 
-main.elf: $(objects) $(static_libraries)
+$(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf $(objects) $(static_libraries)
+	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects) $(static_libraries) 
 
-$(board_objects): %.o : %.cpp
+$(obj_board_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(common_objects) : %.o : ../common/%.cpp
+$(obj_common_objects) : $(OBJDIR)%.o : ../common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 $(static_libraries) :
@@ -191,7 +200,7 @@ upload : test
 	st-flash write main.bin 0x8000000
 
 upload_sp : test
-	stm32flash -f -v -w main.bin /dev/ttyUSB0
+	stm32flash -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
 
 #deps conditional
 endif

@@ -21,7 +21,7 @@ osd_example1:
    <iframe width="420" height="315" src="https://www.youtube.com/embed/cclQAswRa8s" 
    frameborder="0" allowfullscreen></iframe>
 
-.. _`Download osd_example1 firmware`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/main.bin?raw=true
+.. _`Download osd_example1 firmware`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bin/main.bin?raw=true
 .. _`OSD Index`: ../index.html
 
 `OSD Index`_

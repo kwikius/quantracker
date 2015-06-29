@@ -91,9 +91,11 @@ TARGET_PROCESSOR = STM32F4
 # static libaries 
 STATIC_LIBRARY_PATH = ../../../lib/osd/
 
-static_library_files = quantracker_air_osd.a \
-quantracker_air_graphics_api.a \
-flash_variables.a
+static_library_files = \
+   quantracker_air_system.a \
+   quantracker_air_osd.a \
+   quantracker_air_graphics_api.a \
+   flash_variables.a
 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
@@ -156,7 +158,7 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
-CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
+CFLAGS  = -Wall -Wdouble-promotion -Wno-unused-local-typedefs -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 

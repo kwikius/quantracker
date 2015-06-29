@@ -9,13 +9,11 @@ using namespace quan::uav::osd;
 
 void draw_gps_state();
 
+
+
 namespace {
   int count = 0;
 }
-
-/*
-TODO add Va (airspeed) Vg( groundspeed)
-*/
 
 void quan::uav::osd::on_draw()
 {

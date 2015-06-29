@@ -115,4 +115,4 @@ airborne unit a full OSD, for which the ecosystem is now well underway.
 .. _`The OSD source code is available from Github`: https://github.com/kwikius/quantracker/tree/master/air/osd
 .. _`Quantracker Index`: index.html
 .. _`More on the Antenna Tracker...`: ../../antenna_tracker/index.html
-.. _`More on the OSD...` : osd_getting_started.html
+.. _`More on the OSD...` : osd/index.html

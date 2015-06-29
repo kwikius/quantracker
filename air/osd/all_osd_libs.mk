@@ -7,11 +7,15 @@ osd_telem_none_lib  = $(STATIC_LIBRARY_PATH)quantracker_air_osd.a
 osd_telem_tx_lib = $(STATIC_LIBRARY_PATH)quantracker_air_osd_tx.a
 osd_telem_rx_lib = $(STATIC_LIBRARY_PATH)quantracker_air_osd_rx.a
 graphics_lib = (STATIC_LIBRARY_PATH)quantracker_air_graphics_api.a
+system_lib = (STATIC_LIBRARY_PATH)quantracker_air_system.a
 
 all_libs = $(flash_lib) $(graphics_lib) $(osd_telem_none_lib) \
-$(osd_telem_tx_lib) $(osd_telem_rx_lib) 
+$(osd_telem_tx_lib) $(osd_telem_rx_lib) $(system_lib)
 
 all: $(all_libs)
+
+$(system_lib):
+	$(MAKE)  -C ./ -f system.mk
 
 $(flash_lib):
 	$(MAKE) -C ./ -f flash_variables_lib.mk
@@ -31,9 +35,9 @@ $(osd_telem_rx_lib):
 .PHONY: clean
 
 clean:
+	$(MAKE) -C ./ -f system.mk clean
 	$(MAKE) -C ./ -f flash_variables_lib.mk clean
 	$(MAKE) -C ./ -f graphics_api_lib.mk clean
 	$(MAKE) -C ./ -f osd_lib.mk clean
 	$(MAKE) -C ./ TELEMETRY_DIRECTION=QUAN_OSD_TELEM_TRANSMITTER -f osd_lib.mk clean
 	$(MAKE) -C ./ TELEMETRY_DIRECTION=QUAN_OSD_TELEM_RECEIVER -f osd_lib.mk clean
-

@@ -61,8 +61,6 @@ void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
 
 #endif
 
-
-
 #if TEST_OUTPUT_PIN_ENABLE
    void setup_test_pin()
    {

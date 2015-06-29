@@ -164,7 +164,9 @@ ODFLAGS = -d
 
 all: $(OUTPUT_ARCHIVE_FILE)
 
-un_obj_quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o 
+un_obj_quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
+quan_generic_flash_menu.o
+
 quan_generic_flash_objects =  $(patsubst %, $(OBJDIR)%,$(un_obj_quan_generic_flash_objects))
 
 objects = $(quan_generic_flash_objects) $(OBJDIR)quan_stm32_f4_specific_flash.o
