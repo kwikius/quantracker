@@ -62,10 +62,6 @@ ifeq ($(QUAN_INCLUDE_PATH), )
 $(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
 endif
 
-#ifeq ($(MAVLINK_INCLUDE_PATH), )
-#$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
-#endif
-
 ifeq ($(FREE_RTOS_DIR), )
 $(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
 endif
@@ -73,14 +69,6 @@ endif
 ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
-#
-#ifeq ($(USER_SOURCE_PATH), )
-#$(error "USER_SOURCE_PATH must be defined to the path to the path to your custom sources - see README.")
-#endif
-
-#ifeq ($(USER_SOURCE_FILES), )
-#$(error "USER_SOURCE_FILES must be defined to the list of your custom source files - see README.")
-#endif
 
 USER_SOURCE_PATH = ../../../examples/osd_example1/
 
@@ -101,37 +89,22 @@ GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 TARGET_PROCESSOR = STM32F4
 
-video_objects = video_buffer.o video_column.o video_row.o video_pixel.o video_spi.o \
-video_dma.o video_setup.o graphics_api.o graphics_api_extras.o receive_telemetry_task.o \
-draw_task.o sync_sep.o led.o black_level.o dac.o
+STATIC_LIBRARY_PATH = ../../../lib/osd/
 
-obj_video_objects = $(patsubst %,$(OBJDIR)%,$(video_objects))
+static_library_files = \
+   quantracker_air_graphics_api.a \
+   quantracker_air_osd_rx.a \
+   flash_variables.a \
+   quantracker_air_system.a
 
-local_objects = main.o spbrk.o setup.o rtos_hooks.o sliprings_sp_irq.o \
-tracker_mode_task.o rx_telemetry.o pan_servo.o text_commands.o on_draw.o
+static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
+
+local_objects = main.o spbrk.o setup.o  sliprings_sp_irq.o \
+tracker_mode_task.o rx_telemetry.o pan_servo.o text_commands.o on_draw.o 
 
 obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
 
-rtos_objects = tasks.o queue.o list.o timers.o 
-obj_rtos_objects = $(patsubst %,$(OBJDIR)%,$(rtos_objects))
-
-stm32_objects = misc.o
-obj_stm32_objects = $(patsubst %,$(OBJDIR)%,$(stm32_objects))
-
-GRAPHICS_API_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
-
-graphics_api_objects = draw_arc.o draw_bitmap.o draw_circle.o \
-draw_line.o draw_text.o draw_box.o flood_fill.o
-obj_graphics_api_objects = $(patsubst %,$(OBJDIR)%,$(graphics_api_objects))
-
-quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
-quan_generic_flash_menu.o
-obj_quan_generic_flash_objects = $(patsubst %,$(OBJDIR)%,$(quan_generic_flash_objects))
-
-#user_objects =  $(patsubst %.cpp,%.o,$(USER_SOURCE_FILES))
-
-#user_resources = bitmaps.o fonts.o
-user_resources = fonts.o
+user_resources = fonts.o led.o
 obj_user_resources = $(patsubst %,$(OBJDIR)%,$(user_resources))
 
 ifeq ($(OPTIMISATION_LEVEL), )
@@ -158,14 +131,14 @@ SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_RECEIVER STM32F40_41xxx \
-QUAN_OSD_SOFTWARE_SYNCSEP
+QUAN_OSD_SOFTWARE_SYNCSEP QUAN_OSD_BOARD_TYPE=4
 
 # DEFINES += QUAN_FLASH_DEBUG
-STARTUP = startup.s
+#STARTUP = startup.s
 # custom linker script 
 LINKER_SCRIPT = stm32f4.ld
 
-SYSTEM_INIT = system_init.cpp
+#SYSTEM_INIT = system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
@@ -186,8 +159,6 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 # QUAN_DISPLAY_INTERLACED 
 DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION)
 
-board_type4 : DEFINES += QUAN_OSD_BOARD_TYPE=4
-
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
@@ -200,41 +171,19 @@ LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
-all: board_type4
+objects = $(obj_local_objects) $(obj_user_objects) $(obj_user_resources) 
 
-board_type4 : test
-
-objects = $(obj_video_objects) $(obj_local_objects) $(obj_rtos_objects) \
-$(obj_stm32_objects) $(obj_graphics_api_objects) $(obj_user_objects) $(obj_user_resources) \
-$(obj_quan_generic_flash_objects) $(OBJDIR)quan_stm32_f4_specific_flash.o \
-$(OBJDIR)startup.o $(OBJDIR)system_init.o $(OBJDIR)port.o $(OBJDIR)heap_3.o
-
-clean:
-	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst
-
-test: $(BINDIR)main.elf
+all: $(BINDIR)main.elf
 	@ echo "...copying"
 	$(CP) $(CPFLAGS) $(BINDIR)main.elf $(BINDIR)main.bin
 	$(OD) $(ODFLAGS) $(BINDIR)main.elf > $(BINDIR)main.lst
 	$(SIZ) -A $(BINDIR)main.elf
 
-$(BINDIR)main.elf: $(objects) 
+$(BINDIR)main.elf: $(objects) $(static_libraries)
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects)
-
-$(obj_video_objects): $(OBJDIR)%.o : ../../../air/osd/video/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
+	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects)  $(static_libraries)
 
 $(obj_local_objects): $(OBJDIR)%.o : %.cpp
-	$(CC) $(CFLAGS) $< -o $@
-
-$(obj_quan_generic_flash_objects) : $(OBJDIR)quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
-	$(CC) $(CFLAGS) $< -o $@
-
-$(OBJDIR)quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
-	$(CC) $(CFLAGS) $< -o $@
-
-$(obj_graphics_api_objects) : $(OBJDIR)%.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(obj_user_objects) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)common/%.cpp
@@ -243,26 +192,8 @@ $(obj_user_objects) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)common/%.cpp
 $(obj_user_resources) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)board/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
-$(OBJDIR)system_init.o : $(SYSTEM_INIT)
-	$(CC) $(CFLAGS) $< -o $@
-
-$(OBJDIR)startup.o: $(STARTUP)
-	$(CC) $(CFLAGS) $< -o $@ 
-
-C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
- $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
-
-$(obj_stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
-	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
-
-$(obj_rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
-	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
+$(static_libraries) :
+	$(MAKE) -C ../../../air/osd -f all_osd_libs.mk
 
 #-----------------------------------------
 upload : test
@@ -270,6 +201,9 @@ upload : test
 
 upload_sp : test
 	$(STM32FLASH) -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
+
+clean:
+	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst
 
 #deps conditional
 endif

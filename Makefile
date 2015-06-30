@@ -2,36 +2,39 @@
 # if no arguments given then do info
 ifneq ($(MAKECMDGOALS),)
 
-.PHONY: ground_tracker_v1 osd_libs clean_osd_libs \
+.PHONY: ground_tracker_v1 ground_tracker_v2 osd_libs clean_osd_libs \
 osd_example1 clean_osd_example1 upload_osd_example1 osd_ac \
 clean_osd_ac upload_osd_ac
 
 ground_tracker_v1:
-	make -C ground/tracker/v1
+	$(MAKE) -C ground/tracker/v1
+
+ground_tracker_v2:
+	$(MAKE) -C ground/tracker/v2
 
 osd_libs:
-	make -C air/osd/ -f all_osd_libs.mk
+	$(MAKE) -C air/osd/ -f all_osd_libs.mk
 
 clean_osd_libs:
-	make -C air/osd/ -f all_osd_libs.mk clean
+	$(MAKE) -C air/osd/ -f all_osd_libs.mk clean
 
 osd_example1: 
-	make -C examples/osd_example1/board
+	$(MAKE) -C examples/osd_example1/board
 
 clean_osd_example1:
-	make -C examples/osd_example1/board clean
+	$(MAKE) -C examples/osd_example1/board clean
 
 upload_osd_example1:
-	make -C examples/osd_example1/board upload_sp
+	$(MAKE) -C examples/osd_example1/board upload_sp
   
 osd_ac: 
-	make -C examples/osd_ac/board
+	$(MAKE) -C examples/osd_ac/board
 
 clean_osd_ac:
-	make -C examples/osd_ac/board clean
+	$(MAKE) -C examples/osd_ac/board clean
 
 upload_osd_ac:
-	make -C examples/osd_ac/board upload_sp
+	$(MAKE) -C examples/osd_ac/board upload_sp
 
 else
 quantracker-make-help:
@@ -53,7 +56,7 @@ quantracker-make-help:
 	@echo ''
 	@echo '************ Making Antenna Tracker V1 ********************'
 	@echo ''
-	@echo , invoke \'make ground_tracker_v1\' .
+	@echo invoke \'make ground_tracker_v1\'. 
 	@echo The resulting binaries will be in the ground/tracker/v1/ subdirectory.
 	@echo ''
 	@echo '********************************************************************'

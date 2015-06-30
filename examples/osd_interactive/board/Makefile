@@ -192,7 +192,7 @@ $(obj_common_objects) : $(OBJDIR)%.o : ../common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 $(static_libraries) :
-	make -C ../../../air/osd -f all_osd_libs.mk
+	$(MAKE) -C ../../../air/osd -f all_osd_libs.mk
 
 #-----------------------------------------
 upload : test

@@ -23,7 +23,7 @@
 
 //#include "graphics_api.hpp"
 #include <quan/uav/osd/api.hpp>
-#include <quan/uav/osd/features_api.hpp>
+//#include <quan/uav/osd/features_api.hpp>
 #include <quan/uav/osd/basic_bitmap.hpp>
 #include <quan/uav/osd/basic_font.hpp>
 
