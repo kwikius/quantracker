@@ -65,6 +65,10 @@ namespace {
 // shouldnt be here . 
 //Should be external so definable by user
 // might be better to do a get read_new_telem_tx data_from(buffer)
+   //make global and rename to on_telemetry_transmitted
+   // add functios
+   // to get length of tx telem buffer
+   // and to write to the buffer
    void put_telemetry_tx_data()
    {
        int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)

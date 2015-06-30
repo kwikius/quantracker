@@ -5,11 +5,16 @@
 #include <semphr.h>
 
 // keep public
-void create_vsync_telem_rx_task();
+ void create_vsync_telem_rx_task();
 
-namespace detail{
+// on_telemetry_transmitted
+//#############################
+ // rename  to on_telemetry_received
  void on_telemetry_receive();
-}
+//############################
+ size_t get_telemetry_num_bytes();
+ size_t read_telemetry_data(char * buffer, size_t len);
+
 // stores the latest telemetry data
 // automatically refreshed by the osd telemetry susbsystem
 // 
@@ -28,10 +33,9 @@ private:
    void mutex_init();
    SemaphoreHandle_t m_mutex;
    size_t m_buffer_length;
-   friend void detail::on_telemetry_receive();
+   friend void on_telemetry_receive();
    friend void create_vsync_telem_rx_task();
    // do a reinit if data speed changes
-   
 };
 
 extern rx_telemetry the_rx_telemetry;

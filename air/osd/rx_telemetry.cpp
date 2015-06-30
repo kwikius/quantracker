@@ -1,5 +1,5 @@
 #include "rx_telemetry.hpp"
-#include "video/video_buffer.hpp"
+//#include "video/video_buffer.hpp"
 #include <cstring>
 
 rx_telemetry the_rx_telemetry;
@@ -32,17 +32,23 @@ void rx_telemetry::mutex_release()
 // called by receive_telemetry_task 
 // when new data has been acquired
 // The data is copied in to the_telemetry buffer
+// TODO add a new_data_available
+// TODO add a timeout
+// DATA just not updated if mutex cant be acquired within a period
 bool rx_telemetry::refresh()
 {
    this->mutex_acquire();
-   bool result = (m_buffer_length == video_buffers::telem::rx::get_num_data_bytes());
-   if (result){
-      memcpy(m_buffer,&video_buffers::telem::rx::manager.m_read_buffer->front(),m_buffer_length);
-   }
+    bool result = m_buffer_length == get_telemetry_num_bytes();
+    if (result){
+      read_telemetry_data(this->m_buffer,m_buffer_length);
+    }
+   
    this->mutex_release();
    return result;
 }
 
+//called to read the buffer
+// TODO add data_taken
 bool rx_telemetry::read(char * buffer, size_t len)
 {
    if (m_buffer == nullptr){
