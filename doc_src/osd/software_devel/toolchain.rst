@@ -6,7 +6,26 @@ Getting the Quantracker OSD toolchain and Dependencies
 
 TODO: Windows version
 
-You need The `quantracker dependencies`_ below.  
+You need The `quantracker dependencies`_ below. 
+
+------------
+The easy way
+------------
+
+The easy way is to use the `Quantracker_dependencies installer`_. Its currently Linux only,
+but I hope to have it working on Windows soon. To use:
+
+   * Download the script. 
+   * Create an empty download directory
+   * Call the script with Python. 
+
+You can add an optional directory to put the dependencies on the command line,
+else you will be prompted for a download directory.
+ 
+------------
+The hard Way
+------------
+
 If you already have a dependency installed, no problem
 since we can direct the toolchain to use it ( see the last part of this section). 
 If you dont, then it is up to you where you wish to install the dependencies.
@@ -88,7 +107,7 @@ The latest stable versions are to be preferred, but to get started the ones link
 `stm32`_
    stm32f4 std peripherals library.
    
-
+.. _`Quantracker_dependencies installer`: https://github.com/kwikius/quantracker/blob/master/bin/quantracker_deps_installer.py
 .. _`arm-gcc`:  https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2
 .. _`mavlink`: https://github.com/mavlink/c_library/archive/master.zip
 .. _`quan`: https://github.com/kwikius/quan-trunk/archive/master.zip

@@ -345,8 +345,25 @@ ul.auto-toc {
 <div class="section" id="getting-the-quantracker-osd-toolchain-and-dependencies">
 <h1>Getting the Quantracker OSD toolchain and Dependencies</h1>
 <p>TODO: Windows version</p>
-<p>You need The <a class="reference internal" href="#quantracker-dependencies">quantracker dependencies</a> below.
-If you already have a dependency installed, no problem
+<p>You need The <a class="reference internal" href="#quantracker-dependencies">quantracker dependencies</a> below.</p>
+</div>
+<div class="section" id="the-easy-way">
+<h1>The easy way</h1>
+<p>The easy way is to use the <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/bin/quantracker_deps_installer.py">Quantracker_dependencies installer</a>. Its currently Linux only,
+but I hope to have it working on Windows soon. To use:</p>
+<blockquote>
+<ul class="simple">
+<li>Download the script.</li>
+<li>Create an empty download directory</li>
+<li>Call the script with Python.</li>
+</ul>
+</blockquote>
+<p>You can add an optional directory to put the dependencies on the command line,
+else you will be prompted for a download directory.</p>
+</div>
+<div class="section" id="the-hard-way">
+<h1>The hard Way</h1>
+<p>If you already have a dependency installed, no problem
 since we can direct the toolchain to use it ( see the last part of this section).
 If you dont, then it is up to you where you wish to install the dependencies.
 For myself, I use an external 'lib' directory in my home directory
