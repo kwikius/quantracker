@@ -196,7 +196,7 @@ $(static_libraries) :
 
 #-----------------------------------------
 upload : test
-	st-flash write main.bin 0x8000000
+	st-flash write $(BINDIR)main.bin 0x8000000
 
 upload_sp : test
 	$(STM32FLASH) -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
