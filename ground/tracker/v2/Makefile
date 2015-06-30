@@ -72,7 +72,6 @@ endif
 
 USER_SOURCE_PATH = ../../../examples/osd_example1/
 
-STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
@@ -82,10 +81,6 @@ RTOS_INCLUDES = \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(APP_SRC_PATH)
-
-STM32F4_SPECIFIC_FLASH_SRC = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
-
-GENERIC_FLASH_SRC_PATH = $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 TARGET_PROCESSOR = STM32F4
 
@@ -134,11 +129,9 @@ DEFINES += QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_RECEIVER STM32F40_41xxx \
 QUAN_OSD_SOFTWARE_SYNCSEP QUAN_OSD_BOARD_TYPE=4
 
 # DEFINES += QUAN_FLASH_DEBUG
-#STARTUP = startup.s
-# custom linker script 
+
 LINKER_SCRIPT = stm32f4.ld
 
-#SYSTEM_INIT = system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
@@ -148,7 +141,6 @@ INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERS
 else
 $(error no target processor defined)
 endif
-#endif
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
@@ -156,8 +148,7 @@ INCLUDES += $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 
-# QUAN_DISPLAY_INTERLACED 
-DEFINES += HSE_VALUE=8000000  $(QUAN_TELEMETRY_DIRECTION)
+DEFINES += HSE_VALUE=8000000 
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
@@ -173,7 +164,9 @@ ODFLAGS = -d
 
 objects = $(obj_local_objects) $(obj_user_objects) $(obj_user_resources) 
 
-all: $(BINDIR)main.elf
+all : test
+
+test: $(BINDIR)main.elf
 	@ echo "...copying"
 	$(CP) $(CPFLAGS) $(BINDIR)main.elf $(BINDIR)main.bin
 	$(OD) $(ODFLAGS) $(BINDIR)main.elf > $(BINDIR)main.lst
