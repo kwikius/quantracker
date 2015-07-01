@@ -1,5 +1,5 @@
 #include "rx_telemetry.hpp"
-#include "../../../air/osd/video/video_buffer.hpp"
+//#include "../../../air/osd/video/video_buffer.hpp"
 #include <cstring>
 
 rx_telemetry the_rx_telemetry;
@@ -43,6 +43,7 @@ bool rx_telemetry::refresh()
    return result;
 }
 
+// for other tasks to read the latest data
 bool rx_telemetry::read(char * buffer, size_t len)
 {
    if (m_buffer == nullptr){

@@ -83,7 +83,7 @@ void video_cfg::setup()
   void vsync_telem_tx_task_setup();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
-   void vsync_telem_rx_task_setup();
+   void setup_telemetry_receiver_task();
 #endif
 void av_telem_setup();
 void pixel_dma_setup();
@@ -110,7 +110,7 @@ void video_setup()
      vsync_telem_tx_task_setup();
 #endif
 #if (defined QUAN_OSD_TELEM_RECEIVER)
-     vsync_telem_rx_task_setup();
+     setup_telemetry_receiver_task();
 #endif
      video_cfg::setup();
      video_buffers::init();

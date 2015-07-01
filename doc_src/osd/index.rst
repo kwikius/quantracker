@@ -24,6 +24,7 @@ Developing
 * `Bitmap source format`_
 * `Craft features and widgets`_
 * `osd_maker`_
+* `Technical documentation`_
 
 .. _`OSD features`: osd_features.html
 .. _`Acquiring the toolchain`: software_devel/toolchain.html
@@ -39,6 +40,7 @@ Developing
 .. _`Uploading the firmware to the OSD board`: ../firmware_upload.html 
 .. _`Testing and troubleshooting`: ../trouble_shooting.html
 .. _`Home`: ../../../../index.html
+.. _`Technical documentation` : software_devel/tech/index.html
 
 `Quantracker Index`_
 

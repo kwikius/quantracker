@@ -106,6 +106,10 @@ The latest stable versions are to be preferred, but to get started the ones link
 
 `stm32`_
    stm32f4 std peripherals library.
+
+`stm32flash`_
+   utility for programming the OSD via the serial port. Download and make for linux. For Windows a prebuilt version
+   is included in the quantracker/bin/ directory
    
 .. _`Quantracker_dependencies installer`: https://github.com/kwikius/quantracker/blob/master/bin/quantracker_deps_installer.py
 .. _`arm-gcc`:  https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2
@@ -115,7 +119,8 @@ The latest stable versions are to be preferred, but to get started the ones link
 .. _`quantracker`: https://github.com/kwikius/quantracker/archive/master.zip
 .. _`stm32`: http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip
 .. _`OSD index`: ../index.html
-.. _`Sample-Dependencies.mk` : https://github.com/kwikius/quantracker/blob/master/Sample-Dependencies.mk
+.. _`Sample-Dependencies.mk`: https://github.com/kwikius/quantracker/blob/master/Sample-Dependencies.mk
+.. _`stm32flash`:  http://sourceforge.net/projects/stm32flash/files/stm32flash-0.4.tar.gz
 
 ----------------------------
 

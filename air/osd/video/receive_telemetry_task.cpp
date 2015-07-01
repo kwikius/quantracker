@@ -26,53 +26,43 @@
 
 #include <cstdio>
 #include <cstring>
-
 #include <stm32f4xx.h>
-
 #include "FreeRTOS.h"
 #include <task.h>
-
 #include <quan/time.hpp>
 #include <quan/frequency.hpp>
 #include <quan/min.hpp>
-
-#include "resources.hpp"
+#include <quantracker/osd/telemetry_receiver.hpp>
 #include "../../../air/osd/video/video_cfg.hpp"
 #include "../../../air/osd/video/video_buffer.hpp"
-#include "../rx_telemetry.hpp"
+#include "resources.hpp"
 
-size_t get_telemetry_num_bytes() 
+// for use by on_telemetry_received
+size_t get_telemetry_receiver_buffer_length() 
 { 
   return video_buffers::telem::rx::get_num_data_bytes();
 }
+
 size_t read_telemetry_data(char * buffer, size_t len)
 {
-    size_t len_out = quan::min(len,get_telemetry_num_bytes());
+    size_t len_out = quan::min(len,get_telemetry_receiver_buffer_length());
     memcpy(buffer,&video_buffers::telem::rx::manager.m_read_buffer->front(),len_out);
     return len_out;
 }
 
-  void on_telemetry_receive();
 namespace detail{
   void create_telem_rx_swap_semaphores();
   void swap_telem_rx_buffers();
-// should be the user level function
-// equivalent to on_draw()
-// now need a function to read the buffer
-
-//  {
-//      the_rx_telemetry.refresh();
-//  }
 }
 
 namespace {
 
-   void vsync_telem_rx_task(void* params)
+   void telemetry_receiver_task(void* params)
    {
       for (;;){
          detail::swap_telem_rx_buffers();
-         // this should be the user layer function
-         on_telemetry_receive();
+         // the user defined callback
+         on_telemetry_received();
       }
    }
 
@@ -81,12 +71,12 @@ namespace {
 
 }//namespace
 
-void create_vsync_telem_rx_task()
+void create_telemetry_receiver_task()
 {
    detail::create_telem_rx_swap_semaphores();
-   the_rx_telemetry.init();
+//   the_rx_telemetry.init();
    xTaskCreate(
-      vsync_telem_rx_task,"vsync_telem_rx_task", 
+      telemetry_receiver_task,"telemetry_receiver_task", 
       600,
       &dummy_param,
       task_priority::vsync_telem_rx,
@@ -95,7 +85,7 @@ void create_vsync_telem_rx_task()
 }
 
 namespace{
-   void vsync_telem_rx_task_usart_setup()
+   void telemetry_receiver_task_usart_setup()
    {
       quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
       quan::stm32::apply<
@@ -146,7 +136,7 @@ namespace{
  for boardtype 4 dma is on USART6  DMA2 Channel 5 stream 1 or 2
  ( use stream 1 to save stream 2 for
 */
-   void vsync_telem_rx_task_dma_setup()
+   void telemetry_receiver_task_dma_setup()
    {
       RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
       for ( uint8_t i = 0; i < 20; ++i){
@@ -179,8 +169,8 @@ namespace{
    }
 } // namespace
 
-void vsync_telem_rx_task_setup()
+void setup_telemetry_receiver_task()
 {
-   vsync_telem_rx_task_usart_setup();
-   vsync_telem_rx_task_dma_setup();
+   telemetry_receiver_task_usart_setup();
+   telemetry_receiver_task_dma_setup();
 }

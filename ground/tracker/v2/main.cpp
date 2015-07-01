@@ -32,7 +32,7 @@ void create_draw_task();
 //void create_telem_task(){}
 //void create_tracker_task(){}
 void create_tracker_mode_task();
-void create_vsync_telem_rx_task();
+void create_telemetry_receiver_task();
 
 /*
 If transmitter put something top of screen
@@ -54,7 +54,7 @@ int main()
 
 // should be the same
   create_draw_task();
-  create_vsync_telem_rx_task();
+  create_telemetry_receiver_task();
 
   vTaskStartScheduler();
 

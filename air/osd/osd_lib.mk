@@ -136,7 +136,9 @@ STARTUP := startup.s
 PROCESSOR_FLAGS := -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-INCLUDES := $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
+QUANTRACKER_INCLUDE_PATH := ../../include
+
+INCLUDES := $(QUAN_INCLUDE_PATH) $(QUANTRACKER_INCLUDE_PATH) $(STM32_INCLUDES) $(RTOS_INCLUDES)
 
 INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 else

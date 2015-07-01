@@ -341,30 +341,58 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="../index.html">Quantracker Index</a></p>
-<div class="section" id="quantracker-osd-index">
-<h1>Quantracker OSD Index</h1>
-<div class="section" id="osd-installation-and-introduction">
-<h2>OSD Installation and Introduction</h2>
-<ul class="simple">
-<li><a class="reference external" href="../osd_getting_started.html">Getting started with the OSD</a></li>
-<li><a class="reference external" href="firmwares.html">Downloading the Firmware</a></li>
-<li><a class="reference external" href="../firmware_upload.html">Uploading the firmware to the OSD board</a></li>
-<li><a class="reference external" href="flash_menu.html">Accessing the Flash menu</a></li>
-</ul>
+<p><a class="reference external" href="index.html">OSD Technical Index</a></p>
+<div class="section" id="telemetry">
+<h1>Telemetry</h1>
+<p>The OSD board can transmit or receive data via unused parts of the video signal.</p>
 </div>
-<div class="section" id="developing">
-<h2>Developing</h2>
-<ul class="simple">
-<li><a class="reference external" href="software_devel/toolchain.html">Acquiring the toolchain</a></li>
-<li><a class="reference external" href="software_devel/source_code_organisation.html">Source code organisation</a></li>
-<li><a class="reference external" href="software_devel/flash_variables.html">Flash variables</a></li>
-<li><a class="reference external" href="software_devel/bitmap_format.html">Bitmap source format</a></li>
-<li><a class="reference external" href="craft_features_widgets.html">Craft features and widgets</a></li>
-<li><a class="reference external" href="osd_maker/index.html">osd_maker</a></li>
-<li><a class="reference external" href="software_devel/tech/index.html">Technical documentation</a></li>
-</ul>
-<p><a class="reference external" href="../index.html">Quantracker Index</a></p>
+<div class="section" id="reception">
+<h1>Reception</h1>
+<div class="section" id="linking">
+<h2>Linking</h2>
+<p>To use the telemetry receiver version of the OSD link the static library</p>
+<pre class="literal-block">
+quantracker/lib/osd/quantracker_air_osd_rx.a
+</pre>
+<p>into your OSD application</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup</h2>
+<dl class="docutils">
+<dt>In setup()</dt>
+<dd>Call the predefined library function vsync_telem_rx_task_setup() to initialise
+the peripherals involved in receive telemetry.</dd>
+<dt>In main()</dt>
+<dd>Call the predefined library function create_vsync_telem_rx_task()
+to create the  library telemetry task.
+<strong>create_vsync_telem_rx_task() must be called before starting the scheduler.</strong></dd>
+</dl>
+</div>
+<div class="section" id="use">
+<h2>Use</h2>
+<p>In source code:</p>
+<pre class="literal-block">
+#include  &lt;quantracker/include/osd/receive_telemetry.hpp&gt;
+</pre>
+<p>Create your custom definition of the on_telemetry_receive() callback to deal with received data.
+This function will be a called from within the telemetry_receive_task,
+therefore read and write Access to global data should be done via mutexes</p>
+<p>Within in the on_telemetry_receive() function, use the predefined library functions</p>
+<pre class="literal-block">
+//  get the size of the receive buffer.
+size_t get_telemetry_num_bytes();
+
+// Read the minimum of len or the total size of the receive buffer
+// to my_buffer and returns the number of bytes actually read.
+size_t read_telemetry_data(char * my_buffer, size_t len);
+</pre>
+</div>
+<div class="section" id="receive-buffer-contents">
+<h2>Receive buffer contents</h2>
+<p>Before a new reception begins the low level receive buffer is cleared to all zeros,
+so any unused bytes will be returned  as zero.
+The format of the data is otherwise entirely open.</p>
+<p><a class="reference external" href="index.html">OSD Technical Index</a></p>
 </div>
 </div>
 </div>
