@@ -20,13 +20,15 @@
 /*
   required by sprintf when floating point arg is required
 */
-
+#ifdef __cplusplus
 extern "C"{
+#endif
   // used by sprintf for static alloc
 /* Extend heap space by size bytes.
    Return start of new space allocated, or -1 for errors 
    Error cases:
     1. Allocation is not within heap range */
+   void * _sbrk (ptrdiff_t size);
 
 	void * _sbrk (ptrdiff_t size)
 	{
@@ -50,4 +52,6 @@ extern "C"{
 	  heap_ptr = new_heap_ptr;
 	  return (void *)old_heap_ptr;
 	}
+#ifdef __cplusplus
 } // extern "C"
+#endif

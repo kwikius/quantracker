@@ -80,7 +80,7 @@ void video_cfg::setup()
 }
  
 #if (defined QUAN_OSD_TELEM_TRANSMITTER)
-  void vsync_telem_tx_task_setup();
+  void setup_telemetry_transmitter_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
    void setup_telemetry_receiver_task();
@@ -107,7 +107,7 @@ void video_setup()
      odd_even_setup();
 #endif
 #if (defined QUAN_OSD_TELEM_TRANSMITTER)
-     vsync_telem_tx_task_setup();
+     setup_telemetry_transmitter_task();
 #endif
 #if (defined QUAN_OSD_TELEM_RECEIVER)
      setup_telemetry_receiver_task();

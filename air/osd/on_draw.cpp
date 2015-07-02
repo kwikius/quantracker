@@ -1,42 +1,37 @@
 #include <quan/uav/osd/api.hpp>
+#include "../../examples/osd_example1/board/font.hpp"
 
 #if defined QUAN_OSD_TELEM_RECEIVER
 #include "rx_telemetry.hpp"
 #endif
 
-namespace quan{ namespace uav { namespace osd{
+namespace{
 
    // buffer is bigger here than necessary think at 2 Mbaud the num bytes == 117
-   char t_buffer [128];
    // implement on_draw
-   void on_draw(){
-      #if defined QUAN_OSD_TELEM_RECEIVER
-      pxp_type pos  ={50,50};
-      text_ptr text = "Receiver";
-      #elif defined QUAN_OSD_TELEM_TRANSMITTER
-      pxp_type pos  ={-100,50};
-      text_ptr text = "Transmitter";
-      #else
-      pxp_type pos  ={0,0};
-      text_ptr text = "No telem";
-      #endif
-      font_ptr font = get_font(0);
-      if (font != nullptr){
-         draw_text(text,pos,font);
-      }
-      #if defined QUAN_OSD_TELEM_RECEIVER
-         pxp_type pos1{-150,-50};
-         auto len = the_rx_telemetry.get_buffer_length();
-        if ( the_rx_telemetry.read(t_buffer,len)){
-            if ( t_buffer[0] != '\0'){
-               t_buffer[len] = '\0';
-               draw_text(t_buffer,pos1,font);
-            }else{
-               draw_text("no telem data received",pos1,font);
-            }
-        }
-      #endif
-      
-   }
+   char telem_buffer [128];
+   quan::uav::osd::font_ptr def_font = nullptr;
+}
 
+namespace quan{ namespace uav { namespace osd{
+
+   void on_draw(){
+        if (def_font == nullptr){
+          def_font = quan::uav::osd::get_font(FontID::OSD_Charset);
+        }
+      #if defined QUAN_OSD_TELEM_RECEIVER
+        pxp_type pos{-150,-50}
+        const char* telemetry_text = mutex_acquire_telemetry_string();
+        if ( telemetry_text != nullptr){
+         strcpy(telem_buffer,telemetry_text);
+         mutex_release_telemetry_string();
+        }
+        draw_text(telem_buffer,pos,def_font);
+      #else
+        #if defined QUAN_OSD_TELEM_TRANSMITTER
+        pxp_type pos{-150,50};
+        draw_text("Transmitter",pos,def_font);
+        #endif
+      #endif
+   }
 }}}

@@ -24,14 +24,10 @@ into your OSD application
 Setup
 .....
 
-In setup()
-   Call the predefined library function vsync_telem_rx_task_setup() to initialise 
-   the peripherals involved in receive telemetry.
-
 In main() 
-   Call the predefined library function create_vsync_telem_rx_task() 
+   Call the predefined library function create_telemetry_receiver_task() 
    to create the  library telemetry task. 
-   **create_vsync_telem_rx_task() must be called before starting the scheduler.**
+   **create_telemetry_receiver_task() must be called before starting the scheduler.**
 
 ...
 Use
@@ -41,9 +37,9 @@ In source code::
 
    #include  <quantracker/include/osd/receive_telemetry.hpp>
 
-Create your custom definition of the on_telemetry_receive() callback to deal with received data.
-This function will be a called from within the telemetry_receive_task,
-therefore read and write Access to global data should be done via mutexes
+Create your custom definition of the on_telemetry_received() callback to deal with received data.
+This function will be called from within the telemetry_receive_task,
+therefore read and write access to any global data should be done via mutexes
 
 Within in the on_telemetry_receive() function, use the predefined library functions
 

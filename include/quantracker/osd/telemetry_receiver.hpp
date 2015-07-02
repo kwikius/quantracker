@@ -1,6 +1,8 @@
 #ifndef QUANTRACKER_INCLUDE_OSD_RECEIVE_TELEMETRY_HPP_INCLUDED
 #define QUANTRACKER_INCLUDE_OSD_RECEIVE_TELEMETRY_HPP_INCLUDED
 
+// for size_t
+#include <cstdlib>
 // call to initialise the telemetry recieve subsytem;
  void setup_telemetry_receiver_task();
 // call to init the telemetry_receive_task

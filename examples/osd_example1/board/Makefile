@@ -100,7 +100,7 @@ static_library_files = \
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 # in the board directory
-board_objects = main.o spbrk.o setup.o serial_port.o fsk_output.o \
+board_objects = main.o setup.o serial_port.o fsk_output.o \
 fsk_task.o frsky_task.o frsky_zapp1.o mavlink_task.o settings.o \
 heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o
 
@@ -140,7 +140,7 @@ DEFINES += QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_TRANSMITTER STM32F40_41xxx 
 HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4 QUAN_OSD_SOFTWARE_SYNCSEP
 
 INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
-INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
+INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o -Wl,--undefined=_sbrk
 
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard

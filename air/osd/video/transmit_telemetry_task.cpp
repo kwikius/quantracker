@@ -32,14 +32,13 @@
 #include "FreeRTOS.h"
 #include <task.h>
 
-//#include <quan/dynarray.hpp>
-#include <quan/time.hpp>
-#include <quan/frequency.hpp>
+#include <quan/malloc_free.hpp>
+#include <quan/min.hpp>
 
-#include "resources.hpp"
+#include <quantracker/osd/telemetry_transmitter.hpp>
 #include "../../../air/osd/video/video_cfg.hpp"
 #include "../../../air/osd/video/video_buffer.hpp"
-
+#include "resources.hpp"
 /*
    get the data to transmit into ar provided by the caller
    The function reallocates the dynarray to the (constant) size of telem data for one half frame) 
@@ -53,43 +52,62 @@ namespace detail{
    void swap_telem_tx_buffers();
 }
 
+size_t get_telemetry_transmitter_buffer_length()
+{
+   return video_buffers::telem::tx::get_num_data_bytes();
+}
+
+namespace {
+   // use this intermediate buffer to temporarily store users data
+   // in case user has a short buffer etc
+
+   uint8_t* telem_tx_buffer      = nullptr;
+   size_t   telem_tx_buffer_size = 0;
+
+   bool init_telem_tx_buffer(uint32_t size)
+   {
+      if(telem_tx_buffer_size == size){
+         return true;
+      }else{
+         if( telem_tx_buffer != nullptr){
+            quan::free(telem_tx_buffer);
+         }
+         telem_tx_buffer = (uint8_t*) quan::malloc(size);
+         telem_tx_buffer_size = size;
+         return telem_tx_buffer != nullptr;
+      }
+   }
+}
+
+/*
+   The data written to the internal buffer
+   is capped at the max buffer length
+*/
+size_t write_telemetry_data(const char * buffer, size_t len)
+{
+   if ( (buffer != nullptr) && (len > 0)){
+      size_t const max_len = get_telemetry_transmitter_buffer_length();
+      init_telem_tx_buffer(max_len);
+      size_t const capped_len = quan::min(len,max_len);
+      memcpy(telem_tx_buffer,buffer,capped_len);
+      if ( capped_len < max_len){
+         memset(telem_tx_buffer + capped_len ,0,max_len - capped_len  );
+      }
+      video_buffers::telem::tx::write_data(telem_tx_buffer);
+      return capped_len;
+   }else{
+      return size_t{0};
+   }
+}
+
 namespace {
 
-   uint8_t* telem_tx_buffer = nullptr;
-   bool init_telem_tx_buffer()
+   void telemetry_transmitter_task(void* params)
    {
-      telem_tx_buffer = (uint8_t*) pvPortMalloc(video_buffers::telem::tx::get_num_data_bytes());
-      return telem_tx_buffer != nullptr;
-   }
-
-// shouldnt be here . 
-//Should be external so definable by user
-// might be better to do a get read_new_telem_tx data_from(buffer)
-   //make global and rename to on_telemetry_transmitted
-   // add functios
-   // to get length of tx telem buffer
-   // and to write to the buffer
-   void put_telemetry_tx_data()
-   {
-       int64_t time_now = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ); //( ms)
-       int min_now = static_cast<int>(time_now / 60000);
-       int s_now   = static_cast<int>((time_now / 1000) - (min_now * 60));
-       sprintf((char*)telem_tx_buffer,"time = %03d min %02d s", min_now,s_now);
-             // fill the rest with zeroes
-       uint32_t const data_size = video_buffers::telem::tx::get_num_data_bytes();
-       auto len = strlen ((char*)telem_tx_buffer) +1;
-       memset (telem_tx_buffer + len ,0,data_size -  len  );
-       video_buffers::telem::tx::write_data(telem_tx_buffer);
-   }
-
-   void telem_tx_task(void* params)
-   {
-  
-      if ( init_telem_tx_buffer() == true ){
-         for(;;){
-            put_telemetry_tx_data();
-            detail::swap_telem_tx_buffers();
-         }
+      for(;;){
+         // the user defined callback
+         on_telemetry_transmitted();
+         detail::swap_telem_tx_buffers();
       }
    }
 
@@ -98,11 +116,12 @@ namespace {
 
 }//namespace
 
-void create_vsync_telem_tx_task()
+// create_telemetry_transmitter_task
+void create_telemetry_transmitter_task()
 {
    detail::create_telem_tx_swap_semaphores();
    xTaskCreate(
-      telem_tx_task,"telem_tx_task", 
+      telemetry_transmitter_task,"telemetry_transmitter_task", 
       600,
       &dummy_param,
       task_priority::vsync_telem_tx,
@@ -110,7 +129,8 @@ void create_vsync_telem_tx_task()
    );
 }
 
-void vsync_telem_tx_task_setup()
+// setup_telemetry_transmitter_task
+void setup_telemetry_transmitter_task()
 {
 //todo redo transmitter using usart
 // Shutdown TLV3501 output

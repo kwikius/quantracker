@@ -30,7 +30,6 @@
 #include <quan/stm32/usart/irq_handler.hpp>
 #include <quan/stm32/gpio.hpp>
 #include "video/video_cfg.hpp"
-//#include "video/video.hpp"
 #include "resources.hpp"
 #include "fsk.hpp"
 #include "frsky.hpp"
@@ -42,7 +41,7 @@ extern "C" void __cxa_pure_virtual()
 void *__dso_handle;
 
 extern "C" void vPortFree( void *pv );
-extern "C"  void * pvPortMalloc(size_t n);
+extern "C" void * pvPortMalloc(size_t n);
 
 void operator delete (void* pv){ vPortFree(pv);}
 void* operator new (unsigned int n){ return pvPortMalloc(n);}
@@ -157,22 +156,11 @@ namespace {
  
 extern "C" void setup()
 {
-
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-    setup_unused_pins();
-    setup_analog_inputs() ;
- // setup_test_pin();
   setup_leds();
   video_setup();
-#if (QUAN_OSD_BOARD_TYPE != 1 )
-  Dac_setup();
-#endif
- // fsk::setup();
- #if QUAN_OSD_BOARD_TYPE == 4
-  //mavlink_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
-#else
-  //posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
-#endif
-  // todo set sign
-  //frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
+
+
+  setup_unused_pins();
+  setup_analog_inputs() ;
 }
