@@ -148,7 +148,7 @@ unobj_quan_objects = malloc_free.o
 #quan_objects = $(patsubst %, $(OBJDIR)%,$(unobj_quan_objects))
 
 unobj_system_objects := $(unobj_rtos_objects) $(unobj_stm32_objects) $(unobj_quan_objects) \
-startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o
+startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o system.o
 
 objects := $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
 
@@ -163,6 +163,9 @@ $(OSD_ARCHIVE_FILE) : $(objects)
 
 $(OBJDIR)system_init.o : $(SYSTEM_INIT)
 	$(CC) $(CFLAGS) $< -o $@
+
+$(OBJDIR)system.o : system.cpp
+	$(CC) $(CFLAGS) $< -o $@  
 
 $(OBJDIR)spbrk.o : spbrk.cpp
 	$(CC) $(CFLAGS) $< -o $@  

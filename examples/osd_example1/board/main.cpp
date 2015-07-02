@@ -16,35 +16,8 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include <stm32f4xx.h>
-
 #include <FreeRTOS.h>
 #include <task.h>
-
-#include "resources.hpp"
-#include "video/video_buffer.hpp"
-
-#ifndef QUAN_OSD_BOARD_TYPE
-   #error which board?
-#else
-   #if QUAN_OSD_BOARD_TYPE == 1
-      #pragma message "for board 1"
-   #else 
-      #if QUAN_OSD_BOARD_TYPE == 2
-         #pragma message "for board 2"
-      #else
-         #if QUAN_OSD_BOARD_TYPE == 3
-            #pragma message "for board 3"
-         #else
-            #if QUAN_OSD_BOARD_TYPE == 4
-               #pragma message "for board 4"
-            #else
-               #error unknown board
-            #endif
-         #endif
-      #endif
-   #endif
-#endif
 
 extern "C" void setup();
 
@@ -53,37 +26,14 @@ void create_heartbeat_task();
 void create_frsky_task();
 void create_fsk_task();
 void create_draw_task();
-//void create_telem_task();
-#if ( QUAN_OSD_BOARD_TYPE !=4)
-void create_leds_task();
-#endif
-void draw_loop();
 
 void mode_check();
-bool initialise_flash();
 
 int main()
 {
-  //check if user wants to mod flash vars
-  // also setss up flash on new firmware
-  // without which flash cant be modified
-  if (! initialise_flash()){
-      // set heartbeat_led on permanently symbolise fail
-       quan::stm32::module_enable< heartbeat_led_pin::port_type>();
-         quan::stm32::apply<
-            heartbeat_led_pin
-            , quan::stm32::gpio::mode::output
-            , quan::stm32::gpio::otype::push_pull
-            , quan::stm32::gpio::pupd::none
-            , quan::stm32::gpio::ospeed::slow
-            , quan::stm32::gpio::ostate::high
-         >();
-      while (1){;}
-  }
 
   mode_check();
-  
-  
+ 
   setup();
 
   create_mavlink_task();
@@ -91,10 +41,7 @@ int main()
   create_heartbeat_task();
   create_fsk_task();
   create_draw_task();
- // create_telem_task();
-#if ( QUAN_OSD_BOARD_TYPE !=4)
-  create_leds_task();
-#endif
+
   vTaskStartScheduler();
 
   while (1) {;}

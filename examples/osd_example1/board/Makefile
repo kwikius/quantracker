@@ -88,7 +88,6 @@ $(abspath ../../../air/osd)
 
 TARGET_PROCESSOR = STM32F4
 
-# static libaries 
 STATIC_LIBRARY_PATH = ../../../lib/osd/
 
 static_library_files = \
@@ -183,7 +182,8 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects) $(static_libraries) 
+	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects) \
+-Wl,--undefined=NVIC_PriorityGroupConfig $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@

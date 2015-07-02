@@ -11,6 +11,7 @@
 #include <quan/user.hpp>
 #include <quan/conversion/itoa.hpp>
 
+bool initialise_flash();
 bool init_values_from_flash();
 
 void quan::user_message (const char* str)
@@ -77,6 +78,24 @@ namespace {
 
 void mode_check()
 { 
+
+   //check if user wants to mod flash vars
+  // also setss up flash on new firmware
+  // without which flash cant be modified
+  if (! initialise_flash()){
+      // set heartbeat_led on permanently symbolise fail
+       quan::stm32::module_enable< heartbeat_led_pin::port_type>();
+         quan::stm32::apply<
+            heartbeat_led_pin
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::high
+         >();
+      while (1){;}
+  }
+  
 #if 1
    quan::stm32::module_enable<frsky_rxi_pin::port_type>();
    quan::stm32::apply<

@@ -46,10 +46,12 @@ extern "C" void * pvPortMalloc(size_t n);
 void operator delete (void* pv){ vPortFree(pv);}
 void* operator new (unsigned int n){ return pvPortMalloc(n);}
 
-void video_setup();
-void setup_leds();
+void osd_setup();
+
+//void video_setup();
+//void setup_leds();
 #if (QUAN_OSD_BOARD_TYPE != 1 ) 
-void Dac_setup();
+//void Dac_setup();
 // for 8 bit only msbyte of val is used
 // code is 00 write to specific reg but dont update
 // 1 is write to specific reg and update outputs
@@ -156,11 +158,11 @@ namespace {
  
 extern "C" void setup()
 {
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-  setup_leds();
-  video_setup();
+//  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+//  setup_leds();
+//  video_setup();
 
-
+  osd_setup();
   setup_unused_pins();
   setup_analog_inputs() ;
 }

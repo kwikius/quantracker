@@ -157,7 +157,7 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 # -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
-draw_task.o  sync_sep.o black_level.o dac.o 
+draw_task.o  sync_sep.o black_level.o dac.o led.o
 
 # add the telemetry tasks to the lib if required
 ifeq ($(HAS_TELEMETRY),True)

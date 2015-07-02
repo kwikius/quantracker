@@ -29,7 +29,7 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/usart/irq_handler.hpp>
 #include <quan/stm32/gpio.hpp>
-#include "../../../air/osd/video/video_cfg.hpp"
+//#include "../../../air/osd/video/video_cfg.hpp"
 //#include "video/video.hpp"
 #include "resources.hpp"
 //#include "fsk.hpp"
@@ -42,16 +42,11 @@ extern "C" void __cxa_pure_virtual()
 void *__dso_handle;
 
 extern "C" void vPortFree( void *pv );
-extern "C"  void * pvPortMalloc(size_t n);
+extern "C" void * pvPortMalloc(size_t n);
 
 void operator delete (void* pv){ vPortFree(pv);}
 void* operator new (unsigned int n){ return pvPortMalloc(n);}
 
-void video_setup();
-void setup_leds();
-void pan_motor_setup();
-
-//void Dac_setup();
 // for 8 bit only msbyte of val is used
 // code is 00 write to specific reg but dont update
 // 1 is write to specific reg and update outputs
@@ -124,13 +119,6 @@ namespace tracker_detail{
 }
 extern "C" void setup()
 {
-
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-    setup_unused_pins();
-   // setup_analog_inputs() ;
- 
-// impl in air/osd/video/leds.cpp
-  setup_leds();
-  video_setup();
+  osd_setup();
   tracker_detail::pan_motor_setup();
 }
