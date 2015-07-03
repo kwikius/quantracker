@@ -190,7 +190,7 @@ $(obj_board_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(obj_common_objects) : $(OBJDIR)%.o : ../common/%.cpp
-	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+	$(CC) $(CFLAGS)  $< -o $@
 
 $(static_libraries) :
 	$(MAKE) -C ../../../air/osd -f all_osd_libs.mk

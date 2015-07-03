@@ -153,6 +153,8 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
+C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
+ $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
 # -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
@@ -164,7 +166,12 @@ ifeq ($(HAS_TELEMETRY),True)
 unprefixed_video_objects += telemetry_task.o
 endif
 
-objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+unobj_stm32_objects := misc.o
+stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
+
+video_objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+
+objects = $(video_objects) $(stm32_objects)
 # ------------------------------------------------
 
 all : $(OSD_ARCHIVE_FILE)
@@ -176,8 +183,11 @@ clean:
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
+$(video_objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
+
+$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
+	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
 #deps conditional
 endif

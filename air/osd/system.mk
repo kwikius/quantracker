@@ -141,13 +141,11 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
 unobj_rtos_objects := tasks.o queue.o list.o timers.o
 rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
 
-unobj_stm32_objects := misc.o
-stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
 
 unobj_quan_objects = malloc_free.o
 #quan_objects = $(patsubst %, $(OBJDIR)%,$(unobj_quan_objects))
 
-unobj_system_objects := $(unobj_rtos_objects) $(unobj_stm32_objects) $(unobj_quan_objects) \
+unobj_system_objects := $(unobj_rtos_objects)  $(unobj_quan_objects) \
 startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o system.o
 
 objects := $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
@@ -173,8 +171,8 @@ $(OBJDIR)spbrk.o : spbrk.cpp
 $(OBJDIR)startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) $< -o $@ 
 
-$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
-	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
+#$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
+#	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
 $(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
