@@ -284,16 +284,15 @@ void write_to_file(std::string const & filename)
       return;
    }
    std::ofstream out(filename);
-   out << "#include <cstdint>\n";
-   out << "   static __attribute__((section(\".rodata\"),used)) "; 
+   out << "#include <cstdint>\n\n";
+   out << "   static __attribute__((section(\".flash_variables\"),used)) "; 
    out << "   uint8_t const flash_variables_array["<< (page_size * 2) << "] = {\n";
    write_page(out,page1_array, page_size);
-   out << ",\n//---------------------------------------------\n";
+   out << ",\n      //---------------------------------------------\n";
    write_page(out,page2_array,page_size);
    out << "\n   };\n";
 
 }
-
 
 #if 0
 // binary

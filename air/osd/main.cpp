@@ -57,7 +57,7 @@ void create_draw_task();
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
 void create_telemetry_transmitter_task();
-void create_osd_suspend_task();
+//void create_osd_suspend_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
 void create_telemetry_receiver_task();
@@ -73,7 +73,7 @@ int main()
   create_draw_task();
 #if defined QUAN_OSD_TELEM_TRANSMITTER
   create_telemetry_transmitter_task();
-  create_osd_suspend_task();
+ // create_osd_suspend_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
   create_telemetry_receiver_task();

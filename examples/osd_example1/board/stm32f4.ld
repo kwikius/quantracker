@@ -28,7 +28,7 @@ _MinStackSize = 0x8000;
 MEMORY
 {
    start_vector (rx) : org = 0x08000000, len = 16K
-   flash(r)         : org = 0x08004000, len = 32K 
+   flash(r)          : org = 0x08004000, len = 32K 
    rom (rx)          : org = 0x0800C000, len = 976K
    ram (xrw)         : org = 0x10000000, len = 64K
    heap_ram (rw)     : org = 0x20000000, len = 72K
@@ -70,13 +70,12 @@ SECTIONS
       PROVIDE_HIDDEN (__fini_array_end = .);
    }>start_vector
 
-   .flash_memory :
+   .flash_variables :
    {
-     flash_memory_start = .;
-     KEEP (*(.flash_memory)) 
-     /* ./obj/flash_vars.o */
-     FILL(0xFFFF);
-      . = flash_memory_start + 32K; 
+     flash_variables_start = .;
+     KEEP (*(.flash_variables)) 
+     FILL(0xFFFFFFFF);
+     . = flash_variables_start + 32K; 
    }>flash 
 
    .text :
