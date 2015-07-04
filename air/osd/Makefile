@@ -88,6 +88,8 @@ INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
 STATIC_LIBRARY_PATH = ../../lib/osd/
 
+
+
 static_library_files = \
    quantracker_air_graphics_api.a \
    flash_variables.a 
