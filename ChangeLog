@@ -1,3 +1,10 @@
+Fri Jul  3 10:53:57 BST 2015
+Devel large mods to libraries to make it easier to create a custom app.
+(breaking change so need to rebuild static libs)
+Some shuffling of objects to try to prevent unresolved external symbol errors
+Fixed issue with not being able to use spaces in setting vector flash values
+(needs quan-trunk version > 1-0-4)
+
 Wed 01 Jul 2015 09:01:22 BST 
 Modify Telemetry functions. see the telemetry docs for info. Not backward compatible
 

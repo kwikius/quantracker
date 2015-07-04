@@ -29,9 +29,9 @@ INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
 #CFLAGS = -pedantic -Wall -std=c++11 -Os -g $(INCLUDE_ARGS) $(DEFINE_ARGS)
-CFLAGS = -std=c++11  $(INCLUDE_ARGS) $(DEFINE_ARGS)
+CFLAGS = -std=c++11 -Wall -pedantic $(INCLUDE_ARGS) $(DEFINE_ARGS)
 
-objects = main.o osd_sim.o user_flash.o quan_flash.o quan_flash_menu.o
+objects = main.o osd_sim.o malloc_free.o user_flash.o quan_flash.o quan_flash_menu.o
 
 all: flash_menu_debug.exe
 
@@ -44,8 +44,11 @@ main.o : main.cpp
 osd_sim.o : osd_sim.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-user_flash.o : ../../../../examples/osd_ac/common/flash.cpp
+user_flash.o : ../../../../examples/osd_example1/common/flash.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
+
+malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/malloc_free.cpp
+	$(CC) $(CFLAGS) $(INCLUDE_ARGS) -c $< -o $@
 
 quan_flash.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/flash.cpp
 	$(CC) $(CFLAGS) $(INCLUDE_ARGS) -c $< -o $@

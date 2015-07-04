@@ -28581,7 +28581,7 @@ Disassembly of section .text:
  801e304:	f7f9 ff8e 	bl	8018224 <_ZN4quan6mallocEj>
  801e308:	9002      	str	r0, [sp, #8]
  801e30a:	2800      	cmp	r0, #0
- 801e30c:	d07b      	beq.n	801e406 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x10e>
+ 801e30c:	d07a      	beq.n	801e404 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x10c>
  801e30e:	2114      	movs	r1, #20
  801e310:	4608      	mov	r0, r1
  801e312:	9105      	str	r1, [sp, #20]
@@ -28589,157 +28589,157 @@ Disassembly of section .text:
  801e318:	4602      	mov	r2, r0
  801e31a:	9004      	str	r0, [sp, #16]
  801e31c:	2800      	cmp	r0, #0
- 801e31e:	d06f      	beq.n	801e400 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x108>
+ 801e31e:	d06e      	beq.n	801e3fe <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x106>
  801e320:	9c02      	ldr	r4, [sp, #8]
  801e322:	2c00      	cmp	r4, #0
- 801e324:	d058      	beq.n	801e3d8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xe0>
+ 801e324:	d057      	beq.n	801e3d6 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xde>
  801e326:	6828      	ldr	r0, [r5, #0]
  801e328:	2800      	cmp	r0, #0
- 801e32a:	f000 80a3 	beq.w	801e474 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x17c>
- 801e32e:	4959      	ldr	r1, [pc, #356]	; (801e494 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x19c>)
+ 801e32a:	f000 80a2 	beq.w	801e472 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x17a>
+ 801e32e:	4958      	ldr	r1, [pc, #352]	; (801e490 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x198>)
  801e330:	f001 fa76 	bl	801f820 <strtok>
- 801e334:	4957      	ldr	r1, [pc, #348]	; (801e494 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x19c>)
- 801e336:	4604      	mov	r4, r0
- 801e338:	2000      	movs	r0, #0
- 801e33a:	f001 fa71 	bl	801f820 <strtok>
- 801e33e:	4605      	mov	r5, r0
- 801e340:	2c00      	cmp	r4, #0
- 801e342:	f000 8081 	beq.w	801e448 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x150>
- 801e346:	2800      	cmp	r0, #0
- 801e348:	f000 809f 	beq.w	801e48a <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x192>
- 801e34c:	4620      	mov	r0, r4
- 801e34e:	f001 fa37 	bl	801f7c0 <strlen>
- 801e352:	f5b0 7f80 	cmp.w	r0, #256	; 0x100
- 801e356:	d848      	bhi.n	801e3ea <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf2>
- 801e358:	1c46      	adds	r6, r0, #1
- 801e35a:	9803      	ldr	r0, [sp, #12]
- 801e35c:	4286      	cmp	r6, r0
- 801e35e:	d00a      	beq.n	801e376 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x7e>
- 801e360:	4630      	mov	r0, r6
- 801e362:	f7f9 ff5f 	bl	8018224 <_ZN4quan6mallocEj>
- 801e366:	4607      	mov	r7, r0
- 801e368:	2800      	cmp	r0, #0
- 801e36a:	d07c      	beq.n	801e466 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x16e>
- 801e36c:	9802      	ldr	r0, [sp, #8]
- 801e36e:	f7f9 ff5b 	bl	8018228 <_ZN4quan4freeEPv>
- 801e372:	9702      	str	r7, [sp, #8]
- 801e374:	9603      	str	r6, [sp, #12]
- 801e376:	4628      	mov	r0, r5
- 801e378:	f001 fa22 	bl	801f7c0 <strlen>
- 801e37c:	f5b0 7f80 	cmp.w	r0, #256	; 0x100
- 801e380:	d843      	bhi.n	801e40a <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x112>
- 801e382:	9a05      	ldr	r2, [sp, #20]
- 801e384:	1c46      	adds	r6, r0, #1
- 801e386:	4296      	cmp	r6, r2
- 801e388:	d00a      	beq.n	801e3a0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xa8>
- 801e38a:	4630      	mov	r0, r6
- 801e38c:	f7f9 ff4a 	bl	8018224 <_ZN4quan6mallocEj>
- 801e390:	4607      	mov	r7, r0
- 801e392:	2800      	cmp	r0, #0
- 801e394:	d067      	beq.n	801e466 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x16e>
- 801e396:	9804      	ldr	r0, [sp, #16]
- 801e398:	f7f9 ff46 	bl	8018228 <_ZN4quan4freeEPv>
- 801e39c:	9704      	str	r7, [sp, #16]
- 801e39e:	9605      	str	r6, [sp, #20]
- 801e3a0:	4621      	mov	r1, r4
- 801e3a2:	9802      	ldr	r0, [sp, #8]
- 801e3a4:	f001 f9ae 	bl	801f704 <strcpy>
- 801e3a8:	4629      	mov	r1, r5
- 801e3aa:	9804      	ldr	r0, [sp, #16]
- 801e3ac:	f001 f9aa 	bl	801f704 <strcpy>
- 801e3b0:	f7f8 fac0 	bl	8016934 <_ZN4quan5stm325flash20get_app_symbol_tableEv>
- 801e3b4:	a902      	add	r1, sp, #8
- 801e3b6:	4606      	mov	r6, r0
- 801e3b8:	f7fe fdce 	bl	801cf58 <_ZNK4quan5stm325flash12symbol_table9get_indexERKNS_8dynarrayIcEE>
- 801e3bc:	1c42      	adds	r2, r0, #1
- 801e3be:	4605      	mov	r5, r0
- 801e3c0:	d046      	beq.n	801e450 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x158>
- 801e3c2:	aa06      	add	r2, sp, #24
- 801e3c4:	2300      	movs	r3, #0
- 801e3c6:	f802 3d11 	strb.w	r3, [r2, #-17]!
- 801e3ca:	4630      	mov	r0, r6
- 801e3cc:	4629      	mov	r1, r5
- 801e3ce:	f7ff fd57 	bl	801de80 <_ZNK4quan5stm325flash12symbol_table19get_readonly_statusElRb>
- 801e3d2:	b9f0      	cbnz	r0, 801e412 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x11a>
- 801e3d4:	9a04      	ldr	r2, [sp, #16]
- 801e3d6:	4604      	mov	r4, r0
- 801e3d8:	4610      	mov	r0, r2
- 801e3da:	f7f9 ff25 	bl	8018228 <_ZN4quan4freeEPv>
- 801e3de:	9802      	ldr	r0, [sp, #8]
- 801e3e0:	f7f9 ff22 	bl	8018228 <_ZN4quan4freeEPv>
- 801e3e4:	4620      	mov	r0, r4
- 801e3e6:	b007      	add	sp, #28
- 801e3e8:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 801e3ea:	482b      	ldr	r0, [pc, #172]	; (801e498 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1a0>)
- 801e3ec:	f7ff fe14 	bl	801e018 <_ZN4quan10user_errorEPKc>
- 801e3f0:	f7ff fdae 	bl	801df50 <_ZN4quan14get_num_errorsEv>
- 801e3f4:	f1d0 0401 	rsbs	r4, r0, #1
- 801e3f8:	9a04      	ldr	r2, [sp, #16]
- 801e3fa:	bf38      	it	cc
- 801e3fc:	2400      	movcc	r4, #0
- 801e3fe:	e7eb      	b.n	801e3d8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xe0>
- 801e400:	9005      	str	r0, [sp, #20]
- 801e402:	4604      	mov	r4, r0
- 801e404:	e7e8      	b.n	801e3d8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xe0>
- 801e406:	9003      	str	r0, [sp, #12]
- 801e408:	e781      	b.n	801e30e <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x16>
- 801e40a:	4824      	ldr	r0, [pc, #144]	; (801e49c <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1a4>)
- 801e40c:	f7ff fe04 	bl	801e018 <_ZN4quan10user_errorEPKc>
- 801e410:	e7ee      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e412:	4823      	ldr	r0, [pc, #140]	; (801e4a0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1a8>)
- 801e414:	f7f1 fc68 	bl	800fce8 <_ZN4quan12user_messageEPKc>
- 801e418:	f89d 1007 	ldrb.w	r1, [sp, #7]
- 801e41c:	b971      	cbnz	r1, 801e43c <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x144>
- 801e41e:	4821      	ldr	r0, [pc, #132]	; (801e4a4 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1ac>)
- 801e420:	f7f1 fc62 	bl	800fce8 <_ZN4quan12user_messageEPKc>
- 801e424:	f7f1 fc9e 	bl	800fd64 <_ZN4quan15user_flush_sptxEv>
- 801e428:	4630      	mov	r0, r6
- 801e42a:	4629      	mov	r1, r5
- 801e42c:	aa04      	add	r2, sp, #16
- 801e42e:	f7ff fb89 	bl	801db44 <_ZNK4quan5stm325flash12symbol_table15write_from_textElRKNS_8dynarrayIcEE>
- 801e432:	b330      	cbz	r0, 801e482 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x18a>
- 801e434:	481c      	ldr	r0, [pc, #112]	; (801e4a8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1b0>)
- 801e436:	f7f1 fc57 	bl	800fce8 <_ZN4quan12user_messageEPKc>
- 801e43a:	e7d9      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e43c:	481b      	ldr	r0, [pc, #108]	; (801e4ac <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1b4>)
- 801e43e:	f7ff fdeb 	bl	801e018 <_ZN4quan10user_errorEPKc>
- 801e442:	2401      	movs	r4, #1
- 801e444:	9a04      	ldr	r2, [sp, #16]
- 801e446:	e7c7      	b.n	801e3d8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xe0>
- 801e448:	4819      	ldr	r0, [pc, #100]	; (801e4b0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1b8>)
- 801e44a:	f7ff fde5 	bl	801e018 <_ZN4quan10user_errorEPKc>
- 801e44e:	e7cf      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e450:	4818      	ldr	r0, [pc, #96]	; (801e4b4 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1bc>)
- 801e452:	f7ff fde1 	bl	801e018 <_ZN4quan10user_errorEPKc>
- 801e456:	f7ff fd7b 	bl	801df50 <_ZN4quan14get_num_errorsEv>
- 801e45a:	f1d0 0401 	rsbs	r4, r0, #1
- 801e45e:	9a04      	ldr	r2, [sp, #16]
- 801e460:	bf38      	it	cc
- 801e462:	2400      	movcc	r4, #0
- 801e464:	e7b8      	b.n	801e3d8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xe0>
- 801e466:	f04f 30ff 	mov.w	r0, #4294967295
- 801e46a:	f06f 0104 	mvn.w	r1, #4
- 801e46e:	f7ff fd35 	bl	801dedc <_ZN4quan5errorEll>
- 801e472:	e7bd      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e474:	f04f 30ff 	mov.w	r0, #4294967295
- 801e478:	f06f 010f 	mvn.w	r1, #15
- 801e47c:	f7ff fd2e 	bl	801dedc <_ZN4quan5errorEll>
- 801e480:	e7b6      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e482:	480d      	ldr	r0, [pc, #52]	; (801e4b8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1c0>)
- 801e484:	f7f1 fc30 	bl	800fce8 <_ZN4quan12user_messageEPKc>
- 801e488:	e7b2      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e48a:	480c      	ldr	r0, [pc, #48]	; (801e4bc <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1c4>)
- 801e48c:	f7ff fdc4 	bl	801e018 <_ZN4quan10user_errorEPKc>
- 801e490:	e7ae      	b.n	801e3f0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf8>
- 801e492:	bf00      	nop
- 801e494:	0802b60c 	.word	0x0802b60c
+ 801e334:	4604      	mov	r4, r0
+ 801e336:	2800      	cmp	r0, #0
+ 801e338:	d07f      	beq.n	801e43a <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x142>
+ 801e33a:	2000      	movs	r0, #0
+ 801e33c:	4955      	ldr	r1, [pc, #340]	; (801e494 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x19c>)
+ 801e33e:	f001 fa6f 	bl	801f820 <strtok>
+ 801e342:	4605      	mov	r5, r0
+ 801e344:	2800      	cmp	r0, #0
+ 801e346:	f000 809f 	beq.w	801e488 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x190>
+ 801e34a:	4620      	mov	r0, r4
+ 801e34c:	f001 fa38 	bl	801f7c0 <strlen>
+ 801e350:	f5b0 7f80 	cmp.w	r0, #256	; 0x100
+ 801e354:	d848      	bhi.n	801e3e8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf0>
+ 801e356:	1c46      	adds	r6, r0, #1
+ 801e358:	9803      	ldr	r0, [sp, #12]
+ 801e35a:	4286      	cmp	r6, r0
+ 801e35c:	d00a      	beq.n	801e374 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x7c>
+ 801e35e:	4630      	mov	r0, r6
+ 801e360:	f7f9 ff60 	bl	8018224 <_ZN4quan6mallocEj>
+ 801e364:	4607      	mov	r7, r0
+ 801e366:	2800      	cmp	r0, #0
+ 801e368:	d07c      	beq.n	801e464 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x16c>
+ 801e36a:	9802      	ldr	r0, [sp, #8]
+ 801e36c:	f7f9 ff5c 	bl	8018228 <_ZN4quan4freeEPv>
+ 801e370:	9702      	str	r7, [sp, #8]
+ 801e372:	9603      	str	r6, [sp, #12]
+ 801e374:	4628      	mov	r0, r5
+ 801e376:	f001 fa23 	bl	801f7c0 <strlen>
+ 801e37a:	f5b0 7f80 	cmp.w	r0, #256	; 0x100
+ 801e37e:	d843      	bhi.n	801e408 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x110>
+ 801e380:	9a05      	ldr	r2, [sp, #20]
+ 801e382:	1c46      	adds	r6, r0, #1
+ 801e384:	4296      	cmp	r6, r2
+ 801e386:	d00a      	beq.n	801e39e <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xa6>
+ 801e388:	4630      	mov	r0, r6
+ 801e38a:	f7f9 ff4b 	bl	8018224 <_ZN4quan6mallocEj>
+ 801e38e:	4607      	mov	r7, r0
+ 801e390:	2800      	cmp	r0, #0
+ 801e392:	d067      	beq.n	801e464 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x16c>
+ 801e394:	9804      	ldr	r0, [sp, #16]
+ 801e396:	f7f9 ff47 	bl	8018228 <_ZN4quan4freeEPv>
+ 801e39a:	9704      	str	r7, [sp, #16]
+ 801e39c:	9605      	str	r6, [sp, #20]
+ 801e39e:	4621      	mov	r1, r4
+ 801e3a0:	9802      	ldr	r0, [sp, #8]
+ 801e3a2:	f001 f9af 	bl	801f704 <strcpy>
+ 801e3a6:	4629      	mov	r1, r5
+ 801e3a8:	9804      	ldr	r0, [sp, #16]
+ 801e3aa:	f001 f9ab 	bl	801f704 <strcpy>
+ 801e3ae:	f7f8 fac1 	bl	8016934 <_ZN4quan5stm325flash20get_app_symbol_tableEv>
+ 801e3b2:	a902      	add	r1, sp, #8
+ 801e3b4:	4606      	mov	r6, r0
+ 801e3b6:	f7fe fdcf 	bl	801cf58 <_ZNK4quan5stm325flash12symbol_table9get_indexERKNS_8dynarrayIcEE>
+ 801e3ba:	1c42      	adds	r2, r0, #1
+ 801e3bc:	4605      	mov	r5, r0
+ 801e3be:	d046      	beq.n	801e44e <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x156>
+ 801e3c0:	aa06      	add	r2, sp, #24
+ 801e3c2:	2300      	movs	r3, #0
+ 801e3c4:	f802 3d11 	strb.w	r3, [r2, #-17]!
+ 801e3c8:	4630      	mov	r0, r6
+ 801e3ca:	4629      	mov	r1, r5
+ 801e3cc:	f7ff fd58 	bl	801de80 <_ZNK4quan5stm325flash12symbol_table19get_readonly_statusElRb>
+ 801e3d0:	b9f0      	cbnz	r0, 801e410 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x118>
+ 801e3d2:	9a04      	ldr	r2, [sp, #16]
+ 801e3d4:	4604      	mov	r4, r0
+ 801e3d6:	4610      	mov	r0, r2
+ 801e3d8:	f7f9 ff26 	bl	8018228 <_ZN4quan4freeEPv>
+ 801e3dc:	9802      	ldr	r0, [sp, #8]
+ 801e3de:	f7f9 ff23 	bl	8018228 <_ZN4quan4freeEPv>
+ 801e3e2:	4620      	mov	r0, r4
+ 801e3e4:	b007      	add	sp, #28
+ 801e3e6:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 801e3e8:	482b      	ldr	r0, [pc, #172]	; (801e498 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1a0>)
+ 801e3ea:	f7ff fe15 	bl	801e018 <_ZN4quan10user_errorEPKc>
+ 801e3ee:	f7ff fdaf 	bl	801df50 <_ZN4quan14get_num_errorsEv>
+ 801e3f2:	f1d0 0401 	rsbs	r4, r0, #1
+ 801e3f6:	9a04      	ldr	r2, [sp, #16]
+ 801e3f8:	bf38      	it	cc
+ 801e3fa:	2400      	movcc	r4, #0
+ 801e3fc:	e7eb      	b.n	801e3d6 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xde>
+ 801e3fe:	9005      	str	r0, [sp, #20]
+ 801e400:	4604      	mov	r4, r0
+ 801e402:	e7e8      	b.n	801e3d6 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xde>
+ 801e404:	9003      	str	r0, [sp, #12]
+ 801e406:	e782      	b.n	801e30e <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x16>
+ 801e408:	4824      	ldr	r0, [pc, #144]	; (801e49c <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1a4>)
+ 801e40a:	f7ff fe05 	bl	801e018 <_ZN4quan10user_errorEPKc>
+ 801e40e:	e7ee      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e410:	4823      	ldr	r0, [pc, #140]	; (801e4a0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1a8>)
+ 801e412:	f7f1 fc69 	bl	800fce8 <_ZN4quan12user_messageEPKc>
+ 801e416:	f89d 1007 	ldrb.w	r1, [sp, #7]
+ 801e41a:	b991      	cbnz	r1, 801e442 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x14a>
+ 801e41c:	4821      	ldr	r0, [pc, #132]	; (801e4a4 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1ac>)
+ 801e41e:	f7f1 fc63 	bl	800fce8 <_ZN4quan12user_messageEPKc>
+ 801e422:	f7f1 fc9f 	bl	800fd64 <_ZN4quan15user_flush_sptxEv>
+ 801e426:	4630      	mov	r0, r6
+ 801e428:	4629      	mov	r1, r5
+ 801e42a:	aa04      	add	r2, sp, #16
+ 801e42c:	f7ff fb8a 	bl	801db44 <_ZNK4quan5stm325flash12symbol_table15write_from_textElRKNS_8dynarrayIcEE>
+ 801e430:	b330      	cbz	r0, 801e480 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x188>
+ 801e432:	481d      	ldr	r0, [pc, #116]	; (801e4a8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1b0>)
+ 801e434:	f7f1 fc58 	bl	800fce8 <_ZN4quan12user_messageEPKc>
+ 801e438:	e7d9      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e43a:	481c      	ldr	r0, [pc, #112]	; (801e4ac <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1b4>)
+ 801e43c:	f7ff fdec 	bl	801e018 <_ZN4quan10user_errorEPKc>
+ 801e440:	e7d5      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e442:	481b      	ldr	r0, [pc, #108]	; (801e4b0 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1b8>)
+ 801e444:	f7ff fde8 	bl	801e018 <_ZN4quan10user_errorEPKc>
+ 801e448:	2401      	movs	r4, #1
+ 801e44a:	9a04      	ldr	r2, [sp, #16]
+ 801e44c:	e7c3      	b.n	801e3d6 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xde>
+ 801e44e:	4819      	ldr	r0, [pc, #100]	; (801e4b4 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1bc>)
+ 801e450:	f7ff fde2 	bl	801e018 <_ZN4quan10user_errorEPKc>
+ 801e454:	f7ff fd7c 	bl	801df50 <_ZN4quan14get_num_errorsEv>
+ 801e458:	f1d0 0401 	rsbs	r4, r0, #1
+ 801e45c:	9a04      	ldr	r2, [sp, #16]
+ 801e45e:	bf38      	it	cc
+ 801e460:	2400      	movcc	r4, #0
+ 801e462:	e7b8      	b.n	801e3d6 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xde>
+ 801e464:	f04f 30ff 	mov.w	r0, #4294967295
+ 801e468:	f06f 0104 	mvn.w	r1, #4
+ 801e46c:	f7ff fd36 	bl	801dedc <_ZN4quan5errorEll>
+ 801e470:	e7bd      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e472:	f04f 30ff 	mov.w	r0, #4294967295
+ 801e476:	f06f 010f 	mvn.w	r1, #15
+ 801e47a:	f7ff fd2f 	bl	801dedc <_ZN4quan5errorEll>
+ 801e47e:	e7b6      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e480:	480d      	ldr	r0, [pc, #52]	; (801e4b8 <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1c0>)
+ 801e482:	f7f1 fc31 	bl	800fce8 <_ZN4quan12user_messageEPKc>
+ 801e486:	e7b2      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e488:	480c      	ldr	r0, [pc, #48]	; (801e4bc <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0x1c4>)
+ 801e48a:	f7ff fdc5 	bl	801e018 <_ZN4quan10user_errorEPKc>
+ 801e48e:	e7ae      	b.n	801e3ee <_ZN12_GLOBAL__N_116set_symbol_valueERKN4quan8dynarrayIcEE+0xf6>
+ 801e490:	0802b60c 	.word	0x0802b60c
+ 801e494:	0802b608 	.word	0x0802b608
  801e498:	0802b630 	.word	0x0802b630
  801e49c:	0802b640 	.word	0x0802b640
  801e4a0:	0802b584 	.word	0x0802b584
  801e4a4:	0802b664 	.word	0x0802b664
  801e4a8:	0802b678 	.word	0x0802b678
- 801e4ac:	0802b650 	.word	0x0802b650
- 801e4b0:	0802b610 	.word	0x0802b610
+ 801e4ac:	0802b610 	.word	0x0802b610
+ 801e4b0:	0802b650 	.word	0x0802b650
  801e4b4:	0802b4f8 	.word	0x0802b4f8
  801e4b8:	0802b690 	.word	0x0802b690
  801e4bc:	0802b620 	.word	0x0802b620

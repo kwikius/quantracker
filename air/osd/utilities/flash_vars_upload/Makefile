@@ -23,7 +23,7 @@ CC = g++
 LD = g++
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
-CFLAGS = -std=c++11 
+CFLAGS = -std=c++11 -Wall
 
 all: flash_vars_uploader.exe
 

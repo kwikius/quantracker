@@ -101,7 +101,8 @@ static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 # in the board directory
 board_objects = main.o setup.o serial_port.o fsk_output.o \
 fsk_task.o frsky_task.o frsky_zapp1.o mavlink_task.o settings.o \
-heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o
+heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o \
+flash_vars.o
 
 obj_board_objects = $(patsubst %,$(OBJDIR)%,$(board_objects))
 
@@ -147,7 +148,7 @@ PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES) $(MAVLINK_INCLUDE_PATH)
 
 # custom linker script 
-LINKER_SCRIPT = ../../../air/osd/stm32f4.ld
+LINKER_SCRIPT = stm32f4.ld
 
 else
 $(error no target processor defined)
@@ -162,7 +163,7 @@ CFLAGS  = -Wall -Wdouble-promotion -Wno-unused-local-typedefs -std=c++11 -fno-rt
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
 LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
- $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections 
+ $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary
 ODFLAGS = -d 
@@ -182,7 +183,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects) $(static_libraries) 
+	$(LD) $(LFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf $(objects) $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
