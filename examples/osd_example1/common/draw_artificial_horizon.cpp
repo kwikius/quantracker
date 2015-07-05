@@ -110,27 +110,27 @@ void draw_artificial_horizon()
       pxp_type right_end {width / 2, 0};
       
       for (int32_t i = -1; i < 2; ++i) {
-               const colour_type c = (i) ? colour_type::black : colour_type::white;
-               draw_line (
-                  rotate (left_end + pxp_type {1, i}),
-                  rotate (left_end + pxp_type {outer_h_bar_len , i}), c
-               );
-               draw_line (
-                  rotate (right_end + pxp_type {0, i}),
-                  rotate (right_end + pxp_type { -outer_h_bar_len, i}), c
-               );
-               draw_line (
-                  rotate (pxp_type {left_end.x - i, outer_stop_height / 2}),
-                  rotate (pxp_type {left_end.x - i, -outer_stop_height / 2}), c
-               );
-               draw_line (
-                  rotate (pxp_type {right_end.x + i, outer_stop_height / 2}),
-                  rotate (pxp_type {right_end.x + i, -outer_stop_height / 2}), c
-               );
-               draw_circle (centre_rad + i, {0, 0}, c);
-               draw_circle (centre_rad + i, rotate ( {0, 0}), c);
-               draw_line (rotate (pxp_type { -20, i}), rotate (pxp_type { -centre_rad - 1 , i}), c);
-               draw_line (rotate (pxp_type {20, i}), rotate (pxp_type {centre_rad + 1, i}), c);
-            }
-  }
+         const colour_type c = (i) ? colour_type::black : colour_type::white;
+         draw_line (
+            rotate (left_end + pxp_type {1, i}),
+            rotate (left_end + pxp_type {outer_h_bar_len , i}), c
+         );
+         draw_line (
+            rotate (right_end + pxp_type {0, i}),
+            rotate (right_end + pxp_type { -outer_h_bar_len, i}), c
+         );
+         draw_line (
+            rotate (pxp_type {left_end.x - i, outer_stop_height / 2}),
+            rotate (pxp_type {left_end.x - i, -outer_stop_height / 2}), c
+         );
+         draw_line (
+            rotate (pxp_type {right_end.x + i, outer_stop_height / 2}),
+            rotate (pxp_type {right_end.x + i, -outer_stop_height / 2}), c
+         );
+         draw_circle (centre_rad + i, {0, 0}, c);
+         draw_circle (centre_rad + i, rotate ( {0, 0}), c);
+         draw_line (rotate (pxp_type { -20, i}), rotate (pxp_type { -centre_rad - 1 , i}), c);
+         draw_line (rotate (pxp_type {20, i}), rotate (pxp_type {centre_rad + 1, i}), c);
+      }
+   }
 }
