@@ -16,26 +16,16 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-//#include <FreeRTOS.h>
-//#include <task.h>
-//
-//extern "C" void setup();
-//
-//void create_draw_task();
-//
-//void create_telemetry_receiver_task();
 #include "application.hpp"
 
 int main()
 {
   setup();
+
   create_tasks();
+   
   start_scheduler();
 
-//  create_draw_task();
-//  create_telemetry_receiver_task();
-//
-//  vTaskStartScheduler();
-//
-//  while (1) {;}
 }
+
+

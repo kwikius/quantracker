@@ -1,10 +1,12 @@
-#include "rx_telemetry.hpp"
+
 #include "FreeRTOS.h"
 #include <semphr.h>
+
 #include <quan/stm32/millis.hpp>
 #include <quan/stm32/gpio.hpp>
+
 #include "resources.hpp"
-// implement the receive telemetry callback
+#include "rx_telemetry.hpp"
 
 namespace {
    SemaphoreHandle_t m_mutex = NULL;
@@ -45,10 +47,9 @@ void on_telemetry_received()
       telemetry_received_time = quan::stm32::millis();
       mutex_release_telemetry_string();
       static int count = 49;
-     if (++count == 50){
-      count = 0;
-     quan::stm32::complement<heartbeat_led_pin>();
-    }
+      if (++count == 50){
+         count = 0;
+         quan::stm32::complement<heartbeat_led_pin>();
+      }
    }
-   
 }

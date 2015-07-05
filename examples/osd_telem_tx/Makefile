@@ -28,7 +28,7 @@ include $(QUANTRACKER_INCLUDE_PATH)/quantracker/build/osd.mk
 # just for fonts
 RESOURCE_PATH = ../../examples/osd_example1/
 
-local_objects = main.o application.o setup.o on_draw.o rx_telemetry.o
+local_objects = main.o setup.o on_draw.o tx_telemetry.o application.o
 
 OBJDIR = ./obj/
 
@@ -43,7 +43,7 @@ obj_resource_objects = $(patsubst %,$(OBJDIR)%,$(resource_objects))
 static_library_files = \
    quantracker_air_graphics_api.a \
    flash_variables.a \
-   quantracker_air_osd_rx.a \
+   quantracker_air_osd_tx.a \
    quantracker_air_system.a
 
 objects =  $(obj_local_objects) $(obj_resource_objects) 
