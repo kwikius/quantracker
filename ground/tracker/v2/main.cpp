@@ -25,7 +25,7 @@
 extern "C" void setup();
 
 void mode_check(){}
-bool initialise_flash(){return true;}
+bool initialise_flash();
 bool signal_exit_failure(){return true;}
 
 void create_draw_task();
@@ -39,20 +39,17 @@ If transmitter put something top of screen
 if receiver put something bottom of screen
 */
 
-
 int main()
 {
-   setup();
+  setup();
 
-   create_tracker_mode_task();
-//  if (! initialise_flash()){
-//      signal_exit_failure();
-//  }
+  create_tracker_mode_task();
+  if (! initialise_flash()){
+      signal_exit_failure();
+  }
 //
 //  mode_check();
-//  
 
-// should be the same
   create_draw_task();
   create_telemetry_receiver_task();
 

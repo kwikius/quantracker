@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 01 Jun 2015 18:53:27 BST
+EESchema Schematic File Version 2  date Sun 05 Jul 2015 19:04:22 BST
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -39,9 +39,9 @@ EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 4 4
+Sheet 5 5
 Title ""
-Date "1 jun 2015"
+Date "5 jul 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -49,72 +49,87 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CONN_3 K2
+U 1 1 55520FE6
+P 2500 6200
+F 0 "K2" V 2450 6200 50  0000 C CNN
+F 1 "CONN_3" V 2550 6200 40  0000 C CNN
+	1    2500 6200
+	-1   0    0    -1  
+$EndComp
 Wire Wire Line
-	4750 2550 4400 2550
-Wire Wire Line
-	6950 2950 6700 2950
-Wire Wire Line
-	4750 3550 4450 3550
-Wire Wire Line
-	7900 1250 7650 1250
-Wire Wire Line
-	6850 2650 6700 2650
-Wire Wire Line
-	4750 2850 4450 2850
-Wire Wire Line
-	7000 4250 6700 4250
-Wire Wire Line
-	4750 4050 4450 4050
-Wire Wire Line
-	5950 4900 5950 4750
-Wire Wire Line
-	5750 4900 5750 4750
-Wire Wire Line
-	7000 3750 6700 3750
-Wire Wire Line
-	7000 3450 6700 3450
-Wire Wire Line
-	7000 3250 6700 3250
-Wire Wire Line
-	4750 4150 4500 4150
-Wire Wire Line
-	4750 3350 4300 3350
-Wire Wire Line
-	4750 3150 4450 3150
-Wire Wire Line
-	4750 3050 4450 3050
-Wire Wire Line
-	6850 2750 6700 2750
-Wire Wire Line
-	4750 2950 4450 2950
-Wire Wire Line
-	4750 3450 4350 3450
-Wire Wire Line
-	4750 4250 4500 4250
-Wire Wire Line
-	7000 3350 6700 3350
-Wire Wire Line
-	7000 3650 6700 3650
-Wire Wire Line
-	5550 4900 5550 4750
-Wire Wire Line
-	5850 4900 5850 4750
-Wire Wire Line
-	7000 4050 6700 4050
-Wire Wire Line
-	7000 3850 6700 3850
-Wire Wire Line
-	7050 3950 6700 3950
-Wire Wire Line
-	8600 1000 8350 1000
-Wire Wire Line
-	7850 1000 7650 1000
-Wire Wire Line
-	8400 1250 8600 1250
+	6950 3050 6700 3050
 Wire Wire Line
 	4450 3650 4750 3650
 Wire Wire Line
-	6950 3050 6700 3050
+	8400 1250 8600 1250
+Wire Wire Line
+	7850 1000 7650 1000
+Wire Wire Line
+	8600 1000 8350 1000
+Wire Wire Line
+	7050 3950 6700 3950
+Wire Wire Line
+	7000 3850 6700 3850
+Wire Wire Line
+	7000 4050 6700 4050
+Wire Wire Line
+	5850 4900 5850 4750
+Wire Wire Line
+	5550 4900 5550 4750
+Wire Wire Line
+	7000 3650 6700 3650
+Wire Wire Line
+	7000 3350 6700 3350
+Wire Wire Line
+	4750 4250 4500 4250
+Wire Wire Line
+	4750 3450 4350 3450
+Wire Wire Line
+	4750 2950 4450 2950
+Wire Wire Line
+	6850 2750 6700 2750
+Wire Wire Line
+	4750 3050 4450 3050
+Wire Wire Line
+	4750 3150 4450 3150
+Wire Wire Line
+	4750 3350 4300 3350
+Wire Wire Line
+	4750 4150 4500 4150
+Wire Wire Line
+	7000 3250 6700 3250
+Wire Wire Line
+	7000 3450 6700 3450
+Wire Wire Line
+	7000 3750 6700 3750
+Wire Wire Line
+	5750 4900 5750 4750
+Wire Wire Line
+	5950 4900 5950 4750
+Wire Wire Line
+	4750 4050 4450 4050
+Wire Wire Line
+	7000 4250 6700 4250
+Wire Wire Line
+	4750 2850 4450 2850
+Wire Wire Line
+	6850 2650 6700 2650
+Wire Wire Line
+	7900 1250 7650 1250
+Wire Wire Line
+	4750 3550 4450 3550
+Wire Wire Line
+	6950 2950 6700 2950
+Wire Wire Line
+	4750 2550 4400 2550
+Wire Wire Line
+	8400 4700 8400 4650
+Wire Wire Line
+	2600 4400 2650 4400
+Text HLabel 2650 4400 2    60   Output ~ 0
+3.3VO
 Text HLabel 4400 2550 0    60   Input ~ 0
 MCU_GND
 Text HLabel 6950 3050 2    60   Input ~ 0
@@ -155,19 +170,10 @@ F 1 "R" V 8100 1000 50  0000 C CNN
 	1    8100 1000
 	0    1    1    0   
 $EndComp
-Text Notes 1950 5050 2    60   ~ 0
+Text Notes 1750 4350 2    60   ~ 0
 Video Out
-Text Notes 2000 4600 2    60   ~ 0
+Text Notes 1700 4100 2    60   ~ 0
 Video In
-$Comp
-L CONN_3 K2
-U 1 1 55520FE6
-P 1850 6150
-F 0 "K2" V 1800 6150 50  0000 C CNN
-F 1 "CONN_3" V 1900 6150 40  0000 C CNN
-	1    1850 6150
-	-1   0    0    -1  
-$EndComp
 Text Notes 1700 2250 2    60   ~ 0
 GPS
 $Comp
@@ -181,15 +187,6 @@ F 1 "CONN_4" V 1900 2550 50  0000 C CNN
 $EndComp
 Text Notes 2050 1250 2    60   ~ 0
 Magnetometer
-$Comp
-L CONN_6 P4
-U 1 1 55520DE1
-P 1850 1650
-F 0 "P4" V 1800 1650 60  0000 C CNN
-F 1 "CONN_6" V 1900 1650 60  0000 C CNN
-	1    1850 1650
-	-1   0    0    1   
-$EndComp
 Text HLabel 4450 2850 0    60   Output ~ 0
 5VOut
 Text HLabel 7050 3950 2    60   Output ~ 0
@@ -238,7 +235,7 @@ Text HLabel 7000 4050 2    60   Output ~ 0
 LED3
 Text HLabel 7000 4250 2    60   Output ~ 0
 LED2
-Text HLabel 7000 3850 2    60   Output ~ 0
+Text HLabel 7000 3850 2    60   Input ~ 0
 MAG_RDY
 Text HLabel 7000 3650 2    60   Output ~ 0
 LCD_TXO

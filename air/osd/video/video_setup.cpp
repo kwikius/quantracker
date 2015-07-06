@@ -48,28 +48,53 @@ namespace {
         >();
    }
 
-   #if !defined QUAN_OSD_SOFTWARE_SYNCSEP
-   void vsync_setup()
+   void video_analog_input_setup()
    {
-        quan::stm32::module_enable<video_in_vsync_pin::port_type>();
-        // TIM3_CH1
-        quan::stm32::apply<
-           video_in_vsync_pin,
-           quan::stm32::gpio::mode::af2
-        >();
+      quan::stm32::module_enable<video_adc_pin::port_type>();
+      quan::stm32::apply<
+         video_adc_pin
+         ,quan::stm32::gpio::mode::analog
+         ,quan::stm32::gpio::pupd::none
+      >();
    }
 
-   void odd_even_setup()
-   {
-        quan::stm32::module_enable<video_in_odd_even_pin::port_type>();
+   constexpr uint32_t gpioa_unused[] ={
+      0,1,4,5,8,9,10,11,12,13,14 
+   };
+   constexpr uint32_t gpiob_unused[] ={
+      1,3,4,5,6,7,8,9,10,11
+   };
+   constexpr uint32_t gpioc_unused[] ={
+      0,1,3,4,5,9,12,14,15
+   };
 
-        quan::stm32::apply<
-           video_in_odd_even_pin,
-           quan::stm32::gpio::mode::input,
-           quan::stm32::gpio::pupd::pull_up
-        >();
+   // setup unused ports as inputs with pulldown
+   template <typename Port, int N>
+   void setup_unused_pins(uint32_t const (& pin_array)[N])
+   {
+      quan::stm32::module_enable<Port>();
+      uint32_t moder_and_mask = 0xFFFFFFFF;
+      uint32_t pupdr_and_mask = 0xFFFFFFFF;
+      uint32_t pupdr_or_mask = 0;
+      for ( auto pin : pin_array){
+         uint32_t const pos = 2U * pin;
+         //-------- 0b00 for input
+         moder_and_mask &=  ~(0b11U << pos);
+         //-------- 0b10 for pulldown
+         pupdr_and_mask &= ~(0b01 << pos);
+         pupdr_or_mask  |=  (0b10 << pos);
+      }
+      Port::get()->moder &= moder_and_mask;
+      Port::get()->pupdr =
+      ( Port::get()->pupdr & pupdr_and_mask ) | pupdr_or_mask;
    }
-   #endif
+
+   void setup_unused_pins()
+   {
+      setup_unused_pins<quan::stm32::gpioa>(gpioa_unused);
+      setup_unused_pins<quan::stm32::gpiob>(gpiob_unused);
+      setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
+   }
 
 }//namespace
 
@@ -86,8 +111,10 @@ void video_cfg::setup()
 #if defined QUAN_OSD_TELEM_RECEIVER
    void setup_telemetry_receiver_task();
 #endif
+   void setup_draw_task();
 //void av_telem_setup();
 namespace detail{
+   
    void setup_leds();
    void dac_setup();
    void pixel_dma_setup();
@@ -101,6 +128,8 @@ namespace {
 
    void video_setup()
    {
+        setup_unused_pins();
+        video_analog_input_setup();
         detail::spi_setup();
         detail::pixel_dma_setup();
         hsync_setup();

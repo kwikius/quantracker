@@ -21,9 +21,9 @@
 
 LINKER_SCRIPT = stm32f4.ld
 
-QUANTRACKER_INCLUDE_PATH = ../../include
+QUANTRACKER_ROOT_DIR = ../../../quantracker/
 
-include $(QUANTRACKER_INCLUDE_PATH)/quantracker/build/osd.mk
+include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
 # just for fonts
 RESOURCE_PATH = ../../examples/osd_example1/

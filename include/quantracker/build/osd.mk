@@ -1,5 +1,10 @@
 
-HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../Dependencies.mk"; then echo "True"; fi)
+
+ifeq ($(QUANTRACKER_ROOT_DIR), )
+$(error "QUANTRACKER_ROOT_DIR must be defined to the path to the quantracker root directory.")
+endif
+
+HAVE_DEPENDENCIES_FILE := $(shell if test -f $(QUANTRACKER_ROOT_DIR)Dependencies.mk; then echo "True"; fi)
 
 ifeq ($(HAVE_DEPENDENCIES_FILE), )
   quantracker-make-help:
@@ -17,10 +22,9 @@ ifeq ($(HAVE_DEPENDENCIES_FILE), )
 	@echo '   #################################################################'
 	@echo ' '	
 else
-# need the sourcedir for freertos compile
 
 # You will need a custom Dependencies.mk
-include ../../Dependencies.mk
+include $(QUANTRACKER_ROOT_DIR)Dependencies.mk
 
 ###############################################################
 ifeq ($(TOOLCHAIN_PREFIX), )
@@ -43,6 +47,10 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
+#ifeq ($(MAVLINK_INCLUDE_PATH), )
+#$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
+#endif
+
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
@@ -57,7 +65,7 @@ TARGET_PROCESSOR = STM32F4
 INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o 
 
-STATIC_LIBRARY_PATH = ../../lib/osd/
+STATIC_LIBRARY_PATH = $(QUANTRACKER_ROOT_DIR)lib/osd/
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O3
@@ -87,7 +95,7 @@ QUAN_OSD_SOFTWARE_SYNCSEP HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(QUANTRACKER_INCLUDE_PATH) \
+INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(QUANTRACKER_ROOT_DIR)include \
 $(RTOS_INCLUDES)
 
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))

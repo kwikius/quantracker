@@ -2,5 +2,6 @@
 #define QUANTRACKER_INCLUDE_OSD_OSD_HPP_INCLUDED
 
 void create_draw_task();
+void osd_setup();
 
 #endif // QUANTRACKER_INCLUDE_OSD_H_INCLUDED

@@ -33,6 +33,7 @@
 #include "resources.hpp"
 #include "fsk.hpp"
 #include "frsky.hpp"
+#include <quantracker/osd/osd.hpp>
 
 extern "C" void __cxa_pure_virtual()
 {
@@ -85,56 +86,38 @@ namespace {
       0,1,5,8,11,12,13,14 
    };
    constexpr uint32_t gpiob_unused[] ={
-      3,4,5,6,7,8,9 
+      1,3,4,5,6,7,8,9 
    };
    constexpr uint32_t gpioc_unused[] ={
       0,1,3,4,5,9,12,14,15
    };
 
-   // low outputs
+   // setup unused ports as inputs with pulldown
+   template <typename Port, int N>
+   void setup_unused_pins(uint32_t const (& pin_array)[N])
+   {
+      quan::stm32::module_enable<Port>();
+      uint32_t moder_and_mask = 0xFFFFFFFF;
+      uint32_t pupdr_and_mask = 0xFFFFFFFF;
+      uint32_t pupdr_or_mask = 0;
+      for ( auto pin : pin_array){
+         uint32_t const pos = 2U * pin;
+         //-------- 0b00 for input
+         moder_and_mask &=  ~(0b11U << pos);
+         //-------- 0b10 for pulldown
+         pupdr_and_mask &= ~(0b01 << pos);
+         pupdr_or_mask  |=  (0b10 << pos);
+      }
+      Port::get()->moder &= moder_and_mask;
+      Port::get()->pupdr =
+      ( Port::get()->pupdr & pupdr_and_mask ) | pupdr_or_mask;
+   }
+
    void setup_unused_pins()
    {
-      quan::stm32::module_enable<quan::stm32::gpioa>();
-      uint32_t moder_and_mask = 0xFFFFFFFF;
-      uint32_t moder_or_mask =  0U;
-      uint32_t odr_mask = 0xFFFFFFFF;
-      for ( auto pin : gpioa_unused){
-         uint32_t const pos = 2U * pin;
-         moder_and_mask  &= ~(3U << pos);
-         moder_or_mask   |=  (1U << pos);
-         odr_mask &= ~(1U << pin);
-      }
-      quan::stm32::gpioa::get()->moder &= moder_and_mask;
-      quan::stm32::gpioa::get()->moder |= moder_or_mask;
-      quan::stm32::gpioa::get()->odr &= odr_mask;
-      
-      quan::stm32::module_enable<quan::stm32::gpiob>();
-      moder_and_mask = 0xFFFFFFFF;
-      moder_or_mask =  0U;
-      odr_mask = 0xFFFFFFFF;
-      for ( auto pin : gpiob_unused){
-         uint32_t const pos = 2U * pin;
-         moder_and_mask  &= ~(3U << pos);
-         moder_or_mask   |=  (1U << pos);
-         odr_mask &= ~(1U << pin);
-      }
-      quan::stm32::gpiob::get()->moder &= moder_and_mask;
-      quan::stm32::gpiob::get()->moder |= moder_or_mask;
-      quan::stm32::gpiob::get()->odr &= odr_mask;
-
-      quan::stm32::module_enable<quan::stm32::gpioc>();
-      moder_and_mask = 0xFFFFFFFF;
-      moder_or_mask =  0;
-      odr_mask = 0xFFFFFFFF;
-      for ( auto pin : gpioc_unused){
-         uint32_t const pos = 2U * pin;
-         moder_and_mask  &= ~(3U << pos);
-         moder_or_mask   |=  (1U << pos);
-         odr_mask &= ~(1U << pin);
-      }
-      quan::stm32::gpioc::get()->moder &= moder_and_mask;
-      quan::stm32::gpioc::get()->moder |= moder_or_mask;
-      quan::stm32::gpioc::get()->odr &= odr_mask;
+      setup_unused_pins<quan::stm32::gpioa>(gpioa_unused);
+      setup_unused_pins<quan::stm32::gpiob>(gpiob_unused);
+      setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
    }
 
    void setup_analog_inputs()
@@ -145,12 +128,12 @@ namespace {
          ,quan::stm32::gpio::mode::analog
          ,quan::stm32::gpio::pupd::none
       >();
-      quan::stm32::module_enable<vin_voltage_pin::port_type>();
-      quan::stm32::apply<
-         vin_voltage_pin
-         ,quan::stm32::gpio::mode::analog
-         ,quan::stm32::gpio::pupd::none
-      >();
+//      quan::stm32::module_enable<vin_voltage_pin::port_type>();
+//      quan::stm32::apply<
+//         vin_voltage_pin
+//         ,quan::stm32::gpio::mode::analog
+//         ,quan::stm32::gpio::pupd::none
+//      >();
    }
 #endif
 

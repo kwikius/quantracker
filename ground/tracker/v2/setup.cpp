@@ -32,20 +32,22 @@
 //#include "../../../air/osd/video/video_cfg.hpp"
 //#include "video/video.hpp"
 #include "resources.hpp"
+
+void osd_setup();
 //#include "fsk.hpp"
 //#include "frsky.hpp"
 
-extern "C" void __cxa_pure_virtual()
-{
-     while (1);
-}
-void *__dso_handle;
-
-extern "C" void vPortFree( void *pv );
-extern "C" void * pvPortMalloc(size_t n);
-
-void operator delete (void* pv){ vPortFree(pv);}
-void* operator new (unsigned int n){ return pvPortMalloc(n);}
+//extern "C" void __cxa_pure_virtual()
+//{
+//     while (1);
+//}
+//void *__dso_handle;
+//
+//extern "C" void vPortFree( void *pv );
+//extern "C" void * pvPortMalloc(size_t n);
+//
+//void operator delete (void* pv){ vPortFree(pv);}
+//void* operator new (unsigned int n){ return pvPortMalloc(n);}
 
 // for 8 bit only msbyte of val is used
 // code is 00 write to specific reg but dont update
@@ -61,7 +63,7 @@ namespace {
       0,1,4,5,8,11,12 
    };
    constexpr uint32_t gpiob_unused[] ={
-      3,4,5,6,7,9 
+      1,3,4,5,6,7,9 
    };
    constexpr uint32_t gpioc_unused[] ={
       3,4,5,9,12,15
@@ -77,9 +79,9 @@ namespace {
       uint32_t pupdr_or_mask = 0;
       for ( auto pin : pin_array){
          uint32_t const pos = 2U * pin;
-         //--------
+         //-------- 0b00 for input
          moder_and_mask &=  ~(0b11U << pos);
-         //--------
+         //-------- 0b10 for pulldown
          pupdr_and_mask &= ~(0b01 << pos);
          pupdr_or_mask  |=  (0b10 << pos);
       }
@@ -95,22 +97,22 @@ namespace {
       setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
    }
 
-//   //N.B fair number to do
-//   void setup_analog_inputs()
-//   {
-////      quan::stm32::module_enable<video_adc_pin::port_type>();
-////      quan::stm32::apply<
-////         video_adc_pin
-////         ,quan::stm32::gpio::mode::analog
-////         ,quan::stm32::gpio::pupd::none
-////      >();
+   void setup_analog_inputs()
+   {
+// should be done in lib setup?
+      quan::stm32::module_enable<video_adc_pin::port_type>();
+      quan::stm32::apply<
+         video_adc_pin
+         ,quan::stm32::gpio::mode::analog
+         ,quan::stm32::gpio::pupd::none
+      >();
 ////      quan::stm32::module_enable<vin_voltage_pin::port_type>();
 ////      quan::stm32::apply<
 ////         vin_voltage_pin
 ////         ,quan::stm32::gpio::mode::analog
 ////         ,quan::stm32::gpio::pupd::none
 ////      >();
-//   }
+   }
 
 }
  
@@ -119,6 +121,8 @@ namespace tracker_detail{
 }
 extern "C" void setup()
 {
+  setup_unused_pins();
+  setup_analog_inputs();
   osd_setup();
   tracker_detail::pan_motor_setup();
 }

@@ -42,6 +42,9 @@ using namespace quan::stm32;
 
 namespace {
 
+  // see the stm32f4 manual
+  // DAC should be initially configured
+   // as analog to reduce power consumptio
    void dac_port_setup()
    {
       module_enable<fsk_dac_out_pin::port_type>();
