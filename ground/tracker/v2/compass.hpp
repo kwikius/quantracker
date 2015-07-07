@@ -1,5 +1,5 @@
-#ifndef QUANTRACKER_GROUND_V1_COMPASS_HPP_INCLUDED
-#define QUANTRACKER_GROUND_V1_COMPASS_HPP_INCLUDED
+#ifndef QUANTRACKER_GROUND_V2_COMPASS_HPP_INCLUDED
+#define QUANTRACKER_GROUND_V2_COMPASS_HPP_INCLUDED
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -20,6 +20,10 @@
 #include <quan/three_d/vect.hpp>
 #include <quan/angle.hpp>
 
+#include "FreeRTOS.h"
+#include <task.h>
+#include <semphr.h>
+
 struct raw_compass{
    
    static void set_strap(int32_t val);
@@ -39,6 +43,8 @@ struct raw_compass{
    static void set_mag_offset(quan::three_d::vect<float> const & offset);
    static bool get_bearing( quan::angle::deg & bearing_out); 
    static bool get_compass_offset_set(){return m_compass_offset_set;}
+   static bool acquire_mutex(TickType_t t);
+   static void release_mutex();
   private:
    static int32_t m_strap_value;
    static float m_filter_value;
@@ -49,8 +55,10 @@ struct raw_compass{
    static bool m_use_compass;
    static quan::three_d::vect<float> m_offset;
    static bool m_compass_offset_set;
+   static SemaphoreHandle_t m_mutex;
+  
    
 
 };
 
-#endif // QUANTRACKER_GROUND_V1_COMPASS_HPP_INCLUDED
+#endif // QUANTRACKER_GROUND_V2_COMPASS_HPP_INCLUDED

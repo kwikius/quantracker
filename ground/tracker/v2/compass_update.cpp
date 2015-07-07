@@ -56,6 +56,7 @@ namespace{
       }
    }
 
+   // to read  lowest address so can auto increment registers
    void send_x_reg_address()
    {
       if( !i2c_mag_port::transfer_request(mag_write,msb_x_ar,1)){
@@ -87,7 +88,7 @@ namespace{
       result_out.y = convert_to_int16(local_values + 4);
       result_out.z = convert_to_int16(local_values + 2);
    }
-
+#if 0
    enum class update_state_t {
       new_strap,
       x_address_sent,
@@ -96,7 +97,7 @@ namespace{
       transfer_done
    };
    update_state_t update_state = update_state_t::transfer_done;
-
+#endif
    void request_positive_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,positive_pulse_string,2)){
@@ -133,7 +134,55 @@ namespace{
 // just means waiting a bit longer for result
 //#############################################################
 
-
+#if 1
+// needs a redo for rtos
+int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
+{
+   if (i2c_mag_port::addr_timeout()){
+      return -1;
+   }
+   if (i2c_mag_port::busy()){
+      return 0;
+   } 
+   // TODO error checking
+   //static quan::time_<int64_t>::ms timepoint{0};
+   static int32_t oldstrap = -2; // want a strap to start so put out of range here
+   if ( strap != oldstrap) {
+       switch(strap){
+         case 0:
+            request_no_strap();
+            break;
+         case  1:
+            request_positive_strap();
+            break;
+         case -1:
+            request_negative_strap();
+            break;
+         default:
+           return -1;
+      }
+      // discard
+      request_new_measurement();
+      if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
+         // TODO new time point
+         send_x_reg_address();
+         request_read_mag_values();
+      }
+      oldstrap = strap;
+   }
+   request_new_measurement();
+   if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
+      send_x_reg_address();
+      request_read_mag_values();
+      
+      copy_new_values(result_out);
+      // if no errors TODO check mag error state
+      return 1;
+   }else{
+      return -1;
+   }
+}
+#else
 int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
 {
    
@@ -153,6 +202,7 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
    switch (update_state){
       case update_state_t::transfer_done:
         if(strap == oldstrap){
+            // block
             request_new_measurement();
             timepoint = quan::stm32::millis(); // record time to exti
             update_state = update_state_t::looking_for_exti_event;
@@ -183,8 +233,8 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
             send_x_reg_address();
             update_state = update_state_t::x_address_sent;
          }else{
-               update_state = update_state_t::transfer_done;
-               return -1;    // failed  to get exti
+            update_state = update_state_t::transfer_done;
+            return -1;    // failed  to get exti
          }
       return 0;
       case update_state_t::x_address_sent:
@@ -213,6 +263,8 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
          return 0;
    }
 }
+
+#endif
 
 
 

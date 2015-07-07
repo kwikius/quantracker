@@ -93,7 +93,7 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
        rdy                       PA12  mag_rdy_exti_pin
 */
   typedef quan::mcu::pin<quan::stm32::gpioa,8> i2c3_scl;
-  typedef quan::mcu::pin<quan::stm32::gpioa,9> i2c3_sda;
+  typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda;
   //typedef quan::stm32::i2c3  i2c_mag_port;
   typedef quan::stm32::freertos::freertos_i2c_task<
       quan::stm32::i2c3,i2c3_scl,i2c3_sda

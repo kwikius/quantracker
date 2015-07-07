@@ -35,5 +35,5 @@ extern "C" void setup()
 {
 
   osd_setup();
-  tracker_detail::pan_motor_setup();
+ // tracker_detail::pan_motor_setup();
 }

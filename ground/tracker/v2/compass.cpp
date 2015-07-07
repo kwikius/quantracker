@@ -25,13 +25,14 @@
 #include "resources.hpp"
 #include "compass.hpp"
 
+SemaphoreHandle_t raw_compass::m_mutex = NULL;
 quan::three_d::vect<float> raw_compass ::m_raw_value = {0.f,0.f,0.f};
 int32_t raw_compass::m_strap_value = 0;
 float raw_compass::m_filter_value = 0.1f;
 bool raw_compass::m_request_disable_updating = false;
 bool raw_compass::m_updating_enabled = true;
 bool raw_compass::m_use_compass = false;
-bool raw_compass:: m_compass_offset_set = false;
+bool raw_compass::m_compass_offset_set = false;
 quan::three_d::vect<float> raw_compass::m_offset = {0.f,0.f,0.f};
 
 SemaphoreHandle_t get_mag_ready_semaphore();
@@ -126,9 +127,12 @@ int32_t raw_compass::update()
       quan::three_d::vect<int16_t> result;
       int res = ::ll_update_mag(result,raw_compass::get_strap());
       if ( res == 1){
-         raw_compass::m_raw_value 
-            = raw_compass::m_raw_value * (1.f - raw_compass::m_filter_value) 
-               + result * raw_compass::m_filter_value;
+         if ( raw_compass::acquire_mutex(10) == pdTRUE){
+            raw_compass::m_raw_value 
+               = raw_compass::m_raw_value * (1.f - raw_compass::m_filter_value) 
+                  + result * raw_compass::m_filter_value;
+            raw_compass::release_mutex();
+         }
          // Disable updating here because its the end of a cycle so nice and neat
          if ( m_request_disable_updating){
             m_request_disable_updating = false;
@@ -161,11 +165,21 @@ namespace {
    }
 }
 
+bool raw_compass::acquire_mutex(TickType_t ticks)
+{
+   return xSemaphoreTake(m_mutex,ticks) == pdTRUE;
+}
+
+void raw_compass::release_mutex()
+{
+    xSemaphoreGive(m_mutex);
+}
+
 void raw_compass::init()
 {
    setup_mag_ready_irq();
    NVIC_SetPriority(I2C3_EV_IRQn,local_interrupt_priority::i2c_mag_evt);
-   // use at 100kHz I2C. At 400 kHz on 500 mm long lines get errors
+   m_mutex = xSemaphoreCreateMutex();
    i2c_mag_port::init(false,false);
 }
 

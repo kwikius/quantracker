@@ -36,14 +36,14 @@ int main()
 {
   setup();
 
-  create_tracker_mode_task();
-  if (! initialise_flash()){
-      signal_exit_failure();
-  }
+  //create_tracker_mode_task();
+//  if (! initialise_flash()){
+//      signal_exit_failure();
+//  }
 
   create_draw_task();
   create_telemetry_receiver_task();
-  create_compass_task();
+  //create_compass_task();
 
   vTaskStartScheduler();
 
