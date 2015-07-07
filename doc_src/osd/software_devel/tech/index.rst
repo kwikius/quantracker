@@ -5,6 +5,7 @@ QuantrackerAir OSD Software Technical index
 `OSD Index`_
 
 * `Telemetry`_
+* `Quan`_
 
 `OSD Index`_
 
@@ -12,4 +13,5 @@ QuantrackerAir OSD Software Technical index
 
 .. _`Telemetry`: telemetry.html
 .. _`OSD Index` : ../../index.html
+.. _`Quan` : quan/i2c.html
 

@@ -16,6 +16,10 @@ osd_software_devel_tech_rst = index.rst telemetry.rst
 
 osd_maker_rst = index.rst
 
+quan_rst = index.rst i2c.rst
+
+quan_html = $(patsubst %.rst,../doc/osd/software_devel/tech/quan/%.html,$(quan_rst))
+
 root_html = $(patsubst %.rst,../doc/%.html,$(root_rst))
 osd_html = $(patsubst %.rst,../doc/osd/%.html,$(osd_rst))
 osd_firmwares_html = $(patsubst %.rst,../doc/osd/firmwares/%.html,$(osd_firmwares_rst))
@@ -26,10 +30,14 @@ osd_software_devel_tech_html = $(patsubst %.rst,../doc/osd/software_devel/tech/%
 blink_html = ../doc/air/osd/board_test/blink/readme.html
 
 objects = $(root_html) $(blink_html) $(osd_html) $(osd_firmwares_html) \
-$(osd_software_devel_html) $(osd_maker_html) $(osd_software_devel_tech_html)
+$(osd_software_devel_html) $(osd_maker_html) $(osd_software_devel_tech_html) \
+$(quan_html)
 
 all : $(objects)
 	cp -r -u /home/andy/cpp/projects/quantracker/doc/* /home/andy/website/fpv/quantracker/doc/
+
+$(quan_html) :  ../doc/osd/software_devel/tech/quan/%.html : osd/software_devel/tech/quan/%.rst
+	rst2html $< $@
 
 $(root_html) : ../doc/%.html : %.rst
 	rst2html $< $@

@@ -359,9 +359,6 @@ quantracker/lib/osd/quantracker_air_osd_rx.a
 <div class="section" id="setup">
 <h2>Setup</h2>
 <dl class="docutils">
-<dt>In setup()</dt>
-<dd>Call the predefined library function setup_telemetry_receiver_task() to initialise
-the peripherals involved in receive telemetry.</dd>
 <dt>In main()</dt>
 <dd>Call the predefined library function create_telemetry_receiver_task()
 to create the  library telemetry task.
@@ -374,7 +371,7 @@ to create the  library telemetry task.
 <pre class="literal-block">
 #include  &lt;quantracker/include/osd/receive_telemetry.hpp&gt;
 </pre>
-<p>Create your custom definition of the on_telemetry_receive() callback to deal with received data.
+<p>Create your custom definition of the on_telemetry_received() callback to deal with received data.
 This function will be called from within the telemetry_receive_task,
 therefore read and write access to any global data should be done via mutexes</p>
 <p>Within in the on_telemetry_receive() function, use the predefined library functions</p>

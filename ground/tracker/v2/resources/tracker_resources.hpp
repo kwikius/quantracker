@@ -6,7 +6,8 @@
 #include <quan/stm32/spi.hpp>
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/usart.hpp>
-
+//#include <quan/stm32/i2c_port.hpp>
+#include <quan/stm32/freertos/freertos_i2c_task.hpp>
 #include <quan/stm32/freertos/freertos_usart_task.hpp>
 #include "common_resources.hpp"
 
@@ -89,7 +90,17 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
 --- magnetometer (baro)
        scl                       PA8 I2C3-SCL 
        sda                       PC9 I2C3-SDA 
-       rdy                       PC5
+       rdy                       PA12  mag_rdy_exti_pin
+*/
+  typedef quan::mcu::pin<quan::stm32::gpioa,8> i2c3_scl;
+  typedef quan::mcu::pin<quan::stm32::gpioa,9> i2c3_sda;
+  //typedef quan::stm32::i2c3  i2c_mag_port;
+  typedef quan::stm32::freertos::freertos_i2c_task<
+      quan::stm32::i2c3,i2c3_scl,i2c3_sda
+  > i2c_mag_port;
+  typedef quan::mcu::pin<quan::stm32::gpioa,12> mag_rdy_exti_pin;
+
+/*
 --- MPU6000 spi
        MISO                      PB4 SPI1_MISO
        MOSI                      PB5 SPI1_MOSI
