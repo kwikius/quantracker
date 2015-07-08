@@ -1,32 +1,18 @@
 #include "resources.hpp"
 #include "compass.hpp"
 
-void create_mag_ready_semaphores();
+/*
+ todo add atod in this task
+*/
 
 namespace{
 
-   
-
-      void init_compass()
-      {
-         create_mag_ready_semaphores();
-         raw_compass::init();
-      }
-
       void compass_task(void * param)
       {
-      
-         init_compass();
-
-         typedef sliprings_tx_rx_task sp;
-         sp::enable();
-         sp::write("I2C Test");
-      //   quan::user_message("Testing I2C\n");
+         raw_compass::init();
          for(;;){
-         //   vTaskDelay(10);
             raw_compass::update();
          }
-         
       }
 
       char dummy_param  = 0;

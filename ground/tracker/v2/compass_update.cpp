@@ -86,13 +86,16 @@ namespace{
 /*
    remenber state must persist while transfer in progress!
 */
+
    bool request_new_measurement()
    {
+
       if(!i2c_mag_port::transfer_request(mag_write,single_measurement_string,2)){
          quan::user_message("request_new_measurement transfer failed\n");
          do_i2c_errno();
          return false;
       }else{
+         vTaskDelay(7);
          return true;
       }
    }
@@ -175,219 +178,34 @@ namespace{
       return true;
    }
 
-   //static uint8_t configB_setup_string[]= {configB,0b00000001};
-#if 1
-   SemaphoreHandle_t notify_when_mag_ready_to_read = NULL;
-   SemaphoreHandle_t mag_is_ready_to_read = NULL;
-   
-   // task
-   void wait_for_mag_ready()
-   {
-      xSemaphoreGive(notify_when_mag_ready_to_read);
-      xSemaphoreTake(mag_is_ready_to_read,portMAX_DELAY);
-   }
-
-   // irq
-   BaseType_t HigherPriorityTaskWoken = pdFALSE;
-   void notify_mag_ready_to_read()
-   {
-      if ( (notify_when_mag_ready_to_read != NULL) &&
-          (mag_is_ready_to_read != NULL) ){
-         if (xSemaphoreTakeFromISR(notify_when_mag_ready_to_read,NULL) == pdTRUE){
-            xSemaphoreGiveFromISR(mag_is_ready_to_read,&HigherPriorityTaskWoken);
-         }
-      }
-   }
-#else
-
-
-#endif
 }
 
-void create_mag_ready_semaphores()
-{
-    notify_when_mag_ready_to_read = xSemaphoreCreateBinary();
-    mag_is_ready_to_read = xSemaphoreCreateBinary();
-}
-
-namespace {
-   int count = 0;
-}
-
-extern "C" void EXTI15_10_IRQHandler()   __attribute__ ((interrupt ("IRQ")));
-extern "C" void EXTI15_10_IRQHandler()
-{     
-
-   HigherPriorityTaskWoken = pdFALSE;
-   if (quan::stm32::is_event_pending<mag_rdy_exti_pin>()){
-      quan::stm32::clear_event_pending<mag_rdy_exti_pin>();
-    //  notify_mag_ready_to_read();
-      //quan::stm32::complement<heartbeat_led_pin>();
-   }else{
-      i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::unknown_exti_irq;
-   }
-   portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
-}
-
-//1 on new result_out written , 0 if ok but no new vales, -1 on timeout
-// if state not update_state_t::transfer_done ( e.g last call returned 1
-// then arg is ignored
-//##########################################################
-// Note very well that the first measurement after changing the strap setting
-// will return a measurement using the previous strap settings.
-// This isnt stated in the data sheet except it does state similar in relation to
-// changing gain.
-// Therefore when strap is changed we dump the first one we get and return 0
-// just means waiting a bit longer for result
-//#############################################################
-
-#if 1
 // needs a redo for rtos
 int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
 {
    if (i2c_mag_port::addr_timeout()){
       return -1;
    }
+
    if (i2c_mag_port::busy()){
       return 0;
    } 
-   // TODO error checking
-   //static quan::time_<int64_t>::ms timepoint{0};
 
-//   static int32_t oldstrap = -2; // want a strap to start so put out of range here
-//   if ( strap != oldstrap) {
-//      // quan::stm32::set<heartbeat_led_pin>();
-//       switch(strap){
-//         case 0:
-//            request_no_strap();
-//            break;
-//         case  1:
-//            request_positive_strap();
-//            break;
-//         case -1:
-//            request_negative_strap();
-//            break;
-//         default:
-//           return -1;
-//      }
-//     
-      if( ! request_no_strap()){
-          return -1;
-      }
-      if (!request_new_measurement()){
-          
-          return -1;
-      }
-//############
-#if 1
-      //wait_for_mag_ready();
-       vTaskDelay(100);
-       if (! send_x_reg_address()){
-         return -1;
-       }
-       if( ! request_read_mag_values()){
-         return -1;
-       }
-       copy_new_values(result_out);
-#endif
-
-return 1;
-//###########################################
-//   request_new_measurement();
-//   if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
-//      send_x_reg_address();
-//      request_read_mag_values();
-//      
-//      copy_new_values(result_out);
-//      // if no errors TODO check mag error state
-//      return 1;
-//   }else{
-//      return -1;
-//   }
-}
-#else
-int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
-{
-   
-   if (i2c_mag_port::addr_timeout()){
-     // TODO do error message
-     // quan::user_message("i2c addr timeout\n");
+   if (!request_new_measurement()){
       return -1;
    }
-   if (i2c_mag_port::busy()){
-      return 0;
-   } 
-   // used for checking exti timeout
-   static quan::time_<int64_t>::ms timepoint{0};
-   static int32_t oldstrap = -2; // want a strap to start so put out of range here
-   static bool different_strap = false;
 
-   switch (update_state){
-      case update_state_t::transfer_done:
-        if(strap == oldstrap){
-            // block
-            request_new_measurement();
-            timepoint = quan::stm32::millis(); // record time to exti
-            update_state = update_state_t::looking_for_exti_event;
-         }else{   
-            different_strap = true;
-            oldstrap = strap;
-            switch(strap){
-               case 0:
-                  request_no_strap();
-                  break;
-               case  1:
-                  request_positive_strap();
-                  break;
-               case -1:
-                  request_negative_strap();
-                  break;
-               default:
-                  break;
-            }
-            update_state = update_state_t::new_strap;
-         }
-      return 0;
-      case update_state_t::new_strap:
-         update_state = update_state_t::transfer_done;
-      return 0;
-      case update_state_t::looking_for_exti_event:
-         if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
-            send_x_reg_address();
-            update_state = update_state_t::x_address_sent;
-         }else{
-            update_state = update_state_t::transfer_done;
-            return -1;    // failed  to get exti
-         }
-      return 0;
-      case update_state_t::x_address_sent:
-         request_read_mag_values();
-         update_state = update_state_t::transfer_in_progress;
-      return 0;
-      case update_state_t::transfer_in_progress:
-// transfer done
-/* if strap mode has just been changed then dump 
-   the first result we got as its for a different mode
-   so just dump it rather than confusing matters
-   The caller will just have to wait to gp round again
-   and do another conversion
-*/ 
-
-         update_state = update_state_t::transfer_done;
-         
-         if (different_strap == true){
-            different_strap = false;
-            return 0; // no new data
-         }else{
-            copy_new_values(result_out);
-            return 1; // new data
-         }
-      default:
-         return 0;
+   if (! send_x_reg_address()){
+      return -1;
    }
+   if( ! request_read_mag_values()){
+     return -1;
+   }
+   copy_new_values(result_out);
+
+   return 1;
 }
 
-#endif
 
 
 
