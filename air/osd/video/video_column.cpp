@@ -107,6 +107,7 @@ namespace {
 
    void service_osd_buffers()
    {
+     HigherPriorityTaskWoken_osd = pdFALSE;
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){    
         video_buffers::osd::manager.swap();
         xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken_osd);
@@ -114,7 +115,8 @@ namespace {
    }
 #if defined QUAN_OSD_TELEM_TRANSMITTER
    void service_telem_tx_buffers()
-   {
+   {  
+      HigherPriorityTaskWoken_telem = pdFALSE;
       if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
         video_buffers::telem::tx::manager.swap();
         xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);
@@ -129,7 +131,8 @@ namespace {
    // no buffer swap takes place
    // so the data is ignored. The same buffer will overwritten again
    void service_telem_rx_buffers()
-   {
+   {  
+      HigherPriorityTaskWoken_telem = pdFALSE;
       if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
           video_buffers::telem::rx::manager.swap();
           xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);

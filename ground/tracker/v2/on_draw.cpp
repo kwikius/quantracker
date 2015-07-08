@@ -6,10 +6,16 @@
 #include "resources.hpp"
 #include "compass.hpp"
 
+namespace {
 
+quan::uav::osd::font_ptr font = nullptr;
+}
 
 void quan::uav::osd::on_draw()
 {
+   if ( font == nullptr){
+      font = quan::uav::osd::get_font(0);
+   }
    static quan::time_<int64_t>::ms prev_time{0};
    quan::time_<int64_t>::ms time_now = quan::stm32::millis();
    if ((time_now - prev_time) > quan::time_<int64_t>::ms{250}){
@@ -25,9 +31,6 @@ void quan::uav::osd::on_draw()
    now /= 60;
    int32_t h_part = static_cast<int32_t>(now);
 
-   auto font= quan::uav::osd::get_font(0);
-
-   if (font){
       char buf[100];  
       sprintf(buf,"[%2ih:%2im:%2is:%3ims]",
          static_cast<int>(h_part),static_cast<int>(min_part),
@@ -39,14 +42,11 @@ void quan::uav::osd::on_draw()
         // quan::stm32::set<heartbeat_led_pin>();
          quan::three_d::vect<float> compass_vect = raw_compass::get_raw();
          raw_compass::release_mutex();
-         sprintf(buf,"raw compass = [%.3f,%.3f,%.3f]",
-               static_cast<double>(compass_vect.x),
-                  static_cast<double>(compass_vect.y),
-                     static_cast<double>(compass_vect.z)
-         );
-         quan::uav::osd::draw_text(buf,{-160,50},font);
+         char constexpr dim[] = {'x','y','z'};
+         for ( uint32_t i = 0; i < 3; ++i){
+            sprintf(buf,"%c = %.3f",dim[i],static_cast<double>(compass_vect[i]));
+            pxp_type pos{-160,80 - ((get_size(font).y +4) * i) };
+            quan::uav::osd::draw_text(buf,pos,font);
+         }
       }
-   }else{
-     // quan::stm32::set<heartbeat_led_pin>();
-   }
  }

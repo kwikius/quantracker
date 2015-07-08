@@ -78,7 +78,7 @@ Use TIM4 for pan motor timings also can trigger ADC
 
 typedef quan::stm32::freertos::usart_tx_rx_task<
    sliprings_usart,
-   100,100, 
+   200,200, 
    sliprings_txo_pin,sliprings_rxi_pin,
    char
 > sliprings_tx_rx_task;

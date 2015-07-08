@@ -23,7 +23,7 @@ namespace{
          sp::write("I2C Test");
       //   quan::user_message("Testing I2C\n");
          for(;;){
-           
+         //   vTaskDelay(10);
             raw_compass::update();
          }
          
