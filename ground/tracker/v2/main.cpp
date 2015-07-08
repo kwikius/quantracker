@@ -43,6 +43,7 @@ int main()
   create_compass_task();
   create_telemetry_receiver_task();
   create_draw_task();
+  create_tracker_mode_task();
   vTaskStartScheduler();
 
   while (1) {;}

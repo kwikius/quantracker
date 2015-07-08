@@ -31,22 +31,22 @@ void quan::uav::osd::on_draw()
    now /= 60;
    int32_t h_part = static_cast<int32_t>(now);
 
-      char buf[100];  
-      sprintf(buf,"[%2ih:%2im:%2is:%3ims]",
-         static_cast<int>(h_part),static_cast<int>(min_part),
-         static_cast<int>(s_part),static_cast<int>(ms_part)
-      );
-      quan::uav::osd::draw_text(buf,{-150,-55},font);
+   char buf[100];  
+   sprintf(buf,"[%2ih:%2im:%2is:%3ims]",
+      static_cast<int>(h_part),static_cast<int>(min_part),
+      static_cast<int>(s_part),static_cast<int>(ms_part)
+   );
+   quan::uav::osd::draw_text(buf,{-150,-55},font);
 
-      if ( raw_compass::acquire_mutex(10) == pdTRUE){
-        // quan::stm32::set<heartbeat_led_pin>();
-         quan::three_d::vect<float> compass_vect = raw_compass::get_raw();
-         raw_compass::release_mutex();
-         char constexpr dim[] = {'x','y','z'};
-         for ( uint32_t i = 0; i < 3; ++i){
-            sprintf(buf,"%c = %.3f",dim[i],static_cast<double>(compass_vect[i]));
-            pxp_type pos{-160,80 - ((get_size(font).y +4) * i) };
-            quan::uav::osd::draw_text(buf,pos,font);
-         }
+   if ( raw_compass::acquire_mutex(10) == pdTRUE){
+     // quan::stm32::set<heartbeat_led_pin>();
+      quan::three_d::vect<float> compass_vect = raw_compass::get_raw();
+      raw_compass::release_mutex();
+      char constexpr dim[] = {'x','y','z'};
+      for ( uint32_t i = 0; i < 3; ++i){
+         sprintf(buf,"%c = %.3f",dim[i],static_cast<double>(compass_vect[i]));
+         pxp_type pos{-160,80 - ((get_size(font).y +4) * i) };
+         quan::uav::osd::draw_text(buf,pos,font);
       }
+   }
  }
