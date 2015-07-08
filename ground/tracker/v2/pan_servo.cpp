@@ -186,13 +186,13 @@ namespace {
 
    void switch_on_motor()
    {
-      quan::stm32::set<heartbeat_led_pin>();
+     // quan::stm32::set<heartbeat_led_pin>();
       quan::stm32::set<pan_motor_pwm_pin>();
    }
 
    void switch_off_motor()
    {
-      quan::stm32::clear<heartbeat_led_pin>();
+     // quan::stm32::clear<heartbeat_led_pin>();
       quan::stm32::clear<pan_motor_pwm_pin>();
    }
 

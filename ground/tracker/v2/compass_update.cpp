@@ -25,8 +25,46 @@
 #include "resources.hpp"
 #include <quan/user.hpp>
 
-SemaphoreHandle_t get_mag_ready_semaphore();
-SemaphoreHandle_t get_compass_semaphore();
+namespace {
+   const char* do_i2c_errno_str()
+   {
+
+      switch(i2c_mag_port::i2c_errno){
+
+         case i2c_mag_port::errno_t::no_error:
+         return "no error";
+         case i2c_mag_port::errno_t::invalid_address:
+         return "invalid address";
+         case i2c_mag_port::errno_t::cant_start_new_transfer_when_i2c_busy:
+         return "cant start new transfer when i2c busy";
+         case i2c_mag_port::errno_t::zero_data:
+         return "zero data";
+         case i2c_mag_port::errno_t::data_pointer_is_null:
+         return "daya pointer is null";
+         case i2c_mag_port::errno_t::invalid_num_bytes_in_rx_multibyte_btf:
+         return "invalid numbytes in rx multibyte buffer";
+         case i2c_mag_port::errno_t::unexpected_single_total_bytes_in_rx_btf:
+         return "unexpected single total bytes in rx btf";
+         case i2c_mag_port::errno_t::unexpected_not_last_byte_in_rxne:
+         return "unexpetced not last byte in rxne";
+         case i2c_mag_port::errno_t::unexpected_flags_in_irq:
+         return "unexpected flags in irq";
+         case i2c_mag_port::errno_t::i2c_err_handler:
+         return "i2c errhandler";
+         case i2c_mag_port::errno_t::unknown_exti_irq:
+         return " unknown ext irq";
+         default:
+         return "unlisted i2c error";
+      }
+   }
+
+   void do_i2c_errno()
+   {
+     quan::user_message( do_i2c_errno_str());
+     quan::user_message("\n");
+   }
+
+}
 
 namespace{
 
@@ -48,27 +86,36 @@ namespace{
 /*
    remenber state must persist while transfer in progress!
 */
-   void request_new_measurement()
+   bool request_new_measurement()
    {
-      if(!i2c_mag_port::transfer_request(
-            mag_write,single_measurement_string,2)){
+      if(!i2c_mag_port::transfer_request(mag_write,single_measurement_string,2)){
          quan::user_message("request_new_measurement transfer failed\n");
+         do_i2c_errno();
+         return false;
+      }else{
+         return true;
       }
    }
 
    // to read  lowest address so can auto increment registers
-   void send_x_reg_address()
+   bool send_x_reg_address()
    {
       if( !i2c_mag_port::transfer_request(mag_write,msb_x_ar,1)){
          quan::user_message("xend x transfer failed\n");
+         do_i2c_errno();
+         return false;
       }
+      return true;
    }
 
-   void  request_read_mag_values()
+   bool  request_read_mag_values()
    {
        if( !i2c_mag_port::transfer_request(mag_read,local_values,6)){
          quan::user_message("data transfer failed\n");
+         do_i2c_errno();
+         return false;
       }
+      return true;
    }
 
    int16_t convert_to_int16(uint8_t * d)
@@ -98,28 +145,88 @@ namespace{
    };
    update_state_t update_state = update_state_t::transfer_done;
 #endif
-   void request_positive_strap()
+   bool request_positive_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,positive_pulse_string,2)){
          quan::user_message("positive pulse failed\n");
+         do_i2c_errno();
+         return false;
       }
+      return true;
    }
 
-   void request_negative_strap()
+   bool request_negative_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,negative_pulse_string,2)){
          quan::user_message("negative pulse failed\n");
+         do_i2c_errno();
+         return false;
       }
+      return true;
    }
 
-   void request_no_strap()
+   bool request_no_strap()
    {
       if( !i2c_mag_port::transfer_request( mag_write,no_pulse_string,2)){
          quan::user_message("no pulse failed\n");
+         do_i2c_errno();
+         return false;
       }
+      return true;
    }
 
    //static uint8_t configB_setup_string[]= {configB,0b00000001};
+#if 1
+   SemaphoreHandle_t notify_when_mag_ready_to_read = NULL;
+   SemaphoreHandle_t mag_is_ready_to_read = NULL;
+   
+   // task
+   void wait_for_mag_ready()
+   {
+      xSemaphoreGive(notify_when_mag_ready_to_read);
+      xSemaphoreTake(mag_is_ready_to_read,portMAX_DELAY);
+   }
+
+   // irq
+   BaseType_t HigherPriorityTaskWoken = pdFALSE;
+   void notify_mag_ready_to_read()
+   {
+      if ( (notify_when_mag_ready_to_read != NULL) &&
+          (mag_is_ready_to_read != NULL) ){
+         if (xSemaphoreTakeFromISR(notify_when_mag_ready_to_read,NULL) == pdTRUE){
+            xSemaphoreGiveFromISR(mag_is_ready_to_read,&HigherPriorityTaskWoken);
+         }
+      }
+   }
+#else
+
+
+#endif
+}
+
+void create_mag_ready_semaphores()
+{
+    notify_when_mag_ready_to_read = xSemaphoreCreateBinary();
+    mag_is_ready_to_read = xSemaphoreCreateBinary();
+}
+
+namespace {
+   int count = 0;
+}
+
+extern "C" void EXTI15_10_IRQHandler()   __attribute__ ((interrupt ("IRQ")));
+extern "C" void EXTI15_10_IRQHandler()
+{     
+
+   HigherPriorityTaskWoken = pdFALSE;
+   if (quan::stm32::is_event_pending<mag_rdy_exti_pin>()){
+      quan::stm32::clear_event_pending<mag_rdy_exti_pin>();
+    //  notify_mag_ready_to_read();
+      //quan::stm32::complement<heartbeat_led_pin>();
+   }else{
+      i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::unknown_exti_irq;
+   }
+   portEND_SWITCHING_ISR(HigherPriorityTaskWoken);
 }
 
 //1 on new result_out written , 0 if ok but no new vales, -1 on timeout
@@ -146,41 +253,57 @@ int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)
    } 
    // TODO error checking
    //static quan::time_<int64_t>::ms timepoint{0};
-   static int32_t oldstrap = -2; // want a strap to start so put out of range here
-   if ( strap != oldstrap) {
-       switch(strap){
-         case 0:
-            request_no_strap();
-            break;
-         case  1:
-            request_positive_strap();
-            break;
-         case -1:
-            request_negative_strap();
-            break;
-         default:
-           return -1;
+
+//   static int32_t oldstrap = -2; // want a strap to start so put out of range here
+//   if ( strap != oldstrap) {
+//      // quan::stm32::set<heartbeat_led_pin>();
+//       switch(strap){
+//         case 0:
+//            request_no_strap();
+//            break;
+//         case  1:
+//            request_positive_strap();
+//            break;
+//         case -1:
+//            request_negative_strap();
+//            break;
+//         default:
+//           return -1;
+//      }
+//     
+      if( ! request_no_strap()){
+          return -1;
       }
-      // discard
-      request_new_measurement();
-      if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
-         // TODO new time point
-         send_x_reg_address();
-         request_read_mag_values();
+      if (!request_new_measurement()){
+          
+          return -1;
       }
-      oldstrap = strap;
-   }
-   request_new_measurement();
-   if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
-      send_x_reg_address();
-      request_read_mag_values();
-      
-      copy_new_values(result_out);
-      // if no errors TODO check mag error state
-      return 1;
-   }else{
-      return -1;
-   }
+//############
+#if 1
+      //wait_for_mag_ready();
+       vTaskDelay(100);
+       if (! send_x_reg_address()){
+         return -1;
+       }
+       if( ! request_read_mag_values()){
+         return -1;
+       }
+       copy_new_values(result_out);
+#endif
+
+return 1;
+//###########################################
+//   request_new_measurement();
+//   if (xSemaphoreTake(get_mag_ready_semaphore(),200) == pdTRUE){
+//      send_x_reg_address();
+//      request_read_mag_values();
+//      
+//      copy_new_values(result_out);
+//      // if no errors TODO check mag error state
+//      return 1;
+//   }else{
+//      return -1;
+//   }
 }
 #else
 int32_t  ll_update_mag(quan::three_d::vect<int16_t> & result_out,int32_t strap)

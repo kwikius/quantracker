@@ -39,7 +39,7 @@ static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 local_objects = main.o spbrk.o setup.o  sliprings_sp_irq.o \
 tracker_mode_task.o pan_servo.o text_commands.o on_draw.o \
 flash.o user.o initialise_flash.o on_telemetry_received.o \
-compass.o compass_update.o compass_task.o
+compass.o compass_update.o compass_task.o rtos_hooks.o
 
 obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
 
@@ -78,7 +78,7 @@ upload : test
 	st-flash write $(BINDIR)main.bin 0x8000000
 
 upload_sp : test
-	$(STM32FLASH) -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
+	$(STM32FLASH) -b 115200 -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
 
 clean:
 	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst

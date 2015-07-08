@@ -39,9 +39,11 @@ extern "C" void vApplicationIdleHook(  )
 	important that vApplicationIdleHook() is permitted to return to its calling
 	function, because it is the responsibility of the idle task to clean up
 	memory allocated by the kernel to any task that has since been deleted. */
+  // quan::stm32::set<heartbeat_led_pin>();
 }
 extern "C" void vApplicationTickHook( void )
 {
+ // quan::stm32::set<heartbeat_led_pin>();
 }
 /*-----------------------------------------------------------*/
 extern "C" void vApplicationMallocFailedHook( )
@@ -57,12 +59,9 @@ extern "C" void vApplicationMallocFailedHook( )
 	to query the size of free heap space that remains (although it does not
 	provide information on how the remaining heap might be fragmented). */
 	taskDISABLE_INTERRUPTS();
-// have to set heartbeat here
-   #if (( QUAN_OSD_BOARD_TYPE !=4) || (defined QUAN_DISCOVERY))
-   quan::stm32::set<blue_led_pin>();
-   #else
-    // quan::stm32::set<heartbeat_led_pin>(); 
-   #endif
+
+   quan::stm32::set<heartbeat_led_pin>(); 
+
 	for( ;; );
 }
 
@@ -75,7 +74,7 @@ extern "C" void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTask
 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
 	function is called if a stack overflow is detected. */
 	taskDISABLE_INTERRUPTS();
-   //quan::stm32::set<heartbeat_led_pin>();
+   quan::stm32::set<heartbeat_led_pin>();
 	for( ;; );
 }
 

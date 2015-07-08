@@ -1,22 +1,16 @@
 #include "resources.hpp"
 #include "compass.hpp"
 
-namespace {
-
-      SemaphoreHandle_t mag_ready_semaphore = NULL;
-}
-  
-SemaphoreHandle_t get_mag_ready_semaphore()
-{
-    return mag_ready_semaphore;
-}
+void create_mag_ready_semaphores();
 
 namespace{
 
+   
+
       void init_compass()
       {
+         create_mag_ready_semaphores();
          raw_compass::init();
-         mag_ready_semaphore = xSemaphoreCreateBinary(); 
       }
 
       void compass_task(void * param)
@@ -24,7 +18,12 @@ namespace{
       
          init_compass();
 
+         typedef sliprings_tx_rx_task sp;
+         sp::enable();
+         sp::write("I2C Test");
+      //   quan::user_message("Testing I2C\n");
          for(;;){
+           
             raw_compass::update();
          }
          

@@ -42,7 +42,7 @@ bool raw_compass::get_bearing( quan::angle::deg & bearing_out)
    if ( ! m_compass_offset_set){
       return false;
    }
-    
+  
    quan::three_d::vect<float> v = get_vect();
    quan::angle::deg result = quan::atan2(v.y, v.x) + quan::angle::pi/2;
    while (result < quan::angle::deg{0}){
@@ -123,21 +123,28 @@ void raw_compass::enable_updating()
 
 int32_t raw_compass::update()
 {
+  
    if (m_updating_enabled){
+    //  quan::stm32::set<heartbeat_led_pin>();
       quan::three_d::vect<int16_t> result;
       int res = ::ll_update_mag(result,raw_compass::get_strap());
       if ( res == 1){
          if ( raw_compass::acquire_mutex(10) == pdTRUE){
+            quan::stm32::set<heartbeat_led_pin>();
             raw_compass::m_raw_value 
                = raw_compass::m_raw_value * (1.f - raw_compass::m_filter_value) 
                   + result * raw_compass::m_filter_value;
             raw_compass::release_mutex();
+         }else{
+             quan::stm32::clear<heartbeat_led_pin>();
          }
          // Disable updating here because its the end of a cycle so nice and neat
          if ( m_request_disable_updating){
             m_request_disable_updating = false;
             m_updating_enabled = false;
          }
+      }else{
+          quan::stm32::clear<heartbeat_led_pin>();
       }
       return res;
    }else{
@@ -167,7 +174,11 @@ namespace {
 
 bool raw_compass::acquire_mutex(TickType_t ticks)
 {
-   return xSemaphoreTake(m_mutex,ticks) == pdTRUE;
+   if ( m_mutex != NULL){
+     return xSemaphoreTake(m_mutex,ticks) == pdTRUE;
+   }else{
+      return false;
+   }
 }
 
 void raw_compass::release_mutex()
@@ -177,15 +188,16 @@ void raw_compass::release_mutex()
 
 void raw_compass::init()
 {
+   m_mutex = xSemaphoreCreateMutex();
    setup_mag_ready_irq();
    NVIC_SetPriority(I2C3_EV_IRQn,local_interrupt_priority::i2c_mag_evt);
-   m_mutex = xSemaphoreCreateMutex();
    i2c_mag_port::init(false,false);
 }
 
 extern "C" void I2C3_EV_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void I2C3_EV_IRQHandler()
 {     
+
    static_assert(std::is_same<i2c_mag_port::i2c_type, quan::stm32::i2c3>::value,"incorrect port irq");
    i2c_mag_port::handle_irq();
 }
@@ -199,15 +211,4 @@ extern "C" void I2C3_ER_IRQHandler()
    i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler;
 }
 
-extern "C" void EXTI15_10_IRQHandler()   __attribute__ ((interrupt ("IRQ")));
-extern "C" void EXTI15_10_IRQHandler()
-{     
-   if (quan::stm32::is_event_pending<mag_rdy_exti_pin>()){
-      static BaseType_t higherPriorityTaskHasWoken = pdFALSE;
-      quan::stm32::clear_event_pending<mag_rdy_exti_pin>();
-      xSemaphoreGiveFromISR(get_mag_ready_semaphore(),&higherPriorityTaskHasWoken);
-      portEND_SWITCHING_ISR(higherPriorityTaskHasWoken);
-   }else{
-      i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::unknown_exti_irq;
-   }
-}
+
