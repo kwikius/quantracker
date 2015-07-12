@@ -12,6 +12,12 @@ about where to get these libraries. [#installer]_
 You can also save the template root directory file "Sample-Dependencies.mk" 
 as Dependencies.mk and edit the contents.
 
+The format to define a makefile-variable is simply
+
+VARIABLE = expression
+
+(`See here more info on GNU Make`_ )
+
 The following variables need to be defined. [#trailing]_ 
 
 TOOLCHAIN_PREFIX 
@@ -50,12 +56,15 @@ MAVLINK_INCLUDE_PATH
 STM32FLASH
    The path to invoke the stm32flash executable
 
+.. _`See here more info on GNU Make`: http://www.gnu.org/software/make/manual/make.html
 .. _`OSD Index`: ../index.html
 .. _`dependent libraries`: toolchain.html
 .. _`toolchain.html`: toolchain.html
+.. _`installer script`: https://github.com/kwikius/quantracker/blob/master/bin/quantracker_deps_installer.py
 
-.. [#trailing] N.B. Dont forget the trailing '/'
+.. [#trailing] N.B. Dont forget the trailing '/' on any directories
 
-.. [#installer] If you use the installer script it will create and install a Dependencies.mk file automatically
+.. [#installer] If you use the `installer script`_ it will create and install a Dependencies.mk file automatically
    
+
 `OSD Index`_

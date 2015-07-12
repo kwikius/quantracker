@@ -102,7 +102,7 @@ static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 # in the board directory
 board_objects = main.o setup.o serial_port.o fsk_output.o \
 fsk_task.o frsky_task.o frsky_zapp1.o mavlink_task.o settings.o \
-heartbeat_task.o mode_check.o board_graphics_api.o led.o bitmaps.o fonts.o
+heartbeat_task.o mode_check.o board_graphics_api.o bitmaps.o fonts.o
 
 obj_board_objects = $(patsubst %,$(OBJDIR)%,$(board_objects))
 

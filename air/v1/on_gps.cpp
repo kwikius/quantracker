@@ -49,6 +49,12 @@ namespace {
           new_gps_data.set();
        }
 
+       if(g.m_hdop.changed()){
+          the_aircraft.gps.hdop = g.m_hdop.get_value();
+          g.m_hdop.clear_change();
+          new_gps_data.set();
+       }
+
        if(g.m_altitude_mm.changed()){
          the_aircraft.location.gps_alt = quan::length_<int32_t>::mm{g.m_altitude_mm.get_value()};
          g.m_altitude_mm.clear_change();

@@ -351,6 +351,9 @@ libraries that quantracker depends on to build) see <a class="reference external
 about where to get these libraries. <a class="footnote-reference" href="#installer" id="id1">[2]</a>
 You can also save the template root directory file &quot;Sample-Dependencies.mk&quot;
 as Dependencies.mk and edit the contents.</p>
+<p>The format to define a makefile-variable is simply</p>
+<p>VARIABLE = expression</p>
+<p>(<a class="reference external" href="http://www.gnu.org/software/make/manual/make.html">See here more info on GNU Make</a> )</p>
 <p>The following variables need to be defined. <a class="footnote-reference" href="#trailing" id="id2">[1]</a></p>
 <dl class="docutils">
 <dt>TOOLCHAIN_PREFIX</dt>
@@ -384,13 +387,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <table class="docutils footnote" frame="void" id="trailing" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>N.B. Dont forget the trailing '/'</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>N.B. Dont forget the trailing '/' on any directories</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="installer" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td>If you use the installer script it will create and install a Dependencies.mk file automatically</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td>If you use the <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/bin/quantracker_deps_installer.py">installer script</a> it will create and install a Dependencies.mk file automatically</td></tr>
 </tbody>
 </table>
 <p><a class="reference external" href="../index.html">OSD Index</a></p>

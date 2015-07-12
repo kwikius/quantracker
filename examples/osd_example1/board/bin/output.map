@@ -313,23 +313,6 @@ Discarded input sections
                 0x00000000        0xc obj/board_graphics_api.o
  .rodata.str1.4
                 0x00000000        0x8 obj/board_graphics_api.o
- .text          0x00000000        0x0 obj/led.o
- .data          0x00000000        0x0 obj/led.o
- .bss           0x00000000        0x0 obj/led.o
- .text._Z10setup_ledsv
-                0x00000000       0x48 obj/led.o
- .debug_info    0x00000000     0x87ba obj/led.o
- .debug_abbrev  0x00000000      0x64b obj/led.o
- .debug_loc     0x00000000       0x1f obj/led.o
- .debug_aranges
-                0x00000000       0x20 obj/led.o
- .debug_ranges  0x00000000      0x1f0 obj/led.o
- .debug_line    0x00000000      0xc0d obj/led.o
- .debug_str     0x00000000    0x11599 obj/led.o
- .comment       0x00000000       0x71 obj/led.o
- .ARM.attributes
-                0x00000000       0x3b obj/led.o
- .debug_frame   0x00000000       0x20 obj/led.o
  .group         0x00000000        0x8 obj/bitmaps.o
  .group         0x00000000        0x8 obj/bitmaps.o
  .group         0x00000000        0x8 obj/bitmaps.o
@@ -1168,7 +1151,6 @@ LOAD obj/settings.o
 LOAD obj/heartbeat_task.o
 LOAD obj/mode_check.o
 LOAD obj/board_graphics_api.o
-LOAD obj/led.o
 LOAD obj/bitmaps.o
 LOAD obj/fonts.o
 LOAD obj/flash_vars.o
