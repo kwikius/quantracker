@@ -88,6 +88,7 @@ namespace {
       for ( uint32_t i = 0; i < 30 ; ++i){
         // 99 bytes at 9600 assume transfer takes 1/10th sec
         // then 30 x through gives 3 sec for user
+        // (Since this is b4 startup then dont want to use timers etc
         if ( io("***********************************\n"
                 "Press return 3 times for Flash Menu\n"
                 "***********************************\n") ){
