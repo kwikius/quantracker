@@ -5,31 +5,44 @@
 Quantracker Air OSD Flash Menu
 ------------------------------
 
-**N.B. This will probably be changed soon so that entering return 3 times
-soo after start up will enter flash menu mode, so not requiring any special connector** .
+For the `osd_example1`_ and `osd_ac`_ firmwares, you can access the flash menu as follows. [#no_con_change]_
 
-Read the docs on the particular firmware for details, but meanwhile...
+Connect a usb serial connector to the board. 
+(A 3V or 5V Arduino serial connector will work fine)
 
-Currently, on fimware that use the flash variables facility,
-the flash menu mode can be entered as follows:
-Create a connector which joins txo, rxi power and ground pins as usual ,
-but also connects the secondary tx0 and rxi pins with a jumper as shown
+  .. image:: ../V2_1_mavlink_sp_pinout.png
 
-.. image:: V2_1_flash_connector.png
 
 Start a serial port console at 9600 baud with 8 bits, no parity and 1 stop bit.
 Note that power must be supplied to the port which is electrically isolated
-from the rest of the OSD. 
-You can however use any supply from 3 to 5V . The supply is 
+from the rest of the OSD. You can however use any supply from 3 to 5V . The supply is 
 usually present on an FTDI to USB cable. 
 When power is supplied a red LED will be lit close by the port.
-When you switch on the OSD it should present you with something similar to:
+
+Next supply power to the OSD. It is easiest if you use a switch inline in the power
+supply rather than fumbling with connectors
+When you switch on the OSD, The Serial console should present you with something similar to:
+
+::
+  
+   Press return 3 times for Flash Menu
+
+
+Then after a few seconds
+
+::
+
+   Time is up! ... Exiting to Flight mode
+
+However if you press return 3 times immediately ( up to 3 seconds) after startup you should be
+presented with:
 
 ::
 
    Quantracker Air OSD 2.1
    ~~~~Flash menu mode~~~~
 
+You are now in Flash menu mode.
 
 The various functions are available as commands.
 
@@ -53,11 +66,16 @@ The various functions are available as commands.
       Exit the flash menu mode and start showing the OSD.
 
 
-To set the values of flash variables at one go you can also use the app in 
-      `quantracker/air/osd/utilities/flash_vars_upload/`_ . See the reame there for details.
+To set the values of flash variables all at once go you can also use the app in 
+      `quantracker/air/osd/utilities/flash_vars_upload/`_ . See the readme there for details.
 
 .. _`quantracker/air/osd/utilities/flash_vars_upload/`: https://github.com/kwikius/quantracker/tree/devel/air/osd/utilities/flash_vars_upload
 .. _`OSD Index`: index.html
+.. _`osd_example1` : firmwares/osd_example1.html
+.. _`osd_ac` : firmwares/osd_example1.html
+
+.. [#no_con_change]  This has been changed from earlier versions so that there is no need to change connectors to enter 
+         flash menu mode
 
 `OSD Index`_
 
