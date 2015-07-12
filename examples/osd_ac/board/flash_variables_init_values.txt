@@ -1,0 +1,60 @@
+
+------flash symbols-------
+show_home : true
+osd_home_control : 7
+osd_home_pos : [-160,70,60]
+show_compass : true
+osd_compass_control : 7
+osd_compass_pos : [0,-115,-80]
+show_altitude : true
+osd_altitude_control : 3
+osd_altitude_pos : [95,-15,-15]
+show_gps_no_fix : true
+osd_gps_no_fix_control : 3
+osd_gps_no_fix_pos : [-160,70,50]
+show_afcl_horizon : true
+osd_afcl_horizon_control : 3
+osd_afcl_horizon_pitch_adj : 0
+show_gps_fix_type : true
+osd_gps_fix_type_control : 3
+osd_gps_fix_type_pos : [-170,75,75]
+show_gps_num_sats : true
+osd_gps_num_sats_control : 3
+osd_gps_num_sats_pos : [-80,75,75]
+show_gps_hdop : true
+osd_gps_hdop_control : 3
+osd_gps_hdop_pos : [-60,75,75]
+show_flight_mode : true
+osd_flight_mode_control : 7
+osd_flight_mode_pos : [118,90,90]
+show_armed_mode : true
+osd_armed_mode_control : 7
+osd_armed_mode_pos : [-170,90,90]
+show_airspeed : true
+osd_airspeed_control : 7
+osd_airspeed_pos : [-170,0,0]
+show_groundspeed : true
+osd_groundspeed_control : 3
+osd_groundspeed_pos : [-170,-15,-15]
+show_latitude : true
+osd_latitude_control : 3
+osd_latitude_pos : [-170,-110,-110]
+show_longitude : true
+osd_longitude_control : 3
+osd_longitude_pos : [33,-110,-110]
+show_baro_altitude : true
+osd_baro_altitude_control : 7
+osd_baro_altitude_pos : [95, 0, 0]
+show_aircraft_battery_voltage : true
+osd_aircraft_battery_voltage_control : 7
+osd_aircraft_battery_voltage_pos : [106,75,75]
+show_aircraft_battery_current : true
+osd_aircraft_battery_current_control : 7
+osd_aircraft_battery_current_pos : [106,60,60]
+show_aircraft_battery_remaining : true
+osd_aircraft_battery_remaining_control : 7
+osd_aircraft_battery_remaining_pos : [118,45,45]
+osd_page_select_channel : 8
+osd_afcl_horizon_eye_distance : 200
+--------------------------
+
