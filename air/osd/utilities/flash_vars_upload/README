@@ -11,6 +11,9 @@ Until its automated, you can create a flash vars file by capturing the output of
 
 Changelog
 
+Fixed vector values can now contain whitespace
+  e.g [ 1 ,2 , 3 ] is accepted
+
 Fixed so that accepts return and linefeed as end of line char
 Now automatically exits to start OSD when done. (Hope eventually to do it interactively
 , so its wysiwyg)

@@ -25,12 +25,16 @@ LD = g++
 INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
 CFLAGS = -std=c++11 -Wall
 
+local_objects = main.o read.o write.o
+
+objects = $(local_objects) serial_port.o 
+
 all: flash_vars_uploader.exe
 
-flash_vars_uploader.exe : main.o serial_port.o
-	$(LD) main.o serial_port.o -o flash_vars.exe
+flash_vars_uploader.exe : $(objects)
+	$(LD) $(objects) -o flash_vars.exe
 
-main.o : main.cpp
+$(local_objects) : %.o : %.cpp
 	$(CC) $(CFLAGS) $(INCLUDE_ARGS) -c $< -o $@
 
 serial_port.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/serial_port.cpp

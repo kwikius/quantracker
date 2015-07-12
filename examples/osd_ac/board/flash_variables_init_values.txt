@@ -1,5 +1,3 @@
-
-------flash symbols-------
 show_home : true
 osd_home_control : 7
 osd_home_pos : [-160,70,60]
@@ -56,5 +54,4 @@ osd_aircraft_battery_remaining_control : 7
 osd_aircraft_battery_remaining_pos : [118,45,45]
 osd_page_select_channel : 8
 osd_afcl_horizon_eye_distance : 200
---------------------------
 
