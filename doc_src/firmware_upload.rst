@@ -7,7 +7,9 @@ Uploading firmware to the Tracker and OSD
 
 There are 2 methods of uploading the Tracker and OSD firmwares
 
-*  `Using the serial port`_  is the the recommended  method for the OSD.
+*  `Using the serial port`_  is the the recommended  method for the OSD,
+   though the OSD board also breaks out the SW-DP Jtag debug pins, 
+   and can be programmed/debugged via the SW-DP port, `Using ST-Link`_ , if required
   	
 *  `Using ST-Link`_ is the recommended for the Tracker since it incorporates a ST-Link programmer.
 

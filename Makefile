@@ -17,7 +17,7 @@ osd_libs:
 
 clean_osd_libs:
 	$(MAKE) -C air/osd/ -f all_osd_libs.mk clean
-
+#-------------------
 osd_example1: 
 	$(MAKE) -C examples/osd_example1/board
 
@@ -26,7 +26,7 @@ clean_osd_example1:
 
 upload_osd_example1:
 	$(MAKE) -C examples/osd_example1/board upload_sp
-  
+#----------------
 osd_ac: 
 	$(MAKE) -C examples/osd_ac/board
 
@@ -35,6 +35,24 @@ clean_osd_ac:
 
 upload_osd_ac:
 	$(MAKE) -C examples/osd_ac/board upload_sp
+#----------------
+osd_telem_tx: 
+	$(MAKE) -C examples/osd_telem_tx
+
+clean_osd_telem_tx:
+	$(MAKE) -C examples/osd_telem_tx clean
+
+upload_osd_telem_tx:
+	$(MAKE) -C examples/osd_telem_tx upload_sp
+#---------------
+osd_telem_rx: 
+	$(MAKE) -C examples/osd_telem_rx
+
+clean_osd_telem_rx:
+	$(MAKE) -C examples/osd_telem_rx clean
+
+upload_osd_telem_rx:
+	$(MAKE) -C examples/osd_telem_rx upload_sp
 
 else
 quantracker-make-help:
@@ -48,19 +66,31 @@ quantracker-make-help:
 	@echo ''                                                       
 	@echo '************ Making OSD examples *************************'
 	@echo ''
+	@echo invoke \'make osd_example1\' to build the osd_example1 example. \(\'make clean_osd_example1\' to clean\)
+	@echo invoke \'make upload_osd_example1\' to upload via the serial port
+	@echo ''
 	@echo invoke \'make osd_ac\' to make the osd_ac example. \(\'make clean_osd_ac\' to clean\)
 	@echo invoke \'make upload_osd_ac\' to upload via the serial port 
 	@echo ''
-	@echo invoke \'make osd_example1\' to build the osd_example1 example. \(\'make clean_osd_example1\' to clean\)
-	@echo invoke \'make upload_osd_example1\' to upload via the serial port
+	@echo invoke \'make osd_telem_tx\' to make the osd__telem_tx example. \(\'make clean_osd_telem_tx\' to clean\)
+	@echo invoke \'make upload_osd_telem_tx\' to upload via the serial port
+	@echo ''
+	@echo invoke \'make osd_telem_rx\' to make the osd__telem_rx example. \(\'make clean_osd_telem_rx\' to clean\)
+	@echo invoke \'make upload_osd_telem_rx\' to upload via the serial port
+	@echo ''
+	@echo The examples should build the required static libraries, but they can be built and cleaned separately
+	@echo invoke \'make osd_libs\' to make the osd static libraries. \(\'make clean_osd_libs\' to clean\)
+	@echo ''
+	@echo '************ Making Antenna Tracker V2 ********************'
+	@echo ''
+	@echo invoke \'make ground_tracker_v2\'. 
+	@echo The resulting binaries will be in the ground/tracker/v2/bin/ subdirectory.
 	@echo ''
 	@echo '************ Making Antenna Tracker V1 ********************'
 	@echo ''
 	@echo invoke \'make ground_tracker_v1\'. 
 	@echo The resulting binaries will be in the ground/tracker/v1/ subdirectory.
 	@echo ''
-	@echo '********************************************************************'
-	@echo ''
-	@echo ''
-	
+	@echo '***********************************************************'
+
 endif

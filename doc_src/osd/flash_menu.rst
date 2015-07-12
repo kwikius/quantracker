@@ -5,14 +5,25 @@
 Quantracker Air OSD Flash Menu
 ------------------------------
 
-The flash menu mode can be entered as follows:
-Create a connector which joins txo, rxi power and ground pins as uusal ,
+**N.B. This will probably be changed soon so that entering return 3 times
+soo after start up will enter flash menu mode, so not requiring any special connector** .
+
+Read the docs on the particular firmware for details, but meanwhile...
+
+Currently, on fimware that use the flash variables facility,
+the flash menu mode can be entered as follows:
+Create a connector which joins txo, rxi power and ground pins as usual ,
 but also connects the secondary tx0 and rxi pins with a jumper as shown
 
 .. image:: V2_1_flash_connector.png
 
 Start a serial port console at 9600 baud with 8 bits, no parity and 1 stop bit.
-When you switch on the OSD it should present you with:
+Note that power must be supplied to the port which is electrically isolated
+from the rest of the OSD. 
+You can however use any supply from 3 to 5V . The supply is 
+usually present on an FTDI to USB cable. 
+When power is supplied a red LED will be lit close by the port.
+When you switch on the OSD it should present you with something similar to:
 
 ::
 

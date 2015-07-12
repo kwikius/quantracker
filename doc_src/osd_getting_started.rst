@@ -14,9 +14,6 @@ The board is entirely Open Source hardware and software.
 `The full schematic is available here as a set of pdfs`_ .
 `The source code is available on GitHub`_ .
 
-The V2.1 board pinout differs from the V1 board. ( `Click here For details of the V1 board`_ though not recommended for new projects)
-
-
   .. image:: V2_1_osd_board.png
 
 The above diagram highlights the connections of the board [1]_. 
@@ -36,7 +33,6 @@ The 2 pin header labelled prog is used to put the board in programming mode.
 The board firmware automatically detects PAL and NTSC cameras.
 
 We hope soon to try to get some finished boards available too.
-
 
 For more info , please look at the `OSD index`_.
 
@@ -59,7 +55,7 @@ For more info , please look at the `OSD index`_.
 .. [2] There are minor differences.
 
 .. [3] The output to the Video transmitter also provides 2 buffered Audio channels. 
-       Options include sending FSK telemetry data and uses a a Variometer, voice alerts etc.
+       Options include sending FSK telemetry data, audio variometer, voice alerts etc.
 
 .. [4] This could probably be made neater on the next version of the board
 

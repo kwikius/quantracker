@@ -1,4 +1,4 @@
-`OSD Index`_
+`OSD Technical Index`_
 
 ---------------
 Flash Variables
@@ -20,13 +20,13 @@ and each Flash variable must have a type. Currently available types are:
    * three_d::vect<int32_t>
    * three_d::vect<float>
    * char[10] [#TBA]_
-   * char[20] 
-   * char[30] 
-   * char[40] 
+   * char[20] [#TBA]_
+   * char[30] [#TBA]_
+   * char[40] [#TBA]_
 
 The system is designed so you can write a custom set of flash variables for your own display. 
 It is suggested that you use `quantracker/examples/osd_example1/common/flash.cpp`_ as a template.
-The flash symbol table named flash_varaiable_symtab is defined around 2/3 way down the page.
+The flash symbol table named flash_variable_symtab is defined around 2/3 way down the page.
 The EE_SYMTAB_ENTRY macro can be used to ease defining entries.
 The symtab_entry_t structure is defined in the quan::stm32::flash namespace `\<quan/stm32/flash.hpp\>`_
 
@@ -61,20 +61,20 @@ Fields:
          can be used if you dont need range checking.
 
    * info
-         Holds a small bit of helpful info about the variable which the user can read via the flash_menu.
+         Holds a small bit of helpful info about the variable which the user can read via the flash-menu.
 
    * readonly
-         Set this true so that the variable can be read but not modified from the flash menu. You can
+         Set this true so that the variable can be read but not modified from the flash-menu. You can
          of course modify it in code, using the set_flash_value(name, value) functions 
-         defined in `\<quan/stm32/flash/flash_convert.hpp\>`_
+         defined in `\<quan/stm32/flash/flash_convert.hpp\>`_  [#stw]_
 
 -------------------------------------
 viewing and modifying flash variables
 -------------------------------------
 
       The flash variables can be viewed and modified by the flash menu or programmatically in code.
-      Not that modfying flash while the OSD is running (ie once the sceduler has started)
-      is a "stop the world" operation
+      Not that modifying flash while the OSD is running (ie once the scheduler has started)
+      is a "stop the world" operation [#stw]_
       Though the actual write of a location is quite quick around 20 usec,
       it may very occasionally require erasing a page and
       copying all variables to another page which may take considerably longer. 
@@ -84,7 +84,7 @@ viewing and modifying flash variables
       See also `accessing flash variables via the flash menu`_
       
 .. _`accessing flash variables via the flash menu`: ../flash_menu.html
-.. _`OSD Index`: ../index.html
+.. _`OSD Technical Index`: tech/index.html
 .. _`\<quan/stm32/flash.hpp\>`: https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash.hpp
 .. _`\<quan/stm32/flash/flash_convert.hpp\>`: https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash/flash_convert.hpp
 .. _`quantracker/examples/osd_example1/common/flash.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp
@@ -97,5 +97,6 @@ viewing and modifying flash variables
                  Once the page is filled the flash variables are all copied to the other page 
                  and the cycle repeats.
 .. [#TBA] null terminatd strings To be added.
+.. [#stw] If the scheduler is running you need to suspend the OSD . TODO how to suspend the OSD
 
-`OSD Index`_
+`OSD Technical Index`_

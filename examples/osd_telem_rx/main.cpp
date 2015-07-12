@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2013 -2015 Andy Little 
+ Copyright (c) 2015 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -16,14 +16,6 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-//#include <FreeRTOS.h>
-//#include <task.h>
-//
-//extern "C" void setup();
-//
-//void create_draw_task();
-//
-//void create_telemetry_receiver_task();
 #include "application.hpp"
 
 int main()
@@ -31,11 +23,4 @@ int main()
   setup();
   create_tasks();
   start_scheduler();
-
-//  create_draw_task();
-//  create_telemetry_receiver_task();
-//
-//  vTaskStartScheduler();
-//
-//  while (1) {;}
 }

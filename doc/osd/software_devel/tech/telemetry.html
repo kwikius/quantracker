@@ -345,51 +345,103 @@ ul.auto-toc {
 <div class="section" id="telemetry">
 <h1>Telemetry</h1>
 <p>The OSD board can transmit or receive data via unused parts of the video signal.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#transmission">Transmission</a></li>
+<li><a class="reference internal" href="#reception">Reception</a></li>
+</ul>
+<div class="section" id="id1">
+<span id="transmission"></span><h2>Transmission</h2>
+<div class="section" id="tx-linking">
+<h3>tx linking</h3>
+<blockquote>
+To use the telemetry transmitter version of the OSD, link the static library
+<tt class="docutils literal">quantracker/lib/osd/quantracker_air_osd_rx.a</tt>
+into your OSD application</blockquote>
 </div>
-<div class="section" id="reception">
-<h1>Reception</h1>
-<div class="section" id="linking">
-<h2>Linking</h2>
-<p>To use the telemetry receiver version of the OSD link the static library</p>
-<pre class="literal-block">
-quantracker/lib/osd/quantracker_air_osd_rx.a
-</pre>
-<p>into your OSD application</p>
+<div class="section" id="tx-include">
+<h3>tx include</h3>
+<blockquote>
+<tt class="docutils literal">#include &lt;quantracker/osd/telemetry_transmitter.hpp&gt;</tt></blockquote>
 </div>
-<div class="section" id="setup">
-<h2>Setup</h2>
-<dl class="docutils">
-<dt>In main()</dt>
-<dd>Call the predefined library function create_telemetry_receiver_task()
-to create the  library telemetry task.
-<strong>create_telemetry_receiver_task() must be called before starting the scheduler.</strong></dd>
-</dl>
+<div class="section" id="tx-setup">
+<h3>tx Setup</h3>
+<blockquote>
+Before starting the Scheduler, call the predefined library function
+<tt class="docutils literal">create_telemetry_transmitter_task()</tt>,
+to create the  library telemetry task.</blockquote>
 </div>
-<div class="section" id="use">
-<h2>Use</h2>
-<p>In source code:</p>
-<pre class="literal-block">
-#include  &lt;quantracker/include/osd/receive_telemetry.hpp&gt;
-</pre>
-<p>Create your custom definition of the on_telemetry_received() callback to deal with received data.
+<div class="section" id="tx-use">
+<h3>tx Use</h3>
+<blockquote>
+<p>Create your custom definition of the callback <tt class="docutils literal">on_telemetry_transmitted()</tt> .
+The function will be called by the OSD system when the video telemetry transmit buffer is empty
+and can be reloaded.</p>
+<p>In the <tt class="docutils literal">on_telemetry_transmitted()</tt> function</p>
+<blockquote>
+<ul class="simple">
+<li>Call  <tt class="docutils literal">get_telemetry_transmitter_buffer_length()</tt>, to get the maximum amount of data
+that can be sent.</li>
+<li>Call <tt class="docutils literal">write_telemetry_data(buffer, len)</tt> , to transfer the contents of  buffer
+to the low level telemetry buffer for transmission.
+The minimum of len and maximum allowable length will be sent.</li>
+</ul>
+</blockquote>
+<p>The <tt class="docutils literal">on_telemetry_transmitted()</tt> function is in the context of the telemetry_transmitter_task,
+therefore,  to access global data, you should use a mutex.</p>
+</blockquote>
+</div>
+<div class="section" id="tx-example">
+<h3>Tx Example</h3>
+<blockquote>
+See the  <a class="reference external" href="https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_tx.html">osd_telem_tx</a> example in the Quantracker Github repo.</blockquote>
+</div>
+</div>
+<div class="section" id="id2">
+<span id="reception"></span><h2>Reception</h2>
+<div class="section" id="rx-linking">
+<h3>rx Linking</h3>
+<p>To use the telemetry receiver version of the OSD, link the static library
+<tt class="docutils literal">quantracker/lib/osd/quantracker_air_osd_rx.a</tt>
+into your OSD application.</p>
+</div>
+<div class="section" id="rx-include">
+<h3>rx include</h3>
+<blockquote>
+<tt class="docutils literal">#include &lt;quantracker/osd/telemetry_receiver.hpp&gt;</tt></blockquote>
+</div>
+<div class="section" id="rx-setup">
+<h3>rx Setup</h3>
+<blockquote>
+Before starting the Scheduler, call the predefined library function
+<tt class="docutils literal">create_telemetry_receiver_task()</tt>
+to create the library telemetry task.</blockquote>
+</div>
+<div class="section" id="rx-use">
+<h3>rx Use</h3>
+<blockquote>
+<p>Create your custom definition of the <tt class="docutils literal">on_telemetry_received()</tt> callback to deal with received data.
 This function will be called from within the telemetry_receive_task,
 therefore read and write access to any global data should be done via mutexes</p>
-<p>Within in the on_telemetry_receive() function, use the predefined library functions</p>
-<pre class="literal-block">
-//  get the size of the receive buffer.
-size_t get_telemetry_num_bytes();
-
-// Read the minimum of len or the total size of the receive buffer
-// to my_buffer and returns the number of bytes actually read.
-size_t read_telemetry_data(char * my_buffer, size_t len);
-</pre>
+<p>Within in the <tt class="docutils literal">on_telemetry_received()</tt> function, use the predefined library functions
+<tt class="docutils literal">get_telemetry_num_bytes()</tt> to get the size of the receive buffer and
+<tt class="docutils literal">read_telemetry_data(my_buffer, length)</tt> to read the data from the low level receive buffer</p>
+<p>The <tt class="docutils literal">on_telemetry_received()</tt> function is in the context of the telemetry_receiver_task,
+therefore, to access global data, you should use a mutex.</p>
+</blockquote>
 </div>
 <div class="section" id="receive-buffer-contents">
-<h2>Receive buffer contents</h2>
-<p>Before a new reception begins the low level receive buffer is cleared to all zeros,
+<h3>Receive buffer contents</h3>
+<blockquote>
+Before a new reception begins the low level receive buffer is cleared to all zeros,
 so any unused bytes will be returned  as zero.
-The format of the data is otherwise entirely open.</p>
+The format of the data is otherwise entirely open.</blockquote>
+</div>
+<div class="section" id="rx-example">
+<h3>rx Example</h3>
+<blockquote>
+See the  <a class="reference external" href="https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_rx.html">osd_telem_rx</a> example in the Quantracker Github repo.</blockquote>
 <p><a class="reference external" href="index.html">OSD Technical Index</a></p>
+</div>
 </div>
 </div>
 </div>

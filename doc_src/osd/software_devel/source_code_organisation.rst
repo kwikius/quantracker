@@ -1,5 +1,5 @@
 
-`OSD index`_
+`OSD Technical index`_
 
 ========================
 Source Code Organisation
@@ -32,10 +32,10 @@ dos_src/
 Downloads/   
        Archived binary image files
 
-.. _`OSD index`: ../index.html
+.. _`OSD Technical index`: tech/index.html
 
 ----------------------------
 
-`OSD index`_
+`OSD Technical index`_
 
 
