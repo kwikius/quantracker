@@ -37,16 +37,18 @@ void quan::uav::osd::on_draw()
       static_cast<int>(s_part),static_cast<int>(ms_part)
    );
    quan::uav::osd::draw_text(buf,{-150,-55},font);
-
-   if ( raw_compass::acquire_mutex(10) == pdTRUE){
-     // quan::stm32::set<heartbeat_led_pin>();
+   taskENTER_CRITICAL();
+   if ( raw_compass::acquire_mutex(1) == pdTRUE){
       quan::three_d::vect<float> compass_vect = raw_compass::get_raw();
       raw_compass::release_mutex();
+      taskEXIT_CRITICAL();
       char constexpr dim[] = {'x','y','z'};
       for ( uint32_t i = 0; i < 3; ++i){
          sprintf(buf,"%c = %.3f",dim[i],static_cast<double>(compass_vect[i]));
          pxp_type pos{-160,80 - ((get_size(font).y +4) * i) };
          quan::uav::osd::draw_text(buf,pos,font);
       }
+   }else{
+      taskEXIT_CRITICAL();
    }
  }

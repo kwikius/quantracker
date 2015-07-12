@@ -123,28 +123,24 @@ void raw_compass::enable_updating()
 
 int32_t raw_compass::update()
 {
-  
    if (m_updating_enabled){
-    //  quan::stm32::set<heartbeat_led_pin>();
       quan::three_d::vect<int16_t> result;
       int res = ::ll_update_mag(result,raw_compass::get_strap());
       if ( res == 1){
-         if ( raw_compass::acquire_mutex(10) == pdTRUE){
-          //  quan::stm32::set<heartbeat_led_pin>();
+         taskENTER_CRITICAL();
+         if ( raw_compass::acquire_mutex(1) == pdTRUE){
+
             raw_compass::m_raw_value 
                = raw_compass::m_raw_value * (1.f - raw_compass::m_filter_value) 
                   + result * raw_compass::m_filter_value;
             raw_compass::release_mutex();
-         }else{
-           //  quan::stm32::clear<heartbeat_led_pin>();
          }
+         taskEXIT_CRITICAL();
          // Disable updating here because its the end of a cycle so nice and neat
          if ( m_request_disable_updating){
             m_request_disable_updating = false;
             m_updating_enabled = false;
          }
-      }else{
-         // quan::stm32::clear<heartbeat_led_pin>();
       }
       return res;
    }else{

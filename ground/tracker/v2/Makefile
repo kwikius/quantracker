@@ -39,7 +39,8 @@ static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 local_objects = main.o spbrk.o setup.o  sliprings_sp_irq.o \
 tracker_mode_task.o pan_servo.o text_commands.o on_draw.o \
 flash.o user.o initialise_flash.o on_telemetry_received.o \
-compass.o compass_update.o compass_task.o rtos_hooks.o
+compass.o compass_update.o compass_task.o rtos_hooks.o \
+compass_calibration.o
 
 obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
 
