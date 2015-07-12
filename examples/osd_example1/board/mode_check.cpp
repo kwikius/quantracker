@@ -24,7 +24,7 @@ void quan::user_message (const char* str)
    }
 }
 
-// blocking so always true
+//not blocking
 uint32_t quan::user_in_avail() 
 { 
    return flash_menu_sp::in_avail();
@@ -45,6 +45,7 @@ void quan::user_flush_sptx()
 
 /*
  check to see if the FrSky Tx and Rx pins are jumpered
+  or try the 3 rets option
 */
 
 namespace {
@@ -55,13 +56,52 @@ namespace {
       }
    }
 
+   class input_output{
+      int m_user_ret_count;
+      public:
+      input_output(): m_user_ret_count{0}{}
+      bool operator () (const char* str)
+      {
+         for ( uint32_t i = 0; i < strlen(str);++i){
+            while (flash_menu_sp::in_avail() != 0 ){
+               char ch = 0;
+               if (flash_menu_sp::get(ch) == true){
+                  if ( (ch == '\r') || ( ch == '\n')){
+                     if ( ++ m_user_ret_count == 3){
+                        return true;
+                     }  
+                  }
+               }
+            }
+            flash_menu_sp::put(str[i]);
+         }
+         return false;
+      }
+   };
+
    void do_flash_vars()
    {
       flash_menu_sp::init();
-
+#if 1
+      input_output io;
+      bool want_menu = false;
+      for ( uint32_t i = 0; i < 30 ; ++i){
+        // 99 bytes at 9600 assume transfer takes 1/10th sec
+        // then 30 x through gives 3 sec for user
+        if ( io("***********************************\n"
+                "Press return 3 times for Flash Menu\n"
+                "***********************************\n") ){
+           want_menu = true;
+           break;
+         }
+      }
+      if (! want_menu){
+         return;
+      }
+#endif
       flash_menu_sp::write("Quantracker Air OSD 2.1\n");
       flash_menu_sp::write("~~~~Flash menu mode~~~~\n");
-
+      
       quan::stm32::flash::flash_menu();
 
       quan::report_errors();
@@ -80,7 +120,7 @@ void mode_check()
 { 
 
    //check if user wants to mod flash vars
-  // also setss up flash on new firmware
+  // also sets up flash on new firmware
   // without which flash cant be modified
   if (! initialise_flash()){
       // set heartbeat_led on permanently symbolise fail
@@ -96,7 +136,7 @@ void mode_check()
       while (1){;}
   }
   
-#if 1
+#if 0
    quan::stm32::module_enable<frsky_rxi_pin::port_type>();
    quan::stm32::apply<
       frsky_rxi_pin
@@ -145,6 +185,8 @@ void mode_check()
         return;
       }
    }
+#else
+
 #endif
    do_flash_vars();
 }
