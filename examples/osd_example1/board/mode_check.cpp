@@ -50,12 +50,27 @@ void quan::user_flush_sptx()
 
 namespace {
 
-   void delay(){
-      for ( uint32_t i = 0u; i < 1000; ++i){
-         asm volatile("nop":::);
-      }
+   void do_flash_vars()
+   {
+      flash_menu_sp::write("Quantracker Air OSD 2.1\n");
+      flash_menu_sp::write("~~~~Flash menu mode~~~~\n");
+      
+      quan::stm32::flash::flash_menu();
+
+      quan::report_errors();
+      
+      flash_menu_sp::write("Exited Flash Menu mode\n");
+
+      init_values_from_flash();
+
+      quan::report_errors();
+      quan::user_flush_sptx();
+      // turn off sp
    }
 
+   // simulate asynchronous
+   // looking for 3 returns
+   // while transmitting string
    class input_output{
       int m_user_ret_count;
       public:
@@ -79,51 +94,12 @@ namespace {
       }
    };
 
-   void do_flash_vars()
-   {
-      flash_menu_sp::init();
-#if 1
-      input_output io;
-      bool want_menu = false;
-      for ( uint32_t i = 0; i < 30 ; ++i){
-        // 99 bytes at 9600 assume transfer takes 1/10th sec
-        // then 30 x through gives 3 sec for user
-        // (Since this is b4 startup then dont want to use timers etc
-        if ( io("***********************************\n"
-                "Press return 3 times for Flash Menu\n"
-                "***********************************\n") ){
-           want_menu = true;
-           break;
-         }
-      }
-      if (! want_menu){
-         return;
-      }
-#endif
-      flash_menu_sp::write("Quantracker Air OSD 2.1\n");
-      flash_menu_sp::write("~~~~Flash menu mode~~~~\n");
-      
-      quan::stm32::flash::flash_menu();
-
-      quan::report_errors();
-      
-      flash_menu_sp::write("Exited Flash Menu mode\n");
-
-      init_values_from_flash();
-
-      quan::report_errors();
-      quan::user_flush_sptx();
-      // turn off sp
-   }
-}
+} // namespace
 
 void mode_check()
 { 
-
    //check if user wants to mod flash vars
-  // also sets up flash on new firmware
-  // without which flash cant be modified
-  if (! initialise_flash()){
+   if (! initialise_flash()){
       // set heartbeat_led on permanently symbolise fail
        quan::stm32::module_enable< heartbeat_led_pin::port_type>();
          quan::stm32::apply<
@@ -135,61 +111,27 @@ void mode_check()
             , quan::stm32::gpio::ostate::high
          >();
       while (1){;}
-  }
-  
-#if 0
-   quan::stm32::module_enable<frsky_rxi_pin::port_type>();
-   quan::stm32::apply<
-      frsky_rxi_pin
-      ,quan::stm32::gpio::mode::input
-      ,quan::stm32::gpio::pupd::pull_up
-   >();
-
-   // set port sign to non inverted
-   quan::stm32::module_enable<frsky_txo_sign_pin::port_type>();
-   quan::stm32::apply<
-      frsky_txo_sign_pin
-      , quan::stm32::gpio::mode::output
-      , quan::stm32::gpio::otype::push_pull
-      , quan::stm32::gpio::pupd::none
-      , quan::stm32::gpio::ospeed::slow
-      , quan::stm32::gpio::ostate::low
-   >();
- 
-  // set frsky tx output high
-  quan::stm32::module_enable<frsky_txo_pin::port_type>();
-  quan::stm32::apply<
-      frsky_txo_pin
-      , quan::stm32::gpio::mode::output
-      , quan::stm32::gpio::otype::push_pull
-      , quan::stm32::gpio::pupd::none
-      , quan::stm32::gpio::ospeed::slow
-      , quan::stm32::gpio::ostate::high
-   >();
-
-   delay();
-
-   //If jumpered or open now rxi pin should be high
-   if ( quan::stm32::get<frsky_rxi_pin>() == false){
-    return;
    }
-
-   quan::stm32::clear<frsky_txo_pin>();
-
-   delay();
-
-   // if jumpered rxi should now be low
-   // keep looking since there may be incoming data on the pin
-   for ( uint32_t i = 0; i < 1000; ++i){
-      asm volatile ("nop":::);
-      if ( quan::stm32::get<frsky_rxi_pin>() == true){
-        return;
+  
+   flash_menu_sp::init();
+   input_output io;
+   bool want_menu = false;
+   for ( uint32_t i = 0; i < 60 ; ++i){
+      // crude method of timing for a  approx 4 sec delay
+      // to allow user to press return 3 x
+      // after startup
+      // causes a bit of flicker but keeps text static
+      if ( io("Press return 3 times for Flash Menu"
+             "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b") ){
+         want_menu = true;
+         break;
       }
    }
-#else
-
-#endif
-   do_flash_vars();
+   if ( want_menu){
+      
+      do_flash_vars();
+   }else{
+      flash_menu_sp::write("\n\nTime is up! ... Exiting to Flight mode\n\n");
+      return;
+   } 
 }
-
-
