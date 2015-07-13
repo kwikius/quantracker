@@ -3,7 +3,6 @@ Minimal Quantracker Air OSD Hello World application
 */
 
 #include <quantracker/osd/osd.hpp>
-#include "fonts.hpp"
 
 int main()
 {
@@ -12,7 +11,7 @@ int main()
    vTaskStartScheduler(); 
 }
 
-// your custom draing function
+// your custom drawing function
 void quan::uav::osd::on_draw()
 {
    draw_text("Hello World",{-60,0});
