@@ -18,6 +18,7 @@
 #include <iostream>
 #include <cassert>
 #include <cstdio>
+#include <fstream>
 
 #define	NDEBUG
 
@@ -46,29 +47,38 @@ void show_page(int n)
 
 void write_to_file(std::string const & filename);
 
+namespace {
+   std::istream * m_istream = &std::cin;
+}
+
+std::istream & get_istream()
+{
+   assert(m_istream != nullptr);
+   return *m_istream;
+}
+
 bool quan::stm32::flash::flash_menu();
 int main(int argc, const char* argv[])
 {
-  // if no args saying pagesize
-  // then default
+  // the capture
+  std::ifstream in("osd_example_test_vars.txt");
+
+  // need to remove comments
+  // and condition from  var ':' value
+  // to set var value
+  // Have this in the quantracker/air/osd/utilities/flash_vars_upload example
+  // really need to combine these
+
+  if(in && !in.eof()){
+      m_istream = &in;
+  }else{
+      std::cout << "input failed\n";
+      return false;
+  }
   std::cout << "Flash menu sim\n";
-  // defualt pagesize
-  uint32_t page_size = 0;
-  if ( argc > 1 ){
-    if (!strncmp (argv[1], "-pagesize=", 10)) {
-       if (strlen(argv[1]) > 10){
-         page_size = atoi(argv[1]) +10;
-       }else{
-            std::cout << "der\n";
-       }
-    }else{
-      std::cout << "unknown option\n";
-    }
-  }
-  if (page_size == 0){
-      std::cout << "doing def page\n";
-     page_size = 0x4000;
-  }
+  // default pagesize
+  uint32_t const page_size = 0x4000;
+
   if (!init_flash_pages(page_size)){
       std::cout << "failed to setup flash pages\n";
   }

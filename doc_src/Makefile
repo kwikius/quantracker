@@ -5,7 +5,7 @@ firmware_upload_sp.rst firmware_upload_st_link.rst osd_getting_started.rst \
 index.rst trouble_shooting.rst v1_board.rst
 
 osd_rst = index.rst craft_features_widgets.rst flash_menu.rst \
-firmwares.rst 
+firmwares.rst flash_vars_utility.rst
 
 osd_firmwares_rst = osd_example1.rst osd_ac.rst osd_telem_tx.rst osd_telem_rx.rst
 

@@ -13,6 +13,7 @@ OSD Installation and Introduction
 * `Available Firmwares`_
 * `Uploading the firmware to the OSD board`_
 * `Accessing the Flash menu`_
+* `Automated Reading/writing of Flash Variables`_
 
 ----------------
 Developing
@@ -22,6 +23,7 @@ Developing
 * `Dependencies.mk`_
 * `Technical documentation`_
 
+.. _`Automated Reading/writing of Flash Variables`: flash_vars_utility.html
 .. _`Acquiring the toolchain`: software_devel/toolchain.html
 .. _`Available Firmwares`: firmwares.html
 .. _`Getting started with the OSD`: ../osd_getting_started.html

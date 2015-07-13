@@ -240,16 +240,21 @@ void quan::user_error (char const * str) {
    user_message("\n");
 }
 
+std::istream & get_istream();
 char quan::user_get()
 {
    char ch;
-   std::cin.get(ch);
+   get_istream().get(ch);
    return ch;
 }
 
 uint32_t quan::user_in_avail()
 {
-   return 1;
+   if ( &get_istream() == &std::cin){
+      return 1;
+   }else{
+      return get_istream().rdbuf()->in_avail();
+   }
 }
 
 void quan::user_flush_sptx()
