@@ -1,0 +1,11 @@
+set frsky_invert_telem true
+set show_home true
+set osd_home_pos [-160,70,60]
+set show_compass true
+set osd_compass_pos [0,-117,-65]
+set show_altitude true
+set osd_altitude_pos [-160,50,40]
+set show_gps_no_fix false
+set osd_gps_no_fix_pos [-100,50,30]
+set show_afcl_horizon true
+set osd_afcl_horizon_pitch_adj 0
