@@ -1,4 +1,4 @@
-`OSD Index`_
+`OSD Technical Index`_
 
 --------------------
 Bitmap source format
@@ -89,10 +89,10 @@ The default ouput looks like so:
 .. _`quantracker/examples/osd_example1/board/bitmaps.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp
 .. _`\<quan/uav/osd/colour.hpp\>` : https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp
 .. _`devel : quantracker/examples/cmd_line_bmp_output/main.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_bmp_output/main.cpp
-.. _`OSD Index`: ../index.html
+.. _`OSD Technical Index`: tech/index.html
 .. _`osd_maker`: ../osd_maker/index.html
 
 .. [1] Putting things in an anonymous namespace in a C++ source file is similar to one useage of static in C. 
        You can use static too, but an anonymous namespace can be neater.
 
-`OSD Index`_
+`OSD Technical Index`_

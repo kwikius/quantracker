@@ -92,25 +92,27 @@ void dac_irq()
 }
 }//namespace
 namespace tim = quan::stm32::tim;
-void dac_timer_setup()
-{
-   quan::stm32::module_enable<video_level_dac_irq_timer>();
-   constexpr quan::time_<int32_t>::us period {10};
-   constexpr quan::frequency::Hz bus_freq
-   {quan::stm32::get_module_bus_frequency<video_level_dac_irq_timer>() *2};
-   constexpr auto clks = period * bus_freq;
-   //tim10 on APB2 so full sys freq
-   static_assert( clks == 168 *10,"error in calc");
-   tim::cr1_t cr1 = 0U;
-   cr1.urs = true;
-   video_level_dac_irq_timer::get()->cr1.set(cr1.value);
-   video_level_dac_irq_timer::get()->arr = clks;
-   video_level_dac_irq_timer::get()->cnt = 0;
-   video_level_dac_irq_timer::get()->sr = 0;
-   // dont enable timer till needed
-//########same for all boards ######
-   NVIC_SetPriority(TIM1_UP_TIM10_IRQn,interrupt_priority::video_level);
-   NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
+namespace {
+   void dac_timer_setup()
+   {
+      quan::stm32::module_enable<video_level_dac_irq_timer>();
+      constexpr quan::time_<int32_t>::us period {10};
+      constexpr quan::frequency::Hz bus_freq
+      {quan::stm32::get_module_bus_frequency<video_level_dac_irq_timer>() *2};
+      constexpr auto clks = period * bus_freq;
+      //tim10 on APB2 so full sys freq
+      static_assert( clks == 168 *10,"error in calc");
+      tim::cr1_t cr1 = 0U;
+      cr1.urs = true;
+      video_level_dac_irq_timer::get()->cr1.set(cr1.value);
+      video_level_dac_irq_timer::get()->arr = clks;
+      video_level_dac_irq_timer::get()->cnt = 0;
+      video_level_dac_irq_timer::get()->sr = 0;
+      // dont enable timer till needed
+   //########same for all boards ######
+      NVIC_SetPriority(TIM1_UP_TIM10_IRQn,interrupt_priority::video_level);
+      NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
+   }
 }
 //####################### same for all boards###############
 extern "C" void TIM1_UP_TIM10_IRQHandler() __attribute__ ((interrupt ("IRQ")));
@@ -178,65 +180,67 @@ namespace {
    }
 }
 
-void Dac_setup()
-{
-      /*
- For Discovery, dont use DAC2 on PA5
- Make  PE3 output High to set the LIS32DL to I2C mode
- make PA5 output low to set low clock
-*/
-     #if ((QUAN_OSD_BOARD_TYPE == 4 ) &&  ( defined QUAN_DISCOVERY))
-      quan::stm32::module_enable<quan::stm32::gpioe>();
-      quan::stm32::apply<
-         quan::mcu::pin<quan::stm32::gpioe,3>
-         , quan::stm32::gpio::mode::output
-         , quan::stm32::gpio::otype::push_pull
-         , quan::stm32::gpio::pupd::none
-         , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::high
-      >();
-       quan::stm32::module_enable<quan::stm32::gpioa>();
-      quan::stm32::apply<
-         quan::mcu::pin<quan::stm32::gpioa,5>
-         , quan::stm32::gpio::mode::output
-         , quan::stm32::gpio::otype::push_pull
-         , quan::stm32::gpio::pupd::none
-         , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::low
-      >();
-     #endif
-     quan::stm32::module_enable<av_dac_nsync::port_type>();
-     quan::stm32::apply<
-     av_dac_nsync
-     , quan::stm32::gpio::mode::output
-     , quan::stm32::gpio::otype::push_pull
-     , quan::stm32::gpio::pupd::none
-     , quan::stm32::gpio::ospeed::medium_fast
-     , quan::stm32::gpio::ostate::high
-     >();
-     quan::stm32::module_enable<av_dac_data::port_type>();
-     quan::stm32::apply<
-     av_dac_data
-     , quan::stm32::gpio::mode::output
-     , quan::stm32::gpio::otype::push_pull
-     , quan::stm32::gpio::pupd::none
-     , quan::stm32::gpio::ospeed::medium_fast
-     , quan::stm32::gpio::ostate::low
-     >();
-     quan::stm32::module_enable<av_dac_clk::port_type>();
-     quan::stm32::apply<
-     av_dac_clk
-     , quan::stm32::gpio::mode::output
-     , quan::stm32::gpio::otype::push_pull
-     , quan::stm32::gpio::pupd::none
-     , quan::stm32::gpio::ospeed::medium_fast
-     , quan::stm32::gpio::ostate::high
-     >();
+namespace detail{
+   void dac_setup()
+   {
+         /*
+    For Discovery, dont use DAC2 on PA5
+    Make  PE3 output High to set the LIS32DL to I2C mode
+    make PA5 output low to set low clock
+   */
+        #if ((QUAN_OSD_BOARD_TYPE == 4 ) &&  ( defined QUAN_DISCOVERY))
+         quan::stm32::module_enable<quan::stm32::gpioe>();
+         quan::stm32::apply<
+            quan::mcu::pin<quan::stm32::gpioe,3>
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::high
+         >();
+          quan::stm32::module_enable<quan::stm32::gpioa>();
+         quan::stm32::apply<
+            quan::mcu::pin<quan::stm32::gpioa,5>
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::low
+         >();
+        #endif
+        quan::stm32::module_enable<av_dac_nsync::port_type>();
+        quan::stm32::apply<
+        av_dac_nsync
+        , quan::stm32::gpio::mode::output
+        , quan::stm32::gpio::otype::push_pull
+        , quan::stm32::gpio::pupd::none
+        , quan::stm32::gpio::ospeed::medium_fast
+        , quan::stm32::gpio::ostate::high
+        >();
+        quan::stm32::module_enable<av_dac_data::port_type>();
+        quan::stm32::apply<
+        av_dac_data
+        , quan::stm32::gpio::mode::output
+        , quan::stm32::gpio::otype::push_pull
+        , quan::stm32::gpio::pupd::none
+        , quan::stm32::gpio::ospeed::medium_fast
+        , quan::stm32::gpio::ostate::low
+        >();
+        quan::stm32::module_enable<av_dac_clk::port_type>();
+        quan::stm32::apply<
+        av_dac_clk
+        , quan::stm32::gpio::mode::output
+        , quan::stm32::gpio::otype::push_pull
+        , quan::stm32::gpio::pupd::none
+        , quan::stm32::gpio::ospeed::medium_fast
+        , quan::stm32::gpio::ostate::high
+        >();
 
-     dac_timer_setup();
+        dac_timer_setup();
 
-     set_init_dac_values();
-}
+        set_init_dac_values();
+   }
+}// detail
 
  #endif 
  

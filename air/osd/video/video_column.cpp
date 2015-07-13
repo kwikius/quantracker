@@ -87,10 +87,14 @@ namespace detail{
       h_telem_buffers_swapped = xSemaphoreCreateBinary();
    }
 
-   // call from task
+   // call (indirectly ) from task level
+   // arguably could make this the 
+   // task function
    void swap_telem_rx_buffers()
    {
+      // clears the read buffer to 0
       video_buffers::telem::rx::reset_read_buffer();
+      // Tell IRQ layer that its ok to swap buffers
       xSemaphoreGive(h_request_telem_buffers_swap);
       // block till buffers swapped
       xSemaphoreTake(h_telem_buffers_swapped,portMAX_DELAY);
@@ -100,8 +104,10 @@ namespace detail{
 
 namespace {
 // call from ISR
+
    void service_osd_buffers()
    {
+     HigherPriorityTaskWoken_osd = pdFALSE;
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){    
         video_buffers::osd::manager.swap();
         xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken_osd);
@@ -109,7 +115,8 @@ namespace {
    }
 #if defined QUAN_OSD_TELEM_TRANSMITTER
    void service_telem_tx_buffers()
-   {
+   {  
+      HigherPriorityTaskWoken_telem = pdFALSE;
       if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
         video_buffers::telem::tx::manager.swap();
         xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);
@@ -118,8 +125,14 @@ namespace {
 #endif
 
 #if defined QUAN_OSD_TELEM_RECEIVER
+   // if the task layer has read the previous buffer
+   // then it 'gives' the h_request_osd_buffers_swap semaphore
+   // else (If the new data arrives before the task has had time to read)
+   // no buffer swap takes place
+   // so the data is ignored. The same buffer will overwritten again
    void service_telem_rx_buffers()
-   {
+   {  
+      HigherPriorityTaskWoken_telem = pdFALSE;
       if(xSemaphoreTakeFromISR(h_request_telem_buffers_swap,NULL) == pdTRUE){
           video_buffers::telem::rx::manager.swap();
           xSemaphoreGiveFromISR(h_telem_buffers_swapped,&HigherPriorityTaskWoken_telem);

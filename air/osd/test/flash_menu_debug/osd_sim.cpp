@@ -1,32 +1,46 @@
 
 #include <cstring>
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <quan/utility/fifo.hpp>
 #include <quan/error.hpp>
 #include <quan/user.hpp>
 #include <quan/stm32/detail/flash.hpp>
-#include <iostream>
-#include <quan/utility/fifo.hpp>
-
 
 namespace {
-   constexpr uint32_t page_size =  64;
-   uint8_t  pageA_array[page_size];
-   uint8_t  pageB_array[page_size];
 
-  // The arrays relative positions in memory vary dependednt on optimisation level
+   uint32_t page_size = 0;
 
-   uint8_t* page1_array = (pageA_array < pageB_array)? pageA_array: pageB_array;
-   uint8_t* page2_array = (pageA_array < pageB_array)? pageB_array: pageA_array;
+   uint8_t* pageA_array = nullptr;
+   uint8_t* pageB_array  = nullptr;
 
+   uint8_t* page1_array = nullptr;
+   uint8_t* page2_array = nullptr;
+}
+
+bool init_flash_pages(uint32_t page_size_in)
+{
+    pageA_array = (uint8_t*) malloc(page_size_in);
+    pageB_array = (uint8_t*) malloc(page_size_in);
+
+    assert( ((pageA_array != nullptr) && (pageB_array!= nullptr)) && " invalid memory");
+    page_size = page_size_in;
+ // The arrays relative positions in memory can vary dependednt on optimisation level
+    page1_array = (pageA_array < pageB_array)? pageA_array: pageB_array;
+    page2_array = (pageA_array < pageB_array)? pageB_array: pageA_array;
+    return true;
 }
 
 bool quan::stm32::flash::detail::erase(int32_t page_id)
 {
-   if ( page_id ==1){
+   if ( page_id == 1){
       memset(page1_array,0xFF,page_size);
       return true;
    }
   
-   if (page_id ==2){
+   if (page_id == 2){
       memset(page2_array,0xFF,page_size);
       return true;
    }
@@ -226,22 +240,89 @@ void quan::user_error (char const * str) {
    user_message("\n");
 }
 
+std::istream & get_istream();
 char quan::user_get()
 {
    char ch;
-   std::cin.get(ch);
+   get_istream().get(ch);
    return ch;
 }
 
 uint32_t quan::user_in_avail()
 {
-   return 1;
+   if ( &get_istream() == &std::cin){
+      return 1;
+   }else{
+      return get_istream().rdbuf()->in_avail();
+   }
 }
 
 void quan::user_flush_sptx()
 {
    
 }
+
+namespace {
+
+   void write_page(std::ostream & out, uint8_t* page, uint32_t size){
+       uint32_t constexpr cols = 10;
+       uint32_t cur_col = 0;
+       for (uint32_t i = 0; i < size; ++i){
+       if ( i != 0){
+         out << ",";
+       }else{
+         out << "      ";
+       }
+       out << (uint32_t) page[i];
+       if ( ++cur_col == cols){
+         out << "\n      ";
+         cur_col = 0;
+       }
+     }
+   }
+}
+void write_to_file(std::string const & filename)
+{
+ 
+   if( page_size !=  0x4000){
+      std::cout << "need 0x4000 page_size..\n";
+      return;
+   }
+   std::ofstream out(filename);
+   out << "#include <cstdint>\n\n";
+   out << "   static __attribute__((section(\".flash_variables\"),used)) "; 
+   out << "   uint8_t const flash_variables_array["<< (page_size * 2) << "] = {\n";
+   write_page(out,page1_array, page_size);
+   out << ",\n      //---------------------------------------------\n";
+   write_page(out,page2_array,page_size);
+   out << "\n   };\n";
+
+}
+
+#if 0
+// binary
+namespace {
+
+   void write_page(uint8_t* page, std::ostream & out)
+   {
+      for (uint32_t i = 0; i < page_size; ++i){
+        out << page[i];
+      }
+   }
+}
+
+void write_to_file(std::string const & filename)
+{
+   if( page_size !=  0x4000){
+      std::cout << "need 0x4000 page_size..\n";
+      return;
+   }
+   std::ofstream out(filename + ".bin" , std::ios::binary);
+ 
+   write_page(page1_array, out);
+   write_page(page2_array, out);
+}
+#endif
 
 
 

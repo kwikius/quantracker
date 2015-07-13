@@ -7,10 +7,13 @@ Uploading firmware via the Serial Port
 This method uses Stm32flash_. 
   
   * stm32flash Windows install
-    	- Download and run the [TODO: stm32flash_installer.zip]
+     - Unzip stm32flash_win.zip in the quantracker/bin directory \
+       and update the variable STM32FLASH in quantracker/Dependencies.mk \
+       to its path
   * stm32flash Linux install
-      - Download Stm32flash_ and  make [sudo] make install.
+     - Download Stm32flash_ and  make [sudo] make install.
   	 
+
   Once installed, test the execution by entering a command prompt and issuing 'stm32flash' 
   to see if it's installed. It should show a page or so of help info.
   If its not working, verify that stm32flash's parent directory is in your path.

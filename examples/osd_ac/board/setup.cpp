@@ -29,37 +29,12 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/usart/irq_handler.hpp>
 #include <quan/stm32/gpio.hpp>
-#include "video/video_cfg.hpp"
+//#include "video/video_cfg.hpp"
 //#include "video/video.hpp"
 #include "resources.hpp"
 #include "fsk.hpp"
 #include "frsky.hpp"
 
-extern "C" void __cxa_pure_virtual()
-{
-     while (1);
-}
-void *__dso_handle;
-
-extern "C" void vPortFree( void *pv );
-extern "C"  void * pvPortMalloc(size_t n);
-
-void operator delete (void* pv){ vPortFree(pv);}
-void* operator new (unsigned int n){ return pvPortMalloc(n);}
-
-void video_setup();
-void setup_leds();
-#if (QUAN_OSD_BOARD_TYPE != 1 ) 
-void Dac_setup();
-// for 8 bit only msbyte of val is used
-// code is 00 write to specific reg but dont update
-// 1 is write to specific reg and update outputs
-// 2 is write tao all registers and update outputs
-// 3 is power down outputs
-// really only 0 1nd 1 are useful
-void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
-
-#endif
 
 #if TEST_OUTPUT_PIN_ENABLE
    void setup_test_pin()
@@ -76,9 +51,9 @@ void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
    }
 #endif
 
-namespace {
+void osd_setup();
 
-#if (QUAN_OSD_BOARD_TYPE == 4) && ! defined(QUAN_DISCOVERY)
+namespace {
 
    constexpr uint32_t gpioa_unused[] ={
       0,1,5,8,11,12,13,14 
@@ -151,28 +126,18 @@ namespace {
          ,quan::stm32::gpio::pupd::none
       >();
    }
-#endif
 
-}
+} //namespace
  
 extern "C" void setup()
 {
+  osd_setup();
+  setup_unused_pins();
+  setup_analog_inputs() ;
 
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-    setup_unused_pins();
-    setup_analog_inputs() ;
- // setup_test_pin();
-  setup_leds();
-  video_setup();
-#if (QUAN_OSD_BOARD_TYPE != 1 )
-  Dac_setup();
-#endif
   fsk::setup();
- #if QUAN_OSD_BOARD_TYPE == 4
+
   mavlink_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
-#else
-  posdata_tx_rx_task::setup<57600>(interrupt_priority::telemetry_input_port);
-#endif
-  // todo set sign
+
   frsky_tx_rx_task::setup<9600>(interrupt_priority::frsky_serial_port);
 }

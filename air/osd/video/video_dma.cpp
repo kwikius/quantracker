@@ -77,16 +77,18 @@ namespace {
    }
 }//namespace 
 
-void pixel_dma_setup()
-{
-   RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
-   for ( uint8_t i = 0; i < 20; ++i){
-      asm volatile ("nop" : : :);
-   }
-   RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA1RST;
-   RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA1RST;
-  
-   ll_pixel_dma_setup<video_mux_out_black_spi>(DMA1_Stream4,0); // spix tx
-   ll_pixel_dma_setup<video_mux_out_white_spi>(DMA1_Stream5,0); // spix tx
+namespace detail{
+   void pixel_dma_setup()
+   {
+      RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+      for ( uint8_t i = 0; i < 20; ++i){
+         asm volatile ("nop" : : :);
+      }
+      RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA1RST;
+      RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA1RST;
+     
+      ll_pixel_dma_setup<video_mux_out_black_spi>(DMA1_Stream4,0); // spix tx
+      ll_pixel_dma_setup<video_mux_out_white_spi>(DMA1_Stream5,0); // spix tx
 
+   }
 }

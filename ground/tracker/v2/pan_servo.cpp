@@ -186,13 +186,13 @@ namespace {
 
    void switch_on_motor()
    {
-      quan::stm32::set<heartbeat_led_pin>();
+     // quan::stm32::set<heartbeat_led_pin>();
       quan::stm32::set<pan_motor_pwm_pin>();
    }
 
    void switch_off_motor()
    {
-      quan::stm32::clear<heartbeat_led_pin>();
+     // quan::stm32::clear<heartbeat_led_pin>();
       quan::stm32::clear<pan_motor_pwm_pin>();
    }
 
@@ -548,7 +548,9 @@ extern "C" void ADC_IRQHandler()
   // set heartbeat led
   // otherwise clear irq?
 }
-
+namespace {
+ int count = 0;
+}
 extern "C" void TIM8_UP_TIM13_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
 extern "C" void TIM8_UP_TIM13_IRQHandler()
@@ -557,6 +559,10 @@ extern "C" void TIM8_UP_TIM13_IRQHandler()
     if ( pan_motor_timer::get()->sr.bb_getbit<0>()){ // (UIF)
       pan_motor_timer::get()->sr.bb_clearbit<0>(); // (UIF)
       quan::stm32::push_FPregs();
+      if ( ++count == 50){
+         count = 0;
+         quan::stm32::complement<heartbeat_led_pin>();
+      }
       pf_timer_irq_section_function();
       quan::stm32::pop_FPregs();
     }

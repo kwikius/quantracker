@@ -56,17 +56,19 @@ namespace  quan{ namespace impl{
 }}
 #endif
 
-void setup_leds()
-{
-#if (QUAN_OSD_BOARD_TYPE == 4) && !(defined QUAN_DISCOVERY)
-      do_led_pin_setup{}.operator()<heartbeat_led_pin>();
-#else
-   typedef quan::meta::type_sequence<
-      heartbeat_led_pin
-      ,blue_led_pin     
-      ,green_led_pin  
-      ,orange_led_pin 
-   > led_pins;
-   quan::meta::for_each<led_pins,do_led_pin_setup>{}();
- #endif
+namespace detail{
+   void setup_leds()
+   {
+   #if (QUAN_OSD_BOARD_TYPE == 4) && !(defined QUAN_DISCOVERY)
+         do_led_pin_setup{}.operator()<heartbeat_led_pin>();
+   #else
+      typedef quan::meta::type_sequence<
+         heartbeat_led_pin
+         ,blue_led_pin     
+         ,green_led_pin  
+         ,orange_led_pin 
+      > led_pins;
+      quan::meta::for_each<led_pins,do_led_pin_setup>{}();
+    #endif
+   }
 }

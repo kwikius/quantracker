@@ -341,7 +341,7 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="../index.html">OSD Index</a></p>
+<p><a class="reference external" href="tech/index.html">OSD Technical Index</a></p>
 <div class="section" id="flash-variables">
 <h1>Flash Variables</h1>
 <p>The OSD has a mechanism for persistent storage of variables in Flash memory.
@@ -361,14 +361,14 @@ and each Flash variable must have a type. Currently available types are:</p>
 <li>three_d::vect&lt;int32_t&gt;</li>
 <li>three_d::vect&lt;float&gt;</li>
 <li>char[10] <a class="footnote-reference" href="#tba" id="id2">[2]</a></li>
-<li>char[20]</li>
-<li>char[30]</li>
-<li>char[40]</li>
+<li>char[20] <a class="footnote-reference" href="#tba" id="id3">[2]</a></li>
+<li>char[30] <a class="footnote-reference" href="#tba" id="id4">[2]</a></li>
+<li>char[40] <a class="footnote-reference" href="#tba" id="id5">[2]</a></li>
 </ul>
 </blockquote>
 <p>The system is designed so you can write a custom set of flash variables for your own display.
 It is suggested that you use <a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp">quantracker/examples/osd_example1/common/flash.cpp</a> as a template.
-The flash symbol table named flash_varaiable_symtab is defined around 2/3 way down the page.
+The flash symbol table named flash_variable_symtab is defined around 2/3 way down the page.
 The EE_SYMTAB_ENTRY macro can be used to ease defining entries.
 The symtab_entry_t structure is defined in the quan::stm32::flash namespace <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash.hpp">&lt;quan/stm32/flash.hpp&gt;</a></p>
 <pre class="literal-block">
@@ -411,15 +411,15 @@ can be used if you dont need range checking.</p>
 </li>
 <li><dl class="first docutils">
 <dt>info</dt>
-<dd><p class="first last">Holds a small bit of helpful info about the variable which the user can read via the flash_menu.</p>
+<dd><p class="first last">Holds a small bit of helpful info about the variable which the user can read via the flash-menu.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>readonly</dt>
-<dd><p class="first last">Set this true so that the variable can be read but not modified from the flash menu. You can
+<dd><p class="first last">Set this true so that the variable can be read but not modified from the flash-menu. You can
 of course modify it in code, using the set_flash_value(name, value) functions
-defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash/flash_convert.hpp">&lt;quan/stm32/flash/flash_convert.hpp&gt;</a></p>
+defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash/flash_convert.hpp">&lt;quan/stm32/flash/flash_convert.hpp&gt;</a>  <a class="footnote-reference" href="#stw" id="id6">[3]</a></p>
 </dd>
 </dl>
 </li>
@@ -431,8 +431,8 @@ defined in <a class="reference external" href="https://github.com/kwikius/quan-t
 <h1>viewing and modifying flash variables</h1>
 <blockquote>
 <p>The flash variables can be viewed and modified by the flash menu or programmatically in code.
-Not that modfying flash while the OSD is running (ie once the sceduler has started)
-is a &quot;stop the world&quot; operation
+Not that modifying flash while the OSD is running (ie once the scheduler has started)
+is a &quot;stop the world&quot; operation <a class="footnote-reference" href="#stw" id="id7">[3]</a>
 Though the actual write of a location is quite quick around 20 usec,
 it may very occasionally require erasing a page and
 copying all variables to another page which may take considerably longer.
@@ -455,10 +455,16 @@ and the cycle repeats.</td></tr>
 <table class="docutils footnote" frame="void" id="tba" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>null terminatd strings To be added.</td></tr>
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>, <a class="fn-backref" href="#id4">3</a>, <a class="fn-backref" href="#id5">4</a>)</em> null terminatd strings To be added.</td></tr>
 </tbody>
 </table>
-<p><a class="reference external" href="../index.html">OSD Index</a></p>
+<table class="docutils footnote" frame="void" id="stw" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id7">2</a>)</em> If the scheduler is running you need to suspend the OSD . TODO how to suspend the OSD</td></tr>
+</tbody>
+</table>
+<p><a class="reference external" href="tech/index.html">OSD Technical Index</a></p>
 </div>
 </div>
 </body>

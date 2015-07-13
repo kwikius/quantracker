@@ -88,7 +88,7 @@ $(APP_SRC_PATH)
 TARGET_PROCESSOR = STM32F4
 
 ifeq ($(OPTIMISATION_LEVEL), )
-OPTIMISATION_LEVEL := O
+OPTIMISATION_LEVEL := O3
 endif
 
 ifeq ( $(CFLAG_EXTRAS), )
@@ -136,7 +136,9 @@ STARTUP := startup.s
 PROCESSOR_FLAGS := -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
-INCLUDES := $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
+QUANTRACKER_INCLUDE_PATH := ../../include
+
+INCLUDES := $(QUAN_INCLUDE_PATH) $(QUANTRACKER_INCLUDE_PATH) $(STM32_INCLUDES) $(RTOS_INCLUDES)
 
 INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 else
@@ -154,32 +156,23 @@ CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
-# ------------could be system ---------------------
-unobj_rtos_objects := tasks.o queue.o list.o timers.o
-rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
-
-unobj_stm32_objects := misc.o
-stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
-
-unobj_system_objects := $(unobj_rtos_objects) $(unobj_stm32_objects) \
-startup.o system_init.o port.o heap_3.o rtos_hooks.o
-system_objects := $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
-
 # -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
-draw_task.o  sync_sep.o black_level.o dac.o 
+draw_task.o  sync_sep.o black_level.o dac.o led.o
 
 # add the telemetry tasks to the lib if required
 ifeq ($(HAS_TELEMETRY),True)
 unprefixed_video_objects += telemetry_task.o
 endif
 
-objects := $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
-# ------------------------------------------------
+unobj_stm32_objects := misc.o
+stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
 
-# objects := $(video_objects) $(system_objects)
-#objects := $(video_objects) 
+video_objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+
+objects = $(video_objects) $(stm32_objects)
+# ------------------------------------------------
 
 all : $(OSD_ARCHIVE_FILE)
    
@@ -190,29 +183,11 @@ clean:
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
+$(video_objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-#$(OBJDIR)system_init.o : $(SYSTEM_INIT)
-#	$(CC) $(CFLAGS) $< -o $@
-
-#$(OBJDIR)startup.o: $(STARTUP)
-#	$(CC) $(CFLAGS) $< -o $@ 
-
-#$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
-#	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
-
-#$(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
-#	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-#$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
-#	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-#$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
-#	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
-
-#$(OBJDIR)rtos_hooks.o : rtos_hooks.cpp 
-#	$(CC) $(CFLAGS) $< -o $@
+$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
+	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
 #deps conditional
 endif

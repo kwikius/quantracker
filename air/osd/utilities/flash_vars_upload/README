@@ -1,15 +1,26 @@
 README for flash_vars.exe
 
-This app can be used to upload a file of flash variables to the OSD
+This app can be used to read to :
+
+   *  Write the flash variables to the OSD from a file
+   *  Read  the flash variables to a file from the OSD. The file can then be used to
+      write the Flash on other boards
+   
 There should be a sample file called osd_params.txt in this directory.
 in the file empty lines and lines starting with '#' should be ignored
 
-sample invocation:
+sample read invocation:
+# ./flash_vars.exe -read osd_params.txt -port /dev/ttyUSB0
+
+sample write invocation:
 # ./flash_vars.exe -write osd_params.txt -port /dev/ttyUSB0
 
-Until its automated, you can create a flash vars file by capturing the output of the 'show' command
-
 Changelog
+
+Can now read from flash variables to a file
+
+Fixed vector values can now contain whitespace
+  e.g [ 1 ,2 , 3 ] is accepted
 
 Fixed so that accepts return and linefeed as end of line char
 Now automatically exits to start OSD when done. (Hope eventually to do it interactively

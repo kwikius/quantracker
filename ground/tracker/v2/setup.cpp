@@ -2,12 +2,6 @@
 /*
  Copyright (c) 2013 -2015 Andy Little 
 
- With Grateful Acknowledgements to the prior work of:
-   Sami Korhonen(Openpilot.org)
-   taulabs ( taulabs.com) 
-   brainFPV ( brainfpv.com)
-   Thomas Oldbury (super-osd.com)
-
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
@@ -29,108 +23,17 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/usart/irq_handler.hpp>
 #include <quan/stm32/gpio.hpp>
-#include "../../../air/osd/video/video_cfg.hpp"
-//#include "video/video.hpp"
+
 #include "resources.hpp"
-//#include "fsk.hpp"
-//#include "frsky.hpp"
 
-extern "C" void __cxa_pure_virtual()
-{
-     while (1);
-}
-void *__dso_handle;
+void osd_setup();
 
-extern "C" void vPortFree( void *pv );
-extern "C"  void * pvPortMalloc(size_t n);
-
-void operator delete (void* pv){ vPortFree(pv);}
-void* operator new (unsigned int n){ return pvPortMalloc(n);}
-
-void video_setup();
-void setup_leds();
-void pan_motor_setup();
-
-//void Dac_setup();
-// for 8 bit only msbyte of val is used
-// code is 00 write to specific reg but dont update
-// 1 is write to specific reg and update outputs
-// 2 is write tao all registers and update outputs
-// 3 is power down outputs
-// really only 0 1nd 1 are useful
-//void Dac_write(uint8_t ch, quan::voltage::V const & vout, uint8_t code);
-
-namespace {
-
-   constexpr uint32_t gpioa_unused[] ={
-      0,1,4,5,8,11,12 
-   };
-   constexpr uint32_t gpiob_unused[] ={
-      3,4,5,6,7,9 
-   };
-   constexpr uint32_t gpioc_unused[] ={
-      3,4,5,9,12,15
-   };
-
-   // setup unused ports as inputs with pulldown
-   template <typename Port, int N>
-   void setup_unused_pins(uint32_t const (& pin_array)[N])
-   {
-      quan::stm32::module_enable<Port>();
-      uint32_t moder_and_mask = 0xFFFFFFFF;
-      uint32_t pupdr_and_mask = 0xFFFFFFFF;
-      uint32_t pupdr_or_mask = 0;
-      for ( auto pin : pin_array){
-         uint32_t const pos = 2U * pin;
-         //--------
-         moder_and_mask &=  ~(0b11U << pos);
-         //--------
-         pupdr_and_mask &= ~(0b01 << pos);
-         pupdr_or_mask  |=  (0b10 << pos);
-      }
-      Port::get()->moder &= moder_and_mask;
-      Port::get()->pupdr =
-      ( Port::get()->pupdr & pupdr_and_mask ) | pupdr_or_mask;
-   }
-
-   void setup_unused_pins()
-   {
-      setup_unused_pins<quan::stm32::gpioa>(gpioa_unused);
-      setup_unused_pins<quan::stm32::gpiob>(gpiob_unused);
-      setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
-   }
-
-//   //N.B fair number to do
-//   void setup_analog_inputs()
-//   {
-////      quan::stm32::module_enable<video_adc_pin::port_type>();
-////      quan::stm32::apply<
-////         video_adc_pin
-////         ,quan::stm32::gpio::mode::analog
-////         ,quan::stm32::gpio::pupd::none
-////      >();
-////      quan::stm32::module_enable<vin_voltage_pin::port_type>();
-////      quan::stm32::apply<
-////         vin_voltage_pin
-////         ,quan::stm32::gpio::mode::analog
-////         ,quan::stm32::gpio::pupd::none
-////      >();
-//   }
-
-}
- 
 namespace tracker_detail{
    void pan_motor_setup();
 }
 extern "C" void setup()
 {
-
-  NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
-    setup_unused_pins();
-   // setup_analog_inputs() ;
- 
-// impl in air/osd/video/leds.cpp
-  setup_leds();
-  video_setup();
+  osd_setup();
+  sliprings_tx_rx_task::setup<9600>(local_interrupt_priority::sliprings_serial_port);
   tracker_detail::pan_motor_setup();
 }

@@ -56,11 +56,11 @@ void create_fsk_task();
 void create_draw_task();
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-void create_vsync_telem_tx_task();
-void create_osd_suspend_task();
+void create_telemetry_transmitter_task();
+//void create_osd_suspend_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
-void create_vsync_telem_rx_task();
+void create_telemetry_receiver_task();
 #endif
 
 #if ( QUAN_OSD_BOARD_TYPE !=4)
@@ -72,11 +72,11 @@ int main()
   setup();
   create_draw_task();
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-  create_vsync_telem_tx_task();
-  create_osd_suspend_task();
+  create_telemetry_transmitter_task();
+ // create_osd_suspend_task();
 #endif
 #if defined QUAN_OSD_TELEM_RECEIVER
-  create_vsync_telem_rx_task();
+  create_telemetry_receiver_task();
 #endif
 
   vTaskStartScheduler();

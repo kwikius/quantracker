@@ -344,16 +344,34 @@ ul.auto-toc {
 <p><a class="reference external" href="index.html">OSD Index</a></p>
 <div class="section" id="quantracker-air-osd-flash-menu">
 <h1>Quantracker Air OSD Flash Menu</h1>
-<p>The flash menu mode can be entered as follows:
-Create a connector which joins txo, rxi power and ground pins as uusal ,
-but also connects the secondary tx0 and rxi pins with a jumper as shown</p>
-<img alt="V2_1_flash_connector.png" src="V2_1_flash_connector.png" />
+<p>For the <a class="reference external" href="firmwares/osd_example1.html">osd_example1</a> and <a class="reference external" href="firmwares/osd_example1.html">osd_ac</a> firmwares, you can access the flash menu as follows. <a class="footnote-reference" href="#no-con-change" id="id1">[1]</a></p>
+<p>Connect a usb serial connector to the board.
+(A 3V or 5V Arduino serial connector will work fine)</p>
+<blockquote>
+<img alt="../V2_1_mavlink_sp_pinout.png" src="../V2_1_mavlink_sp_pinout.png" />
+</blockquote>
 <p>Start a serial port console at 9600 baud with 8 bits, no parity and 1 stop bit.
-When you switch on the OSD it should present you with:</p>
+Note that power must be supplied to the port which is electrically isolated
+from the rest of the OSD. You can however use any supply from 3 to 5V . The supply is
+usually present on an FTDI to USB cable.
+When power is supplied a red LED will be lit close by the port.</p>
+<p>Next supply power to the OSD. It is easiest if you use a switch inline in the power
+supply rather than fumbling with connectors
+When you switch on the OSD, The Serial console should present you with something similar to:</p>
+<pre class="literal-block">
+Press return 3 times for Flash Menu
+</pre>
+<p>Then after a few seconds</p>
+<pre class="literal-block">
+Time is up! ... Exiting to Flight mode
+</pre>
+<p>However if you press return 3 times immediately ( up to 3 seconds) after startup you should be
+presented with:</p>
 <pre class="literal-block">
 Quantracker Air OSD 2.1
 ~~~~Flash menu mode~~~~
 </pre>
+<p>You are now in Flash menu mode.</p>
 <p>The various functions are available as commands.</p>
 <blockquote>
 <ul>
@@ -394,9 +412,16 @@ In case of undefined variables default values are used in the osd.</p>
 </ul>
 </blockquote>
 <dl class="docutils">
-<dt>To set the values of flash variables at one go you can also use the app in</dt>
-<dd><a class="reference external" href="https://github.com/kwikius/quantracker/tree/devel/air/osd/utilities/flash_vars_upload">quantracker/air/osd/utilities/flash_vars_upload/</a> . See the reame there for details.</dd>
+<dt>To set the values of flash variables all at once go you can also use the app in</dt>
+<dd><a class="reference external" href="https://github.com/kwikius/quantracker/tree/devel/air/osd/utilities/flash_vars_upload">quantracker/air/osd/utilities/flash_vars_upload/</a> . See the readme there for details.</dd>
 </dl>
+<table class="docutils footnote" frame="void" id="no-con-change" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>This has been changed from earlier versions so that there is no need to change connectors to enter
+flash menu mode</td></tr>
+</tbody>
+</table>
 <p><a class="reference external" href="index.html">OSD Index</a></p>
 </div>
 </div>

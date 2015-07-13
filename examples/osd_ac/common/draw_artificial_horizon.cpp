@@ -48,7 +48,7 @@ namespace {
          // should be adjustable within constraints
          // z should be large compared with display dimensions
          // then easier to solve angle issues
-         float const z = 300.f;
+         float const z = osd_get_afcl_horizon_eye_distance();
          quan::two_d::vect<float> result {
             in.x * cos_roll - in.y  * sin_roll_x_cos_pitch + z * sin_roll_x_sin_pitch
             , in.x * sin_roll + in.y * cos_roll_x_cos_pitch - z * cos_roll_x_sin_pitch

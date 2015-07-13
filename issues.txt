@@ -1,3 +1,7 @@
+Fri Jul 10 10:56:59 BST 2015
+If you get errors from the quan library (GitHub/kwikius/quan-trunk ) then try downloading the current master branch.
+Though this librray is relatively stable, I am still working on it so some projects will need the latest version.
+
 
 Mon 18 May 2015 15:17:59 BST 
 If you get error messages from the baord  when writing in the flash menu. It may be due to an old version of the libraries
@@ -7,7 +11,8 @@ TODO move all this stuff out of there!
 
 Mon 18 May 2015 15:17:45 BST 
 If set up as transmitter or receiver then OSD hangs if you dont
-add receive_telemetry_task etc. A common issue with frertos where Semaphores are called without being inialised
+add receive_telemetry_task etc. A common issue with freertos where Semaphores are called without being inialised
 also need local rx_telemtry stuff. Overall needs thought as to how it should work.
 maybe should be folded into draw_task. Anyway needs documentation. Probably should be C++ classes.
-TODO loo at mber rtos and see if an be made compat
+TODO looh at mbed rtos and see if an be made compat. Unfortunately the stm32 standard libraries are quite slow
+though

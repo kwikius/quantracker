@@ -21,41 +21,29 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-
 extern "C" void setup();
 
 void mode_check(){}
-bool initialise_flash(){return true;}
+bool initialise_flash();
 bool signal_exit_failure(){return true;}
 
 void create_draw_task();
-//void create_telem_task(){}
-//void create_tracker_task(){}
 void create_tracker_mode_task();
-void create_vsync_telem_rx_task();
-
-/*
-If transmitter put something top of screen
-if receiver put something bottom of screen
-*/
-
+void create_telemetry_receiver_task();
+void create_compass_task();
 
 int main()
 {
-   setup();
+  setup();
 
-   create_tracker_mode_task();
+  //create_tracker_mode_task();
 //  if (! initialise_flash()){
 //      signal_exit_failure();
 //  }
-//
-//  mode_check();
-//  
-
-// should be the same
+  create_compass_task();
+  create_telemetry_receiver_task();
   create_draw_task();
-  create_vsync_telem_rx_task();
-
+  create_tracker_mode_task();
   vTaskStartScheduler();
 
   while (1) {;}

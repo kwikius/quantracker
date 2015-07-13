@@ -74,7 +74,51 @@ namespace {
 // no-op range checking
 // This check function can be used if there is no validity checking required e.g for bool variables
    constexpr bool nop_check (void* p) { return true;}
+
+
 //-----------------
+/* todo add some generic functions to make this easier ...
+  template <typename T>
+bool range_check(void * p, T const & min, T const & max, const char* error_message)
+{
+    T * pv = (T*) p;
+    if ((*pv < max ) && ( *pv > min)){
+      return true;
+   }else{
+      quan::user_error(error_message);
+      return false;
+   }
+}
+
+
+template <typename T>
+bool range_check(void * p, 
+   quan::three_d::vect<T> const & minv, 
+   quan::three_d::vect<T> const & maxv, 
+   const char* error_message)
+{
+   typedef quan::three_d::vect<T> vect;
+   vect * pv = (vect*) p;
+   vect & r   = *pv;
+   bool failed = false;
+   for (uint8_t i = 0; i < 3;++i){
+      if ((r[i] < maxv[i] ) || (r[i] > minv[i])){
+         failed = true;
+         break;
+      }
+   }
+   if ( failed){
+      quan::user_error(error_message);
+   }
+   return ! failed;
+}
+
+use...
+
+bool my_range_check(void* p){
+   return range_check<flash_variable_type::my_var>(void* p,mymax, my_min,"my error message")
+}
+*/
 
    // check that display pos vars are in a sensible range
    bool display_pos_check(void* p)

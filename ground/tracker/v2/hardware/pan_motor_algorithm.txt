@@ -1,0 +1,28 @@
+
+Pan motor servo algorithm
+
+variables
+pan_motor{
+ target_position;     
+ target_velocity;
+ desired_velocity_at_target;     
+ actual_position;
+ actual_velocity ;
+ actual_current;
+}
+
+Unlike a position servo this one may want to be moving
+Lookup target_velocity for position_error and  add desired_motor_velocity_at_target
+
+interrupt on compare
+1) calc_pwm_for next_cycle
+2) start_pwm
+3) end_pwm. start pan_motor_current conv
+4) get pan_motor_current. calc time to start v sampling
+5) start of vsampling set up DMA or irq to read velocity
+6) end of vsampling dma or irq
+
+resources
+
+
+

@@ -23,6 +23,8 @@
 #include "resources.hpp"
 
 /*
+  Overkill. We can do this from Mavlink task...
+  whatever...
   On each heartbeat from mavlink
    switch on heartbeat led for 250 ms
 */

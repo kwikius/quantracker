@@ -1,0 +1,12 @@
+show_home : true
+osd_home_control : 7
+osd_home_pos : [-160,70,60]
+show_compass : true
+osd_compass_control : 7
+osd_compass_pos : [0,-115,-80]
+show_altitude : true
+osd_altitude_control : 3
+osd_altitude_pos : [95,-15,-15]
+show_gps_no_fix : true
+osd_gps_no_fix_control : 3
+

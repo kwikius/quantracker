@@ -5,6 +5,10 @@ import os
 import platform
 import sys
 
+# if os is windows, check to see if MSYS is available. If not dont run, but suggest how to install it.
+# Need to be running from MSYS shell or have access to it. 
+# Need to use 32 bit version if you want to build the osd_maker app
+
 url_list = [\
 ("mavlink",
 "https://github.com/mavlink/c_library/archive/master.zip",
@@ -34,7 +38,7 @@ url_list = [\
 "http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip",
 "stm32f4_dsp_stdperiph_lib.zip",
 "STM32F4xx_DSP_StdPeriph_Lib_V1.5.1"),
-("stm32flash",
+("stm32flash-linux",
 "http://sourceforge.net/projects/stm32flash/files/stm32flash-0.4.tar.gz",
 "stm32flash-0.4.tar.gz",
 "stm32flash")]
@@ -51,18 +55,19 @@ else:
      else:
         print("The chosen directory must be an existing directory")
 
-print("This may take a while so please be patient! ")
+print("This may take a a while so please be patient ! ")
 
 for info in url_list:
    invalid1 = ((platform.system() == 'Linux') and (info[0] == "arm-gcc-win"))
    invalid2 = ((platform.system() == 'Windows') and (info[0] == "arm-gcc-linux"))
+   invalid3 = ((platform.system() == 'Windows') and (info[0] == "stm32flash-linux"))
    invalid = invalid1 or invalid2
    # todo mac
    if (not invalid):
       url = info[1]
       to_file = info[2]
       if  not os.path.exists(info[2]):
-         print ("retrieving \""+ url + "\"")
+         print ("retrieving \""+ url + "\" ...")
          urllib.urlretrieve(url,filename = to_file)
          print ("extracting  \"" + to_file + "\" ...");
          if info[0] == "arm-gcc-linux":
@@ -80,14 +85,22 @@ for info in url_list:
             print("renaming mavlink dir from c_library-master to mavlink")
             os.rename("c_library-master","mavlink")
 
-         if info[0] == "stm32flash":
+         if info[0] == "stm32flash-linux":
            print ("building stm32flash...")
            os.system ("make -C stm32flash")
 
       else:
-           print(info[2] + " appears to exist already. To replace it, delete it and restart the script")
+           print(info[2] + " appears to exist already. To replace it, delete it and restart the script.")
  
-print("download and extraction of Quantracker dependencies complete")
+print("download and extraction of Quantracker dependencies complete.")
+print("installing stm32flash...")
+if (platform.system() == 'Windows'):
+   # need to extract stm32flash from the zip in quantracker-master/bin directory
+   z = zipfile.ZipFile("quantracker-master/bin/stm32flash_win.zip")
+   z.extractall()
+   os.rename("stm32flash.exe","quantracker-master/bin/stm32flash.exe")
+else:
+   os.rename("stm32flash/stm32flash",target_deps_dir + "quantracker-master/bin/stm32flash")
 
 if (target_deps_dir != ""):
    print("moving dependencies to "+ target_deps_dir)
@@ -103,18 +116,19 @@ if (target_deps_dir != ""):
 
          target_path = target_deps_dir + info[3]
          if os.path.exists(target_path):
-           print("\"" + target_path + "\" seems to be installed already. To replace it delete it and restart the script")
+           print("\"" + target_path + "\" seems to be installed already.")
+           print("To replace it, delete it and restart the script.")
          else:
            os.rename(info[3], target_path )
-if not os.path.exists(target_deps_dir + "bin/"):
-   os.mkdir(target_deps_dir + "bin/")
-os.rename("stm32flash/stm32flash",target_deps_dir + "bin/stm32flash")
-print("Quantracker Dependencies installed")
 
 print("writing Dependencies.mk")
 f = open('Dependencies.mk','w')
 f.write('TOOLCHAIN_GCC_VERSION := 4.9.3\n')
-f.write('STM32FLASH := ' + target_deps_dir + 'bin/stm32flash\n')
+if (platform.system() == 'Windows'):
+  f.write('STM32FLASH := ' + target_deps_dir + 'quantracker-master/bin/stm32flash.exe\n')
+else:
+  f.write('STM32FLASH := ' + target_deps_dir + 'quantracker-master/bin/stm32flash\n')
+
 f.write('OPTIMISATION_LEVEL := O3\n')
 f.write('QUANTRACKER_DEPENDENCY_LIBS_DIR := ' + target_deps_dir + '\n')
 f.write('TOOLCHAIN_PREFIX := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)gcc-arm-none-eabi-4_9-2014q4/\n')

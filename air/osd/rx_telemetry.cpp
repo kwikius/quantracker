@@ -1,61 +1,54 @@
 #include "rx_telemetry.hpp"
-#include "video/video_buffer.hpp"
-#include <cstring>
+#include "FreeRTOS.h"
+#include <semphr.h>
+#include <quan/stm32/millis.hpp>
+#include <quan/stm32/gpio.hpp>
+#include "resources.hpp"
+// implement the receive telemetry callback
 
-rx_telemetry the_rx_telemetry;
-
-rx_telemetry::rx_telemetry():m_buffer{nullptr},m_buffer_length{0}{}
-// must be called after video_setup() 
-void rx_telemetry::init()
-{ 
-   m_buffer_length = video_buffers::telem::rx::get_num_data_bytes();
-   m_buffer = (char*) pvPortMalloc (m_buffer_length);
-   memset(m_buffer,0,m_buffer_length);
-   this->mutex_init();
+namespace {
+   SemaphoreHandle_t m_mutex = NULL;
+   char m_telemetry_string[200] = "-------------------";
+   quan::time_<int64_t>::ms telemetry_received_time{0ULL};
 }
 
-void rx_telemetry::mutex_init()
+const char* mutex_acquire_telemetry_string()
 {
-   m_mutex = xSemaphoreCreateMutex();
-}
-
-void rx_telemetry::mutex_acquire()
-{
-   xSemaphoreTake(m_mutex,portMAX_DELAY);
-}
-
-void rx_telemetry::mutex_release()
-{
-   xSemaphoreGive(m_mutex);
-}
-
-// called by receive_telemetry_task 
-// when new data has been acquired
-// The data is copied in to the_telemetry buffer
-bool rx_telemetry::refresh()
-{
-   this->mutex_acquire();
-   bool result = (m_buffer_length == video_buffers::telem::rx::get_num_data_bytes());
-   if (result){
-      memcpy(m_buffer,&video_buffers::telem::rx::manager.m_read_buffer->front(),m_buffer_length);
+   if ( m_mutex != NULL){
+      if(xSemaphoreTake(m_mutex,(TickType_t)20) == pdTRUE){
+         return m_telemetry_string;
+      }
    }
-   this->mutex_release();
-   return result;
+   return nullptr;
 }
 
-bool rx_telemetry::read(char * buffer, size_t len)
+void mutex_release_telemetry_string()
 {
-   if (m_buffer == nullptr){
-      return false;
+   if ( m_mutex != NULL){
+      xSemaphoreGive(m_mutex);
    }
-   if ( m_buffer_length == 0){
-      return false;
+}
+
+quan::time_<int32_t>::ms get_telemetry_received_time()
+{
+   return telemetry_received_time;
+}
+
+void on_telemetry_received()
+{
+   if ( m_mutex == NULL){
+      m_mutex = xSemaphoreCreateMutex();
    }
-   this->mutex_acquire();
-   bool const result = (len <= m_buffer_length);
-   if (result){
-      memcpy(buffer,this->m_buffer,len);
+   if (mutex_acquire_telemetry_string() != nullptr){
+      read_telemetry_data(m_telemetry_string,200);
+      m_telemetry_string[199]= '\0';
+      telemetry_received_time = quan::stm32::millis();
+      mutex_release_telemetry_string();
+      static int count = 49;
+     if (++count == 50){
+      count = 0;
+     quan::stm32::complement<heartbeat_led_pin>();
+    }
    }
-   this->mutex_release();
-   return result;
+   
 }
