@@ -4,7 +4,14 @@
 I2C
 ---
 
-The OSD  works as an I2C master
+The header only library enables use of the OSD as an I2C master with FreeRTOS
+
+......
+header
+......
+
+    ``<include quan/stm32/freertos/
+
 Data is transferred using the transfer_request function.
 The slave_address deteremines whether the transfer is a transmit or a receive
 The data_address should be persistent throughout the transfer

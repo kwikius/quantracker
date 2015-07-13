@@ -19,10 +19,12 @@ OSD Installation and Introduction
 Developing
 ----------------
 
+* `Hello World - minimal osd application`_
 * `Acquiring the toolchain`_
 * `Dependencies.mk`_
 * `Technical documentation`_
 
+.. _`Hello World - minimal osd application` : software_devel/hello_world.html
 .. _`Automated Reading/writing of Flash Variables`: flash_vars_utility.html
 .. _`Acquiring the toolchain`: software_devel/toolchain.html
 .. _`Available Firmwares`: firmwares.html

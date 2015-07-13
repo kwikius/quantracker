@@ -46,7 +46,7 @@ obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
 
 USER_SOURCE_PATH = $(QUANTRACKER_ROOT_DIR)/examples/osd_example1/
 
-user_resources = fonts.o led.o
+user_resources = fonts.o
 
 obj_user_resources = $(patsubst %,$(OBJDIR)%,$(user_resources))
 

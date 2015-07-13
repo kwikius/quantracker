@@ -1,9 +1,12 @@
 # Quantracker OSD Firmware
 # Example Dependencies.mk
-# Rename this to Dependencies.mk and save in this directory
-#(~quantracker/air/osd/)
+# Note. The easy way to install the quantracker library and dependencies
+# is to use the dependencies installer
+# in bin/quantracker_deps_installer.py
 #
-# Modify the following variables to the paths, etc
+# Rename this to Dependencies.mk and save in this (quantracker root) directory
+#
+# Modify the following variables to the paths versions, etc
 # for these libraries on your system.
 
 #####################################################################
@@ -19,7 +22,7 @@ TOOLCHAIN_GCC_VERSION = 4.7.4
 
 # Path to stm32flash
 
-STM32FLASH = stm32flash
+STM32FLASH = ./bin/stm32flash
 
 ######################################################################
 ### The quan library                                          

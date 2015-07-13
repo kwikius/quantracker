@@ -10,13 +10,13 @@ firmwares.rst flash_vars_utility.rst
 osd_firmwares_rst = osd_example1.rst osd_ac.rst osd_telem_tx.rst osd_telem_rx.rst
 
 osd_software_devel_rst = bitmap_format.rst flash_variables.rst source_code_organisation.rst \
-toolchain.rst dependencies_mk.rst
+toolchain.rst dependencies_mk.rst hello_world.rst
 
 osd_software_devel_tech_rst = index.rst telemetry.rst
 
 osd_maker_rst = index.rst
 
-quan_rst = index.rst i2c.rst drawing_api.rst on_draw.rst
+quan_rst = index.rst i2c.rst drawing_api.rst on_draw.rst draw_task.rst
 
 quan_html = $(patsubst %.rst,../doc/osd/software_devel/tech/quan/%.html,$(quan_rst))
 

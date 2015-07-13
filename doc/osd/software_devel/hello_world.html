@@ -341,42 +341,32 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="drawing_api.html">Quantracker Air OSD drawing api Index</a></p>
-<div class="section" id="void-quan-uav-osd-on-draw">
-<h1>void quan::uav::osd::on_draw()</h1>
-<p>This user supplied function is called by the <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/video/draw_task.cpp">library supplied draw_task</a> to refresh the
-low level osd drawing overlay bitmap buffer.</p>
-<p>Use the drawing api functions to write the OSD overlay on the display buffer.</p>
-<p>The on_draw function is called in the context of the <a class="reference external" href="draw_task.html">draw_task</a></p>
-<p>There are no constraints on the amount of time the function takes, except that
-until the buffer is updated, the driver will continue to display the previous buffer.</p>
-<div class="section" id="include">
-<h2>include</h2>
-<blockquote>
-<a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/api.hpp">#include &lt;quan/uav/osd/api.hpp&gt;</a></blockquote>
-</div>
-<div class="section" id="link">
-<h2>link</h2>
-<p>one of</p>
-<ul class="simple">
-<li>quantracker/lib/osd/quantracker_air_osd.a</li>
-<li>quantracker/lib/osd/quantracker_air_osd_tx.a</li>
-<li>quantracker/lib/osd/quantracker_air_osd_rx.a</li>
-</ul>
-</div>
-<div class="section" id="useage">
-<h2>useage</h2>
+<p><a class="reference external" href="../index.html">Quantracker OSD Index</a></p>
+<div class="section" id="hello-world">
+<h1>Hello World</h1>
+<div class="section" id="a-minimal-quantracker-air-osd-application">
+<h2>A minimal Quantracker Air OSD  Application</h2>
 <pre class="literal-block">
-// my_on_draw.cpp
+#include &lt;quantracker/osd/osd.hpp&gt;
+#include &quot;fonts.hpp&quot;
 
-#include &lt;quan/uav/osd/api.hpp&gt;
+int main()
+{
+   osd_setup();
+   create_draw_task();
+   vTaskStartScheduler();
+}
 
 void quan::uav::osd::on_draw()
 {
-   // user supplied drawing code
+   draw_text(&quot;Hello World&quot;,{-60,0});
 }
 </pre>
-<p><a class="reference external" href="drawing_api.html">Quantracker Air OSD drawing api Index</a></p>
+<p>This is a complete but very simple Quantracker OSD application. It just overlays &quot;Hello World&quot; on the
+display. It can be used to test that your toolchain is working and as a template for
+more sophisticated applications.</p>
+<p>see the <a class="reference external" href="https:/github.com/kwikius/quantracker/blob/devel/examples/hello_world/">source code</a> on Github</p>
+<p><a class="reference external" href="../index.html">Quantracker OSD Index</a></p>
 </div>
 </div>
 </div>

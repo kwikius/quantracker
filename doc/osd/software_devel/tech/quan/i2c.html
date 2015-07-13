@@ -344,8 +344,16 @@ ul.auto-toc {
 <p><a class="reference external" href="index.html">Quan OSD Technical Index</a></p>
 <div class="section" id="i2c">
 <h1>I2C</h1>
-<p>The OSD  works as an I2C master
-Data is transferred using the transfer_request function.
+<p>The header only library enables use of the OSD as an I2C master with FreeRTOS</p>
+<div class="section" id="header">
+<h2>header</h2>
+<blockquote>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>&lt;include quan/stm32/freertos/</p>
+<div class="system-message" id="id1">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">osd/software_devel/tech/quan/i2c.rst</tt>, line 13); <em><a href="#id2">backlink</a></em></p>
+Inline literal start-string without end-string.</div>
+</blockquote>
+<p>Data is transferred using the transfer_request function.
 The slave_address deteremines whether the transfer is a transmit or a receive
 The data_address should be persistent throughout the transfer
 as data is not copied, but transferred direct to/from the buffer</p>
@@ -370,6 +378,7 @@ The data address for transmit/receieve must be valid throughout the transmission
 </dd>
 </dl>
 <p><a class="reference external" href="index.html">Quan OSD Technical Index</a></p>
+</div>
 </div>
 </div>
 </body>

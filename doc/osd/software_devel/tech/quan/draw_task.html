@@ -342,19 +342,9 @@ ul.auto-toc {
 
 
 <p><a class="reference external" href="drawing_api.html">Quantracker Air OSD drawing api Index</a></p>
-<div class="section" id="void-quan-uav-osd-on-draw">
-<h1>void quan::uav::osd::on_draw()</h1>
-<p>This user supplied function is called by the <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/video/draw_task.cpp">library supplied draw_task</a> to refresh the
-low level osd drawing overlay bitmap buffer.</p>
-<p>Use the drawing api functions to write the OSD overlay on the display buffer.</p>
-<p>The on_draw function is called in the context of the <a class="reference external" href="draw_task.html">draw_task</a></p>
-<p>There are no constraints on the amount of time the function takes, except that
-until the buffer is updated, the driver will continue to display the previous buffer.</p>
-<div class="section" id="include">
-<h2>include</h2>
-<blockquote>
-<a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/api.hpp">#include &lt;quan/uav/osd/api.hpp&gt;</a></blockquote>
-</div>
+<div class="section" id="the-quantracker-air-os-draw-task">
+<h1>The Quantracker Air OS draw_task</h1>
+<p>The draw_task manages calling the user supplied</p>
 <div class="section" id="link">
 <h2>link</h2>
 <p>one of</p>
@@ -364,20 +354,26 @@ until the buffer is updated, the driver will continue to display the previous bu
 <li>quantracker/lib/osd/quantracker_air_osd_rx.a</li>
 </ul>
 </div>
-<div class="section" id="useage">
-<h2>useage</h2>
-<pre class="literal-block">
-// my_on_draw.cpp
-
-#include &lt;quan/uav/osd/api.hpp&gt;
-
-void quan::uav::osd::on_draw()
-{
-   // user supplied drawing code
-}
-</pre>
+<div class="section" id="include">
+<h2>include</h2>
+<blockquote>
+<a class="reference external" href="quantracker/osd/osd.hpp">quantracker/osd/osd.hpp</a></blockquote>
+<p>Use:</p>
+<blockquote>
+<p>call <tt class="docutils literal">osd_setup()</tt> in your application setup function</p>
+<p>call <tt class="docutils literal">create_draw_task</tt>  before starting the scheduler</p>
+</blockquote>
+<p>Example:</p>
+<blockquote>
+<a href="#id2"><span class="problematic" id="id3">`~/quantracker/examples/osd_example1/board/main.cpp`_</span></a></blockquote>
 <p><a class="reference external" href="drawing_api.html">Quantracker Air OSD drawing api Index</a></p>
 </div>
+</div>
+<div class="system-messages section">
+<h1>Docutils System Messages</h1>
+<div class="system-message" id="id2">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">osd/software_devel/tech/quan/draw_task.rst</tt>, line 34); <em><a href="#id3">backlink</a></em></p>
+Unknown target name: &quot;~/quantracker/examples/osd_example1/board/main.cpp&quot;.</div>
 </div>
 </div>
 </body>

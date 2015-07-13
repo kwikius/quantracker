@@ -15,12 +15,13 @@ osd_telem_rx:
 
    `Download osd_telem_rx firmware`_
 
-.. _`Download osd_telem_rx firmware`: https://github.com/kwikius/quantracker/blob/master/examples/osd_telem_rx/bin/main.bin?raw=true
+.. _`Download osd_telem_rx firmware`: 
+   https://github.com/kwikius/quantracker/blob/devel/examples/osd_telem_rx/bin/main.bin?raw=true
 .. _`OSD Index`: ../index.html
 .. _`osd_telem_tx firmware`: osd_telem_tx.html
-.. _`more technical info about the telemetry here`: ../software_devel/tech/telemtry.html
+.. _`more technical info about the telemetry here`: ../software_devel/tech/telemetry.html
 .. _`quantracker/examples/osd_telem_rx/rx_telemetry.cpp`:
-   https://github.com/kwikius/quantracker/blob/master/examples/osd_telem_rx/rx_telemetry.cpp
+   https://github.com/kwikius/quantracker/blob/devel/examples/osd_telem_rx/rx_telemetry.cpp
 
 `OSD Index`_
 

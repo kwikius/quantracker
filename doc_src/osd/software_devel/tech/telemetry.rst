@@ -21,7 +21,7 @@ tx linking
 ..........
 
    To use the telemetry transmitter version of the OSD, link the static library
-   ``quantracker/lib/osd/quantracker_air_osd_rx.a``
+   ``quantracker/lib/osd/quantracker_air_osd_tx.a``
    into your OSD application
 
 ..........
@@ -124,8 +124,8 @@ rx Example
 `OSD Technical Index`_
 
 .. _`OSD Technical Index`: index.html
-.. _`osd_telem_tx`: https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_tx.html
-.. _`osd_telem_rx`: https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_rx.html
+.. _`osd_telem_tx`: https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_tx/
+.. _`osd_telem_rx`: https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_rx/
 
 
 
