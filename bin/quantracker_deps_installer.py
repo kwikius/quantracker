@@ -5,147 +5,349 @@ import os
 import platform
 import sys
 
-# if os is windows, check to see if MSYS is available. If not dont run, but suggest how to install it.
-# Need to be running from MSYS shell or have access to it. 
-# Need to use 32 bit version if you want to build the osd_maker app
+install_dir = None
 
-url_list = [\
-("mavlink",
-"https://github.com/mavlink/c_library/archive/master.zip",
- "mavlink.zip",
- "mavlink"),
-("arm-gcc-linux",
-"https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2",
-"arm-gcc-linux.tar.bz2",
-"gcc-arm-none-eabi-4_9-2014q4"),
-("arm-gcc-win",
-"https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-win32.zip",
-"arm-gcc-win.zip",
-"gcc-arm-none-eabi-4_9-2014q4"),
-("quan",
-"https://github.com/kwikius/quan-trunk/archive/master.zip",
-"quan.zip",
-"quan-trunk-master"),
-("freertos",
-"http://downloads.sourceforge.net/project/freertos/FreeRTOS/V8.2.0/FreeRTOSV8.2.0.zip",
-"freertos.zip",
-"FreeRTOSV8.2.0"),
-("quantracker",
-"https://github.com/kwikius/quantracker/archive/master.zip",
-"quantracker.zip",
-"quantracker-master"),
-("stm32_lib",
-"http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip",
-"stm32f4_dsp_stdperiph_lib.zip",
-"STM32F4xx_DSP_StdPeriph_Lib_V1.5.1"),
-("stm32flash-linux",
-"http://sourceforge.net/projects/stm32flash/files/stm32flash-0.4.tar.gz",
-"stm32flash-0.4.tar.gz",
-"stm32flash")]
+def install_dir_good():
+  if (install_dir == None) or (install_dir == ""):
+     print("no install directory specified")
+     return False
+  elif not os.path.exists(install_dir):
+     print("install directory \"" + install_dir + "\" not found ( install directory must exist already)")
+     return False
+  elif not os.path.isdir(install_dir):
+     print("\"" + install_dir + "\" is not a directory")
+     return False
+  else :
+     return True
 
-target_deps_dir = None
-if (len(sys.argv) > 1):
-   target_deps_dir = sys.argv[1]
-else:
-   while 1:
-     target_deps_dir = raw_input("Please enter the Directory to install dependencies, enter for none ")
-     target_good = (target_deps_dir == "") or ( (os.path.exists(target_deps_dir)) and (os.path.isdir(target_deps_dir)))
-     if target_good:
-        break
-     else:
-        print("The chosen directory must be an existing directory")
+def normalise_install_dir():
+   install_dir_temp = os.path.abspath(install_dir)
+   if install_dir_temp[len(install_dir_temp) -1] != '/':
+      install_dir_temp += '/'
+   print ("install directory = " + install_dir_temp)
+   return install_dir_temp
 
-print("This may take a a while so please be patient ! ")
+rem_restart = "\". Remove and restart to download a fresh copy"
 
-for info in url_list:
-   invalid1 = ((platform.system() == 'Linux') and (info[0] == "arm-gcc-win"))
-   invalid2 = ((platform.system() == 'Windows') and (info[0] == "arm-gcc-linux"))
-   invalid3 = ((platform.system() == 'Windows') and (info[0] == "stm32flash-linux"))
-   invalid = invalid1 or invalid2
-   # todo mac
-   if (not invalid):
-      url = info[1]
-      to_file = info[2]
-      if  not os.path.exists(info[2]):
-         print ("retrieving \""+ url + "\" ...")
-         urllib.urlretrieve(url,filename = to_file)
-         print ("extracting  \"" + to_file + "\" ...");
-         if info[0] == "arm-gcc-linux":
-            t = tarfile.open(to_file, 'r:bz2')
-            t.extractall()
-         elif info[0] == "stm32flash":
-            print("extracting stm32flash...")
-            t = tarfile.open(to_file, 'r')
-            t.extractall()
-         else:
-            z = zipfile.ZipFile(to_file,'r')
+def install_mavlink ():
+   dep_dir = "mavlink"
+   if not os.path.exists(install_dir + dep_dir):
+      exn = "c_library-master"
+      if not os.path.exists(exn):
+         zipf = "mavlink.zip"
+         if not os.path.exists(zipf):
+            print("retrieving mavlink ...")
+            url = "https://github.com/mavlink/c_library/archive/master.zip"
+            try:
+               urllib.urlretrieve(url,zipf )
+            except:
+               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+               return False
+         print("extracting mavlink ...")
+         try:
+            z = zipfile.ZipFile(zipf,'r')
             z.extractall()
+         except:
+            print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
+            print("Delete it and restart installer to retry")
+            return False
+      print("installing mavlink ...")
+      try:
+         os.rename(exn, install_dir + dep_dir)
+      except:
+         print("Couldnt rename \"" + exn + "\" to \"" + install_dir + dep_dir + "\". Check target directory status")
+         return False
+      print ("---[mavlink installed]---")
+      return True
+   else:
+      print ("found pre-existing mavlink install")
+      return True
 
-         if info[0] == "mavlink":
-            print("renaming mavlink dir from c_library-master to mavlink")
-            os.rename("c_library-master","mavlink")
+def install_arm_gcc():
+   dep_dir = "gcc-arm-none-eabi-4_9-2014q4" 
+   if not os.path.exists(install_dir + dep_dir):
+      exn = dep_dir
+      if not os.path.exists(exn):
+         if platform.system() == 'Linux':
+            tarf = "arm-gcc-linux.tar.bz2"
+            if not os.path.exists(tarf):
+               print("retrieving arm-gcc linux ...")
+               url = "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2"
+               try:
+                  urllib.urlretrieve(url,tarf)
+               except:
+                  print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+                  return False
+            print ("extracting arm-gcc ...")
+            try:
+               t = tarfile.open(tarf, 'r:bz2')
+               t.extractall()  
+            except:
+               print("couldnt extract \"" + tarf + " Possibly download corrupted or interrupted.")
+               print("Delete it and restart installer to retry")
+               return False
+         elif platform.system() == 'Windows':
+             zipf = "arm-gcc-win.zip"
+             if not os.path.exists(zipf):
+                print("retrieving arm-gcc Windows ...")
+                url = "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-win32.zip"
+                try:
+                     urllib.urlretrieve(url,zipf)
+                except:
+                   print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+                   return False
+             try:
+                z = zipfile.ZipFile(zipf,'r')
+                z.extractall()
+             except:
+                print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
+                print("Delete it and restart installer to retry")
+                return False
 
-         if info[0] == "stm32flash-linux":
-           print ("building stm32flash...")
-           os.system ("make -C stm32flash")
-
-      else:
-           print(info[2] + " appears to exist already. To replace it, delete it and restart the script.")
- 
-print("download and extraction of Quantracker dependencies complete.")
-print("installing stm32flash...")
-if (platform.system() == 'Windows'):
-   # need to extract stm32flash from the zip in quantracker-master/bin directory
-   z = zipfile.ZipFile("quantracker-master/bin/stm32flash_win.zip")
-   z.extractall()
-   os.rename("stm32flash.exe","quantracker-master/bin/stm32flash.exe")
-else:
-   os.rename("stm32flash/stm32flash",target_deps_dir + "quantracker-master/bin/stm32flash")
-
-if (target_deps_dir != ""):
-   print("moving dependencies to "+ target_deps_dir)
-   for info in url_list:
-      invalid1 = ((platform.system() == 'Linux') and (info[0] == "arm-gcc-win"))
-      invalid2 = ((platform.system() == 'Windows') and (info[0] == "arm-gcc-linux"))
-      invalid3 = info[0] == "stm32flash"
-      invalid = invalid1 or invalid2 or invalid3
-# add checks for target dir not empty
-      if (not invalid):
-         if target_deps_dir[len(target_deps_dir) -1] != '/':
-            target_deps_dir += '/'
-
-         target_path = target_deps_dir + info[3]
-         if os.path.exists(target_path):
-           print("\"" + target_path + "\" seems to be installed already.")
-           print("To replace it, delete it and restart the script.")
          else:
-           os.rename(info[3], target_path )
+            print("install script not yet available for " + platform.system() + " ... quitting");
+            exit(1);
 
-print("writing Dependencies.mk")
-f = open('Dependencies.mk','w')
-f.write('TOOLCHAIN_GCC_VERSION := 4.9.3\n')
-if (platform.system() == 'Windows'):
-  f.write('STM32FLASH := ' + target_deps_dir + 'quantracker-master/bin/stm32flash.exe\n')
-else:
-  f.write('STM32FLASH := ' + target_deps_dir + 'quantracker-master/bin/stm32flash\n')
+      print ("installing arm-gcc ...")
+      try:
+         os.rename(exn, install_dir + exn)
+      except:
+         print("Couldnt rename \"" + exn + "\" to \"" + install_dir + dep_dir + "\". Check target directory status")
+         return False
+      print ("---[arm-gcc installed]---")
+      return True
+   else:
+      print("found pre-existing arm-gcc install")
+      return True
 
-f.write('OPTIMISATION_LEVEL := O3\n')
-f.write('QUANTRACKER_DEPENDENCY_LIBS_DIR := ' + target_deps_dir + '\n')
-f.write('TOOLCHAIN_PREFIX := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)gcc-arm-none-eabi-4_9-2014q4/\n')
-f.write('QUAN_INCLUDE_PATH := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)quan-trunk-master/\n')
-f.write('MAVLINK_INCLUDE_PATH := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)\n')
-f.write('FREE_RTOS_DIR := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)FreeRTOSV8.2.0/FreeRTOS/\n')
-f.write('STM32_STD_PERIPH_LIB_DIR := $(QUANTRACKER_DEPENDENCY_LIBS_DIR)STM32F4xx_DSP_StdPeriph_Lib_V1.5.1/Libraries/\n')
-f.close()
-os.rename('Dependencies.mk',  target_deps_dir + '/quantracker-master/Dependencies.mk')
+def install_simple_dep(tagname,exn,zipf,url):
+   if not os.path.exists(install_dir + exn):
+      if not os.path.exists(exn):
+         if not os.path.exists(zipf):
+            try:
+               print ("retrieving " + tagname + " ...")
+               urllib.urlretrieve(url,zipf)
+            except:
+               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+               return False
+          
+         try:
+            print ("extracting " + tagname + " ...") 
+            z = zipfile.ZipFile(zipf,'r')
+            z.extractall()
+         except:
+            print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
+            print("Delete it and restart installer to retry")
+            return False
+      try:
+         print("installing " + tagname)
+         os.rename(exn,install_dir + exn) 
+         print( "---[" + tagname + " installed]---")
+         return True
+      except:
+         print("Couldnt rename \"" + exn + "\" to \"" + install_dir + exn + "\". Check target directory status")
+         return False
+   else:
+      print( "found pre-existing " + tagname + " install")
+      return True
 
-#TODO check for different dependency versions. These wont stay current for long
-# sort re half done uploads
+def install_quan():
+   return install_simple_dep(\
+      "quan",
+      "quan-trunk-master",
+      "quan.zip",
+      "https://github.com/kwikius/quan-trunk/archive/master.zip")
 
+def install_stm32_lib():
+   return install_simple_dep(\
+      "stm32 standard peripherals library",
+      "STM32F4xx_DSP_StdPeriph_Lib_V1.5.1",
+      "stm32f4_dsp_stdperiph_lib.zip",
+      "http://www.st.com/st-web-ui/static/active/en/st_prod_software_internet/resource/technical/software/firmware/stm32f4_dsp_stdperiph_lib.zip")
 
+def install_freertos():
+   return install_simple_dep(\
+      "FreeRTOS",
+      "FreeRTOSV8.2.0",
+      "FreeRTOS.zip",
+      "http://downloads.sourceforge.net/project/freertos/FreeRTOS/V8.2.0/FreeRTOSV8.2.0.zip")
 
+# make the Dependencies.mk
+def install_dependencies_mk():
+   if os.path.exists(install_dir + 'quantracker-master/Dependencies.mk'):
+      print('################################################################################')
+      print('Warning Previous Dependencies.mk found. Renaming Old version to Dependencies.bak')
+      print('################################################################################')
+      os.rename(install_dir + 'quantracker-master/Dependencies.mk',
+         install_dir + 'quantracker-master/Dependencies.bak')
+   try:
+      print("writing Dependencies.mk")
+      f = open('Dependencies.mk','w')
+   except:
+      print("failed to open Dependencies.mk. Is it open already?")
+      return False
+   try: 
+      f.write('#Generated by quantracker_deps_installer.py v1.0\n')
+      f.write('OPTIMISATION_LEVEL := O3\n')
+      f.write('TOOLCHAIN_GCC_VERSION := 4.9.3\n')
+      f.write('TOOLCHAIN_PREFIX := ' + install_dir + 'gcc-arm-none-eabi-4_9-2014q4/\n')
+      f.write('QUANTRACKER_DEPENDENCY_LIBS_DIR := ' + install_dir + '\n')
+      f.write('STM32_STD_PERIPH_LIB_DIR := ' + install_dir + 'STM32F4xx_DSP_StdPeriph_Lib_V1.5.1/Libraries/\n')
+      f.write('FREE_RTOS_DIR := ' + install_dir + 'FreeRTOSV8.2.0/FreeRTOS/\n')
+      f.write('QUAN_INCLUDE_PATH := ' + install_dir + 'quan-trunk-master/\n')
+      f.write('MAVLINK_INCLUDE_PATH := ' + install_dir + '\n')
+      if (platform.system() == 'Windows'):
+        f.write('STM32FLASH := ' + install_dir + 'quantracker-master/bin/stm32flash.exe\n')
+      else:
+        f.write('STM32FLASH := ' + install_dir + 'quantracker-master/bin/stm32flash\n')
+      f.close()
+   except:
+      print("failed writing Dependencies.mk.")
+      return False
 
+   try:
+      print("installing Dependencies.mk")
+      os.rename('Dependencies.mk', install_dir + '/quantracker-master/Dependencies.mk')
+   except:
+      print("install Dependencies.mk failed")
+      return False
 
+   return True   
 
+def install_quantracker():
+   return install_simple_dep(\
+      "Quantracker",
+      "quantracker-master",
+      "quantracker.zip",
+      "https://github.com/kwikius/quantracker/archive/master.zip")
+  
+# call after successfully installing quantracker
+def install_stm32flash():
+   if not os.path.exists(install_dir + "quantracker-master"):
+      print("stm32flash needs to have Quantracker installed first")
+      return False
    
+   if platform.system() == 'Linux':
+      if not os.path.exists(install_dir + "quantracker-master/bin/stm32flash"):
+         exn = "stm32flash"
+         if not os.path.exists(exn):
+            tarf = "stm32flash-0.4.tar.gz"
+            if not os.path.exists(tarf):
+               url = "http://sourceforge.net/projects/stm32flash/files/stm32flash-0.4.tar.gz"
+               print("retrieving stm32flash ...")
+               try:
+                  urllib.urlretrieve(url,tarf)
+               except:
+                   print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+                   return False
+            try:
+               print ("extracting stm32flash ...")
+               t = tarfile.open(tarf,'r')
+               t.extractall()  
+            except:
+               print("Couldnt extract \"" + tarf + " Possibly download corrupted or interrupted.")
+               print("Delete it and restart installer to retry")
+               return False
+         try: 
+            print("building stm32flash ...")
+            os.system ("make -C " + exn)
+         except:
+            printf("unknown error in making stm32flash")
+            return False
+         if not os.path.exists(exn + "/stm32flash"):
+            print("Failed to build stm32flash")
+            return False
+         try:
+            print("installing stm32flash ...")
+            os.rename(exn + "/stm32flash", install_dir + "quantracker-master/bin/stm32flash")
+            print("---[stm32flash installed]---")
+            return True
+         except:
+            print("Couldnt rename \"" + exn + "\" to \"" + install_dir + exn + "\". Check target directory status")
+            return False
+         
+      else:
+         print("found pre-existing stm32flash linux install")
+         return True
+
+   elif platform.system() == 'Windows':
+      if not os.path.exists( install_dir + "quantracker-master/bin/stm32flash.exe"):
+         stm32flash_stub_path = "quantracker-master/bin/stm32flash_win.zip"
+         stm32flash_path = install_dir + stm32flash_stub_path
+         if not os.path.exists(stm32flash_path):
+            print("cant find " + stm32flash_path)
+            return False
+         print("extracting stm32flash");
+         try:
+            z = zipfile.Zipfile(stm32flash_path)
+            z.extractall(install_dir + "quantracker-master/bin/")
+            print("---[stm32flash installed]---")
+            return True
+         except:
+            print("Couldnt extract \"" + stm32flash_path + "\" Possibly download corrupted or interrupted.")
+            print("Delete quantracker and restart installer to retry")
+            return False
+      else:
+         print("found pre-existing stm32flash Windows install") 
+         return True
+   else:
+      #shouldnt get here
+      print("unknown os .. quitting")
+      exit(-1)
+
+
+#-------------------------main------------------
+
+if ( platform.system() != 'Linux') and ( platform.system() != 'Windows'):
+   printf("Sorry.. The script can currently only handle Windows or Linux")
+   printf("Please report your OS and we will try to fix that")
+   exit(-1)
+
+if (len(sys.argv) > 1):
+   install_dir = sys.argv[1]
+while not install_dir_good():
+   install_dir = raw_input("Please enter the Directory to install dependencies or Q to quit: ")
+   if (install_dir == "Q") or (install_dir == "q"):
+      print("Quit requested ... quitting install")
+      exit()
+
+install_dir = normalise_install_dir()
+
+installed_ok = \
+      install_arm_gcc() and \
+      install_stm32_lib() and \
+      install_freertos() and \
+      install_quan() and \
+      install_mavlink() and \
+      install_quantracker() and \
+      install_stm32flash() and \
+      install_dependencies_mk()
+
+if installed_ok:
+   print("===============================================")
+   print("Quantracker installation completed successfully")
+   print("===============================================")
+   print("===============================================")
+   build = raw_input ("If you want the script to build a firmware\n\
+   for you now, type \'yes\' ( anything else to exit)\n:")
+   if (build == 'yes'):
+      os.chdir(install_dir + "quantracker-master")
+      os.system("make osd_example1")
+      if os.path.exists(install_dir + "quantracker-master/examples/osd_example1/board/bin/main.bin"):
+         print("firmware build successful")
+         upload = raw_input("If you want to try uploading, attach your board to the usb,\
+         apply the prog jumper, power the board and type \'yes\'")
+         if (upload == 'yes'):
+            os.system("make upload_osd_example1")
+   else:
+      print("quantracker install script quitting")
+   print("===============================================")
+ 
+
+
+
+
+
+
+
 
