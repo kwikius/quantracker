@@ -5,14 +5,20 @@
 void quan::uav::osd::on_draw()
 ==============================
 
-This user supplied function is called by the `library supplied draw_task`_ to refresh the
-low level osd drawing overlay bitmap buffer.
+This user supplied function is called by the osd driver,
+to update the osd drawing overlay bitmap. 
 
-Use the drawing api functions to write the OSD overlay on the display buffer.
+The on_draw function is called entirely in the context of the `draw_task`_ . The only
+consequence of this is that care must be taken when sharing data between tasks.
 
-The on_draw function is called in the context of the `draw_task`_
+The display uses 2 overlay buffers.
+When the on_draw function has returned the draw_task requests the low level
+system to swap the buffers. The low level system takes the newly drawn
+buffer to display and gives the draw_task back the other buffer to update.
 
-There are no constraints on the amount of time the function takes, except that
+Use the `drawing api`_ functions to write the OSD overlay on the display buffer.  
+
+There are no constraints on the amount of time the on_draw function takes, except that
 until the buffer is updated, the driver will continue to display the previous buffer.
 
 .......
@@ -46,10 +52,19 @@ useage
       // user supplied drawing code
    }
 
+.......
+example
+.......
+      
+   `~/quantracker/examples/hello_world/main.cpp`_
+
 
 `Quantracker Air OSD drawing api Index`_
 
 .. _`draw_task`: draw_task.html
+.. _`drawing api`:
 .. _`Quantracker Air OSD drawing api Index`: drawing_api.html
 .. _`#include \<quan/uav/osd/api.hpp\>`: https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/api.hpp
 .. _`library supplied draw_task`: https://github.com/kwikius/quantracker/blob/master/air/osd/video/draw_task.cpp
+.. _`~/quantracker/examples/hello_world/main.cpp` :
+   https://github.com/kwikius/quantracker/blob/master/examples/hello_world/main.cpp

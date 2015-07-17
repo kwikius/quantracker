@@ -5771,66 +5771,66 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .comment       0x00000000       0x71 ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_menu.o)
  .comment       0x00000000       0x71 ../../../../quantracker/lib/osd/flash_variables.a(quan_stm32_f4_specific_flash.o)
 
-.debug_info     0x00000000   0x163286
+.debug_info     0x00000000   0x1632a0
  .debug_info    0x00000000      0x14c obj/main.o
- .debug_info    0x0000014c    0x150f5 obj/setup.o
- .debug_info    0x00015241     0x414e obj/serial_port.o
- .debug_info    0x0001938f     0xa7c7 obj/fsk_output.o
- .debug_info    0x00023b56     0x5c06 obj/fsk_task.o
- .debug_info    0x0002975c     0xa5b5 obj/frsky_task.o
- .debug_info    0x00033d11     0x8023 obj/frsky_zapp1.o
- .debug_info    0x0003bd34    0x10785 obj/mavlink_task.o
- .debug_info    0x0004c4b9       0xf7 obj/settings.o
- .debug_info    0x0004c5b0     0x8b45 obj/heartbeat_task.o
- .debug_info    0x000550f5    0x113f9 obj/mode_check.o
- .debug_info    0x000664ee     0x51e8 obj/board_graphics_api.o
- .debug_info    0x0006b6d6     0x3746 obj/bitmaps.o
- .debug_info    0x0006ee1c    0x261f2 obj/fonts.o
- .debug_info    0x0009500e      0x296 obj/flash_vars.o
- .debug_info    0x000952a4     0x2f66 obj/on_draw.o
- .debug_info    0x0009820a     0x4349 obj/draw_altitude.o
- .debug_info    0x0009c553     0x4dcc obj/draw_artificial_horizon.o
- .debug_info    0x000a131f     0x836d obj/draw_compass.o
- .debug_info    0x000a968c     0x6583 obj/draw_home.o
- .debug_info    0x000afc0f     0x2a8b obj/draw_gps_state.o
- .debug_info    0x000b269a     0x4245 obj/draw_batteries.o
- .debug_info    0x000b68df     0x4d22 obj/symbology.o
- .debug_info    0x000bb601     0x2cef obj/flash.o
- .debug_info    0x000be2f0     0x4e27 obj/aircraft.o
- .debug_info    0x000c3117     0x25e0 ../../../../quantracker/lib/osd/quantracker_air_system.a(tasks.o)
- .debug_info    0x000c56f7     0x1a4d ../../../../quantracker/lib/osd/quantracker_air_system.a(queue.o)
- .debug_info    0x000c7144      0x2b8 ../../../../quantracker/lib/osd/quantracker_air_system.a(list.o)
- .debug_info    0x000c73fc     0x124e ../../../../quantracker/lib/osd/quantracker_air_system.a(timers.o)
- .debug_info    0x000c864a      0x4f0 ../../../../quantracker/lib/osd/quantracker_air_system.a(malloc_free.o)
- .debug_info    0x000c8b3a       0x5a ../../../../quantracker/lib/osd/quantracker_air_system.a(startup.o)
- .debug_info    0x000c8b94      0x969 ../../../../quantracker/lib/osd/quantracker_air_system.a(system_init.o)
- .debug_info    0x000c94fd      0x42d ../../../../quantracker/lib/osd/quantracker_air_system.a(port.o)
- .debug_info    0x000c992a      0x1b2 ../../../../quantracker/lib/osd/quantracker_air_system.a(heap_3.o)
- .debug_info    0x000c9adc     0x380a ../../../../quantracker/lib/osd/quantracker_air_system.a(rtos_hooks.o)
- .debug_info    0x000cd2e6      0x135 ../../../../quantracker/lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_info    0x000cd41b      0x506 ../../../../quantracker/lib/osd/quantracker_air_system.a(system.o)
- .debug_info    0x000cd921     0xe8b0 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_info    0x000dc1d1     0x370f ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_info    0x000df8e0     0x23ab ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_info    0x000e1c8b     0xdf23 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_info    0x000efbae    0x12673 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_info    0x00102221     0x87cc ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_info    0x0010a9ed      0x594 ../../../../quantracker/lib/osd/quantracker_air_osd.a(misc.o)
- .debug_info    0x0010af81     0x40f8 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_info    0x0010f079     0xd076 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_info    0x0011c0ef     0x8b67 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_info    0x00124c56     0xad4a ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_info    0x0012f9a0     0xe286 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_info    0x0013dc26     0x3c3c ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_info    0x00141862     0x51fa ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_arc.o)
- .debug_info    0x00146a5c     0x34a8 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
- .debug_info    0x00149f04     0x2a41 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_circle.o)
- .debug_info    0x0014c945     0x26e6 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_line.o)
- .debug_info    0x0014f02b     0x22f2 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_text.o)
- .debug_info    0x0015131d     0xc4d6 ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash.o)
- .debug_info    0x0015d7f3      0xb3f ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_error.o)
- .debug_info    0x0015e332     0x42df ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_menu.o)
- .debug_info    0x00162611      0xc75 ../../../../quantracker/lib/osd/flash_variables.a(quan_stm32_f4_specific_flash.o)
+ .debug_info    0x0000014c    0x1510f obj/setup.o
+ .debug_info    0x0001525b     0x414e obj/serial_port.o
+ .debug_info    0x000193a9     0xa7c7 obj/fsk_output.o
+ .debug_info    0x00023b70     0x5c06 obj/fsk_task.o
+ .debug_info    0x00029776     0xa5b5 obj/frsky_task.o
+ .debug_info    0x00033d2b     0x8023 obj/frsky_zapp1.o
+ .debug_info    0x0003bd4e    0x10785 obj/mavlink_task.o
+ .debug_info    0x0004c4d3       0xf7 obj/settings.o
+ .debug_info    0x0004c5ca     0x8b45 obj/heartbeat_task.o
+ .debug_info    0x0005510f    0x113f9 obj/mode_check.o
+ .debug_info    0x00066508     0x51e8 obj/board_graphics_api.o
+ .debug_info    0x0006b6f0     0x3746 obj/bitmaps.o
+ .debug_info    0x0006ee36    0x261f2 obj/fonts.o
+ .debug_info    0x00095028      0x296 obj/flash_vars.o
+ .debug_info    0x000952be     0x2f66 obj/on_draw.o
+ .debug_info    0x00098224     0x4349 obj/draw_altitude.o
+ .debug_info    0x0009c56d     0x4dcc obj/draw_artificial_horizon.o
+ .debug_info    0x000a1339     0x836d obj/draw_compass.o
+ .debug_info    0x000a96a6     0x6583 obj/draw_home.o
+ .debug_info    0x000afc29     0x2a8b obj/draw_gps_state.o
+ .debug_info    0x000b26b4     0x4245 obj/draw_batteries.o
+ .debug_info    0x000b68f9     0x4d22 obj/symbology.o
+ .debug_info    0x000bb61b     0x2cef obj/flash.o
+ .debug_info    0x000be30a     0x4e27 obj/aircraft.o
+ .debug_info    0x000c3131     0x25e0 ../../../../quantracker/lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_info    0x000c5711     0x1a4d ../../../../quantracker/lib/osd/quantracker_air_system.a(queue.o)
+ .debug_info    0x000c715e      0x2b8 ../../../../quantracker/lib/osd/quantracker_air_system.a(list.o)
+ .debug_info    0x000c7416     0x124e ../../../../quantracker/lib/osd/quantracker_air_system.a(timers.o)
+ .debug_info    0x000c8664      0x4f0 ../../../../quantracker/lib/osd/quantracker_air_system.a(malloc_free.o)
+ .debug_info    0x000c8b54       0x5a ../../../../quantracker/lib/osd/quantracker_air_system.a(startup.o)
+ .debug_info    0x000c8bae      0x969 ../../../../quantracker/lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_info    0x000c9517      0x42d ../../../../quantracker/lib/osd/quantracker_air_system.a(port.o)
+ .debug_info    0x000c9944      0x1b2 ../../../../quantracker/lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_info    0x000c9af6     0x380a ../../../../quantracker/lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_info    0x000cd300      0x135 ../../../../quantracker/lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_info    0x000cd435      0x506 ../../../../quantracker/lib/osd/quantracker_air_system.a(system.o)
+ .debug_info    0x000cd93b     0xe8b0 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_info    0x000dc1eb     0x370f ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_info    0x000df8fa     0x23ab ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_info    0x000e1ca5     0xdf23 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_info    0x000efbc8    0x12673 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_info    0x0010223b     0x87cc ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_info    0x0010aa07      0x594 ../../../../quantracker/lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_info    0x0010af9b     0x40f8 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_info    0x0010f093     0xd076 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_info    0x0011c109     0x8b67 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_info    0x00124c70     0xad4a ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_info    0x0012f9ba     0xe286 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_info    0x0013dc40     0x3c3c ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_info    0x0014187c     0x51fa ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_arc.o)
+ .debug_info    0x00146a76     0x34a8 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_info    0x00149f1e     0x2a41 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_circle.o)
+ .debug_info    0x0014c95f     0x26e6 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_line.o)
+ .debug_info    0x0014f045     0x22f2 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+ .debug_info    0x00151337     0xc4d6 ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash.o)
+ .debug_info    0x0015d80d      0xb3f ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_error.o)
+ .debug_info    0x0015e34c     0x42df ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_menu.o)
+ .debug_info    0x0016262b      0xc75 ../../../../quantracker/lib/osd/flash_variables.a(quan_stm32_f4_specific_flash.o)
 
 .debug_abbrev   0x00000000    0x1451b
  .debug_abbrev  0x00000000       0x81 obj/main.o
@@ -6129,77 +6129,77 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .debug_ranges  0x0001a310      0x550 ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_menu.o)
  .debug_ranges  0x0001a860       0x98 ../../../../quantracker/lib/osd/flash_variables.a(quan_stm32_f4_specific_flash.o)
 
-.debug_line     0x00000000    0x2cfdd
+.debug_line     0x00000000    0x2d085
  .debug_line    0x00000000       0x84 obj/main.o
- .debug_line    0x00000084      0xf8e obj/setup.o
- .debug_line    0x00001012      0xb3d obj/serial_port.o
- .debug_line    0x00001b4f     0x102b obj/fsk_output.o
- .debug_line    0x00002b7a     0x108e obj/fsk_task.o
- .debug_line    0x00003c08      0xe9c obj/frsky_task.o
- .debug_line    0x00004aa4     0x1579 obj/frsky_zapp1.o
- .debug_line    0x0000601d     0x18d3 obj/mavlink_task.o
- .debug_line    0x000078f0       0x3d obj/settings.o
- .debug_line    0x0000792d      0xda3 obj/heartbeat_task.o
- .debug_line    0x000086d0     0x1008 obj/mode_check.o
- .debug_line    0x000096d8      0xa90 obj/board_graphics_api.o
- .debug_line    0x0000a168      0xa67 obj/bitmaps.o
- .debug_line    0x0000abcf     0x6c0e obj/fonts.o
- .debug_line    0x000117dd      0x12c obj/flash_vars.o
- .debug_line    0x00011909      0x8ef obj/on_draw.o
- .debug_line    0x000121f8      0xb27 obj/draw_altitude.o
- .debug_line    0x00012d1f      0xc27 obj/draw_artificial_horizon.o
- .debug_line    0x00013946      0xf2c obj/draw_compass.o
- .debug_line    0x00014872      0xc34 obj/draw_home.o
- .debug_line    0x000154a6      0x7ba obj/draw_gps_state.o
- .debug_line    0x00015c60      0xc52 obj/draw_batteries.o
- .debug_line    0x000168b2      0xc33 obj/symbology.o
- .debug_line    0x000174e5      0x7cc obj/flash.o
- .debug_line    0x00017cb1      0x9d9 obj/aircraft.o
- .debug_line    0x0001868a      0xbcb ../../../../quantracker/lib/osd/quantracker_air_system.a(tasks.o)
- .debug_line    0x00019255      0x840 ../../../../quantracker/lib/osd/quantracker_air_system.a(queue.o)
- .debug_line    0x00019a95      0x20a ../../../../quantracker/lib/osd/quantracker_air_system.a(list.o)
- .debug_line    0x00019c9f      0x421 ../../../../quantracker/lib/osd/quantracker_air_system.a(timers.o)
- .debug_line    0x0001a0c0      0x213 ../../../../quantracker/lib/osd/quantracker_air_system.a(malloc_free.o)
- .debug_line    0x0001a2d3       0x65 ../../../../quantracker/lib/osd/quantracker_air_system.a(startup.o)
- .debug_line    0x0001a338      0x3b6 ../../../../quantracker/lib/osd/quantracker_air_system.a(system_init.o)
- .debug_line    0x0001a6ee      0x32d ../../../../quantracker/lib/osd/quantracker_air_system.a(port.o)
- .debug_line    0x0001aa1b      0x204 ../../../../quantracker/lib/osd/quantracker_air_system.a(heap_3.o)
- .debug_line    0x0001ac1f      0xadb ../../../../quantracker/lib/osd/quantracker_air_system.a(rtos_hooks.o)
- .debug_line    0x0001b6fa      0x11b ../../../../quantracker/lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_line    0x0001b815      0x210 ../../../../quantracker/lib/osd/quantracker_air_system.a(system.o)
- .debug_line    0x0001ba25      0xf36 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_line    0x0001c95b      0xcba ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_line    0x0001d615      0xb3c ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_line    0x0001e151     0x10ab ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_line    0x0001f1fc     0x12a2 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_line    0x0002049e      0xc13 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_line    0x000210b1      0x299 ../../../../quantracker/lib/osd/quantracker_air_osd.a(misc.o)
- .debug_line    0x0002134a      0xc66 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_line    0x00021fb0     0x139c ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_line    0x0002334c      0xcc6 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_line    0x00024012      0xe75 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_line    0x00024e87      0xcd0 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_line    0x00025b57      0xaa8 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_line    0x000265ff      0xda5 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_arc.o)
- .debug_line    0x000273a4      0xa73 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
- .debug_line    0x00027e17      0x89a ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_circle.o)
- .debug_line    0x000286b1      0x86b ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_line.o)
- .debug_line    0x00028f1c      0x79a ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_text.o)
- .debug_line    0x000296b6     0x260b ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash.o)
- .debug_line    0x0002bcc1      0x3bd ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_error.o)
- .debug_line    0x0002c07e      0xac7 ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_menu.o)
- .debug_line    0x0002cb45      0x498 ../../../../quantracker/lib/osd/flash_variables.a(quan_stm32_f4_specific_flash.o)
+ .debug_line    0x00000084     0x1036 obj/setup.o
+ .debug_line    0x000010ba      0xb3d obj/serial_port.o
+ .debug_line    0x00001bf7     0x102b obj/fsk_output.o
+ .debug_line    0x00002c22     0x108e obj/fsk_task.o
+ .debug_line    0x00003cb0      0xe9c obj/frsky_task.o
+ .debug_line    0x00004b4c     0x1579 obj/frsky_zapp1.o
+ .debug_line    0x000060c5     0x18d3 obj/mavlink_task.o
+ .debug_line    0x00007998       0x3d obj/settings.o
+ .debug_line    0x000079d5      0xda3 obj/heartbeat_task.o
+ .debug_line    0x00008778     0x1008 obj/mode_check.o
+ .debug_line    0x00009780      0xa90 obj/board_graphics_api.o
+ .debug_line    0x0000a210      0xa67 obj/bitmaps.o
+ .debug_line    0x0000ac77     0x6c0e obj/fonts.o
+ .debug_line    0x00011885      0x12c obj/flash_vars.o
+ .debug_line    0x000119b1      0x8ef obj/on_draw.o
+ .debug_line    0x000122a0      0xb27 obj/draw_altitude.o
+ .debug_line    0x00012dc7      0xc27 obj/draw_artificial_horizon.o
+ .debug_line    0x000139ee      0xf2c obj/draw_compass.o
+ .debug_line    0x0001491a      0xc34 obj/draw_home.o
+ .debug_line    0x0001554e      0x7ba obj/draw_gps_state.o
+ .debug_line    0x00015d08      0xc52 obj/draw_batteries.o
+ .debug_line    0x0001695a      0xc33 obj/symbology.o
+ .debug_line    0x0001758d      0x7cc obj/flash.o
+ .debug_line    0x00017d59      0x9d9 obj/aircraft.o
+ .debug_line    0x00018732      0xbcb ../../../../quantracker/lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_line    0x000192fd      0x840 ../../../../quantracker/lib/osd/quantracker_air_system.a(queue.o)
+ .debug_line    0x00019b3d      0x20a ../../../../quantracker/lib/osd/quantracker_air_system.a(list.o)
+ .debug_line    0x00019d47      0x421 ../../../../quantracker/lib/osd/quantracker_air_system.a(timers.o)
+ .debug_line    0x0001a168      0x213 ../../../../quantracker/lib/osd/quantracker_air_system.a(malloc_free.o)
+ .debug_line    0x0001a37b       0x65 ../../../../quantracker/lib/osd/quantracker_air_system.a(startup.o)
+ .debug_line    0x0001a3e0      0x3b6 ../../../../quantracker/lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_line    0x0001a796      0x32d ../../../../quantracker/lib/osd/quantracker_air_system.a(port.o)
+ .debug_line    0x0001aac3      0x204 ../../../../quantracker/lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_line    0x0001acc7      0xadb ../../../../quantracker/lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_line    0x0001b7a2      0x11b ../../../../quantracker/lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_line    0x0001b8bd      0x210 ../../../../quantracker/lib/osd/quantracker_air_system.a(system.o)
+ .debug_line    0x0001bacd      0xf36 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_line    0x0001ca03      0xcba ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_line    0x0001d6bd      0xb3c ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_line    0x0001e1f9     0x10ab ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_line    0x0001f2a4     0x12a2 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_line    0x00020546      0xc13 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_line    0x00021159      0x299 ../../../../quantracker/lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_line    0x000213f2      0xc66 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_line    0x00022058     0x139c ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_line    0x000233f4      0xcc6 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_line    0x000240ba      0xe75 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_line    0x00024f2f      0xcd0 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_line    0x00025bff      0xaa8 ../../../../quantracker/lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_line    0x000266a7      0xda5 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_arc.o)
+ .debug_line    0x0002744c      0xa73 ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_line    0x00027ebf      0x89a ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_circle.o)
+ .debug_line    0x00028759      0x86b ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_line.o)
+ .debug_line    0x00028fc4      0x79a ../../../../quantracker/lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+ .debug_line    0x0002975e     0x260b ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash.o)
+ .debug_line    0x0002bd69      0x3bd ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_error.o)
+ .debug_line    0x0002c126      0xac7 ../../../../quantracker/lib/osd/flash_variables.a(quan_generic_flash_menu.o)
+ .debug_line    0x0002cbed      0x498 ../../../../quantracker/lib/osd/flash_variables.a(quan_stm32_f4_specific_flash.o)
 
 .debug_str      0x00000000   0x139f10
  .debug_str     0x00000000      0x1fb obj/main.o
                                 0x23f (size before relaxing)
- .debug_str     0x000001fb    0x504e5 obj/setup.o
-                              0x50902 (size before relaxing)
- .debug_str     0x000506e0      0x24a obj/serial_port.o
+ .debug_str     0x000001fb    0x504eb obj/setup.o
+                              0x50908 (size before relaxing)
+ .debug_str     0x000506e6      0x24a obj/serial_port.o
                                0x33df (size before relaxing)
- .debug_str     0x0005092a     0x7f89 obj/fsk_output.o
+ .debug_str     0x00050930     0x7f89 obj/fsk_output.o
                                0xf504 (size before relaxing)
- .debug_str     0x000588b3     0xb320 obj/fsk_task.o
+ .debug_str     0x000588b9     0xb31a obj/fsk_task.o
                                0xc7ba (size before relaxing)
  .debug_str     0x00063bd3     0xe9a5 obj/frsky_task.o
                               0x1344f (size before relaxing)

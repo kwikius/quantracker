@@ -69,7 +69,8 @@ The various functions are available as commands.
 To set the values of flash variables all at once go you can also use the app in 
       `quantracker/air/osd/utilities/flash_vars_upload/`_ . See the readme there for details.
 
-.. _`quantracker/air/osd/utilities/flash_vars_upload/`: https://github.com/kwikius/quantracker/tree/devel/air/osd/utilities/flash_vars_upload
+.. _`quantracker/air/osd/utilities/flash_vars_upload/`: 
+   https://github.com/kwikius/quantracker/tree/master/air/osd/utilities/flash_vars_upload
 .. _`OSD Index`: index.html
 .. _`osd_example1` : firmwares/osd_example1.html
 .. _`osd_ac` : firmwares/osd_example1.html

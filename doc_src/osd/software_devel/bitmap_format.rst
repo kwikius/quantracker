@@ -85,10 +85,14 @@ The default ouput looks like so:
                ~~~
 
 
-.. _`\<quan/uav/osd/basic_bitmap.hpp\>`: https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp
-.. _`quantracker/examples/osd_example1/board/bitmaps.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp
-.. _`\<quan/uav/osd/colour.hpp\>` : https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp
-.. _`devel : quantracker/examples/cmd_line_bmp_output/main.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/cmd_line_bmp_output/main.cpp
+.. _`\<quan/uav/osd/basic_bitmap.hpp\>`: 
+   https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/basic_bitmap.hpp
+.. _`quantracker/examples/osd_example1/board/bitmaps.cpp`: 
+   https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/board/bitmaps.cpp
+.. _`\<quan/uav/osd/colour.hpp\>` : 
+   https://github.com/kwikius/quan-trunk/blob/master/quan/uav/osd/colour.hpp
+.. _`devel : quantracker/examples/cmd_line_bmp_output/main.cpp`: 
+   https://github.com/kwikius/quantracker/blob/master/examples/cmd_line_bmp_output/main.cpp
 .. _`OSD Technical Index`: tech/index.html
 .. _`osd_maker`: ../osd_maker/index.html
 

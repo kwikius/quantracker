@@ -31,11 +31,13 @@ Use:
 
 Example:
 
-   `~/quantracker/examples/osd_example1/board/main.cpp`_
+   `~/quantracker/examples/hello_world/main.cpp`_
 
 
 `Quantracker Air OSD drawing api Index`_
 
 .. _`<quantracker/osd/osd.hpp>` : 
-   https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/board/main.cpp
+   https://github.com/kwikius/quantracker/blob/master/include/quantracker/osd/osd.hpp
 .. _`Quantracker Air OSD drawing api Index`: drawing_api.html
+.. _`~/quantracker/examples/hello_world/main.cpp` :
+   https://github.com/kwikius/quantracker/blob/master/examples/hello_world/main.cpp

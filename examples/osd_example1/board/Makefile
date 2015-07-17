@@ -29,6 +29,7 @@ QUANTRACKER_ROOT_DIR = ../../../../quantracker/
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
+#RTOS_INCLUDES += $(shell pwd)
 INCLUDES += $(MAVLINK_INCLUDE_PATH)
 
 OBJDIR = obj/

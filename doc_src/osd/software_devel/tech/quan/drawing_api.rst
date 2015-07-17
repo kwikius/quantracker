@@ -10,7 +10,7 @@ and makes use of the `quan C++ physical quantities`_ library.
 * `quan::uav::osd::on_draw`_
    All drawing takes place inside this user defined callback function.
 * `draw_task`_
-   The on_draw is called in the context of the OSD's library defined FreeRTOS task
+   The library defined FreeRTOS task in which all display overlay drawing is done
 
 
 `Quan OSD Technical Index`_

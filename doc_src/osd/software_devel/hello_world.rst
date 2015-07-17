@@ -35,6 +35,6 @@ see the `source code`_ on Github
 `Quantracker OSD Index`_
 
 
-.. _`source code`: https:/github.com/kwikius/quantracker/blob/devel/examples/hello_world/
+.. _`source code`: https://github.com/kwikius/quantracker/blob/master/examples/hello_world/
 
 .. _`Quantracker OSD Index`: ../index.html

@@ -124,8 +124,8 @@ rx Example
 `OSD Technical Index`_
 
 .. _`OSD Technical Index`: index.html
-.. _`osd_telem_tx`: https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_tx/
-.. _`osd_telem_rx`: https://github.com/kwikius/quantracker/tree/devel/examples/osd_telem_rx/
+.. _`osd_telem_tx`: https://github.com/kwikius/quantracker/tree/master/examples/osd_telem_tx/
+.. _`osd_telem_rx`: https://github.com/kwikius/quantracker/tree/master/examples/osd_telem_rx/
 
 
 

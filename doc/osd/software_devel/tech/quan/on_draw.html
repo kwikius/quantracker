@@ -344,11 +344,16 @@ ul.auto-toc {
 <p><a class="reference external" href="drawing_api.html">Quantracker Air OSD drawing api Index</a></p>
 <div class="section" id="void-quan-uav-osd-on-draw">
 <h1>void quan::uav::osd::on_draw()</h1>
-<p>This user supplied function is called by the <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/air/osd/video/draw_task.cpp">library supplied draw_task</a> to refresh the
-low level osd drawing overlay bitmap buffer.</p>
-<p>Use the drawing api functions to write the OSD overlay on the display buffer.</p>
-<p>The on_draw function is called in the context of the <a class="reference external" href="draw_task.html">draw_task</a></p>
-<p>There are no constraints on the amount of time the function takes, except that
+<p>This user supplied function is called by the osd driver,
+to update the osd drawing overlay bitmap.</p>
+<p>The on_draw function is called entirely in the context of the <a class="reference external" href="draw_task.html">draw_task</a> . The only
+consequence of this is that care must be taken when sharing data between tasks.</p>
+<p>The display uses 2 overlay buffers.
+When the on_draw function has returned the draw_task requests the low level
+system to swap the buffers. The low level system takes the newly drawn
+buffer to display and gives the draw_task back the other buffer to update.</p>
+<p>Use the <a class="reference external" href="drawing_api.html">drawing api</a> functions to write the OSD overlay on the display buffer.</p>
+<p>There are no constraints on the amount of time the on_draw function takes, except that
 until the buffer is updated, the driver will continue to display the previous buffer.</p>
 <div class="section" id="include">
 <h2>include</h2>
@@ -376,6 +381,11 @@ void quan::uav::osd::on_draw()
    // user supplied drawing code
 }
 </pre>
+</div>
+<div class="section" id="example">
+<h2>example</h2>
+<blockquote>
+<a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/hello_world/main.cpp">~/quantracker/examples/hello_world/main.cpp</a></blockquote>
 <p><a class="reference external" href="drawing_api.html">Quantracker Air OSD drawing api Index</a></p>
 </div>
 </div>

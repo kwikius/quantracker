@@ -341,43 +341,77 @@ ul.auto-toc {
 <div class="document">
 
 
-<p><a class="reference external" href="index.html">Index</a></p>
+<p><a class="reference external" href="osd/index.html">OSD Index</a></p>
 <div class="section" id="uploading-firmware-via-the-serial-port">
 <h1>Uploading firmware via the Serial Port</h1>
-<p>This method uses <a class="reference external" href="http://stm32flash.googlecode.com">Stm32flash</a>.</p>
+<div class="section" id="hardware">
+<h2>Hardware</h2>
 <blockquote>
-<ul>
-<li><dl class="first docutils">
-<dt>stm32flash Windows install</dt>
-<dd><ul class="first last simple">
-<li>Unzip stm32flash_win.zip in the quantracker/bin directory and update the variable STM32FLASH in quantracker/Dependencies.mk to its path</li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>stm32flash Linux install</dt>
-<dd><ul class="first last simple">
-<li>Download <a class="reference external" href="http://stm32flash.googlecode.com">Stm32flash</a> and  make [sudo] make install.</li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-<p>Once installed, test the execution by entering a command prompt and issuing 'stm32flash'
-to see if it's installed. It should show a page or so of help info.
-If its not working, verify that stm32flash's parent directory is in your path.</p>
-</blockquote>
-<div class="section" id="stm32flash-hardware">
-<h2>Stm32Flash Hardware</h2>
-<blockquote>
-<p>To flash with stm32Flash you need A PC serial port.
-A USB serial connector is fine. You can use a 6 pin Arduino Serial connector <a class="footnote-reference" href="#id5" id="id1">[1]</a>.</p>
+<p>To flash with stm32Flash you need a PC serial port and a USB TTL serial connector.
+A 6 pin Arduino Serial connector works well. It can be either a 3 volt
+or 5 volt one <a class="footnote-reference" href="#id6" id="id1">[1]</a>, but must have power out, since the programming serial port
+is electrically isolated from the rest of the board. When connected
+a red LED should light right by the connector.
+Make sure that you connect to the OSD board with the Black wire
+connected to the V-Blk pin on the 6 way connector.</p>
 <img alt="V2_1_mavlink_sp_pinout.png" src="V2_1_mavlink_sp_pinout.png" />
-<p>If you have a V1 board, <a class="reference external" href="v1_board.html">click here for the pinout</a></p>
-<p>Alternatively you can use any usb serial connector.</p>
-<p>You will need to make a power connector to supply between 8 and 12 Volts <a class="footnote-reference" href="#id6" id="id2">[2]</a>
-to the board and ideally a switch to be able to switch it on and off.</p>
+<p>Alternatively you can use any usb to TTL serial connector and connect the pins appropriately.
+The OSD pins have some protection so within reason it should be possible to swap the Tx and Rx
+connections if it isnt working. Usually (but not always) TX at one end connects to RX at the other
+and vice versa</p>
+</blockquote>
+</div>
+<div class="section" id="stm32flash">
+<h2>Stm32flash</h2>
+<blockquote>
+<p>Whichever operating system you use, you need stm32flash. For windows,
+download and unzip <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/bin/stm32flash_win.zip?raw=true">stm32flash_win.zip</a> .
+For Linux, Download <a class="reference external" href="http://stm32flash.googlecode.com">Stm32flash</a> and  make [sudo] make install</p>
+<p>For a quick and dirty upload with stm3flash, get <a class="reference external" href="osd/firmwares.html">your desired firmware</a> and
+move the stm32flash executable into the same directory as the firmware.</p>
+<p>Test the execution by starting a command prompt,
+navigating to the directory where the firmware is and issuing 'stm32flash' (for Linux)
+or 'stm32flash.exe'(for Windows),
+to see if it's installed. It should show a page or so of help info.</p>
+</blockquote>
+</div>
+<div class="section" id="find-the-correct-serial-port">
+<h2>Find the correct serial port</h2>
+<div class="section" id="linux">
+<h3>Linux</h3>
+<blockquote>
+<p>The easiest way on Linux is to remove any usb peripherals except the usb serial connector
+and type</p>
+<blockquote>
+<tt class="docutils literal">$ setserial <span class="pre">-g</span> /dev/ttyUSB[01234]</tt></blockquote>
+<p>which responds with</p>
+<blockquote>
+<tt class="docutils literal">/dev/ttyUSB0, UART: unknown, Port: 0x0000, IRQ: 0, Flags: low_latency</tt></blockquote>
+<p>when I connect my Serial USB adaptor. To be honest if
+you have no other USB serial connectors plugged connected it will usually be /dev/ttyUSB0</p>
+</blockquote>
+</div>
+<div class="section" id="windows">
+<h3>Windows</h3>
+<blockquote>
+In Windows remove any extraneous usb devices except the usb serial connector
+and open Device Manager (type Device Manager in
+the box at the bottom of the start menu and it should come up in the list).
+Look for The Ports(COM &amp; LPT) section and there should be an item saying 'USB Serial Port' (COMx)
+where x is a number e.g (say) COM6</blockquote>
+</div>
+</div>
+<div class="section" id="powering-the-osd-board">
+<h2>Powering The OSD board</h2>
+<blockquote>
+You will need a power supply of between 8 and 12 Volts <a class="footnote-reference" href="#id7" id="id2">[2]</a>
+to the board ( A servo connector with power and ground connected to (say) a 12 V (3S) lipo is fine)
+and ideally a switch to be able to switch it on and off, though you can just use the connector
+but a switch makes it much easier.</blockquote>
+</div>
+<div class="section" id="checking-the-osd-board-is-recognised">
+<h2>Checking the OSD board is recognised</h2>
+<blockquote>
 <p>When using this method of uploading, it is important to follow the sequence
 exactly as described, including the connection sequence.</p>
 <ul>
@@ -387,7 +421,7 @@ Ideally put a switch in the power lead.
 The reason is that touching the board or jiggling the wires
 when connecting can send spurious signals as wires connect
 and disconnect and result in the bootloader on the board not
-recognising the startup sequence correctly <a class="footnote-reference" href="#id7" id="id3">[3]</a>.</p>
+recognising the startup sequence correctly <a class="footnote-reference" href="#id8" id="id3">[3]</a>.</p>
 </li>
 <li><p class="first">Connect the programming jumper on the osd board.</p>
 </li>
@@ -403,7 +437,7 @@ The connectors are not polarised, so check and check again.</p>
 </ul>
 <blockquote>
 <ul class="simple">
-<li>Assuming you are on ttyUSB0. - ( Use 'lsusb' to enumerate likely ports)</li>
+<li>Assuming you are on /dev/ttyUSB0  ...</li>
 <li><em>Without Pressing return after yet</em>, type the command 'stm32flash /dev/ttyUSB0'.</li>
 </ul>
 </blockquote>
@@ -412,14 +446,14 @@ The connectors are not polarised, so check and check again.</p>
 </ul>
 <blockquote>
 <ul class="simple">
-<li>Assuming you are on COM6 - ( To find your com port look in Device manager)</li>
-<li><em>Without Pressing return after yet</em>, type the command 'stm32flash COM6'.</li>
+<li>Assuming you are on COM6  ...</li>
+<li><em>Without Pressing return after yet</em>, type the command 'stm32flash.exe COM6'.</li>
 </ul>
 </blockquote>
 </li>
-<li><p class="first">Without joggling the wires or touching the board, switch on power to the board.</p>
+<li><p class="first">Switch on power to the board <em>without joggling the wires or touching the board</em> .</p>
 </li>
-<li><p class="first">Now Press return without jiggling the serial connection to the board!</p>
+<li><p class="first">Now Press [return] !</p>
 </li>
 <li><p class="first">At this point you should see a diagnostic showing that the connection is good.
 It should look something like this:</p>
@@ -438,8 +472,7 @@ System RAM   : 29KiB
 
 Resetting device... done.
 </pre>
-<ul>
-<li><p class="first">If not:</p>
+<p>If not:</p>
 <blockquote>
 <ul class="simple">
 <li>Check you are on the correct serial port using the diagnostics for your system (as stated above).</li>
@@ -448,11 +481,16 @@ Resetting device... done.
 </ul>
 </blockquote>
 </li>
-</ul>
-</li>
 <li><p class="first">If everything is ok, then, assuming you are in the directory where your firmware
-'.bin' file is, disconnect power <a class="footnote-reference" href="#id8" id="id4">[4]</a>.</p>
+'.bin' file is, disconnect power <a class="footnote-reference" href="#id9" id="id4">[4]</a>.</p>
 </li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="programming-the-osd-board">
+<h2>Programming the OSD board</h2>
+<blockquote>
+<ul>
 <li><p class="first">Do the steps as above, but this time change the command( assuming your firmware is called 'my_osd_firmware.bin):</p>
 <blockquote>
 <ul>
@@ -466,7 +504,7 @@ Resetting device... done.
 <li><p class="first">Windows</p>
 <blockquote>
 <ul class="simple">
-<li>'stm32flash -f -v -w my_osd_firmware.bin COM6'</li>
+<li>'stm32flash.exe -f -v -w my_osd_firmware.bin COM6'</li>
 </ul>
 </blockquote>
 </li>
@@ -501,21 +539,21 @@ Wrote and verified address 0x080271c4 (100.00%) Done.
 Resetting device... done.
 </pre>
 </li>
-<li><p class="first">Your firmware  should now be loaded on the board.</p>
+<li><p class="first">Congratulations! .. Your firmware  should now be loaded on the board.</p>
 </li>
 <li><p class="first">Final important step before testing its working.
 <em>Unplug the Programming Jumper</em> (Its easy to forget that step!).</p>
 </li>
 </ul>
 </blockquote>
-<p><a class="reference external" href="index.html">Index</a></p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<p><a class="reference external" href="osd/index.html">OSD Index</a></p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>You only need to connect the pins in bold in the diagram.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>It should be ok to power the board from up to 25 volts. It just hasnt been verified yet.
@@ -523,13 +561,13 @@ Use the 12V power supply inputs rather than the 3V or 5V breakouts to power the 
 , since the startup time of the psu gives a smooth wakeup from reset.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>(This is another issue with V1 board. Ideally this can be done better on V2).</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="id9" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>Disconnecting power executes a reset.</td></tr>

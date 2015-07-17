@@ -367,10 +367,10 @@ and each Flash variable must have a type. Currently available types are:</p>
 </ul>
 </blockquote>
 <p>The system is designed so you can write a custom set of flash variables for your own display.
-It is suggested that you use <a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp">quantracker/examples/osd_example1/common/flash.cpp</a> as a template.
+It is suggested that you use <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/common/flash.cpp">quantracker/examples/osd_example1/common/flash.cpp</a> as a template.
 The flash symbol table named flash_variable_symtab is defined around 2/3 way down the page.
 The EE_SYMTAB_ENTRY macro can be used to ease defining entries.
-The symtab_entry_t structure is defined in the quan::stm32::flash namespace <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash.hpp">&lt;quan/stm32/flash.hpp&gt;</a></p>
+The symtab_entry_t structure is defined in the quan::stm32::flash namespace <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/stm32/flash.hpp">&lt;quan/stm32/flash.hpp&gt;</a></p>
 <pre class="literal-block">
 struct symtab_entry_t {
    const char* const name;  // user name of the symbol
@@ -393,7 +393,7 @@ the flash variable namespace.</p>
 <li><dl class="first docutils">
 <dt>type_tag</dt>
 <dd><p class="first last">To find the type tag, it is suggested to use the EE_SYMTAB_ENTRY macro.
-In order for this to work a structure has been defined around 1/3 down the page in <a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp">flash.cpp</a>
+In order for this to work a structure has been defined around 1/3 down the page in <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/common/flash.cpp">flash.cpp</a>
 called flash_variable_type, whose sole purpose is to provide a typedef of the flash variable
 in form of its name for the EE_SYMTAB_ENTRY.</p>
 </dd>
@@ -404,7 +404,7 @@ in form of its name for the EE_SYMTAB_ENTRY.</p>
 <dd><p class="first last">The range check function, pfn_validity_check, takes a void * argument as input. The void * should
 be converted to a pointer to the type of the variable to be checked. It isnt const so you can
 modify the original. All the usual caveats when using void * apply!
-In <a class="reference external" href="https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp">flash.cpp</a> there is a function called nop_check, which does nothing and
+In <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/common/flash.cpp">flash.cpp</a> there is a function called nop_check, which does nothing and
 can be used if you dont need range checking.</p>
 </dd>
 </dl>
@@ -419,7 +419,7 @@ can be used if you dont need range checking.</p>
 <dt>readonly</dt>
 <dd><p class="first last">Set this true so that the variable can be read but not modified from the flash-menu. You can
 of course modify it in code, using the set_flash_value(name, value) functions
-defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash/flash_convert.hpp">&lt;quan/stm32/flash/flash_convert.hpp&gt;</a>  <a class="footnote-reference" href="#stw" id="id6">[3]</a></p>
+defined in <a class="reference external" href="https://github.com/kwikius/quan-trunk/blob/master/quan/stm32/flash/flash_convert.hpp">&lt;quan/stm32/flash/flash_convert.hpp&gt;</a>  <a class="footnote-reference" href="#stw" id="id6">[3]</a></p>
 </dd>
 </dl>
 </li>

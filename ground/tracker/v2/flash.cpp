@@ -47,17 +47,7 @@ namespace {
    // the variable looked up as "show_home", has a typedef named show_home, aliasing a bool.
    // The order isnt important except for neatness !
    struct flash_variable_type {
-      typedef bool                           frsky_invert_telem;
-      typedef bool                           show_home;
-      typedef quan::three_d::vect<int32_t>   osd_home_pos;
-      typedef bool                           show_compass;
-      typedef quan::three_d::vect<int32_t>   osd_compass_pos;
-      typedef bool                           show_altitude;
-      typedef quan::three_d::vect<int32_t>   osd_altitude_pos;
-      typedef bool                           show_gps_no_fix;
-      typedef quan::three_d::vect<int32_t>   osd_gps_no_fix_pos;
-      typedef bool                           show_afcl_horizon;
-      typedef int16_t                        osd_afcl_horizon_pitch_adj;
+      typedef quan::three_d::vect<int32_t>   compass_offset;
    } ;
    //#################### Per object range checking ########################
     
@@ -76,40 +66,6 @@ namespace {
    constexpr bool nop_check (void* p) { return true;}
 //-----------------
 
-   // check that display pos vars are in a sensible range
-   bool display_pos_check(void* p)
-   {
-      if ( p == nullptr){
-         return false;
-      }
-      // convert the void * to a pointer in the type of the value to be range checked
-      // type of home_pos used, assumes all same type
-      flash_variable_type::osd_home_pos * pv = (flash_variable_type::osd_home_pos*) p;
-      bool const value_good = (pv->x < 500) && ( pv->x > -500)
-      &&  (pv->y < 500) &&  (pv->y > -500)
-      &&  (pv->z < 500)  && (pv->z > -500);
-      if ( value_good){
-         return true;
-      }else{
-         quan::user_error("display pos range: -499 to 499");
-         return false;
-      }
-   }
-   // limit the pitch offset used to adjust the artificial horizon, to +- 20 degrees
-   bool afcl_horizon_pitch_adj_check(void* p)
-   {
-      if ( p == nullptr){
-         return false;
-      }
-      flash_variable_type::osd_afcl_horizon_pitch_adj * pv = (flash_variable_type::osd_afcl_horizon_pitch_adj*) p;
-      if ( (*pv < 21) &&  (*pv > -21)){
-         return true;
-      }else{
-         quan::user_error("afcl horizon range: -20 to 20 deg");
-         return false;
-      }
-   }
-
 //####### The flash_variables symtable itself ###########################
  
    quan::stm32::flash::symtab_entry_t constexpr flash_variables_symtab[] = {
@@ -122,17 +78,7 @@ namespace {
          Readonly \
        }
 
-       EE_SYMTAB_ENTRY(frsky_invert_telem,nop_check,"true/false to invert frsky serial output",false)
-      ,EE_SYMTAB_ENTRY(show_home, nop_check,"true/false to show home distance",false)
-      ,EE_SYMTAB_ENTRY(osd_home_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
-      ,EE_SYMTAB_ENTRY(show_compass, nop_check,"true/false to show compass",false)
-      ,EE_SYMTAB_ENTRY(osd_compass_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
-      ,EE_SYMTAB_ENTRY(show_altitude, nop_check,"true/false to show home alt",false)
-      ,EE_SYMTAB_ENTRY(osd_altitude_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
-      ,EE_SYMTAB_ENTRY(show_gps_no_fix, nop_check,"true/false to show no fix gps pos",false)
-      ,EE_SYMTAB_ENTRY(osd_gps_no_fix_pos,display_pos_check,"[int x, int y_pal, int y_ntsc] range: -499 to 499",false)
-      ,EE_SYMTAB_ENTRY(show_afcl_horizon, nop_check,"true/false to show no fix gps pos",false)
-      ,EE_SYMTAB_ENTRY(osd_afcl_horizon_pitch_adj,afcl_horizon_pitch_adj_check,"range: -20 to 20 (degrees)",false)
+       EE_SYMTAB_ENTRY(compass_offset,nop_check,"compass_offset",false)
 
       #undef EE_SYMTAB_ENTRY
    };

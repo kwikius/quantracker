@@ -85,10 +85,10 @@ viewing and modifying flash variables
       
 .. _`accessing flash variables via the flash menu`: ../flash_menu.html
 .. _`OSD Technical Index`: tech/index.html
-.. _`\<quan/stm32/flash.hpp\>`: https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash.hpp
-.. _`\<quan/stm32/flash/flash_convert.hpp\>`: https://github.com/kwikius/quan-trunk/blob/devel/quan/stm32/flash/flash_convert.hpp
-.. _`quantracker/examples/osd_example1/common/flash.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp
-.. _`flash.cpp`: https://github.com/kwikius/quantracker/blob/devel/examples/osd_example1/common/flash.cpp
+.. _`\<quan/stm32/flash.hpp\>`: https://github.com/kwikius/quan-trunk/blob/master/quan/stm32/flash.hpp
+.. _`\<quan/stm32/flash/flash_convert.hpp\>`: https://github.com/kwikius/quan-trunk/blob/master/quan/stm32/flash/flash_convert.hpp
+.. _`quantracker/examples/osd_example1/common/flash.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/common/flash.cpp
+.. _`flash.cpp`: https://github.com/kwikius/quantracker/blob/master/examples/osd_example1/common/flash.cpp
 .. [#flash_wear] Excessive Wear on the flash is prevented as follows.
                  2 flash pages are used.
                  When the flash variable value is changed, a new version of the variable is

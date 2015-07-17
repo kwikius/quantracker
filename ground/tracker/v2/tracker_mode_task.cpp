@@ -1,5 +1,8 @@
 
 #include "resources.hpp"
+#include <quan/stm32/flash.hpp>
+#include <quan/error.hpp>
+#include <quan/user.hpp>
 
 void parse_commandline();
 void compass_calibration();
@@ -15,16 +18,33 @@ namespace {
 
          for (;;){
             sp_task::write("C for compass calibration\n");
-            sp_task::write("P for commandline");
-            char ch = sp_task::get();
-            if ( (ch == 'P') || ( ch == 'p')){
-               for (;;){
-                  parse_commandline();
+            sp_task::write("P for commandline\n");
+            sp_task::write("F for flash menu\n");
+            switch (sp_task::get()){
+
+               case 'P':
+               case 'p':{
+                  for (;;){
+                     parse_commandline();
+                  }
+                  break;
                }
-            }else{
-               if ( (ch == 'C') || ( ch == 'c')){
+               case 'C':
+               case 'c':{
                   compass_calibration();
+                  break;
                }
+               case 'F':
+               case 'f':{
+                  sp_task::write("Quantracker Air OSD 2.1\n");
+                  sp_task::write("~~~~Flash menu mode~~~~\n");
+      
+                  quan::stm32::flash::flash_menu();
+                  quan::report_errors();
+                  break;
+               }
+               default:
+               break;
             }
          }
       }

@@ -348,17 +348,14 @@ ul.auto-toc {
 <div class="section" id="header">
 <h2>header</h2>
 <blockquote>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a>&lt;include quan/stm32/freertos/</p>
-<div class="system-message" id="id1">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">osd/software_devel/tech/quan/i2c.rst</tt>, line 13); <em><a href="#id2">backlink</a></em></p>
-Inline literal start-string without end-string.</div>
-</blockquote>
-<p>Data is transferred using the transfer_request function.
+<tt class="docutils literal">&lt;include quan/stm32/freertos/freertos_i2c_task.hpp&gt;</tt></blockquote>
+<p>Where i2c_task is a model of quan::stm32::freertos::I2C_Task</p>
+<p>Data is transferred using the i2c_task::transfer_request function.
 The slave_address deteremines whether the transfer is a transmit or a receive
 The data_address should be persistent throughout the transfer
 as data is not copied, but transferred direct to/from the buffer</p>
 <dl class="docutils">
-<dt>bool I2C_port::transfer_request(uint8_t slave_address,uint8_t * data_address,int32_t numbytes)</dt>
+<dt>bool i2c_task::transfer_request(uint8_t slave_address,uint8_t * data_address,int32_t numbytes)</dt>
 <dd><p class="first">The slave address describes if this is a transmit or a receive.
 The data address for transmit/receieve must be valid throughout the transmission</p>
 <ul class="last">

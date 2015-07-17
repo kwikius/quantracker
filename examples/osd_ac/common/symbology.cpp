@@ -104,6 +104,7 @@ bool osd_show_aircraft_battery_current() { return want_aircraft_battery_current&
 uint8_t osd_show_aircraft_battery_remaining_page() { return osd_aircraft_battery_remaining_page_control;}
 bool osd_show_aircraft_battery_remaining() { return want_aircraft_battery_remaining&&((osd_show_aircraft_battery_remaining_page()&get_osd_mode())!=0);}
 uint8_t osd_get_page_select_channel_number() { return osd_page_select_channel_number;}
+uint32_t osd_get_afcl_horizon_eye_distance(){ return osd_afcl_horizon_eye_distance;}
 
 quan::uav::osd::pxp_type get_osd_gps_fix_type_position()
 {
