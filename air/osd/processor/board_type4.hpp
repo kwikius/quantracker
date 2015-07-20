@@ -250,6 +250,7 @@ struct interrupt_priority {
      static constexpr uint32_t telemetry_input_port = 13;
      static constexpr uint32_t fsk_dac_timer = 12;
      static constexpr uint32_t video = 11;
+     static constexpr uint32_t low_priority_video = 15;
 };
 
 struct task_priority{
