@@ -22,7 +22,7 @@
 #--------------------------------------------
 
 # for use as a template edit this 
-QUANTRACKER_ROOT_DIR = ../../../quantracker/
+QUANTRACKER_ROOT_DIR = ../../
 
 TARGET_PROCESSOR = STM32F4
 

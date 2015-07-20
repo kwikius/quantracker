@@ -25,11 +25,10 @@ TARGET_PROCESSOR = STM32F4
 
 LINKER_SCRIPT = stm32f4.ld
 
-QUANTRACKER_ROOT_DIR = ../../../../quantracker/
+QUANTRACKER_ROOT_DIR = ../../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
-#RTOS_INCLUDES += $(shell pwd)
 INCLUDES += $(MAVLINK_INCLUDE_PATH)
 
 OBJDIR = obj/

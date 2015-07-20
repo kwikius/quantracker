@@ -4,6 +4,11 @@ import tarfile
 import os
 import platform
 import sys
+install_dir = None
+
+def install_dir_good():
+  if (install_dir == None) or (install_dir == ""):
+     print("no install directory specified")
 
 install_dir = None
 
@@ -22,8 +27,8 @@ def install_dir_good():
 
 def normalise_install_dir():
    install_dir_temp = os.path.abspath(install_dir)
-   if install_dir_temp[len(install_dir_temp) -1] != '/':
-      install_dir_temp += '/'
+   if install_dir_temp[len(install_dir_temp) -1] != os.sep:
+      install_dir_temp += os.sep
    print ("install directory = " + install_dir_temp)
    return install_dir_temp
 
@@ -41,7 +46,7 @@ def install_mavlink ():
             try:
                urllib.urlretrieve(url,zipf )
             except:
-               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")
                return False
          print("extracting mavlink ...")
          try:
@@ -64,56 +69,54 @@ def install_mavlink ():
       return True
 
 def install_arm_gcc():
-   dep_dir = "gcc-arm-none-eabi-4_9-2014q4" 
+   dep_dir = "gcc-arm-none-eabi-4_9-2014q4"
    if not os.path.exists(install_dir + dep_dir):
-      exn = dep_dir
-      if not os.path.exists(exn):
-         if platform.system() == 'Linux':
-            tarf = "arm-gcc-linux.tar.bz2"
-            if not os.path.exists(tarf):
-               print("retrieving arm-gcc linux ...")
-               url = "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2"
-               try:
-                  urllib.urlretrieve(url,tarf)
-               except:
-                  print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
-                  return False
-            print ("extracting arm-gcc ...")
+      if platform.system() == 'Linux':
+         print ("linux")
+         exn = dep_dir
+         tarf = "arm-gcc-linux.tar.bz2"
+         if not os.path.exists(tarf):
+            print("retrieving arm-gcc linux ...")
+            url = "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2"
             try:
-               t = tarfile.open(tarf, 'r:bz2')
-               t.extractall()  
+               urllib.urlretrieve(url,tarf)
             except:
-               print("couldnt extract \"" + tarf + " Possibly download corrupted or interrupted.")
+               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")
+               return False
+         print ("extracting arm-gcc ...")
+         try:
+           t = tarfile.open(tarf, 'r:bz2')
+           t.extractall(install_dir)
+         except:
+           print("couldnt extract \"" + tarf + " Possibly download corrupted or interrupted.")
+           print("Delete it and restart installer to retry")
+           return False
+
+      elif platform.system() == 'Windows':
+         zipf = "arm-gcc-win.zip"
+         if not os.path.exists(zipf):
+            print("retrieving arm-gcc Windows ...")
+            url = "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-win32.zip"
+            try:
+               urllib.urlretrieve(url,zipf)
+            except:
+               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")
+               return False
+
+            try:
+               # different on windows zip
+               os.mkdir(install_dir + dep_dir)
+               z = zipfile.ZipFile(zipf,'r')
+               z.extractall(install_dir + dep_dir)
+            except:
+               print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
                print("Delete it and restart installer to retry")
                return False
-         elif platform.system() == 'Windows':
-             zipf = "arm-gcc-win.zip"
-             if not os.path.exists(zipf):
-                print("retrieving arm-gcc Windows ...")
-                url = "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2014-q4-major/+download/gcc-arm-none-eabi-4_9-2014q4-20141203-win32.zip"
-                try:
-                     urllib.urlretrieve(url,zipf)
-                except:
-                   print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
-                   return False
-             try:
-                z = zipfile.ZipFile(zipf,'r')
-                z.extractall()
-             except:
-                print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
-                print("Delete it and restart installer to retry")
-                return False
 
-         else:
-            print("install script not yet available for " + platform.system() + " ... quitting");
-            exit(1);
+      else:
+         print("install script not yet available for " + platform.system() + " ... quitting");
+         exit(1);
 
-      print ("installing arm-gcc ...")
-      try:
-         os.rename(exn, install_dir + exn)
-      except:
-         print("Couldnt rename \"" + exn + "\" to \"" + install_dir + dep_dir + "\". Check target directory status")
-         return False
       print ("---[arm-gcc installed]---")
       return True
    else:
@@ -121,32 +124,28 @@ def install_arm_gcc():
       return True
 
 def install_simple_dep(tagname,exn,zipf,url):
-   if not os.path.exists(install_dir + exn):
-      if not os.path.exists(exn):
-         if not os.path.exists(zipf):
-            try:
-               print ("retrieving " + tagname + " ...")
-               urllib.urlretrieve(url,zipf)
-            except:
-               print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
-               return False
-          
+   dest = install_dir + exn
+   if not os.path.exists(dest):
+      if not os.path.exists(zipf):
          try:
-            print ("extracting " + tagname + " ...") 
-            z = zipfile.ZipFile(zipf,'r')
-            z.extractall()
+            print ("retrieving " + tagname + " ...")
+            urllib.urlretrieve(url,zipf)
          except:
-            print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
-            print("Delete it and restart installer to retry")
+            print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")
             return False
+
       try:
-         print("installing " + tagname)
-         os.rename(exn,install_dir + exn) 
-         print( "---[" + tagname + " installed]---")
+         print ("extracting " + tagname +  " to " + dest + " ...")
+         z = zipfile.ZipFile(zipf)
+         z.extractall( install_dir )
+         z.close()
          return True
+
       except:
-         print("Couldnt rename \"" + exn + "\" to \"" + install_dir + exn + "\". Check target directory status")
+         print("Couldnt extract \"" + zipf + " Possibly download corrupted or interrupted.")
+         print("Delete it and restart installer to retry")
          return False
+
    else:
       print( "found pre-existing " + tagname + " install")
       return True
@@ -186,7 +185,7 @@ def install_dependencies_mk():
    except:
       print("failed to open Dependencies.mk. Is it open already?")
       return False
-   try: 
+   try:
       f.write('#Generated by quantracker_deps_installer.py v1.0\n')
       f.write('OPTIMISATION_LEVEL := O3\n')
       f.write('TOOLCHAIN_GCC_VERSION := 4.9.3\n')
@@ -212,7 +211,7 @@ def install_dependencies_mk():
       print("install Dependencies.mk failed")
       return False
 
-   return True   
+   return True
 
 def install_quantracker():
    return install_simple_dep(\
@@ -220,13 +219,13 @@ def install_quantracker():
       "quantracker-master",
       "quantracker.zip",
       "https://github.com/kwikius/quantracker/archive/master.zip")
-  
+
 # call after successfully installing quantracker
 def install_stm32flash():
    if not os.path.exists(install_dir + "quantracker-master"):
       print("stm32flash needs to have Quantracker installed first")
       return False
-   
+
    if platform.system() == 'Linux':
       if not os.path.exists(install_dir + "quantracker-master/bin/stm32flash"):
          exn = "stm32flash"
@@ -238,17 +237,17 @@ def install_stm32flash():
                try:
                   urllib.urlretrieve(url,tarf)
                except:
-                   print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")  
+                   print("Couldnt retrieve \"" + url + "\". Are you connected to the internet? ")
                    return False
             try:
                print ("extracting stm32flash ...")
                t = tarfile.open(tarf,'r')
-               t.extractall()  
+               t.extractall()
             except:
                print("Couldnt extract \"" + tarf + " Possibly download corrupted or interrupted.")
                print("Delete it and restart installer to retry")
                return False
-         try: 
+         try:
             print("building stm32flash ...")
             os.system ("make -C " + exn)
          except:
@@ -265,30 +264,36 @@ def install_stm32flash():
          except:
             print("Couldnt rename \"" + exn + "\" to \"" + install_dir + exn + "\". Check target directory status")
             return False
-         
+
       else:
          print("found pre-existing stm32flash linux install")
          return True
 
    elif platform.system() == 'Windows':
-      if not os.path.exists( install_dir + "quantracker-master/bin/stm32flash.exe"):
-         stm32flash_stub_path = "quantracker-master/bin/stm32flash_win.zip"
+      if not os.path.exists( install_dir + "quantracker-master\\bin\\stm32flash.exe"):
+         stm32flash_stub_path = "quantracker-master\\bin\\stm32flash_win.zip"
          stm32flash_path = install_dir + stm32flash_stub_path
          if not os.path.exists(stm32flash_path):
             print("cant find " + stm32flash_path)
             return False
+
          print("extracting stm32flash");
+         #stm32flash_win.zip
          try:
-            z = zipfile.Zipfile(stm32flash_path)
-            z.extractall(install_dir + "quantracker-master/bin/")
+            z = zipfile.ZipFile(stm32flash_path)
+            z.extractall(install_dir + "quantracker-master\\bin\\")
+
             print("---[stm32flash installed]---")
             return True
+
          except:
+            os.chdir(cur_dir)
             print("Couldnt extract \"" + stm32flash_path + "\" Possibly download corrupted or interrupted.")
             print("Delete quantracker and restart installer to retry")
             return False
+
       else:
-         print("found pre-existing stm32flash Windows install") 
+         print("found pre-existing stm32flash Windows install")
          return True
    else:
       #shouldnt get here
@@ -313,6 +318,7 @@ while not install_dir_good():
 
 install_dir = normalise_install_dir()
 
+#installed_ok = install_dependencies_mk()
 installed_ok = \
       install_arm_gcc() and \
       install_stm32_lib() and \
@@ -325,24 +331,25 @@ installed_ok = \
 
 if installed_ok:
    print("===============================================")
-   print("Quantracker installation completed successfully")
+   print("Quantracker installation completed")
    print("===============================================")
    print("===============================================")
    build = raw_input ("If you want the script to build a firmware\n\
    for you now, type \'yes\' ( anything else to exit)\n:")
    if (build == 'yes'):
       os.chdir(install_dir + "quantracker-master")
+# check the return value
       os.system("make osd_example1")
-      if os.path.exists(install_dir + "quantracker-master/examples/osd_example1/board/bin/main.bin"):
-         print("firmware build successful")
-         upload = raw_input("If you want to try uploading, attach your board to the usb,\
-         apply the prog jumper, power the board and type \'yes\'")
-         if (upload == 'yes'):
-            os.system("make upload_osd_example1")
-   else:
-      print("quantracker install script quitting")
+
+   if os.path.exists(install_dir + "quantracker-master/examples/osd_example1/board/bin/main.bin"):
+      upload = raw_input("If you want to try uploading, attach your board to the usb,\
+      apply the prog jumper, power the board and type \'yes\'")
+      if (upload == 'yes'):
+        os.system("make upload_osd_example1")
+
+   print("quantracker install script quitting")
    print("===============================================")
- 
+
 
 
 

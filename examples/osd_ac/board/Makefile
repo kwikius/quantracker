@@ -23,7 +23,7 @@
 
 TARGET_PROCESSOR = STM32F4
 
-QUANTRACKER_ROOT_DIR = ../../../../quantracker/
+QUANTRACKER_ROOT_DIR = ../../../
 
 LINKER_SCRIPT = $(QUANTRACKER_ROOT_DIR)/air/osd/stm32f4.ld
 

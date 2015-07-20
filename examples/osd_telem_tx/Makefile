@@ -21,7 +21,7 @@
 
 LINKER_SCRIPT = stm32f4.ld
 
-QUANTRACKER_ROOT_DIR = ../../../quantracker/
+QUANTRACKER_ROOT_DIR = ../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
