@@ -120,13 +120,15 @@ ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
 OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd_rx.a
 HAS_TELEMETRY := True
 TELEMETRY_PREFIX := lib_rx_
-DEFINES += QUAN_OSD_TELEM_RECEIVER
+DEFINES += QUAN_OSD_TELEM_RECEIVER 
 else
 OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd.a
 HAS_TELEMETRY := False
 TELEMETRY_PREFIX := lib_
 endif
 endif
+
+DEFINES += QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS
 
 OBJDIR := obj/osd_lib/
 
@@ -159,7 +161,7 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
 # -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
-draw_task.o  sync_sep.o black_level.o dac.o led.o
+draw_task.o sync_sep.o black_level.o dac.o led.o
 
 # add the telemetry tasks to the lib if required
 ifeq ($(HAS_TELEMETRY),True)

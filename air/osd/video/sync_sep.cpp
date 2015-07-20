@@ -21,7 +21,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#if defined QUAN_OSD_SOFTWARE_SYNCSEP
+
 #include <stm32f4xx.h>
 #include <quan/stm32/tim.hpp>
 #include <quan/time.hpp>
@@ -73,12 +73,24 @@ namespace {
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
-   
+   // video_mode relates to pal ntsc
    static quan::uav::osd::video_mode public_video_mode 
       = quan::uav::osd::video_mode::unknown;
 
+   // 2 stage OSD suspend process so dont get caught mid screen
    volatile bool request_suspend_osd_flag = false;
    volatile bool osd_suspended_flag = true;
+
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+   // ------internal external video mode
+   // when no video (cam) input then
+   // inform user via callback so they can switch to internal video mode
+   volatile bool in_external_video_mode_flag = true;
+   uint32_t external_video_mode_timeout = 500;
+   // incr this value in external_video_input_mode
+   uint32_t external_video_mode_timeout_count = 0;
+   bool sync_sep_enabled_flag = true;
+#endif
 }; // namespace
 
 void request_osd_suspend()
@@ -126,9 +138,7 @@ namespace {
 
    void sync_sep_error_reset()
    {
-   #if ((QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY))
-     quan::stm32::set<orange_led_pin>();
-    #endif
+
      initial_first_edge_captured = false;
      sync_pulse_type = synctype_t::unknown;
      line_period = line_period_t::unknown;
@@ -146,11 +156,20 @@ void sync_sep_enable()
   sync_sep_reset();
   
   sync_sep_timer::get()->sr = 0;
+
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+  // raise prio 
+  sync_sep_enabled_flag = true;
+  NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
+  sync_sep_timer::get()->dier |= (1 << 0) | (1 << 1) | ( 1 << 2); // (UIE, CC1IE, CC2IE)
+#else
   sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
+#endif
   sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
-   if ( request_suspend_osd_flag){
+   
+  if ( request_suspend_osd_flag){
      osd_suspended_flag = true;
-   }
+  }
 }
 } //detail
 
@@ -158,8 +177,15 @@ namespace {
 
    void sync_sep_disable()
    {
+#if !defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
      sync_sep_timer::get()->cr1.bb_clearbit<0>() ;// (CEN)
+#endif
      sync_sep_timer::get()->dier &= ~((1 << 1) | ( 1 << 2)); // ( CC1IE, CC2IE)
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+    sync_sep_enabled_flag = false;
+     // set interrupt low priority just want the overflow interrupt
+     NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::low_priority_video);
+#endif
    }
     
    void sync_sep_new_frame()
@@ -198,39 +224,14 @@ namespace detail{
 
       quan::stm32::apply<
          video_in_hsync_first_edge_pin,
-   // af for first edge
-   #if (QUAN_OSD_BOARD_TYPE == 4)
-         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1 
-   #else
-         quan::stm32::gpio::mode::af3,
-   #endif
-   #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
+         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1    // af for first edge
          quan::stm32::gpio::pupd::pull_up
-   #else
-      #if QUAN_OSD_BOARD_TYPE == 2
-         quan::stm32::gpio::pupd::pull_down
-      #else
-         #error no board defined
-      #endif
-   #endif
       >();
 
       quan::stm32::apply<
          video_in_hsync_second_edge_pin,
-   #if (QUAN_OSD_BOARD_TYPE == 4)
          quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
-   #else
-         quan::stm32::gpio::mode::af3,
-   #endif
-   #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)|| (QUAN_OSD_BOARD_TYPE == 4)
          quan::stm32::gpio::pupd::pull_up
-   #else
-      #if QUAN_OSD_BOARD_TYPE == 2
-         quan::stm32::gpio::pupd::pull_down
-      #else
-         #error no board defined
-      #endif
-   #endif
       >();
 
       quan::stm32::module_enable<sync_sep_timer>();
@@ -241,35 +242,19 @@ namespace detail{
       // cc1 capture on first edge of hsync
       // cc2 capture on second edge of hsync
       quan::stm32::tim::ccmr1_t ccmr1 = 0;
-        ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
-        ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
+      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
+      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
       sync_sep_timer::get()->ccmr1.set(ccmr1.value);
       quan::stm32::tim::ccer_t ccer = 0;
-   #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
-         ccer.cc1p = true; // CC1 is falling edge capture
-         ccer.cc1np = false;
-         ccer.cc2p = false;
-         ccer.cc2np = false; // CC2 is rising edge capture
-   #else
-      #if QUAN_OSD_BOARD_TYPE == 2
-         ccer.cc1p = false; // CC1 is rising edge capture
-         ccer.cc1np = false;
-         ccer.cc2p = true;
-         ccer.cc2np = false; // CC2 is falling edge capture
-      #else
-        #error no board type specified
-      #endif
-   #endif
-         ccer.cc1e = true;
-         ccer.cc2e = true;
-       sync_sep_timer::get()->ccer.set(ccer.value);
-   #if (QUAN_OSD_BOARD_TYPE !=4)
-      NVIC_SetPriority(TIM1_BRK_TIM9_IRQn,interrupt_priority::video);
-      NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
-   #else
+      ccer.cc1p = true; // CC1 is falling edge capture
+      ccer.cc1np = false;
+      ccer.cc2p = false;
+      ccer.cc2np = false; // CC2 is rising edge capture
+      ccer.cc1e = true;
+      ccer.cc2e = true;
+      sync_sep_timer::get()->ccer.set(ccer.value);
       NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
       NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-   #endif
    }
 }// detail
  
@@ -479,6 +464,11 @@ void on_hsync_second_edge()
                             && (line_period == line_period_t::full)) {
                        //in frame so move to next state
                        syncmode = syncmode_t::sync_phase1;
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+                       // valid looking sync so clear timeout count
+                       external_video_mode_timeout_count = 0;
+#endif
+                       
                   }
                break;
                case syncmode_t::sync_phase1:
@@ -501,24 +491,46 @@ void on_hsync_second_edge()
 }
 } // namespace
 
-#if (QUAN_OSD_BOARD_TYPE == 4)
 extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
-#else
-extern "C" void TIM1_BRK_TIM9_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
-extern "C" void TIM1_BRK_TIM9_IRQHandler()
-#endif
 {
      uint16_t const sr = sync_sep_timer::get()->sr.get();
+
      if (sr & (1 << 1)) {  // cc1_if
           sync_sep_timer::get()->sr.bb_clearbit<1>();
-          on_hsync_first_edge();
-     } else {
-          if (sr & (1 << 2)) {  // cc2_if
-            sync_sep_timer::get()->sr.bb_clearbit<2>();
-            on_hsync_second_edge();
+
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+          if (sync_sep_enabled_flag){
+#endif
+            on_hsync_first_edge();
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
           }
+#endif
+
      }
+
+     if (sr & (1 << 2)) {  // cc2_if
+          sync_sep_timer::get()->sr.bb_clearbit<2>();
+
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+         if (sync_sep_enabled_flag){
+#endif
+            on_hsync_second_edge();
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+          }
+#endif
+
+     }
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+     if( sr & ( 1 << 0) ){//uif
+         sync_sep_timer::get()->sr.bb_clearbit<0>();
+         if (++external_video_mode_timeout_count == external_video_mode_timeout){
+             external_video_mode_timeout_count = 0;
+             quan::stm32::complement<heartbeat_led_pin>();
+            // call on_external_video_timeout()
+         }
+     }
+#endif
+     
 }
 
-#endif  // defined QUAN_OSD_SOFTWARE_SYNCSEP
