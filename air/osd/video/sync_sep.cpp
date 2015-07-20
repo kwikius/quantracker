@@ -89,6 +89,7 @@ namespace {
    uint32_t external_video_mode_timeout = 500;
    // incr this value in external_video_input_mode
    uint32_t external_video_mode_timeout_count = 0;
+   // if true going through sync_sep
    bool sync_sep_enabled_flag = true;
 #endif
 }; // namespace
