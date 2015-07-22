@@ -41,11 +41,17 @@
 //timers used
 typedef quan::stm32::tim2                       video_columns_gate_timer;
 typedef quan::stm32::tim3                       video_rows_line_counter;
+typedef quan::stm32::tim9                       spi_clock_timer;
+//Think this could be changed if necessary
+// maybe change this to 32 bit timer and leave running for microsecs
+typedef quan::stm32::tim12                      sync_sep_timer;
+
+// only used when writing video dac
+typedef quan::stm32::tim10                      video_level_dac_irq_timer;
+
+// not really part of system
 typedef quan::stm32::tim6                       fsk_dac_timer;
 typedef quan::stm32::tim7                       dac2_timer;
-typedef quan::stm32::tim9                       spi_clock_timer;
-typedef quan::stm32::tim10                      video_level_dac_irq_timer;
-typedef quan::stm32::tim12                      sync_sep_timer;
 
 /*Timers potentially avail for expansion some multiplexed with other functions ( with i/o)
  N.B. Timer1 CH2 could go out on PA9 (currently Mavlink TX via digitally isolated port

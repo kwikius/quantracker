@@ -217,6 +217,7 @@ extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
 extern "C" void TIM3_IRQHandler()
 {
+    // if (! internal video mode ){
    typedef video_cfg::rows rows;  
    uint16_t const sr = rows::line_counter::get()->sr.get();
    if ( sr & (1 << 2)) { // cc2_if
@@ -238,6 +239,9 @@ extern "C" void TIM3_IRQHandler()
          }
       }
    }
+   //} else {
+   // tim3_internal_video_mode_irq   
+   // }
 }
 
 

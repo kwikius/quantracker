@@ -492,6 +492,10 @@ void on_hsync_second_edge()
 }
 } // namespace
 
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+void internal_video_mode_setup();
+#endif
+
 extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
 {
@@ -506,6 +510,7 @@ extern "C" void TIM8_BRK_TIM12_IRQHandler()
             on_hsync_first_edge();
 #if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
           }
+          // otherwise could restart after a few edges?
 #endif
 
      }
@@ -523,14 +528,20 @@ extern "C" void TIM8_BRK_TIM12_IRQHandler()
 
      }
 #if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
-     if( sr & ( 1 << 0) ){//uif
-         sync_sep_timer::get()->sr.bb_clearbit<0>();
-         if (++external_video_mode_timeout_count == external_video_mode_timeout){
-             external_video_mode_timeout_count = 0;
-             quan::stm32::complement<heartbeat_led_pin>();
-            // call on_external_video_timeout()
-         }
-     }
+   if( sr & ( 1 << 0) ){//uif
+      sync_sep_timer::get()->sr.bb_clearbit<0>();
+      if (++external_video_mode_timeout_count == external_video_mode_timeout){
+         external_video_mode_timeout_count = 0;
+         sync_sep_disable();
+         request_suspend_osd_flag = true;
+         osd_suspended_flag = true;
+         in_external_video_mode_flag = false;
+         internal_video_mode_setup();
+        // quan::stm32::complement<heartbeat_led_pin>();
+         
+         //suspend the osd and switch to internal_video_mode
+      }
+   }
 #endif
      
 }

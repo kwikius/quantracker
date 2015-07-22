@@ -43,20 +43,8 @@ namespace detail{
       quan::stm32::apply<
          video_mux_out_black_miso  // PB14 or PC2 on boardtype 4
          ,quan::stm32::gpio::mode::af5  // same for both pins
-   #if QUAN_OSD_BOARD_TYPE == 1
-         ,quan::stm32::gpio::otype::open_drain
-   #else
-       #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
          ,quan::stm32::gpio::otype::push_pull
-       #else
-         #error undefined board type
-       #endif
-   #endif
-   #if QUAN_OSD_BOARD_TYPE == 1
-         ,quan::stm32::gpio::pupd::none
-   #else
          ,quan::stm32::gpio::pupd::pull_up
-   #endif
          ,quan::stm32::gpio::ospeed::fast
          ,quan::stm32::gpio::ostate::high
       >();
