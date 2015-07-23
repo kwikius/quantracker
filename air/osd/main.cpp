@@ -25,27 +25,6 @@
 //#include "video/graphics_api.hpp"
 #include "video/video_buffer.hpp"
 
-#ifndef QUAN_OSD_BOARD_TYPE
-   #error which board?
-#else
-   #if QUAN_OSD_BOARD_TYPE == 1
-      #pragma message "for board 1"
-   #else 
-      #if QUAN_OSD_BOARD_TYPE == 2
-         #pragma message "for board 2"
-      #else
-         #if QUAN_OSD_BOARD_TYPE == 3
-            #pragma message "for board 3"
-         #else
-            #if QUAN_OSD_BOARD_TYPE == 4
-               #pragma message "for board 4"
-            #else
-               #error unknown board
-            #endif
-         #endif
-      #endif
-   #endif
-#endif
 
 extern "C" void setup();
 

@@ -38,7 +38,8 @@ namespace quan{ namespace uav { namespace osd{
         pxp_type pos{-150,50};
         draw_text("Transmitter",pos,def_font);
         #else
-         #error not tx or rx
+        // #error not tx or rx
+          draw_text("Test",{-150,50});
         #endif
       #endif
    }

@@ -92,6 +92,7 @@ STATIC_LIBRARY_PATH = ../../lib/osd/
 
 static_library_files = \
    quantracker_air_graphics_api.a \
+   quantracker_air_osd.a \
    flash_variables.a 
 
 local_objects = main.o setup.o on_draw.o 
