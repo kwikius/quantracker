@@ -35,9 +35,9 @@ namespace {
 //       Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
 //       Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
 //       Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
-// 00 (0) is black_level
-// 10 (2) is white
-// 01 is  sync_tip
+// 00 (0) dac is black_level
+// 01 (1) dac is white
+// 10 (20 dac sync_tip
        // Dac_write (0b11, quan::voltage::V{0.58f}, 0);  // sync comp
           Dac_write (0b00, quan::voltage::V{0.9f}, 0); // black level
           Dac_write (0b01, quan::voltage::V{2.26f}, 0); // white
@@ -112,9 +112,7 @@ namespace {
       }
       {
          quan::stm32::tim::dier_t dier = sync_timer::get()->dier.get();
-               // dunno yet
-               // interrupt on update probably
-            dier.value = 0;
+            dier.uie = true;
          sync_timer::get()->dier.set(dier.value);
       }
  
@@ -153,6 +151,18 @@ namespace {
    constexpr uint16_t short_sync = (235U * clocks_usec) / 100U 
          + ((((235U * clocks_usec) % 100U )>= 500 ) ? 1: 0);
 
+   enum ivm_mode_t{
+         end_of_frame,
+         pre_equalise,
+         vsync,
+         post_equalise,
+         video_fields
+   };
+
+   ivm_mode_t ivm_mode = video_fields;
+   bool first_field = true;
+   uint32_t ivm_count = 0;
+
 } //namespace
 
 void internal_video_mode_setup()
@@ -163,21 +173,33 @@ void internal_video_mode_setup()
    // PB15 TIM12_CH2   // sync sep these should have been done
    // PD2  TIM3_ETR
     
+   ivm_mode = video_fields;
+   ivm_count = 0;
+   first_field = true;
    ivm_dac_setup();
    ivm_pin_setup();
    ivm_timer_setup();
    // set initial timer values
    // get immediate start on overflow
    sync_timer::get()->cnt = 0xffff;
+ 
    sync_timer::get()->ccr1 = long_sync;
-   sync_timer::get()->arr = full_line ;
+
+   sync_timer::get()->arr = (first_field ?half_line:full_line) ;
    quan::stm32::enable<sync_timer>();
    
 }
 
 
-void do_internal_video_mode()
+// uif
+void do_internal_video_mode_irq()
 {
+//   switch (ivm_mode){
+//
+//      case video_fields:
+//         sync_timer::get()->arr = 
+         
+      
    /* line period (H) = 64 usec
     hsync 4.7 us +-0.1 us
     do  1 full rows 4.7 usec low pulse then 64 - 4.7 usec high

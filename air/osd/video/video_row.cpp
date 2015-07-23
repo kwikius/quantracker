@@ -215,33 +215,36 @@ void video_cfg::rows::setup()
 
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
+void do_internal_video_mode_irq();
+bool in_internal_video_mode();
+
 extern "C" void TIM3_IRQHandler()
 {
-    // if (! internal video mode ){
-   typedef video_cfg::rows rows;  
-   uint16_t const sr = rows::line_counter::get()->sr.get();
-   if ( sr & (1 << 2)) { // cc2_if
-      rows::line_counter::get()->sr.bb_clearbit<2>();
-      rows::telem::begin();
-   }else {
-      if( sr & (1 << 3)){ // cc3_if
-        rows::line_counter::get()->sr.bb_clearbit<3>();
-        rows::telem::end();
-      }else{
-         if( sr & (1 << 4)){ //cc4_if
-            rows::line_counter::get()->sr.bb_clearbit<4>();
-            rows::osd::begin();
-            
+   if (! in_internal video mode() ){
+      typedef video_cfg::rows rows;  
+      uint16_t const sr = rows::line_counter::get()->sr.get();
+      if ( sr & (1 << 2)) { // cc2_if
+         rows::line_counter::get()->sr.bb_clearbit<2>();
+         rows::telem::begin();
+      }else {
+         if( sr & (1 << 3)){ // cc3_if
+           rows::line_counter::get()->sr.bb_clearbit<3>();
+           rows::telem::end();
          }else{
-            rows::line_counter::get()->sr.bb_clearbit<0>();  // must be uif
-            rows::osd::end();
-            return;
+            if( sr & (1 << 4)){ //cc4_if
+               rows::line_counter::get()->sr.bb_clearbit<4>();
+               rows::osd::begin();
+               
+            }else{
+               rows::line_counter::get()->sr.bb_clearbit<0>();  // must be uif
+               rows::osd::end();
+               return;
+            }
          }
-      }
+      } 
+   }else {
+      do_internal_video_mode_irq();   
    }
-   //} else {
-   // tim3_internal_video_mode_irq   
-   // }
 }
 
 

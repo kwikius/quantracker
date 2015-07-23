@@ -352,6 +352,10 @@ void on_hsync_second_edge()
                         if (  ((video_mode == video_mode_t::pal)  && (sync_counter == 3))
                           ||  ((video_mode == video_mode_t::ntsc) && (sync_counter == 5))
                         ){
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+                           // valid looking sync so clear timeout count
+                           external_video_mode_timeout_count = 0;
+#endif
                            // disable this sequence and start
                            // osd and telem sequence
                            sync_sep_new_frame();               
@@ -465,10 +469,7 @@ void on_hsync_second_edge()
                             && (line_period == line_period_t::full)) {
                        //in frame so move to next state
                        syncmode = syncmode_t::sync_phase1;
-#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
-                       // valid looking sync so clear timeout count
-                       external_video_mode_timeout_count = 0;
-#endif
+
                        
                   }
                break;
@@ -494,6 +495,12 @@ void on_hsync_second_edge()
 
 #if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
 void internal_video_mode_setup();
+
+void in_internal_video_mode()
+{
+  return in_external_video_mode_flag = false;
+}
+
 #endif
 
 extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
@@ -530,16 +537,18 @@ extern "C" void TIM8_BRK_TIM12_IRQHandler()
 #if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
    if( sr & ( 1 << 0) ){//uif
       sync_sep_timer::get()->sr.bb_clearbit<0>();
-      if (++external_video_mode_timeout_count == external_video_mode_timeout){
-         external_video_mode_timeout_count = 0;
-         sync_sep_disable();
-         request_suspend_osd_flag = true;
-         osd_suspended_flag = true;
-         in_external_video_mode_flag = false;
-         internal_video_mode_setup();
-        // quan::stm32::complement<heartbeat_led_pin>();
-         
-         //suspend the osd and switch to internal_video_mode
+      if( in external_video_mode() ){
+         if (++external_video_mode_timeout_count == external_video_mode_timeout){
+            external_video_mode_timeout_count = 0;
+            sync_sep_disable();
+            request_suspend_osd_flag = true;
+            osd_suspended_flag = true;
+            in_external_video_mode_flag = false;
+            internal_video_mode_setup();
+           // quan::stm32::complement<heartbeat_led_pin>();
+            
+            //suspend the osd and switch to internal_video_mode
+         }
       }
    }
 #endif
