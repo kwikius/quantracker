@@ -16,7 +16,7 @@
  */
 
 #include "FreeRTOS.h"
-#include "task.h"
+#include <task.h>
 
 #include "resources.hpp"
 
@@ -33,7 +33,7 @@ namespace {
         for(;;) {
            if ( count < 5){
             ++count;
-           vTaskDelay(5000);
+           vTaskDelay(2000);
            request_osd_suspend();
            while (!osd_suspended()){;}
            vTaskDelay(1000);

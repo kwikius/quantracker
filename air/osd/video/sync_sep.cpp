@@ -68,13 +68,14 @@ namespace {
    uint16_t last_sync_first_edge = 0U;
    uint8_t sync_counter = 0U;
    syncmode_t syncmode = syncmode_t::start;
-   video_cfg::video_mode_t video_mode = video_cfg::video_mode_t::unknown;
 
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
+// change video_mode to next_frame_video mode
+   quan::uav::osd::video_mode video_mode = quan::uav::osd::video_mode::unknown;
    // video_mode relates to pal ntsc
-   static quan::uav::osd::video_mode public_video_mode 
+   quan::uav::osd::video_mode public_video_mode 
       = quan::uav::osd::video_mode::unknown;
 
    // 2 stage OSD suspend process so dont get caught mid screen
@@ -118,13 +119,14 @@ namespace quan{ namespace uav{ namespace osd{
 
 }}}
 
-video_cfg::video_mode_t 
-video_cfg::get_video_mode()
-{
-  return video_mode;
-}
+// eek which to use?
+//video_cfg::video_mode_t 
+//video_cfg::get_video_mode()
+//{
+//  return video_mode;
+//}
 
-typedef video_cfg::video_mode_t video_mode_t;
+//typedef video_cfg::video_mode_t video_mode_t;
  
 namespace {
    void sync_sep_reset()
@@ -146,7 +148,9 @@ namespace {
      last_sync_first_edge = 0;
      sync_counter = 0;
      syncmode = syncmode_t::start;
-     video_mode = video_mode_t::unknown;
+//#################
+    // video_mode = quan::uav::osd::video_mode::unknown;
+//#################
    }
  
 }// namespace 
@@ -191,7 +195,23 @@ namespace {
     
    void sync_sep_new_frame()
    {
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
+      // valid looking sync so clear timeout count
+      external_video_mode_timeout_count = 0;
+#endif
       sync_sep_disable();
+//      switch (video_mode){
+//         case quan::uav::osd::video_mode::ntsc:
+//            public_video_mode = quan::uav::osd::video_mode::ntsc;
+//         break;
+//         case quan::uav::osd::video_mode::pal:
+//            public_video_mode = quan::uav::osd::video_mode::pal;
+//         break;
+//         default:
+//            public_video_mode = quan::uav::osd::video_mode::unknown;
+//         break;
+//      }
+      public_video_mode = video_mode;
       // could we just enable the interrupts
       // Ideally want counting but
       // important if video_mode has changed from ntsc to pal etc
@@ -203,17 +223,7 @@ namespace {
       video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
    // update the public one.. messy prob just use one public enum for this?
    // should prob do it in the swap_buffers function?
-      switch (video_mode){
-         case video_mode_t::ntsc:
-            public_video_mode = quan::uav::osd::video_mode::ntsc;
-         break;
-         case video_mode_t::pal:
-            public_video_mode = quan::uav::osd::video_mode::pal;
-         break;
-         default:
-            public_video_mode = quan::uav::osd::video_mode::unknown;
-         break;
-      }
+
    }
 } // namespace
 
@@ -349,13 +359,10 @@ void on_hsync_second_edge()
                               // TODO get ADC result and convert sort outputs etc
                         }
 #endif
-                        if (  ((video_mode == video_mode_t::pal)  && (sync_counter == 3))
-                          ||  ((video_mode == video_mode_t::ntsc) && (sync_counter == 5))
+                        if (  ((video_mode == quan::uav::osd::video_mode::pal)  && (sync_counter == 3))
+                          ||  ((video_mode == quan::uav::osd::video_mode::ntsc) && (sync_counter == 5))
                         ){
-#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
-                           // valid looking sync so clear timeout count
-                           external_video_mode_timeout_count = 0;
-#endif
+
                            // disable this sequence and start
                            // osd and telem sequence
                            sync_sep_new_frame();               
@@ -370,9 +377,9 @@ void on_hsync_second_edge()
                      // signifies the end of vsync period
                         // TODO flag calc_line_period to start ADC conv for sync tip
                         if ( sync_counter == 5){
-                           if ( video_mode != video_mode_t::pal){
-                              if ( video_mode == video_mode_t::unknown){
-                                 video_mode = video_mode_t::pal;
+                           if ( video_mode != quan::uav::osd::video_mode::pal){
+                              if ( video_mode == quan::uav::osd::video_mode::unknown){
+                                 video_mode = quan::uav::osd::video_mode::pal;
                               }else{
                                  sync_sep_error_reset(); // unexpected sequence
                                  return;
@@ -380,9 +387,9 @@ void on_hsync_second_edge()
                            }
                         }else {
                            if ( sync_counter == 6){
-                              if ( video_mode != video_mode_t::ntsc){
-                                 if ( video_mode == video_mode_t::unknown){
-                                    video_mode = video_mode_t::ntsc;
+                              if ( video_mode != quan::uav::osd::video_mode::ntsc){
+                                 if ( video_mode == quan::uav::osd::video_mode::unknown){
+                                    video_mode = quan::uav::osd::video_mode::ntsc;
                                  }else{
                                     sync_sep_error_reset(); // unexpected sequence
                                     return;
@@ -412,9 +419,9 @@ void on_hsync_second_edge()
                         // do odd / even frame logic
                         // n.b not realy needed in non-interlaced
                         if (sync_counter == 4){
-                           if ( video_mode != video_mode_t::pal){
-                              if (video_mode == video_mode_t::unknown){
-                                 video_mode = video_mode_t::pal;
+                           if ( video_mode != quan::uav::osd::video_mode::pal){
+                              if (video_mode == quan::uav::osd::video_mode::unknown){
+                                 video_mode = quan::uav::osd::video_mode::pal;
                               }else{
                                  sync_sep_error_reset(); // unexpected
                                  return;
@@ -426,7 +433,7 @@ void on_hsync_second_edge()
                         }else {
                            if ( sync_counter == 5){
 #if defined (QUAN_DISPLAY_INTERLACED)
-                              if ( video_mode == video_mode_t::pal){
+                              if ( video_mode == quan::uav::osd::video_mode::pal){
                                   video_cfg::rows::set_odd_frame();
                               }else{
                                  // n.b dont care if its unknown video mode
@@ -436,9 +443,9 @@ void on_hsync_second_edge()
 #endif
                            }else{
                               if ( sync_counter == 6){
-                                 if ( video_mode != video_mode_t::ntsc){
-                                    if (video_mode == video_mode_t::unknown){
-                                       video_mode = video_mode_t::ntsc;
+                                 if ( video_mode != quan::uav::osd::video_mode::ntsc){
+                                    if (video_mode == quan::uav::osd::video_mode::unknown){
+                                       video_mode = quan::uav::osd::video_mode::ntsc;
                                     }else{
                                        sync_sep_error_reset(); // unexpected
                                        return;

@@ -28,12 +28,13 @@
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/two_d/vect.hpp>
+#include <quan/uav/osd/get_video_mode.hpp>
 
 struct video_cfg {
 
-   enum class video_mode_t { unknown,pal,ntsc};
+   //enum class video_mode_t { unknown,pal,ntsc};
 
-   static video_mode_t get_video_mode(); 
+   //static video_mode_t get_video_mode(); 
 
    //row line_counter
    struct rows {
@@ -62,7 +63,11 @@ struct video_cfg {
          static uint16_t m_end_pal;
          static uint16_t m_end_ntsc;
          static uint16_t get_end() 
-               { return ((get_video_mode() == video_mode_t::pal)?m_end_pal:m_end_ntsc);}
+         { 
+            return ((quan::uav::osd::get_video_mode() == quan::uav::osd::video_mode::pal)
+                  ?m_end_pal
+                  :m_end_ntsc);
+         }
          static uint16_t get_visible_length()
          {
             return get_end() - m_begin;

@@ -215,12 +215,18 @@ void video_cfg::rows::setup()
 
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
 void do_internal_video_mode_irq();
 bool in_internal_video_mode();
+#endif
 
 extern "C" void TIM3_IRQHandler()
 {
+
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
    if (! in_internal video mode() ){
+#endif
+
       typedef video_cfg::rows rows;  
       uint16_t const sr = rows::line_counter::get()->sr.get();
       if ( sr & (1 << 2)) { // cc2_if
@@ -242,9 +248,13 @@ extern "C" void TIM3_IRQHandler()
             }
          }
       } 
+
+#if defined (QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS)
    }else {
       do_internal_video_mode_irq();   
    }
+#endif
+
 }
 
 

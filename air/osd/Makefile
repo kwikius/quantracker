@@ -79,7 +79,7 @@ $(APP_SRC_PATH)
 TARGET_PROCESSOR = STM32F4
 
 # what to do about led? Add to system lib or osd_lib?
-unprefixed_video_objects = led.o internal_video_mode.o
+#unprefixed_video_objects = led.o internal_video_mode.o
 
 video_objects = $(patsubst %, $(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
@@ -93,7 +93,7 @@ static_library_files = \
    quantracker_air_osd.a \
   flash_variables.a 
 
-local_objects = main.o setup.o on_draw.o 
+local_objects = main.o setup.o on_draw.o osd_suspend_task.o
 
 static_library_files += quantracker_air_system.a 
 
@@ -164,9 +164,9 @@ LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
-all:  test
-
 objects =  $(local_objects) $(user_objects) $(user_resources) $(video_objects)
+
+all:  test
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
