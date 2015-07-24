@@ -50,7 +50,7 @@ int main()
 {
   setup();
   create_draw_task();
-  create_osd_suspend_task();
+ // create_osd_suspend_task();
 #if defined QUAN_OSD_TELEM_TRANSMITTER
   create_telemetry_transmitter_task();
 

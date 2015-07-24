@@ -81,11 +81,11 @@ namespace {
 
    void ivm_timer_setup()
    {
-      // disable the timer
-       sync_timer::get()->cr1.bb_clearbit<0>(); // (CEN)
-       quan::stm32::module_reset<sync_timer>();
+      // disable the timer ( as line_counter)
+      sync_timer::get()->cr1.bb_clearbit<0>(); // (CEN)
+      quan::stm32::module_reset<sync_timer>();
       {
-         quan::stm32::tim::cr1_t cr1 = sync_timer::get()->cr1.get();
+         quan::stm32::tim::cr1_t cr1 = 0u;//sync_timer::get()->cr1.get();
             cr1.ckd = 0b00;  // no filter on ck
             cr1.arpe = false; // no preload
             cr1.cms = 0b00;  // counting dependednt on dir bit
@@ -97,21 +97,21 @@ namespace {
          sync_timer::get()->cr1.set(cr1.value);
       }
       {
-         quan::stm32::tim::cr2_t cr2 = sync_timer::get()->cr2.get();
+         quan::stm32::tim::cr2_t cr2 = 0U;//sync_timer::get()->cr2.get();
             cr2.ti1s = false; // single trigger
             cr2.mms = 0b100;  // OC1REF is TRGO for gate timer when enabled
             cr2.ccds = true;  // DMA on update
          sync_timer::get()->cr2.set(cr2.value);   
       }
       {
-         quan::stm32::tim::smcr_t smcr = sync_timer::get()->smcr.get();
+         quan::stm32::tim::smcr_t smcr = 0U;// sync_timer::get()->smcr.get();
             smcr.msm = false; // dont care
             smcr.ts = 0b000;  // dont care
             smcr.sms = 0b000; // slave mode disabled 
          sync_timer::get()->smcr.set(smcr.value);  
       }
       {
-         quan::stm32::tim::dier_t dier = sync_timer::get()->dier.get();
+         quan::stm32::tim::dier_t dier = 0U;// sync_timer::get()->dier.get();
             dier.uie = true;
          sync_timer::get()->dier.set(dier.value);
       }
@@ -119,7 +119,7 @@ namespace {
       sync_timer::get()->sr.set(0); 
       sync_timer::get()->egr.set(0); 
       {
-         quan::stm32::tim::ccmr1_t ccmr1 = sync_timer::get()->ccmr1.get();
+         quan::stm32::tim::ccmr1_t ccmr1 = 0U;// sync_timer::get()->ccmr1.get();
             ccmr1.cc1s = 0b00; // cc1 is output mapped to PC6
             ccmr1.oc1fe = false; // dont care relates to trigger input
             ccmr1.oc1pe = false ; // new value in Capture compare reg (ccr1) is loaded direct
@@ -130,7 +130,7 @@ namespace {
       // ccmr2 not used
       //
       {
-         quan::stm32::tim::ccer_t ccer = sync_timer::get()->ccer.get();
+         quan::stm32::tim::ccer_t ccer = 0U; //sync_timer::get()->ccer.get();
          ccer.cc1e = true; // enable PC6 as output
          ccer.cc1p = false; // active high
          ccer.cc1np = false; // must be cleared when output
@@ -194,6 +194,8 @@ void internal_video_mode_setup()
 // uif
 void do_internal_video_mode_irq()
 {
+    
+    sync_timer::get()->sr.set(0);
 //   switch (ivm_mode){
 //
 //      case video_fields:

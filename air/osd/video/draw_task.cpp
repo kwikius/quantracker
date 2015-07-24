@@ -15,21 +15,40 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include "../resources.hpp"
+#include <quan/time.hpp>
 #include <quan/uav/osd/api.hpp>
+#include "osd_state.hpp"
+#include "../resources.hpp"
 
 
 namespace detail{
    void swap_osd_buffers();
+   bool swap_osd_buffers(quan::time::ms const & wait_time);
    void create_osd_swap_semaphores();
 }
 namespace {
 
    void draw_task(void * params)
    {
+       vTaskDelay(100); // want to know if have video
        for (;;){
+
          quan::uav::osd::on_draw();
-         detail::swap_osd_buffers();
+
+         if ( osd_state::get() == osd_state::internal_video ){
+            if ( !osd_state::have_external_video()){
+               detail::swap_osd_buffers();
+            }else{
+               osd_state::set(osd_state::external_video);
+            }
+         }
+         constexpr quan::time::ms wait_time{1000};
+         if ( osd_state::get() == osd_state::external_video ){   
+            if (!detail::swap_osd_buffers(wait_time)){
+               osd_state::set(osd_state::internal_video);
+               detail::swap_osd_buffers();
+            }
+         }
       }
    }
 
@@ -41,19 +60,6 @@ void create_draw_task()
 {
     detail::create_osd_swap_semaphores();
 
-#if (SWDIO_DEBUG == SWDIO_DEBUG_DRAW_TASK)
-	  quan::stm32::module_enable<swdio::port_type>();
-
-	   quan::stm32::apply<
-	      swdio
-	      , quan::stm32::gpio::mode::output
-	      , quan::stm32::gpio::otype::push_pull
-	      , quan::stm32::gpio::pupd::none
-	      , quan::stm32::gpio::ospeed::slow
-	      , quan::stm32::gpio::ostate::low
-	   >();
-#endif
-
    xTaskCreate(
       draw_task,"draw_task", 
       5000, 
@@ -61,4 +67,5 @@ void create_draw_task()
       task_priority::draw,
       &task_handle
    );
+   // wait for 
 }

@@ -56,7 +56,19 @@ namespace detail{
       h_osd_buffers_swapped = xSemaphoreCreateBinary();
    }
 
-      //call from task
+   bool swap_osd_buffers(quan::time::ms const & wait_time)
+   {
+      xSemaphoreGive(h_request_osd_buffers_swap);
+      TickType_t const wait_time1 = static_cast<TickType_t>(wait_time.numeric_value());
+      if ( xSemaphoreTake(h_osd_buffers_swapped,wait_time1) == pdTRUE){
+         video_buffers::osd::clear_write_buffer();
+         return true;
+      }else{
+         return false;
+      }
+   }
+
+      //called from draw_task
    void swap_osd_buffers()
    {
       xSemaphoreGive(h_request_osd_buffers_swap);
@@ -172,20 +184,6 @@ uint16_t video_cfg::columns::osd::m_end = 389;
 uint16_t video_cfg::columns::telem::m_begin = 12;
 // One after last bit in bit units from bit 0
 uint16_t video_cfg::columns::telem::m_end = 110;
-#if 0
-namespace {
-   #if (QUAN_OSD_BOARD_TYPE==3) || (QUAN_OSD_BOARD_TYPE==4)
-   static constexpr bool transmitter = true;
-   #else
-   static constexpr bool transmitter = false;
-   #endif
-   #if QUAN_OSD_BOARD_TYPE==1
-   static constexpr bool receiver = true;
-   #else
-   static constexpr bool receiver = false;
-   #endif
-}
-#endif
 
 //bool is_receiver(){return receiver;}
 // called by row line_counter

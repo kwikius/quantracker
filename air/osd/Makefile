@@ -93,7 +93,7 @@ static_library_files = \
    quantracker_air_osd.a \
   flash_variables.a 
 
-local_objects = main.o setup.o on_draw.o osd_suspend_task.o
+local_objects = main.o setup.o on_draw.o 
 
 static_library_files += quantracker_air_system.a 
 

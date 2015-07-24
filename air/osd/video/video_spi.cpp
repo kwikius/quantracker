@@ -27,9 +27,8 @@
 namespace detail{
    // just setup the spi pins here
    // actual spi setup is done variously
-   void spi_setup()
+   void external_spi_setup()
    {
-      
       // rcc
      // black on spi2, white on spi3
       quan::stm32::module_enable<video_mux_out_black_sck::port_type>();

@@ -26,6 +26,7 @@
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
 #include "../resources.hpp"
+#include "osd_state.hpp"
 
 namespace {
    void hsync_setup()
@@ -116,22 +117,20 @@ void video_cfg::setup()
 namespace detail{
    
    void setup_leds();
-   void dac_setup();
-   void pixel_dma_setup();
-   void spi_setup();
+   void video_palette_dac_setup();
+   void external_pixel_dma_setup();
+   void external_spi_setup();
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
+   void sync_sep_setup(osd_state::state_t state);
    void sync_sep_enable();
-   void sync_sep_setup();
 #endif
 }
-namespace {
+namespace detail{
 
-   void video_setup()
+   void external_video_setup()
    {
-        setup_unused_pins();
-        video_analog_input_setup();
-        detail::spi_setup();
-        detail::pixel_dma_setup();
+        detail::external_spi_setup();
+        detail::external_pixel_dma_setup();
         hsync_setup();
    #if ! defined QUAN_OSD_SOFTWARE_SYNCSEP
         vsync_setup();
@@ -146,16 +145,21 @@ namespace {
         video_cfg::setup();
         video_buffers::init();
    #if defined QUAN_OSD_SOFTWARE_SYNCSEP
-        detail::sync_sep_setup();
+        detail::sync_sep_setup(osd_state::external_video);
         detail::sync_sep_enable();
    #endif
-        detail::dac_setup();
+     
    }
 }
 
 void osd_setup()
 {
+  // once
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
   detail::setup_leds();
-  video_setup();
+  setup_unused_pins();
+  video_analog_input_setup();
+  detail::video_palette_dac_setup();
+  
+  osd_state::set(osd_state::external_video);
 }

@@ -55,30 +55,28 @@ quan::two_d::vect<uint32_t> video_buffers::osd::m_display_size; //pixels
 
 quan::two_d::vect<uint32_t> video_buffers::telem::tx::m_size; //pixels
 
-//bool video_buffers::telem::tx::m_want_tx = false;
-
 void video_buffers::init()
 {
-    osd::m_buffers[0].init();
-    osd::m_buffers[1].init();
-    video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
-    osd::clear_read_buffer();
-    osd::clear_write_buffer();
-    osd::manager.read_reset();
-    telem::tx::m_size 
-      = quan::two_d::vect<uint32_t>{
-         video_cfg::columns::telem::get_count()
-         ,video_cfg::rows::telem::get_count()
-        };
-    telem::tx::m_buffers[0].init();
-    telem::tx::m_buffers[1].init();
-    telem::tx::reset_read_buffer();
-    telem::tx::reset_write_buffer(); 
-    telem::tx::manager.read_reset();
-    
-    telem::rx::reset_read_buffer();
-    telem::rx::reset_write_buffer(); 
-    telem::rx::manager.read_reset();
+   osd::m_buffers[0].init();
+   osd::m_buffers[1].init();
+   video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
+   osd::clear_read_buffer();
+   osd::clear_write_buffer();
+   osd::manager.read_reset();
+   telem::tx::m_size 
+   = quan::two_d::vect<uint32_t>{
+      video_cfg::columns::telem::get_count()
+      ,video_cfg::rows::telem::get_count()
+     };
+   telem::tx::m_buffers[0].init();
+   telem::tx::m_buffers[1].init();
+   telem::tx::reset_read_buffer();
+   telem::tx::reset_write_buffer(); 
+   telem::tx::manager.read_reset();
+
+   telem::rx::reset_read_buffer();
+   telem::rx::reset_write_buffer(); 
+   telem::rx::manager.read_reset();
     
 }
 // call reset_write_buffer first

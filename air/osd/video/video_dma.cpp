@@ -78,7 +78,7 @@ namespace {
 }//namespace 
 
 namespace detail{
-   void pixel_dma_setup()
+   void external_pixel_dma_setup()
    {
       RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
       for ( uint8_t i = 0; i < 20; ++i){

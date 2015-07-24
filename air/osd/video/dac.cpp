@@ -37,60 +37,69 @@
 // say 10 usec per bit
 */
 namespace {
-quan::fifo<uint16_t, 8> dac_fifo;
-uint16_t dac_data = 0;
-uint8_t bit_count = 0U;
+   quan::fifo<uint16_t, 8> dac_fifo;
+   uint16_t dac_data = 0;
+   uint8_t bit_count = 0U;
 
-void delay()
-{
-   asm volatile("nop":::);
-}
-
-void ll_dac_write(uint16_t val)
-{
-  video_level_dac_irq_timer::get()->dier.bb_clearbit<0>(); //(UIE)
-  dac_fifo.put(val);
-  video_level_dac_irq_timer::get()->cr1.bb_setbit<0>(); //(CEN)
-  video_level_dac_irq_timer::get()->dier.bb_setbit<0>(); //(UIE)
-}
-
-using quan::stm32::set;
-using quan::stm32::clear;
-using quan::stm32::put;
-
-void dac_irq()
-{
-   if (bit_count == 0) {
-       clear<av_dac_nsync>();
+   void delay()
+   {
+      asm volatile("nop":::);
    }
-   #if 1
-   if ( dac_data & quan::bit<uint16_t>(15)) {
-       set<av_dac_data>() ;
-   } else {
-       clear<av_dac_data>();
+
+   void ll_dac_write(uint16_t val)
+   {
+     video_level_dac_irq_timer::get()->dier.bb_clearbit<0>(); //(UIE)
+     dac_fifo.put(val);
+     video_level_dac_irq_timer::get()->cr1.bb_setbit<0>(); //(CEN)
+     video_level_dac_irq_timer::get()->dier.bb_setbit<0>(); //(UIE)
    }
-   #else
-   // not tested yet!
-   put<av_dac_data>((dac_data & quan::bit<uint16_t>(15)) != 0) ;
-   #endif
-   delay();
-   clear<av_dac_clk>();
-   if ( bit_count != 15) {
-       dac_data <<= 1;
-       ++bit_count;
-   }else{
-       if ( !dac_fifo.is_empty()) {
-             dac_data = dac_fifo.get();
-       }else {
-            video_level_dac_irq_timer::get()->cr1.bb_clearbit<0>(); //(CEN)
-            video_level_dac_irq_timer::get()->cnt = 0;
-       } 
-       bit_count = 0;
-       set<av_dac_nsync>();
+
+   using quan::stm32::set;
+   using quan::stm32::clear;
+   using quan::stm32::put;
+
+   void dac_irq()
+   {
+      if (bit_count == 0) {
+          clear<av_dac_nsync>();
+      }
+      #if 1
+      if ( dac_data & quan::bit<uint16_t>(15)) {
+          set<av_dac_data>() ;
+      } else {
+          clear<av_dac_data>();
+      }
+      #else
+      // not tested yet!
+      put<av_dac_data>((dac_data & quan::bit<uint16_t>(15)) != 0) ;
+      #endif
+      delay();
+      clear<av_dac_clk>();
+      if ( bit_count != 15) {
+          dac_data <<= 1;
+          ++bit_count;
+      }else{
+          if ( !dac_fifo.is_empty()) {
+                dac_data = dac_fifo.get();
+          }else {
+               video_level_dac_irq_timer::get()->cr1.bb_clearbit<0>(); //(CEN)
+               video_level_dac_irq_timer::get()->cnt = 0;
+          } 
+          bit_count = 0;
+          set<av_dac_nsync>();
+      }
+      set<av_dac_clk>();
    }
-   set<av_dac_clk>();
-}
 }//namespace
+
+namespace detail{
+   bool dac_busy()
+   {
+      return ((dac_fifo.is_empty() == false) 
+      || (video_level_dac_irq_timer::get()->cr1.bb_getbit<0>() == true) );
+   } 
+}
+
 namespace tim = quan::stm32::tim;
 namespace {
    void dac_timer_setup()
@@ -181,7 +190,7 @@ namespace {
 }
 
 namespace detail{
-   void dac_setup()
+   void video_palette_dac_setup()
    {
          /*
     For Discovery, dont use DAC2 on PA5
