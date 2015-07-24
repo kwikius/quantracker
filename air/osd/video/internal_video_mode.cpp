@@ -7,6 +7,8 @@
 #include <quan/stm32/tim/temp_reg.hpp>
 #include <quan/stm32/tim.hpp>
 #include "video_cfg.hpp"
+#include "osd_state.hpp"
+
 // assume that OSD is suspended
 // external pullups may need to be removed
 // since SPI pins are inputs before transmission
@@ -165,99 +167,102 @@ namespace {
 
 } //namespace
 
-void internal_video_mode_setup()
-{
-   // disable interrupts from synch if necessary
-   // PA15 TIM2_CH1 TIM2_ETR // 
-   // PB14 TIM12_CH1   // sync_sep these should have been done
-   // PB15 TIM12_CH2   // sync sep these should have been done
-   // PD2  TIM3_ETR
+namespace detail{
+   void sync_sep_setup(osd_state::state_t state);
+   void sync_sep_enable();
+
+   void internal_video_mode_setup()
+   {
+      ivm_mode = video_fields;
+      ivm_count = 0;
+      first_field = true;
+      ivm_dac_setup();
+      ivm_pin_setup();
+      ivm_timer_setup();
+      // set initial timer values
+      // get immediate start on overflow
+      sync_timer::get()->cnt = 0xffff;
     
-   ivm_mode = video_fields;
-   ivm_count = 0;
-   first_field = true;
-   ivm_dac_setup();
-   ivm_pin_setup();
-   ivm_timer_setup();
-   // set initial timer values
-   // get immediate start on overflow
-   sync_timer::get()->cnt = 0xffff;
- 
-   sync_timer::get()->ccr1 = long_sync;
+      sync_timer::get()->ccr1 = long_sync;
 
-   sync_timer::get()->arr = (first_field ?half_line:full_line) ;
-   quan::stm32::enable<sync_timer>();
-   
-}
+      sync_timer::get()->arr = (first_field ?half_line:full_line) ;
+
+      NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
+      NVIC_EnableIRQ (TIM3_IRQn);
+      sync_sep_setup(osd_state::internal_video);
+      sync_sep_enable();
+      quan::stm32::enable<sync_timer>();
+   }
 
 
-// uif
-void do_internal_video_mode_irq()
-{
-    
-    sync_timer::get()->sr.set(0);
-//   switch (ivm_mode){
-//
-//      case video_fields:
-//         sync_timer::get()->arr = 
+   // uif
+   void do_internal_video_mode_irq()
+   {
+       sync_timer::get()->sr.set(0);
+   //   switch (ivm_mode){
+   //
+   //      case video_fields:
+   //         sync_timer::get()->arr = 
+            
          
+      /* line period (H) = 64 usec
+       hsync 4.7 us +-0.1 us
+       do  1 full rows 4.7 usec low pulse then 64 - 4.7 usec high
+       just do pal for the mo
+
+         do_end_of_frame ()
+         {
+          if (first field){
+              period  = 32 usec  
+            }else{
+               period = 64 usec
+            }
+            do 4.7 usec low pulse ;
+         }
+         pre_equalise()
+         {
+            period = 32 usec
+            for ( i = 0 to 4){ // 5 x
+               do 2.35 usec low pulse
+            }
+         }
+         vsync ()
+         for ( i = 0 to 4)
+         {
+            period = 32 usec
+            low pulse = 32 - 2.35 usec
+         }
       
-   /* line period (H) = 64 usec
-    hsync 4.7 us +-0.1 us
-    do  1 full rows 4.7 usec low pulse then 64 - 4.7 usec high
-    just do pal for the mo
-
-      do_end_of_frame ()
-      {
-       if (first field){
-           period  = 32 usec  
-         }else{
-            period = 64 usec
-         }
-         do 4.7 usec low pulse ;
-      }
-      pre_equalise()
-      {
-         period = 32 usec
-         for ( i = 0 to 4){ // 5 x
-            do 2.35 usec low pulse
-         }
-      }
-      vsync ()
-      for ( i = 0 to 4)
-      {
-         period = 32 usec
-         low pulse = 32 - 2.35 usec
-      }
-   
-      post_equalise()
-      {
-         if ( first field){
-         for ( i = 0 to 4){
-              period 32 usec
-              pulse 2.35 usec
-            }
-         }else{ // second field
-            for ( i = 0 to 3){
-              period 32 usec
-              pulse 2.35 usec
-            }
-            once{
-              period 64 usec
-              pulse 2.35 usec
+         post_equalise()
+         {
+            if ( first field){
+            for ( i = 0 to 4){
+                 period 32 usec
+                 pulse 2.35 usec
+               }
+            }else{ // second field
+               for ( i = 0 to 3){
+                 period 32 usec
+                 pulse 2.35 usec
+               }
+               once{
+                 period 64 usec
+                 pulse 2.35 usec
+               }
             }
          }
-      }
 
-      video_fields()
-      {
-         // if 
-         for  (i = 0 to 305){
-            period 64 usec
-            pulse 4.7 usec
+         video_fields()
+         {
+            // if 
+            for  (i = 0 to 305){
+               period 64 usec
+               pulse 4.7 usec
 
-            do enable disable of telem and osd funs from here
+               do enable disable of telem and osd funs from here
+            }
          }
-      }
-    */
-}
+       */
+   }
+
+}// detail

@@ -79,4 +79,32 @@ namespace detail{
       >();
 
    }
+
+   void external_spi_take_down()
+   {
+      quan::stm32::apply<
+         video_mux_out_black_sck   // same on all boards
+         ,quan::stm32::gpio::mode::input
+         ,quan::stm32::gpio::pupd::pull_up // init clock low
+      >();
+
+      quan::stm32::apply<
+         video_mux_out_black_miso  // PB14 or PC2 on boardtype 4
+         ,quan::stm32::gpio::mode::input
+         ,quan::stm32::gpio::pupd::pull_up // init clock low
+      >();
+
+      quan::stm32::apply<
+         video_mux_out_white_sck   // same on all boards
+         ,quan::stm32::gpio::mode::input
+         ,quan::stm32::gpio::pupd::pull_up // init clock low
+      >();
+
+      quan::stm32::apply<
+         video_mux_out_white_miso  // PB14 or PC2 on boardtype 4
+         ,quan::stm32::gpio::mode::input
+         ,quan::stm32::gpio::pupd::pull_up // init clock low
+      >();
+
+   }
 } // detail

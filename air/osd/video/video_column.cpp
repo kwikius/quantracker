@@ -36,15 +36,15 @@
 
 namespace {
 
-   SemaphoreHandle_t h_request_osd_buffers_swap = 0;
-   SemaphoreHandle_t h_osd_buffers_swapped = 0;
-   BaseType_t HigherPriorityTaskWoken_osd = 0;
+   SemaphoreHandle_t h_request_osd_buffers_swap = 0U;
+   SemaphoreHandle_t h_osd_buffers_swapped = 0U;
+   BaseType_t HigherPriorityTaskWoken_osd = 0U;
 
 #if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
 // used for tx and rx telem
-   SemaphoreHandle_t h_request_telem_buffers_swap =0;
-   SemaphoreHandle_t h_telem_buffers_swapped = 0;
-   BaseType_t HigherPriorityTaskWoken_telem = 0;
+   SemaphoreHandle_t h_request_telem_buffers_swap = 0U;
+   SemaphoreHandle_t h_telem_buffers_swapped = 0U;
+   BaseType_t HigherPriorityTaskWoken_telem = 0U;
 #endif
 }
 
@@ -54,6 +54,16 @@ namespace detail{
    {
       h_request_osd_buffers_swap = xSemaphoreCreateBinary();
       h_osd_buffers_swapped = xSemaphoreCreateBinary();
+   }
+
+   void reset_osd_swap_semaphores()
+   {
+      if (h_request_osd_buffers_swap != 0){
+         while (xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE){;}
+      }
+      if (h_osd_buffers_swapped != 0){
+         while (xSemaphoreGive(h_osd_buffers_swapped)== pdTRUE){;}
+      }
    }
 
    bool swap_osd_buffers(quan::time::ms const & wait_time)
@@ -531,6 +541,12 @@ void video_cfg::columns::uif_irq()
 // columns gate gate_timer on TIM2
 // triggered by hsync (TIM2_CH1) tim2_hsync_pin when enabled
 // compare on CC2 (CC4 for boardtype 4) gives one shot PWM to gate pixel gate_timer
+
+void video_cfg::columns::takedown()
+{
+     NVIC_DisableIRQ (TIM2_IRQn);
+}
+
 void video_cfg::columns::setup()
 {
    quan::stm32::module_enable<gate_timer>();

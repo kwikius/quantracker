@@ -25,30 +25,51 @@ namespace detail{
    void swap_osd_buffers();
    bool swap_osd_buffers(quan::time::ms const & wait_time);
    void create_osd_swap_semaphores();
+
+   
 }
 namespace {
-
+   int count =0;
    void draw_task(void * params)
    {
        vTaskDelay(100); // want to know if have video
        for (;;){
-
+        
          quan::uav::osd::on_draw();
 
          if ( osd_state::get() == osd_state::internal_video ){
-            if ( !osd_state::have_external_video()){
-               detail::swap_osd_buffers();
-            }else{
+            vTaskDelay(20);
+            if ( ++count >= 25){
+               count = 0;
+               quan::stm32::complement<heartbeat_led_pin>();
+            } 
+            if ( osd_state::have_external_video()){
+               count = 0;
                osd_state::set(osd_state::external_video);
             }
          }
-         constexpr quan::time::ms wait_time{1000};
-         if ( osd_state::get() == osd_state::external_video ){   
-            if (!detail::swap_osd_buffers(wait_time)){
-               osd_state::set(osd_state::internal_video);
+         if ( osd_state::get() == osd_state::suspended){
+         //    vTaskDelay(20);
+            if ( ++count >= 35){
+               count = 0;
+               quan::stm32::complement<heartbeat_led_pin>();
+            } 
+         }
+         if ( osd_state::get() == osd_state::external_video ){  
+            if ( ++count >= 50){
+               count = 0;
+               quan::stm32::complement<heartbeat_led_pin>();
+            }
+            constexpr quan::time::ms wait_time{1000};
+            if (detail::swap_osd_buffers(wait_time)){
                detail::swap_osd_buffers();
+            }else{
+               count = 0;
+               osd_state::set(osd_state::internal_video);
             }
          }
+
+         
       }
    }
 

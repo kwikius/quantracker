@@ -131,12 +131,8 @@ endif
 # -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
-draw_task.o sync_sep.o black_level.o dac.o led.o osd_state.o
-
-#ifeq(True,True)
-DEFINES += QUAN_OSD_ENABLE_INTERNAL_VIDEO_SIGNALS
-unprefixed_video_objects += internal_video_mode.o
-#endif
+draw_task.o sync_sep.o black_level.o dac.o led.o osd_state.o \
+internal_video_mode.o
 
 OBJDIR := obj/osd_lib/
 

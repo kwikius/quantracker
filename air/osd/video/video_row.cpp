@@ -27,6 +27,7 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
+#include "osd_state.hpp"
 
 // row line_counter on TIM3 (16 bit)
 // if ! defined QUAN_OSD_SOFTWARE_SYNCSEP
@@ -117,8 +118,17 @@ void video_cfg::rows::osd::end()
 #endif
 }
 
+void video_cfg::rows::takedown()
+{
+    NVIC_DisableIRQ (TIM3_IRQn);
+    m_cur_mode = mode::idle;
+    m_cur_row_odd = true;
+}
+
 void video_cfg::rows::setup()
 {
+//   m_cur_mode = mode::idle;
+//   m_cur_row_odd = true;
    quan::stm32::module_enable<line_counter>();
    quan::stm32::module_reset<line_counter>();
    {
@@ -215,12 +225,12 @@ void video_cfg::rows::setup()
 
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
-
+namespace detail{
+   void do_internal_video_mode_irq();
+}
 extern "C" void TIM3_IRQHandler()
 {
-
-
-
+   if (osd_state::get() == osd_state::external_video){
       typedef video_cfg::rows rows;  
       uint16_t const sr = rows::line_counter::get()->sr.get();
       if ( sr & (1 << 2)) { // cc2_if
@@ -228,21 +238,22 @@ extern "C" void TIM3_IRQHandler()
          rows::telem::begin();
       }else {
          if( sr & (1 << 3)){ // cc3_if
-           rows::line_counter::get()->sr.bb_clearbit<3>();
-           rows::telem::end();
+            rows::line_counter::get()->sr.bb_clearbit<3>();
+            rows::telem::end();
          }else{
             if( sr & (1 << 4)){ //cc4_if
                rows::line_counter::get()->sr.bb_clearbit<4>();
                rows::osd::begin();
-               
             }else{
                rows::line_counter::get()->sr.bb_clearbit<0>();  // must be uif
                rows::osd::end();
                return;
             }
          }
-      } 
-
+      }
+   }else{
+      detail::do_internal_video_mode_irq();
+   }
 }
 
 

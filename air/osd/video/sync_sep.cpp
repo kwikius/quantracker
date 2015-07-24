@@ -81,10 +81,7 @@ namespace {
 
 }; // namespace
 
-void detail::set_have_external_video(bool b)
-{
-  osd_state::m_have_external_video = b;
-}
+
 
 namespace quan{ namespace uav{ namespace osd{
 
@@ -114,14 +111,32 @@ namespace {
 }// namespace 
 
 namespace detail{
-void sync_sep_enable()
-{
-  sync_sep_reset();
-  sync_sep_timer::get()->sr = 0;
-  sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
-  sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
-   
-}
+   void sync_sep_enable()
+   {
+     sync_sep_reset();
+     sync_sep_timer::get()->sr = 0;
+     sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
+     sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
+      
+   }
+
+   void sync_sep_takedown()
+   {
+      NVIC_DisableIRQ(TIM8_BRK_TIM12_IRQn);
+      sync_sep_osd_state = osd_state::suspended;
+      video_mode = quan::uav::osd::video_mode::unknown;
+      quan::stm32::apply<
+         video_in_hsync_first_edge_pin,
+         quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::input, // PB15 TIM12_CH2
+         quan::stm32::gpio::pupd::pull_up
+      >();
+   }
 } //detail
 
 namespace {
@@ -136,6 +151,7 @@ namespace {
    void sync_sep_new_frame()
    {
       if( sync_sep_osd_state == osd_state::external_video){
+        // quan::stm32::clear<heartbeat_led_pin>();
          sync_sep_disable();
          public_video_mode = video_mode;
          // important if video_mode has changed from ntsc to pal etc
@@ -145,8 +161,12 @@ namespace {
          video_cfg::rows::line_counter::get()->cnt = 0;
          video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
       }else{
-         detail::set_have_external_video(true);
-         sync_sep_reset();
+          if (sync_sep_osd_state == osd_state::internal_video){
+         // quan::stm32::set<heartbeat_led_pin>();
+          osd_state::set_have_external_video();
+          sync_sep_reset();
+     }
+
       }
    }
 } // namespace
@@ -271,6 +291,7 @@ void on_hsync_first_edge()
 
 void on_hsync_second_edge() 
 {
+    
      calc_sync_pulse_type(); 
      if ( (sync_pulse_type != synctype_t::unknown)
                && (line_period != line_period_t::unknown) ) {
@@ -432,7 +453,6 @@ extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")))
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
 {
    uint16_t const sr = sync_sep_timer::get()->sr.get();
-
    if (sr & (1 << 1)) {  // cc1_if
       sync_sep_timer::get()->sr.bb_clearbit<1>();
       on_hsync_first_edge();

@@ -49,6 +49,20 @@ namespace {
         >();
    }
 
+   void hsync_take_down()
+   {
+        quan::stm32::apply<
+           video_in_tim2_hsync_pin
+           ,quan::stm32::gpio::mode::input
+           ,quan::stm32::gpio::pupd::pull_up
+        >();
+        quan::stm32::apply<
+           video_in_tim3_hsync_pin
+           ,quan::stm32::gpio::mode::input
+           ,quan::stm32::gpio::pupd::pull_up
+        >();
+   }
+
    void video_analog_input_setup()
    {
       quan::stm32::module_enable<video_adc_pin::port_type>();
@@ -105,6 +119,13 @@ void video_cfg::setup()
      columns::setup();
      rows::setup();
 }
+
+void video_cfg::takedown()
+{
+    spi_clock::takedown();
+    rows::takedown();
+    columns::takedown();
+}
  
 #if (defined QUAN_OSD_TELEM_TRANSMITTER)
    void setup_telemetry_transmitter_task();
@@ -124,6 +145,9 @@ namespace detail{
    void sync_sep_setup(osd_state::state_t state);
    void sync_sep_enable();
 #endif
+
+  void external_spi_take_down();
+  void sync_sep_takedown();
 }
 namespace detail{
 
@@ -150,6 +174,16 @@ namespace detail{
    #endif
      
    }
+
+  void external_video_take_down()
+  {
+    external_spi_take_down();
+    hsync_take_down();
+    video_buffers::init();
+    video_cfg::takedown();
+    sync_sep_takedown();
+    
+  }
 }
 
 void osd_setup()
