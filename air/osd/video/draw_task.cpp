@@ -61,9 +61,7 @@ namespace {
                quan::stm32::complement<heartbeat_led_pin>();
             }
             constexpr quan::time::ms wait_time{1000};
-            if (detail::swap_osd_buffers(wait_time)){
-               detail::swap_osd_buffers();
-            }else{
+            if (!detail::swap_osd_buffers(wait_time)){
                count = 0;
                osd_state::set(osd_state::internal_video);
             }
