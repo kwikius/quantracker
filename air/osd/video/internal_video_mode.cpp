@@ -22,28 +22,16 @@ namespace {
 
    void ivm_dac_setup()
    {
-       
-      // black white and sync voltages and functions, 
-      // leave current csync to catch video input if and when
-//       constexpr uint8_t dac_data_idx = 0; // (also grey)
-//       constexpr uint8_t dac_white_idx = 1;
-//       constexpr uint8_t dac_black_idx = 2;
-//       constexpr uint8_t dac_sync_idx = 3;
-//##########################
-       // for FMS6141 with 0.28 V d.c. offset at output with ac input
-      // Dac_write (dac_sync_idx, quan::voltage::V{0.58f}, 0);
-//########## FOR NTSC should be slightly above ?
-//    normal values
-//       Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
-//       Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
-//       Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
-// 00 (0) dac is black_level
-// 01 (1) dac is white
-// 10 (20 dac sync_tip
-       // Dac_write (0b11, quan::voltage::V{0.58f}, 0);  // sync comp
-          Dac_write (0b00, quan::voltage::V{0.9f}, 0); // black level
-          Dac_write (0b01, quan::voltage::V{2.26f}, 0); // white
-          Dac_write (0b10, quan::voltage::V{0.28f}, 1); // synctip
+// in internal video mode
+// only black and white available
+// 00 (0) at dac is black_level
+// 01 (1) at dac is white
+// 10 (20 at dac is sync_tip
+     // do need sync_comp may be best to write it now
+    // Dac_write (0b11, quan::voltage::V{0.58f}, 0);  // sync comp
+       Dac_write (0b00, quan::voltage::V{0.9f}, 0); // black level
+       Dac_write (0b01, quan::voltage::V{2.26f}, 0); // white
+       Dac_write (0b10, quan::voltage::V{0.28f}, 1); // synctip
 
    }
 
@@ -67,7 +55,7 @@ namespace {
          , quan::stm32::gpio::pupd::none
       >();
 
-     // also spi clocks
+     // also spi clocks only need black
       // black spi is now actually white!
       quan::stm32::module_enable<video_mux_out_black_miso::port_type>();
       quan::stm32::apply<
@@ -90,7 +78,7 @@ namespace {
          quan::stm32::tim::cr1_t cr1 = 0u;//sync_timer::get()->cr1.get();
             cr1.ckd = 0b00;  // no filter on ck
             cr1.arpe = false; // no preload
-            cr1.cms = 0b00;  // counting dependednt on dir bit
+            cr1.cms = 0b00;  // counting dependent on dir bit
             cr1.dir = false; // up counting
             cr1.opm = false; // not one pulse mode
             cr1.urs = false; 
@@ -101,7 +89,8 @@ namespace {
       {
          quan::stm32::tim::cr2_t cr2 = 0U;//sync_timer::get()->cr2.get();
             cr2.ti1s = false; // single trigger
-            cr2.mms = 0b100;  // OC1REF is TRGO for gate timer when enabled
+            cr2.mms = 0b011;  // TRGO  is CC1IF to start gate_timer
+            //cr2.mms = 0b100;  // OC1REF is TRGO for gate timer when enabled
             cr2.ccds = true;  // DMA on update
          sync_timer::get()->cr2.set(cr2.value);   
       }
@@ -127,10 +116,8 @@ namespace {
             ccmr1.oc1pe = false ; // new value in Capture compare reg (ccr1) is loaded direct
             ccmr1.oc1m = 0b110 ;// pwm mode 1 sync pulse at start of period
          sync_timer::get()->ccmr1.set(ccmr1.value);
-            // is 'active' part of pulse
       }
       // ccmr2 not used
-      //
       {
          quan::stm32::tim::ccer_t ccer = 0U; //sync_timer::get()->ccer.get();
          ccer.cc1e = true; // enable PC6 as output
@@ -140,7 +127,6 @@ namespace {
       }
    }
 
-   
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_timer>();
    constexpr uint32_t clocks_usec = timer_freq / 1000000U;
 
@@ -154,28 +140,36 @@ namespace {
          + ((((235U * clocks_usec) % 100U )>= 500 ) ? 1: 0);
 
    enum ivm_mode_t{
-         end_of_frame,
+         end_of_second_frame,
          pre_equalise,
          vsync,
          post_equalise,
          video_fields
    };
 
+   constexpr uint32_t start_of_telemetry_rows = 3;
+   constexpr uint32_t end_of_telemetry_rows = 16;
+   constexpr uint32_t start_of_osd_rows = 17;
+   constexpr uint32_t end_of_osd_rows = 300;
+   constexpr uint32_t num_video_fields = 304;
+
    ivm_mode_t ivm_mode = video_fields;
-   bool first_field = true;
-   uint32_t ivm_count = 0;
+   bool first_field = false;
+   uint32_t ivm_count = num_video_fields - 1;
 
 } //namespace
 
 namespace detail{
+
    void sync_sep_setup(osd_state::state_t state);
    void sync_sep_enable();
 
    void internal_video_mode_setup()
    {
       ivm_mode = video_fields;
-      ivm_count = 0;
-      first_field = true;
+      first_field = false;
+      ivm_count = num_video_fields - 1;
+      
       ivm_dac_setup();
       ivm_pin_setup();
       ivm_timer_setup();
@@ -185,7 +179,7 @@ namespace detail{
     
       sync_timer::get()->ccr1 = long_sync;
 
-      sync_timer::get()->arr = (first_field ?half_line:full_line) ;
+      sync_timer::get()->arr = full_line ;
 
       NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
       NVIC_EnableIRQ (TIM3_IRQn);
@@ -193,76 +187,99 @@ namespace detail{
       sync_sep_enable();
       quan::stm32::enable<sync_timer>();
    }
+}
 
+namespace {
 
-   // uif
+   void do_internal_video_mode_uif_irq()
+   { 
+      switch (ivm_mode){
+         case video_fields:
+            ++ivm_count;
+            switch( ivm_count){
+               case start_of_telemetry_rows:
+                  video_cfg::rows::telem::begin();
+                  break;
+               case end_of_telemetry_rows:
+                  video_cfg::rows::telem::end();
+                  break;
+               case start_of_osd_rows:
+                  video_cfg::rows::osd::begin();
+                  break;
+               case end_of_osd_rows:
+                  video_cfg::rows::osd::end();
+                  break;
+               case num_video_fields:{
+                     ivm_count = 0;
+                     if ( first_field == false){
+                        ivm_mode = end_of_second_frame; 
+                     }else{
+                        ivm_mode = pre_equalise;
+                        sync_timer::get()->ccr1 = short_sync;
+                     }
+                     sync_timer::get()->arr = half_line;
+                  }
+                  break;
+               default:
+                  break;
+            }
+            break;
+         case end_of_second_frame:
+            sync_timer::get()->ccr1 = short_sync;
+            ivm_mode = pre_equalise;
+            break;
+         case pre_equalise:
+            if ( ++ivm_count == 5){
+               ivm_mode = vsync;
+               sync_timer::get()->ccr1 = half_line - long_sync;
+               ivm_count = 0;
+            }
+            break;
+         case vsync:
+            if (++ivm_count == 5){
+               ivm_mode = post_equalise;
+               sync_timer::get()->ccr1 = short_sync;
+               first_field = !first_field;
+               ivm_count = 0;
+            }
+            break;
+         case post_equalise:
+            if ( first_field){
+               if (++ivm_count == 5){
+                  ivm_mode = video_fields;
+                  sync_timer::get()->ccr1 = long_sync;
+                  sync_timer::get()->arr = full_line ;
+                  ivm_count = 0;
+               }
+            }else{
+               ++ ivm_count;
+               if ( ivm_count == 4){
+                  sync_timer::get()->arr = full_line ;
+               }else{
+                  if (ivm_count == 5){
+                     ivm_mode = video_fields;
+                     sync_timer::get()->ccr1 = long_sync;
+                     ivm_count = 0;
+                  }
+               }
+            }
+            break;
+         default:
+         break;
+      }  
+   } 
+
+} // namespace
+
+namespace detail{
+
    void do_internal_video_mode_irq()
    {
-       sync_timer::get()->sr.set(0);
-   //   switch (ivm_mode){
-   //
-   //      case video_fields:
-   //         sync_timer::get()->arr = 
-            
-         
-      /* line period (H) = 64 usec
-       hsync 4.7 us +-0.1 us
-       do  1 full rows 4.7 usec low pulse then 64 - 4.7 usec high
-       just do pal for the mo
-
-         do_end_of_frame ()
-         {
-          if (first field){
-              period  = 32 usec  
-            }else{
-               period = 64 usec
-            }
-            do 4.7 usec low pulse ;
-         }
-         pre_equalise()
-         {
-            period = 32 usec
-            for ( i = 0 to 4){ // 5 x
-               do 2.35 usec low pulse
-            }
-         }
-         vsync ()
-         for ( i = 0 to 4)
-         {
-            period = 32 usec
-            low pulse = 32 - 2.35 usec
-         }
-      
-         post_equalise()
-         {
-            if ( first field){
-            for ( i = 0 to 4){
-                 period 32 usec
-                 pulse 2.35 usec
-               }
-            }else{ // second field
-               for ( i = 0 to 3){
-                 period 32 usec
-                 pulse 2.35 usec
-               }
-               once{
-                 period 64 usec
-                 pulse 2.35 usec
-               }
-            }
-         }
-
-         video_fields()
-         {
-            // if 
-            for  (i = 0 to 305){
-               period 64 usec
-               pulse 4.7 usec
-
-               do enable disable of telem and osd funs from here
-            }
-         }
-       */
+      auto const sr_flags = sync_timer::get()->sr.get();
+      if ( sr_flags & (1 << 0)) {
+         sync_timer::get()->sr.bb_clearbit<0>();
+         do_internal_video_mode_uif_irq();
+      }
    }
 
 }// detail

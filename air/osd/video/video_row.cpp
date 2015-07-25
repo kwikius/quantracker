@@ -66,12 +66,12 @@ uint16_t video_cfg::rows::osd::m_end_ntsc = 480;
 #else
 uint16_t video_cfg::rows::osd::m_begin = 34;
 // BALDLY just reduce this to 500 for NTSC?
+// values are x2 ( from interlace) so /2 for count in frame
 uint16_t video_cfg::rows::osd::m_end_pal = 600;
 uint16_t video_cfg::rows::osd::m_end_ntsc = 500;
 #endif
 //###############################################################
 video_cfg::rows::mode video_cfg::rows::m_cur_mode = mode::idle;
-
 bool video_cfg::rows::m_cur_row_odd = true;
 
 // on first edge of hsync 

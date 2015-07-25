@@ -453,6 +453,7 @@ extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")))
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
 {
    uint16_t const sr = sync_sep_timer::get()->sr.get();
+  
    if (sr & (1 << 1)) {  // cc1_if
       sync_sep_timer::get()->sr.bb_clearbit<1>();
       on_hsync_first_edge();

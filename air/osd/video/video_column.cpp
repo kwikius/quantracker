@@ -172,8 +172,6 @@ namespace {
 // (start of line must be greater than time_from_second_edge = 5.75 usec from second edge of hsync
 // mbegin  >= time_from_second_edge * pixel_clk_frequency;
 
-
-
 #if defined (QUAN_DISPLAY_INTERLACED)
 uint16_t video_cfg::columns::osd::m_begin = 90;
 // one after last visible pixel in pixel units from pixel 0
@@ -195,11 +193,10 @@ uint16_t video_cfg::columns::telem::m_begin = 12;
 // One after last bit in bit units from bit 0
 uint16_t video_cfg::columns::telem::m_end = 110;
 
-//bool is_receiver(){return receiver;}
-// called by row line_counter
-
-// at first edge of hsync
-//on start of next after last active row
+// called on first edge of hsync
+// on start of next after last active row
+// by line_counter.compare in external mode
+// and in timer3.uif in internal mode
 void video_cfg::columns::disable()
 {
    //change SMS to slave mode disabled
@@ -210,6 +207,8 @@ void video_cfg::columns::disable()
 
 // called on first edge of hsync
 // at start of first osd row
+// by line_counter.compare in external mode
+// and in timer3.uif in internal mode
 //########################check use of TIM2 Ch2 and ch4 here //#################
 void video_cfg::columns::osd::enable()
 {
@@ -229,9 +228,10 @@ void video_cfg::columns::osd::enable()
 #endif
 //##############################check use of CR2 here ##################
    gate_timer::get()->arr = ( (m_end +7) * clks_px) - 1;  // end px /2 as busclk is only half of pixel bus clk
-//
+//###################### internal or external_mode ##########
    // change gate to trigger mode ready for hsync second edge to start gate_timer
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
+//###########################################################
 
    gate_timer::get()->sr.bb_clearbit<6>(); //(TIF)
    gate_timer::get()->dier.bb_setbit<6>(); // (TIE)
@@ -326,7 +326,6 @@ namespace {
 // at start of first telem row
 void video_cfg::columns::telem::enable()
 {
-
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -426,7 +425,7 @@ void video_cfg::columns::telem::disable()
 }
  
 // called at second edge of hsync
-// start of telem rows
+// at start of each telem row
 void video_cfg::columns::telem::begin()
 {
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -452,6 +451,7 @@ void video_cfg::columns::telem::begin()
 
 }
 
+// called at end of each telem row (gate_timer one shot uif)
 void video_cfg::columns::telem::end()
 {
 
@@ -468,7 +468,8 @@ void video_cfg::columns::telem::end()
  #endif
 }
 // called at rising edge of hsync
-// start of osd rows
+// start of each osd row gat timer TIF .
+// either by external trigger or by internal rising edge
 void video_cfg::columns::osd::begin()
 {
    uint8_t* const black = video_buffers::osd::get_black_read_pos() ;
@@ -510,6 +511,8 @@ void video_cfg::columns::tif_irq()
    }
 }
  
+// called at end of each telem or osd line
+// by gate_timer.uif
 void video_cfg::columns::osd::end()
 {
    gate_timer::get()->sr.bb_clearbit<6>();// TIF
@@ -517,7 +520,6 @@ void video_cfg::columns::osd::end()
 #if defined (QUAN_DISPLAY_INTERLACED)
    video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1) *2);
 #else
-// not interlaced
  video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1));
 #endif
    gate_timer::get()->cnt = 0;
@@ -529,7 +531,8 @@ void video_cfg::columns::osd::end()
    DMA1_Stream4->CR &= ~ (1 << 0); // (EN)
    DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
 }
-// at end of line
+// called at end of each telem or osd line
+// by gate_timer.uif
 void video_cfg::columns::uif_irq()
 {
    if (video_cfg::rows::get_current_mode() == rows::mode::telemetry) {
@@ -565,7 +568,7 @@ void video_cfg::columns::setup()
    }
    {
       quan::stm32::tim::cr2_t cr2 = gate_timer::get()->cr2.get();
-      cr2.ti1s = false; // TIM2_CH1 is connected to TI1
+      cr2.ti1s = false; // TIM2_CH1 is connected to TI1 only not xored
 #if (QUAN_OSD_BOARD_TYPE == 4)
       cr2.mms = 0b111;// OC4REF is TRGO
 #else
@@ -576,14 +579,28 @@ void video_cfg::columns::setup()
     // smcr trigger polarity?
    {
       quan::stm32::tim::smcr_t smcr = gate_timer::get()->smcr.get();
-      smcr.msm = false  ; // sync with external timers
-      smcr.ts  = 0b101 ; // trigger source is filtered timer TI1FP1
-      smcr.sms = 0b000 ; // no slave trigger till enabled ( by row line_counter)
+      smcr.msm = false  ; // no sync with external timers
+//########################## INTERNAL VIDEO ######################################
+      // src in TIM3 is the second edge of the sync pulse
+      
+      // rising edge created by taking dac addr from 00 to 01
+      // created by pwm in TIM3 
+//    smcr.ts  = 0b010 ; // internal video trigger source is TIM3 TRGO mapped to ITR2 
+//##########################EXTERNAL VIDEO########################################
+      smcr.ts  = 0b101 ; // external video trigger source is filtered timer TI1FP1
+//#########################################################
+      // sms is set to trigger mode (0b110) at start of telem/ osd rows
+      smcr.sms = 0b000 ; // no slave trigger till enabled ( by row line_counter or TIM3 TRGO)
       gate_timer::get()->smcr.set (smcr.value);
    }
    {
+//#######################
       quan::stm32::tim::ccmr1_t ccmr1 = gate_timer::get()->ccmr1.get();
+//########################## INTERNAL VIDEO ######################################
+  // dont think we need to config ccmr1 cc1
+//##########################EXTERNAL VIDEO########################################
       ccmr1.cc1s   = 0b01;   // IC1 is input mapped on TI1 (hsync)
+//##################################################################
       ccmr1.ic1psc = 0b00;   // no prescaler
       ccmr1.ic1f   = 0b0000; // no filter
 #if (QUAN_OSD_BOARD_TYPE == 4)
@@ -600,11 +617,13 @@ void video_cfg::columns::setup()
       ccmr1.oc2pe = false;
       ccmr1.oc2m  = 0b111;  // pwm mode 2
       gate_timer::get()->ccmr1.set (ccmr1.value);
-#endif
-      
+#endif 
    }
    {
       quan::stm32::tim::ccer_t ccer = gate_timer::get()->ccer.get();
+//##################### INTERNAL VIDEO ##############################
+// cc1 not need but must be input
+//##################### EXTERNAL VIDEO ##############################
 // second edge of hsync TIM2_CH1 
 #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
       ccer.cc1np = false;  // Ti1FP1 rising edge trigger ( hsync)
@@ -617,6 +636,7 @@ void video_cfg::columns::setup()
       #error unknown board type
    #endif
 #endif
+//################################################################
       #if (QUAN_OSD_BOARD_TYPE == 4)
       ccer.cc4p  = true;  // active low ???
       ccer.cc4e  = true;
@@ -639,6 +659,8 @@ void video_cfg::columns::setup()
    // dont set CEN as it will be enabled by hsync on input trigger
 }
  
+// tim2 is gate timer
+// used to gate the pixel clock
 extern "C" void TIM2_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
  
 extern "C" void TIM2_IRQHandler()
