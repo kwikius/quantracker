@@ -32,6 +32,7 @@
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
+#include "osd_state.hpp"
 #include <quan/conversion/itoa.hpp>
 
 namespace {
@@ -220,19 +221,12 @@ void video_cfg::columns::osd::enable()
    spi_clock::timer::get()->ccr1 = clks_px-1; // faster bus clk
    // pixel clk gate timing
    gate_timer::get()->cnt = 0;
-//######################Check use of CCR2 here###############
-#if (QUAN_OSD_BOARD_TYPE == 4)
    gate_timer::get()->ccr4 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
-#else
-   gate_timer::get()->ccr2 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
-#endif
-//##############################check use of CR2 here ##################
    gate_timer::get()->arr = ( (m_end +7) * clks_px) - 1;  // end px /2 as busclk is only half of pixel bus clk
 //###################### internal or external_mode ##########
    // change gate to trigger mode ready for hsync second edge to start gate_timer
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
 //###########################################################
-
    gate_timer::get()->sr.bb_clearbit<6>(); //(TIF)
    gate_timer::get()->dier.bb_setbit<6>(); // (TIE)
 
@@ -314,10 +308,12 @@ namespace {
       quan::stm32::rcc::get()->apb1rstr &= ~ (0b11 << 14);
       
       spi_setup1<video_mux_out_black_spi>();
-      spi_setup1<video_mux_out_white_spi>();
-      
       video_mux_out_black_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
-      video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+
+      if( osd_state::get() == osd_state::external_video){
+         spi_setup1<video_mux_out_white_spi>();
+         video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+      }
    }
  
 }//namespace
@@ -329,62 +325,42 @@ void video_cfg::columns::telem::enable()
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-         service_telem_tx_buffers();
-         video_buffers::telem::tx::manager.read_reset();
-         // pixel clk timing
-         spi_clock::timer::get()->cnt = 0;
-         // div 2 for slower clk so compensate in faster bus clk
-         spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
-         spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
-     // }
+#pragma message "need to redo this for internal video modes"
+   service_telem_tx_buffers();
+   video_buffers::telem::tx::manager.read_reset();
+   // pixel clk timing
+   spi_clock::timer::get()->cnt = 0;
+   // div 2 for slower clk so compensate in faster bus clk
+   spi_clock::timer::get()->arr = clks_bit*2 - 1; // faster bus clk
+   spi_clock::timer::get()->ccr1 = clks_bit -1; // faster bus clk
 #endif
    // pixel timer gate timing
    gate_timer::get()->cnt = 0;
-//##############################check use of ccr2 here#####################
-#if (QUAN_OSD_BOARD_TYPE == 4)
-    gate_timer::get()->ccr4 = m_begin * clks_bit - 1;
-#else
-   gate_timer::get()->ccr2 = m_begin * clks_bit - 1;
-#endif
-//################################################################
+   gate_timer::get()->ccr4 = m_begin * clks_bit - 1;
    gate_timer::get()->arr = (m_end - 1)  * clks_bit - 1 ;
 #if defined QUAN_OSD_TELEM_RECEIVER
-   #if (QUAN_OSD_BOARD_TYPE == 4)
    gate_timer::get()->ccer.bb_setbit<12>();//( CC4E) // gate timer output enable cmp TIM2_CH4
-   #else
-   gate_timer::get()->ccer.bb_setbit<4>(); //(CC2E)  // gate timer output enable cmp TIM2_CH2
-   #endif
 #endif
    gate_timer::get()->sr.bb_clearbit<6>();  // (TIF)
    gate_timer::get()->dier.bb_setbit<6>();  // (TIE)
    // change gate to trigger mode ready for TRGI edge to start gate_timer
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
-
 #if defined QUAN_OSD_TELEM_RECEIVER
-      uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
-#if (QUAN_OSD_BOARD_TYPE == 4)
-      DMA_Stream_TypeDef *stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
-#else
-      DMA_Stream_TypeDef *stream = DMA2_Stream5; // USART1_RX DMA2 stream 5 Cha 4
-#endif
-       stream->M0AR = (uint32_t)ptr;
-       stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
-#if (QUAN_OSD_BOARD_TYPE == 4)
-       DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
-       DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Dma2 Stream 1
-#else
-       DMA2->HIFCR |= (0b111101 << 6) ; // clear flags for Dma2 stream 5
-       DMA2->HIFCR &= ~ (0b111101 << 6) ; // flags for DMA2 stream 5
-#endif      
-       av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
-       av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
-       av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
-       av_telem_usart::get()->sr = 0;
-       av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
-       stream->CR |= (1 << 0); // (EN)
+   uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
+   DMA_Stream_TypeDef * stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
+   stream->M0AR = (uint32_t)ptr;
+   stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
+   DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
+   DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Dma2 Stream 1     
+   av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
+   av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
+   av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
+   av_telem_usart::get()->sr = 0;
+   av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
+   stream->CR |= (1 << 0); // (EN)
 #endif // defined QUAN_OSD_TELEM_RECEIVER
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-      portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
+   portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
 #endif
 }
  //void set_text_data( const char* text);
@@ -398,12 +374,7 @@ void video_cfg::columns::telem::disable()
 
 #if defined QUAN_OSD_TELEM_RECEIVER
 // channel 4 on board_type 4
-   #if (QUAN_OSD_BOARD_TYPE == 4)
    gate_timer::get()->ccer.bb_clearbit<12>();//( CC4E)
-   #else
-   gate_timer::get()->ccer.bb_clearbit<4>(); //(CC2E)
-   #endif
-   #if (QUAN_OSD_BOARD_TYPE == 4)
     //###########DEBUG############################
 //      if (DMA2_Stream1->NDTR == video_buffers::telem::rx::get_num_data_bytes()){
 //         quan::stm32::clear<heartbeat_led_pin>();
@@ -411,12 +382,7 @@ void video_cfg::columns::telem::disable()
 //         quan::stm32::set<heartbeat_led_pin>();
 //      }
       // disable the usart DMA
-      DMA2_Stream1->CR &= ~(1 << 0); // (EN)
-   #else
-      DMA2_Stream5->CR &= ~(1 << 0); // (EN)
-   #endif
-
-      av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
+      DMA2_Stream1->CR &= ~(1 << 0); // (EN)      av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
       av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
       service_telem_rx_buffers();
       portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
@@ -433,20 +399,42 @@ void video_cfg::columns::telem::begin()
       uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       uint16_t const dma_length = video_buffers::telem::tx::get_full_bytes_per_line()-1;
 // same for all boards
-      DMA1_Stream5->M0AR = (uint32_t) (white+1);
-      DMA1_Stream5->NDTR = dma_length  ;
-      DMA1->HIFCR |= (0b111101 << 6) ;
-      DMA1->HIFCR &= ~ (0b111101 << 6) ;
-      
-      // spi3 module enable reset
-      quan::stm32::rcc::get()->apb1enr |= (0b1 << 15);
-      quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
-      quan::stm32::rcc::get()->apb1rstr &= ~ (0b1 << 15);
-      spi_setup1<video_mux_out_white_spi>();
-      video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
-      video_mux_out_white_spi::get()->dr = white[0] | 0b00001111;
-      video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
-      DMA1_Stream5->CR |= (1 << 0); // (EN)
+      if (osd_state::get() == osd_state::external_video){
+         // in internal mode need to send out of black stream
+         DMA1_Stream5->M0AR = (uint32_t) (white+1);
+         DMA1_Stream5->NDTR = dma_length  ;
+         DMA1->HIFCR |= (0b111101 << 6) ;
+         DMA1->HIFCR &= ~ (0b111101 << 6) ;
+         // spi3 module enable and reset
+         quan::stm32::rcc::get()->apb1enr |= (0b1 << 15);
+         quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
+         quan::stm32::rcc::get()->apb1rstr &= ~ (0b1 << 15);
+         spi_setup1<video_mux_out_white_spi>();
+         video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+         video_mux_out_white_spi::get()->dr = white[0] | 0b00001111;
+         video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+         DMA1_Stream5->CR |= (1 << 0); // (EN)
+      }else{
+          // only black channel TODO use usart for tx
+          // use spi2 module for telemetry transmission
+          DMA1_Stream4->M0AR = (uint32_t) (white+1);
+          DMA1_Stream4->NDTR = dma_length  ;
+          DMA1->HIFCR |= (0b111101 << 0) ;
+          DMA1->HIFCR &= ~ (0b111101 << 0) ;
+/////////////////////////////////////////////////////////
+          quan::stm32::rcc::get()->apb1enr |= (0b1 << 14);
+        //try change to   quan::stm32::rcc::get()->apb1enr.bb_setbit<14>();
+         // ...etc
+//###############################################
+          quan::stm32::rcc::get()->apb1rstr |= (0b1 << 14);
+          quan::stm32::rcc::get()->apb1rstr &= ~ (0b1 << 14);
+          spi_setup1<video_mux_out_black_spi>();
+          video_mux_out_black_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+          video_mux_out_black_spi::get()->dr = white[0] | 0b00001111;
+          video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+          DMA1_Stream4->CR |= (1 << 0); // (EN)
+ 
+      }
 #endif
 
 }
@@ -454,17 +442,20 @@ void video_cfg::columns::telem::begin()
 // called at end of each telem row (gate_timer one shot uif)
 void video_cfg::columns::telem::end()
 {
-
 #if defined QUAN_OSD_TELEM_TRANSMITTER
+
       gate_timer::get()->dier.bb_setbit<6>(); // TIE
       video_buffers::telem::tx::manager.read_advance (video_buffers::telem::tx::get_full_bytes_per_line());
       gate_timer::get()->cnt = 0;
       video_cfg::spi_clock::timer::get()->cnt = 0;
-      // reset spi3
-      quan::stm32::rcc::get()->apb1enr &= ~ (0b1 << 15);
-      quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
-      
-      DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
+      if (osd_state::get() == osd_state::external_video){
+         // reset spi3
+         quan::stm32::rcc::get()->apb1enr &= ~ (0b1 << 15);
+         quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
+         DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
+      }else{
+#pragma message "need to redo this for internal video modes"
+      }
  #endif
 }
 // called at rising edge of hsync
@@ -472,31 +463,34 @@ void video_cfg::columns::telem::end()
 // either by external trigger or by internal rising edge
 void video_cfg::columns::osd::begin()
 {
-   uint8_t* const black = video_buffers::osd::get_black_read_pos() ;
-   uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
-   
    uint16_t const dma_length = (video_cfg::get_display_size_x_bytes());
+
+   uint8_t* const black = video_buffers::osd::get_black_read_pos() ;
    black[dma_length+1] |= 0x0F;
-   white[dma_length+1] |= 0x0F;
-   
    DMA1_Stream4->M0AR = (uint32_t) (black+1);
-   DMA1_Stream5->M0AR = (uint32_t) (white+1);
-   
    DMA1_Stream4->NDTR = dma_length  ;
-   DMA1_Stream5->NDTR = dma_length  ;
-   
+
+   if( osd_state::get() == osd_state::external_video){
+      uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
+      white[dma_length+1] |= 0x0F;
+      video_mux_out_white_spi::get()->dr = white[0] | 1U;
+      video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+      DMA1_Stream5->M0AR = (uint32_t) (white+1);
+      DMA1_Stream5->NDTR = dma_length  ;
+   }
    DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
    DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
-   
    spi_ll_setup();
    
    video_mux_out_black_spi::get()->dr = black[0] | 1U;
-   video_mux_out_white_spi::get()->dr = white[0] | 1U;
    video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
-   video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
-
-   DMA1_Stream4->CR |= (1 << 0); // (EN)
-   DMA1_Stream5->CR |= (1 << 0); // (EN)
+   if( osd_state::get() == osd_state::external_video){
+      DMA1_Stream4->CR |= (1 << 0); // (EN)
+      DMA1_Stream5->CR |= (1 << 0); // (EN)
+   }else{
+      DMA1_Stream4->CR |= (1 << 0); // (EN)
+   }
+ 
 }
 // at start of line, before visible pixels on line, setup dma
 // also at start of telem data
@@ -520,7 +514,7 @@ void video_cfg::columns::osd::end()
 #if defined (QUAN_DISPLAY_INTERLACED)
    video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1) *2);
 #else
- video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1));
+   video_buffers::osd::manager.read_advance ( (video_cfg::get_display_size_x_bytes() +1));
 #endif
    gate_timer::get()->cnt = 0;
    video_cfg::spi_clock::timer::get()->cnt = 0;
@@ -528,8 +522,12 @@ void video_cfg::columns::osd::end()
    quan::stm32::rcc::get()->apb1enr &= ~ (0b11 << 14);
    quan::stm32::rcc::get()->apb1rstr |= (0b11 << 14);
    // disable SPI DMA's
-   DMA1_Stream4->CR &= ~ (1 << 0); // (EN)
-   DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
+   if( osd_state::get() == osd_state::external_video){
+      DMA1_Stream4->CR &= ~ (1 << 0); // (EN)
+      DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
+   }else{
+      DMA1_Stream4->CR &= ~ (1 << 0); // (EN)
+   }
 }
 // called at end of each telem or osd line
 // by gate_timer.uif
@@ -569,81 +567,62 @@ void video_cfg::columns::setup()
    {
       quan::stm32::tim::cr2_t cr2 = gate_timer::get()->cr2.get();
       cr2.ti1s = false; // TIM2_CH1 is connected to TI1 only not xored
-#if (QUAN_OSD_BOARD_TYPE == 4)
       cr2.mms = 0b111;// OC4REF is TRGO
-#else
-      cr2.mms = 0b101; // OC2REF is TRGO
-#endif
       gate_timer::get()->cr2.set (cr2.value);
    }
-    // smcr trigger polarity?
    {
       quan::stm32::tim::smcr_t smcr = gate_timer::get()->smcr.get();
       smcr.msm = false  ; // no sync with external timers
+      if( osd_state::get() == osd_state::internal_video){
 //########################## INTERNAL VIDEO ######################################
       // src in TIM3 is the second edge of the sync pulse
-      
       // rising edge created by taking dac addr from 00 to 01
       // created by pwm in TIM3 
-//    smcr.ts  = 0b010 ; // internal video trigger source is TIM3 TRGO mapped to ITR2 
+        smcr.ts  = 0b010 ; // internal video trigger source is TIM3 TRGO mapped to ITR2 
+      }else {
 //##########################EXTERNAL VIDEO########################################
-      smcr.ts  = 0b101 ; // external video trigger source is filtered timer TI1FP1
+         smcr.ts  = 0b101 ; // external video trigger source is filtered timer TI1FP1
+      }
 //#########################################################
       // sms is set to trigger mode (0b110) at start of telem/ osd rows
       smcr.sms = 0b000 ; // no slave trigger till enabled ( by row line_counter or TIM3 TRGO)
       gate_timer::get()->smcr.set (smcr.value);
    }
    {
-//#######################
       quan::stm32::tim::ccmr1_t ccmr1 = gate_timer::get()->ccmr1.get();
-//########################## INTERNAL VIDEO ######################################
-  // dont think we need to config ccmr1 cc1
-//##########################EXTERNAL VIDEO########################################
-      ccmr1.cc1s   = 0b01;   // IC1 is input mapped on TI1 (hsync)
-//##################################################################
+
+      if  ( osd_state::get() == osd_state::external_video){
+         ccmr1.cc1s   = 0b01;   // IC1 is input mapped on TI1 (hsync)
+      }else{
+          // dont think we need to config ccmr1 cc1
+         // this isnt connected to a pin in internal video mode
+         ccmr1.cc1s   = 0b00; // output 
+      }
       ccmr1.ic1psc = 0b00;   // no prescaler
       ccmr1.ic1f   = 0b0000; // no filter
-#if (QUAN_OSD_BOARD_TYPE == 4)
       gate_timer::get()->ccmr1.set (ccmr1.value);
+   }
+
+   {
       quan::stm32::tim::ccmr2_t ccmr2 = gate_timer::get()->ccmr2.get();
       ccmr2.cc4s  = 0b00;   // OC4 is output mapped to TRGO ( enable px clk)
       ccmr2.oc4fe = false;
       ccmr2.oc4pe = false;
       ccmr2.oc4m  = 0b111;  // pwm mode 2
       gate_timer::get()->ccmr2.set (ccmr2.value);
-#else
-      ccmr1.cc2s  = 0b00;   // OC2 is output mapped to TRGO ( enable px clk)
-      ccmr1.oc2fe = false;
-      ccmr1.oc2pe = false;
-      ccmr1.oc2m  = 0b111;  // pwm mode 2
-      gate_timer::get()->ccmr1.set (ccmr1.value);
-#endif 
+ 
    }
    {
       quan::stm32::tim::ccer_t ccer = gate_timer::get()->ccer.get();
 //##################### INTERNAL VIDEO ##############################
-// cc1 not need but must be input
+// cc1 not needed
 //##################### EXTERNAL VIDEO ##############################
 // second edge of hsync TIM2_CH1 
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
+      // dont care if internal video mode
       ccer.cc1np = false;  // Ti1FP1 rising edge trigger ( hsync)
       ccer.cc1p  = false;  // Ti1FP1 rising edge trigger
-#else
-   #if (QUAN_OSD_BOARD_TYPE == 2)
-      ccer.cc1np = false;  // Ti1FP1 falling edge trigger ( hsync)
-      ccer.cc1p  = true;  // Ti1FP1 falling edge trigger
-   #else
-      #error unknown board type
-   #endif
-#endif
-//################################################################
-      #if (QUAN_OSD_BOARD_TYPE == 4)
       ccer.cc4p  = true;  // active low ???
       ccer.cc4e  = true;
-      #else
-      ccer.cc2p  = true;  // active low ???
-      ccer.cc2e  = true;
-      #endif
       gate_timer::get()->ccer.set (ccer.value);
    }
    gate_timer::get()->psc = 0;

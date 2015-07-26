@@ -24,6 +24,7 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include <quan/constrain.hpp>
+#include "osd_state.hpp"
 #include "../resources.hpp"
 
 #if (QUAN_OSD_BOARD_TYPE != 1 ) 
@@ -157,35 +158,47 @@ void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code)
     ll_dac_write(data);
 }
 namespace {
+
+  
+   void external_video_mode_dac_setup()
+   {
+      constexpr uint8_t dac_data_idx = 0; // (also grey)
+      constexpr uint8_t dac_white_idx = 1;
+      constexpr uint8_t dac_black_idx = 2;
+      constexpr uint8_t dac_sync_idx = 3;
+      //##########################
+      // for FMS6141 with 0.28 V d.c. offset at output with ac input
+      Dac_write (dac_sync_idx, quan::voltage::V{0.58f}, 0);
+      //########## FOR NTSC should be slightly above ?
+      Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
+      Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
+      Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
+   }
+
+   void internal_video_mode_dac_setup()
+   {
+// in internal video mode
+// only black and white available
+// 00 (0) at dac is black_level
+// 01 (1) at dac is white
+// 10 (20 at dac is sync_tip
+     // do need sync_comp may be best to write it now
+       Dac_write (0b11, quan::voltage::V{0.58f}, 0);  // sync comp
+       Dac_write (0b00, quan::voltage::V{0.9f}, 0); // black level
+       Dac_write (0b01, quan::voltage::V{2.26f}, 0); // white
+       Dac_write (0b10, quan::voltage::V{0.28f}, 1); // synctip
+
+   }
+
+
+
    void set_init_dac_values()
    {
-
-    #if (QUAN_OSD_BOARD_TYPE != 1 )
-     #if ((QUAN_OSD_BOARD_TYPE == 4 ) && ! ( defined QUAN_DISCOVERY))
-//###############################################
-       // only if not on Discovery unless change the soldered pins
-         // reversed on pcb board 4 for simpler routing
-       constexpr uint8_t dac_data_idx = 0; // (also grey)
-       constexpr uint8_t dac_white_idx = 1;
-       constexpr uint8_t dac_black_idx = 2;
-       constexpr uint8_t dac_sync_idx = 3;
-//##########################
-       // for FMS6141 with 0.28 V d.c. offset at output with ac input
-       Dac_write (dac_sync_idx, quan::voltage::V{0.58f}, 0);
-//########## FOR NTSC should be slightly above ?
-       Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
-       Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
-       Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
-      #else
-       constexpr uint8_t dac_data_idx = 3;
-       constexpr uint8_t dac_black_idx = 1;
-       constexpr uint8_t dac_white_idx = 2;
-    
-       Dac_write (dac_black_idx, quan::voltage::V{0.64f}, 0); // 0.64
-       Dac_write (dac_white_idx, quan::voltage::V{2.04f} , 0); // 2.04
-       Dac_write (dac_data_idx, quan::voltage::V{1.2f}, 1);
-      #endif
-   #endif
+      if( osd_state::get() == osd_state::external_video){
+       external_video_mode_dac_setup();  
+      }else{
+         internal_video_mode_dac_setup();
+      }
    }
 }
 

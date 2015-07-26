@@ -21,13 +21,14 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 #include <stm32f4xx.h>
-#include "../resources.hpp"
 #include <quan/stm32/rcc.hpp>
+#include "../resources.hpp"
+#include "osd_state.hpp"
 
 namespace detail{
    // just setup the spi pins here
    // actual spi setup is done variously
-   void external_spi_setup()
+   void spi_setup()
    {
       // rcc
      // black on spi2, white on spi3
@@ -49,38 +50,65 @@ namespace detail{
       >();
 
       quan::stm32::module_enable<video_mux_out_white_sck::port_type>();
-      quan::stm32::apply<
-         video_mux_out_white_sck   //PB3 or PC10 on baordtype 4
-         ,quan::stm32::gpio::mode::af6  // same for both pins
-         ,quan::stm32::gpio::pupd::pull_down // init clock low
-      >();
-
+      if( osd_state::get() == osd_state::external_video){
+         quan::stm32::apply<
+            video_mux_out_white_sck   //PB3 or PC10 on baordtype 4
+            ,quan::stm32::gpio::mode::af6  // same for both pins
+            ,quan::stm32::gpio::pupd::pull_down // init clock low
+         >();
+      }else{
+           quan::stm32::apply<
+            video_mux_out_white_sck   //PB3 or PC10 on baordtype 4
+            ,quan::stm32::gpio::mode::input  // same for both pins
+            ,quan::stm32::gpio::pupd::pull_up // init clock low
+         >();
+      }
+    
       quan::stm32::module_enable<video_mux_out_white_miso::port_type>();
-      quan::stm32::apply<
-         video_mux_out_white_miso  //PB4 or PC11 on boardtype 4
-         ,quan::stm32::gpio::mode::af6 // same for both pins
-   #if QUAN_OSD_BOARD_TYPE == 1
-         ,quan::stm32::gpio::otype::open_drain
-   #else
-        #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
-         ,quan::stm32::gpio::otype::push_pull
-       #else
-         #error undefined board type
-       #endif
-   #endif
-   // prob shoulnt be for Boardtype1 since goes to 5V
-   #if QUAN_OSD_BOARD_TYPE == 1
-         ,quan::stm32::gpio::pupd::none
-   #else
-         ,quan::stm32::gpio::pupd::pull_up
-   #endif
-         ,quan::stm32::gpio::ospeed::fast
-         ,quan::stm32::gpio::ostate::high
-      >();
+      if ( osd_state::get() == osd_state::external_video){
+         quan::stm32::apply<
+            video_mux_out_white_miso  //PB4 or PC11 on boardtype 4
+            ,quan::stm32::gpio::mode::af6 // same for both pins
+      #if QUAN_OSD_BOARD_TYPE == 1
+            ,quan::stm32::gpio::otype::open_drain
+      #else
+           #if  (QUAN_OSD_BOARD_TYPE == 2) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
+            ,quan::stm32::gpio::otype::push_pull
+          #else
+            #error undefined board type
+          #endif
+      #endif
+      // prob shoulnt be for Boardtype1 since goes to 5V
+      #if QUAN_OSD_BOARD_TYPE == 1
+            ,quan::stm32::gpio::pupd::none
+      #else
+            ,quan::stm32::gpio::pupd::pull_up
+      #endif
+            ,quan::stm32::gpio::ospeed::fast
+            ,quan::stm32::gpio::ostate::high
+         >();
+      }else{
 
+         quan::stm32::module_enable<av_telem_tx::port_type>();
+         quan::stm32::apply<
+            av_telem_tx
+            , quan::stm32::gpio::mode::af2
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::pull_down
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::low
+         >();
+
+         quan::stm32::apply<
+            video_mux_out_white_miso
+            ,quan::stm32::gpio::mode::input
+            ,quan::stm32::gpio::pupd::none
+         >();
+      }
+         
    }
 
-   void external_spi_take_down()
+   void spi_takedown()
    {
       quan::stm32::apply<
          video_mux_out_black_sck   // same on all boards

@@ -159,10 +159,12 @@ private:
       static_assert (raw_timer_frequency == quan::frequency::Hz {168000000.0f},"unexpected timer frequency");
       static void setup();
       static void takedown();
-      static uint16_t get_timer_clks_per_px() {
+      static uint16_t get_timer_clks_per_px() 
+      {
          return m_timer_half_clks_per_px * 2;
       }
-      static uint16_t get_telem_clks_per_bit() {
+      static uint16_t get_telem_clks_per_bit() 
+      {
          return m_timer_half_clks_per_bit * 2;
       }
 private:
@@ -188,7 +190,7 @@ private:
 #if defined (QUAN_DISPLAY_INTERLACED)
        return rows::osd::get_visible_length();
 #else
- return rows::osd::get_visible_length()/2;
+       return rows::osd::get_visible_length()/2;
 #endif
    }
    // dump last pixels if not a multiple of 8

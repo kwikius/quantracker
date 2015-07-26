@@ -112,10 +112,12 @@ void video_cfg::rows::osd::end()
    // clear the row line_counter ready for
   // counting rows of next frame half
   // line_counter::get()->cnt = 0;
-   video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>() ;// CEN
+   if( osd_state::get() == osd_state::external_video){
+      video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>() ;// CEN
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
-   detail::sync_sep_enable();
+      detail::sync_sep_enable();
 #endif
+   }
 }
 
 void video_cfg::rows::takedown()
@@ -125,12 +127,16 @@ void video_cfg::rows::takedown()
     m_cur_row_odd = true;
 }
 
-void video_cfg::rows::setup()
-{
+namespace {
+
+   void video_cfg_rows_external_setup()
+   {
+    typedef video_cfg::rows::line_counter line_counter ;
 //   m_cur_mode = mode::idle;
 //   m_cur_row_odd = true;
    quan::stm32::module_enable<line_counter>();
    quan::stm32::module_reset<line_counter>();
+
    {
       quan::stm32::tim::cr1_t cr1 = line_counter::get()->cr1.get();
       cr1.opm = true; // one pulse mode
@@ -203,10 +209,11 @@ void video_cfg::rows::setup()
       ccmr2.oc4pe = false; // want to be able to update on the fly
       line_counter::get()->ccmr2.set (ccmr2.value);
    }
-
+   typedef video_cfg::rows::telem telem;
    line_counter::get()->ccr2 = telem::m_begin -1 ;
    line_counter::get()->ccr3 = telem::m_end - 1;
    // interlace means jump 2 rows per clk
+   typedef video_cfg::rows::osd osd;
    line_counter::get()->ccr4 = osd::m_begin/2-1 ;
    line_counter::get()->arr = osd::get_end()/2 - 2;
    {
@@ -221,13 +228,27 @@ void video_cfg::rows::setup()
    line_counter::get()->cnt = 0 ;
    NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ (TIM3_IRQn);
+
+   }
+}// namespace
+
+namespace detail{
+   void internal_video_mode_setup();
+   void do_internal_video_mode_irq();
+}
+
+void video_cfg::rows::setup()
+{
+   if (osd_state::get() == osd_state::external_video){
+     video_cfg_rows_external_setup();
+   }else{
+     detail::internal_video_mode_setup();
+   }
 }
 
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
-namespace detail{
-   void do_internal_video_mode_irq();
-}
+
 extern "C" void TIM3_IRQHandler()
 {
    if (osd_state::get() == osd_state::external_video){

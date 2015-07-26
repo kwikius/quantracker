@@ -63,7 +63,7 @@ namespace {
         post_equalise
    };
    
-   osd_state::state_t sync_sep_osd_state = osd_state::suspended;
+  // osd_state::state_t sync_sep_osd_state = osd_state::suspended;
    synctype_t sync_pulse_type = synctype_t::unknown;
    line_period_t line_period = line_period_t::unknown;
    uint16_t last_sync_first_edge = 0U;
@@ -123,7 +123,7 @@ namespace detail{
    void sync_sep_takedown()
    {
       NVIC_DisableIRQ(TIM8_BRK_TIM12_IRQn);
-      sync_sep_osd_state = osd_state::suspended;
+     // sync_sep_osd_state = osd_state::suspended;
       video_mode = quan::uav::osd::video_mode::unknown;
       quan::stm32::apply<
          video_in_hsync_first_edge_pin,
@@ -150,7 +150,7 @@ namespace {
    // signal at this point there is external video
    void sync_sep_new_frame()
    {
-      if( sync_sep_osd_state == osd_state::external_video){
+      if( osd_state::get() == osd_state::external_video){
         // quan::stm32::clear<heartbeat_led_pin>();
          sync_sep_disable();
          public_video_mode = video_mode;
@@ -161,21 +161,17 @@ namespace {
          video_cfg::rows::line_counter::get()->cnt = 0;
          video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
       }else{
-          if (sync_sep_osd_state == osd_state::internal_video){
-         // quan::stm32::set<heartbeat_led_pin>();
           osd_state::set_have_external_video();
           sync_sep_reset();
-     }
-
       }
    }
 } // namespace
 
 namespace detail{
 
-   void sync_sep_setup(osd_state::state_t state)
+   void sync_sep_setup()
    {
-      sync_sep_osd_state = state;
+      
       quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
       quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
 
@@ -210,7 +206,7 @@ namespace detail{
       ccer.cc1e = true;
       ccer.cc2e = true;
       sync_sep_timer::get()->ccer.set(ccer.value);
-      switch (state){
+      switch (osd_state::get()){
          case osd_state::external_video:
             NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
             NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);

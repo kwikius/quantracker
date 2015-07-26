@@ -18,7 +18,8 @@ void on_telemetry_transmitted()
    quan::time_<int>::s s_now{
       static_cast<int>((time_now.numeric_value()/1000) - (min_now.numeric_value() * 60))};
 #endif
-   char buffer[117];
+   char buffer[117]; // 117 is max number of bytes that can be transmitted in one half frame
+   // (13 rows at 9 bytes per row)
 #if 1
    snprintf(buffer,100,"time = %03d min %02d s", 
          static_cast<int>(min_now.numeric_value()),

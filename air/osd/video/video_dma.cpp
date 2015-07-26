@@ -23,6 +23,7 @@
 
 #include <stm32f4xx.h>
 #include "../resources.hpp"
+#include "osd_state.hpp"
 
 namespace {
 
@@ -78,7 +79,7 @@ namespace {
 }//namespace 
 
 namespace detail{
-   void external_pixel_dma_setup()
+   void pixel_dma_setup()
    {
       RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
       for ( uint8_t i = 0; i < 20; ++i){
@@ -88,7 +89,8 @@ namespace detail{
       RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA1RST;
      
       ll_pixel_dma_setup<video_mux_out_black_spi>(DMA1_Stream4,0); // spix tx
-      ll_pixel_dma_setup<video_mux_out_white_spi>(DMA1_Stream5,0); // spix tx
-
+      if( osd_state::get() == osd_state::external_video){
+         ll_pixel_dma_setup<video_mux_out_white_spi>(DMA1_Stream5,0); // spix tx
+      }
    }
 }

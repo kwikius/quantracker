@@ -84,25 +84,50 @@ void video_buffers::init()
 // means that 0 data will be at black level
 void video_buffers::telem::tx::write_data ( uint8_t * ar)
 {
-   for ( uint32_t y = 0 ,yend = get_num_lines(); y < yend; ++y){ // rows
-     // start of line mark state == transparent
-     uint32_t bit_offset = y * 8 * get_full_bytes_per_line() + sol_bits;
-     for ( uint32_t xbyte = 0, xend = get_data_bytes_per_line(); xbyte < xend; ++xbyte){ // columns
-         // start bit
-         manager.m_write_buffer->bb_white[bit_offset] = 0b0;
-         ++bit_offset;
-         uint8_t const cur_val = *ar; 
-         for ( uint32_t bitpos = 0U; bitpos < 8U; ++bitpos){
-            if( (cur_val & ( 1U << bitpos)) == 0U) {  
-               manager.m_write_buffer->bb_white[bit_offset] = 0b0;
-            }
+   #pragma message "needs redo for internal video mode"
+   if (osd_state::get() == osd_state::external_video){
+      for ( uint32_t y = 0 ,yend = get_num_lines(); y < yend; ++y){ // rows
+        // start of line mark state == transparent
+        uint32_t bit_offset = y * 8 * get_full_bytes_per_line() + sol_bits;
+        for ( uint32_t xbyte = 0, xend = get_data_bytes_per_line(); xbyte < xend; ++xbyte){ // columns
+            // start bit
+            manager.m_write_buffer->bb_white[bit_offset] = 0b0;
             ++bit_offset;
+            uint8_t const cur_val = *ar; 
+            for ( uint32_t bitpos = 0U; bitpos < 8U; ++bitpos){
+               if( (cur_val & ( 1U << bitpos)) == 0U) {  
+                  manager.m_write_buffer->bb_white[bit_offset] = 0b0;
+               }
+               ++bit_offset;
+            }
+            // stop bit
+            ++bit_offset;
+            ++ar;
          }
-         // stop bit
-         ++bit_offset;
-         ++ar;
+         // rest of line transparent == mark state
       }
-      // rest of line transparent == mark state
+   }else{
+      // write a 1 for 
+      for ( uint32_t y = 0 ,yend = get_num_lines(); y < yend; ++y){ // rows
+        // start of line mark state == transparent
+        uint32_t bit_offset = y * 8 * get_full_bytes_per_line() + sol_bits;
+        for ( uint32_t xbyte = 0, xend = get_data_bytes_per_line(); xbyte < xend; ++xbyte){ // columns
+            // start bit
+            manager.m_write_buffer->bb_white[bit_offset] = 0b1;
+            ++bit_offset;
+            uint8_t const cur_val = *ar; 
+            for ( uint32_t bitpos = 0U; bitpos < 8U; ++bitpos){
+               if( (cur_val & ( 1U << bitpos)) == 0U) {  
+                  manager.m_write_buffer->bb_white[bit_offset] = 0b1;
+               }
+               ++bit_offset;
+            }
+            // stop bit
+            ++bit_offset;
+            ++ar;
+         }
+         // rest of line transparent == mark state
+      }
    }
 }
 

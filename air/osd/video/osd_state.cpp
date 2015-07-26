@@ -5,9 +5,9 @@
 
 namespace detail{
     bool dac_busy();
-    void external_video_setup();
+    void video_setup();
     void internal_video_mode_setup();
-    void external_video_take_down();
+    void video_take_down();
     void reset_osd_swap_semaphores();
 }
 
@@ -36,7 +36,7 @@ void osd_state::suspend()
    //quan::stm32::module_disable<av_telem_usart>();
    quan::stm32::module_reset<av_telem_usart>();
    #endif
-   detail::external_video_take_down();
+   detail::video_take_down();
    __enable_irq();
    taskEXIT_CRITICAL();
    detail::reset_osd_swap_semaphores();
@@ -100,5 +100,5 @@ void osd_state::switch_to_external_video_mode()
       suspend();
    }
    m_current_state = external_video;
-   detail::external_video_setup();
+   detail::video_setup();
 }

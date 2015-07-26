@@ -13,64 +13,39 @@
 // external pullups may need to be removed
 // since SPI pins are inputs before transmission
 // so will have to control init state via internal pullups
+// nwhite == adg addr0
+// nblack == adg addr1
+// in external mode
+      
+//   nblack nwhite adg704_addr  colour_out
+//    0       0    0             grey
+//    0       1    1             black
+//    1       0    2             white  
+//    1       1    3             video
+// in internal mode
+// nwhite is always 0
+//   nblack nwhite adg704_addr  int colour_out  (ext colour_out
+//    0       0     0           black           grey
+//    0       1     0           black           black
+//    1       0     2           white           white
+//    1       1     2           white           transparent
+// preset the nblack buffer to the background colour
+// which is 0 rather than 1 for external mode
+// only need to use the nblack buffer in internal mode
+// can be white or black sy black for now
+// so 
+//  Transparent is never written could make sure that in set_pixel_raw
+// only effect is that set transparent will set white
+
 
 void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code);
 
 namespace {
-
    typedef video_rows_line_counter sync_timer;
-
-   void ivm_dac_setup()
-   {
-// in internal video mode
-// only black and white available
-// 00 (0) at dac is black_level
-// 01 (1) at dac is white
-// 10 (20 at dac is sync_tip
-     // do need sync_comp may be best to write it now
-    // Dac_write (0b11, quan::voltage::V{0.58f}, 0);  // sync comp
-       Dac_write (0b00, quan::voltage::V{0.9f}, 0); // black level
-       Dac_write (0b01, quan::voltage::V{2.26f}, 0); // white
-       Dac_write (0b10, quan::voltage::V{0.28f}, 1); // synctip
-
-   }
-
-   void ivm_pin_setup()
-   {
-      // PC6 connected to TIM3_CH1  alternate function af2
-      quan::stm32::module_enable<av_telem_tx::port_type>();
-      quan::stm32::apply<
-         av_telem_tx
-         , quan::stm32::gpio::mode::af2
-         , quan::stm32::gpio::otype::push_pull
-         , quan::stm32::gpio::pupd::pull_down
-         , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::low
-      >();
-      // PC11 as input no pullup or down
-      quan::stm32::module_enable<video_mux_out_white_miso::port_type>();
-      quan::stm32::apply<
-         video_mux_out_white_miso
-         , quan::stm32::gpio::mode::input
-         , quan::stm32::gpio::pupd::none
-      >();
-
-     // also spi clocks only need black
-      // black spi is now actually white!
-      quan::stm32::module_enable<video_mux_out_black_miso::port_type>();
-      quan::stm32::apply<
-         video_mux_out_black_miso  // PB14 or PC2 on boardtype 4
-         ,quan::stm32::gpio::mode::af5  // same for both pins
-         ,quan::stm32::gpio::otype::push_pull
-         ,quan::stm32::gpio::pupd::pull_down
-         ,quan::stm32::gpio::ospeed::fast
-         ,quan::stm32::gpio::ostate::low
-      >();
-
-   }
-
+   // line counter but not used as such in internal mode
    void ivm_timer_setup()
    {
+      
       // disable the timer ( as line_counter)
       sync_timer::get()->cr1.bb_clearbit<0>(); // (CEN)
       quan::stm32::module_reset<sync_timer>();
@@ -161,17 +136,18 @@ namespace {
 
 namespace detail{
 
-   void sync_sep_setup(osd_state::state_t state);
+   void sync_sep_setup();
    void sync_sep_enable();
 
    void internal_video_mode_setup()
    {
+     // typedef video_rows_line_counter sync_timer;
       ivm_mode = video_fields;
       first_field = false;
       ivm_count = num_video_fields - 1;
       
-      ivm_dac_setup();
-      ivm_pin_setup();
+    //  ivm_dac_setup();
+     // ivm_pin_setup();
       ivm_timer_setup();
       // set initial timer values
       // get immediate start on overflow
@@ -183,8 +159,8 @@ namespace detail{
 
       NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
       NVIC_EnableIRQ (TIM3_IRQn);
-      sync_sep_setup(osd_state::internal_video);
-      sync_sep_enable();
+     // sync_sep_setup();
+     // sync_sep_enable();
       quan::stm32::enable<sync_timer>();
    }
 }
@@ -193,6 +169,7 @@ namespace {
 
    void do_internal_video_mode_uif_irq()
    { 
+     // typedef video_rows_line_counter sync_timer;
       switch (ivm_mode){
          case video_fields:
             ++ivm_count;
@@ -275,6 +252,7 @@ namespace detail{
 
    void do_internal_video_mode_irq()
    {
+      //typedef video_rows_line_counter sync_timer;
       auto const sr_flags = sync_timer::get()->sr.get();
       if ( sr_flags & (1 << 0)) {
          sync_timer::get()->sr.bb_clearbit<0>();
