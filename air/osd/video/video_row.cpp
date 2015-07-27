@@ -248,7 +248,6 @@ void video_cfg::rows::setup()
 
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
-
 extern "C" void TIM3_IRQHandler()
 {
    if (osd_state::get() == osd_state::external_video){

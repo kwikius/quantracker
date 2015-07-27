@@ -263,8 +263,6 @@ struct video_buffers {
          {
             return get_data_bytes_per_line() * get_num_lines();
          }
-
-         
       };
 
       struct rx{

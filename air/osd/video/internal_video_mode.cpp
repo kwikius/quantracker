@@ -115,21 +115,29 @@ namespace {
          + ((((235U * clocks_usec) % 100U )>= 500 ) ? 1: 0);
 
    enum ivm_mode_t{
-         end_of_second_frame,
          pre_equalise,
          vsync,
          post_equalise,
          video_fields
    };
 
+#if 0
    constexpr uint32_t start_of_telemetry_rows = 3;
    constexpr uint32_t end_of_telemetry_rows = 16;
    constexpr uint32_t start_of_osd_rows = 17;
-   constexpr uint32_t end_of_osd_rows = 300;
+   constexpr uint32_t end_of_osd_rows =200;
    constexpr uint32_t num_video_fields = 304;
+#else
+   // for debugging
+   constexpr uint32_t start_of_telemetry_rows = 1;
+   constexpr uint32_t end_of_telemetry_rows = 2;
+   constexpr uint32_t start_of_osd_rows = 3;
+   constexpr uint32_t end_of_osd_rows = 4;
+   constexpr uint32_t num_video_fields = 5;
+#endif
 
    ivm_mode_t ivm_mode = video_fields;
-   bool first_field = false;
+   bool first_field = true;
    uint32_t ivm_count = num_video_fields - 1;
 
 } //namespace
@@ -143,7 +151,9 @@ namespace detail{
    {
      // typedef video_rows_line_counter sync_timer;
       ivm_mode = video_fields;
-      first_field = false;
+//##############################
+      first_field = true;
+//##########################
       ivm_count = num_video_fields - 1;
       
     //  ivm_dac_setup();
@@ -161,7 +171,7 @@ namespace detail{
       NVIC_EnableIRQ (TIM3_IRQn);
      // sync_sep_setup();
      // sync_sep_enable();
-      quan::stm32::enable<sync_timer>();
+      //quan::stm32::enable<sync_timer>();
    }
 }
 
@@ -169,78 +179,83 @@ namespace {
 
    void do_internal_video_mode_uif_irq()
    { 
+     
      // typedef video_rows_line_counter sync_timer;
       switch (ivm_mode){
          case video_fields:
-            ++ivm_count;
-            switch( ivm_count){
+            switch(ivm_count){
                case start_of_telemetry_rows:
-                  video_cfg::rows::telem::begin();
+                //  video_cfg::rows::telem::begin();
                   break;
                case end_of_telemetry_rows:
-                  video_cfg::rows::telem::end();
+                 // video_cfg::rows::telem::end();
                   break;
                case start_of_osd_rows:
-                  video_cfg::rows::osd::begin();
+                 // video_cfg::rows::osd::begin();
                   break;
                case end_of_osd_rows:
-                  video_cfg::rows::osd::end();
+                 // video_cfg::rows::osd::end();
                   break;
                case num_video_fields:{
-                     ivm_count = 0;
-                     if ( first_field == false){
-                        ivm_mode = end_of_second_frame; 
-                     }else{
-                        ivm_mode = pre_equalise;
-                        sync_timer::get()->ccr1 = short_sync;
+                     if ( first_field == false){ 
+                        sync_timer::get()->arr = half_line;
                      }
-                     sync_timer::get()->arr = half_line;
+                     ivm_mode = pre_equalise;
+                     ivm_count = 0;
+                     return;
                   }
                   break;
                default:
                   break;
             }
-            break;
-         case end_of_second_frame:
-            sync_timer::get()->ccr1 = short_sync;
-            ivm_mode = pre_equalise;
-            break;
+            ++ivm_count;
+            return;
          case pre_equalise:
-            if ( ++ivm_count == 5){
-               ivm_mode = vsync;
-               sync_timer::get()->ccr1 = half_line - long_sync;
-               ivm_count = 0;
-            }
-            break;
-         case vsync:
-            if (++ivm_count == 5){
-               ivm_mode = post_equalise;
+            if ( ivm_count == 0){
                sync_timer::get()->ccr1 = short_sync;
-               first_field = !first_field;
-               ivm_count = 0;
-            }
-            break;
-         case post_equalise:
-            if ( first_field){
-               if (++ivm_count == 5){
-                  ivm_mode = video_fields;
-                  sync_timer::get()->ccr1 = long_sync;
-                  sync_timer::get()->arr = full_line ;
-                  ivm_count = 0;
+               if ( first_field == true){ 
+                  sync_timer::get()->arr = half_line;
                }
             }else{
-               ++ ivm_count;
-               if ( ivm_count == 4){
-                  sync_timer::get()->arr = full_line ;
-               }else{
-                  if (ivm_count == 5){
-                     ivm_mode = video_fields;
-                     sync_timer::get()->ccr1 = long_sync;
-                     ivm_count = 0;
-                  }
+               if ( ivm_count == 5){
+                  ivm_mode = vsync;
+                  sync_timer::get()->ccr1 = half_line - long_sync;
+                  ivm_count = 0;
+                  return;
                }
             }
-            break;
+            ++ivm_count;
+            return;
+         case vsync:
+            if (ivm_count == 4){
+               ivm_mode = post_equalise;
+               sync_timer::get()->ccr1 = short_sync;
+//##########################################
+             //  first_field = !first_field;
+//###########################################
+               ivm_count = 0;
+               return;
+            }
+            ++ivm_count;
+            return;
+         case post_equalise:
+            if ( ivm_count == 3) {
+               if (first_field == false){
+                  sync_timer::get()->arr = full_line;
+               }
+            }else{
+               if (ivm_count == 4){
+                  if(first_field == true){
+                     sync_timer::get()->arr = full_line;
+                  }
+                  sync_timer::get()->ccr1 = long_sync;
+                  ivm_mode = video_fields;
+                  ivm_count = 0;
+                  return;
+               }
+            }
+            ++ivm_count;
+            return;
          default:
          break;
       }  

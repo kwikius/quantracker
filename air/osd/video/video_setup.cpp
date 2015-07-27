@@ -55,8 +55,9 @@ namespace {
            ,quan::stm32::gpio::pupd::pull_up  // only need one pullup on 4 x inputs
         >();
         quan::stm32::apply<
-           video_in_tim3_hsync_pin,
-           quan::stm32::gpio::mode::input
+           video_in_tim3_hsync_pin
+           ,quan::stm32::gpio::mode::input
+           ,quan::stm32::gpio::pupd::none
         >();
       }
    }

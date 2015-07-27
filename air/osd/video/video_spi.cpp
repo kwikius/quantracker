@@ -102,7 +102,7 @@ namespace detail{
          quan::stm32::apply<
             video_mux_out_white_miso
             ,quan::stm32::gpio::mode::input
-            ,quan::stm32::gpio::pupd::none
+            ,quan::stm32::gpio::pupd::pull_down
          >();
       }
          
@@ -130,6 +130,12 @@ namespace detail{
 
       quan::stm32::apply<
          video_mux_out_white_miso  // PB14 or PC2 on boardtype 4
+         ,quan::stm32::gpio::mode::input
+         ,quan::stm32::gpio::pupd::pull_up // init clock low
+      >();
+
+      quan::stm32::apply<
+         av_telem_tx
          ,quan::stm32::gpio::mode::input
          ,quan::stm32::gpio::pupd::pull_up // init clock low
       >();

@@ -395,11 +395,11 @@ void video_cfg::columns::telem::disable()
 void video_cfg::columns::telem::begin()
 {
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-
-      uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       uint16_t const dma_length = video_buffers::telem::tx::get_full_bytes_per_line()-1;
 // same for all boards
+      uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       if (osd_state::get() == osd_state::external_video){
+          
          // in internal mode need to send out of black stream
          DMA1_Stream5->M0AR = (uint32_t) (white+1);
          DMA1_Stream5->NDTR = dma_length  ;
@@ -463,34 +463,64 @@ void video_cfg::columns::telem::end()
 // either by external trigger or by internal rising edge
 void video_cfg::columns::osd::begin()
 {
-   uint16_t const dma_length = (video_cfg::get_display_size_x_bytes());
-
-   uint8_t* const black = video_buffers::osd::get_black_read_pos() ;
-   black[dma_length+1] |= 0x0F;
-   DMA1_Stream4->M0AR = (uint32_t) (black+1);
-   DMA1_Stream4->NDTR = dma_length  ;
-
    if( osd_state::get() == osd_state::external_video){
+
+      uint8_t* const black = video_buffers::osd::get_black_read_pos() ; 
       uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
+
+      uint16_t const dma_length = (video_cfg::get_display_size_x_bytes());
+      black[dma_length+1] |= 0x0F;
       white[dma_length+1] |= 0x0F;
-      video_mux_out_white_spi::get()->dr = white[0] | 1U;
-      video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+
+      DMA1_Stream4->M0AR = (uint32_t) (black+1);
       DMA1_Stream5->M0AR = (uint32_t) (white+1);
+
+      DMA1_Stream4->NDTR = dma_length  ;
       DMA1_Stream5->NDTR = dma_length  ;
-   }
-   DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
-   DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
-   spi_ll_setup();
-   
-   video_mux_out_black_spi::get()->dr = black[0] | 1U;
-   video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
-   if( osd_state::get() == osd_state::external_video){
+
+      DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
+      DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
+
+      spi_ll_setup();
+
+      video_mux_out_black_spi::get()->dr = black[0] | 1U;
+      video_mux_out_white_spi::get()->dr = white[0] | 1U;
+
+      video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+      video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+
       DMA1_Stream4->CR |= (1 << 0); // (EN)
       DMA1_Stream5->CR |= (1 << 0); // (EN)
+
    }else{
+
+      uint8_t* const black = video_buffers::osd::get_black_read_pos() ; 
+    //  uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
+
+      uint16_t const dma_length = (video_cfg::get_display_size_x_bytes());
+      black[dma_length+1] |= 0x0F;
+     // white[dma_length+1] |= 0x0F;
+
+      DMA1_Stream4->M0AR = (uint32_t) (black+1);
+     // DMA1_Stream5->M0AR = (uint32_t) (white+1);
+
+      DMA1_Stream4->NDTR = dma_length  ;
+     // DMA1_Stream5->NDTR = dma_length  ;
+
+      DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
+      DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
+
+      spi_ll_setup();
+
+      video_mux_out_black_spi::get()->dr = black[0] | 1U;
+     // video_mux_out_white_spi::get()->dr = white[0] | 1U;
+
+      video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+     // video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+
       DMA1_Stream4->CR |= (1 << 0); // (EN)
+    //  DMA1_Stream5->CR |= (1 << 0); // (EN)
    }
- 
 }
 // at start of line, before visible pixels on line, setup dma
 // also at start of telem data

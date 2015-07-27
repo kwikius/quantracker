@@ -6,7 +6,7 @@
 namespace detail{
     bool dac_busy();
     void video_setup();
-    void internal_video_mode_setup();
+    //void internal_video_mode_setup();
     void video_take_down();
     void reset_osd_swap_semaphores();
 }
@@ -91,7 +91,7 @@ void osd_state::switch_to_internal_video_mode()
       suspend();
     }
     m_current_state = internal_video;
-    detail::internal_video_mode_setup();
+    detail::video_setup();
 
 }
 void osd_state::switch_to_external_video_mode()

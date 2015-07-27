@@ -159,7 +159,6 @@ void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code)
 }
 namespace {
 
-  
    void external_video_mode_dac_setup()
    {
       constexpr uint8_t dac_data_idx = 0; // (also grey)
@@ -167,11 +166,9 @@ namespace {
       constexpr uint8_t dac_black_idx = 2;
       constexpr uint8_t dac_sync_idx = 3;
       //##########################
-      // for FMS6141 with 0.28 V d.c. offset at output with ac input
       Dac_write (dac_sync_idx, quan::voltage::V{0.58f}, 0);
-      //########## FOR NTSC should be slightly above ?
-      Dac_write (dac_black_idx, quan::voltage::V{0.9f}, 0); 
-      Dac_write (dac_white_idx, quan::voltage::V{2.26f} , 0); 
+      Dac_write (dac_black_idx, quan::voltage::V{0.90f}, 0); 
+      Dac_write (dac_white_idx, quan::voltage::V{2.26f}, 0); 
       Dac_write (dac_data_idx, quan::voltage::V{1.58f}, 1);
    }
 
@@ -183,14 +180,11 @@ namespace {
 // 01 (1) at dac is white
 // 10 (20 at dac is sync_tip
      // do need sync_comp may be best to write it now
-       Dac_write (0b11, quan::voltage::V{0.58f}, 0);  // sync comp
-       Dac_write (0b00, quan::voltage::V{0.9f}, 0); // black level
+       Dac_write (0b00, quan::voltage::V{0.90f}, 0); // black level
        Dac_write (0b01, quan::voltage::V{2.26f}, 0); // white
-       Dac_write (0b10, quan::voltage::V{0.28f}, 1); // synctip
-
+       Dac_write (0b10, quan::voltage::V{0.28f}, 0); // synctip
+       Dac_write (0b11, quan::voltage::V{0.58f}, 1); // sync comp
    }
-
-
 
    void set_init_dac_values()
    {
@@ -205,62 +199,38 @@ namespace {
 namespace detail{
    void video_palette_dac_setup()
    {
-         /*
-    For Discovery, dont use DAC2 on PA5
-    Make  PE3 output High to set the LIS32DL to I2C mode
-    make PA5 output low to set low clock
-   */
-        #if ((QUAN_OSD_BOARD_TYPE == 4 ) &&  ( defined QUAN_DISCOVERY))
-         quan::stm32::module_enable<quan::stm32::gpioe>();
-         quan::stm32::apply<
-            quan::mcu::pin<quan::stm32::gpioe,3>
-            , quan::stm32::gpio::mode::output
-            , quan::stm32::gpio::otype::push_pull
-            , quan::stm32::gpio::pupd::none
-            , quan::stm32::gpio::ospeed::slow
-            , quan::stm32::gpio::ostate::high
-         >();
-          quan::stm32::module_enable<quan::stm32::gpioa>();
-         quan::stm32::apply<
-            quan::mcu::pin<quan::stm32::gpioa,5>
-            , quan::stm32::gpio::mode::output
-            , quan::stm32::gpio::otype::push_pull
-            , quan::stm32::gpio::pupd::none
-            , quan::stm32::gpio::ospeed::slow
-            , quan::stm32::gpio::ostate::low
-         >();
-        #endif
-        quan::stm32::module_enable<av_dac_nsync::port_type>();
-        quan::stm32::apply<
-        av_dac_nsync
-        , quan::stm32::gpio::mode::output
-        , quan::stm32::gpio::otype::push_pull
-        , quan::stm32::gpio::pupd::none
-        , quan::stm32::gpio::ospeed::medium_fast
-        , quan::stm32::gpio::ostate::high
-        >();
-        quan::stm32::module_enable<av_dac_data::port_type>();
-        quan::stm32::apply<
-        av_dac_data
-        , quan::stm32::gpio::mode::output
-        , quan::stm32::gpio::otype::push_pull
-        , quan::stm32::gpio::pupd::none
-        , quan::stm32::gpio::ospeed::medium_fast
-        , quan::stm32::gpio::ostate::low
-        >();
-        quan::stm32::module_enable<av_dac_clk::port_type>();
-        quan::stm32::apply<
-        av_dac_clk
-        , quan::stm32::gpio::mode::output
-        , quan::stm32::gpio::otype::push_pull
-        , quan::stm32::gpio::pupd::none
-        , quan::stm32::gpio::ospeed::medium_fast
-        , quan::stm32::gpio::ostate::high
-        >();
 
-        dac_timer_setup();
+      quan::stm32::module_enable<av_dac_nsync::port_type>();
+      quan::stm32::apply<
+         av_dac_nsync
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::medium_fast
+         , quan::stm32::gpio::ostate::high
+      >();
+      quan::stm32::module_enable<av_dac_data::port_type>();
+      quan::stm32::apply<
+         av_dac_data
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::medium_fast
+         , quan::stm32::gpio::ostate::low
+      >();
+      quan::stm32::module_enable<av_dac_clk::port_type>();
+      quan::stm32::apply<
+         av_dac_clk
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::medium_fast
+         , quan::stm32::gpio::ostate::high
+      >();
 
-        set_init_dac_values();
+      dac_timer_setup();
+
+      set_init_dac_values();
    }
 }// detail
 
