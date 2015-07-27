@@ -35,7 +35,7 @@ struct osd_state{
    static void suspend();
    static void switch_to_internal_video_mode();
    static void switch_to_external_video_mode();
-   static state_t m_current_state;
+   static volatile state_t m_current_state;
    static volatile bool m_have_external_video; 
 };
 

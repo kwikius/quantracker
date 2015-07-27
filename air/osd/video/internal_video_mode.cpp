@@ -45,9 +45,10 @@ namespace {
    // line counter but not used as such in internal mode
    void ivm_timer_setup()
    {
-      
+      quan::stm32::module_enable<sync_timer>();
+    //  quan::stm32::module_reset<sync_timer>();
       // disable the timer ( as line_counter)
-      sync_timer::get()->cr1.bb_clearbit<0>(); // (CEN)
+     // sync_timer::get()->cr1.bb_clearbit<0>(); // (CEN)
       quan::stm32::module_reset<sync_timer>();
       {
          quan::stm32::tim::cr1_t cr1 = 0u;//sync_timer::get()->cr1.get();
@@ -121,12 +122,12 @@ namespace {
          video_fields
    };
 
-#if 0
+#if 1
    constexpr uint32_t start_of_telemetry_rows = 3;
    constexpr uint32_t end_of_telemetry_rows = 16;
    constexpr uint32_t start_of_osd_rows = 17;
-   constexpr uint32_t end_of_osd_rows =200;
-   constexpr uint32_t num_video_fields = 304;
+   constexpr uint32_t end_of_osd_rows = 300;
+   constexpr uint32_t num_video_fields = 303;
 #else
    // for debugging
    constexpr uint32_t start_of_telemetry_rows = 1;
@@ -137,7 +138,7 @@ namespace {
 #endif
 
    ivm_mode_t ivm_mode = video_fields;
-   bool first_field = true;
+   bool first_field = false;
    uint32_t ivm_count = num_video_fields - 1;
 
 } //namespace
@@ -152,7 +153,7 @@ namespace detail{
      // typedef video_rows_line_counter sync_timer;
       ivm_mode = video_fields;
 //##############################
-      first_field = true;
+      first_field = false;
 //##########################
       ivm_count = num_video_fields - 1;
       
@@ -185,16 +186,16 @@ namespace {
          case video_fields:
             switch(ivm_count){
                case start_of_telemetry_rows:
-                //  video_cfg::rows::telem::begin();
+                 // video_cfg::rows::telem::begin();
                   break;
                case end_of_telemetry_rows:
-                 // video_cfg::rows::telem::end();
+                //  video_cfg::rows::telem::end();
                   break;
                case start_of_osd_rows:
-                 // video_cfg::rows::osd::begin();
+                  video_cfg::rows::osd::begin();
                   break;
                case end_of_osd_rows:
-                 // video_cfg::rows::osd::end();
+                  video_cfg::rows::osd::end();
                   break;
                case num_video_fields:{
                      if ( first_field == false){ 
@@ -231,7 +232,7 @@ namespace {
                ivm_mode = post_equalise;
                sync_timer::get()->ccr1 = short_sync;
 //##########################################
-             //  first_field = !first_field;
+               first_field = !first_field;
 //###########################################
                ivm_count = 0;
                return;

@@ -40,14 +40,25 @@ namespace detail{
       >();
 
       quan::stm32::module_enable<video_mux_out_black_miso::port_type>();
-      quan::stm32::apply<
-         video_mux_out_black_miso  // PB14 or PC2 on boardtype 4
-         ,quan::stm32::gpio::mode::af5  // same for both pins
-         ,quan::stm32::gpio::otype::push_pull
-         ,quan::stm32::gpio::pupd::pull_up
-         ,quan::stm32::gpio::ospeed::fast
-         ,quan::stm32::gpio::ostate::high
-      >();
+      if( osd_state::get() == osd_state::external_video){
+         quan::stm32::apply<
+            video_mux_out_black_miso  // PB14 or PC2 on boardtype 4
+            ,quan::stm32::gpio::mode::af5  // same for both pins
+            ,quan::stm32::gpio::otype::push_pull
+            ,quan::stm32::gpio::pupd::pull_up
+            ,quan::stm32::gpio::ospeed::fast
+            ,quan::stm32::gpio::ostate::high
+         >();
+      }else{
+          quan::stm32::apply<
+            video_mux_out_black_miso  // PB14 or PC2 on boardtype 4
+            ,quan::stm32::gpio::mode::af5  // same for both pins
+            ,quan::stm32::gpio::otype::push_pull
+            ,quan::stm32::gpio::pupd::pull_down
+            ,quan::stm32::gpio::ospeed::fast
+            ,quan::stm32::gpio::ostate::low
+         >();
+      }
 
       quan::stm32::module_enable<video_mux_out_white_sck::port_type>();
       if( osd_state::get() == osd_state::external_video){

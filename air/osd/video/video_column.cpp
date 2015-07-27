@@ -606,7 +606,8 @@ void video_cfg::columns::setup()
       if( osd_state::get() == osd_state::internal_video){
 //########################## INTERNAL VIDEO ######################################
       // src in TIM3 is the second edge of the sync pulse
-      // rising edge created by taking dac addr from 00 to 01
+//#############################################################
+      // rising edge created by taking switch addr from 00 to 01
       // created by pwm in TIM3 
         smcr.ts  = 0b010 ; // internal video trigger source is TIM3 TRGO mapped to ITR2 
       }else {

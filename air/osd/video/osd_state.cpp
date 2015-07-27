@@ -11,7 +11,7 @@ namespace detail{
     void reset_osd_swap_semaphores();
 }
 
-osd_state::state_t osd_state::m_current_state = osd_state::suspended;
+volatile osd_state::state_t osd_state::m_current_state = osd_state::suspended;
 volatile bool osd_state::m_have_external_video = false;
 
 void osd_state::suspend()
