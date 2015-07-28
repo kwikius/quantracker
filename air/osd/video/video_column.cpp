@@ -498,7 +498,8 @@ void video_cfg::columns::osd::begin()
     //  uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
 
       uint16_t const dma_length = (video_cfg::get_display_size_x_bytes());
-      black[dma_length+1] |= 0x0F;
+    //  black[dma_length+1] |= 0x0F;
+      black[dma_length+1] &= ~(0x0F);
      // white[dma_length+1] |= 0x0F;
 
       DMA1_Stream4->M0AR = (uint32_t) (black+1);
@@ -512,7 +513,7 @@ void video_cfg::columns::osd::begin()
 
       spi_ll_setup();
 
-      video_mux_out_black_spi::get()->dr = black[0] | 1U;
+      video_mux_out_black_spi::get()->dr = black[0] & ~( 1U);
      // video_mux_out_white_spi::get()->dr = white[0] | 1U;
 
       video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
