@@ -32,13 +32,13 @@ namespace {
    int count =0;
    void draw_task(void * params)
    {
-       vTaskDelay(100); // want to know if have video
+      // vTaskDelay(100); // want to know if have video
        for (;;){
         
          quan::uav::osd::on_draw();
 
          if ( osd_state::get() == osd_state::internal_video ){
-            vTaskDelay(20);
+           // vTaskDelay(20);
             if ( ++count >= 25){
                count = 0;
                quan::stm32::complement<heartbeat_led_pin>();
@@ -46,15 +46,18 @@ namespace {
             if ( osd_state::have_external_video()){
                count = 0;
                osd_state::set(osd_state::external_video);
+            }else{
+               detail::swap_osd_buffers();
+               continue;
             }
          }
-         if ( osd_state::get() == osd_state::suspended){
-         //    vTaskDelay(20);
-            if ( ++count >= 35){
-               count = 0;
-               quan::stm32::complement<heartbeat_led_pin>();
-            } 
-         }
+//         if ( osd_state::get() == osd_state::suspended){
+//         //    vTaskDelay(20);
+//            if ( ++count >= 35){
+//               count = 0;
+//               quan::stm32::complement<heartbeat_led_pin>();
+//            } 
+//         }
          if ( osd_state::get() == osd_state::external_video ){  
             if ( ++count >= 50){
                count = 0;

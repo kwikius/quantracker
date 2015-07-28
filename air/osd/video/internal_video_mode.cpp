@@ -72,7 +72,8 @@ namespace {
       }
       {
          quan::stm32::tim::smcr_t smcr = 0U;// sync_timer::get()->smcr.get();
-            smcr.msm = false; // dont care
+          //  smcr.msm = false; // dont care
+            smcr.msm = true;
             smcr.ts = 0b000;  // dont care
             smcr.sms = 0b000; // slave mode disabled 
          sync_timer::get()->smcr.set(smcr.value);  
@@ -106,14 +107,14 @@ namespace {
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_timer>();
    constexpr uint32_t clocks_usec = timer_freq / 1000000U;
 
-   constexpr uint16_t full_line = static_cast<uint16_t>(64U * clocks_usec);
-   constexpr uint16_t half_line = static_cast<uint16_t>(32U * clocks_usec);
+   constexpr uint16_t full_line = static_cast<uint16_t>(64U * clocks_usec) -1;
+   constexpr uint16_t half_line = static_cast<uint16_t>(32U * clocks_usec) -1 ;
    
-   constexpr uint16_t long_sync = (47U * clocks_usec) / 10U 
-         + ((((47U * clocks_usec) % 10U )>= 5 ) ? 1: 0);
+   constexpr uint16_t long_sync = ((47U * clocks_usec) / 10U 
+         + ((((47U * clocks_usec) % 10U )>= 5 ) ? 1: 0)) -1;
 
-   constexpr uint16_t short_sync = (235U * clocks_usec) / 100U 
-         + ((((235U * clocks_usec) % 100U )>= 500 ) ? 1: 0);
+   constexpr uint16_t short_sync = ((235U * clocks_usec) / 100U 
+         + ((((235U * clocks_usec) % 100U )>= 500 ) ? 1: 0)) -1;
 
    enum ivm_mode_t{
          pre_equalise,
