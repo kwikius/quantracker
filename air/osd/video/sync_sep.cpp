@@ -86,8 +86,11 @@ namespace {
 namespace quan{ namespace uav{ namespace osd{
 
    video_mode get_video_mode()
-   {
-      return public_video_mode;
+   {  if( osd_state::get() == osd_state::external_video){
+         return public_video_mode;
+      }else{
+         return quan::uav::osd::video_mode::pal;
+      }
    }
 
 }}}
