@@ -55,6 +55,7 @@ namespace detail{
    {
       h_request_osd_buffers_swap = xSemaphoreCreateBinary();
       h_osd_buffers_swapped = xSemaphoreCreateBinary();
+
    }
 
    void reset_osd_swap_semaphores()

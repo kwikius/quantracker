@@ -32,7 +32,8 @@ namespace {
    int count =0;
    void draw_task(void * params)
    {
-      // vTaskDelay(100); // want to know if have video
+       vTaskDelay(100); // want to know if have video
+       // take the semaphore?
        for (;;){
         
          quan::uav::osd::on_draw();

@@ -161,6 +161,45 @@ struct video_buffers {
       {
          return & manager.m_read_buffer->white[manager.m_read_index];
       }
+
+      static void set_buffer(uint32_t offset32, uint32_t mask, uint8_t val)
+      {
+// todo no_video case
+         uint32_t * const black_ptr = ((uint32_t*)manager.m_write_buffer->black) + offset32;
+         uint32_t * const white_ptr = ((uint32_t*)manager.m_write_buffer->white) + offset32;
+#if 0
+         switch c:
+            case 0 : // gray switch addr 0
+              *white_ptr  &= (0xffffffff & ~mask);
+              *black_ptr  & =(0xffffffff & ~mask);
+            break;
+            case 1:   // white switch addr 1
+              *white_ptr  |= mask ;
+              *black_ptr  & =(0xffffffff & ~mask);
+            break;
+            case 2:
+              *white_ptr  & =(0xffffffff & ~mask);
+              *black_ptr  |= mask ;
+            break;
+            case 3:
+               *black_ptr  |= mask ;
+               *white_ptr  |= mask ;
+            break;
+         }
+#else   
+         if ( val & 1){
+            *white_ptr  |= mask ;
+         }else{
+            *white_ptr  &= (0xffffffff & ~mask);
+         }
+
+         if ( val & 0b10){
+            *black_ptr  |= mask ;
+         }else{
+            *black_ptr  &= (0xffffffff & ~mask);
+         }
+#endif
+      }
       
       static void xy_to_buf (quan::two_d::vect<int32_t> const & px,uint8_t val)
       {
@@ -177,6 +216,7 @@ struct video_buffers {
          = static_cast<uint32_t> (px.y) * (m_display_size.x + 8)
            + static_cast<uint32_t> (px.x) + 1U;
            
+         
          manager.m_write_buffer->bb_black[buffer_bit_pos] = val;
          // though white not used in external video mode
          // just ignore that so external mode isnt slowed

@@ -36,6 +36,9 @@
 // that can be done with the dac write commands!
 // use a timer to create an interrupt
 // say 10 usec per bit
+// 16 bits == 160 usec
+// 4 values to update = 640 usec
+// so 10 video lines
 */
 namespace {
    quan::fifo<uint16_t, 8> dac_fifo;
@@ -193,13 +196,13 @@ namespace {
       }else{
          internal_video_mode_dac_setup();
       }
+     // while (detail::dac_busy() ){asm volatile ("nop":::);}
    }
 }
 
 namespace detail{
    void video_palette_dac_setup()
    {
-
       quan::stm32::module_enable<av_dac_nsync::port_type>();
       quan::stm32::apply<
          av_dac_nsync

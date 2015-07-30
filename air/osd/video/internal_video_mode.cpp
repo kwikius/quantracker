@@ -139,8 +139,9 @@ namespace {
 #endif
 
    ivm_mode_t ivm_mode = video_fields;
-   bool first_field = false;
-   uint32_t ivm_count = num_video_fields - 1;
+   bool first_field = true;
+   // make zero
+   uint32_t ivm_count = 0;
 
 } //namespace
 
@@ -163,7 +164,7 @@ namespace detail{
       ivm_timer_setup();
       // set initial timer values
       // get immediate start on overflow
-      sync_timer::get()->cnt = 0xffff;
+      sync_timer::get()->cnt = 0;
     
       sync_timer::get()->ccr1 = long_sync;
 
@@ -181,17 +182,20 @@ namespace {
 
    void do_internal_video_mode_uif_irq()
    { 
-     
-     // typedef video_rows_line_counter sync_timer;
+     //pal mode oly atm
       switch (ivm_mode){
          case video_fields:
             switch(ivm_count){
+          #if defined QUAN_OSD_TELEM_TRANSMITTER
                case start_of_telemetry_rows:
+                 // TODO 
                  // video_cfg::rows::telem::begin();
                   break;
                case end_of_telemetry_rows:
+                // TODO
                 //  video_cfg::rows::telem::end();
                   break;
+          #endif
                case start_of_osd_rows:
                   video_cfg::rows::osd::begin();
                   break;
@@ -232,9 +236,7 @@ namespace {
             if (ivm_count == 4){
                ivm_mode = post_equalise;
                sync_timer::get()->ccr1 = short_sync;
-//##########################################
                first_field = !first_field;
-//###########################################
                ivm_count = 0;
                return;
             }
