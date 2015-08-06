@@ -16,7 +16,7 @@
 
 # modify to change the name of the dll
 
-DLL_NAME = quantracker_examples_osd_example1.so
+DLL_NAME = quantracker_examples_osd_example1_temp.so
 
 ######################## #######################################
 # mod these to your compiler must be a C++11 gcc compiler
@@ -49,7 +49,7 @@ draw_batteries.cpp symbology.cpp
 # in $(GRAPHICS_API_SRC_PATH)
 # should make a static lib of this 
 graphics_api_sources = draw_arc.cpp draw_bitmap.cpp draw_circle.cpp \
-draw_line.cpp draw_text.cpp flood_fill.cpp 
+draw_line.cpp draw_horizontal_line.cpp draw_text.cpp flood_fill.cpp 
 
 common_objects = $(patsubst %.cpp,%.o,$(common_sources)) 
 
@@ -80,7 +80,7 @@ osd_graphics_api.a : $(graphics_api_objects)
 ~ ar rcs $@ $(graphics_api_objects) 
 
 $(graphics_api_objects): %.o: $(GRAPHICS_API_SRC_PATH)%.cpp
-~ $(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@ 
+~ $(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINE_ARGS) $< -o $@ 
 
 sim_graphics_api.o : sim_graphics_api.cpp
 ~ $(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINE_ARGS) $< -o $@

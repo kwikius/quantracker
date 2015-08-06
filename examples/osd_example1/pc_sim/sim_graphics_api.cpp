@@ -74,6 +74,12 @@ namespace{
    }
 
    QUAN_DLL_LOCAL void 
+   quan::uav::osd::set_display_buffer(uint32_t offset32,uint32_t mask,colour_type c)
+   {
+       return  get_device().set_display_buffer(offset32,mask,c);
+   }
+
+   QUAN_DLL_LOCAL void 
    quan::uav::osd::set_clip_rect(pxp_type const & minimums, pxp_type const & maximums)
    {
        get_device().set_clip_rect(minimums,maximums);
