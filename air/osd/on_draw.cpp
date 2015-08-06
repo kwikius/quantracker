@@ -15,8 +15,8 @@ namespace quan{ namespace uav { namespace osd{
 //         draw_horizontal_line({-150,-40},60,colour_type::grey);
          auto const scr_sz = get_display_size();
          draw_horizontal_line({-scr_sz.x/2 + 8,scr_sz.y/2 - 12},scr_sz.x - 16, colour_type::black);
-         draw_horizontal_line({-scr_sz.x/2 + 8,scr_sz.y/2 - 13},scr_sz.x - 16, colour_type::white);
-         draw_horizontal_line({-scr_sz.x/2 + 8,-scr_sz.y/2 + 13},scr_sz.x - 16, colour_type::black);
+         draw_horizontal_line({-scr_sz.x/2 + 8,scr_sz.y/2 - 13},scr_sz.x - 16, colour_type::black);
+         draw_horizontal_line({-scr_sz.x/2 + 8,-scr_sz.y/2 + 13},scr_sz.x - 16, colour_type::white);
          draw_horizontal_line({-scr_sz.x/2 + 8,-scr_sz.y/2 + 12},scr_sz.x - 16, colour_type::white);
 
          draw_box({-20,-20},{20,20},colour_type::black,true);
@@ -26,7 +26,7 @@ namespace quan{ namespace uav { namespace osd{
          draw_line(
             {-scr_sz.x/2 + 8,scr_sz.y/2 - 15},
             {-scr_sz.x/2 + 8,-scr_sz.y/2 + 15},
-            colour_type::black
+            colour_type::white
          );
 
          draw_line(
