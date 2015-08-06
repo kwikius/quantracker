@@ -187,13 +187,13 @@ struct video_buffers {
             break;
          }
 #else   
-         if ( val & 1){
+         if ( val & 0b10){
             *white_ptr  |= mask ;
          }else{
             *white_ptr  &= (0xffffffff & ~mask);
          }
 
-         if ( val & 0b10){
+         if ( val & 0b01){
             *black_ptr  |= mask ;
          }else{
             *black_ptr  &= (0xffffffff & ~mask);
