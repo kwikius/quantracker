@@ -1,6 +1,7 @@
 
 
 #include <quan/uav/osd/api.hpp>
+#include <quan/stm32/millis.hpp>
 
 namespace quan{ namespace uav { namespace osd{
 
@@ -34,5 +35,9 @@ namespace quan{ namespace uav { namespace osd{
             {scr_sz.x/2 - 8,-scr_sz.y/2 + 15},
             colour_type::black
          );
+        auto const start_wait = quan::stm32::millis();
+        while ( (quan::stm32::millis() - start_wait)  < quan::time_<int64_t>::ms(500))
+         { asm volatile("nop":::);}
+         
    }
 }}}

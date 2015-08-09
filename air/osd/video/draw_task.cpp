@@ -33,13 +33,13 @@ namespace {
    void draw_task(void * params)
    {
        vTaskDelay(100); // want to know if have video
-       // take the semaphore?
+  
        for (;;){
-        
-         quan::uav::osd::on_draw();
-
+         if ( osd_state::get() != osd_state::suspended ){
+            quan::uav::osd::on_draw();
+         }
          if ( osd_state::get() == osd_state::internal_video ){
-           // vTaskDelay(20);
+          
             if ( ++count >= 25){
                count = 0;
                quan::stm32::complement<heartbeat_led_pin>();
@@ -52,13 +52,7 @@ namespace {
                continue;
             }
          }
-//         if ( osd_state::get() == osd_state::suspended){
-//         //    vTaskDelay(20);
-//            if ( ++count >= 35){
-//               count = 0;
-//               quan::stm32::complement<heartbeat_led_pin>();
-//            } 
-//         }
+
          if ( osd_state::get() == osd_state::external_video ){  
             if ( ++count >= 50){
                count = 0;
@@ -71,7 +65,6 @@ namespace {
             }
          }
 
-         
       }
    }
 

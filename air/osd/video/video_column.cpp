@@ -55,7 +55,6 @@ namespace detail{
    {
       h_request_osd_buffers_swap = xSemaphoreCreateBinary();
       h_osd_buffers_swapped = xSemaphoreCreateBinary();
-
    }
 
    void reset_osd_swap_semaphores()
@@ -70,22 +69,24 @@ namespace detail{
 
    bool swap_osd_buffers(quan::time::ms const & wait_time)
    {
-      xSemaphoreGive(h_request_osd_buffers_swap);
-      TickType_t const wait_time1 = static_cast<TickType_t>(wait_time.numeric_value());
-      if ( xSemaphoreTake(h_osd_buffers_swapped,wait_time1) == pdTRUE){
-         video_buffers::osd::clear_write_buffer();
-         return true;
-      }else{
-         return false;
+      // true if was successfully given
+      if (xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE){
+         TickType_t const wait_time1 = static_cast<TickType_t>(wait_time.numeric_value());
+         if ( xSemaphoreTake(h_osd_buffers_swapped,wait_time1) == pdTRUE){
+            video_buffers::osd::clear_write_buffer();
+            return true;
+         }
       }
+      return false;
    }
 
       //called from draw_task
    void swap_osd_buffers()
    {
-      xSemaphoreGive(h_request_osd_buffers_swap);
-      xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY);
-      video_buffers::osd::clear_write_buffer();
+      if ( ( xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE) && 
+             (xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY) == pdTRUE) ){
+          video_buffers::osd::clear_write_buffer();
+      }
    }
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER

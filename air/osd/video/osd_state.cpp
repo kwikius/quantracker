@@ -38,7 +38,7 @@ void osd_state::suspend()
    #endif
    detail::video_take_down();
    __enable_irq();
-   taskEXIT_CRITICAL();
+
    detail::reset_osd_swap_semaphores();
    
     // check dma's disabled
@@ -60,9 +60,11 @@ void osd_state::suspend()
    DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
    DMA2->LIFCR &= ~(0b111101 << 6) ; // flags for Dma2 Stream 1
 #endif
-   while( detail::dac_busy() ){;}
+
    m_have_external_video = false;
    m_current_state = suspended;
+   taskEXIT_CRITICAL();
+   while( detail::dac_busy() ){;}
 
 }
 
