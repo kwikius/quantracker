@@ -59,12 +59,15 @@ namespace detail{
 
    void reset_osd_swap_semaphores()
    {
-      if (h_request_osd_buffers_swap != 0){
-         while (xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE){;}
-      }
-      if (h_osd_buffers_swapped != 0){
-         while (xSemaphoreGive(h_osd_buffers_swapped)== pdTRUE){;}
-      }
+        vSemaphoreDelete( h_request_osd_buffers_swap);
+        vSemaphoreDelete(h_osd_buffers_swapped);
+       create_osd_swap_semaphores();
+//      if (h_request_osd_buffers_swap != 0){
+//         while (xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE){;}
+//      }
+//      if (h_osd_buffers_swapped != 0){
+//         while (xSemaphoreGive(h_osd_buffers_swapped)== pdTRUE){;}
+//      }
    }
 
    bool swap_osd_buffers(quan::time::ms const & wait_time)

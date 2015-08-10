@@ -36,7 +36,7 @@ namespace quan{ namespace uav { namespace osd{
             colour_type::black
          );
         auto const start_wait = quan::stm32::millis();
-        while ( (quan::stm32::millis() - start_wait)  < quan::time_<int64_t>::ms(500))
+        while ( (quan::stm32::millis() - start_wait)  < quan::time_<int64_t>::ms(2000))
          { asm volatile("nop":::);}
          
    }

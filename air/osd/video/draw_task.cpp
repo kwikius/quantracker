@@ -29,39 +29,35 @@ namespace detail{
    
 }
 namespace {
-   int count =0;
+
    void draw_task(void * params)
    {
        vTaskDelay(100); // want to know if have video
   
        for (;;){
-         if ( osd_state::get() != osd_state::suspended ){
+
+         if ( osd_state::get() != osd_state::suspended){
             quan::uav::osd::on_draw();
          }
+        
          if ( osd_state::get() == osd_state::internal_video ){
           
-            if ( ++count >= 25){
-               count = 0;
-               quan::stm32::complement<heartbeat_led_pin>();
-            } 
             if ( osd_state::have_external_video()){
-               count = 0;
                osd_state::set(osd_state::external_video);
             }else{
+               quan::stm32::complement<heartbeat_led_pin>();
                detail::swap_osd_buffers();
                continue;
             }
          }
 
          if ( osd_state::get() == osd_state::external_video ){  
-            if ( ++count >= 50){
-               count = 0;
-               quan::stm32::complement<heartbeat_led_pin>();
-            }
+
             constexpr quan::time::ms wait_time{1000};
             if (!detail::swap_osd_buffers(wait_time)){
-               count = 0;
                osd_state::set(osd_state::internal_video);
+            }else{
+                quan::stm32::complement<heartbeat_led_pin>();
             }
          }
 
