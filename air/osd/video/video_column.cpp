@@ -59,9 +59,15 @@ namespace detail{
 
    void reset_osd_swap_semaphores()
    {
-        vSemaphoreDelete( h_request_osd_buffers_swap);
-        vSemaphoreDelete(h_osd_buffers_swapped);
+#if 0
+       vSemaphoreDelete( h_request_osd_buffers_swap);
+       vSemaphoreDelete(h_osd_buffers_swapped);
        create_osd_swap_semaphores();
+#else
+       xQueueReset((QueueHandle_t)(h_request_osd_buffers_swap));
+       xQueueReset((QueueHandle_t)(h_osd_buffers_swapped));
+#endif
+
 //      if (h_request_osd_buffers_swap != 0){
 //         while (xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE){;}
 //      }
