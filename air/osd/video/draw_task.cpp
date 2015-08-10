@@ -45,7 +45,7 @@ namespace {
             if ( osd_state::have_external_video()){
                osd_state::set(osd_state::external_video);
             }else{
-               quan::stm32::complement<heartbeat_led_pin>();
+              // quan::stm32::complement<heartbeat_led_pin>();
                detail::swap_osd_buffers();
                continue;
             }
@@ -57,7 +57,7 @@ namespace {
             if (!detail::swap_osd_buffers(wait_time)){
                osd_state::set(osd_state::internal_video);
             }else{
-                quan::stm32::complement<heartbeat_led_pin>();
+               // quan::stm32::complement<heartbeat_led_pin>();
             }
          }
 
