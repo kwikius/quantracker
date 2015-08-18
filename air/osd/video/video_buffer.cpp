@@ -27,11 +27,15 @@
 video_params::osd::buffer::type 
 video_buffers::osd::m_buffers[2] __attribute__((section(".display_buffer")));
 
+#if defined QUAN_OSD_TELEM_TRANSMITTER
 video_params::telem::tx::buffer::type 
 video_buffers::telem::tx::m_buffers[2] __attribute__((section(".telem_buffer")));
+#endif
 
+#if defined QUAN_OSD_TELEM_RECEIVER
 video_params::telem::rx::buffer::type 
 video_buffers::telem::rx::m_buffers[2] __attribute__((section(".telem_buffer")));
+#endif
 
 double_buffer_manager<video_params::osd::buffer::type>
 video_buffers::osd::manager{
@@ -39,21 +43,27 @@ video_buffers::osd::manager{
    &video_buffers::osd::m_buffers[1]
 };
 
+#if defined QUAN_OSD_TELEM_TRANSMITTER
 double_buffer_manager<video_params::telem::tx::buffer::type>
 video_buffers::telem::tx::manager{
    &video_buffers::telem::tx::m_buffers[0],
    &video_buffers::telem::tx::m_buffers[1]
 };
+#endif
 
+#if defined QUAN_OSD_TELEM_RECEIVER
 double_buffer_manager<video_params::telem::rx::buffer::type>
 video_buffers::telem::rx::manager{
    &video_buffers::telem::rx::m_buffers[0],
    &video_buffers::telem::rx::m_buffers[1]
 };
+#endif
 
 quan::two_d::vect<uint32_t> video_buffers::osd::m_display_size; //pixels
 
+#if defined QUAN_OSD_TELEM_TRANSMITTER || defined QUAN_OSD_TELEM_RECEIVER
 quan::two_d::vect<uint32_t> video_buffers::telem::tx::m_size; //pixels
+#endif
 
 void video_buffers::init()
 {
@@ -63,22 +73,32 @@ void video_buffers::init()
    osd::clear_read_buffer();
    osd::clear_write_buffer();
    osd::manager.read_reset();
+
+#if defined QUAN_OSD_TELEM_TRANSMITTER || defined QUAN_OSD_TELEM_RECEIVER
    telem::tx::m_size 
    = quan::two_d::vect<uint32_t>{
       video_cfg::columns::telem::get_count()
       ,video_cfg::rows::telem::get_count()
      };
+#endif
+
+#if defined QUAN_OSD_TELEM_TRANSMITTER
    telem::tx::m_buffers[0].init();
    telem::tx::m_buffers[1].init();
    telem::tx::reset_read_buffer();
    telem::tx::reset_write_buffer(); 
    telem::tx::manager.read_reset();
+#endif
 
+#if defined QUAN_OSD_TELEM_RECEIVER
    telem::rx::reset_read_buffer();
    telem::rx::reset_write_buffer(); 
    telem::rx::manager.read_reset();
+#endif
     
 }
+
+#if defined QUAN_OSD_TELEM_TRANSMITTER
 // call reset_write_buffer first
 // for data 1 is space 0 is mark
 // means that 0 data will be at black level
@@ -130,6 +150,7 @@ void video_buffers::telem::tx::write_data ( uint8_t * ar)
       }
    }
 }
+#endif
 
 
 
