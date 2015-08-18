@@ -35,25 +35,10 @@
 #include "osd_state.hpp"
 #include <quan/conversion/itoa.hpp>
 
-/*
- using the FreeRTOS Semaphores is more efficient I think
-*/
-//#define ALTERNATIVE_SEMAPHORES
-
 namespace {
 
-#if defined ALTERNATIVE_SEMAPHORES
-   QueueHandle_t  task_to_irq_semaphore = nullptr;
-   QueueHandle_t  irq_to_task_semaphore = nullptr;
-   constexpr uint8_t RequestBuffersSwap = 1U;
-   constexpr uint8_t BuffersSwapped = 2U;
-
-   uint8_t const task_msg_out = RequestBuffersSwap;
-   uint8_t       task_msg_in  = 0;
-#else
    SemaphoreHandle_t h_request_osd_buffers_swap = 0U;
    SemaphoreHandle_t h_osd_buffers_swapped = 0U;
-#endif
    BaseType_t HigherPriorityTaskWoken_osd = 0U;
 
 #if ((defined QUAN_OSD_TELEM_TRANSMITTER) || (defined QUAN_OSD_TELEM_RECEIVER))
@@ -68,54 +53,19 @@ namespace detail{
 
    void create_osd_swap_semaphores()
    {
-#if defined ALTERNATIVE_SEMAPHORES
-      task_to_irq_semaphore = xQueueCreate(1U,sizeof(uint8_t));
-      irq_to_task_semaphore = xQueueCreate(1U,sizeof(uint8_t));
-#else
       h_request_osd_buffers_swap = xSemaphoreCreateBinary();
       h_osd_buffers_swapped = xSemaphoreCreateBinary();
-#endif
    }
 
    void reset_osd_swap_semaphores()
    {
-#if defined ALTERNATIVE_SEMAPHORES
-       xQueueReset(task_to_irq_semaphore);
-       xQueueReset(irq_to_task_semaphore);
-#else
-#if 0
-       vSemaphoreDelete( h_request_osd_buffers_swap);
-       vSemaphoreDelete(h_osd_buffers_swapped);
-       create_osd_swap_semaphores();
-#else
-       // fine as long as semaphores are implemented using queues
-       xQueueReset((QueueHandle_t)(h_request_osd_buffers_swap));
-       xQueueReset((QueueHandle_t)(h_osd_buffers_swapped));
-#endif
-#endif
+      // fine as long as semaphores are implemented using queues
+      xQueueReset((QueueHandle_t)(h_request_osd_buffers_swap));
+      xQueueReset((QueueHandle_t)(h_osd_buffers_swapped));
    }
 
    bool swap_osd_buffers(quan::time::ms const & wait_time)
    {
-#if defined ALTERNATIVE_SEMAPHORES
-  
-      if (xQueueSend( task_to_irq_semaphore ,&task_msg_out,0) == pdTRUE){
-        
-         TickType_t const wait_time1 = static_cast<TickType_t>(wait_time.numeric_value());
-         task_msg_in = 0U;
-         if ( xQueueReceive(irq_to_task_semaphore,&task_msg_in,wait_time1) == pdTRUE){
-           
-            if ( task_msg_in == BuffersSwapped){
-                quan::stm32::complement<heartbeat_led_pin>();
-                video_buffers::osd::clear_write_buffer();
-                return true;
-            }
-         }
-         
-      }
-      
-      return false;
-#else
       // true if was successfully given
       if (xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE){
          TickType_t const wait_time1 = static_cast<TickType_t>(wait_time.numeric_value());
@@ -125,28 +75,15 @@ namespace detail{
          }
       }
       return false;
-#endif
    }
 
-      //called from draw_task
+   //called from draw_task
    void swap_osd_buffers()
    {
-
-#if defined ALTERNATIVE_SEMAPHORES
-      if (xQueueSend( task_to_irq_semaphore ,&task_msg_out,0) == pdTRUE ){
-         task_msg_in = 0U;
-         if ( xQueueReceive(irq_to_task_semaphore,&task_msg_in,portMAX_DELAY) == pdTRUE){
-            if ( task_msg_in == BuffersSwapped){
-                video_buffers::osd::clear_write_buffer();
-            }
-         }
-      }
-#else
       if ( ( xSemaphoreGive(h_request_osd_buffers_swap) == pdTRUE) && 
              (xSemaphoreTake(h_osd_buffers_swapped,portMAX_DELAY) == pdTRUE) ){
           video_buffers::osd::clear_write_buffer();
       }
-#endif
    }
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -189,29 +126,15 @@ namespace detail{
 
 namespace {
 // call from ISR
-#if defined ALTERNATIVE_SEMAPHORES
-   uint8_t const irq_msg_out = BuffersSwapped;
-   uint8_t       irq_msg_in = 0;
-#endif
    void service_osd_buffers()
    {
      HigherPriorityTaskWoken_osd = pdFALSE;
-
-#if defined ALTERNATIVE_SEMAPHORES
-     irq_msg_in = 0U;
-     if (xQueueReceiveFromISR(task_to_irq_semaphore, &irq_msg_in, NULL) == pdTRUE){
-        if ( irq_msg_in == RequestBuffersSwap){
-            video_buffers::osd::manager.swap();
-            xQueueSendFromISR(irq_to_task_semaphore,&irq_msg_out, &HigherPriorityTaskWoken_osd);
-        }
-     }
-#else
      if(xSemaphoreTakeFromISR(h_request_osd_buffers_swap,NULL) == pdTRUE){    
         video_buffers::osd::manager.swap();
         xSemaphoreGiveFromISR(h_osd_buffers_swapped,&HigherPriorityTaskWoken_osd);
      }
-#endif
    }
+
 #if defined QUAN_OSD_TELEM_TRANSMITTER
    void service_telem_tx_buffers()
    {  
