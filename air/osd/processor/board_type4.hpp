@@ -250,6 +250,7 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
 
 // 0- 15 lower numerical is higher logical priority
  // NB anything above certain level is not masked
+  // what is that level?
 struct interrupt_priority {
      static constexpr uint32_t video_level = 15;
      static constexpr uint32_t frsky_serial_port= 14;
@@ -278,5 +279,13 @@ struct task_priority{
    static constexpr uint32_t heartbeat = ( tskIDLE_PRIORITY + 1UL );
 
 };
+
+/*
+ DMA used 
+   DMA1.Stream4.Channel0  == SPI2 TX
+   DMA1.Stream5.Channel0  == SPI3 TX
+   
+   DMA2.Stream1.Ch5  ==   only if TelemeReceiver
+*/
 
 #endif // QUANTRACKER_AIR_OSD_PROCESSORS_BOARD_TYPE4_HPP_INCLUDED
