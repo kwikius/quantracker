@@ -1,5 +1,6 @@
 
 #include <cstdlib>
+#include <cstring>
 #include <stm32f4xx.h>
 #include <misc.h>
 
@@ -13,12 +14,31 @@ void *__dso_handle;
 extern "C" void   vPortFree( void *pv );
 extern "C" void * pvPortMalloc(size_t n);
 
-void operator delete (void* pv){ vPortFree(pv);}
-void* operator new (unsigned int n){ return pvPortMalloc(n);}
+void operator delete (void* pv)
+{ 
+   if (pv) {
+      vPortFree(pv);
+   } 
+}
+void* operator new (size_t n_in){ 
+   size_t const n = (n_in > 1) ? n_in : 1;
+   void * result = pvPortMalloc(n );
+   if ( result != nullptr){
+      memset(result,0,n);
+   }
+   return result;
+}
 
-void * operator new[](size_t n)
+
+// should prrob init to 0 for ardupilot
+void * operator new[](size_t n_in)
 {
-    return pvPortMalloc( ((n>0)?n:1) );
+   size_t const n = (n_in > 1) ? n_in : 1;
+   void * result = pvPortMalloc(n );
+   if ( result != nullptr){
+      memset(result,0,n);
+   }
+   return result;
 }
 
 void operator delete[](void * ptr)
