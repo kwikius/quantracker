@@ -32,29 +32,31 @@ namespace {
       switch(i2c_mag_port::i2c_errno){
 
          case i2c_mag_port::errno_t::no_error:
-         return "no error";
+            return "no error has been detected";
          case i2c_mag_port::errno_t::invalid_address:
-         return "invalid address";
+            return "invalid address";
          case i2c_mag_port::errno_t::cant_start_new_transfer_when_i2c_busy:
-         return "cant start new transfer when i2c busy";
+            return "cant start new transfer when i2c busy";
          case i2c_mag_port::errno_t::zero_data:
-         return "zero data";
+            return "zero data";
          case i2c_mag_port::errno_t::data_pointer_is_null:
-         return "daya pointer is null";
+            return "daya pointer is null";
          case i2c_mag_port::errno_t::invalid_num_bytes_in_rx_multibyte_btf:
-         return "invalid numbytes in rx multibyte buffer";
+            return "invalid numbytes in rx multibyte buffer";
          case i2c_mag_port::errno_t::unexpected_single_total_bytes_in_rx_btf:
-         return "unexpected single total bytes in rx btf";
+            return "unexpected single total bytes in rx btf";
          case i2c_mag_port::errno_t::unexpected_not_last_byte_in_rxne:
-         return "unexpetced not last byte in rxne";
+            return "unexpetced not last byte in rxne";
          case i2c_mag_port::errno_t::unexpected_flags_in_irq:
-         return "unexpected flags in irq";
+            return "unexpected flags in irq";
          case i2c_mag_port::errno_t::i2c_err_handler:
-         return "i2c errhandler";
+            return "i2c errhandler";
          case i2c_mag_port::errno_t::unknown_exti_irq:
-         return " unknown ext irq";
+            return "unknown ext irq";
+         case i2c_mag_port::errno_t::address_timed_out:
+            return "timed out waiting after sending address"
          default:
-         return "unlisted i2c error";
+            return "unlisted i2c error";
       }
    }
 
