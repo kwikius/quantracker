@@ -9,8 +9,6 @@ using namespace quan::uav::osd;
 
 void draw_gps_state();
 
-
-
 namespace {
   int count = 0;
 }

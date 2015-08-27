@@ -149,23 +149,26 @@ int32_t raw_compass::update()
 }
 
 namespace {
-
-//   void setup_mag_ready_irq()
-//   {
-//      quan::stm32::module_enable<quan::stm32::syscfg>(); 
-//      quan::stm32::set_exti_syscfg<mag_rdy_exti_pin>();
-//      quan::stm32::set_exti_falling_edge<mag_rdy_exti_pin>();
-//      NVIC_SetPriority(I2C3_EV_IRQn,local_interrupt_priority::exti_mag_rdy);
-//      quan::stm32::nvic_enable_exti_irq<mag_rdy_exti_pin>();
-//      quan::stm32::module_enable<mag_rdy_exti_pin::port_type>();
-//      quan::stm32::apply<
-//         mag_rdy_exti_pin
-//         , quan::stm32::gpio::mode::input
-//         , quan::stm32::gpio::pupd::none // make this pullup ok as mag is on 3v?
-//      >();
-      
-      //quan::stm32::enable_exti_interrupt<mag_rdy_exti_pin>();
-  // }
+#if 0
+   void setup_mag_ready_irq()
+   {
+      quan::stm32::module_enable<mag_rdy_exti_pin::port_type>();
+      quan::stm32::apply<
+         mag_rdy_exti_pin
+         , quan::stm32::gpio::mode::input
+         , quan::stm32::gpio::pupd::pull_up // make this pullup ok as mag is on 3v?
+      >();
+      quan::stm32::module_enable<quan::stm32::syscfg>(); 
+      quan::stm32::set_exti_syscfg<mag_rdy_exti_pin>();
+      quan::stm32::set_exti_falling_edge<mag_rdy_exti_pin>();
+      quan::stm32::nvic_enable_exti_irq<mag_rdy_exti_pin>();
+    //  NVIC_SetPriority(EXTI15_10_IRQn,local_interrupt_priority::exti_mag_rdy);
+      NVIC_SetPriority(
+         quan::stm32::detail::get_exti_irq_num<mag_rdy_exti_pin::pin_value>::value
+         ,local_interrupt_priority::exti_mag_rdy);
+      quan::stm32::enable_exti_interrupt<mag_rdy_exti_pin>();
+   }
+#endif
 }
 
 bool raw_compass::acquire_mutex(TickType_t ticks)

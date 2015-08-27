@@ -14,9 +14,10 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+// Opted to provide a preemptive version of suspendeing the osd */
+#error dont use
 #include "FreeRTOS.h"
-#include "task.h"
+#include <task.h>
 
 #include "resources.hpp"
 
@@ -33,7 +34,7 @@ namespace {
         for(;;) {
            if ( count < 5){
             ++count;
-           vTaskDelay(5000);
+           vTaskDelay(2000);
            request_osd_suspend();
            while (!osd_suspended()){;}
            vTaskDelay(1000);

@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <quan/uav/osd/features_api.hpp>
 #include "osd.hpp"
+#include <cmath>
+#include <quan/min.hpp>
 
 using namespace quan::uav::osd;
 
@@ -45,7 +47,15 @@ void draw_batteries()
          for( int32_t j = -1;j < 2; ++j){
             size_type const move = dirs_move[dirs_array[i-1]] * j;
             colour_type colour = (j == 0)?colour_type::white: colour_type::black;
-            draw_line(pos + move + pt_array[i-1], pos + move + pt_array[i],colour );
+            pxp_type p1 = pos + move + pt_array[i-1];
+            pxp_type p2 = pos + move + pt_array[i];
+            if ( p1.y == p2.y){
+               pxp_type sp{quan::min(p1.x,p2.x),p1.y};
+               uint32_t len = abs(p1.x- p2.x);
+               draw_horizontal_line(sp,len,colour);
+            }else{
+               draw_line(p1,p2,colour );
+            }
          }
        }
        for( int32_t j = -1;j < 2; ++j){

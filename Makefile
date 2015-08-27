@@ -53,6 +53,15 @@ clean_osd_telem_rx:
 
 upload_osd_telem_rx:
 	$(MAKE) -C examples/osd_telem_rx upload_sp
+#-------------------
+hello_world:
+	$(MAKE) -C examples/hello_world
+
+clean_hello_world:
+	$(MAKE) -C examples/hello_world clean 
+
+upload_hello_world:
+	$(MAKE) -C examples/hello_world upload_sp
 
 else
 quantracker-make-help:
@@ -77,6 +86,9 @@ quantracker-make-help:
 	@echo ''
 	@echo invoke \'make osd_telem_rx\' to make the osd__telem_rx example. \(\'make clean_osd_telem_rx\' to clean\)
 	@echo invoke \'make upload_osd_telem_rx\' to upload via the serial port
+	@echo ''
+	@echo invoke \'make hello_world\' to make the hello_world example. \(\'make clean_hello_world\' to clean\)
+	@echo invoke \'make upload_hello_world\' to upload via the serial port
 	@echo ''
 	@echo The examples should build the required static libraries, but they can be built and cleaned separately
 	@echo invoke \'make osd_libs\' to make the osd static libraries. \(\'make clean_osd_libs\' to clean\)

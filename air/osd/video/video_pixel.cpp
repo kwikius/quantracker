@@ -48,6 +48,15 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_px = 12;   // 7 MHz px clk
 // use half as uses pwm so needs an integer for each half cycle
 uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
 
+  void  video_cfg::spi_clock::takedown()
+  {
+       quan::stm32::apply<
+         video_spi_clock
+         ,quan::stm32::gpio::mode::input
+         ,quan::stm32::gpio::pupd::pull_up // init clock low
+      >();
+   }
+
  void video_cfg::spi_clock::setup()
    {
  // if boardtype == 4 spi_clock output == TIM9_CH1
@@ -150,3 +159,5 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
        //go .. Need CEN for gated mode
        timer::get()->cr1 |= ( 1<< 0); // (CEN)
    }
+
+   

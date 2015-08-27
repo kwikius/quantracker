@@ -27,6 +27,7 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include "video_cfg.hpp"
+#include "osd_state.hpp"
 
 // row line_counter on TIM3 (16 bit)
 // if ! defined QUAN_OSD_SOFTWARE_SYNCSEP
@@ -65,12 +66,12 @@ uint16_t video_cfg::rows::osd::m_end_ntsc = 480;
 #else
 uint16_t video_cfg::rows::osd::m_begin = 34;
 // BALDLY just reduce this to 500 for NTSC?
+// values are x2 ( from interlace) so /2 for count in frame
 uint16_t video_cfg::rows::osd::m_end_pal = 600;
 uint16_t video_cfg::rows::osd::m_end_ntsc = 500;
 #endif
 //###############################################################
 video_cfg::rows::mode video_cfg::rows::m_cur_mode = mode::idle;
-
 bool video_cfg::rows::m_cur_row_odd = true;
 
 // on first edge of hsync 
@@ -111,16 +112,31 @@ void video_cfg::rows::osd::end()
    // clear the row line_counter ready for
   // counting rows of next frame half
   // line_counter::get()->cnt = 0;
-   video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>() ;// CEN
+   if( osd_state::get() == osd_state::external_video){
+      video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>() ;// CEN
 #if defined QUAN_OSD_SOFTWARE_SYNCSEP
-   detail::sync_sep_enable();
+      detail::sync_sep_enable();
 #endif
+   }
 }
 
-void video_cfg::rows::setup()
+void video_cfg::rows::takedown()
 {
+    NVIC_DisableIRQ (TIM3_IRQn);
+    m_cur_mode = mode::idle;
+    m_cur_row_odd = true;
+}
+
+namespace {
+
+   void video_cfg_rows_external_setup()
+   {
+    typedef video_cfg::rows::line_counter line_counter ;
+//   m_cur_mode = mode::idle;
+//   m_cur_row_odd = true;
    quan::stm32::module_enable<line_counter>();
    quan::stm32::module_reset<line_counter>();
+
    {
       quan::stm32::tim::cr1_t cr1 = line_counter::get()->cr1.get();
       cr1.opm = true; // one pulse mode
@@ -193,10 +209,11 @@ void video_cfg::rows::setup()
       ccmr2.oc4pe = false; // want to be able to update on the fly
       line_counter::get()->ccmr2.set (ccmr2.value);
    }
-
+   typedef video_cfg::rows::telem telem;
    line_counter::get()->ccr2 = telem::m_begin -1 ;
    line_counter::get()->ccr3 = telem::m_end - 1;
    // interlace means jump 2 rows per clk
+   typedef video_cfg::rows::osd osd;
    line_counter::get()->ccr4 = osd::m_begin/2-1 ;
    line_counter::get()->arr = osd::get_end()/2 - 2;
    {
@@ -211,32 +228,51 @@ void video_cfg::rows::setup()
    line_counter::get()->cnt = 0 ;
    NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ (TIM3_IRQn);
+
+   }
+}// namespace
+
+namespace detail{
+   void internal_video_mode_setup();
+   void do_internal_video_mode_irq();
+}
+
+void video_cfg::rows::setup()
+{
+   if (osd_state::get() == osd_state::external_video){
+     video_cfg_rows_external_setup();
+   }else{
+     detail::internal_video_mode_setup();
+   }
 }
 
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
 extern "C" void TIM3_IRQHandler()
 {
-   typedef video_cfg::rows rows;  
-   uint16_t const sr = rows::line_counter::get()->sr.get();
-   if ( sr & (1 << 2)) { // cc2_if
-      rows::line_counter::get()->sr.bb_clearbit<2>();
-      rows::telem::begin();
-   }else {
-      if( sr & (1 << 3)){ // cc3_if
-        rows::line_counter::get()->sr.bb_clearbit<3>();
-        rows::telem::end();
-      }else{
-         if( sr & (1 << 4)){ //cc4_if
-            rows::line_counter::get()->sr.bb_clearbit<4>();
-            rows::osd::begin();
-            
+   if (osd_state::get() == osd_state::external_video){
+      typedef video_cfg::rows rows;  
+      uint16_t const sr = rows::line_counter::get()->sr.get();
+      if ( sr & (1 << 2)) { // cc2_if
+         rows::line_counter::get()->sr.bb_clearbit<2>();
+         rows::telem::begin();
+      }else {
+         if( sr & (1 << 3)){ // cc3_if
+            rows::line_counter::get()->sr.bb_clearbit<3>();
+            rows::telem::end();
          }else{
-            rows::line_counter::get()->sr.bb_clearbit<0>();  // must be uif
-            rows::osd::end();
-            return;
+            if( sr & (1 << 4)){ //cc4_if
+               rows::line_counter::get()->sr.bb_clearbit<4>();
+               rows::osd::begin();
+            }else{
+               rows::line_counter::get()->sr.bb_clearbit<0>();  // must be uif
+               rows::osd::end();
+               return;
+            }
          }
       }
+   }else{
+      detail::do_internal_video_mode_irq();
    }
 }
 

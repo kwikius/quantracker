@@ -30,6 +30,11 @@
 #include "video_buffer.hpp"
 #include "video_cfg.hpp"
 
+   void quan::uav::osd::set_display_buffer(uint32_t offset32,uint32_t mask,colour_type c)
+   {
+       video_buffers::osd::set_buffer(offset32,mask,(uint8_t)c);
+   }
+
    quan::uav::osd::pxp_type  
    quan::uav::osd::transform_to_raw(pxp_type const & pos)
    {

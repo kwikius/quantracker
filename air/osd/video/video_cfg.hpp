@@ -28,12 +28,13 @@
 #include <quan/frequency.hpp>
 #include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/two_d/vect.hpp>
+#include <quan/uav/osd/get_video_mode.hpp>
 
 struct video_cfg {
 
-   enum class video_mode_t { unknown,pal,ntsc};
+   //enum class video_mode_t { unknown,pal,ntsc};
 
-   static video_mode_t get_video_mode(); 
+   //static video_mode_t get_video_mode(); 
 
    //row line_counter
    struct rows {
@@ -44,6 +45,7 @@ struct video_cfg {
      // typedef quan::stm32::tim3 line_counter;
       typedef video_rows_line_counter line_counter;
       static void setup();
+      static void takedown();
       struct telem {
          static void begin();
          static void end();
@@ -55,14 +57,18 @@ struct video_cfg {
          }
       };
       struct osd {
-         
+       
          static void begin();
          static void end();
          static uint16_t m_begin;
          static uint16_t m_end_pal;
          static uint16_t m_end_ntsc;
          static uint16_t get_end() 
-               { return ((get_video_mode() == video_mode_t::pal)?m_end_pal:m_end_ntsc);}
+         { 
+            return ((quan::uav::osd::get_video_mode() == quan::uav::osd::video_mode::pal)
+                  ?m_end_pal
+                  :m_end_ntsc);
+         }
          static uint16_t get_visible_length()
          {
             return get_end() - m_begin;
@@ -111,6 +117,7 @@ private:
       static_assert (raw_timer_frequency == quan::frequency::Hz {84000000.0f},"unexpected timer frequency");
 
       static void setup();
+      static void takedown();
       struct telem{
          static void enable();
          static void disable();
@@ -151,10 +158,13 @@ private:
       static constexpr quan::frequency::Hz raw_timer_frequency {quan::stm32::get_raw_timer_frequency<timer>() }; 
       static_assert (raw_timer_frequency == quan::frequency::Hz {168000000.0f},"unexpected timer frequency");
       static void setup();
-      static uint16_t get_timer_clks_per_px() {
+      static void takedown();
+      static uint16_t get_timer_clks_per_px() 
+      {
          return m_timer_half_clks_per_px * 2;
       }
-      static uint16_t get_telem_clks_per_bit() {
+      static uint16_t get_telem_clks_per_bit() 
+      {
          return m_timer_half_clks_per_bit * 2;
       }
 private:
@@ -163,7 +173,7 @@ private:
    };
    
    static void setup();
-
+   static void takedown();
    static quan::two_d::vect<uint32_t> get_display_size_px()
    {
      return {get_display_size_x_px(),get_display_size_y_px()};
@@ -180,7 +190,7 @@ private:
 #if defined (QUAN_DISPLAY_INTERLACED)
        return rows::osd::get_visible_length();
 #else
- return rows::osd::get_visible_length()/2;
+       return rows::osd::get_visible_length()/2;
 #endif
    }
    // dump last pixels if not a multiple of 8

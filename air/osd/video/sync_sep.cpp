@@ -21,7 +21,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#if defined QUAN_OSD_SOFTWARE_SYNCSEP
+
 #include <stm32f4xx.h>
 #include <quan/stm32/tim.hpp>
 #include <quan/time.hpp>
@@ -30,6 +30,7 @@
 #include "../resources.hpp"
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
+#include "osd_state.hpp"
 #include <quan/uav/osd/api.hpp>
 
 /*
@@ -62,57 +63,38 @@ namespace {
         post_equalise
    };
    
-
+  // osd_state::state_t sync_sep_osd_state = osd_state::suspended;
    synctype_t sync_pulse_type = synctype_t::unknown;
    line_period_t line_period = line_period_t::unknown;
    uint16_t last_sync_first_edge = 0U;
    uint8_t sync_counter = 0U;
    syncmode_t syncmode = syncmode_t::start;
-   video_cfg::video_mode_t video_mode = video_cfg::video_mode_t::unknown;
 
    constexpr uint32_t timer_freq = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint16_t clocks_usec =  static_cast<uint16_t>(timer_freq / 1000000U);
 
-   
-   static quan::uav::osd::video_mode public_video_mode 
+// change video_mode to next_frame_video mode
+   quan::uav::osd::video_mode video_mode = quan::uav::osd::video_mode::unknown;
+   // video_mode relates to pal ntsc
+   quan::uav::osd::video_mode public_video_mode 
       = quan::uav::osd::video_mode::unknown;
 
-   volatile bool request_suspend_osd_flag = false;
-   volatile bool osd_suspended_flag = true;
 }; // namespace
 
-void request_osd_suspend()
-{
-   request_suspend_osd_flag = true;
-}
 
-void request_osd_resume()
-{
-   request_suspend_osd_flag = false;
-}
-
-bool osd_suspended()
-{
-   return osd_suspended_flag;
-}
 
 namespace quan{ namespace uav{ namespace osd{
 
    video_mode get_video_mode()
-   {
-      return public_video_mode;
+   {  if( osd_state::get() == osd_state::external_video){
+         return public_video_mode;
+      }else{
+         return quan::uav::osd::video_mode::pal;
+      }
    }
 
 }}}
 
-video_cfg::video_mode_t 
-video_cfg::get_video_mode()
-{
-  return video_mode;
-}
-
-typedef video_cfg::video_mode_t video_mode_t;
- 
 namespace {
    void sync_sep_reset()
    {
@@ -126,32 +108,38 @@ namespace {
 
    void sync_sep_error_reset()
    {
-   #if ((QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY))
-     quan::stm32::set<orange_led_pin>();
-    #endif
-     initial_first_edge_captured = false;
-     sync_pulse_type = synctype_t::unknown;
-     line_period = line_period_t::unknown;
-     last_sync_first_edge = 0;
-     sync_counter = 0;
-     syncmode = syncmode_t::start;
-     video_mode = video_mode_t::unknown;
+     sync_sep_reset();
+     video_mode = quan::uav::osd::video_mode::unknown;
    }
- 
 }// namespace 
 
 namespace detail{
-void sync_sep_enable()
-{
-  sync_sep_reset();
-  
-  sync_sep_timer::get()->sr = 0;
-  sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
-  sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
-   if ( request_suspend_osd_flag){
-     osd_suspended_flag = true;
+   void sync_sep_enable()
+   {
+     sync_sep_reset();
+     sync_sep_timer::get()->sr = 0;
+     sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
+     sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
+      
    }
-}
+
+   void sync_sep_takedown()
+   {
+      NVIC_DisableIRQ(TIM8_BRK_TIM12_IRQn);
+     // sync_sep_osd_state = osd_state::suspended;
+      video_mode = quan::uav::osd::video_mode::unknown;
+      quan::stm32::apply<
+         video_in_hsync_first_edge_pin,
+         quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::input, // PB15 TIM12_CH2
+         quan::stm32::gpio::pupd::pull_up
+      >();
+   }
 } //detail
 
 namespace {
@@ -162,75 +150,44 @@ namespace {
      sync_sep_timer::get()->dier &= ~((1 << 1) | ( 1 << 2)); // ( CC1IE, CC2IE)
    }
     
+   // signal at this point there is external video
    void sync_sep_new_frame()
    {
-      sync_sep_disable();
-      // could we just enable the interrupts
-      // Ideally want counting but
-      // important if video_mode has changed from ntsc to pal etc
-      video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
-      video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
-      // enable the rows counter one shot
-      video_cfg::rows::line_counter::get()->cnt = 0;
-      // cant see this is ever disabled?
-      video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
-   // update the public one.. messy prob just use one public enum for this?
-   // should prob do it in the swap_buffers function?
-      switch (video_mode){
-         case video_mode_t::ntsc:
-            public_video_mode = quan::uav::osd::video_mode::ntsc;
-         break;
-         case video_mode_t::pal:
-            public_video_mode = quan::uav::osd::video_mode::pal;
-         break;
-         default:
-            public_video_mode = quan::uav::osd::video_mode::unknown;
-         break;
+      if( osd_state::get() == osd_state::external_video){
+        // quan::stm32::clear<heartbeat_led_pin>();
+         sync_sep_disable();
+         public_video_mode = video_mode;
+         // important if video_mode has changed from ntsc to pal etc
+         video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
+         video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
+         // enable the rows counter one shot
+         video_cfg::rows::line_counter::get()->cnt = 0;
+         video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
+      }else{
+          osd_state::set_have_external_video();
+          sync_sep_reset();
       }
    }
 } // namespace
 
 namespace detail{
+
    void sync_sep_setup()
    {
+      
       quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
       quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
 
       quan::stm32::apply<
          video_in_hsync_first_edge_pin,
-   // af for first edge
-   #if (QUAN_OSD_BOARD_TYPE == 4)
-         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1 
-   #else
-         quan::stm32::gpio::mode::af3,
-   #endif
-   #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
+         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1    // af for first edge
          quan::stm32::gpio::pupd::pull_up
-   #else
-      #if QUAN_OSD_BOARD_TYPE == 2
-         quan::stm32::gpio::pupd::pull_down
-      #else
-         #error no board defined
-      #endif
-   #endif
       >();
 
       quan::stm32::apply<
          video_in_hsync_second_edge_pin,
-   #if (QUAN_OSD_BOARD_TYPE == 4)
          quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
-   #else
-         quan::stm32::gpio::mode::af3,
-   #endif
-   #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3)|| (QUAN_OSD_BOARD_TYPE == 4)
          quan::stm32::gpio::pupd::pull_up
-   #else
-      #if QUAN_OSD_BOARD_TYPE == 2
-         quan::stm32::gpio::pupd::pull_down
-      #else
-         #error no board defined
-      #endif
-   #endif
       >();
 
       quan::stm32::module_enable<sync_sep_timer>();
@@ -241,35 +198,29 @@ namespace detail{
       // cc1 capture on first edge of hsync
       // cc2 capture on second edge of hsync
       quan::stm32::tim::ccmr1_t ccmr1 = 0;
-        ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
-        ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
+      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
+      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
       sync_sep_timer::get()->ccmr1.set(ccmr1.value);
       quan::stm32::tim::ccer_t ccer = 0;
-   #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
-         ccer.cc1p = true; // CC1 is falling edge capture
-         ccer.cc1np = false;
-         ccer.cc2p = false;
-         ccer.cc2np = false; // CC2 is rising edge capture
-   #else
-      #if QUAN_OSD_BOARD_TYPE == 2
-         ccer.cc1p = false; // CC1 is rising edge capture
-         ccer.cc1np = false;
-         ccer.cc2p = true;
-         ccer.cc2np = false; // CC2 is falling edge capture
-      #else
-        #error no board type specified
-      #endif
-   #endif
-         ccer.cc1e = true;
-         ccer.cc2e = true;
-       sync_sep_timer::get()->ccer.set(ccer.value);
-   #if (QUAN_OSD_BOARD_TYPE !=4)
-      NVIC_SetPriority(TIM1_BRK_TIM9_IRQn,interrupt_priority::video);
-      NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);
-   #else
-      NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
-      NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-   #endif
+      ccer.cc1p = true; // CC1 is falling edge capture
+      ccer.cc1np = false;
+      ccer.cc2p = false;
+      ccer.cc2np = false; // CC2 is rising edge capture
+      ccer.cc1e = true;
+      ccer.cc2e = true;
+      sync_sep_timer::get()->ccer.set(ccer.value);
+      switch (osd_state::get()){
+         case osd_state::external_video:
+            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
+            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+         break;
+         case osd_state::internal_video:
+            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::fsk_dac_timer);
+            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+         break;
+         default:
+         break;
+      }
    }
 }// detail
  
@@ -295,15 +246,8 @@ void  calc_line_period()
          }
        }
   } else {// just get initial capture value and exit
-    if (!osd_suspended_flag){
       last_sync_first_edge = sync_sep_timer::get()->ccr1;
       initial_first_edge_captured = true;
-    }else{// osd suspended
-      if (! request_suspend_osd_flag){
-         // want restart
-         osd_suspended_flag = false;
-      }
-    }
   } 
 }
  
@@ -346,6 +290,7 @@ void on_hsync_first_edge()
 
 void on_hsync_second_edge() 
 {
+    
      calc_sync_pulse_type(); 
      if ( (sync_pulse_type != synctype_t::unknown)
                && (line_period != line_period_t::unknown) ) {
@@ -363,9 +308,10 @@ void on_hsync_second_edge()
                               // TODO get ADC result and convert sort outputs etc
                         }
 #endif
-                        if (  ((video_mode == video_mode_t::pal)  && (sync_counter == 3))
-                          ||  ((video_mode == video_mode_t::ntsc) && (sync_counter == 5))
+                        if (  ((video_mode == quan::uav::osd::video_mode::pal)  && (sync_counter == 3))
+                          ||  ((video_mode == quan::uav::osd::video_mode::ntsc) && (sync_counter == 5))
                         ){
+
                            // disable this sequence and start
                            // osd and telem sequence
                            sync_sep_new_frame();               
@@ -380,9 +326,10 @@ void on_hsync_second_edge()
                      // signifies the end of vsync period
                         // TODO flag calc_line_period to start ADC conv for sync tip
                         if ( sync_counter == 5){
-                           if ( video_mode != video_mode_t::pal){
-                              if ( video_mode == video_mode_t::unknown){
-                                 video_mode = video_mode_t::pal;
+                           
+                           if ( video_mode != quan::uav::osd::video_mode::pal){
+                              if ( video_mode == quan::uav::osd::video_mode::unknown){
+                                 video_mode = quan::uav::osd::video_mode::pal;
                               }else{
                                  sync_sep_error_reset(); // unexpected sequence
                                  return;
@@ -390,9 +337,9 @@ void on_hsync_second_edge()
                            }
                         }else {
                            if ( sync_counter == 6){
-                              if ( video_mode != video_mode_t::ntsc){
-                                 if ( video_mode == video_mode_t::unknown){
-                                    video_mode = video_mode_t::ntsc;
+                              if ( video_mode != quan::uav::osd::video_mode::ntsc){
+                                 if ( video_mode == quan::uav::osd::video_mode::unknown){
+                                    video_mode = quan::uav::osd::video_mode::ntsc;
                                  }else{
                                     sync_sep_error_reset(); // unexpected sequence
                                     return;
@@ -422,9 +369,9 @@ void on_hsync_second_edge()
                         // do odd / even frame logic
                         // n.b not realy needed in non-interlaced
                         if (sync_counter == 4){
-                           if ( video_mode != video_mode_t::pal){
-                              if (video_mode == video_mode_t::unknown){
-                                 video_mode = video_mode_t::pal;
+                           if ( video_mode != quan::uav::osd::video_mode::pal){
+                              if (video_mode == quan::uav::osd::video_mode::unknown){
+                                 video_mode = quan::uav::osd::video_mode::pal;
                               }else{
                                  sync_sep_error_reset(); // unexpected
                                  return;
@@ -436,7 +383,7 @@ void on_hsync_second_edge()
                         }else {
                            if ( sync_counter == 5){
 #if defined (QUAN_DISPLAY_INTERLACED)
-                              if ( video_mode == video_mode_t::pal){
+                              if ( video_mode == quan::uav::osd::video_mode::pal){
                                   video_cfg::rows::set_odd_frame();
                               }else{
                                  // n.b dont care if its unknown video mode
@@ -446,9 +393,9 @@ void on_hsync_second_edge()
 #endif
                            }else{
                               if ( sync_counter == 6){
-                                 if ( video_mode != video_mode_t::ntsc){
-                                    if (video_mode == video_mode_t::unknown){
-                                       video_mode = video_mode_t::ntsc;
+                                 if ( video_mode != quan::uav::osd::video_mode::ntsc){
+                                    if (video_mode == quan::uav::osd::video_mode::unknown){
+                                       video_mode = quan::uav::osd::video_mode::ntsc;
                                     }else{
                                        sync_sep_error_reset(); // unexpected
                                        return;
@@ -483,15 +430,15 @@ void on_hsync_second_edge()
                break;
                case syncmode_t::sync_phase1:
                   if (sync_pulse_type == synctype_t::hsync) {
-                       if (line_period == line_period_t::half) {
-                            // transition to pre_equalise
-                            // for odd lines the first half line is last picture line
-                            // rather than preequalise but this is counted
-                            syncmode = syncmode_t::pre_equalise;
-                            sync_counter = 1;
-                       }
+                    if (line_period == line_period_t::half) {
+                         // transition to pre_equalise
+                         // for odd lines the first half line is last picture line
+                         // rather than preequalise but this is counted
+                         syncmode = syncmode_t::pre_equalise;
+                         sync_counter = 1;
+                    }
                   } else {
-                       sync_sep_error_reset(); // unexpected vsync
+                    sync_sep_error_reset(); // unexpected vsync
                   }
                break;
                default:
@@ -501,24 +448,18 @@ void on_hsync_second_edge()
 }
 } // namespace
 
-#if (QUAN_OSD_BOARD_TYPE == 4)
 extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
-#else
-extern "C" void TIM1_BRK_TIM9_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
-extern "C" void TIM1_BRK_TIM9_IRQHandler()
-#endif
 {
-     uint16_t const sr = sync_sep_timer::get()->sr.get();
-     if (sr & (1 << 1)) {  // cc1_if
-          sync_sep_timer::get()->sr.bb_clearbit<1>();
-          on_hsync_first_edge();
-     } else {
-          if (sr & (1 << 2)) {  // cc2_if
-            sync_sep_timer::get()->sr.bb_clearbit<2>();
-            on_hsync_second_edge();
-          }
-     }
+   uint16_t const sr = sync_sep_timer::get()->sr.get();
+  
+   if (sr & (1 << 1)) {  // cc1_if
+      sync_sep_timer::get()->sr.bb_clearbit<1>();
+      on_hsync_first_edge();
+   }
+   if (sr & (1 << 2)) {  // cc2_if
+      sync_sep_timer::get()->sr.bb_clearbit<2>();
+      on_hsync_second_edge();
+   } 
 }
 
-#endif  // defined QUAN_OSD_SOFTWARE_SYNCSEP

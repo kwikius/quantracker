@@ -30,6 +30,7 @@
 #include <array>
 #include <quan/two_d/vect.hpp>
 #include <quan/stm32/bitband.hpp>
+#include "osd_state.hpp"
 
 template <uint32_t Length>
 struct black_white_buffer_t {
@@ -44,6 +45,8 @@ struct black_white_buffer_t {
    }
 };
 
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+// for tx
 template <uint32_t Length>
 struct white_buffer_t {
    uint32_t * bb_white;
@@ -53,6 +56,7 @@ struct white_buffer_t {
       bb_white = quan::stm32::get_sram_bitband_address (white,0);
    }
 };
+#endif
 
 struct video_params {
  
@@ -67,9 +71,10 @@ struct video_params {
       };
       static constexpr uint32_t max_pixels = buffer::length * 8U;
    };
-// n.b only need a tx or rx but for testing do both...
+// n.b only need a tx or rx 
    struct telem {
-      static constexpr uint32_t memory_size = 0x1000;
+#if defined QUAN_OSD_TELEM_TRANSMITTER
+    //  static constexpr uint32_t memory_size = 0x1000;
       struct tx {
          struct buffer {
             static constexpr uint32_t memory_size = 0x400;
@@ -77,14 +82,17 @@ struct video_params {
             typedef white_buffer_t<length> type;
          };
       };
+#endif
+#if defined QUAN_OSD_TELEM_RECEIVER
       struct rx {
          struct buffer{
-            static constexpr uint32_t memory_size
-               = telem::memory_size - telem::tx::buffer::memory_size;
+            static constexpr uint32_t memory_size = 0x400;
+              // = telem::memory_size - telem::tx::buffer::memory_size;
             static constexpr uint32_t length = memory_size / 2;
             typedef std::array<uint8_t,length> type;
          };
       };
+#endif
    };
 };
 
@@ -132,25 +140,73 @@ struct video_buffers {
       static void clear_write_buffer()
       {
          uint32_t const active_buffer_len = (m_display_size.x/8 +1) * (m_display_size.y +1);
-         memset (manager.m_write_buffer->black,0xff,active_buffer_len);
-         memset (manager.m_write_buffer->white,0xff,active_buffer_len);
+         if (osd_state::get() == osd_state::external_video){
+            memset (manager.m_write_buffer->black,0xff,active_buffer_len);
+            memset (manager.m_write_buffer->white,0xff,active_buffer_len);
+         }else{
+            memset (manager.m_write_buffer->black,0x0,active_buffer_len);
+         }
       }
 
       static void clear_read_buffer()
       {
          uint32_t const active_buffer_len = (m_display_size.x/8 +1) * (m_display_size.y +1);
-         memset (manager.m_read_buffer->black,0xff,active_buffer_len);
-         memset (manager.m_read_buffer->white,0xff,active_buffer_len);
+         if (osd_state::get() == osd_state::external_video){
+            memset (manager.m_read_buffer->black,0xff,active_buffer_len);
+            memset (manager.m_read_buffer->white,0xff,active_buffer_len);
+         }else{
+            memset (manager.m_write_buffer->black,0x0,active_buffer_len);
+         }
       }
 
-         static uint8_t * get_black_read_pos() 
-         {
-            return & manager.m_read_buffer->black[manager.m_read_index];
+      static uint8_t * get_black_read_pos() 
+      {
+         return & manager.m_read_buffer->black[manager.m_read_index];
+      }
+
+      static uint8_t * get_white_read_pos() 
+      {
+         return & manager.m_read_buffer->white[manager.m_read_index];
+      }
+
+      static void set_buffer(uint32_t offset32, uint32_t mask, uint8_t val)
+      {
+// todo no_video case
+         uint32_t * const black_ptr = ((uint32_t*)manager.m_write_buffer->black) + offset32;
+         uint32_t * const white_ptr = ((uint32_t*)manager.m_write_buffer->white) + offset32;
+#if 0
+         switch c:
+            case 0 : // gray switch addr 0
+              *white_ptr  &= (0xffffffff & ~mask);
+              *black_ptr  & =(0xffffffff & ~mask);
+            break;
+            case 1:   // white switch addr 1
+              *white_ptr  |= mask ;
+              *black_ptr  & =(0xffffffff & ~mask);
+            break;
+            case 2:
+              *white_ptr  & =(0xffffffff & ~mask);
+              *black_ptr  |= mask ;
+            break;
+            case 3:
+               *black_ptr  |= mask ;
+               *white_ptr  |= mask ;
+            break;
          }
-         static uint8_t * get_white_read_pos() 
-         {
-            return & manager.m_read_buffer->white[manager.m_read_index];
+#else   
+         if ( val & 0b10){
+            *white_ptr  |= mask ;
+         }else{
+            *white_ptr  &= (0xffffffff & ~mask);
          }
+
+         if ( val & 0b01){
+            *black_ptr  |= mask ;
+         }else{
+            *black_ptr  &= (0xffffffff & ~mask);
+         }
+#endif
+      }
       
       static void xy_to_buf (quan::two_d::vect<int32_t> const & px,uint8_t val)
       {
@@ -167,8 +223,12 @@ struct video_buffers {
          = static_cast<uint32_t> (px.y) * (m_display_size.x + 8)
            + static_cast<uint32_t> (px.x) + 1U;
            
+         
          manager.m_write_buffer->bb_black[buffer_bit_pos] = val;
+         // though white not used in external video mode
+         // just ignore that so external mode isnt slowed
          manager.m_write_buffer->bb_white[buffer_bit_pos] = val >> 1 ;
+
       }
 
       static uint8_t get_colour(quan::two_d::vect<int32_t> const & px )
@@ -179,13 +239,16 @@ struct video_buffers {
                || (static_cast<uint32_t> (px.x) > (m_display_size.x-1))
             )
          {
-            return 3; //transparent
+            return ((osd_state::get() == osd_state::external_video)? 3 : 2); //transparent: black
          }
          uint32_t const buffer_bit_pos
          = static_cast<uint32_t> (px.y) * (m_display_size.x + 8)
            + static_cast<uint32_t> (px.x) + 1U;
          uint8_t colour = ((manager.m_write_buffer->bb_black[buffer_bit_pos] !=0 )?2:0);
-         colour |= ((manager.m_write_buffer->bb_white[buffer_bit_pos]!=0)?1:0);
+         // this will fail then unless
+         if (osd_state::get() == osd_state::external_video){
+            colour |= ((manager.m_write_buffer->bb_white[buffer_bit_pos]!=0)?1:0);
+         }
          return colour;
       }
 
@@ -195,6 +258,7 @@ struct video_buffers {
    };
 
    struct telem{
+#if defined QUAN_OSD_TELEM_TRANSMITTER || defined QUAN_OSD_TELEM_RECEIVER
       struct tx{
          static  constexpr uint32_t sol_bits = 4U;
          static  constexpr uint32_t eol_bits = 4U;
@@ -202,13 +266,18 @@ struct video_buffers {
          {
             return (m_size.x / 8U) + ((m_size.x % 8U) ? 1 : 0);
          }
+#if defined QUAN_OSD_TELEM_TRANSMITTER
          static void reset_write_buffer()
          {
 //
             uint32_t const active_buffer_len = get_full_bytes_per_line() * m_size.y;
             // set to white == mark state
           //  memset (manager.m_write_buffer->black,0xff,active_buffer_len);
-            memset (manager.m_write_buffer->white,0xff,active_buffer_len);
+          //  if (osd_state::get() == osd_state::external_video){
+               memset (manager.m_write_buffer->white,0xff,active_buffer_len);
+//            }else{
+//               memset (manager.m_write_buffer->white,0,active_buffer_len);
+//            }
          }
          
          // call reset_write_buffer first
@@ -229,9 +298,9 @@ struct video_buffers {
          
          static double_buffer_manager<video_params::telem::tx::buffer::type> manager;
          static video_params::telem::tx::buffer::type m_buffers[2];
+#endif
          static quan::two_d::vect<uint32_t> m_size; 
  
-       //  static bool m_want_tx;
          static uint32_t get_data_bytes_per_line ()
          {
             return (m_size.x - (sol_bits + eol_bits)) / 10U ;
@@ -244,10 +313,9 @@ struct video_buffers {
          {
             return get_data_bytes_per_line() * get_num_lines();
          }
-
-         
       };
-
+#endif
+#if defined QUAN_OSD_TELEM_RECEIVER
       struct rx{
 
          static double_buffer_manager<video_params::telem::rx::buffer::type> manager;
@@ -267,6 +335,7 @@ struct video_buffers {
          }
          
       };
+#endif
    };
 
 };
