@@ -1,0 +1,33 @@
+
+Windows 
+
+
+To upload binaries just install stm32flash
+
+To develop
+Install MinGW MSYS
+check you have wget
+with mysys install python using wget
+to develop python
+
+
+Install Python
+
+
+
+Windows windows windows
+
+MinGW shell Install? from Python
+Download Python
+
+MinGW use
+
+Windows serial console
+Free or one that is there already
+
+installer check how far gets on windows
+
+
+
+
+

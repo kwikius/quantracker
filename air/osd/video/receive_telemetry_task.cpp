@@ -33,6 +33,7 @@
 #include <quan/frequency.hpp>
 #include <quan/min.hpp>
 #include <quantracker/osd/telemetry_receiver.hpp>
+#include <quan/stm32/usart/detail/get_irq_number.hpp>
 #include "../../../air/osd/video/video_cfg.hpp"
 #include "../../../air/osd/video/video_buffer.hpp"
 #include "resources.hpp"
@@ -123,54 +124,57 @@ namespace{
          ,quan::stm32::usart::i_en::lbd<false>
          ,quan::stm32::usart::i_en::txe<false>
          ,quan::stm32::usart::i_en::tc<false>
-         ,quan::stm32::usart::i_en::rxne<false>
+         ,quan::stm32::usart::i_en::rxne<true>
          ,quan::stm32::usart::i_en::idle<false>
          ,quan::stm32::usart::i_en::pe<false>
          ,quan::stm32::usart::i_en::error<false>
       >();
      // av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
       av_telem_usart::get()->cr1.setbit<2>(); // ( RE)
+      av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
+ //  av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
+      av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
+      NVIC_SetPriority(quan::stm32::usart::detail::get_irq_number<av_telem_usart>::value,interrupt_priority::video);
+      NVIC_EnableIRQ(quan::stm32::usart::detail::get_irq_number<av_telem_usart>::value);
    }
 
    /*
  for boardtype 4 dma is on USART6  DMA2 Channel 5 stream 1 or 2
  ( use stream 1 to save stream 2 for
 */
-   void telemetry_receiver_task_dma_setup()
-   {
-      RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
-      for ( uint8_t i = 0; i < 20; ++i){
-         asm volatile ("nop" : : :);
-      }
-      RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA2RST;
-      RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA2RST;
-   #if (QUAN_OSD_BOARD_TYPE == 4)
-      DMA_Stream_TypeDef *stream = DMA2_Stream1;
-      constexpr uint32_t dma_channel = 5U;
-   #else
-      DMA_Stream_TypeDef *stream = DMA2_Stream5;
-      constexpr uint32_t dma_channel = 4U;
-   #endif
-      if (  stream->CR & (1 << 0)){
-         stream->CR &= ~(1 << 0); // (EN)
-         while(stream->CR & (1 << 0)){;}
-      }
-      stream->CR = 
-         ( dma_channel << 25)     // select channel
-         | (0b10 << 16) // medium high priority
-         |( 1 << 10) ;  // (MINC);      
-
-      stream->FCR |= (1 << 2) ;// (DMDIS)
-      // set threshold full
-      stream->FCR |= (0b11 << 0);
-      // setup periph_reg
-      stream->PAR = (uint32_t)&av_telem_usart::get()->dr;
-     // no irq so no NVIC
-   }
+//   void telemetry_receiver_task_dma_setup()
+//   {
+//      RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
+//      for ( uint8_t i = 0; i < 20; ++i){
+//         asm volatile ("nop" : : :);
+//      }
+//      RCC->AHB1RSTR |= RCC_AHB1RSTR_DMA2RST;
+//      RCC->AHB1RSTR &= ~RCC_AHB1RSTR_DMA2RST;
+//   #if (QUAN_OSD_BOARD_TYPE == 4)
+//      DMA_Stream_TypeDef *stream = DMA2_Stream1;
+//      constexpr uint32_t dma_channel = 5U;
+//   #else
+//      DMA_Stream_TypeDef *stream = DMA2_Stream5;
+//      constexpr uint32_t dma_channel = 4U;
+//   #endif
+//      if (  stream->CR & (1 << 0)){
+//         stream->CR &= ~(1 << 0); // (EN)
+//         while(stream->CR & (1 << 0)){;}
+//      }
+//      stream->CR = 
+//         ( dma_channel << 25)     // select channel
+//         | (0b10 << 16) // medium high priority
+//         |( 1 << 10) ;  // (MINC);      
+//
+//       stream->FCR = 0U;
+//      // setup periph_reg
+//      stream->PAR = (uint32_t)&av_telem_usart::get()->dr;
+//     // no irq so no NVIC
+//   }
 } // namespace
 
 void setup_telemetry_receiver_task()
 {
    telemetry_receiver_task_usart_setup();
-   telemetry_receiver_task_dma_setup();
+//   telemetry_receiver_task_dma_setup();
 }

@@ -34,6 +34,7 @@
 #include "video_buffer.hpp"
 #include "osd_state.hpp"
 #include <quan/conversion/itoa.hpp>
+#include <quan/stm32/tim.hpp>
 
 namespace {
 
@@ -314,13 +315,37 @@ namespace {
          video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
       }
    }
+
+#if defined QUAN_OSD_TELEM_RECEIVER
+   uint8_t*  rx_data_ptr = nullptr;
+   uint32_t rx_data_idx;
+   uint32_t rx_data_max  =0;
+#endif
  
 }//namespace
+
+#if defined QUAN_OSD_TELEM_RECEIVER
+extern "C" void USART6_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
+
+extern "C" void USART6_IRQHandler()
+{
+   if ( av_telem_usart::get()->sr.bb_getbit<5>() ){
+      if ( rx_data_idx < rx_data_max){
+       rx_data_ptr[rx_data_idx] = av_telem_usart::get()->dr;
+       ++ rx_data_idx;
+      }else{
+        volatile uint16_t sink = av_telem_usart::get()->dr;
+      }
+   }
+   av_telem_usart::get()->sr = 0;
+}
+#endif
  
 // called on first edge of hsync
 // at start of first telem row
 void video_cfg::columns::telem::enable()
 {
+
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -345,18 +370,18 @@ void video_cfg::columns::telem::enable()
    // change gate to trigger mode ready for TRGI edge to start gate_timer
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
 #if defined QUAN_OSD_TELEM_RECEIVER
-   uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
-   DMA_Stream_TypeDef * stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
-   stream->M0AR = (uint32_t)ptr;
-   stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes();
-   DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
-   DMA2->LIFCR &= ~ (0b111101 << 6) ; // flags for Dma2 Stream 1     
-   av_telem_usart::get()->cr2.clearbit<14>(); //(LINEN)
-   av_telem_usart::get()->cr3.setbit<6>(); //( DMAR)
-   av_telem_usart::get()->cr3.setbit<11>(); //(ONEBIT)
+//   uint8_t * ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
+//   DMA_Stream_TypeDef * stream = DMA2_Stream1; // USART6_RX DMA2 Stream 1 Cha 5
+//   stream->M0AR = (uint32_t)ptr;
+//   stream->NDTR =  video_buffers::telem::rx::get_num_data_bytes() + 5;
    av_telem_usart::get()->sr = 0;
+   
+   rx_data_ptr = &video_buffers::telem::rx::manager.m_write_buffer->front();
+   rx_data_idx = 0;
+   rx_data_max = video_buffers::telem::rx::get_num_data_bytes();
+ 
    av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
-   stream->CR |= (1 << 0); // (EN)
+  // stream->CR |= (1 << 0); // (EN) enable DMA
 #endif // defined QUAN_OSD_TELEM_RECEIVER
 #if defined QUAN_OSD_TELEM_TRANSMITTER
    portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
@@ -380,8 +405,15 @@ void video_cfg::columns::telem::disable()
 //      }else{
 //         quan::stm32::set<heartbeat_led_pin>();
 //      }
-      // disable the usart DMA
-      DMA2_Stream1->CR &= ~(1 << 0); // (EN)      av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
+//      // disable the usart DMA
+//      DMA2_Stream1->CR &= ~(1 << 0); // (EN)      av_telem_usart::get()->cr3.clearbit<6>(); //( DMAR)
+//      quan::stm32::set<heartbeat_led_pin>();
+//      while(DMA2_Stream1->CR & (1 << 0)){;}
+//      quan::stm32::clear<heartbeat_led_pin>();
+//      DMA2->LIFCR |= (0b111101 << 6U) ; // clear flags for DMA2 Stream 1
+//      DMA2_Stream1->NDTR = 0;
+      
+      
       av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
       service_telem_rx_buffers();
       portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
