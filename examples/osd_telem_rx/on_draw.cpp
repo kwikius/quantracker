@@ -1,34 +1,44 @@
 
 #include <cstring>
+#include <cstdio>
 #include <quan/uav/osd/api.hpp>
 #include "../../examples/osd_example1/board/font.hpp"
-
+#include <quan/stm32/gpio.hpp>
 #include "rx_telemetry.hpp"
+#include "resources.hpp"
 
 namespace{
 
-   char telem_buffer [128] = "0123456789";
-   quan::uav::osd::font_ptr def_font = nullptr;
+   char telem_buffer [50] = "0123456789";
+
 }
 
 namespace quan{ namespace uav { namespace osd{
 
    void on_draw()
    {
-      if (def_font == nullptr){
-         def_font = get_font(FontID::OSD_Charset);
-      }
+      draw_text("Receiver",{-150,65});
 
-      pxp_type pos{-150,65};
-      draw_text("Receiver",pos,def_font);
-
+      taskENTER_CRITICAL();
       const char* telemetry_text = mutex_acquire_telemetry_string();
       if ( telemetry_text != nullptr){
-         strcpy(telem_buffer,telemetry_text);
+   
+         strncpy(telem_buffer,telemetry_text,49);
+         telem_buffer[49] = '\0';
          mutex_release_telemetry_string();
-         pxp_type telemetry_pos{-170,-10};
-         draw_text(telem_buffer,telemetry_pos,def_font);
+         taskEXIT_CRITICAL();
+        
+         draw_text(telem_buffer,{-170,-10});
+
+         auto time = get_telemetry_received_time();
+         char buf[30];
+         snprintf(buf,29,"recvd at: %u",static_cast<unsigned int>(time.numeric_value()));
+         buf[29] = '\0';
+         draw_text(buf,{-170,-30});
+      }else{
+         taskEXIT_CRITICAL();
       }
+      
    }
 
 }}} // quan::uav::osd

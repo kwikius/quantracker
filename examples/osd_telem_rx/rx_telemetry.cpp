@@ -35,21 +35,25 @@ quan::time_<int32_t>::ms get_telemetry_received_time()
 {
    return telemetry_received_time;
 }
-
+namespace {
+    int count = 49;
+}
 void on_telemetry_received()
 {
    if ( m_mutex == NULL){
       m_mutex = xSemaphoreCreateMutex();
    }
+   taskENTER_CRITICAL();
    if (mutex_acquire_telemetry_string() != nullptr){
       read_telemetry_data(m_telemetry_string,200);
       m_telemetry_string[199]= '\0';
       telemetry_received_time = quan::stm32::millis();
       mutex_release_telemetry_string();
-//      static int count = 49;
-//      if (++count == 50){
-//         count = 0;
-//         quan::stm32::complement<heartbeat_led_pin>();
-//      }
+     
+      if (++count == 50){
+         count = 0;
+         quan::stm32::complement<heartbeat_led_pin>();
+      }
    }
+   taskEXIT_CRITICAL();
 }
