@@ -44,11 +44,6 @@ void on_telemetry_received()
       m_telemetry_string[199]= '\0';
       telemetry_received_time = quan::stm32::millis();
       mutex_release_telemetry_string();
-      static int count = 49;
-     if (++count == 50){
-      count = 0;
-     quan::stm32::complement<heartbeat_led_pin>();
-    }
    }
    
 }

@@ -608,6 +608,8 @@ void video_cfg::columns::uif_irq()
 void video_cfg::columns::takedown()
 {
      NVIC_DisableIRQ (TIM2_IRQn);
+
+     NVIC_DisableIRQ(quan::stm32::usart::detail::get_irq_number<av_telem_usart>::value);
 }
 
 void video_cfg::columns::setup()
