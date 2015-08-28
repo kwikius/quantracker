@@ -26,7 +26,7 @@ namespace quan{ namespace uav { namespace osd{
       if ( telemetry_text != nullptr){
          strcpy(telem_buffer,telemetry_text);
          mutex_release_telemetry_string();
-         pxp_type telemetry_pos{-150,-50};
+         pxp_type telemetry_pos{-170,-10};
          draw_text(telem_buffer,telemetry_pos,def_font);
       }
    }
