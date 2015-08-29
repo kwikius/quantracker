@@ -492,6 +492,10 @@ void video_cfg::columns::telem::end()
 // called at rising edge of hsync
 // start of each osd row gat timer TIF .
 // either by external trigger or by internal rising edge
+// TODO
+// suppress line counter
+// Line counter
+// TRGI from
 void video_cfg::columns::osd::begin()
 {
    if( osd_state::get() == osd_state::external_video){

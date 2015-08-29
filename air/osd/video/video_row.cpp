@@ -149,6 +149,7 @@ namespace {
    }
    {
       quan::stm32::tim::smcr_t smcr = line_counter::get()->smcr.get();
+// could be the way to disable LineCounter clock
       smcr.ece = true;  // external clock on TIM3_ETR
 // The source for the clock to count lines
 #if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
