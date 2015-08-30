@@ -31,7 +31,345 @@
 #include "video_cfg.hpp"
 #include "video_buffer.hpp"
 #include "osd_state.hpp"
+// for std::abs
+#include <cstdlib>
+
 #include <quan/uav/osd/api.hpp>
+
+#if 1
+namespace {
+
+   bool initial_first_edge_captured = false;
+   uint16_t last_sync_first_edge = 0U;
+   int32_t vsync_count = -1;
+    //for  use in the irq
+   quan::uav::osd::video_mode private_video_mode = quan::uav::osd::video_mode::unknown;
+   // the public one
+   quan::uav::osd::video_mode public_video_mode 
+      = quan::uav::osd::video_mode::unknown;
+
+   constexpr uint32_t timer_freq_Hz = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
+   constexpr uint32_t  timer_freq_MHz = timer_freq_Hz / 1000000U;
+   static_assert(timer_freq_MHz == 84U,"unexpected timer freq,  need to redo timings");
+   // 2.35 usec in timer_clks
+   constexpr uint16_t vsync_p_clks  = (timer_freq_MHz * 235 ) / 100
+         + ((((timer_freq_MHz * 235 ) % 100 ) >= 50)?1:0);
+   static_assert(vsync_p_clks == 197U,"unexpected timer freq,  need to redo timings");
+   // 64 usec H
+   constexpr uint16_t vsync_H_clks = timer_freq_MHz * 64U;
+   // gives 0.5 usec each side
+   constexpr uint16_t delta_H_clks = 42U;
+   // add this value to nominal to give a +- tolerance on the p sync pulse
+   // 21 value gives 0.25 usec each side
+   constexpr uint16_t delta_p_clks = 21U;
+   // 64 usec in timer clks
+
+   // 4.7 usec normal hsync pulse length
+   constexpr uint16_t vsync_r_clks  = (timer_freq_MHz * 47 ) / 10
+         + ((((timer_freq_MHz * 47 ) % 10 ) >= 5)?1:0);
+
+   static_assert(vsync_r_clks == 395U,"unexpected timer freq,  need to redo timings");
+   constexpr uint16_t delta_r_clks = 21U;
+
+   constexpr uint16_t vsync_q_clks = vsync_H_clks/2 - vsync_r_clks;
+
+   constexpr uint16_t delta_q_clks = 42U;
+
+   // various modes for parsing sync pulse
+   // A grammar might be a thoughT
+   enum class syncmode_t {
+      seeking,
+      pre_equalise,
+      vsync_serration,
+      post_equalise
+   };
+
+   enum class sync_pulse_t { unknown, out_of_range, hsync, equalising, field_sync};
+   enum class line_period_t {unknown, out_of_range, full, half};
+
+   syncmode_t syncmode = syncmode_t::seeking;
+   sync_pulse_t last_sync_pulse = sync_pulse_t::unknown;
+   line_period_t last_line_period = line_period_t::unknown;
+
+   void sync_sep_reset() 
+   {
+      initial_first_edge_captured = false;
+      syncmode = syncmode_t::seeking;
+      last_sync_pulse = sync_pulse_t::unknown;
+      last_line_period = line_period_t::unknown;
+      vsync_count = -1;
+   }
+
+   // returns true if not out of range
+   // latest first edge in sync_sep_timer::get()->ccr1;
+   // only called if last_sync_first_edge is valid
+    // ( initial_first_edge_captured == true)
+   bool calc_line_period( )
+   {
+      uint16_t const capture = sync_sep_timer::get()->ccr1;
+      uint16_t const period = capture - last_sync_first_edge;
+      if ( period  <= ( (vsync_H_clks + delta_H_clks)/2) ){
+         if ( period >= ( (vsync_H_clks - delta_H_clks)/2) ){
+            last_line_period = line_period_t::half;
+            return true;
+         }
+      }else{
+         if ( period >= ( (vsync_H_clks - delta_H_clks)) ){
+            if (period  <= ( (vsync_H_clks + delta_H_clks)) ){
+               last_line_period = line_period_t::half;
+               return true;
+            }
+         }
+      }
+      last_line_period = line_period_t::out_of_range;
+      return false;
+   }
+
+   // returns true if not out of range
+   // requires a valid 
+   bool calc_sync_pulse_type()
+   {
+      uint16_t const capture = sync_sep_timer::get()->ccr2;
+      uint16_t const pulselen = capture - last_sync_first_edge;
+      if ( pulselen <= ( vsync_p_clks + delta_p_clks)){
+         if ( pulselen >= ( vsync_p_clks - delta_p_clks)){
+            last_sync_pulse = sync_pulse_t::equalising;
+            return true;
+         }
+      }else{
+         if(pulselen >= (vsync_q_clks - delta_q_clks) ){
+            if ( pulselen <= (vsync_q_clks + delta_q_clks) ){
+               last_sync_pulse = sync_pulse_t::field_sync;
+               return true;
+            }
+         }else{
+            if ( (pulselen >= ( vsync_r_clks - delta_r_clks)) && 
+                 (pulselen <= ( vsync_r_clks + delta_r_clks))
+               ){
+               last_sync_pulse = sync_pulse_t::hsync;
+               return true;
+            }
+         }
+      }
+      last_sync_pulse = sync_pulse_t::out_of_range;
+      return false;
+   }
+
+   void sync_filter()
+   {
+      switch (syncmode){
+         case syncmode_t::seeking:
+            if ( last_line_period == line_period_t::half){
+               if (last_sync_pulse == sync_pulse_t::equalising){
+                  // first preequalising pulse
+                  syncmode = syncmode_t::pre_equalise;
+                  vsync_count = 1;
+                  return;;
+               }
+            }
+            sync_sep_reset();
+            return;
+         case syncmode_t::pre_equalise:
+            if ( last_line_period == line_period_t::half){
+               if (last_sync_pulse == sync_pulse_t::field_sync){
+                  if ( vsync_count >= 4){
+                     syncmode = syncmode_t::vsync_serration;
+                     vsync_count = 1;
+                     return;
+                  }
+               }else {
+                  if ( last_sync_pulse == sync_pulse_t::equalising){
+                     if ( ++vsync_count < 7){
+                        return;
+                     }
+                  }
+               }
+            }
+            sync_sep_reset();
+            return;
+         case syncmode_t::vsync_serration:
+            if ( last_line_period == line_period_t::half){
+               if ( last_sync_pulse == sync_pulse_t::equalising){
+                  if (vsync_count == 6){
+                     private_video_mode = quan::uav::osd::video_mode::ntsc;
+                     syncmode = syncmode_t::post_equalise;
+                     vsync_count = 1;
+                     return;
+                  }else{
+                     if (vsync_count == 5){
+                        private_video_mode = quan::uav::osd::video_mode::pal;
+                        syncmode = syncmode_t::post_equalise;
+                        vsync_count = 1;
+                        return;
+                     }
+                  }
+               }else{
+                  if( last_sync_pulse == sync_pulse_t::field_sync){
+                      if (++vsync_count < 7){
+                        return;
+                      }
+                  }
+               }
+            }
+            sync_sep_reset();
+            return;
+         case syncmode_t::post_equalise:
+            if( last_sync_pulse == sync_pulse_t::equalising){
+               ++ vsync_count;
+               if ( private_video_mode == quan::uav::osd::video_mode::ntsc){
+                  if ( vsync_count < 7){
+                     return;
+                  }
+               }else{
+                  if ( private_video_mode == quan::uav::osd::video_mode::pal){
+                     if ( vsync_count < 6){
+                        return;
+                     }
+                  }
+               }
+            }
+            sync_sep_reset();
+            return;
+      }
+   }
+   
+   void on_hsync_first_edge()
+   { 
+      if (initial_first_edge_captured){
+         if (!calc_line_period()){
+            sync_sep_reset();
+            return;
+         }else{
+            sync_filter();   
+         }
+      }else{
+         last_sync_first_edge = sync_sep_timer::get()->ccr1;
+         initial_first_edge_captured = true;
+         return;
+      }
+   }
+
+   void sync_sep_disable()
+   {
+     sync_sep_timer::get()->cr1.bb_clearbit<0>() ;// (CEN)
+     sync_sep_timer::get()->dier &= ~((1 << 1) | ( 1 << 2)); // ( CC1IE, CC2IE)
+   }
+
+// signal at this point there is external video
+   void sync_sep_new_frame()
+   {
+      if( osd_state::get() == osd_state::external_video){
+        // quan::stm32::clear<heartbeat_led_pin>();
+         sync_sep_disable();
+         public_video_mode = private_video_mode;
+         // important if video_mode has changed from ntsc to pal etc
+         video_buffers::osd::m_display_size = video_cfg::get_display_size_px();
+         video_cfg::rows::line_counter::get()->arr = video_cfg::rows::osd::get_end()/2 - 2;
+         // enable the rows counter one shot
+         video_cfg::rows::line_counter::get()->cnt = 0;
+         video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>() ;// CEN
+      }else{
+          osd_state::set_have_external_video();
+          sync_sep_reset();
+      }
+   }
+
+
+   // and for hsyn hsync pulse
+   // then syncmode == post_equalising
+   // and if PAL ( count == 5)
+   // if NTSC count == 6
+   // then if period == full then odd even etc
+   // for valid new frame
+   void on_hsync_second_edge() 
+   {
+      if ( initial_first_edge_captured){
+         if (calc_sync_pulse_type()){
+            if (last_sync_pulse == sync_pulse_t::hsync){
+               if ( syncmode == syncmode_t::post_equalise){
+                  if ( private_video_mode == quan::uav::osd::video_mode::ntsc){
+                     if ( vsync_count == 6){
+                     // do odd or even depending on length of period half or full
+                        sync_sep_new_frame();
+                     }else{
+                        sync_sep_reset();
+                     }
+                  }else{
+                     if ( private_video_mode == quan::uav::osd::video_mode::pal){
+                        if ( vsync_count == 5){
+                          // do odd or even depending on length of period half or full
+                           sync_sep_new_frame();
+                        }else{
+                           sync_sep_reset();
+                        }
+                     }
+                  }   
+               }else{ // hsync &&  not postequalise
+                  sync_sep_reset();
+               }
+               return;
+            }else{ // not hsync so continue getting the vsync pulse train
+               return;
+            }
+         }else{ // failed to calc sync pulse type
+            sync_sep_reset();
+            return;
+         }
+      }else{ // no initial first edeg so ignore
+         return;
+      }
+   }
+
+
+}
+
+namespace quan{ namespace uav{ namespace osd{
+
+   video_mode get_video_mode()
+   {  if( osd_state::get() == osd_state::external_video){
+         return public_video_mode;
+      }else{
+         return quan::uav::osd::video_mode::pal;
+      }
+   }
+
+}}}
+
+
+namespace detail{
+   void sync_sep_enable()
+   {
+     sync_sep_reset();
+     sync_sep_timer::get()->sr = 0;
+     sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
+     sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
+      
+   }
+
+   void sync_sep_takedown()
+   {
+      NVIC_DisableIRQ(TIM8_BRK_TIM12_IRQn);
+     // sync_sep_osd_state = osd_state::suspended;
+      private_video_mode = quan::uav::osd::video_mode::unknown;
+      // public_video_mode ?
+      quan::stm32::apply<
+         video_in_hsync_first_edge_pin,
+         quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::input, // PB15 TIM12_CH2
+         quan::stm32::gpio::pupd::pull_up
+      >();
+   }
+} //detail
+
+#else
+
+//######################################################################################
+
 
 /*
 software sync sep
@@ -111,6 +449,8 @@ namespace {
      sync_sep_reset();
      video_mode = quan::uav::osd::video_mode::unknown;
    }
+
+   
 }// namespace 
 
 namespace detail{
@@ -121,6 +461,58 @@ namespace detail{
      sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
      sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
       
+   }
+
+   
+   void sync_sep_setup()
+   {
+      
+      quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
+      quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
+
+      quan::stm32::apply<
+         video_in_hsync_first_edge_pin,
+         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::module_enable<sync_sep_timer>();
+      quan::stm32::module_reset<sync_sep_timer>();
+
+      sync_sep_timer::get()->arr = 0xFFFF;
+
+      // cc1 capture on first edge of hsync
+      // cc2 capture on second edge of hsync
+      quan::stm32::tim::ccmr1_t ccmr1 = 0;
+      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
+      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
+      sync_sep_timer::get()->ccmr1.set(ccmr1.value);
+      quan::stm32::tim::ccer_t ccer = 0;
+      ccer.cc1p = true; // CC1 is falling edge capture
+      ccer.cc1np = false;
+      ccer.cc2p = false;
+      ccer.cc2np = false; // CC2 is rising edge capture
+      ccer.cc1e = true;
+      ccer.cc2e = true;
+      sync_sep_timer::get()->ccer.set(ccer.value);
+      switch (osd_state::get()){
+         case osd_state::external_video:
+            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
+            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+         break;
+         case osd_state::internal_video:
+            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::fsk_dac_timer);
+            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+         break;
+         default:
+         break;
+      }
    }
 
    void sync_sep_takedown()
@@ -290,7 +682,6 @@ void on_hsync_first_edge()
 
 void on_hsync_second_edge() 
 {
-    
      calc_sync_pulse_type(); 
      if ( (sync_pulse_type != synctype_t::unknown)
                && (line_period != line_period_t::unknown) ) {
@@ -447,6 +838,10 @@ void on_hsync_second_edge()
      }
 }
 } // namespace
+
+// old sync_sep routine
+//########################################################################
+#endif
 
 extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
