@@ -731,25 +731,26 @@ extern "C" void TIM2_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM2_IRQHandler()
 {
    typedef video_cfg::columns columns;
-   if (columns::gate_timer::get()->sr.bb_getbit<6>()) {  // (TIF)
-      columns::gate_timer::get()->sr.bb_clearbit<6>(); // (TIF)
-      columns::tif_irq();
+
+   if ( columns::gate_timer::get()->sr.bb_getbit<2>()) {//(CC2IF)
+      columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
+      // enable trigger
+      // video_cfg::rows::line_counter::get()->smcr.bb_setbit<14>(); //(ECE)
+      video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
+      columns::gate_timer::get()->dier.bb_clearbit<2>(); // (CC2IE)
       return;
    }
 
-   if ( columns::gate_timer::get()->sr.bb_getbit<2>()) {//(CC2IF)
-     columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
-     // enable trigger
-    // video_cfg::rows::line_counter::get()->smcr.bb_setbit<14>(); //(ECE)
-     video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
-     columns::gate_timer::get()->dier.bb_clearbit<2>(); // (CC2IE)
-     return;
-   }
-
-   //add cc1if for usart
    if (columns::gate_timer::get()->sr.bb_getbit<0>()) {  // (UIF)
       columns::gate_timer::get()->sr.bb_clearbit<0>(); // (UIF)
       columns::uif_irq();
       return;
    }
+
+   if (columns::gate_timer::get()->sr.bb_getbit<6>()) {  // (TIF)
+      columns::gate_timer::get()->sr.bb_clearbit<6>(); // (TIF)
+      columns::tif_irq();
+      return;
+   }
+   // shouldnt get here...
 }
