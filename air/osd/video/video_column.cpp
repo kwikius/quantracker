@@ -223,6 +223,9 @@ void video_cfg::columns::osd::enable()
    gate_timer::get()->cnt = 0;
    gate_timer::get()->ccr4 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
    gate_timer::get()->arr = ( (m_end +7) * clks_px) - 1;  // end px /2 as busclk is only half of pixel bus clk
+   
+   gate_timer::get()->ccr2 = ((m_end -10) * clks_px) - 1; 
+    
 //###################### internal or external_mode ##########
    // change gate to trigger mode ready for hsync second edge to start gate_timer
    gate_timer::get()->smcr |= (0b110 << 0); /// (SMS)
@@ -430,7 +433,7 @@ void video_cfg::columns::telem::begin()
 // same for all boards
       uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       if (osd_state::get() == osd_state::external_video){
-          
+    
          // in internal mode need to send out of black stream
          DMA1_Stream5->M0AR = (uint32_t) (white+1);
          DMA1_Stream5->NDTR = dma_length  ;
@@ -499,6 +502,12 @@ void video_cfg::columns::telem::end()
 void video_cfg::columns::osd::begin()
 {
    if( osd_state::get() == osd_state::external_video){
+
+      // disable the line_counter  so it isnt clocked during the line
+      video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>(); //(CEN)
+      gate_timer::get()->sr.bb_clearbit<2>(); //(CC2IF)
+      gate_timer::get()->dier.bb_setbit<2>(); // (CC2IE)
+
 
       uint8_t* const black = video_buffers::osd::get_black_read_pos() ; 
       uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
@@ -571,10 +580,14 @@ void video_cfg::columns::tif_irq()
    }
 }
  
-// called at end of each telem or osd line
+// called at end of each  osd line
 // by gate_timer.uif
 void video_cfg::columns::osd::end()
 {
+   //video_cfg::rows::line_counter::get()->sr =0; //
+    // enable the line_counter trigger to clock start of next line
+  // video_cfg::rows::line_counter::get()->smcr.bb_clearbit<14>(); // (ECE)
+  
    gate_timer::get()->sr.bb_clearbit<6>();// TIF
    gate_timer::get()->dier.bb_setbit<6>(); // TIE
 #if defined (QUAN_DISPLAY_INTERLACED)
@@ -662,6 +675,10 @@ void video_cfg::columns::setup()
 
       if  ( osd_state::get() == osd_state::external_video){
          ccmr1.cc1s   = 0b01;   // IC1 is input mapped on TI1 (hsync)
+         ccmr1.oc2m  = 0b000;
+         ccmr1.cc2s  = 0b00;
+         ccmr1.oc2pe = false;
+         ccmr1.oc2fe = false;
       }else{
           // dont think we need to config ccmr1 cc1
          // this isnt connected to a pin in internal video mode
@@ -719,6 +736,16 @@ extern "C" void TIM2_IRQHandler()
       columns::tif_irq();
       return;
    }
+
+   if ( columns::gate_timer::get()->sr.bb_getbit<2>()) {//(CC2IF)
+     columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
+     // enable trigger
+    // video_cfg::rows::line_counter::get()->smcr.bb_setbit<14>(); //(ECE)
+     video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
+     columns::gate_timer::get()->dier.bb_clearbit<2>(); // (CC2IE)
+     return;
+   }
+
    //add cc1if for usart
    if (columns::gate_timer::get()->sr.bb_getbit<0>()) {  // (UIF)
       columns::gate_timer::get()->sr.bb_clearbit<0>(); // (UIF)

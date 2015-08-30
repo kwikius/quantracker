@@ -247,6 +247,7 @@ void video_cfg::rows::setup()
    }
 }
 
+// line counter irq
 extern "C" void TIM3_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
 extern "C" void TIM3_IRQHandler()
