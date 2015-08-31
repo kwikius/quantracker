@@ -47,10 +47,18 @@
 // compare 3 start of telem
 // compare 4 end of telem
 // using LM1881
-
-//##############  TODO CHECK FOR NTSC #########################
-uint16_t video_cfg::rows::telem::m_begin = 3;//11;
-uint16_t video_cfg::rows::telem::m_end = 16;//26;
+/*
+  First line is s6 during which linecounter is initialised to 0
+  so when linecounter ==1 line == 7
+  linecounter_line = actual_line - 6
+*/
+//##############  TODO  #########################
+// Renumber using official line numbers of first field
+// init count to value
+// ##########for ntsc the last should be s15 so total == 9 lines of tele ###
+// Think  m_begin can be 1
+uint16_t video_cfg::rows::telem::m_begin = 3;// s9
+uint16_t video_cfg::rows::telem::m_end = 16;// s23
 //#############################################################
 // make sure first active row is x2 more than last telem row
 // dont think need to change for interlaced/ non interlaced
@@ -64,10 +72,10 @@ uint16_t video_cfg::rows::osd::m_begin = 132;
 uint16_t video_cfg::rows::osd::m_end_pal = 480;
 uint16_t video_cfg::rows::osd::m_end_ntsc = 480;
 #else
-uint16_t video_cfg::rows::osd::m_begin = 34;
+uint16_t video_cfg::rows::osd::m_begin = 34;  // --> 34/2 +6 --> s23
 // BALDLY just reduce this to 500 for NTSC?
 // values are x2 ( from interlace) so /2 for count in frame
-uint16_t video_cfg::rows::osd::m_end_pal = 600;
+uint16_t video_cfg::rows::osd::m_end_pal = 600;     // --> 600/ 2 + 6 --> s306
 uint16_t video_cfg::rows::osd::m_end_ntsc = 500;
 #endif
 //###############################################################
