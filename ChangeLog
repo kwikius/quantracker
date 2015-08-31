@@ -1,6 +1,11 @@
+Mon Aug 31 17:55:50 BST 2015
+Added filtering to OSD so sysncsep is only sampled near the line ends
+Modified vsync detection to provide a faster rspons and remove need for
+last 2 osd lines to have no osd display. Receiver also works with theGithub kwikius version
+of PlayUAVOSD"
+
 Mon Jul 13 15:12:30 BST 2015
 Added minimal hell owrld app. Requires quan-1-0-4-1
-
 
 Sun Jul 12 13:52:50 BST 2015
 Devel The osd_example1 and osd_ac examples have been modified so that there is no need to 
