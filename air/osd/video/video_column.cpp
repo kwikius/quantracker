@@ -223,8 +223,8 @@ void video_cfg::columns::osd::enable()
    gate_timer::get()->cnt = 0;
    gate_timer::get()->ccr4 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
    gate_timer::get()->arr = ( (m_end +7) * clks_px) - 1;  // end px /2 as busclk is only half of pixel bus clk
-   
-   gate_timer::get()->ccr2 = ((m_end -10) * clks_px) - 1; 
+   // hsync filter
+   gate_timer::get()->ccr2 = ((m_end - 10) * clks_px) - 1; 
     
 //###################### internal or external_mode ##########
    // change gate to trigger mode ready for hsync second edge to start gate_timer
@@ -383,7 +383,7 @@ void video_cfg::columns::telem::enable()
    rx_data_idx = 0;
    rx_data_max = video_buffers::telem::rx::get_num_data_bytes();
  
-   av_telem_usart::get()->cr1.setbit<13>(); // ( UE)
+   av_telem_usart::get()->cr1.bb_setbit<13>(); // ( UE)
   // stream->CR |= (1 << 0); // (EN) enable DMA
 #endif // defined QUAN_OSD_TELEM_RECEIVER
 #if defined QUAN_OSD_TELEM_TRANSMITTER
@@ -417,7 +417,7 @@ void video_cfg::columns::telem::disable()
 //      DMA2_Stream1->NDTR = 0;
       
       
-      av_telem_usart::get()->cr1.clearbit<13>(); // ( UE)
+      av_telem_usart::get()->cr1.bb_clearbit<13>(); // ( UE)
       service_telem_rx_buffers();
       portEND_SWITCHING_ISR(HigherPriorityTaskWoken_telem);
 
@@ -438,7 +438,7 @@ void video_cfg::columns::telem::begin()
          DMA1_Stream5->M0AR = (uint32_t) (white+1);
          DMA1_Stream5->NDTR = dma_length  ;
          DMA1->HIFCR |= (0b111101 << 6) ;
-         DMA1->HIFCR &= ~ (0b111101 << 6) ;
+       //  DMA1->HIFCR &= ~ (0b111101 << 6) ;
          // spi3 module enable and reset
          quan::stm32::rcc::get()->apb1enr |= (0b1 << 15);
          quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
@@ -454,7 +454,7 @@ void video_cfg::columns::telem::begin()
           DMA1_Stream4->M0AR = (uint32_t) (white+1);
           DMA1_Stream4->NDTR = dma_length  ;
           DMA1->HIFCR |= (0b111101 << 0) ;
-          DMA1->HIFCR &= ~ (0b111101 << 0) ;
+        //  DMA1->HIFCR &= ~ (0b111101 << 0) ;
 /////////////////////////////////////////////////////////
           quan::stm32::rcc::get()->apb1enr |= (0b1 << 14);
         //try change to   quan::stm32::rcc::get()->apb1enr.bb_setbit<14>();
@@ -523,7 +523,7 @@ void video_cfg::columns::osd::begin()
       DMA1_Stream5->NDTR = dma_length  ;
 
       DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
-      DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
+    //  DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
 
       spi_ll_setup();
 
@@ -553,7 +553,7 @@ void video_cfg::columns::osd::begin()
      // DMA1_Stream5->NDTR = dma_length  ;
 
       DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
-      DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
+    //  DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
 
       spi_ll_setup();
 
@@ -733,10 +733,8 @@ extern "C" void TIM2_IRQHandler()
    typedef video_cfg::columns columns;
 
    if ( columns::gate_timer::get()->sr.bb_getbit<2>()) {//(CC2IF)
-      columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
-      // enable trigger
-      // video_cfg::rows::line_counter::get()->smcr.bb_setbit<14>(); //(ECE)
       video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
+      columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
       columns::gate_timer::get()->dier.bb_clearbit<2>(); // (CC2IE)
       return;
    }
