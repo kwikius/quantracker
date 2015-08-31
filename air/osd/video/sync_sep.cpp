@@ -44,9 +44,8 @@ namespace {
    int32_t vsync_count = -1;
     //for  use in the irq
    quan::uav::osd::video_mode private_video_mode = quan::uav::osd::video_mode::unknown;
-   // the public one
-   quan::uav::osd::video_mode public_video_mode 
-      = quan::uav::osd::video_mode::unknown;
+   // the public one updated when the vsync is parsed successfully
+   quan::uav::osd::video_mode public_video_mode = quan::uav::osd::video_mode::unknown;
 
    constexpr uint32_t timer_freq_Hz = quan::stm32::get_raw_timer_frequency<sync_sep_timer>();
    constexpr uint32_t  timer_freq_MHz = timer_freq_Hz / 1000000U;
@@ -55,15 +54,14 @@ namespace {
    constexpr uint16_t vsync_p_clks  = (timer_freq_MHz * 235 ) / 100
          + ((((timer_freq_MHz * 235 ) % 100 ) >= 50)?1:0);
    static_assert(vsync_p_clks == 197U,"unexpected timer freq,  need to redo timings");
-   // 64 usec H
+   // 64 usec H (full line period)  in timer clks
    constexpr uint16_t vsync_H_clks = timer_freq_MHz * 64U;
    // gives 0.5 usec each side
    constexpr uint16_t delta_H_clks = 42U;
    // add this value to nominal to give a +- tolerance on the p sync pulse
    // 21 value gives 0.25 usec each side
    constexpr uint16_t delta_p_clks = 21U;
-   // 64 usec in timer clks
-
+ 
    // 4.7 usec normal hsync pulse length
    constexpr uint16_t vsync_r_clks  = (timer_freq_MHz * 47 ) / 10
          + ((((timer_freq_MHz * 47 ) % 10 ) >= 5)?1:0);
@@ -106,27 +104,31 @@ namespace {
     // ( initial_first_edge_captured == true)
    bool calc_line_period( )
    {
+      // either full or half line period is valid
       uint16_t const capture = sync_sep_timer::get()->ccr1;
       uint16_t const period = capture - last_sync_first_edge;
+      last_sync_first_edge = capture;
       if ( period  <= ( (vsync_H_clks + delta_H_clks)/2) ){
          if ( period >= ( (vsync_H_clks - delta_H_clks)/2) ){
             last_line_period = line_period_t::half;
             return true;
          }
       }else{
-         if ( period >= ( (vsync_H_clks - delta_H_clks)) ){
-            if (period  <= ( (vsync_H_clks + delta_H_clks)) ){
-               last_line_period = line_period_t::half;
+         if ( period >= ( vsync_H_clks - delta_H_clks) ){
+            if (period  <= ( vsync_H_clks + delta_H_clks) ){
+               last_line_period = line_period_t::full;
                return true;
             }
          }
       }
+      
       last_line_period = line_period_t::out_of_range;
       return false;
    }
 
    // returns true if not out of range
-   // requires a valid 
+   // requires a valid last_sync_first_edge
+   int32_t pulse_error_count = 0;
    bool calc_sync_pulse_type()
    {
       uint16_t const capture = sync_sep_timer::get()->ccr2;
@@ -151,22 +153,28 @@ namespace {
             }
          }
       }
+     
       last_sync_pulse = sync_pulse_t::out_of_range;
       return false;
    }
 
+   // parse the current vsync event
+   // called from first edge after processing last line period
    void sync_filter()
    {
+     
       switch (syncmode){
          case syncmode_t::seeking:
+            
             if ( last_line_period == line_period_t::half){
                if (last_sync_pulse == sync_pulse_t::equalising){
                   // first preequalising pulse
                   syncmode = syncmode_t::pre_equalise;
                   vsync_count = 1;
-                  return;;
+                  return;
                }
             }
+            
             sync_sep_reset();
             return;
          case syncmode_t::pre_equalise:
@@ -184,6 +192,7 @@ namespace {
                      }
                   }
                }
+               
             }
             sync_sep_reset();
             return;
@@ -211,6 +220,7 @@ namespace {
                   }
                }
             }
+        //    quan::stm32::set<heartbeat_led_pin>();
             sync_sep_reset();
             return;
          case syncmode_t::post_equalise:
@@ -228,6 +238,7 @@ namespace {
                   }
                }
             }
+        //    quan::stm32::set<heartbeat_led_pin>();
             sync_sep_reset();
             return;
       }
@@ -245,7 +256,6 @@ namespace {
       }else{
          last_sync_first_edge = sync_sep_timer::get()->ccr1;
          initial_first_edge_captured = true;
-         return;
       }
    }
 
@@ -292,19 +302,22 @@ namespace {
                      // do odd or even depending on length of period half or full
                         sync_sep_new_frame();
                      }else{
+                   //     quan::stm32::set<heartbeat_led_pin>();
                         sync_sep_reset();
                      }
                   }else{
                      if ( private_video_mode == quan::uav::osd::video_mode::pal){
-                        if ( vsync_count == 5){
+                        if ( (vsync_count == 4) ||  (vsync_count == 5)){
                           // do odd or even depending on length of period half or full
                            sync_sep_new_frame();
                         }else{
+                           quan::stm32::set<heartbeat_led_pin>();
                            sync_sep_reset();
                         }
                      }
                   }   
                }else{ // hsync &&  not postequalise
+ //                 quan::stm32::set<heartbeat_led_pin>();
                   sync_sep_reset();
                }
                return;
@@ -312,6 +325,7 @@ namespace {
                return;
             }
          }else{ // failed to calc sync pulse type
+ //           quan::stm32::set<heartbeat_led_pin>();
             sync_sep_reset();
             return;
          }
@@ -319,8 +333,6 @@ namespace {
          return;
       }
    }
-
-
 }
 
 namespace quan{ namespace uav{ namespace osd{
@@ -337,6 +349,7 @@ namespace quan{ namespace uav{ namespace osd{
 
 
 namespace detail{
+
    void sync_sep_enable()
    {
      sync_sep_reset();
@@ -364,6 +377,58 @@ namespace detail{
          quan::stm32::gpio::pupd::pull_up
       >();
    }
+
+   void sync_sep_setup()
+   {
+      
+      quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
+      quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
+
+      quan::stm32::apply<
+         video_in_hsync_first_edge_pin,
+         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
+         quan::stm32::gpio::pupd::pull_up
+      >();
+
+      quan::stm32::module_enable<sync_sep_timer>();
+      quan::stm32::module_reset<sync_sep_timer>();
+
+      sync_sep_timer::get()->arr = 0xFFFF;
+
+      // cc1 capture on first edge of hsync
+      // cc2 capture on second edge of hsync
+      quan::stm32::tim::ccmr1_t ccmr1 = 0;
+      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
+      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
+      sync_sep_timer::get()->ccmr1.set(ccmr1.value);
+      quan::stm32::tim::ccer_t ccer = 0;
+      ccer.cc1p = true; // CC1 is falling edge capture
+      ccer.cc1np = false;
+      ccer.cc2p = false;
+      ccer.cc2np = false; // CC2 is rising edge capture
+      ccer.cc1e = true;
+      ccer.cc2e = true;
+      sync_sep_timer::get()->ccer.set(ccer.value);
+      switch (osd_state::get()){
+         case osd_state::external_video:
+            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
+            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+         break;
+         case osd_state::internal_video:
+            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::fsk_dac_timer);
+            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+         break;
+         default:
+         break;
+      }
+   }
+
 } //detail
 
 #else
@@ -461,58 +526,6 @@ namespace detail{
      sync_sep_timer::get()->dier |= (1 << 1) | ( 1 << 2); // ( CC1IE, CC2IE)
      sync_sep_timer::get()->cr1.bb_setbit<0>();// (CEN)
       
-   }
-
-   
-   void sync_sep_setup()
-   {
-      
-      quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
-      quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
-
-      quan::stm32::apply<
-         video_in_hsync_first_edge_pin,
-         quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1    // af for first edge
-         quan::stm32::gpio::pupd::pull_up
-      >();
-
-      quan::stm32::apply<
-         video_in_hsync_second_edge_pin,
-         quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
-         quan::stm32::gpio::pupd::pull_up
-      >();
-
-      quan::stm32::module_enable<sync_sep_timer>();
-      quan::stm32::module_reset<sync_sep_timer>();
-
-      sync_sep_timer::get()->arr = 0xFFFF;
-
-      // cc1 capture on first edge of hsync
-      // cc2 capture on second edge of hsync
-      quan::stm32::tim::ccmr1_t ccmr1 = 0;
-      ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
-      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
-      sync_sep_timer::get()->ccmr1.set(ccmr1.value);
-      quan::stm32::tim::ccer_t ccer = 0;
-      ccer.cc1p = true; // CC1 is falling edge capture
-      ccer.cc1np = false;
-      ccer.cc2p = false;
-      ccer.cc2np = false; // CC2 is rising edge capture
-      ccer.cc1e = true;
-      ccer.cc2e = true;
-      sync_sep_timer::get()->ccer.set(ccer.value);
-      switch (osd_state::get()){
-         case osd_state::external_video:
-            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
-            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-         break;
-         case osd_state::internal_video:
-            NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::fsk_dac_timer);
-            NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
-         break;
-         default:
-         break;
-      }
    }
 
    void sync_sep_takedown()
@@ -843,6 +856,9 @@ void on_hsync_second_edge()
 //########################################################################
 #endif
 
+/* 
+   todo add test for overcapture ?
+*/
 extern "C" void TIM8_BRK_TIM12_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 extern "C" void TIM8_BRK_TIM12_IRQHandler()
 {
