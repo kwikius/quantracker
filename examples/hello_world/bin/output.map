@@ -217,8 +217,8 @@ Discarded input sections
  .text          0x00000000        0x0 ../../lib/osd/quantracker_air_system.a(system.o)
  .data          0x00000000        0x0 ../../lib/osd/quantracker_air_system.a(system.o)
  .bss           0x00000000        0x0 ../../lib/osd/quantracker_air_system.a(system.o)
- .text._Znwj    0x00000000        0x4 ../../lib/osd/quantracker_air_system.a(system.o)
- .text._Znaj    0x00000000        0xc ../../lib/osd/quantracker_air_system.a(system.o)
+ .text._Znwj    0x00000000       0x20 ../../lib/osd/quantracker_air_system.a(system.o)
+ .text._Znaj    0x00000000       0x20 ../../lib/osd/quantracker_air_system.a(system.o)
  .text._ZdaPv   0x00000000        0x8 ../../lib/osd/quantracker_air_system.a(system.o)
  .text._Z19__cxa_guard_acquirePx
                 0x00000000        0xc ../../lib/osd/quantracker_air_system.a(system.o)
@@ -277,8 +277,6 @@ Discarded input sections
                 0x00000000       0x74 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
  .text._ZN4quan3uav3osd16get_display_sizeEv
                 0x00000000       0x48 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .text._ZN4quan3uav3osd8get_sizeEPKNS1_10basic_fontE
-                0x00000000       0x20 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
  .text          0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
  .data          0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
  .bss           0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
@@ -314,8 +312,6 @@ Discarded input sections
  .text          0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
  .data          0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
  .bss           0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .text._ZN13video_buffers5telem2tx10write_dataEPh
-                0x00000000      0x1ec ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
  .text          0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
  .data          0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
  .bss           0x00000000        0x0 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
@@ -591,7 +587,7 @@ LOAD ../../lib/osd/quantracker_air_osd.a
                 0x0800c000                . = (. + 0x4000)
  *fill*         0x08008000     0x4000 ffff
 
-.text           0x0800c000     0xfd98
+.text           0x0800c000     0xfce0
                 0x0800c000                . = ALIGN (0x4)
  *(.text)
  *(.text*)
@@ -2683,249 +2679,249 @@ LOAD ../../lib/osd/quantracker_air_osd.a
  .text.startup._GLOBAL__sub_I__ZN4quan3uav3osd8get_fontEm
                 0x0800f8e4     0x2050 obj/fonts.o
  .text._ZN4quan3uav3osd9draw_textEPKcRKNS_5two_d4vectIlEEPKNS1_10basic_fontE
-                0x08011934       0x48 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+                0x08011934       0x44 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
                 0x08011934                quan::uav::osd::draw_text(char const*, quan::two_d::vect<long> const&, quan::uav::osd::basic_font const*)
  .text._ZN4quan3uav3osd11draw_bitmapEPKNS1_12basic_bitmapERKNS_5two_d4vectIlEE
-                0x0801197c       0xf4 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
-                0x0801197c                quan::uav::osd::draw_bitmap(quan::uav::osd::basic_bitmap const*, quan::two_d::vect<long> const&)
+                0x08011978       0xf4 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+                0x08011978                quan::uav::osd::draw_bitmap(quan::uav::osd::basic_bitmap const*, quan::two_d::vect<long> const&)
  .text.xTaskGenericCreate
-                0x08011a70      0x234 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08011a70                xTaskGenericCreate
+                0x08011a6c      0x234 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011a6c                xTaskGenericCreate
  .text.vTaskStartScheduler
-                0x08011ca4       0x5c ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08011ca4                vTaskStartScheduler
+                0x08011ca0       0x5c ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011ca0                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x08011d00       0x10 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08011d00                vTaskSuspendAll
+                0x08011cfc       0x10 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011cfc                vTaskSuspendAll
  .text.xTaskGetTickCount
-                0x08011d10       0x18 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08011d10                xTaskGetTickCount
+                0x08011d0c       0x18 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011d0c                xTaskGetTickCount
  .text.xTaskIncrementTick
-                0x08011d28      0x168 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08011d28                xTaskIncrementTick
+                0x08011d24      0x168 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011d24                xTaskIncrementTick
  .text.xTaskResumeAll
-                0x08011e90       0xe4 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08011e90                xTaskResumeAll
+                0x08011e8c       0xe4 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011e8c                xTaskResumeAll
  .text.prvIdleTask
-                0x08011f74       0x90 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08011f70       0x90 ../../lib/osd/quantracker_air_system.a(tasks.o)
  .text.vTaskDelay
-                0x08012004       0xa0 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08012004                vTaskDelay
+                0x08012000       0xa0 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08012000                vTaskDelay
  .text.vTaskSwitchContext
-                0x080120a4       0xa0 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x080120a4                vTaskSwitchContext
+                0x080120a0       0xa0 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x080120a0                vTaskSwitchContext
  .text.vTaskPlaceOnEventList
-                0x08012144       0xa0 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08012144                vTaskPlaceOnEventList
+                0x08012140       0xa0 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08012140                vTaskPlaceOnEventList
  .text.vTaskPlaceOnEventListRestricted
-                0x080121e4       0x88 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x080121e4                vTaskPlaceOnEventListRestricted
+                0x080121e0       0x88 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x080121e0                vTaskPlaceOnEventListRestricted
  .text.xTaskRemoveFromEventList
-                0x0801226c       0x84 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x0801226c                xTaskRemoveFromEventList
+                0x08012268       0x84 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08012268                xTaskRemoveFromEventList
  .text.vTaskSetTimeOutState
-                0x080122f0       0x20 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x080122f0                vTaskSetTimeOutState
+                0x080122ec       0x20 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x080122ec                vTaskSetTimeOutState
  .text.xTaskCheckForTimeOut
-                0x08012310       0x64 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08012310                xTaskCheckForTimeOut
+                0x0801230c       0x64 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x0801230c                xTaskCheckForTimeOut
  .text.vTaskMissedYield
-                0x08012374       0x10 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08012374                vTaskMissedYield
+                0x08012370       0x10 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08012370                vTaskMissedYield
  .text.xTaskGetSchedulerState
-                0x08012384       0x20 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08012384                xTaskGetSchedulerState
+                0x08012380       0x20 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08012380                xTaskGetSchedulerState
  .text.vTaskPriorityInherit
-                0x080123a4       0x94 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x080123a4                vTaskPriorityInherit
+                0x080123a0       0x94 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x080123a0                vTaskPriorityInherit
  .text.xTaskPriorityDisinherit
-                0x08012438       0x8c ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x08012438                xTaskPriorityDisinherit
+                0x08012434       0x8c ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x08012434                xTaskPriorityDisinherit
  .text.pvTaskIncrementMutexHeldCount
-                0x080124c4       0x18 ../../lib/osd/quantracker_air_system.a(tasks.o)
-                0x080124c4                pvTaskIncrementMutexHeldCount
+                0x080124c0       0x18 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x080124c0                pvTaskIncrementMutexHeldCount
  .text.vListInitialise
-                0x080124dc       0x18 ../../lib/osd/quantracker_air_system.a(list.o)
-                0x080124dc                vListInitialise
+                0x080124d8       0x18 ../../lib/osd/quantracker_air_system.a(list.o)
+                0x080124d8                vListInitialise
  .text.vListInitialiseItem
-                0x080124f4        0x8 ../../lib/osd/quantracker_air_system.a(list.o)
-                0x080124f4                vListInitialiseItem
+                0x080124f0        0x8 ../../lib/osd/quantracker_air_system.a(list.o)
+                0x080124f0                vListInitialiseItem
  .text.vListInsertEnd
-                0x080124fc       0x1c ../../lib/osd/quantracker_air_system.a(list.o)
-                0x080124fc                vListInsertEnd
+                0x080124f8       0x1c ../../lib/osd/quantracker_air_system.a(list.o)
+                0x080124f8                vListInsertEnd
  .text.vListInsert
-                0x08012518       0x34 ../../lib/osd/quantracker_air_system.a(list.o)
-                0x08012518                vListInsert
+                0x08012514       0x34 ../../lib/osd/quantracker_air_system.a(list.o)
+                0x08012514                vListInsert
  .text.uxListRemove
-                0x0801254c       0x28 ../../lib/osd/quantracker_air_system.a(list.o)
-                0x0801254c                uxListRemove
+                0x08012548       0x28 ../../lib/osd/quantracker_air_system.a(list.o)
+                0x08012548                uxListRemove
  .text.prvSwitchTimerLists
-                0x08012574       0x90 ../../lib/osd/quantracker_air_system.a(timers.o)
+                0x08012570       0x90 ../../lib/osd/quantracker_air_system.a(timers.o)
  .text.prvTimerTask
-                0x08012604      0x220 ../../lib/osd/quantracker_air_system.a(timers.o)
+                0x08012600      0x220 ../../lib/osd/quantracker_air_system.a(timers.o)
  .text.xTimerCreateTimerTask
-                0x08012824       0x98 ../../lib/osd/quantracker_air_system.a(timers.o)
-                0x08012824                xTimerCreateTimerTask
+                0x08012820       0x98 ../../lib/osd/quantracker_air_system.a(timers.o)
+                0x08012820                xTimerCreateTimerTask
  .text.Reset_Handler
-                0x080128bc       0x50 ../../lib/osd/quantracker_air_system.a(startup.o)
-                0x080128bc                Reset_Handler
+                0x080128b8       0x50 ../../lib/osd/quantracker_air_system.a(startup.o)
+                0x080128b8                Reset_Handler
  .text.Default_Handler
-                0x0801290c        0x4 ../../lib/osd/quantracker_air_system.a(startup.o)
-                0x0801290c                RTC_Alarm_IRQHandler
-                0x0801290c                HASH_RNG_IRQHandler
-                0x0801290c                EXTI2_IRQHandler
-                0x0801290c                TIM8_CC_IRQHandler
-                0x0801290c                DebugMon_Handler
-                0x0801290c                TIM1_CC_IRQHandler
-                0x0801290c                DMA2_Stream5_IRQHandler
-                0x0801290c                HardFault_Handler
-                0x0801290c                DMA1_Stream5_IRQHandler
-                0x0801290c                PVD_IRQHandler
-                0x0801290c                SDIO_IRQHandler
-                0x0801290c                TAMP_STAMP_IRQHandler
-                0x0801290c                NMI_Handler
-                0x0801290c                CAN2_RX1_IRQHandler
-                0x0801290c                EXTI3_IRQHandler
-                0x0801290c                TIM8_TRG_COM_TIM14_IRQHandler
-                0x0801290c                TIM8_UP_TIM13_IRQHandler
-                0x0801290c                I2C3_ER_IRQHandler
-                0x0801290c                EXTI0_IRQHandler
-                0x0801290c                I2C2_EV_IRQHandler
-                0x0801290c                DMA1_Stream2_IRQHandler
-                0x0801290c                CAN1_RX0_IRQHandler
-                0x0801290c                FPU_IRQHandler
-                0x0801290c                OTG_HS_WKUP_IRQHandler
-                0x0801290c                UsageFault_Handler
-                0x0801290c                CAN2_SCE_IRQHandler
-                0x0801290c                DMA2_Stream2_IRQHandler
-                0x0801290c                SPI1_IRQHandler
-                0x0801290c                TIM6_DAC_IRQHandler
-                0x0801290c                TIM1_BRK_TIM9_IRQHandler
-                0x0801290c                DCMI_IRQHandler
-                0x0801290c                CAN2_RX0_IRQHandler
-                0x0801290c                DMA2_Stream3_IRQHandler
-                0x0801290c                USART6_IRQHandler
-                0x0801290c                USART3_IRQHandler
-                0x0801290c                CRYP_IRQHandler
-                0x0801290c                CAN1_RX1_IRQHandler
-                0x0801290c                UART5_IRQHandler
-                0x0801290c                DMA2_Stream0_IRQHandler
-                0x0801290c                TIM4_IRQHandler
-                0x0801290c                I2C1_EV_IRQHandler
-                0x0801290c                DMA1_Stream6_IRQHandler
-                0x0801290c                DMA1_Stream1_IRQHandler
-                0x0801290c                UART4_IRQHandler
-                0x0801290c                RCC_IRQHandler
-                0x0801290c                Default_Handler
-                0x0801290c                EXTI15_10_IRQHandler
-                0x0801290c                ADC_IRQHandler
-                0x0801290c                DMA1_Stream7_IRQHandler
-                0x0801290c                TIM7_IRQHandler
-                0x0801290c                CAN2_TX_IRQHandler
-                0x0801290c                TIM5_IRQHandler
-                0x0801290c                DMA2_Stream7_IRQHandler
-                0x0801290c                I2C3_EV_IRQHandler
-                0x0801290c                EXTI9_5_IRQHandler
-                0x0801290c                RTC_WKUP_IRQHandler
-                0x0801290c                ETH_WKUP_IRQHandler
-                0x0801290c                SPI2_IRQHandler
-                0x0801290c                OTG_HS_EP1_IN_IRQHandler
-                0x0801290c                MemManage_Handler
-                0x0801290c                DMA1_Stream0_IRQHandler
-                0x0801290c                CAN1_TX_IRQHandler
-                0x0801290c                EXTI4_IRQHandler
-                0x0801290c                FSMC_IRQHandler
-                0x0801290c                ETH_IRQHandler
-                0x0801290c                OTG_HS_EP1_OUT_IRQHandler
-                0x0801290c                WWDG_IRQHandler
-                0x0801290c                OTG_FS_WKUP_IRQHandler
-                0x0801290c                TIM1_TRG_COM_TIM11_IRQHandler
-                0x0801290c                OTG_HS_IRQHandler
-                0x0801290c                EXTI1_IRQHandler
-                0x0801290c                USART2_IRQHandler
-                0x0801290c                I2C2_ER_IRQHandler
-                0x0801290c                DMA2_Stream1_IRQHandler
-                0x0801290c                CAN1_SCE_IRQHandler
-                0x0801290c                FLASH_IRQHandler
-                0x0801290c                DMA2_Stream4_IRQHandler
-                0x0801290c                BusFault_Handler
-                0x0801290c                USART1_IRQHandler
-                0x0801290c                OTG_FS_IRQHandler
-                0x0801290c                SPI3_IRQHandler
-                0x0801290c                DMA1_Stream4_IRQHandler
-                0x0801290c                I2C1_ER_IRQHandler
-                0x0801290c                DMA2_Stream6_IRQHandler
-                0x0801290c                DMA1_Stream3_IRQHandler
+                0x08012908        0x4 ../../lib/osd/quantracker_air_system.a(startup.o)
+                0x08012908                RTC_Alarm_IRQHandler
+                0x08012908                HASH_RNG_IRQHandler
+                0x08012908                EXTI2_IRQHandler
+                0x08012908                TIM8_CC_IRQHandler
+                0x08012908                DebugMon_Handler
+                0x08012908                TIM1_CC_IRQHandler
+                0x08012908                DMA2_Stream5_IRQHandler
+                0x08012908                HardFault_Handler
+                0x08012908                DMA1_Stream5_IRQHandler
+                0x08012908                PVD_IRQHandler
+                0x08012908                SDIO_IRQHandler
+                0x08012908                TAMP_STAMP_IRQHandler
+                0x08012908                NMI_Handler
+                0x08012908                CAN2_RX1_IRQHandler
+                0x08012908                EXTI3_IRQHandler
+                0x08012908                TIM8_TRG_COM_TIM14_IRQHandler
+                0x08012908                TIM8_UP_TIM13_IRQHandler
+                0x08012908                I2C3_ER_IRQHandler
+                0x08012908                EXTI0_IRQHandler
+                0x08012908                I2C2_EV_IRQHandler
+                0x08012908                DMA1_Stream2_IRQHandler
+                0x08012908                CAN1_RX0_IRQHandler
+                0x08012908                FPU_IRQHandler
+                0x08012908                OTG_HS_WKUP_IRQHandler
+                0x08012908                UsageFault_Handler
+                0x08012908                CAN2_SCE_IRQHandler
+                0x08012908                DMA2_Stream2_IRQHandler
+                0x08012908                SPI1_IRQHandler
+                0x08012908                TIM6_DAC_IRQHandler
+                0x08012908                TIM1_BRK_TIM9_IRQHandler
+                0x08012908                DCMI_IRQHandler
+                0x08012908                CAN2_RX0_IRQHandler
+                0x08012908                DMA2_Stream3_IRQHandler
+                0x08012908                USART6_IRQHandler
+                0x08012908                USART3_IRQHandler
+                0x08012908                CRYP_IRQHandler
+                0x08012908                CAN1_RX1_IRQHandler
+                0x08012908                UART5_IRQHandler
+                0x08012908                DMA2_Stream0_IRQHandler
+                0x08012908                TIM4_IRQHandler
+                0x08012908                I2C1_EV_IRQHandler
+                0x08012908                DMA1_Stream6_IRQHandler
+                0x08012908                DMA1_Stream1_IRQHandler
+                0x08012908                UART4_IRQHandler
+                0x08012908                RCC_IRQHandler
+                0x08012908                Default_Handler
+                0x08012908                EXTI15_10_IRQHandler
+                0x08012908                ADC_IRQHandler
+                0x08012908                DMA1_Stream7_IRQHandler
+                0x08012908                TIM7_IRQHandler
+                0x08012908                CAN2_TX_IRQHandler
+                0x08012908                TIM5_IRQHandler
+                0x08012908                DMA2_Stream7_IRQHandler
+                0x08012908                I2C3_EV_IRQHandler
+                0x08012908                EXTI9_5_IRQHandler
+                0x08012908                RTC_WKUP_IRQHandler
+                0x08012908                ETH_WKUP_IRQHandler
+                0x08012908                SPI2_IRQHandler
+                0x08012908                OTG_HS_EP1_IN_IRQHandler
+                0x08012908                MemManage_Handler
+                0x08012908                DMA1_Stream0_IRQHandler
+                0x08012908                CAN1_TX_IRQHandler
+                0x08012908                EXTI4_IRQHandler
+                0x08012908                FSMC_IRQHandler
+                0x08012908                ETH_IRQHandler
+                0x08012908                OTG_HS_EP1_OUT_IRQHandler
+                0x08012908                WWDG_IRQHandler
+                0x08012908                OTG_FS_WKUP_IRQHandler
+                0x08012908                TIM1_TRG_COM_TIM11_IRQHandler
+                0x08012908                OTG_HS_IRQHandler
+                0x08012908                EXTI1_IRQHandler
+                0x08012908                USART2_IRQHandler
+                0x08012908                I2C2_ER_IRQHandler
+                0x08012908                DMA2_Stream1_IRQHandler
+                0x08012908                CAN1_SCE_IRQHandler
+                0x08012908                FLASH_IRQHandler
+                0x08012908                DMA2_Stream4_IRQHandler
+                0x08012908                BusFault_Handler
+                0x08012908                USART1_IRQHandler
+                0x08012908                OTG_FS_IRQHandler
+                0x08012908                SPI3_IRQHandler
+                0x08012908                DMA1_Stream4_IRQHandler
+                0x08012908                I2C1_ER_IRQHandler
+                0x08012908                DMA2_Stream6_IRQHandler
+                0x08012908                DMA1_Stream3_IRQHandler
  .text.SystemInit
-                0x08012910      0x140 ../../lib/osd/quantracker_air_system.a(system_init.o)
-                0x08012910                SystemInit
+                0x0801290c      0x140 ../../lib/osd/quantracker_air_system.a(system_init.o)
+                0x0801290c                SystemInit
  .text.prvPortStartFirstTask
-                0x08012a50       0x20 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012a4c       0x20 ../../lib/osd/quantracker_air_system.a(port.o)
  .text.vPortEnableVFP
-                0x08012a70       0x14 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012a6c       0x14 ../../lib/osd/quantracker_air_system.a(port.o)
  .text.pxPortInitialiseStack
-                0x08012a84       0x24 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012a84                pxPortInitialiseStack
+                0x08012a80       0x24 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012a80                pxPortInitialiseStack
  .text.SVC_Handler
-                0x08012aa8       0x20 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012aa8                SVC_Handler
+                0x08012aa4       0x20 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012aa4                SVC_Handler
  .text.vPortYield
-                0x08012ac8       0x18 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012ac8                vPortYield
+                0x08012ac4       0x18 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012ac4                vPortYield
  .text.ulPortSetInterruptMask
-                0x08012ae0       0x10 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012ae0                ulPortSetInterruptMask
+                0x08012adc       0x10 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012adc                ulPortSetInterruptMask
  .text.vPortEnterCritical
-                0x08012af0       0x34 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012af0                vPortEnterCritical
+                0x08012aec       0x34 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012aec                vPortEnterCritical
  .text.prvTaskExitError
-                0x08012b24       0x1c ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012b20       0x1c ../../lib/osd/quantracker_air_system.a(port.o)
  .text.vPortClearInterruptMask
-                0x08012b40        0x8 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012b40                vPortClearInterruptMask
+                0x08012b3c        0x8 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012b3c                vPortClearInterruptMask
  .text.vPortExitCritical
-                0x08012b48       0x24 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012b48                vPortExitCritical
+                0x08012b44       0x24 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012b44                vPortExitCritical
  .text.PendSV_Handler
-                0x08012b6c       0x58 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012b6c                PendSV_Handler
+                0x08012b68       0x58 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012b68                PendSV_Handler
  .text.SysTick_Handler
-                0x08012bc4       0x24 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012bc4                SysTick_Handler
+                0x08012bc0       0x24 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012bc0                SysTick_Handler
  .text.vPortSetupTimerInterrupt
-                0x08012be8       0x34 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012be8                vPortSetupTimerInterrupt
+                0x08012be4       0x34 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012be4                vPortSetupTimerInterrupt
  .text.xPortStartScheduler
-                0x08012c1c       0xb0 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012c1c                xPortStartScheduler
+                0x08012c18       0xb0 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012c18                xPortStartScheduler
  .text.vPortValidateInterruptPriority
-                0x08012ccc       0x48 ../../lib/osd/quantracker_air_system.a(port.o)
-                0x08012ccc                vPortValidateInterruptPriority
+                0x08012cc8       0x48 ../../lib/osd/quantracker_air_system.a(port.o)
+                0x08012cc8                vPortValidateInterruptPriority
  .text.pvPortMalloc
-                0x08012d14       0x24 ../../lib/osd/quantracker_air_system.a(heap_3.o)
-                0x08012d14                pvPortMalloc
+                0x08012d10       0x24 ../../lib/osd/quantracker_air_system.a(heap_3.o)
+                0x08012d10                pvPortMalloc
  .text.vPortFree
-                0x08012d38       0x1c ../../lib/osd/quantracker_air_system.a(heap_3.o)
-                0x08012d38                vPortFree
+                0x08012d34       0x1c ../../lib/osd/quantracker_air_system.a(heap_3.o)
+                0x08012d34                vPortFree
  .text.vApplicationIdleHook
-                0x08012d54        0x4 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
-                0x08012d54                vApplicationIdleHook
+                0x08012d50        0x4 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+                0x08012d50                vApplicationIdleHook
  .text.vApplicationTickHook
-                0x08012d58        0x4 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
-                0x08012d58                vApplicationTickHook
+                0x08012d54        0x4 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+                0x08012d54                vApplicationTickHook
  .text.vApplicationMallocFailedHook
-                0x08012d5c       0x14 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
-                0x08012d5c                vApplicationMallocFailedHook
+                0x08012d58       0x14 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+                0x08012d58                vApplicationMallocFailedHook
  .text.vApplicationStackOverflowHook
-                0x08012d70       0x14 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
-                0x08012d70                vApplicationStackOverflowHook
- .text._sbrk    0x08012d84       0x2c ../../lib/osd/quantracker_air_system.a(spbrk.o)
-                0x08012d84                _sbrk
+                0x08012d6c       0x14 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+                0x08012d6c                vApplicationStackOverflowHook
+ .text._sbrk    0x08012d80       0x2c ../../lib/osd/quantracker_air_system.a(spbrk.o)
+                0x08012d80                _sbrk
  .text.__cxa_pure_virtual
-                0x08012db0        0x4 ../../lib/osd/quantracker_air_system.a(system.o)
-                0x08012db0                __cxa_pure_virtual
- .text._ZdlPv   0x08012db4        0x4 ../../lib/osd/quantracker_air_system.a(system.o)
-                0x08012db4                operator delete(void*)
+                0x08012dac        0x4 ../../lib/osd/quantracker_air_system.a(system.o)
+                0x08012dac                __cxa_pure_virtual
+ .text._ZdlPv   0x08012db0        0x8 ../../lib/osd/quantracker_air_system.a(system.o)
+                0x08012db0                operator delete(void*)
  .text.prvUnlockQueue
                 0x08012db8       0x84 ../../lib/osd/quantracker_air_system.a(queue.o)
  .text.unlikely.prvCopyDataFromQueue
@@ -2972,1264 +2968,1269 @@ LOAD ../../lib/osd/quantracker_air_osd.a
  .text._ZN4quan3uav3osd13get_pixel_rawEPKNS1_12basic_bitmapERKNS_5two_d4vectIlEE
                 0x08013d8c       0x50 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
                 0x08013d8c                quan::uav::osd::get_pixel_raw(quan::uav::osd::basic_bitmap const*, quan::two_d::vect<long> const&)
+ .text._ZN4quan3uav3osd8get_sizeEPKNS1_10basic_fontE
+                0x08013ddc       0x20 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+                0x08013ddc                quan::uav::osd::get_size(quan::uav::osd::basic_font const*)
  .text._ZN4quan3uav3osd8get_charEPKNS1_10basic_fontEl
-                0x08013ddc        0xc ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
-                0x08013ddc                quan::uav::osd::get_char(quan::uav::osd::basic_font const*, long)
+                0x08013dfc        0xc ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+                0x08013dfc                quan::uav::osd::get_char(quan::uav::osd::basic_font const*, long)
  .text._ZN4quan3uav3osd8get_sizeEPKNS1_12basic_bitmapE
-                0x08013de8       0x10 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
-                0x08013de8                quan::uav::osd::get_size(quan::uav::osd::basic_bitmap const*)
+                0x08013e08       0x10 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+                0x08013e08                quan::uav::osd::get_size(quan::uav::osd::basic_bitmap const*)
  .text._ZN12_GLOBAL__N_19draw_taskEPv
-                0x08013df8       0x58 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+                0x08013e18       0x58 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
  .text._Z16create_draw_taskv
-                0x08013e50       0x40 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
-                0x08013e50                create_draw_task()
+                0x08013e70       0x40 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+                0x08013e70                create_draw_task()
+ .text._ZN12_GLOBAL__N_118sync_sep_new_frameEv
+                0x08013eb0      0x100 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .text._ZN4quan3uav3osd14get_video_modeEv
-                0x08013e90       0x18 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
-                0x08013e90                quan::uav::osd::get_video_mode()
+                0x08013fb0       0x18 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                0x08013fb0                quan::uav::osd::get_video_mode()
  .text._ZN6detail15sync_sep_enableEv
-                0x08013ea8       0x60 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
-                0x08013ea8                detail::sync_sep_enable()
+                0x08013fc8       0x58 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                0x08013fc8                detail::sync_sep_enable()
  .text._ZN6detail17sync_sep_takedownEv
-                0x08013f08       0x50 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
-                0x08013f08                detail::sync_sep_takedown()
+                0x08014020       0x50 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                0x08014020                detail::sync_sep_takedown()
  .text._ZN6detail14sync_sep_setupEv
-                0x08013f58       0xe0 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
-                0x08013f58                detail::sync_sep_setup()
+                0x08014070       0xe0 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                0x08014070                detail::sync_sep_setup()
  .text.TIM8_BRK_TIM12_IRQHandler
-                0x08014038      0x390 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
-                0x08014038                TIM8_BRK_TIM12_IRQHandler
+                0x08014150      0x2a0 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                0x08014150                TIM8_BRK_TIM12_IRQHandler
  .text._ZN6detail8dac_busyEv
-                0x080143c8       0x20 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
-                0x080143c8                detail::dac_busy()
+                0x080143f0       0x20 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+                0x080143f0                detail::dac_busy()
  .text.TIM1_UP_TIM10_IRQHandler
-                0x080143e8       0xdc ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
-                0x080143e8                TIM1_UP_TIM10_IRQHandler
+                0x08014410       0xdc ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+                0x08014410                TIM1_UP_TIM10_IRQHandler
  .text._ZN6detail23video_palette_dac_setupEv
-                0x080144c4      0x388 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
-                0x080144c4                detail::video_palette_dac_setup()
+                0x080144ec      0x388 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+                0x080144ec                detail::video_palette_dac_setup()
  .text.startup._GLOBAL__sub_I__ZN6detail8dac_busyEv
-                0x0801484c       0x14 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+                0x08014874       0x14 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
  .text._ZN6detail10setup_ledsEv
-                0x08014860       0x48 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
-                0x08014860                detail::setup_leds()
+                0x08014888       0x48 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+                0x08014888                detail::setup_leds()
  .text._ZN9osd_state7suspendEv
-                0x080148a8       0xec ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
-                0x080148a8                osd_state::suspend()
+                0x080148d0       0xec ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+                0x080148d0                osd_state::suspend()
  .text._ZN9osd_state3setENS_7state_tE
-                0x08014994       0x50 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
-                0x08014994                osd_state::set(osd_state::state_t)
+                0x080149bc       0x50 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+                0x080149bc                osd_state::set(osd_state::state_t)
  .text.NVIC_PriorityGroupConfig
-                0x080149e4       0x14 ../../lib/osd/quantracker_air_osd.a(misc.o)
-                0x080149e4                NVIC_PriorityGroupConfig
+                0x08014a0c       0x14 ../../lib/osd/quantracker_air_osd.a(misc.o)
+                0x08014a0c                NVIC_PriorityGroupConfig
  .text._ZN13video_buffers4initEv
-                0x080149f8      0x24c ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x080149f8                video_buffers::init()
+                0x08014a20      0x148 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+                0x08014a20                video_buffers::init()
  .text.startup._GLOBAL__sub_I__ZN13video_buffers3osd9m_buffersE
-                0x08014c44       0x60 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+                0x08014b68       0x20 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
  .text._ZN6detail26create_osd_swap_semaphoresEv
-                0x08014ca4       0x2c ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014ca4                detail::create_osd_swap_semaphores()
+                0x08014b88       0x2c ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014b88                detail::create_osd_swap_semaphores()
  .text._ZN6detail25reset_osd_swap_semaphoresEv
-                0x08014cd0       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014cd0                detail::reset_osd_swap_semaphores()
+                0x08014bb4       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014bb4                detail::reset_osd_swap_semaphores()
  .text._ZN6detail16swap_osd_buffersERKN4quan14fixed_quantityINS0_4meta4unitINS2_17abstract_quantityINS2_9dimensionINS2_8rationalILx0ELx1EEENS6_ILx1ELx1EEES7_S7_S7_S7_S7_EENS2_10components7of_timeEEENS2_17conversion_factorINS6_ILxn3ELx1EEES8_NS2_5int32ILl0EEEEEEEfEE
-                0x08014cf8       0x94 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014cf8                detail::swap_osd_buffers(quan::fixed_quantity<quan::meta::unit<quan::meta::abstract_quantity<quan::meta::dimension<quan::meta::rational<0ll, 1ll>, quan::meta::rational<1ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll> >, quan::meta::components::of_time>, quan::meta::conversion_factor<quan::meta::rational<-3ll, 1ll>, quan::meta::rational<1ll, 1ll>, quan::meta::int32<0l> > >, float> const&)
+                0x08014bdc       0x94 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014bdc                detail::swap_osd_buffers(quan::fixed_quantity<quan::meta::unit<quan::meta::abstract_quantity<quan::meta::dimension<quan::meta::rational<0ll, 1ll>, quan::meta::rational<1ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll>, quan::meta::rational<0ll, 1ll> >, quan::meta::components::of_time>, quan::meta::conversion_factor<quan::meta::rational<-3ll, 1ll>, quan::meta::rational<1ll, 1ll>, quan::meta::int32<0l> > >, float> const&)
  .text._ZN6detail16swap_osd_buffersEv
-                0x08014d8c       0x88 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014d8c                detail::swap_osd_buffers()
+                0x08014c70       0x88 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014c70                detail::swap_osd_buffers()
  .text._ZN9video_cfg7columns3osd6enableEv
-                0x08014e14       0xd0 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014e14                video_cfg::columns::osd::enable()
+                0x08014cf8       0xe8 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014cf8                video_cfg::columns::osd::enable()
  .text._ZN9video_cfg7columns3osd7disableEv
-                0x08014ee4       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014ee4                video_cfg::columns::osd::disable()
+                0x08014de0       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014de0                video_cfg::columns::osd::disable()
  .text._ZN9video_cfg7columns5telem6enableEv
-                0x08014f0c       0x60 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014f0c                video_cfg::columns::telem::enable()
+                0x08014e08       0x60 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014e08                video_cfg::columns::telem::enable()
  .text._ZN9video_cfg7columns5telem7disableEv
-                0x08014f6c       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014f6c                video_cfg::columns::telem::disable()
+                0x08014e68       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014e68                video_cfg::columns::telem::disable()
  .text._ZN9video_cfg7columns3osd5beginEv
-                0x08014f94      0x224 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08014f94                video_cfg::columns::osd::begin()
+                0x08014e90      0x22c ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x08014e90                video_cfg::columns::osd::begin()
  .text._ZN9video_cfg7columns8takedownEv
-                0x080151b8       0x14 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x080151b8                video_cfg::columns::takedown()
+                0x080150bc       0x18 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x080150bc                video_cfg::columns::takedown()
  .text._ZN9video_cfg7columns5setupEv
-                0x080151cc       0xc4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x080151cc                video_cfg::columns::setup()
+                0x080150d4       0xd8 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x080150d4                video_cfg::columns::setup()
  .text.TIM2_IRQHandler
-                0x08015290       0xf0 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x08015290                TIM2_IRQHandler
+                0x080151ac      0x11c ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x080151ac                TIM2_IRQHandler
  .text._ZN9video_cfg4rows3osd5beginEv
-                0x08015380       0x10 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x08015380                video_cfg::rows::osd::begin()
+                0x080152c8       0x10 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x080152c8                video_cfg::rows::osd::begin()
  .text._ZN9video_cfg4rows3osd3endEv
-                0x08015390       0x30 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x08015390                video_cfg::rows::osd::end()
+                0x080152d8       0x30 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x080152d8                video_cfg::rows::osd::end()
  .text._ZN9video_cfg4rows8takedownEv
-                0x080153c0       0x2c ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x080153c0                video_cfg::rows::takedown()
+                0x08015308       0x2c ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x08015308                video_cfg::rows::takedown()
  .text._ZN9video_cfg4rows5setupEv
-                0x080153ec      0x118 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x080153ec                video_cfg::rows::setup()
+                0x08015334      0x118 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x08015334                video_cfg::rows::setup()
  .text.TIM3_IRQHandler
-                0x08015504       0xa8 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x08015504                TIM3_IRQHandler
+                0x0801544c       0xa8 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x0801544c                TIM3_IRQHandler
  .text._ZN9video_cfg9spi_clock8takedownEv
-                0x080155ac       0x1c ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
-                0x080155ac                video_cfg::spi_clock::takedown()
+                0x080154f4       0x1c ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+                0x080154f4                video_cfg::spi_clock::takedown()
  .text._ZN9video_cfg9spi_clock5setupEv
-                0x080155c8       0xe8 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
-                0x080155c8                video_cfg::spi_clock::setup()
+                0x08015510       0xe8 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+                0x08015510                video_cfg::spi_clock::setup()
  .text._ZN6detail9spi_setupEv
-                0x080156b0      0x1ec ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
-                0x080156b0                detail::spi_setup()
+                0x080155f8      0x1ec ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+                0x080155f8                detail::spi_setup()
  .text._ZN6detail12spi_takedownEv
-                0x0801589c       0x78 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
-                0x0801589c                detail::spi_takedown()
+                0x080157e4       0x78 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+                0x080157e4                detail::spi_takedown()
  .text._ZN6detail15pixel_dma_setupEv
-                0x08015914       0xd8 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
-                0x08015914                detail::pixel_dma_setup()
+                0x0801585c       0xd8 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+                0x0801585c                detail::pixel_dma_setup()
  .text._ZN6detail25internal_video_mode_setupEv
-                0x080159ec       0xb8 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
-                0x080159ec                detail::internal_video_mode_setup()
+                0x08015934       0xb8 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+                0x08015934                detail::internal_video_mode_setup()
  .text._ZN6detail26do_internal_video_mode_irqEv
-                0x08015aa4      0x144 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
-                0x08015aa4                detail::do_internal_video_mode_irq()
+                0x080159ec      0x144 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+                0x080159ec                detail::do_internal_video_mode_irq()
  .text.__aeabi_atexit
-                0x08015be8        0xc /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-aeabi_atexit.o)
-                0x08015be8                __aeabi_atexit
+                0x08015b30        0xc /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-aeabi_atexit.o)
+                0x08015b30                __aeabi_atexit
  .text.__cxa_atexit
-                0x08015bf4       0x14 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-cxa_atexit.o)
-                0x08015bf4                __cxa_atexit
- .text.__errno  0x08015c08        0xc /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-errno.o)
-                0x08015c08                __errno
+                0x08015b3c       0x14 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-cxa_atexit.o)
+                0x08015b3c                __cxa_atexit
+ .text.__errno  0x08015b50        0xc /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-errno.o)
+                0x08015b50                __errno
  .text.__libc_init_array
-                0x08015c14       0x94 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-init.o)
-                0x08015c14                __libc_init_array
- .text.malloc   0x08015ca8       0x10 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-malloc.o)
-                0x08015ca8                malloc
- .text.free     0x08015cb8       0x10 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-malloc.o)
-                0x08015cb8                free
+                0x08015b5c       0x94 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-init.o)
+                0x08015b5c                __libc_init_array
+ .text.malloc   0x08015bf0       0x10 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-malloc.o)
+                0x08015bf0                malloc
+ .text.free     0x08015c00       0x10 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-malloc.o)
+                0x08015c00                free
  .text._malloc_r
-                0x08015cc8      0x55c /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
-                0x08015cc8                _malloc_r
- .text.memcmp   0x08016224       0xb8 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memcmp.o)
-                0x08016224                memcmp
- .text.memcpy   0x080162dc      0x144 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memcpy.o)
-                0x080162dc                memcpy
- .text.memset   0x08016420      0x12c /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memset.o)
-                0x08016420                memset
+                0x08015c10      0x55c /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
+                0x08015c10                _malloc_r
+ .text.memcmp   0x0801616c       0xb8 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memcmp.o)
+                0x0801616c                memcmp
+ .text.memcpy   0x08016224      0x144 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memcpy.o)
+                0x08016224                memcpy
+ .text.memset   0x08016368      0x12c /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memset.o)
+                0x08016368                memset
  .text.__malloc_lock
-                0x0801654c        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mlock.o)
-                0x0801654c                __malloc_lock
+                0x08016494        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mlock.o)
+                0x08016494                __malloc_lock
  .text.__malloc_unlock
-                0x08016550        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mlock.o)
-                0x08016550                __malloc_unlock
- .text._sbrk_r  0x08016554       0x24 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-sbrkr.o)
-                0x08016554                _sbrk_r
+                0x08016498        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mlock.o)
+                0x08016498                __malloc_unlock
+ .text._sbrk_r  0x0801649c       0x24 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-sbrkr.o)
+                0x0801649c                _sbrk_r
  .text.__register_exitproc
-                0x08016578       0xac /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__atexit.o)
-                0x08016578                __register_exitproc
+                0x080164c0       0xac /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__atexit.o)
+                0x080164c0                __register_exitproc
  .text._malloc_trim_r
-                0x08016624       0x98 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-freer.o)
-                0x08016624                _malloc_trim_r
- .text._free_r  0x080166bc      0x194 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-freer.o)
-                0x080166bc                _free_r
+                0x0801656c       0x98 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-freer.o)
+                0x0801656c                _malloc_trim_r
+ .text._free_r  0x08016604      0x194 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-freer.o)
+                0x08016604                _free_r
  *(.rodata)
  *(.rodata*)
  .rodata.str1.4
-                0x08016850        0xc obj/main.o
- *fill*         0x0801685c        0x4 00
+                0x08016798        0xc obj/main.o
+ *fill*         0x080167a4        0x4 00
  .rodata._ZTVN4quan3uav3osd12basic_bitmapE
-                0x08016860       0x18 obj/fonts.o
-                0x08016860                vtable for quan::uav::osd::basic_bitmap
+                0x080167a8       0x18 obj/fonts.o
+                0x080167a8                vtable for quan::uav::osd::basic_bitmap
  .rodata._ZTVN4quan3uav3osd10basic_fontE
-                0x08016878       0x28 obj/fonts.o
-                0x08016878                vtable for quan::uav::osd::basic_font
+                0x080167c0       0x28 obj/fonts.o
+                0x080167c0                vtable for quan::uav::osd::basic_font
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_181_typeE
-                0x080168a0       0x18 obj/fonts.o
+                0x080167e8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_172_type6m_dataE
-                0x080168b8       0x38 obj/fonts.o
+                0x08016800       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_95_type6m_dataE
-                0x080168f0       0x38 obj/fonts.o
+                0x08016838       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_32_type6m_dataE
-                0x08016928       0x38 obj/fonts.o
+                0x08016870       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_76_typeE
-                0x08016960       0x18 obj/fonts.o
+                0x080168a8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_92_type6m_dataE
-                0x08016978       0x38 obj/fonts.o
+                0x080168c0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_46_typeE
-                0x080169b0       0x18 obj/fonts.o
+                0x080168f8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_216_typeE
-                0x080169c8       0x18 obj/fonts.o
+                0x08016910       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_108_type6m_dataE
-                0x080169e0       0x38 obj/fonts.o
+                0x08016928       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_135_typeE
-                0x08016a18       0x18 obj/fonts.o
+                0x08016960       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_31_typeE
-                0x08016a30       0x18 obj/fonts.o
+                0x08016978       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_195_type6m_dataE
-                0x08016a48       0x38 obj/fonts.o
+                0x08016990       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_44_typeE
-                0x08016a80       0x18 obj/fonts.o
+                0x080169c8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_105_type6m_dataE
-                0x08016a98       0x38 obj/fonts.o
+                0x080169e0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_78_typeE
-                0x08016ad0       0x18 obj/fonts.o
+                0x08016a18       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_248_typeE
-                0x08016ae8       0x18 obj/fonts.o
+                0x08016a30       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_249_type6m_dataE
-                0x08016b00       0x38 obj/fonts.o
+                0x08016a48       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_220_typeE
-                0x08016b38       0x18 obj/fonts.o
+                0x08016a80       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_89_typeE
-                0x08016b50       0x18 obj/fonts.o
+                0x08016a98       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_178_typeE
-                0x08016b68       0x18 obj/fonts.o
+                0x08016ab0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_87_type6m_dataE
-                0x08016b80       0x38 obj/fonts.o
+                0x08016ac8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_231_typeE
-                0x08016bb8       0x18 obj/fonts.o
+                0x08016b00       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_255_type6m_dataE
-                0x08016bd0       0x38 obj/fonts.o
+                0x08016b18       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_150_typeE
-                0x08016c08       0x18 obj/fonts.o
+                0x08016b50       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_161_type6m_dataE
-                0x08016c20       0x38 obj/fonts.o
+                0x08016b68       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_84_type6m_dataE
-                0x08016c58       0x38 obj/fonts.o
+                0x08016ba0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_37_type6m_dataE
-                0x08016c90       0x38 obj/fonts.o
+                0x08016bd8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_252_type6m_dataE
-                0x08016cc8       0x38 obj/fonts.o
+                0x08016c10       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_93_typeE
-                0x08016d00       0x18 obj/fonts.o
+                0x08016c48       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_182_typeE
-                0x08016d18       0x18 obj/fonts.o
+                0x08016c60       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_81_type6m_dataE
-                0x08016d30       0x38 obj/fonts.o
+                0x08016c78       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_15_typeE
-                0x08016d68       0x18 obj/fonts.o
+                0x08016cb0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_110_typeE
-                0x08016d80       0x18 obj/fonts.o
+                0x08016cc8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_17_type6m_dataE
-                0x08016d98       0x38 obj/fonts.o
+                0x08016ce0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_47_typeE
-                0x08016dd0       0x18 obj/fonts.o
+                0x08016d18       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_50_type6m_dataE
-                0x08016de8       0x38 obj/fonts.o
+                0x08016d30       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_153_type6m_dataE
-                0x08016e20       0x38 obj/fonts.o
+                0x08016d68       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_249_typeE
-                0x08016e58       0x18 obj/fonts.o
+                0x08016da0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_76_type6m_dataE
-                0x08016e70       0x38 obj/fonts.o
+                0x08016db8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_168_typeE
-                0x08016ea8       0x18 obj/fonts.o
+                0x08016df0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_244_type6m_dataE
-                0x08016ec0       0x38 obj/fonts.o
+                0x08016e08       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_150_type6m_dataE
-                0x08016ef8       0x38 obj/fonts.o
+                0x08016e40       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_73_type6m_dataE
-                0x08016f30       0x38 obj/fonts.o
+                0x08016e78       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_241_type6m_dataE
-                0x08016f68       0x38 obj/fonts.o
+                0x08016eb0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_179_typeE
-                0x08016fa0       0x18 obj/fonts.o
+                0x08016ee8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_62_typeE
-                0x08016fb8       0x18 obj/fonts.o
+                0x08016f00       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_232_typeE
-                0x08016fd0       0x18 obj/fonts.o
+                0x08016f18       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_176_type6m_dataE
-                0x08016fe8       0x38 obj/fonts.o
+                0x08016f30       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_151_typeE
-                0x08017020       0x18 obj/fonts.o
+                0x08016f68       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_226_typeE
-                0x08017038       0x18 obj/fonts.o
+                0x08016f80       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_94_typeE
-                0x08017050       0x18 obj/fonts.o
+                0x08016f98       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_145_type6m_dataE
-                0x08017068       0x38 obj/fonts.o
+                0x08016fb0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_68_type6m_dataE
-                0x080170a0       0x38 obj/fonts.o
+                0x08016fe8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_236_type6m_dataE
-                0x080170d8       0x38 obj/fonts.o
+                0x08017020       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_142_type6m_dataE
-                0x08017110       0x38 obj/fonts.o
+                0x08017058       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_254_typeE
-                0x08017148       0x18 obj/fonts.o
+                0x08017090       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_198_type6m_dataE
-                0x08017160       0x38 obj/fonts.o
+                0x080170a8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_65_type6m_dataE
-                0x08017198       0x38 obj/fonts.o
+                0x080170e0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_48_typeE
-                0x080171d0       0x18 obj/fonts.o
+                0x08017118       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_218_typeE
-                0x080171e8       0x18 obj/fonts.o
+                0x08017130       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_126_typeE
-                0x08017200       0x18 obj/fonts.o
+                0x08017148       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_97_typeE
-                0x08017218       0x18 obj/fonts.o
+                0x08017160       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_20_typeE
-                0x08017230       0x18 obj/fonts.o
+                0x08017178       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_62_type6m_dataE
-                0x08017248       0x38 obj/fonts.o
+                0x08017190       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_230_type6m_dataE
-                0x08017280       0x38 obj/fonts.o
+                0x080171c8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_169_typeE
-                0x080172b8       0x18 obj/fonts.o
+                0x08017200       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_140_type6m_dataE
-                0x080172d0       0x38 obj/fonts.o
+                0x08017218       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_3_type6m_dataE
-                0x08017308       0x38 obj/fonts.o
+                0x08017250       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_63_typeE
-                0x08017340       0x18 obj/fonts.o
+                0x08017288       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_233_typeE
-                0x08017358       0x18 obj/fonts.o
+                0x080172a0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_152_typeE
-                0x08017370       0x18 obj/fonts.o
+                0x080172b8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_0_type6m_dataE
-                0x08017388       0x38 obj/fonts.o
+                0x080172d0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_134_type6m_dataE
-                0x080173c0       0x38 obj/fonts.o
+                0x08017308       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_178_type6m_dataE
-                0x080173f8       0x38 obj/fonts.o
+                0x08017340       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_57_type6m_dataE
-                0x08017430       0x38 obj/fonts.o
+                0x08017378       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_225_type6m_dataE
-                0x08017468       0x38 obj/fonts.o
+                0x080173b0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_131_type6m_dataE
-                0x080174a0       0x38 obj/fonts.o
+                0x080173e8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_13_type6m_dataE
-                0x080174d8       0x38 obj/fonts.o
+                0x08017420       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_222_type6m_dataE
-                0x08017510       0x38 obj/fonts.o
+                0x08017458       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_17_typeE
-                0x08017548       0x18 obj/fonts.o
+                0x08017490       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_106_typeE
-                0x08017560       0x18 obj/fonts.o
+                0x080174a8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_195_typeE
-                0x08017578       0x18 obj/fonts.o
+                0x080174c0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_16_type6m_dataE
-                0x08017590       0x38 obj/fonts.o
+                0x080174d8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_49_typeE
-                0x080175c8       0x18 obj/fonts.o
+                0x08017510       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_241_typeE
-                0x080175e0       0x18 obj/fonts.o
+                0x08017528       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_138_typeE
-                0x080175f8       0x18 obj/fonts.o
+                0x08017540       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_28_type6m_dataE
-                0x08017610       0x38 obj/fonts.o
+                0x08017558       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_21_typeE
-                0x08017648       0x18 obj/fonts.o
+                0x08017590       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_126_type6m_dataE
-                0x08017660       0x38 obj/fonts.o
+                0x080175a8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_32_typeE
-                0x08017698       0x18 obj/fonts.o
+                0x080175e0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_217_type6m_dataE
-                0x080176b0       0x38 obj/fonts.o
+                0x080175f8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_121_typeE
-                0x080176e8       0x18 obj/fonts.o
+                0x08017630       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_165_type6m_dataE
-                0x08017700       0x38 obj/fonts.o
+                0x08017648       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_123_type6m_dataE
-                0x08017738       0x38 obj/fonts.o
+                0x08017680       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_46_type6m_dataE
-                0x08017770       0x38 obj/fonts.o
+                0x080176b8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_214_type6m_dataE
-                0x080177a8       0x38 obj/fonts.o
+                0x080176f0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_64_typeE
-                0x080177e0       0x18 obj/fonts.o
+                0x08017728       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_120_type6m_dataE
-                0x080177f8       0x38 obj/fonts.o
+                0x08017740       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_153_typeE
-                0x08017830       0x18 obj/fonts.o
+                0x08017778       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_149_type6m_dataE
-                0x08017848       0x38 obj/fonts.o
+                0x08017790       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_211_type6m_dataE
-                0x08017880       0x38 obj/fonts.o
+                0x080177c8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_185_typeE
-                0x080178b8       0x18 obj/fonts.o
+                0x08017800       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_18_typeE
-                0x080178d0       0x18 obj/fonts.o
+                0x08017818       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_107_typeE
-                0x080178e8       0x18 obj/fonts.o
+                0x08017830       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_196_typeE
-                0x08017900       0x18 obj/fonts.o
+                0x08017848       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_209_type6m_dataE
-                0x08017918       0x38 obj/fonts.o
+                0x08017860       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_115_type6m_dataE
-                0x08017950       0x38 obj/fonts.o
+                0x08017898       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_38_type6m_dataE
-                0x08017988       0x38 obj/fonts.o
+                0x080178d0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_206_type6m_dataE
-                0x080179c0       0x38 obj/fonts.o
+                0x08017908       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_139_typeE
-                0x080179f8       0x18 obj/fonts.o
+                0x08017940       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_40_type6m_dataE
-                0x08017a10       0x38 obj/fonts.o
+                0x08017958       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_112_type6m_dataE
-                0x08017a48       0x38 obj/fonts.o
+                0x08017990       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_22_typeE
-                0x08017a80       0x18 obj/fonts.o
+                0x080179c8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_7_typeE
-                0x08017a98       0x18 obj/fonts.o
+                0x080179e0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_35_type6m_dataE
-                0x08017ab0       0x38 obj/fonts.o
+                0x080179f8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_111_typeE
-                0x08017ae8       0x18 obj/fonts.o
+                0x08017a30       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_203_type6m_dataE
-                0x08017b00       0x38 obj/fonts.o
+                0x08017a48       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_33_typeE
-                0x08017b38       0x18 obj/fonts.o
+                0x08017a80       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_170_typeE
-                0x08017b50       0x18 obj/fonts.o
+                0x08017a98       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_122_typeE
-                0x08017b68       0x18 obj/fonts.o
+                0x08017ab0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_94_type6m_dataE
-                0x08017b80       0x38 obj/fonts.o
+                0x08017ac8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_65_typeE
-                0x08017bb8       0x18 obj/fonts.o
+                0x08017b00       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_235_typeE
-                0x08017bd0       0x18 obj/fonts.o
+                0x08017b18       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_167_typeE
-                0x08017be8       0x18 obj/fonts.o
+                0x08017b30       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_154_typeE
-                0x08017c00       0x18 obj/fonts.o
+                0x08017b48       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_91_type6m_dataE
-                0x08017c18       0x38 obj/fonts.o
+                0x08017b60       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_107_type6m_dataE
-                0x08017c50       0x38 obj/fonts.o
+                0x08017b98       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_194_type6m_dataE
-                0x08017c88       0x38 obj/fonts.o
+                0x08017bd0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_104_type6m_dataE
-                0x08017cc0       0x38 obj/fonts.o
+                0x08017c08       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_27_type6m_dataE
-                0x08017cf8       0x38 obj/fonts.o
+                0x08017c40       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_19_typeE
-                0x08017d30       0x18 obj/fonts.o
+                0x08017c78       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_101_type6m_dataE
-                0x08017d48       0x38 obj/fonts.o
+                0x08017c90       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_24_type6m_dataE
-                0x08017d80       0x38 obj/fonts.o
+                0x08017cc8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_80_typeE
-                0x08017db8       0x18 obj/fonts.o
+                0x08017d00       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_250_typeE
-                0x08017dd0       0x18 obj/fonts.o
+                0x08017d18       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_197_typeE
-                0x08017de8       0x18 obj/fonts.o
+                0x08017d30       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_160_type6m_dataE
-                0x08017e00       0x38 obj/fonts.o
+                0x08017d48       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_179_type6m_dataE
-                0x08017e38       0x38 obj/fonts.o
+                0x08017d80       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_112_typeE
-                0x08017e70       0x18 obj/fonts.o
+                0x08017db8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_189_type6m_dataE
-                0x08017e88       0x38 obj/fonts.o
+                0x08017dd0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_251_type6m_dataE
-                0x08017ec0       0x38 obj/fonts.o
+                0x08017e08       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_48_type6m_dataE
-                0x08017ef8       0x38 obj/fonts.o
+                0x08017e40       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_34_typeE
-                0x08017f30       0x18 obj/fonts.o
+                0x08017e78       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_80_type6m_dataE
-                0x08017f48       0x38 obj/fonts.o
+                0x08017e90       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_123_typeE
-                0x08017f80       0x18 obj/fonts.o
+                0x08017ec8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_217_typeE
-                0x08017f98       0x18 obj/fonts.o
+                0x08017ee0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_19_type6m_dataE
-                0x08017fb0       0x38 obj/fonts.o
+                0x08017ef8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_183_type6m_dataE
-                0x08017fe8       0x38 obj/fonts.o
+                0x08017f30       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_66_typeE
-                0x08018020       0x18 obj/fonts.o
+                0x08017f68       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_236_typeE
-                0x08018038       0x18 obj/fonts.o
+                0x08017f80       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_75_type6m_dataE
-                0x08018050       0x38 obj/fonts.o
+                0x08017f98       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_243_type6m_dataE
-                0x08018088       0x38 obj/fonts.o
+                0x08017fd0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_109_typeE
-                0x080180c0       0x18 obj/fonts.o
+                0x08018008       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_198_typeE
-                0x080180d8       0x18 obj/fonts.o
+                0x08018020       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_81_typeE
-                0x080180f0       0x18 obj/fonts.o
+                0x08018038       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_72_type6m_dataE
-                0x08018108       0x38 obj/fonts.o
+                0x08018050       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_240_type6m_dataE
-                0x08018140       0x38 obj/fonts.o
+                0x08018088       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_173_typeE
-                0x08018178       0x18 obj/fonts.o
+                0x080180c0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_175_type6m_dataE
-                0x08018190       0x38 obj/fonts.o
+                0x080180d8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_98_type6m_dataE
-                0x080181c8       0x38 obj/fonts.o
+                0x08018110       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_20_type6m_dataE
-                0x08018200       0x38 obj/fonts.o
+                0x08018148       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_223_typeE
-                0x08018238       0x18 obj/fonts.o
+                0x08018180       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_35_typeE
-                0x08018250       0x18 obj/fonts.o
+                0x08018198       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_205_typeE
-                0x08018268       0x18 obj/fonts.o
+                0x080181b0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_124_typeE
-                0x08018280       0x18 obj/fonts.o
+                0x080181c8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_56_type6m_dataE
-                0x08018298       0x38 obj/fonts.o
+                0x080181e0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_67_typeE
-                0x080182d0       0x18 obj/fonts.o
+                0x08018218       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_237_typeE
-                0x080182e8       0x18 obj/fonts.o
+                0x08018230       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_2_typeE
-                0x08018300       0x18 obj/fonts.o
+                0x08018248       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_141_type6m_dataE
-                0x08018318       0x38 obj/fonts.o
+                0x08018260       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_64_type6m_dataE
-                0x08018350       0x38 obj/fonts.o
+                0x08018298       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_232_type6m_dataE
-                0x08018388       0x38 obj/fonts.o
+                0x080182d0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_233_type6m_dataE
-                0x080183c0       0x38 obj/fonts.o
+                0x08018308       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_68_typeE
-                0x080183f8       0x18 obj/fonts.o
+                0x08018340       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_167_type6m_dataE
-                0x08018410       0x38 obj/fonts.o
+                0x08018358       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_50_typeE
-                0x08018448       0x18 obj/fonts.o
+                0x08018390       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_164_type6m_dataE
-                0x08018460       0x38 obj/fonts.o
+                0x080183a8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_199_typeE
-                0x08018498       0x18 obj/fonts.o
+                0x080183e0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_197_type6m_dataE
-                0x080184b0       0x38 obj/fonts.o
+                0x080183f8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_82_typeE
-                0x080184e8       0x18 obj/fonts.o
+                0x08018430       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_252_typeE
-                0x08018500       0x18 obj/fonts.o
+                0x08018448       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_2_type6m_dataE
-                0x08018518       0x38 obj/fonts.o
+                0x08018460       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_171_typeE
-                0x08018550       0x18 obj/fonts.o
+                0x08018498       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_21_type6m_dataE
-                0x08018568       0x38 obj/fonts.o
+                0x080184b0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_33_type6m_dataE
-                0x080185a0       0x38 obj/fonts.o
+                0x080184e8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_133_type6m_dataE
-                0x080185d8       0x38 obj/fonts.o
+                0x08018520       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_98_typeE
-                0x08018610       0x18 obj/fonts.o
+                0x08018558       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_224_type6m_dataE
-                0x08018628       0x38 obj/fonts.o
+                0x08018570       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_36_typeE
-                0x08018660       0x18 obj/fonts.o
+                0x080185a8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_130_type6m_dataE
-                0x08018678       0x38 obj/fonts.o
+                0x080185c0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_125_typeE
-                0x080186b0       0x18 obj/fonts.o
+                0x080185f8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_159_type6m_dataE
-                0x080186c8       0x38 obj/fonts.o
+                0x08018610       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_111_type6m_dataE
-                0x08018700       0x38 obj/fonts.o
+                0x08018648       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_221_type6m_dataE
-                0x08018738       0x38 obj/fonts.o
+                0x08018680       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_156_type6m_dataE
-                0x08018770       0x38 obj/fonts.o
+                0x080186b8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_238_typeE
-                0x080187a8       0x18 obj/fonts.o
+                0x080186f0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_3_typeE
-                0x080187c0       0x18 obj/fonts.o
+                0x08018708       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_157_typeE
-                0x080187d8       0x18 obj/fonts.o
+                0x08018720       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_247_type6m_dataE
-                0x080187f0       0x38 obj/fonts.o
+                0x08018738       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_210_typeE
-                0x08018828       0x18 obj/fonts.o
+                0x08018770       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_79_typeE
-                0x08018840       0x18 obj/fonts.o
+                0x08018788       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_116_typeE
-                0x08018858       0x18 obj/fonts.o
+                0x080187a0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_51_typeE
-                0x08018870       0x18 obj/fonts.o
+                0x080187b8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_221_typeE
-                0x08018888       0x18 obj/fonts.o
+                0x080187d0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_10_type6m_dataE
-                0x080188a0       0x38 obj/fonts.o
+                0x080187e8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_140_typeE
-                0x080188d8       0x18 obj/fonts.o
+                0x08018820       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_251_typeE
-                0x080188f0       0x18 obj/fonts.o
+                0x08018838       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_122_type6m_dataE
-                0x08018908       0x38 obj/fonts.o
+                0x08018850       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_83_typeE
-                0x08018940       0x18 obj/fonts.o
+                0x08018888       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_253_typeE
-                0x08018958       0x18 obj/fonts.o
+                0x080188a0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_34_type6m_dataE
-                0x08018970       0x38 obj/fonts.o
+                0x080188b8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_45_type6m_dataE
-                0x080189a8       0x38 obj/fonts.o
+                0x080188f0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_172_typeE
-                0x080189e0       0x18 obj/fonts.o
+                0x08018928       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_213_type6m_dataE
-                0x080189f8       0x38 obj/fonts.o
+                0x08018940       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_148_type6m_dataE
-                0x08018a30       0x38 obj/fonts.o
+                0x08018978       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_210_type6m_dataE
-                0x08018a68       0x38 obj/fonts.o
+                0x080189b0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_239_type6m_dataE
-                0x08018aa0       0x38 obj/fonts.o
+                0x080189e8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_5_type6m_dataE
-                0x08018ad8       0x38 obj/fonts.o
+                0x08018a20       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_37_typeE
-                0x08018b10       0x18 obj/fonts.o
+                0x08018a58       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_207_typeE
-                0x08018b28       0x18 obj/fonts.o
+                0x08018a70       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_69_typeE
-                0x08018b40       0x18 obj/fonts.o
+                0x08018a88       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_239_typeE
-                0x08018b58       0x18 obj/fonts.o
+                0x08018aa0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_4_typeE
-                0x08018b70       0x18 obj/fonts.o
+                0x08018ab8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_158_typeE
-                0x08018b88       0x18 obj/fonts.o
+                0x08018ad0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_9_type6m_dataE
-                0x08018ba0       0x38 obj/fonts.o
+                0x08018ae8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_211_typeE
-                0x08018bd8       0x18 obj/fonts.o
+                0x08018b20       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_11_type6m_dataE
-                0x08018bf0       0x38 obj/fonts.o
+                0x08018b38       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_205_type6m_dataE
-                0x08018c28       0x38 obj/fonts.o
+                0x08018b70       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_12_type6m_dataE
-                0x08018c60       0x38 obj/fonts.o
+                0x08018ba8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_6_type6m_dataE
-                0x08018c98       0x38 obj/fonts.o
+                0x08018be0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_23_type6m_dataE
-                0x08018cd0       0x38 obj/fonts.o
+                0x08018c18       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_29_type6m_dataE
-                0x08018d08       0x38 obj/fonts.o
+                0x08018c50       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_136_typeE
-                0x08018d40       0x18 obj/fonts.o
+                0x08018c88       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_52_typeE
-                0x08018d58       0x18 obj/fonts.o
+                0x08018ca0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_222_typeE
-                0x08018d70       0x18 obj/fonts.o
+                0x08018cb8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_202_type6m_dataE
-                0x08018d88       0x38 obj/fonts.o
+                0x08018cd0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_141_typeE
-                0x08018dc0       0x18 obj/fonts.o
+                0x08018d08       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_137_type6m_dataE
-                0x08018dd8       0x38 obj/fonts.o
+                0x08018d20       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_47_type6m_dataE
-                0x08018e10       0x38 obj/fonts.o
+                0x08018d58       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_84_typeE
-                0x08018e48       0x18 obj/fonts.o
+                0x08018d90       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_228_type6m_dataE
-                0x08018e60       0x38 obj/fonts.o
+                0x08018da8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_164_typeE
-                0x08018e98       0x18 obj/fonts.o
+                0x08018de0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_95_typeE
-                0x08018eb0       0x18 obj/fonts.o
+                0x08018df8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_90_type6m_dataE
-                0x08018ec8       0x38 obj/fonts.o
+                0x08018e10       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_193_type6m_dataE
-                0x08018f00       0x38 obj/fonts.o
+                0x08018e48       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_38_typeE
-                0x08018f38       0x18 obj/fonts.o
+                0x08018e80       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_208_typeE
-                0x08018f50       0x18 obj/fonts.o
+                0x08018e98       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_196_type6m_dataE
-                0x08018f68       0x38 obj/fonts.o
+                0x08018eb0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_103_type6m_dataE
-                0x08018fa0       0x38 obj/fonts.o
+                0x08018ee8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_121font_OSD_Charset_typeE
-                0x08018fd8       0x28 obj/fonts.o
+                0x08018f20       0x28 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_127_typeE
-                0x08019000       0x18 obj/fonts.o
+                0x08018f48       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_26_type6m_dataE
-                0x08019018       0x38 obj/fonts.o
+                0x08018f60       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_10_typeE
-                0x08019050       0x18 obj/fonts.o
+                0x08018f98       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_190_type6m_dataE
-                0x08019068       0x38 obj/fonts.o
+                0x08018fb0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_100_type6m_dataE
-                0x080190a0       0x38 obj/fonts.o
+                0x08018fe8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_129_type6m_dataE
-                0x080190d8       0x38 obj/fonts.o
+                0x08019020       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_159_typeE
-                0x08019110       0x18 obj/fonts.o
+                0x08019058       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_212_typeE
-                0x08019128       0x18 obj/fonts.o
+                0x08019070       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_194_typeE
-                0x08019140       0x18 obj/fonts.o
+                0x08019088       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_168_type6m_dataE
-                0x08019158       0x38 obj/fonts.o
+                0x080190a0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_53_typeE
-                0x08019190       0x18 obj/fonts.o
+                0x080190d8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_82_type6m_dataE
-                0x080191a8       0x38 obj/fonts.o
+                0x080190f0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_250_type6m_dataE
-                0x080191e0       0x38 obj/fonts.o
+                0x08019128       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_142_typeE
-                0x08019218       0x18 obj/fonts.o
+                0x08019160       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_185_type6m_dataE
-                0x08019230       0x38 obj/fonts.o
+                0x08019178       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_85_typeE
-                0x08019268       0x18 obj/fonts.o
+                0x080191b0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_255_typeE
-                0x08019280       0x18 obj/fonts.o
+                0x080191c8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_174_typeE
-                0x08019298       0x18 obj/fonts.o
+                0x080191e0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_182_type6m_dataE
-                0x080192b0       0x38 obj/fonts.o
+                0x080191f8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_96_typeE
-                0x080192e8       0x18 obj/fonts.o
+                0x08019230       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_15_type6m_dataE
-                0x08019300       0x38 obj/fonts.o
+                0x08019248       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_118_type6m_dataE
-                0x08019338       0x38 obj/fonts.o
+                0x08019280       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_39_typeE
-                0x08019370       0x18 obj/fonts.o
+                0x080192b8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_209_typeE
-                0x08019388       0x18 obj/fonts.o
+                0x080192d0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_128_typeE
-                0x080193a0       0x18 obj/fonts.o
+                0x080192e8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_11_typeE
-                0x080193b8       0x18 obj/fonts.o
+                0x08019300       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_6_typeE
-                0x080193d0       0x18 obj/fonts.o
+                0x08019318       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_177_type6m_dataE
-                0x080193e8       0x38 obj/fonts.o
+                0x08019330       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_102_type6m_dataE
-                0x08019420       0x38 obj/fonts.o
+                0x08019368       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_174_type6m_dataE
-                0x08019458       0x38 obj/fonts.o
+                0x080193a0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_114_type6m_dataE
-                0x08019490       0x38 obj/fonts.o
+                0x080193d8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_97_type6m_dataE
-                0x080194c8       0x38 obj/fonts.o
+                0x08019410       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_54_typeE
-                0x08019500       0x18 obj/fonts.o
+                0x08019448       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_224_typeE
-                0x08019518       0x18 obj/fonts.o
+                0x08019460       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_171_type6m_dataE
-                0x08019530       0x38 obj/fonts.o
+                0x08019478       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_186_type6m_dataE
-                0x08019568       0x38 obj/fonts.o
+                0x080194b0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_86_typeE
-                0x080195a0       0x18 obj/fonts.o
+                0x080194e8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_175_typeE
-                0x080195b8       0x18 obj/fonts.o
+                0x08019500       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_183_typeE
-                0x080195d0       0x18 obj/fonts.o
+                0x08019518       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_43_type6m_dataE
-                0x080195e8       0x38 obj/fonts.o
+                0x08019530       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_169_type6m_dataE
-                0x08019620       0x38 obj/fonts.o
+                0x08019568       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_231_type6m_dataE
-                0x08019658       0x38 obj/fonts.o
+                0x080195a0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_166_type6m_dataE
-                0x08019690       0x38 obj/fonts.o
+                0x080195d8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_129_typeE
-                0x080196c8       0x18 obj/fonts.o
+                0x08019610       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_12_typeE
-                0x080196e0       0x18 obj/fonts.o
+                0x08019628       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_163_type6m_dataE
-                0x080196f8       0x38 obj/fonts.o
+                0x08019640       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_101_typeE
-                0x08019730       0x18 obj/fonts.o
+                0x08019678       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_190_typeE
-                0x08019748       0x18 obj/fonts.o
+                0x08019690       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_86_type6m_dataE
-                0x08019760       0x38 obj/fonts.o
+                0x080196a8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_254_type6m_dataE
-                0x08019798       0x38 obj/fonts.o
+                0x080196e0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_23_typeE
-                0x080197d0       0x18 obj/fonts.o
+                0x08019718       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_55_typeE
-                0x080197e8       0x18 obj/fonts.o
+                0x08019730       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_225_typeE
-                0x08019800       0x18 obj/fonts.o
+                0x08019748       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_144_typeE
-                0x08019818       0x18 obj/fonts.o
+                0x08019760       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_61_typeE
-                0x08019830       0x18 obj/fonts.o
+                0x08019778       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_199_type6m_dataE
-                0x08019848       0x38 obj/fonts.o
+                0x08019790       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_108_typeE
-                0x08019880       0x18 obj/fonts.o
+                0x080197c8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_158_type6m_dataE
-                0x08019898       0x38 obj/fonts.o
+                0x080197e0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_220_type6m_dataE
-                0x080198d0       0x38 obj/fonts.o
+                0x08019818       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_176_typeE
-                0x08019908       0x18 obj/fonts.o
+                0x08019850       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_155_type6m_dataE
-                0x08019920       0x38 obj/fonts.o
+                0x08019868       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_78_type6m_dataE
-                0x08019958       0x38 obj/fonts.o
+                0x080198a0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_51_type6m_dataE
-                0x08019990       0x38 obj/fonts.o
+                0x080198d8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_246_type6m_dataE
-                0x080199c8       0x38 obj/fonts.o
+                0x08019910       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_187_typeE
-                0x08019a00       0x18 obj/fonts.o
+                0x08019948       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_152_type6m_dataE
-                0x08019a18       0x38 obj/fonts.o
+                0x08019960       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_70_typeE
-                0x08019a50       0x18 obj/fonts.o
+                0x08019998       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_240_typeE
-                0x08019a68       0x18 obj/fonts.o
+                0x080199b0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_63_type6m_dataE
-                0x08019a80       0x38 obj/fonts.o
+                0x080199c8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_99_typeE
-                0x08019ab8       0x18 obj/fonts.o
+                0x08019a00       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_13_typeE
-                0x08019ad0       0x18 obj/fonts.o
+                0x08019a18       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_102_typeE
-                0x08019ae8       0x18 obj/fonts.o
+                0x08019a30       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_191_typeE
-                0x08019b00       0x18 obj/fonts.o
+                0x08019a48       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_121_type6m_dataE
-                0x08019b18       0x38 obj/fonts.o
+                0x08019a60       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_8_typeE
-                0x08019b50       0x18 obj/fonts.o
+                0x08019a98       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_44_type6m_dataE
-                0x08019b68       0x38 obj/fonts.o
+                0x08019ab0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_24_typeE
-                0x08019ba0       0x18 obj/fonts.o
+                0x08019ae8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_113_typeE
-                0x08019bb8       0x18 obj/fonts.o
+                0x08019b00       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_147_type6m_dataE
-                0x08019bd0       0x38 obj/fonts.o
+                0x08019b18       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_56_typeE
-                0x08019c08       0x18 obj/fonts.o
+                0x08019b50       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_238_type6m_dataE
-                0x08019c20       0x38 obj/fonts.o
+                0x08019b68       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_145_typeE
-                0x08019c58       0x18 obj/fonts.o
+                0x08019ba0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_103_typeE
-                0x08019c70       0x18 obj/fonts.o
+                0x08019bb8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_144_type6m_dataE
-                0x08019c88       0x38 obj/fonts.o
+                0x08019bd0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_1L27font_OSD_Charset_char_arrayE
-                0x08019cc0      0x400 obj/fonts.o
+                0x08019c08      0x400 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_67_type6m_dataE
-                0x0801a0c0       0x38 obj/fonts.o
+                0x0801a008       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_235_type6m_dataE
-                0x0801a0f8       0x38 obj/fonts.o
+                0x0801a040       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_215_typeE
-                0x0801a130       0x18 obj/fonts.o
+                0x0801a078       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_105_typeE
-                0x0801a148       0x18 obj/fonts.o
+                0x0801a090       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_52_type6m_dataE
-                0x0801a160       0x38 obj/fonts.o
+                0x0801a0a8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_177_typeE
-                0x0801a198       0x18 obj/fonts.o
+                0x0801a0e0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_8_type6m_dataE
-                0x0801a1b0       0x38 obj/fonts.o
+                0x0801a0f8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_188_typeE
-                0x0801a1e8       0x18 obj/fonts.o
+                0x0801a130       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_71_typeE
-                0x0801a200       0x18 obj/fonts.o
+                0x0801a148       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_117_type6m_dataE
-                0x0801a218       0x38 obj/fonts.o
+                0x0801a160       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_160_typeE
-                0x0801a250       0x18 obj/fonts.o
+                0x0801a198       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_88_type6m_dataE
-                0x0801a268       0x38 obj/fonts.o
+                0x0801a1b0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_139_type6m_dataE
-                0x0801a2a0       0x38 obj/fonts.o
+                0x0801a1e8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_201_type6m_dataE
-                0x0801a2d8       0x38 obj/fonts.o
+                0x0801a220       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_14_typeE
-                0x0801a310       0x18 obj/fonts.o
+                0x0801a258       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_136_type6m_dataE
-                0x0801a328       0x38 obj/fonts.o
+                0x0801a270       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_192_typeE
-                0x0801a360       0x18 obj/fonts.o
+                0x0801a2a8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_219_typeE
-                0x0801a378       0x18 obj/fonts.o
+                0x0801a2c0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_59_type6m_dataE
-                0x0801a390       0x38 obj/fonts.o
+                0x0801a2d8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_9_typeE
-                0x0801a3c8       0x18 obj/fonts.o
+                0x0801a310       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_227_type6m_dataE
-                0x0801a3e0       0x38 obj/fonts.o
+                0x0801a328       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_25_typeE
-                0x0801a418       0x18 obj/fonts.o
+                0x0801a360       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_114_typeE
-                0x0801a430       0x18 obj/fonts.o
+                0x0801a378       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_187_type6m_dataE
-                0x0801a448       0x38 obj/fonts.o
+                0x0801a390       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_41_type6m_dataE
-                0x0801a480       0x38 obj/fonts.o
+                0x0801a3c8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_57_typeE
-                0x0801a4b8       0x18 obj/fonts.o
+                0x0801a400       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_227_typeE
-                0x0801a4d0       0x18 obj/fonts.o
+                0x0801a418       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_146_typeE
-                0x0801a4e8       0x18 obj/fonts.o
+                0x0801a430       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_53_type6m_dataE
-                0x0801a500       0x38 obj/fonts.o
+                0x0801a448       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_192_type6m_dataE
-                0x0801a538       0x38 obj/fonts.o
+                0x0801a480       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_137_typeE
-                0x0801a570       0x18 obj/fonts.o
+                0x0801a4b8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_5_typeE
-                0x0801a588       0x18 obj/fonts.o
+                0x0801a4d0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_25_type6m_dataE
-                0x0801a5a0       0x38 obj/fonts.o
+                0x0801a4e8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_40_typeE
-                0x0801a5d8       0x18 obj/fonts.o
+                0x0801a520       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_128_type6m_dataE
-                0x0801a5f0       0x38 obj/fonts.o
+                0x0801a538       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_61_type6m_dataE
-                0x0801a628       0x38 obj/fonts.o
+                0x0801a570       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_89_type6m_dataE
-                0x0801a660       0x38 obj/fonts.o
+                0x0801a5a8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_189_typeE
-                0x0801a698       0x18 obj/fonts.o
+                0x0801a5e0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_125_type6m_dataE
-                0x0801a6b0       0x38 obj/fonts.o
+                0x0801a5f8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_242_typeE
-                0x0801a6e8       0x18 obj/fonts.o
+                0x0801a630       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_161_typeE
-                0x0801a700       0x18 obj/fonts.o
+                0x0801a648       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_216_type6m_dataE
-                0x0801a718       0x38 obj/fonts.o
+                0x0801a660       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_218_type6m_dataE
-                0x0801a750       0x38 obj/fonts.o
+                0x0801a698       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_204_typeE
-                0x0801a788       0x18 obj/fonts.o
+                0x0801a6d0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_104_typeE
-                0x0801a7a0       0x18 obj/fonts.o
+                0x0801a6e8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_193_typeE
-                0x0801a7b8       0x18 obj/fonts.o
+                0x0801a700       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_184_type6m_dataE
-                0x0801a7d0       0x38 obj/fonts.o
+                0x0801a718       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_206_typeE
-                0x0801a808       0x18 obj/fonts.o
+                0x0801a750       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_26_typeE
-                0x0801a820       0x18 obj/fonts.o
+                0x0801a768       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_42_type6m_dataE
-                0x0801a838       0x38 obj/fonts.o
+                0x0801a780       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_181_type6m_dataE
-                0x0801a870       0x38 obj/fonts.o
+                0x0801a7b8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_54_type6m_dataE
-                0x0801a8a8       0x38 obj/fonts.o
+                0x0801a7f0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_14_type6m_dataE
-                0x0801a8e0       0x38 obj/fonts.o
+                0x0801a828       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_58_typeE
-                0x0801a918       0x18 obj/fonts.o
+                0x0801a860       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_228_typeE
-                0x0801a930       0x18 obj/fonts.o
+                0x0801a878       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_18_type6m_dataE
-                0x0801a948       0x38 obj/fonts.o
+                0x0801a890       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_147_typeE
-                0x0801a980       0x18 obj/fonts.o
+                0x0801a8c8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_30_typeE
-                0x0801a998       0x18 obj/fonts.o
+                0x0801a8e0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_200_typeE
-                0x0801a9b0       0x18 obj/fonts.o
+                0x0801a8f8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_234_typeE
-                0x0801a9c8       0x18 obj/fonts.o
+                0x0801a910       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_208_type6m_dataE
-                0x0801a9e0       0x38 obj/fonts.o
+                0x0801a928       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_41_typeE
-                0x0801aa18       0x18 obj/fonts.o
+                0x0801a960       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_207_type6m_dataE
-                0x0801aa30       0x38 obj/fonts.o
+                0x0801a978       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_130_typeE
-                0x0801aa68       0x18 obj/fonts.o
+                0x0801a9b0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_70_type6m_dataE
-                0x0801aa80       0x38 obj/fonts.o
+                0x0801a9c8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_99_type6m_dataE
-                0x0801aab8       0x38 obj/fonts.o
+                0x0801aa00       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_219_type6m_dataE
-                0x0801aaf0       0x38 obj/fonts.o
+                0x0801aa38       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_73_typeE
-                0x0801ab28       0x18 obj/fonts.o
+                0x0801aa70       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_243_typeE
-                0x0801ab40       0x18 obj/fonts.o
+                0x0801aa88       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_173_type6m_dataE
-                0x0801ab58       0x38 obj/fonts.o
+                0x0801aaa0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_162_typeE
-                0x0801ab90       0x18 obj/fonts.o
+                0x0801aad8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_96_type6m_dataE
-                0x0801aba8       0x38 obj/fonts.o
+                0x0801aaf0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_31_type6m_dataE
-                0x0801abe0       0x38 obj/fonts.o
+                0x0801ab28       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_170_type6m_dataE
-                0x0801ac18       0x38 obj/fonts.o
+                0x0801ab60       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_93_type6m_dataE
-                0x0801ac50       0x38 obj/fonts.o
+                0x0801ab98       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_22_type6m_dataE
-                0x0801ac88       0x38 obj/fonts.o
+                0x0801abd0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_109_type6m_dataE
-                0x0801acc0       0x38 obj/fonts.o
+                0x0801ac08       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_30_type6m_dataE
-                0x0801acf8       0x38 obj/fonts.o
+                0x0801ac40       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_27_typeE
-                0x0801ad30       0x18 obj/fonts.o
+                0x0801ac78       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_106_type6m_dataE
-                0x0801ad48       0x38 obj/fonts.o
+                0x0801ac90       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_79_type6m_dataE
-                0x0801ad80       0x38 obj/fonts.o
+                0x0801acc8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_59_typeE
-                0x0801adb8       0x18 obj/fonts.o
+                0x0801ad00       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_229_typeE
-                0x0801add0       0x18 obj/fonts.o
+                0x0801ad18       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_148_typeE
-                0x0801ade8       0x18 obj/fonts.o
+                0x0801ad30       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_156_typeE
-                0x0801ae00       0x18 obj/fonts.o
+                0x0801ad48       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_155_typeE
-                0x0801ae18       0x18 obj/fonts.o
+                0x0801ad60       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_201_typeE
-                0x0801ae30       0x18 obj/fonts.o
+                0x0801ad78       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_120_typeE
-                0x0801ae48       0x18 obj/fonts.o
+                0x0801ad90       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_162_type6m_dataE
-                0x0801ae60       0x38 obj/fonts.o
+                0x0801ada8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_42_typeE
-                0x0801ae98       0x18 obj/fonts.o
+                0x0801ade0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_85_type6m_dataE
-                0x0801aeb0       0x38 obj/fonts.o
+                0x0801adf8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_131_typeE
-                0x0801aee8       0x18 obj/fonts.o
+                0x0801ae30       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_253_type6m_dataE
-                0x0801af00       0x38 obj/fonts.o
+                0x0801ae48       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_184_typeE
-                0x0801af38       0x18 obj/fonts.o
+                0x0801ae80       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_188_type6m_dataE
-                0x0801af50       0x38 obj/fonts.o
+                0x0801ae98       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_74_typeE
-                0x0801af88       0x18 obj/fonts.o
+                0x0801aed0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_244_typeE
-                0x0801afa0       0x18 obj/fonts.o
+                0x0801aee8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_163_typeE
-                0x0801afb8       0x18 obj/fonts.o
+                0x0801af00       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_186_typeE
-                0x0801afd0       0x18 obj/fonts.o
+                0x0801af18       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_157_type6m_dataE
-                0x0801afe8       0x38 obj/fonts.o
+                0x0801af30       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_115_typeE
-                0x0801b020       0x18 obj/fonts.o
+                0x0801af68       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_28_typeE
-                0x0801b038       0x18 obj/fonts.o
+                0x0801af80       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_248_type6m_dataE
-                0x0801b050       0x38 obj/fonts.o
+                0x0801af98       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_117_typeE
-                0x0801b088       0x18 obj/fonts.o
+                0x0801afd0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_154_type6m_dataE
-                0x0801b0a0       0x38 obj/fonts.o
+                0x0801afe8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_77_type6m_dataE
-                0x0801b0d8       0x38 obj/fonts.o
+                0x0801b020       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_245_type6m_dataE
-                0x0801b110       0x38 obj/fonts.o
+                0x0801b058       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_151_type6m_dataE
-                0x0801b148       0x38 obj/fonts.o
+                0x0801b090       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_149_typeE
-                0x0801b180       0x18 obj/fonts.o
+                0x0801b0c8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_74_type6m_dataE
-                0x0801b198       0x38 obj/fonts.o
+                0x0801b0e0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_242_type6m_dataE
-                0x0801b1d0       0x38 obj/fonts.o
+                0x0801b118       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_202_typeE
-                0x0801b208       0x18 obj/fonts.o
+                0x0801b150       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_143_typeE
-                0x0801b220       0x18 obj/fonts.o
+                0x0801b168       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_43_typeE
-                0x0801b238       0x18 obj/fonts.o
+                0x0801b180       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_213_typeE
-                0x0801b250       0x18 obj/fonts.o
+                0x0801b198       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_132_typeE
-                0x0801b268       0x18 obj/fonts.o
+                0x0801b1b0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_110_type6m_dataE
-                0x0801b280       0x38 obj/fonts.o
+                0x0801b1c8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_75_typeE
-                0x0801b2b8       0x18 obj/fonts.o
+                0x0801b200       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_245_typeE
-                0x0801b2d0       0x18 obj/fonts.o
+                0x0801b218       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_146_type6m_dataE
-                0x0801b2e8       0x38 obj/fonts.o
+                0x0801b230       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_69_type6m_dataE
-                0x0801b320       0x38 obj/fonts.o
+                0x0801b268       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_237_type6m_dataE
-                0x0801b358       0x38 obj/fonts.o
+                0x0801b2a0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_143_type6m_dataE
-                0x0801b390       0x38 obj/fonts.o
+                0x0801b2d8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_100_typeE
-                0x0801b3c8       0x18 obj/fonts.o
+                0x0801b310       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_66_type6m_dataE
-                0x0801b3e0       0x38 obj/fonts.o
+                0x0801b328       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_234_type6m_dataE
-                0x0801b418       0x38 obj/fonts.o
+                0x0801b360       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_118_typeE
-                0x0801b450       0x18 obj/fonts.o
+                0x0801b398       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_29_typeE
-                0x0801b468       0x18 obj/fonts.o
+                0x0801b3b0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_90_typeE
-                0x0801b480       0x18 obj/fonts.o
+                0x0801b3c8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_7_type6m_dataE
-                0x0801b498       0x38 obj/fonts.o
+                0x0801b3e0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_4_type6m_dataE
-                0x0801b4d0       0x38 obj/fonts.o
+                0x0801b418       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_203_typeE
-                0x0801b508       0x18 obj/fonts.o
+                0x0801b450       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_138_type6m_dataE
-                0x0801b520       0x38 obj/fonts.o
+                0x0801b468       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_200_type6m_dataE
-                0x0801b558       0x38 obj/fonts.o
+                0x0801b4a0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_229_type6m_dataE
-                0x0801b590       0x38 obj/fonts.o
+                0x0801b4d8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_123font_OSD_Charset_1_type6m_dataE
-                0x0801b5c8       0x38 obj/fonts.o
+                0x0801b510       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_135_type6m_dataE
-                0x0801b600       0x38 obj/fonts.o
+                0x0801b548       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_214_typeE
-                0x0801b638       0x18 obj/fonts.o
+                0x0801b580       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_133_typeE
-                0x0801b650       0x18 obj/fonts.o
+                0x0801b598       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_0_typeE
-                0x0801b668       0x18 obj/fonts.o
+                0x0801b5b0       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_226_type6m_dataE
-                0x0801b680       0x38 obj/fonts.o
+                0x0801b5c8       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_132_type6m_dataE
-                0x0801b6b8       0x38 obj/fonts.o
+                0x0801b600       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_49_type6m_dataE
-                0x0801b6f0       0x38 obj/fonts.o
+                0x0801b638       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_55_type6m_dataE
-                0x0801b728       0x38 obj/fonts.o
+                0x0801b670       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_246_typeE
-                0x0801b760       0x18 obj/fonts.o
+                0x0801b6a8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_223_type6m_dataE
-                0x0801b778       0x38 obj/fonts.o
+                0x0801b6c0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_165_typeE
-                0x0801b7b0       0x18 obj/fonts.o
+                0x0801b6f8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_58_type6m_dataE
-                0x0801b7c8       0x38 obj/fonts.o
+                0x0801b710       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_191_type6m_dataE
-                0x0801b800       0x38 obj/fonts.o
+                0x0801b748       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_87_typeE
-                0x0801b838       0x18 obj/fonts.o
+                0x0801b780       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_119_typeE
-                0x0801b850       0x18 obj/fonts.o
+                0x0801b798       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_127_type6m_dataE
-                0x0801b868       0x38 obj/fonts.o
+                0x0801b7b0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_91_typeE
-                0x0801b8a0       0x18 obj/fonts.o
+                0x0801b7e8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_16_typeE
-                0x0801b8b8       0x18 obj/fonts.o
+                0x0801b800       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_180_typeE
-                0x0801b8d0       0x18 obj/fonts.o
+                0x0801b818       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_124_type6m_dataE
-                0x0801b8e8       0x38 obj/fonts.o
+                0x0801b830       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_71_type6m_dataE
-                0x0801b920       0x38 obj/fonts.o
+                0x0801b868       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_215_type6m_dataE
-                0x0801b958       0x38 obj/fonts.o
+                0x0801b8a0       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_83_type6m_dataE
-                0x0801b990       0x38 obj/fonts.o
+                0x0801b8d8       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_45_typeE
-                0x0801b9c8       0x18 obj/fonts.o
+                0x0801b910       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_134_typeE
-                0x0801b9e0       0x18 obj/fonts.o
+                0x0801b928       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_123font_OSD_Charset_1_typeE
-                0x0801b9f8       0x18 obj/fonts.o
+                0x0801b940       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_212_type6m_dataE
-                0x0801ba10       0x38 obj/fonts.o
+                0x0801b958       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_180_type6m_dataE
-                0x0801ba48       0x38 obj/fonts.o
+                0x0801b990       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_77_typeE
-                0x0801ba80       0x18 obj/fonts.o
+                0x0801b9c8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_247_typeE
-                0x0801ba98       0x18 obj/fonts.o
+                0x0801b9e0       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_166_typeE
-                0x0801bab0       0x18 obj/fonts.o
+                0x0801b9f8       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_119_type6m_dataE
-                0x0801bac8       0x38 obj/fonts.o
+                0x0801ba10       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_88_typeE
-                0x0801bb00       0x18 obj/fonts.o
+                0x0801ba48       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_116_type6m_dataE
-                0x0801bb18       0x38 obj/fonts.o
+                0x0801ba60       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_72_typeE
-                0x0801bb50       0x18 obj/fonts.o
+                0x0801ba98       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_39_type6m_dataE
-                0x0801bb68       0x38 obj/fonts.o
+                0x0801bab0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_60_typeE
-                0x0801bba0       0x18 obj/fonts.o
+                0x0801bae8       0x18 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_125font_OSD_Charset_230_typeE
-                0x0801bbb8       0x18 obj/fonts.o
+                0x0801bb00       0x18 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_113_type6m_dataE
-                0x0801bbd0       0x38 obj/fonts.o
+                0x0801bb18       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_60_type6m_dataE
-                0x0801bc08       0x38 obj/fonts.o
+                0x0801bb50       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_124font_OSD_Charset_36_type6m_dataE
-                0x0801bc40       0x38 obj/fonts.o
+                0x0801bb88       0x38 obj/fonts.o
  .rodata._ZN12_GLOBAL__N_125font_OSD_Charset_204_type6m_dataE
-                0x0801bc78       0x38 obj/fonts.o
+                0x0801bbc0       0x38 obj/fonts.o
  .rodata._ZTVN12_GLOBAL__N_124font_OSD_Charset_92_typeE
-                0x0801bcb0       0x18 obj/fonts.o
+                0x0801bbf8       0x18 obj/fonts.o
  .rodata.ucExpectedStackBytes.5286
-                0x0801bcc8       0x14 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x0801bc10       0x14 ../../lib/osd/quantracker_air_system.a(tasks.o)
  .rodata.str1.4
-                0x0801bcdc        0x5 ../../lib/osd/quantracker_air_system.a(tasks.o)
+                0x0801bc24        0x5 ../../lib/osd/quantracker_air_system.a(tasks.o)
                                   0x8 (size before relaxing)
- *fill*         0x0801bce1        0x3 00
+ *fill*         0x0801bc29        0x3 00
  .rodata.str1.4
-                0x0801bce4       0x10 ../../lib/osd/quantracker_air_system.a(timers.o)
+                0x0801bc2c       0x10 ../../lib/osd/quantracker_air_system.a(timers.o)
  .rodata._ZN12_GLOBAL__N_1L12gpioc_unusedE
-                0x0801bcf4       0x24 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+                0x0801bc3c       0x24 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
  .rodata._ZN12_GLOBAL__N_1L12gpioa_unusedE
-                0x0801bd18       0x2c ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+                0x0801bc60       0x2c ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
  .rodata._ZN12_GLOBAL__N_1L12gpiob_unusedE
-                0x0801bd44       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+                0x0801bc8c       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
  .rodata.str1.4
-                0x0801bd6c        0xa ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+                0x0801bcb4        0xa ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
                                   0xc (size before relaxing)
- *fill*         0x0801bd76        0x2 00
+ *fill*         0x0801bcbe        0x2 00
  .rodata.str1.4
-                0x0801bd78        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
+                0x0801bcc0        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
  .rodata._global_impure_ptr
-                0x0801bd7c        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
-                0x0801bd7c                _global_impure_ptr
+                0x0801bcc4        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
+                0x0801bcc4                _global_impure_ptr
  *(.glue_7)
  .glue_7        0x00000000        0x0 linker stubs
  *(.glue_7t)
  .glue_7t       0x00000000        0x0 linker stubs
  *(.init)
- .init          0x0801bd80        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crti.o
-                0x0801bd80                _init
- .init          0x0801bd84        0x8 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crtn.o
+ .init          0x0801bcc8        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crti.o
+                0x0801bcc8                _init
+ .init          0x0801bccc        0x8 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crtn.o
  *(.fini)
- .fini          0x0801bd8c        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crti.o
-                0x0801bd8c                _fini
- .fini          0x0801bd90        0x8 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crtn.o
-                0x0801bd98                . = ALIGN (0x4)
-                0x0801bd98                _etext = .
-                0x0801bd98                _exit = .
-                0x0801bd98                _sidata = .
+ .fini          0x0801bcd4        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crti.o
+                0x0801bcd4                _fini
+ .fini          0x0801bcd8        0x8 /opt/gcc-arm-none-eabi-4_7-2013q2//lib/gcc/arm-none-eabi/4.7.4/armv7e-m/fpu/crtn.o
+                0x0801bce0                . = ALIGN (0x4)
+                0x0801bce0                _etext = .
+                0x0801bce0                _exit = .
+                0x0801bce0                _sidata = .
 
-.vfp11_veneer   0x0801bd98        0x0
+.vfp11_veneer   0x0801bce0        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0801bd98        0x0
+.v4_bx          0x0801bce0        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0801bd98        0x0
+.iplt           0x0801bce0        0x0
  .iplt          0x00000000        0x0 obj/main.o
 
-.rel.dyn        0x0801bd98        0x0
+.rel.dyn        0x0801bce0        0x0
  .rel.iplt      0x00000000        0x0 obj/main.o
 
-.data           0x10000000      0x86c load address 0x0801bd98
+.data           0x10000000      0x86c load address 0x0801bce0
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _sdata = .
  *(.data)
@@ -4243,52 +4244,53 @@ LOAD ../../lib/osd/quantracker_air_osd.a
                 0x10000008        0x4 ../../lib/osd/quantracker_air_system.a(port.o)
  .data._ZZ5_sbrkE8heap_ptr
                 0x1000000c        0x4 ../../lib/osd/quantracker_air_system.a(spbrk.o)
+ .data._ZN12_GLOBAL__N_111vsync_countE
+                0x10000010        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .data._ZN9osd_state15m_current_stateE
-                0x10000010        0x1 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
-                0x10000010                osd_state::m_current_state
- *fill*         0x10000011        0x1 00
+                0x10000014        0x1 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+                0x10000014                osd_state::m_current_state
+ *fill*         0x10000015        0x1 00
  .data._ZN9video_cfg7columns5telem7m_beginE
-                0x10000012        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x10000012                video_cfg::columns::telem::m_begin
- .data._ZN9video_cfg7columns5telem5m_endE
-                0x10000014        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x10000014                video_cfg::columns::telem::m_end
- .data._ZN9video_cfg7columns3osd7m_beginE
                 0x10000016        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x10000016                video_cfg::columns::osd::m_begin
- .data._ZN9video_cfg7columns3osd5m_endE
+                0x10000016                video_cfg::columns::telem::m_begin
+ .data._ZN9video_cfg7columns5telem5m_endE
                 0x10000018        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                0x10000018                video_cfg::columns::osd::m_end
+                0x10000018                video_cfg::columns::telem::m_end
+ .data._ZN9video_cfg7columns3osd7m_beginE
+                0x1000001a        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x1000001a                video_cfg::columns::osd::m_begin
+ .data._ZN9video_cfg7columns3osd5m_endE
+                0x1000001c        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x1000001c                video_cfg::columns::osd::m_end
  .data._ZN9video_cfg4rows3osd10m_end_ntscE
-                0x1000001a        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x1000001a                video_cfg::rows::osd::m_end_ntsc
- .data._ZN9video_cfg4rows5telem7m_beginE
-                0x1000001c        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x1000001c                video_cfg::rows::telem::m_begin
- .data._ZN9video_cfg4rows3osd9m_end_palE
                 0x1000001e        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x1000001e                video_cfg::rows::osd::m_end_pal
- .data._ZN9video_cfg4rows13m_cur_row_oddE
-                0x10000020        0x1 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x10000020                video_cfg::rows::m_cur_row_odd
- *fill*         0x10000021        0x1 00
- .data._ZN9video_cfg4rows5telem5m_endE
+                0x1000001e                video_cfg::rows::osd::m_end_ntsc
+ .data._ZN9video_cfg4rows5telem7m_beginE
+                0x10000020        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x10000020                video_cfg::rows::telem::m_begin
+ .data._ZN9video_cfg4rows3osd9m_end_palE
                 0x10000022        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x10000022                video_cfg::rows::telem::m_end
+                0x10000022                video_cfg::rows::osd::m_end_pal
+ .data._ZN9video_cfg4rows13m_cur_row_oddE
+                0x10000024        0x1 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x10000024                video_cfg::rows::m_cur_row_odd
+ *fill*         0x10000025        0x1 00
+ .data._ZN9video_cfg4rows5telem5m_endE
+                0x10000026        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x10000026                video_cfg::rows::telem::m_end
  .data._ZN9video_cfg4rows3osd7m_beginE
-                0x10000024        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x10000024                video_cfg::rows::osd::m_begin
+                0x10000028        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x10000028                video_cfg::rows::osd::m_begin
  .data._ZN9video_cfg9spi_clock24m_timer_half_clks_per_pxE
-                0x10000026        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
-                0x10000026                video_cfg::spi_clock::m_timer_half_clks_per_px
+                0x1000002a        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+                0x1000002a                video_cfg::spi_clock::m_timer_half_clks_per_px
  .data._ZN9video_cfg9spi_clock25m_timer_half_clks_per_bitE
-                0x10000028        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
-                0x10000028                video_cfg::spi_clock::m_timer_half_clks_per_bit
+                0x1000002c        0x2 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+                0x1000002c                video_cfg::spi_clock::m_timer_half_clks_per_bit
  .data._ZN12_GLOBAL__N_111first_fieldE
-                0x1000002a        0x1 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+                0x1000002e        0x1 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
  .data._ZN12_GLOBAL__N_18ivm_modeE
-                0x1000002b        0x1 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
- *fill*         0x1000002c        0x4 00
+                0x1000002f        0x1 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
  .data.impure_data
                 0x10000030      0x428 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
  .data._impure_ptr
@@ -4306,11 +4308,11 @@ LOAD ../../lib/osd/quantracker_air_osd.a
                 0x1000086c                . = ALIGN (0x4)
                 0x1000086c                _edata = .
 
-.igot.plt       0x1000086c        0x0 load address 0x0801c604
+.igot.plt       0x1000086c        0x0 load address 0x0801c54c
  .igot.plt      0x00000000        0x0 obj/main.o
                 0x1000086c                . = ALIGN (0x4)
 
-.bss            0x1000086c      0x650 load address 0x0801c604
+.bss            0x1000086c      0x628 load address 0x0801c54c
                 0x1000086c                _sbss = .
                 0x1000086c                __bss_start__ = _sbss
  *(.bss)
@@ -4893,23 +4895,21 @@ LOAD ../../lib/osd/quantracker_air_osd.a
  *fill*         0x10000db1        0x3 00
  .bss._ZN12_GLOBAL__N_111task_handleE
                 0x10000db4        0x4 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .bss._ZN12_GLOBAL__N_115sync_pulse_typeE
-                0x10000db8        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .bss._ZN12_GLOBAL__N_120last_sync_first_edgeE
-                0x10000dbc        0x2 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .bss._ZN12_GLOBAL__N_112sync_counterE
-                0x10000dbe        0x1 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- *fill*         0x10000dbf        0x1 00
+                0x10000db8        0x2 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ *fill*         0x10000dba        0x2 00
+ .bss._ZN12_GLOBAL__N_118private_video_modeE
+                0x10000dbc        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .bss._ZN12_GLOBAL__N_18syncmodeE
                 0x10000dc0        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .bss._ZN12_GLOBAL__N_117public_video_modeE
+ .bss._ZN12_GLOBAL__N_116last_line_periodE
                 0x10000dc4        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .bss._ZN12_GLOBAL__N_117public_video_modeE
+                0x10000dc8        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .bss._ZN12_GLOBAL__N_127initial_first_edge_capturedE
-                0x10000dc8        0x1 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- *fill*         0x10000dc9        0x3 00
- .bss._ZN12_GLOBAL__N_111line_periodE
-                0x10000dcc        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .bss._ZN12_GLOBAL__N_110video_modeE
+                0x10000dcc        0x1 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ *fill*         0x10000dcd        0x3 00
+ .bss._ZN12_GLOBAL__N_115last_sync_pulseE
                 0x10000dd0        0x4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .bss._ZN12_GLOBAL__N_18dac_fifoE
                 0x10000dd4       0x18 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
@@ -4920,58 +4920,49 @@ LOAD ../../lib/osd/quantracker_air_osd.a
  .bss._ZN9osd_state21m_have_external_videoE
                 0x10000def        0x1 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
                 0x10000def                osd_state::m_have_external_video
- .bss._ZN13video_buffers5telem2rx7managerE
-                0x10000df0       0x10 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x10000df0                video_buffers::telem::rx::manager
- .bss._ZN13video_buffers5telem2tx6m_sizeE
-                0x10000e00        0x8 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x10000e00                video_buffers::telem::tx::m_size
  .bss._ZN13video_buffers3osd7managerE
-                0x10000e08       0x10 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x10000e08                video_buffers::osd::manager
- .bss._ZN13video_buffers5telem2tx7managerE
-                0x10000e18       0x10 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x10000e18                video_buffers::telem::tx::manager
+                0x10000df0       0x10 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+                0x10000df0                video_buffers::osd::manager
  .bss._ZN13video_buffers3osd14m_display_sizeE
-                0x10000e28        0x8 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x10000e28                video_buffers::osd::m_display_size
+                0x10000e00        0x8 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+                0x10000e00                video_buffers::osd::m_display_size
  .bss._ZN12_GLOBAL__N_127HigherPriorityTaskWoken_osdE
-                0x10000e30        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x10000e08        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
  .bss._ZN12_GLOBAL__N_121h_osd_buffers_swappedE
-                0x10000e34        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x10000e0c        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
  .bss._ZN12_GLOBAL__N_126h_request_osd_buffers_swapE
-                0x10000e38        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                0x10000e10        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
  .bss._ZN9video_cfg4rows10m_cur_modeE
-                0x10000e3c        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
-                0x10000e3c                video_cfg::rows::m_cur_mode
+                0x10000e14        0x4 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+                0x10000e14                video_cfg::rows::m_cur_mode
  .bss._ZN12_GLOBAL__N_19ivm_countE
-                0x10000e40        0x4 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+                0x10000e18        0x4 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
  .bss.__malloc_max_total_mem
-                0x10000e44        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
-                0x10000e44                __malloc_max_total_mem
+                0x10000e1c        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
+                0x10000e1c                __malloc_max_total_mem
  .bss.__malloc_max_sbrked_mem
-                0x10000e48        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
-                0x10000e48                __malloc_max_sbrked_mem
+                0x10000e20        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
+                0x10000e20                __malloc_max_sbrked_mem
  .bss.__malloc_top_pad
-                0x10000e4c        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
-                0x10000e4c                __malloc_top_pad
+                0x10000e24        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
+                0x10000e24                __malloc_top_pad
  .bss.__malloc_current_mallinfo
-                0x10000e50       0x28 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
-                0x10000e50                __malloc_current_mallinfo
+                0x10000e28       0x28 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-mallocr.o)
+                0x10000e28                __malloc_current_mallinfo
  *(COMMON)
- COMMON         0x10000e78       0x40 ../../lib/osd/quantracker_air_system.a(queue.o)
-                0x10000e78                xQueueRegistry
- COMMON         0x10000eb8        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-reent.o)
-                0x10000eb8                errno
-                0x10000ebc                . = ALIGN (0x4)
-                0x10000ebc                _ebss = .
-                0x10000ebc                __bss_end__ = _ebss
+ COMMON         0x10000e50       0x40 ../../lib/osd/quantracker_air_system.a(queue.o)
+                0x10000e50                xQueueRegistry
+ COMMON         0x10000e90        0x4 /opt/gcc-arm-none-eabi-4_7-2013q2/bin/../lib/gcc/arm-none-eabi/4.7.4/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-reent.o)
+                0x10000e90                errno
+                0x10000e94                . = ALIGN (0x4)
+                0x10000e94                _ebss = .
+                0x10000e94                __bss_end__ = _ebss
 
-.check_stack    0x10000ebc     0x8000 load address 0x0801cc54
-                0x10000ebc                . = ALIGN (0x4)
-                0x10008ebc                . = (. + _MinStackSize)
- *fill*         0x10000ebc     0x8000 00
-                0x10008ebc                . = ALIGN (0x4)
+.check_stack    0x10000e94     0x8000 load address 0x0801cb74
+                0x10000e94                . = ALIGN (0x4)
+                0x10008e94                . = (. + _MinStackSize)
+ *fill*         0x10000e94     0x8000 00
+                0x10008e94                . = ALIGN (0x4)
                 0x10010000                _estack = (ORIGIN (ram) + 0x10000)
 
 .check_heap     0x20000000    0x12000
@@ -4991,12 +4982,9 @@ LOAD ../../lib/osd/quantracker_air_osd.a
                 0x20012000                video_buffers::osd::m_buffers
                 0x2001f000                . = ALIGN (0x4)
 
-.telem_buffer   0x2001f000      0xe00
+.telem_buffer   0x2001f000        0x0
  *(.telem_buffer*)
- .telem_buffer  0x2001f000      0xe00 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                0x2001f000                video_buffers::telem::tx::m_buffers
-                0x2001f200                video_buffers::telem::rx::m_buffers
-                0x2001fe00                . = ALIGN (0x4)
+                0x2001f000                . = ALIGN (0x4)
 
 /DISCARD/
  libc.a(*)
@@ -5103,99 +5091,99 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .comment       0x00000000       0x71 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
  .comment       0x00000000       0x71 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
-.debug_info     0x00000000    0xd7c02
+.debug_info     0x00000000    0xd8bc2
  .debug_info    0x00000000     0x23f6 obj/main.o
  .debug_info    0x000023f6    0x321aa obj/fonts.o
- .debug_info    0x000345a0     0x22f2 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
- .debug_info    0x00036892     0x34a8 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
- .debug_info    0x00039d3a     0x25e0 ../../lib/osd/quantracker_air_system.a(tasks.o)
- .debug_info    0x0003c31a      0x2b8 ../../lib/osd/quantracker_air_system.a(list.o)
- .debug_info    0x0003c5d2     0x124e ../../lib/osd/quantracker_air_system.a(timers.o)
- .debug_info    0x0003d820       0x5a ../../lib/osd/quantracker_air_system.a(startup.o)
- .debug_info    0x0003d87a      0x969 ../../lib/osd/quantracker_air_system.a(system_init.o)
- .debug_info    0x0003e1e3      0x42d ../../lib/osd/quantracker_air_system.a(port.o)
- .debug_info    0x0003e610      0x1b2 ../../lib/osd/quantracker_air_system.a(heap_3.o)
- .debug_info    0x0003e7c2     0x380a ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
- .debug_info    0x00041fcc      0x135 ../../lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_info    0x00042101      0x61a ../../lib/osd/quantracker_air_system.a(system.o)
- .debug_info    0x0004271b     0x1a4d ../../lib/osd/quantracker_air_system.a(queue.o)
- .debug_info    0x00044168    0x12f1f ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_info    0x00057087     0x388f ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_info    0x0005a916     0x2a4a ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_info    0x0005d360     0xfdcc ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_info    0x0006d12c    0x12b8f ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_info    0x0007fcbb     0x87cc ../../lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_info    0x00088487     0x56e4 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
- .debug_info    0x0008db6b      0x594 ../../lib/osd/quantracker_air_osd.a(misc.o)
- .debug_info    0x0008e0ff     0x4295 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_info    0x00092394     0xda0e ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_info    0x0009fda2     0x8d69 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_info    0x000a8b0b     0xc042 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_info    0x000b4b4d    0x16f2b ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_info    0x000cba78     0x3c92 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_info    0x000cf70a     0x84f8 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_info    0x000345a0     0x22e8 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+ .debug_info    0x00036888     0x34a8 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_info    0x00039d30     0x25e0 ../../lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_info    0x0003c310      0x2b8 ../../lib/osd/quantracker_air_system.a(list.o)
+ .debug_info    0x0003c5c8     0x124e ../../lib/osd/quantracker_air_system.a(timers.o)
+ .debug_info    0x0003d816       0x5a ../../lib/osd/quantracker_air_system.a(startup.o)
+ .debug_info    0x0003d870      0x969 ../../lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_info    0x0003e1d9      0x42d ../../lib/osd/quantracker_air_system.a(port.o)
+ .debug_info    0x0003e606      0x1b2 ../../lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_info    0x0003e7b8     0x380a ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_info    0x00041fc2      0x135 ../../lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_info    0x000420f7      0x748 ../../lib/osd/quantracker_air_system.a(system.o)
+ .debug_info    0x0004283f     0x1a4d ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_info    0x0004428c    0x12f1f ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_info    0x000571ab     0x388f ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_info    0x0005aa3a     0x2a4a ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_info    0x0005d484     0xfe89 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_info    0x0006d30d    0x12b8f ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_info    0x0007fe9c     0x87cc ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_info    0x00088668     0x56e4 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_info    0x0008dd4c      0x594 ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_info    0x0008e2e0     0x32f8 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_info    0x000915d8     0xf783 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_info    0x000a0d5b     0x8d70 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_info    0x000a9acb     0xc042 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_info    0x000b5b0d    0x16f2b ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_info    0x000cca38     0x3c92 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_info    0x000d06ca     0x84f8 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
-.debug_abbrev   0x00000000     0x9832
+.debug_abbrev   0x00000000     0x982c
  .debug_abbrev  0x00000000      0x4d4 obj/main.o
  .debug_abbrev  0x000004d4      0x7b3 obj/fonts.o
- .debug_abbrev  0x00000c87      0x463 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
- .debug_abbrev  0x000010ea      0x62c ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
- .debug_abbrev  0x00001716      0x435 ../../lib/osd/quantracker_air_system.a(tasks.o)
- .debug_abbrev  0x00001b4b       0xf6 ../../lib/osd/quantracker_air_system.a(list.o)
- .debug_abbrev  0x00001c41      0x330 ../../lib/osd/quantracker_air_system.a(timers.o)
- .debug_abbrev  0x00001f71       0x12 ../../lib/osd/quantracker_air_system.a(startup.o)
- .debug_abbrev  0x00001f83      0x238 ../../lib/osd/quantracker_air_system.a(system_init.o)
- .debug_abbrev  0x000021bb      0x209 ../../lib/osd/quantracker_air_system.a(port.o)
- .debug_abbrev  0x000023c4      0x140 ../../lib/osd/quantracker_air_system.a(heap_3.o)
- .debug_abbrev  0x00002504      0x4f7 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
- .debug_abbrev  0x000029fb       0xcb ../../lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_abbrev  0x00002ac6      0x1c1 ../../lib/osd/quantracker_air_system.a(system.o)
- .debug_abbrev  0x00002c87      0x3a0 ../../lib/osd/quantracker_air_system.a(queue.o)
- .debug_abbrev  0x00003027      0x79a ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_abbrev  0x000037c1      0x66b ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_abbrev  0x00003e2c      0x5a3 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_abbrev  0x000043cf      0x8a1 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_abbrev  0x00004c70      0x8ea ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_abbrev  0x0000555a      0x642 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_abbrev  0x00005b9c      0x688 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
- .debug_abbrev  0x00006224      0x152 ../../lib/osd/quantracker_air_osd.a(misc.o)
- .debug_abbrev  0x00006376      0x6fe ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_abbrev  0x00006a74      0xa5a ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_abbrev  0x000074ce      0x843 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_abbrev  0x00007d11      0x7ad ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_abbrev  0x000084be      0x67f ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_abbrev  0x00008b3d      0x545 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_abbrev  0x00009082      0x7b0 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_abbrev  0x00000c87      0x46e ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+ .debug_abbrev  0x000010f5      0x62c ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_abbrev  0x00001721      0x435 ../../lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_abbrev  0x00001b56       0xf6 ../../lib/osd/quantracker_air_system.a(list.o)
+ .debug_abbrev  0x00001c4c      0x330 ../../lib/osd/quantracker_air_system.a(timers.o)
+ .debug_abbrev  0x00001f7c       0x12 ../../lib/osd/quantracker_air_system.a(startup.o)
+ .debug_abbrev  0x00001f8e      0x238 ../../lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_abbrev  0x000021c6      0x209 ../../lib/osd/quantracker_air_system.a(port.o)
+ .debug_abbrev  0x000023cf      0x140 ../../lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_abbrev  0x0000250f      0x4f7 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_abbrev  0x00002a06       0xcb ../../lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_abbrev  0x00002ad1      0x22a ../../lib/osd/quantracker_air_system.a(system.o)
+ .debug_abbrev  0x00002cfb      0x3a0 ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_abbrev  0x0000309b      0x79a ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_abbrev  0x00003835      0x66b ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_abbrev  0x00003ea0      0x5a3 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_abbrev  0x00004443      0x92f ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_abbrev  0x00004d72      0x8ea ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_abbrev  0x0000565c      0x642 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_abbrev  0x00005c9e      0x688 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_abbrev  0x00006326      0x152 ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_abbrev  0x00006478      0x5e9 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_abbrev  0x00006a61      0xa66 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_abbrev  0x000074c7      0x844 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_abbrev  0x00007d0b      0x7ad ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_abbrev  0x000084b8      0x67f ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_abbrev  0x00008b37      0x545 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_abbrev  0x0000907c      0x7b0 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
-.debug_loc      0x00000000    0x11b76
+.debug_loc      0x00000000    0x11878
  .debug_loc     0x00000000       0x6a obj/main.o
  .debug_loc     0x0000006a     0x8fd6 obj/fonts.o
- .debug_loc     0x00009040       0xd3 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
- .debug_loc     0x00009113      0x653 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
- .debug_loc     0x00009766     0x2003 ../../lib/osd/quantracker_air_system.a(tasks.o)
- .debug_loc     0x0000b769       0x9f ../../lib/osd/quantracker_air_system.a(list.o)
- .debug_loc     0x0000b808      0xa70 ../../lib/osd/quantracker_air_system.a(timers.o)
- .debug_loc     0x0000c278       0x6a ../../lib/osd/quantracker_air_system.a(system_init.o)
- .debug_loc     0x0000c2e2      0x21f ../../lib/osd/quantracker_air_system.a(port.o)
- .debug_loc     0x0000c501       0xb3 ../../lib/osd/quantracker_air_system.a(heap_3.o)
- .debug_loc     0x0000c5b4       0x82 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
- .debug_loc     0x0000c636       0x81 ../../lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_loc     0x0000c6b7       0xb0 ../../lib/osd/quantracker_air_system.a(system.o)
- .debug_loc     0x0000c767     0x1935 ../../lib/osd/quantracker_air_system.a(queue.o)
- .debug_loc     0x0000e09c      0x390 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_loc     0x0000e42c      0x602 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_loc     0x0000ea2e       0x79 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_loc     0x0000eaa7      0x49b ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_loc     0x0000ef42      0xdb7 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_loc     0x0000fcf9       0x1f ../../lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_loc     0x0000fd18       0xd3 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
- .debug_loc     0x0000fdeb      0x1ac ../../lib/osd/quantracker_air_osd.a(misc.o)
- .debug_loc     0x0000ff97      0x635 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_loc     0x000105cc      0x997 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_loc     0x00010f63      0x28e ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_loc     0x000111f1      0x14f ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_loc     0x00011340      0x7a6 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_loc     0x00011ae6       0x90 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_loc     0x00009040       0xbd ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+ .debug_loc     0x000090fd      0x653 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_loc     0x00009750     0x2003 ../../lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_loc     0x0000b753       0x9f ../../lib/osd/quantracker_air_system.a(list.o)
+ .debug_loc     0x0000b7f2      0xa70 ../../lib/osd/quantracker_air_system.a(timers.o)
+ .debug_loc     0x0000c262       0x6a ../../lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_loc     0x0000c2cc      0x21f ../../lib/osd/quantracker_air_system.a(port.o)
+ .debug_loc     0x0000c4eb       0xb3 ../../lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_loc     0x0000c59e       0x82 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_loc     0x0000c620       0x81 ../../lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_loc     0x0000c6a1      0x137 ../../lib/osd/quantracker_air_system.a(system.o)
+ .debug_loc     0x0000c7d8     0x1935 ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_loc     0x0000e10d      0x390 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_loc     0x0000e49d      0x602 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_loc     0x0000ea9f       0x79 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_loc     0x0000eb18      0x3bc ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_loc     0x0000eed4      0xdb7 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_loc     0x0000fc8b       0x1f ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_loc     0x0000fcaa       0xd3 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_loc     0x0000fd7d      0x1ac ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_loc     0x0000ff29      0x1e4 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_loc     0x0001010d      0xb58 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_loc     0x00010c65      0x28e ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_loc     0x00010ef3      0x14f ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_loc     0x00011042      0x7a6 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_loc     0x000117e8       0x90 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
 .debug_aranges  0x00000000     0x2900
  .debug_aranges
@@ -5235,17 +5223,17 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .debug_aranges
                 0x00002600       0x28 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
  .debug_aranges
-                0x00002628       0x40 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                0x00002628       0x48 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
  .debug_aranges
-                0x00002668       0x40 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+                0x00002670       0x40 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
  .debug_aranges
-                0x000026a8       0x20 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+                0x000026b0       0x20 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
  .debug_aranges
-                0x000026c8       0x38 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+                0x000026d0       0x38 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
  .debug_aranges
-                0x00002700       0x40 ../../lib/osd/quantracker_air_osd.a(misc.o)
+                0x00002708       0x40 ../../lib/osd/quantracker_air_osd.a(misc.o)
  .debug_aranges
-                0x00002740       0x30 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+                0x00002748       0x28 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
  .debug_aranges
                 0x00002770       0xa8 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
  .debug_aranges
@@ -5259,39 +5247,39 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .debug_aranges
                 0x000028d8       0x28 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
-.debug_ranges   0x00000000     0xe508
+.debug_ranges   0x00000000     0xe238
  .debug_ranges  0x00000000       0x78 obj/main.o
  .debug_ranges  0x00000078     0x6948 obj/fonts.o
- .debug_ranges  0x000069c0       0x28 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
- .debug_ranges  0x000069e8      0x5b0 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
- .debug_ranges  0x00006f98      0xa20 ../../lib/osd/quantracker_air_system.a(tasks.o)
- .debug_ranges  0x000079b8       0x30 ../../lib/osd/quantracker_air_system.a(list.o)
- .debug_ranges  0x000079e8      0x348 ../../lib/osd/quantracker_air_system.a(timers.o)
- .debug_ranges  0x00007d30       0x20 ../../lib/osd/quantracker_air_system.a(startup.o)
- .debug_ranges  0x00007d50       0x28 ../../lib/osd/quantracker_air_system.a(system_init.o)
- .debug_ranges  0x00007d78       0xa8 ../../lib/osd/quantracker_air_system.a(port.o)
- .debug_ranges  0x00007e20       0x18 ../../lib/osd/quantracker_air_system.a(heap_3.o)
- .debug_ranges  0x00007e38       0x28 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
- .debug_ranges  0x00007e60       0x30 ../../lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_ranges  0x00007e90       0x48 ../../lib/osd/quantracker_air_system.a(system.o)
- .debug_ranges  0x00007ed8      0x2c8 ../../lib/osd/quantracker_air_system.a(queue.o)
- .debug_ranges  0x000081a0     0x15b8 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_ranges  0x00009758      0x370 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_ranges  0x00009ac8       0x38 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_ranges  0x00009b00      0xa00 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_ranges  0x0000a500     0x1030 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_ranges  0x0000b530      0x1f0 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_ranges  0x0000b720       0x58 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
- .debug_ranges  0x0000b778       0x30 ../../lib/osd/quantracker_air_osd.a(misc.o)
- .debug_ranges  0x0000b7a8      0x890 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_ranges  0x0000c038     0x1178 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_ranges  0x0000d1b0      0x2a0 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_ranges  0x0000d450      0x318 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_ranges  0x0000d768      0xa20 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_ranges  0x0000e188       0x50 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_ranges  0x0000e1d8      0x330 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_ranges  0x000069c0       0x40 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+ .debug_ranges  0x00006a00      0x5b0 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_ranges  0x00006fb0      0xa20 ../../lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_ranges  0x000079d0       0x30 ../../lib/osd/quantracker_air_system.a(list.o)
+ .debug_ranges  0x00007a00      0x348 ../../lib/osd/quantracker_air_system.a(timers.o)
+ .debug_ranges  0x00007d48       0x20 ../../lib/osd/quantracker_air_system.a(startup.o)
+ .debug_ranges  0x00007d68       0x28 ../../lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_ranges  0x00007d90       0xa8 ../../lib/osd/quantracker_air_system.a(port.o)
+ .debug_ranges  0x00007e38       0x18 ../../lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_ranges  0x00007e50       0x28 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_ranges  0x00007e78       0x30 ../../lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_ranges  0x00007ea8       0x48 ../../lib/osd/quantracker_air_system.a(system.o)
+ .debug_ranges  0x00007ef0      0x2c8 ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_ranges  0x000081b8     0x15b8 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_ranges  0x00009770      0x370 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_ranges  0x00009ae0       0x38 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_ranges  0x00009b18      0xa28 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_ranges  0x0000a540     0x1030 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_ranges  0x0000b570      0x1f0 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_ranges  0x0000b760       0x58 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_ranges  0x0000b7b8       0x30 ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_ranges  0x0000b7e8      0x388 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_ranges  0x0000bb70     0x1370 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_ranges  0x0000cee0      0x2a0 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_ranges  0x0000d180      0x318 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_ranges  0x0000d498      0xa20 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_ranges  0x0000deb8       0x50 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_ranges  0x0000df08      0x330 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
-.debug_line     0x00000000    0x1a6bc
+.debug_line     0x00000000    0x1a632
  .debug_line    0x00000000      0x809 obj/main.o
  .debug_line    0x00000809     0x8d9d obj/fonts.o
  .debug_line    0x000095a6      0x79a ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
@@ -5305,85 +5293,85 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .debug_line    0x0000c0f1      0x204 ../../lib/osd/quantracker_air_system.a(heap_3.o)
  .debug_line    0x0000c2f5      0xad9 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
  .debug_line    0x0000cdce      0x11b ../../lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_line    0x0000cee9      0x26c ../../lib/osd/quantracker_air_system.a(system.o)
- .debug_line    0x0000d155      0x840 ../../lib/osd/quantracker_air_system.a(queue.o)
- .debug_line    0x0000d995     0x1097 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_line    0x0000ea2c      0xd4b ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_line    0x0000f777      0xbe2 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_line    0x00010359     0x1162 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_line    0x000114bb     0x1338 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_line    0x000127f3      0xc13 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_line    0x00013406      0xbb8 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
- .debug_line    0x00013fbe      0x299 ../../lib/osd/quantracker_air_osd.a(misc.o)
- .debug_line    0x00014257      0xd4a ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_line    0x00014fa1     0x1535 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_line    0x000164d6      0xd87 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_line    0x0001725d      0xee7 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_line    0x00018144      0xe09 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_line    0x00018f4d      0xab9 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_line    0x00019a06      0xcb6 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_line    0x0000cee9      0x28b ../../lib/osd/quantracker_air_system.a(system.o)
+ .debug_line    0x0000d174      0x840 ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_line    0x0000d9b4     0x1097 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_line    0x0000ea4b      0xd4b ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_line    0x0000f796      0xbe2 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_line    0x00010378     0x11f9 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_line    0x00011571     0x1338 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_line    0x000128a9      0xc13 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_line    0x000134bc      0xbb8 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_line    0x00014074      0x299 ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_line    0x0001430d      0xba0 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_line    0x00014ead     0x15a3 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_line    0x00016450      0xd83 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_line    0x000171d3      0xee7 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_line    0x000180ba      0xe09 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_line    0x00018ec3      0xab9 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_line    0x0001997c      0xcb6 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
 
-.debug_str      0x00000000   0x1016f9
+.debug_str      0x00000000   0x100cc0
  .debug_str     0x00000000     0x10ca obj/main.o
                                0x134c (size before relaxing)
  .debug_str     0x000010ca     0x33f0 obj/fonts.o
                                0x601c (size before relaxing)
- .debug_str     0x000044ba      0x151 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
-                               0x1392 (size before relaxing)
- .debug_str     0x0000460b      0x926 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
+ .debug_str     0x000044ba      0x154 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
+                               0x1395 (size before relaxing)
+ .debug_str     0x0000460e      0x956 ../../lib/osd/quantracker_air_graphics_api.a(draw_bitmap.o)
                                0x1c47 (size before relaxing)
- .debug_str     0x00004f31      0xc40 ../../lib/osd/quantracker_air_system.a(tasks.o)
+ .debug_str     0x00004f64      0xc40 ../../lib/osd/quantracker_air_system.a(tasks.o)
                                 0xd69 (size before relaxing)
- .debug_str     0x00005b71       0x7a ../../lib/osd/quantracker_air_system.a(list.o)
+ .debug_str     0x00005ba4       0x7a ../../lib/osd/quantracker_air_system.a(list.o)
                                 0x25c (size before relaxing)
- .debug_str     0x00005beb      0x464 ../../lib/osd/quantracker_air_system.a(timers.o)
+ .debug_str     0x00005c1e      0x464 ../../lib/osd/quantracker_air_system.a(timers.o)
                                 0x7e9 (size before relaxing)
- .debug_str     0x0000604f      0x294 ../../lib/osd/quantracker_air_system.a(system_init.o)
+ .debug_str     0x00006082      0x294 ../../lib/osd/quantracker_air_system.a(system_init.o)
                                 0x5a2 (size before relaxing)
- .debug_str     0x000062e3      0x19e ../../lib/osd/quantracker_air_system.a(port.o)
+ .debug_str     0x00006316      0x19e ../../lib/osd/quantracker_air_system.a(port.o)
                                 0x3be (size before relaxing)
- .debug_str     0x00006481       0x7e ../../lib/osd/quantracker_air_system.a(heap_3.o)
+ .debug_str     0x000064b4       0x7e ../../lib/osd/quantracker_air_system.a(heap_3.o)
                                 0x1ad (size before relaxing)
- .debug_str     0x000064ff     0x1652 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
+ .debug_str     0x00006532     0x1652 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
                                0x28a8 (size before relaxing)
- .debug_str     0x00007b51       0x48 ../../lib/osd/quantracker_air_system.a(spbrk.o)
+ .debug_str     0x00007b84       0x48 ../../lib/osd/quantracker_air_system.a(spbrk.o)
                                 0x175 (size before relaxing)
- .debug_str     0x00007b99       0xef ../../lib/osd/quantracker_air_system.a(system.o)
-                                0x2fd (size before relaxing)
- .debug_str     0x00007c88      0x3eb ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_str     0x00007bcc       0xf4 ../../lib/osd/quantracker_air_system.a(system.o)
+                                0x330 (size before relaxing)
+ .debug_str     0x00007cc0      0x3eb ../../lib/osd/quantracker_air_system.a(queue.o)
                                 0x8c8 (size before relaxing)
- .debug_str     0x00008073    0x2d7a0 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_str     0x000080ab    0x2d795 ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
                               0x30000 (size before relaxing)
- .debug_str     0x00035813      0x481 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_str     0x00035840      0x453 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
                                0x2326 (size before relaxing)
- .debug_str     0x00035c94     0x153e ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_str     0x00035c93     0x153e ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
                                0x29d7 (size before relaxing)
- .debug_str     0x000371d2    0x1e371 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
-                              0x273e5 (size before relaxing)
- .debug_str     0x00055543    0x2a522 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_str     0x000371d1    0x1e3b4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+                              0x27493 (size before relaxing)
+ .debug_str     0x00055585    0x2a51d ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
                               0x32fbe (size before relaxing)
- .debug_str     0x0007fa65     0xa8d7 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_str     0x0007faa2     0xa8d7 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
                               0x11594 (size before relaxing)
- .debug_str     0x0008a33c      0x3a3 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_str     0x0008a379      0x3a3 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
                                0x3997 (size before relaxing)
- .debug_str     0x0008a6df      0x1c9 ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_str     0x0008a71c      0x1c9 ../../lib/osd/quantracker_air_osd.a(misc.o)
                                 0x39c (size before relaxing)
- .debug_str     0x0008a8a8      0xf1e ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
-                               0x2baf (size before relaxing)
- .debug_str     0x0008b7c6     0x55e6 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
-                               0xca05 (size before relaxing)
- .debug_str     0x00090dac      0x395 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_str     0x0008a8e5      0x419 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+                               0x203c (size before relaxing)
+ .debug_str     0x0008acfe     0x5658 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+                               0xe9b8 (size before relaxing)
+ .debug_str     0x00090356      0x395 ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
                                0x6a47 (size before relaxing)
- .debug_str     0x00091141     0xebbe ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_str     0x000906eb     0xebbe ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
                               0x1961d (size before relaxing)
- .debug_str     0x0009fcff    0x61855 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_str     0x0009f2a9    0x61855 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
                               0x6bfb7 (size before relaxing)
- .debug_str     0x00101554       0x9b ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_str     0x00100afe       0x9b ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
                                0x29e3 (size before relaxing)
- .debug_str     0x001015ef      0x10a ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_str     0x00100b99      0x127 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
                                0x6525 (size before relaxing)
 
-.debug_frame    0x00000000     0x5c50
+.debug_frame    0x00000000     0x5c54
  .debug_frame   0x00000000       0x40 obj/main.o
  .debug_frame   0x00000040     0x490c obj/fonts.o
  .debug_frame   0x0000494c       0x30 ../../lib/osd/quantracker_air_graphics_api.a(draw_text.o)
@@ -5396,20 +5384,20 @@ OUTPUT(bin/main.elf elf32-littlearm)
  .debug_frame   0x000050a4       0x40 ../../lib/osd/quantracker_air_system.a(heap_3.o)
  .debug_frame   0x000050e4       0x60 ../../lib/osd/quantracker_air_system.a(rtos_hooks.o)
  .debug_frame   0x00005144       0x28 ../../lib/osd/quantracker_air_system.a(spbrk.o)
- .debug_frame   0x0000516c       0x90 ../../lib/osd/quantracker_air_system.a(system.o)
- .debug_frame   0x000051fc      0x2a8 ../../lib/osd/quantracker_air_system.a(queue.o)
- .debug_frame   0x000054a4       0x9c ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
- .debug_frame   0x00005540      0x118 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
- .debug_frame   0x00005658       0x48 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
- .debug_frame   0x000056a0       0x88 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
- .debug_frame   0x00005728       0x84 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
- .debug_frame   0x000057ac       0x20 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
- .debug_frame   0x000057cc       0x70 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
- .debug_frame   0x0000583c       0x68 ../../lib/osd/quantracker_air_osd.a(misc.o)
- .debug_frame   0x000058a4       0x74 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
- .debug_frame   0x00005918      0x1bc ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
- .debug_frame   0x00005ad4       0xac ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
- .debug_frame   0x00005b80       0x38 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
- .debug_frame   0x00005bb8       0x30 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
- .debug_frame   0x00005be8       0x20 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
- .debug_frame   0x00005c08       0x48 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
+ .debug_frame   0x0000516c       0xa8 ../../lib/osd/quantracker_air_system.a(system.o)
+ .debug_frame   0x00005214      0x2a8 ../../lib/osd/quantracker_air_system.a(queue.o)
+ .debug_frame   0x000054bc       0x9c ../../lib/osd/quantracker_air_osd.a(lib_video_setup.o)
+ .debug_frame   0x00005558      0x118 ../../lib/osd/quantracker_air_osd.a(lib_graphics_api.o)
+ .debug_frame   0x00005670       0x48 ../../lib/osd/quantracker_air_osd.a(lib_draw_task.o)
+ .debug_frame   0x000056b8       0xa4 ../../lib/osd/quantracker_air_osd.a(lib_sync_sep.o)
+ .debug_frame   0x0000575c       0x84 ../../lib/osd/quantracker_air_osd.a(lib_dac.o)
+ .debug_frame   0x000057e0       0x20 ../../lib/osd/quantracker_air_osd.a(lib_led.o)
+ .debug_frame   0x00005800       0x70 ../../lib/osd/quantracker_air_osd.a(lib_osd_state.o)
+ .debug_frame   0x00005870       0x68 ../../lib/osd/quantracker_air_osd.a(misc.o)
+ .debug_frame   0x000058d8       0x40 ../../lib/osd/quantracker_air_osd.a(lib_video_buffer.o)
+ .debug_frame   0x00005918      0x1c0 ../../lib/osd/quantracker_air_osd.a(lib_video_column.o)
+ .debug_frame   0x00005ad8       0xac ../../lib/osd/quantracker_air_osd.a(lib_video_row.o)
+ .debug_frame   0x00005b84       0x38 ../../lib/osd/quantracker_air_osd.a(lib_video_pixel.o)
+ .debug_frame   0x00005bbc       0x30 ../../lib/osd/quantracker_air_osd.a(lib_video_spi.o)
+ .debug_frame   0x00005bec       0x20 ../../lib/osd/quantracker_air_osd.a(lib_video_dma.o)
+ .debug_frame   0x00005c0c       0x48 ../../lib/osd/quantracker_air_osd.a(lib_internal_video_mode.o)
