@@ -223,8 +223,11 @@ void video_cfg::columns::osd::enable()
    gate_timer::get()->cnt = 0;
    gate_timer::get()->ccr4 = (m_begin * clks_px) - 1; // start px /2 as busclk is only half of pixel bus clk
    gate_timer::get()->arr = ( (m_end +7) * clks_px) - 1;  // end px /2 as busclk is only half of pixel bus clk
+
+//######################HSYNC_FILTER##################################
    // hsync filter
-   gate_timer::get()->ccr2 = ((m_end - 10) * clks_px) - 1; 
+  // gate_timer::get()->ccr2 = ((m_end - 10) * clks_px) - 1; 
+//##########################################################################
     
 //###################### internal or external_mode ##########
    // change gate to trigger mode ready for hsync second edge to start gate_timer
@@ -495,19 +498,19 @@ void video_cfg::columns::telem::end()
 // called at rising edge of hsync
 // start of each osd row gat timer TIF .
 // either by external trigger or by internal rising edge
-// TODO
-// suppress line counter
+
 // Line counter
 // TRGI from
 void video_cfg::columns::osd::begin()
 {
    if( osd_state::get() == osd_state::external_video){
 
+
       // disable the line_counter  so it isnt clocked during the line
       video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>(); //(CEN)
-      gate_timer::get()->sr.bb_clearbit<2>(); //(CC2IF)
-      gate_timer::get()->dier.bb_setbit<2>(); // (CC2IE)
 
+//      gate_timer::get()->sr.bb_clearbit<2>(); //(CC2IF)
+//      gate_timer::get()->dier.bb_setbit<2>(); // (CC2IE)
 
       uint8_t* const black = video_buffers::osd::get_black_read_pos() ; 
       uint8_t* const white = video_buffers::osd::get_white_read_pos() ;
@@ -587,7 +590,9 @@ void video_cfg::columns::osd::end()
    //video_cfg::rows::line_counter::get()->sr =0; //
     // enable the line_counter trigger to clock start of next line
   // video_cfg::rows::line_counter::get()->smcr.bb_clearbit<14>(); // (ECE)
-  
+   if( osd_state::get() == osd_state::external_video){
+      video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
+   }
    gate_timer::get()->sr.bb_clearbit<6>();// TIF
    gate_timer::get()->dier.bb_setbit<6>(); // TIE
 #if defined (QUAN_DISPLAY_INTERLACED)
@@ -732,12 +737,12 @@ extern "C" void TIM2_IRQHandler()
 {
    typedef video_cfg::columns columns;
 
-   if ( columns::gate_timer::get()->sr.bb_getbit<2>()) {//(CC2IF)
-      video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
-      columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
-      columns::gate_timer::get()->dier.bb_clearbit<2>(); // (CC2IE)
-      return;
-   }
+//   if ( columns::gate_timer::get()->sr.bb_getbit<2>()) {//(CC2IF)
+//      video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
+//      columns::gate_timer::get()->sr.bb_clearbit<2>() ;//(CC2IF)
+//      columns::gate_timer::get()->dier.bb_clearbit<2>(); // (CC2IE)
+//      return;
+//   }
 
    if (columns::gate_timer::get()->sr.bb_getbit<0>()) {  // (UIF)
       columns::gate_timer::get()->sr.bb_clearbit<0>(); // (UIF)

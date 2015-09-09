@@ -292,7 +292,7 @@ namespace {
             if (last_sync_pulse == sync_pulse_t::hsync){
                if ( syncmode == syncmode_t::post_equalise){
                   if ( private_video_mode == quan::uav::osd::video_mode::ntsc){
-                     if ( vsync_count == 6){
+                     if ( (vsync_count == 5) || ( vsync_count == 6) ){
                      // do odd or even depending on length of period half or full
                         sync_sep_new_frame();
                      }else{

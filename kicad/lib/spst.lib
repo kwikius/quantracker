@@ -1,0 +1,18 @@
+EESchema-LIBRARY Version 2.3  Date: Sun 06 Sep 2015 11:08:35 BST
+#encoding utf-8
+#
+# SPST
+#
+DEF SPST SW 0 0 N Y 1 F N
+F0 "SW" 0 100 70 H V C CNN
+F1 "SPST" 0 -100 70 H V C CNN
+DRAW
+C -150 0 50 0 0 0 N
+C 100 0 50 0 0 0 N
+P 2 0 0 0  -100 0  50 50 N
+X 1 1 -300 0 100 R 70 70 1 1 I
+X 2 2 250 0 100 L 70 70 1 1 I
+ENDDRAW
+ENDDEF
+#
+#End Library
