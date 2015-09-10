@@ -54,7 +54,7 @@ namespace {
          case i2c_mag_port::errno_t::unknown_exti_irq:
             return "unknown ext irq";
          case i2c_mag_port::errno_t::address_timed_out:
-            return "timed out waiting after sending address"
+            return "timed out waiting after sending address";
          default:
             return "unlisted i2c error";
       }
