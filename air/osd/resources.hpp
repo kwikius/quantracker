@@ -92,7 +92,7 @@ typedef quan::mcu::pin<quan::stm32::gpioa,2>    frsky_txo_pin;  // USART2 TX or 
 typedef quan::mcu::pin<quan::stm32::gpioa,3>    frsky_rxi_pin_unused;  // not used ... 
 // 
 //#########################
-typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin;
+typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin; // also also SPI1_NSS
 // prob most useful to do audio..
 typedef quan::mcu::pin<quan::stm32::gpioa,5>    dac2_out_pin;
 /*
@@ -118,7 +118,7 @@ SWD
 PA13    SWDIO
 PA14    SWCLK
 */
-typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
+typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR) also SPI1_NSS
 //----PORTB---------------------------------------------
 /*
 PB0  TIM8_CH2
