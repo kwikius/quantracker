@@ -107,7 +107,7 @@ all: test
 Debug : test
 
 quan_generic_flash_objects = quan_generic_flash.o quan_generic_flash_error.o \
-quan_generic_flash_menu.o quan_malloc_free.o
+quan_generic_flash_menu.o 
 
 local_objects = main.o events.o tracker_states.o azimuth_encoder.o azimuth_motor.o \
 azimuth_motor_calc.o loop_timer.o elevation_servo.o telemetry.o frsky_serial_port.o \
@@ -120,7 +120,7 @@ fsk_filter.o user.o flash.o
 
 flash_objects  = $(quan_generic_flash_objects) quan_stm32_f4_specific_flash.o 
  
-all_objects = startup.o $(local_objects) $(flash_objects)
+all_objects = startup.o $(local_objects) $(flash_objects) quan_malloc_free.o
   
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -145,6 +145,7 @@ $(local_flash_objects) : %.o : flash/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 quan_malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
 quan_stm32_f4_specific_flash.o : $(STM32F4_SPECIFIC_FLASH_SRC)
 	$(CC) $(CFLAGS) -o quan_stm32_f4_specific_flash.o $(STM32F4_SPECIFIC_FLASH_SRC)

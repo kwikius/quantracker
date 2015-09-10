@@ -68,6 +68,10 @@ ifeq ($(FREE_RTOS_DIR), )
 $(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
 endif
 
+ifeq ($(OPTIMISATION_LEVEL), )
+OPTIMISATION_LEVEL := O3
+endif
+
 CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
 
