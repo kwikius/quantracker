@@ -504,11 +504,10 @@ void video_cfg::columns::telem::end()
 void video_cfg::columns::osd::begin()
 {
    if( osd_state::get() == osd_state::external_video){
-
-
+#if defined QUAN_OSD_TELEM_RECEIVER
       // disable the line_counter  so it isnt clocked during the line
       video_cfg::rows::line_counter::get()->cr1.bb_clearbit<0>(); //(CEN)
-
+#endif
 //      gate_timer::get()->sr.bb_clearbit<2>(); //(CC2IF)
 //      gate_timer::get()->dier.bb_setbit<2>(); // (CC2IE)
 
@@ -590,9 +589,11 @@ void video_cfg::columns::osd::end()
    //video_cfg::rows::line_counter::get()->sr =0; //
     // enable the line_counter trigger to clock start of next line
   // video_cfg::rows::line_counter::get()->smcr.bb_clearbit<14>(); // (ECE)
+#if defined QUAN_OSD_TELEM_RECEIVER
    if( osd_state::get() == osd_state::external_video){
       video_cfg::rows::line_counter::get()->cr1.bb_setbit<0>(); //(CEN)
    }
+#endif
    gate_timer::get()->sr.bb_clearbit<6>();// TIF
    gate_timer::get()->dier.bb_setbit<6>(); // TIE
 #if defined (QUAN_DISPLAY_INTERLACED)
