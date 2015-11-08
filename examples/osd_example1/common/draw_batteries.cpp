@@ -22,7 +22,7 @@ void draw_batteries()
       (( get_video_mode() == video_mode::pal)
       ?-130:-80)};
 
-   font_ptr font = get_font(FontID::OSD_Charset);
+   font_ptr font = get_font(FontID::TINY_NUM);
    if ( font){
       size_type font_size = get_size(font);
       size_type const border = {2,1};

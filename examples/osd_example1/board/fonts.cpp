@@ -2764,7 +2764,6 @@ namespace {
   constexpr uint8_t font_OSD_Charset_126_type::m_data [ 54];
 
  constexpr quan::uav::osd::bitmap_ptr font_OSD_Charset_char_array[95] = {
-
       &font_OSD_Charset_32
       ,&font_OSD_Charset_33
       ,&font_OSD_Charset_34
@@ -2883,27 +2882,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_32;
-  constexpr uint8_t font_MWOSD_32_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_32_type::m_data [ 24];
 
  struct font_MWOSD_33_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -2912,27 +2904,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 174, 174
-      , 254, 89, 89, 249
-      , 153, 153, 249, 153
-      , 153, 249, 153, 153
-      , 249, 89, 89, 249
-      , 174, 174, 254, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 175, 254
+      , 175, 254, 111, 254
+      , 175, 254, 255, 255
+      
       };
    } font_MWOSD_33;
-  constexpr uint8_t font_MWOSD_33_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_33_type::m_data [ 24];
 
  struct font_MWOSD_34_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -2941,27 +2926,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 234, 234
-      , 234, 149, 149, 149
-      , 169, 153, 153, 149
-      , 153, 153, 154, 153
-      , 153, 149, 149, 149
-      , 234, 234, 234, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_34;
-  constexpr uint8_t font_MWOSD_34_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_34_type::m_data [ 24];
 
  struct font_MWOSD_35_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -2970,27 +2948,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 170, 255
-      , 234, 149, 174, 149
-      , 154, 153, 233, 149
-      , 165, 149, 169, 229
-      , 154, 149, 153, 149
-      , 234, 238, 234, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 154, 166
+      , 86, 149, 154, 166
+      , 154, 166, 86, 149
+      , 154, 166, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_35;
-  constexpr uint8_t font_MWOSD_35_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_35_type::m_data [ 24];
 
  struct font_MWOSD_36_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -2999,27 +2970,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 238, 251
-      , 238, 153, 166, 153
-      , 149, 153, 153, 153
-      , 149, 230, 153, 153
-      , 153, 153, 153, 153
-      , 238, 238, 238, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      175, 254, 107, 250
+      , 90, 233, 102, 230
+      , 102, 230, 90, 234
+      , 106, 233, 102, 230
+      , 102, 230, 90, 233
+      , 107, 250, 175, 254
+      
       };
    } font_MWOSD_36;
-  constexpr uint8_t font_MWOSD_36_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_36_type::m_data [ 24];
 
  struct font_MWOSD_37_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3028,27 +2992,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
+      , 255, 255, 239, 239
+      , 155, 155, 239, 230
+      , 191, 249, 111, 238
+      , 155, 155, 239, 239
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 254
-      , 254, 191, 185, 249
-      , 255, 110, 254, 255
-      , 155, 255, 255, 230
-      , 254, 191, 185, 249
-      , 255, 254, 254, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_37;
-  constexpr uint8_t font_MWOSD_37_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_37_type::m_data [ 24];
 
  struct font_MWOSD_38_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3057,27 +3014,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 250, 90, 249
+      , 166, 249, 90, 249
+      , 86, 233, 166, 165
+      , 166, 149, 86, 153
+      , 171, 170, 255, 255
+      
       };
    } font_MWOSD_38;
-  constexpr uint8_t font_MWOSD_38_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_38_type::m_data [ 24];
 
  struct font_MWOSD_39_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3086,27 +3036,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 239, 255, 255, 155
-      , 255, 255, 86, 254
-      , 255, 91, 254, 255
-      , 111, 254, 255, 111
-      , 254, 255, 155, 254
-      , 255, 175, 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 175, 254, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_39;
-  constexpr uint8_t font_MWOSD_39_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_39_type::m_data [ 24];
 
  struct font_MWOSD_40_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3115,27 +3058,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 235, 255, 255, 150
-      , 255, 191, 229, 255
-      , 111, 249, 255, 91
-      , 254, 255, 91, 254
-      , 255, 91, 254, 255
-      , 91, 254, 255, 91
-      , 254, 255, 91, 254
-      , 255, 91, 254, 255
-      , 111, 249, 255, 191
-      , 229, 255, 255, 150
-      , 255, 255, 235, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      191, 234, 175, 229
+      , 111, 234, 107, 254
+      , 155, 254, 155, 255
+      , 155, 255, 155, 254
+      , 107, 254, 111, 234
+      , 175, 229, 191, 234
+      
       };
    } font_MWOSD_40;
-  constexpr uint8_t font_MWOSD_40_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_40_type::m_data [ 24];
 
  struct font_MWOSD_41_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3144,27 +3080,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 175, 255
-      , 255, 91, 254, 255
-      , 111, 249, 255, 191
-      , 229, 255, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 191
-      , 229, 255, 111, 249
-      , 255, 91, 254, 255
-      , 175, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      171, 254, 91, 250
+      , 171, 249, 191, 233
+      , 191, 230, 255, 230
+      , 255, 230, 191, 230
+      , 191, 233, 171, 249
+      , 91, 250, 171, 254
+      
       };
    } font_MWOSD_41;
-  constexpr uint8_t font_MWOSD_41_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_41_type::m_data [ 24];
 
  struct font_MWOSD_42_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3173,27 +3102,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
+      , 255, 255, 170, 170
+      , 154, 166, 106, 169
+      , 86, 149, 106, 169
+      , 154, 166, 170, 170
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 95
-      , 190, 245, 111, 105
-      , 249, 175, 85, 250
-      , 95, 85, 245, 175
-      , 85, 250, 111, 105
-      , 249, 95, 190, 245
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_42;
-  constexpr uint8_t font_MWOSD_42_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_42_type::m_data [ 24];
 
  struct font_MWOSD_43_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3202,27 +3124,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
+      , 175, 254, 111, 254
+      , 106, 234, 86, 229
+      , 106, 234, 111, 254
+      , 175, 254, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 230
-      , 255, 191, 166, 255
-      , 127, 85, 255, 191
-      , 166, 255, 255, 230
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_43;
-  constexpr uint8_t font_MWOSD_43_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_43_type::m_data [ 24];
 
  struct font_MWOSD_44_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3231,27 +3146,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 235, 255
-      , 255, 150, 255, 255
-      , 150, 255, 191, 229
-      , 255, 255, 250, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 175, 250, 111, 249
+      , 111, 249, 107, 249
+      , 91, 250, 171, 254
+      
       };
    } font_MWOSD_44;
-  constexpr uint8_t font_MWOSD_44_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_44_type::m_data [ 24];
 
  struct font_MWOSD_45_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3260,27 +3168,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
+      , 255, 255, 171, 234
+      , 91, 229, 171, 234
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 170, 254, 111
-      , 85, 249, 191, 170
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_45;
-  constexpr uint8_t font_MWOSD_45_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_45_type::m_data [ 24];
 
  struct font_MWOSD_46_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3289,27 +3190,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 235, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 235
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 175, 250, 111, 249
+      , 111, 249, 175, 250
+      
       };
    } font_MWOSD_46;
-  constexpr uint8_t font_MWOSD_46_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_46_type::m_data [ 24];
 
  struct font_MWOSD_47_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3318,27 +3212,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
+      , 255, 255, 255, 170
+      , 191, 150, 175, 165
+      , 107, 233, 90, 250
+      , 150, 254, 170, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 250, 255
-      , 191, 229, 255, 111
-      , 229, 255, 91, 249
-      , 255, 86, 254, 191
-      , 149, 255, 111, 229
-      , 255, 91, 249, 255
-      , 91, 254, 255, 175
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_47;
-  constexpr uint8_t font_MWOSD_47_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_47_type::m_data [ 24];
 
  struct font_MWOSD_48_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3347,27 +3234,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 229, 91, 230
+      , 155, 229, 91, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_48;
-  constexpr uint8_t font_MWOSD_48_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_48_type::m_data [ 24];
 
  struct font_MWOSD_49_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3376,27 +3256,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 251, 255, 255
-      , 230, 255, 255, 229
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 251, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 254
+      , 107, 254, 91, 254
+      , 107, 254, 111, 254
+      , 111, 254, 111, 254
+      , 107, 250, 91, 249
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_49;
-  constexpr uint8_t font_MWOSD_49_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_49_type::m_data [ 24];
 
  struct font_MWOSD_50_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3405,27 +3278,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 170, 255, 111
-      , 85, 254, 111, 106
-      , 254, 191, 111, 254
-      , 255, 91, 254, 255
-      , 150, 255, 191, 229
-      , 255, 111, 169, 255
-      , 111, 85, 254, 191
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 250
+      , 90, 233, 166, 230
+      , 170, 230, 175, 229
+      , 107, 233, 90, 250
+      , 150, 234, 86, 229
+      , 170, 234, 255, 255
+      
       };
    } font_MWOSD_50;
-  constexpr uint8_t font_MWOSD_50_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_50_type::m_data [ 24];
 
  struct font_MWOSD_51_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3434,27 +3300,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 255, 106, 254
-      , 255, 95, 254, 255
-      , 111, 254, 255, 106
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 171, 230, 111, 229
+      , 175, 230, 171, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_51;
-  constexpr uint8_t font_MWOSD_51_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_51_type::m_data [ 24];
 
  struct font_MWOSD_52_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3463,27 +3322,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 235, 255, 255
-      , 150, 255, 191, 149
-      , 255, 191, 153, 255
-      , 111, 154, 255, 111
-      , 154, 255, 111, 85
-      , 254, 191, 154, 255
-      , 255, 155, 255, 255
-      , 239, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 255, 234
+      , 191, 230, 175, 229
+      , 107, 230, 155, 166
+      , 155, 166, 91, 149
+      , 171, 166, 255, 230
+      , 255, 234, 255, 255
+      
       };
    } font_MWOSD_52;
-  constexpr uint8_t font_MWOSD_52_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_52_type::m_data [ 24];
 
  struct font_MWOSD_53_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3492,27 +3344,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 169
-      , 255, 191, 169, 255
-      , 191, 85, 254, 255
-      , 106, 254, 255, 110
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 91, 229, 155, 234
+      , 155, 250, 91, 233
+      , 171, 230, 171, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_53;
-  constexpr uint8_t font_MWOSD_53_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_53_type::m_data [ 24];
 
  struct font_MWOSD_54_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3521,27 +3366,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 169, 254
-      , 191, 85, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 234, 91, 233
+      , 155, 230, 155, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_54;
-  constexpr uint8_t font_MWOSD_54_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_54_type::m_data [ 24];
 
  struct font_MWOSD_55_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3550,27 +3388,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 254, 191
-      , 85, 249, 255, 170
-      , 249, 255, 111, 254
-      , 255, 111, 254, 255
-      , 155, 255, 255, 155
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 251, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 170
+      , 91, 149, 171, 154
+      , 255, 166, 175, 166
+      , 111, 149, 175, 169
+      , 111, 250, 111, 254
+      , 175, 254, 255, 255
+      
       };
    } font_MWOSD_55;
-  constexpr uint8_t font_MWOSD_55_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_55_type::m_data [ 24];
 
  struct font_MWOSD_56_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3579,27 +3410,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 230, 91, 229
+      , 155, 230, 155, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_56;
-  constexpr uint8_t font_MWOSD_56_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_56_type::m_data [ 24];
 
  struct font_MWOSD_57_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3608,27 +3432,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 105, 254
-      , 255, 85, 254, 255
-      , 106, 254, 255, 110
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 230, 107, 229
+      , 175, 230, 171, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_57;
-  constexpr uint8_t font_MWOSD_57_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_57_type::m_data [ 24];
 
  struct font_MWOSD_58_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3637,27 +3454,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 235, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 235, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 235
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 235, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 175, 250, 111, 249
+      , 111, 249, 175, 250
+      , 255, 255, 175, 250
+      , 111, 249, 111, 249
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_58;
-  constexpr uint8_t font_MWOSD_58_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_58_type::m_data [ 24];
 
  struct font_MWOSD_59_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3666,27 +3476,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 235, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 235, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 235
-      , 255, 255, 150, 255
-      , 255, 150, 255, 191
-      , 229, 255, 255, 250
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 175, 250, 111, 249
+      , 111, 249, 175, 250
+      , 255, 255, 175, 250
+      , 111, 249, 107, 249
+      , 91, 250, 171, 254
+      
       };
    } font_MWOSD_59;
-  constexpr uint8_t font_MWOSD_59_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_59_type::m_data [ 24];
 
  struct font_MWOSD_60_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3695,27 +3498,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 191, 254
-      , 255, 111, 249, 255
-      , 91, 254, 255, 150
-      , 255, 191, 229, 255
-      , 111, 249, 255, 111
-      , 249, 255, 191, 229
-      , 255, 255, 150, 255
-      , 255, 91, 254, 255
-      , 111, 249, 255, 191
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 191, 234
+      , 175, 229, 107, 233
+      , 90, 250, 150, 254
+      , 150, 254, 90, 250
+      , 107, 233, 175, 229
+      , 191, 234, 255, 255
+      
       };
    } font_MWOSD_60;
-  constexpr uint8_t font_MWOSD_60_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_60_type::m_data [ 24];
 
  struct font_MWOSD_61_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3724,27 +3520,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
+      , 255, 255, 171, 234
+      , 91, 229, 171, 234
+      , 91, 229, 171, 234
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 191, 170, 254, 111
-      , 85, 249, 111, 85
-      , 249, 191, 170, 254
-      , 255, 255, 255, 255
-      , 255, 255, 191, 170
-      , 254, 111, 85, 249
-      , 111, 85, 249, 191
-      , 170, 254, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_61;
-  constexpr uint8_t font_MWOSD_61_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_61_type::m_data [ 24];
 
  struct font_MWOSD_62_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3753,27 +3542,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 175, 255, 255
-      , 91, 254, 255, 111
-      , 249, 255, 191, 229
-      , 255, 255, 150, 255
-      , 255, 91, 254, 255
-      , 91, 254, 255, 150
-      , 255, 191, 229, 255
-      , 111, 249, 255, 91
-      , 254, 255, 175, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      250, 255, 229, 255
+      , 150, 255, 91, 254
+      , 111, 249, 191, 229
+      , 191, 229, 111, 249
+      , 91, 254, 150, 255
+      , 229, 255, 250, 255
+      
       };
    } font_MWOSD_62;
-  constexpr uint8_t font_MWOSD_62_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_62_type::m_data [ 24];
 
  struct font_MWOSD_63_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3782,27 +3564,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 171, 230, 191, 230
+      , 175, 233, 111, 250
+      , 111, 254, 175, 254
+      , 111, 254, 175, 254
+      
       };
    } font_MWOSD_63;
-  constexpr uint8_t font_MWOSD_63_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_63_type::m_data [ 24];
 
  struct font_MWOSD_64_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3811,27 +3586,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 170
-      , 255, 191, 85, 254
-      , 111, 170, 249, 155
-      , 170, 230, 166, 101
-      , 154, 102, 90, 154
-      , 102, 106, 154, 102
-      , 90, 154, 166, 101
-      , 166, 166, 170, 233
-      , 154, 186, 250, 107
-      , 170, 230, 175, 85
-      , 233, 191, 170, 250
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      171, 250, 90, 233
+      , 166, 230, 166, 229
+      , 102, 230, 102, 230
+      , 102, 230, 166, 229
+      , 166, 170, 166, 154
+      , 90, 165, 171, 234
+      
       };
    } font_MWOSD_64;
-  constexpr uint8_t font_MWOSD_64_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_64_type::m_data [ 24];
 
  struct font_MWOSD_65_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3840,27 +3608,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 235, 255, 255
-      , 150, 255, 191, 85
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 85, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 91, 229
+      , 155, 230, 155, 230
+      , 91, 229, 155, 230
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_65;
-  constexpr uint8_t font_MWOSD_65_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_65_type::m_data [ 24];
 
  struct font_MWOSD_66_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3869,27 +3630,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 234, 255, 191
-      , 149, 255, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 149, 255, 255
-      , 234, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 250
+      , 91, 233, 155, 230
+      , 155, 230, 91, 233
+      , 155, 230, 155, 230
+      , 155, 230, 91, 233
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_66;
-  constexpr uint8_t font_MWOSD_66_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_66_type::m_data [ 24];
 
  struct font_MWOSD_67_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3898,27 +3652,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 255
-      , 85, 254, 191, 105
-      , 254, 191, 185, 255
-      , 191, 249, 255, 191
-      , 249, 255, 191, 185
-      , 255, 191, 105, 254
-      , 255, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 234, 155, 255
+      , 155, 255, 155, 234
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_67;
-  constexpr uint8_t font_MWOSD_67_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_67_type::m_data [ 24];
 
  struct font_MWOSD_68_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3927,27 +3674,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 234, 255, 191
-      , 149, 255, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 149, 255, 255
-      , 234, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 250
+      , 91, 233, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 91, 233
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_68;
-  constexpr uint8_t font_MWOSD_68_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_68_type::m_data [ 24];
 
  struct font_MWOSD_69_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3956,27 +3696,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 254, 191
-      , 85, 249, 191, 169
-      , 254, 191, 233, 255
-      , 191, 149, 255, 191
-      , 149, 255, 191, 233
-      , 255, 191, 169, 254
-      , 191, 85, 249, 255
-      , 170, 254, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 91, 229, 155, 234
+      , 155, 250, 91, 249
+      , 155, 250, 155, 254
+      , 155, 234, 91, 229
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_69;
-  constexpr uint8_t font_MWOSD_69_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_69_type::m_data [ 24];
 
  struct font_MWOSD_70_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -3985,27 +3718,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 254, 191
-      , 85, 249, 191, 169
-      , 254, 191, 233, 255
-      , 191, 149, 255, 191
-      , 233, 255, 191, 249
-      , 255, 191, 249, 255
-      , 191, 249, 255, 255
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 170
+      , 91, 149, 155, 170
+      , 155, 250, 91, 249
+      , 155, 250, 155, 255
+      , 155, 255, 155, 255
+      , 171, 255, 255, 255
+      
       };
    } font_MWOSD_70;
-  constexpr uint8_t font_MWOSD_70_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_70_type::m_data [ 24];
 
  struct font_MWOSD_71_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4014,27 +3740,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 169, 255
-      , 191, 169, 255, 191
-      , 89, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 234, 155, 234
+      , 155, 229, 155, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_71;
-  constexpr uint8_t font_MWOSD_71_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_71_type::m_data [ 24];
 
  struct font_MWOSD_72_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4043,27 +3762,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 190, 255, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 191
-      , 85, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 255
-      , 190, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 91, 229, 155, 230
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_72;
-  constexpr uint8_t font_MWOSD_72_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_72_type::m_data [ 24];
 
  struct font_MWOSD_73_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4072,27 +3784,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 251, 255, 255
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 251, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 175, 254, 255, 255
+      
       };
    } font_MWOSD_73;
-  constexpr uint8_t font_MWOSD_73_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_73_type::m_data [ 24];
 
  struct font_MWOSD_74_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4101,27 +3806,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 191, 255, 255
-      , 111, 254, 255, 111
-      , 254, 255, 111, 254
-      , 255, 111, 254, 255
-      , 110, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 255, 234
+      , 255, 230, 255, 230
+      , 255, 230, 255, 230
+      , 171, 230, 155, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_74;
-  constexpr uint8_t font_MWOSD_74_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_74_type::m_data [ 24];
 
  struct font_MWOSD_75_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4130,27 +3828,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 254, 254, 191
-      , 185, 249, 191, 105
-      , 254, 191, 153, 255
-      , 191, 229, 255, 191
-      , 229, 255, 191, 153
-      , 255, 191, 105, 254
-      , 191, 185, 249, 255
-      , 254, 254, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 155, 229
+      , 155, 233, 91, 250
+      , 91, 250, 155, 233
+      , 155, 229, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_75;
-  constexpr uint8_t font_MWOSD_75_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_75_type::m_data [ 24];
 
  struct font_MWOSD_76_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4159,27 +3850,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 254, 255, 191
-      , 249, 255, 191, 249
-      , 255, 191, 249, 255
-      , 191, 249, 255, 191
-      , 249, 255, 191, 249
-      , 255, 191, 169, 255
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 255
+      , 155, 255, 155, 255
+      , 155, 255, 155, 255
+      , 155, 255, 155, 255
+      , 155, 234, 91, 229
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_76;
-  constexpr uint8_t font_MWOSD_76_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_76_type::m_data [ 24];
 
  struct font_MWOSD_77_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4188,27 +3872,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 255, 254, 111
-      , 190, 249, 111, 105
-      , 249, 111, 85, 249
-      , 111, 150, 249, 111
-      , 170, 249, 111, 190
-      , 249, 111, 190, 249
-      , 111, 190, 249, 191
-      , 255, 254, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 234, 171
+      , 230, 155, 150, 150
+      , 86, 149, 102, 153
+      , 166, 154, 230, 155
+      , 230, 155, 230, 155
+      , 234, 171, 255, 255
+      
       };
    } font_MWOSD_77;
-  constexpr uint8_t font_MWOSD_77_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_77_type::m_data [ 24];
 
  struct font_MWOSD_78_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4217,27 +3894,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 190, 255, 191
-      , 105, 254, 191, 105
-      , 254, 191, 101, 254
-      , 191, 85, 254, 191
-      , 89, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 255
-      , 190, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 155, 230
+      , 91, 230, 91, 229
+      , 155, 229, 155, 230
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_78;
-  constexpr uint8_t font_MWOSD_78_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_78_type::m_data [ 24];
 
  struct font_MWOSD_79_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4246,27 +3916,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 235, 255, 255
-      , 150, 255, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 255, 150, 255, 255
-      , 235, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_79;
-  constexpr uint8_t font_MWOSD_79_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_79_type::m_data [ 24];
 
  struct font_MWOSD_80_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4275,27 +3938,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 234, 255, 191
-      , 149, 255, 191, 105
-      , 254, 191, 105, 254
-      , 191, 149, 255, 191
-      , 233, 255, 191, 249
-      , 255, 191, 249, 255
-      , 191, 249, 255, 255
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 250
+      , 91, 233, 155, 230
+      , 155, 230, 155, 230
+      , 91, 233, 155, 250
+      , 155, 255, 155, 255
+      , 171, 255, 255, 255
+      
       };
    } font_MWOSD_80;
-  constexpr uint8_t font_MWOSD_80_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_80_type::m_data [ 24];
 
  struct font_MWOSD_81_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4304,27 +3960,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 235, 255, 255
-      , 150, 255, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 89, 254
-      , 255, 86, 254, 255
-      , 171, 249, 255, 255
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 155, 229, 107, 165
+      , 175, 154, 255, 171
+      
       };
    } font_MWOSD_81;
-  constexpr uint8_t font_MWOSD_81_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_81_type::m_data [ 24];
 
  struct font_MWOSD_82_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4333,27 +3982,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 234, 255, 191
-      , 149, 255, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 149, 255, 191, 89
-      , 255, 191, 105, 254
-      , 191, 105, 254, 255
-      , 190, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 250
+      , 91, 233, 155, 230
+      , 155, 230, 155, 230
+      , 91, 233, 155, 229
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_82;
-  constexpr uint8_t font_MWOSD_82_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_82_type::m_data [ 24];
 
  struct font_MWOSD_83_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4362,27 +4004,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 170, 255, 191
-      , 85, 254, 191, 105
-      , 254, 191, 169, 255
-      , 255, 166, 255, 255
-      , 91, 254, 255, 106
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 234, 107, 250
+      , 175, 233, 171, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_83;
-  constexpr uint8_t font_MWOSD_83_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_83_type::m_data [ 24];
 
  struct font_MWOSD_84_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4391,27 +4026,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 170, 255, 111
-      , 85, 254, 191, 166
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 251, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 170, 234
+      , 86, 229, 106, 234
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 175, 254, 255, 255
+      
       };
    } font_MWOSD_84;
-  constexpr uint8_t font_MWOSD_84_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_84_type::m_data [ 24];
 
  struct font_MWOSD_85_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4420,27 +4048,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 190, 255, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 85, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 107, 229
+      , 175, 234, 255, 255
+      
       };
    } font_MWOSD_85;
-  constexpr uint8_t font_MWOSD_85_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_85_type::m_data [ 24];
 
  struct font_MWOSD_86_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4449,27 +4070,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 190, 255, 191
-      , 105, 254, 191, 105
-      , 254, 191, 105, 254
-      , 191, 105, 254, 191
-      , 105, 254, 191, 105
-      , 254, 191, 85, 254
-      , 255, 150, 255, 255
-      , 235, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 234
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 91, 229
+      , 107, 233, 111, 249
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_86;
-  constexpr uint8_t font_MWOSD_86_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_86_type::m_data [ 24];
 
  struct font_MWOSD_87_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4478,27 +4092,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 255, 254, 111
-      , 190, 249, 111, 190
-      , 249, 111, 190, 249
-      , 111, 170, 249, 111
-      , 150, 249, 111, 150
-      , 249, 191, 85, 254
-      , 191, 105, 254, 255
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 234, 171
+      , 230, 155, 230, 155
+      , 166, 154, 102, 153
+      , 102, 153, 86, 149
+      , 90, 165, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_87;
-  constexpr uint8_t font_MWOSD_87_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_87_type::m_data [ 24];
 
  struct font_MWOSD_88_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4507,27 +4114,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 255, 254, 111
-      , 190, 249, 111, 105
-      , 249, 191, 105, 254
-      , 255, 150, 255, 255
-      , 150, 255, 191, 105
-      , 254, 111, 105, 249
-      , 111, 190, 249, 191
-      , 255, 254, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 234, 171
+      , 166, 154, 150, 150
+      , 90, 165, 107, 233
+      , 107, 233, 90, 165
+      , 150, 150, 230, 154
+      , 234, 171, 255, 255
+      
       };
    } font_MWOSD_88;
-  constexpr uint8_t font_MWOSD_88_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_88_type::m_data [ 24];
 
  struct font_MWOSD_89_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4536,27 +4136,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 191, 255, 111
-      , 110, 254, 111, 110
-      , 254, 191, 153, 255
-      , 255, 230, 255, 255
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 251, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 234, 234
+      , 230, 230, 166, 230
+      , 150, 229, 154, 233
+      , 91, 249, 107, 250
+      , 111, 254, 111, 254
+      , 175, 254, 255, 255
+      
       };
    } font_MWOSD_89;
-  constexpr uint8_t font_MWOSD_89_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_89_type::m_data [ 24];
 
  struct font_MWOSD_90_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4565,27 +4158,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 191, 170, 255, 111
-      , 85, 254, 191, 106
-      , 254, 255, 91, 254
-      , 255, 150, 255, 191
-      , 229, 255, 111, 249
-      , 255, 111, 170, 255
-      , 111, 85, 254, 191
-      , 170, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 170, 234
+      , 86, 229, 170, 230
+      , 175, 229, 107, 233
+      , 90, 250, 150, 254
+      , 166, 234, 86, 229
+      , 170, 234, 255, 255
+      
       };
    } font_MWOSD_90;
-  constexpr uint8_t font_MWOSD_90_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_90_type::m_data [ 24];
 
  struct font_MWOSD_91_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4594,27 +4180,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 175, 254
-      , 255, 91, 249, 255
-      , 155, 250, 255, 155
-      , 255, 255, 155, 255
-      , 255, 155, 255, 255
-      , 155, 255, 255, 155
-      , 255, 255, 155, 255
-      , 255, 155, 254, 255
-      , 91, 249, 255, 175
-      , 250, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      171, 234, 91, 229
+      , 155, 234, 155, 255
+      , 155, 255, 155, 255
+      , 155, 255, 155, 255
+      , 155, 255, 155, 234
+      , 91, 229, 171, 234
+      
       };
    } font_MWOSD_91;
-  constexpr uint8_t font_MWOSD_91_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_91_type::m_data [ 24];
 
  struct font_MWOSD_92_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4623,27 +4202,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
+      , 255, 255, 170, 255
+      , 150, 254, 90, 250
+      , 107, 233, 175, 165
+      , 191, 150, 255, 170
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 239
-      , 255, 255, 155, 255
-      , 255, 91, 254, 255
-      , 111, 249, 255, 191
-      , 229, 255, 255, 150
-      , 255, 255, 91, 254
-      , 255, 111, 249, 255
-      , 191, 229, 255, 255
-      , 250, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_92;
-  constexpr uint8_t font_MWOSD_92_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_92_type::m_data [ 24];
 
  struct font_MWOSD_93_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4652,27 +4224,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 191, 250, 255
-      , 111, 229, 255, 191
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 255, 230, 255, 255
-      , 230, 255, 255, 230
-      , 255, 255, 230, 255
-      , 191, 230, 255, 111
-      , 229, 255, 191, 234
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      171, 234, 91, 229
+      , 171, 230, 255, 230
+      , 255, 230, 255, 230
+      , 255, 230, 255, 230
+      , 255, 230, 171, 230
+      , 91, 229, 171, 234
+      
       };
    } font_MWOSD_93;
-  constexpr uint8_t font_MWOSD_93_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_93_type::m_data [ 24];
 
  struct font_MWOSD_94_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4681,27 +4246,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 235, 255
-      , 255, 150, 255, 191
-      , 85, 254, 111, 105
-      , 249, 111, 170, 249
-      , 191, 254, 250, 255
+    static constexpr uint8_t m_data[24] = {
+      175, 250, 107, 233
+      , 90, 165, 150, 150
+      , 166, 154, 234, 171
       , 255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      
       };
    } font_MWOSD_94;
-  constexpr uint8_t font_MWOSD_94_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_94_type::m_data [ 24];
 
  struct font_MWOSD_95_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4710,27 +4268,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 175, 170, 250, 91
-      , 85, 229, 175, 170
-      , 250, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 170, 170
+      , 86, 149, 170, 170
+      
       };
    } font_MWOSD_95;
-  constexpr uint8_t font_MWOSD_95_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_95_type::m_data [ 24];
 
  struct font_MWOSD_96_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4739,27 +4290,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 235, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 150, 255
-      , 171, 150, 234, 86
-      , 85, 149, 91, 85
-      , 229, 111, 85, 249
-      , 191, 85, 254, 255
-      , 150, 255, 255, 235
+    static constexpr uint8_t m_data[24] = {
+      171, 255, 155, 254
+      , 107, 250, 175, 233
+      , 191, 230, 255, 234
       , 255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 255, 255
+      
       };
    } font_MWOSD_96;
-  constexpr uint8_t font_MWOSD_96_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_96_type::m_data [ 24];
 
  struct font_MWOSD_97_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4768,27 +4312,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 191, 254, 255
-      , 111, 249, 255, 111
-      , 229, 255, 191, 229
-      , 235, 191, 149, 150
-      , 175, 86, 149, 91
-      , 85, 229, 86, 85
-      , 229, 107, 85, 249
-      , 191, 85, 249, 255
-      , 90, 254, 255, 175
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 111, 233, 171, 230
+      , 107, 229, 155, 230
+      , 155, 230, 107, 229
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_97;
-  constexpr uint8_t font_MWOSD_97_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_97_type::m_data [ 24];
 
  struct font_MWOSD_98_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4797,27 +4334,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 239, 255, 255
-      , 155, 255, 251, 86
-      , 254, 230, 91, 185
-      , 229, 111, 101, 229
-      , 191, 85, 229, 255
-      , 86, 229, 191, 85
-      , 229, 111, 85, 229
-      , 91, 85, 229, 175
-      , 170, 250, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 255
+      , 155, 255, 155, 255
+      , 155, 250, 91, 233
+      , 155, 230, 155, 230
+      , 155, 230, 91, 233
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_98;
-  constexpr uint8_t font_MWOSD_98_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_98_type::m_data [ 24];
 
  struct font_MWOSD_99_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4826,27 +4356,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 191, 255
-      , 255, 111, 254, 235
-      , 91, 254, 150, 90
-      , 249, 86, 89, 229
-      , 91, 85, 229, 175
-      , 85, 149, 255, 86
-      , 149, 255, 86, 229
-      , 191, 85, 250, 191
-      , 165, 255, 255, 250
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 234, 155, 234
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_99;
-  constexpr uint8_t font_MWOSD_99_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_99_type::m_data [ 24];
 
  struct font_MWOSD_100_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4855,27 +4378,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 239, 255
-      , 255, 155, 255, 255
-      , 91, 254, 255, 91
-      , 249, 171, 90, 229
-      , 86, 85, 149, 86
-      , 85, 149, 171, 90
-      , 229, 255, 91, 249
-      , 255, 91, 254, 255
-      , 155, 255, 255, 239
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 255, 234
+      , 255, 230, 255, 230
+      , 175, 230, 107, 229
+      , 155, 230, 155, 230
+      , 155, 230, 107, 229
+      , 175, 234, 255, 255
+      
       };
    } font_MWOSD_100;
-  constexpr uint8_t font_MWOSD_100_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_100_type::m_data [ 24];
 
  struct font_MWOSD_101_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4884,27 +4400,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 250, 255
-      , 191, 165, 255, 191
-      , 85, 250, 255, 86
-      , 229, 255, 86, 149
-      , 175, 85, 149, 91
-      , 85, 229, 86, 89
-      , 229, 150, 90, 249
-      , 235, 91, 254, 255
-      , 111, 254, 255, 191
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 91, 229, 155, 234
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_101;
-  constexpr uint8_t font_MWOSD_101_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_101_type::m_data [ 24];
 
  struct font_MWOSD_102_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4913,27 +4422,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 175, 170, 250, 91
-      , 85, 229, 111, 85
-      , 229, 191, 85, 229
-      , 255, 86, 229, 191
-      , 85, 229, 111, 101
-      , 229, 91, 185, 229
-      , 86, 254, 230, 155
-      , 255, 251, 239, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 191, 250
+      , 175, 233, 111, 230
+      , 111, 234, 107, 250
+      , 91, 249, 107, 250
+      , 111, 254, 111, 254
+      , 175, 254, 255, 255
+      
       };
    } font_MWOSD_102;
-  constexpr uint8_t font_MWOSD_102_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_102_type::m_data [ 24];
 
  struct font_MWOSD_103_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4942,27 +4444,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 175, 255
-      , 255, 90, 254, 191
-      , 85, 249, 107, 85
-      , 249, 86, 85, 229
-      , 91, 85, 229, 175
-      , 86, 149, 191, 149
-      , 150, 191, 229, 235
-      , 111, 229, 255, 111
-      , 249, 255, 191, 254
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 175, 250
+      , 107, 233, 219, 231
+      , 219, 231, 219, 231
+      , 107, 229, 175, 230
+      , 111, 233, 175, 250
+      
       };
    } font_MWOSD_103;
-  constexpr uint8_t font_MWOSD_103_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_103_type::m_data [ 24];
 
  struct font_MWOSD_104_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -4971,27 +4466,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 235, 255
-      , 255, 150, 255, 191
-      , 85, 254, 111, 85
-      , 249, 91, 85, 229
-      , 86, 85, 149, 171
-      , 150, 234, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 235
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 255
+      , 155, 255, 155, 255
+      , 155, 250, 91, 233
+      , 155, 230, 155, 230
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_104;
-  constexpr uint8_t font_MWOSD_104_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_104_type::m_data [ 24];
 
  struct font_MWOSD_105_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5000,27 +4488,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 250, 255
-      , 191, 165, 255, 111
-      , 85, 254, 111, 85
-      , 233, 91, 85, 149
-      , 91, 85, 229, 86
-      , 149, 250, 150, 86
-      , 254, 235, 91, 254
-      , 255, 91, 249, 255
-      , 111, 249, 255, 191
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 175, 254, 111, 254
+      , 171, 254, 91, 254
+      , 107, 254, 111, 254
+      , 107, 250, 91, 249
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_105;
-  constexpr uint8_t font_MWOSD_105_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_105_type::m_data [ 24];
 
  struct font_MWOSD_106_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5029,27 +4510,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 175, 170, 250, 91
-      , 85, 229, 91, 85
-      , 249, 91, 85, 254
-      , 91, 149, 255, 91
-      , 85, 254, 91, 89
-      , 249, 91, 110, 229
-      , 155, 191, 149, 239
-      , 255, 230, 255, 255
-      , 251, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 191, 250, 191, 249
+      , 175, 250, 111, 249
+      , 191, 249, 191, 249
+      , 171, 249, 155, 249
+      , 107, 250, 175, 254
+      
       };
    } font_MWOSD_106;
-  constexpr uint8_t font_MWOSD_106_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_106_type::m_data [ 24];
 
  struct font_MWOSD_107_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5058,27 +4532,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 175, 255
-      , 255, 90, 254, 175
-      , 85, 254, 91, 149
-      , 255, 86, 149, 255
-      , 86, 85, 250, 91
-      , 85, 229, 91, 101
-      , 149, 111, 165, 150
-      , 191, 229, 235, 191
-      , 249, 255, 255, 254
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 255
+      , 155, 255, 155, 255
+      , 155, 250, 155, 249
+      , 91, 250, 91, 250
+      , 155, 233, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_107;
-  constexpr uint8_t font_MWOSD_107_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_107_type::m_data [ 24];
 
  struct font_MWOSD_108_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5087,27 +4554,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 251, 255
-      , 255, 230, 255, 191
-      , 229, 255, 111, 229
-      , 255, 91, 165, 234
-      , 86, 85, 149, 86
-      , 85, 149, 91, 165
-      , 234, 111, 229, 255
-      , 191, 229, 255, 255
-      , 230, 255, 255, 251
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 254
+      , 91, 254, 107, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 107, 250, 91, 249
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_108;
-  constexpr uint8_t font_MWOSD_108_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_108_type::m_data [ 24];
 
  struct font_MWOSD_109_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5116,27 +4576,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 254, 255
-      , 191, 249, 255, 191
-      , 229, 235, 111, 165
-      , 150, 91, 101, 149
-      , 91, 85, 229, 86
-      , 85, 250, 86, 149
-      , 255, 91, 149, 255
-      , 175, 85, 254, 255
-      , 90, 254, 255, 175
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 250, 154, 233
+      , 102, 230, 102, 230
+      , 102, 230, 102, 230
+      , 170, 234, 255, 255
+      
       };
    } font_MWOSD_109;
-  constexpr uint8_t font_MWOSD_109_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_109_type::m_data [ 24];
 
  struct font_MWOSD_110_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5145,27 +4598,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 251
-      , 239, 255, 230, 155
-      , 191, 149, 91, 110
-      , 229, 91, 89, 249
-      , 91, 85, 254, 91
-      , 149, 255, 91, 85
-      , 254, 91, 85, 249
-      , 91, 85, 229, 175
-      , 170, 250, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 234, 155, 229
+      , 91, 230, 155, 230
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_110;
-  constexpr uint8_t font_MWOSD_110_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_110_type::m_data [ 24];
 
  struct font_MWOSD_111_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5174,27 +4620,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 191, 254
-      , 255, 111, 249, 255
-      , 91, 249, 235, 91
-      , 254, 150, 86, 254
-      , 86, 149, 250, 91
-      , 85, 229, 91, 85
-      , 149, 111, 85, 233
-      , 111, 85, 254, 191
-      , 165, 255, 255, 250
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 175, 250
+      , 107, 233, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 107, 233
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_111;
-  constexpr uint8_t font_MWOSD_111_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_111_type::m_data [ 24];
 
  struct font_MWOSD_112_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5203,27 +4642,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 191, 190
-      , 250, 111, 105, 229
-      , 155, 102, 154, 155
-      , 102, 154, 111, 121
-      , 154, 191, 190, 239
-      , 239, 255, 255, 155
-      , 255, 238, 155, 190
-      , 153, 155, 185, 229
-      , 91, 166, 249, 155
-      , 166, 249, 239, 251
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 171, 250
+      , 91, 233, 155, 230
+      , 155, 230, 155, 230
+      , 91, 233, 155, 250
+      , 155, 255, 171, 255
+      
       };
    } font_MWOSD_112;
-  constexpr uint8_t font_MWOSD_112_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_112_type::m_data [ 24];
 
  struct font_MWOSD_113_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5232,27 +4664,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 191, 187
-      , 239, 111, 102, 154
-      , 155, 102, 154, 87
-      , 166, 149, 155, 230
-      , 154, 155, 166, 229
-      , 175, 250, 250, 111
-      , 254, 238, 111, 250
-      , 153, 111, 230, 229
-      , 111, 153, 249, 111
-      , 154, 249, 191, 239
-      , 254, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 175, 234
+      , 107, 229, 155, 230
+      , 155, 230, 155, 230
+      , 107, 229, 175, 230
+      , 255, 230, 255, 234
+      
       };
    } font_MWOSD_113;
-  constexpr uint8_t font_MWOSD_113_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_113_type::m_data [ 24];
 
  struct font_MWOSD_114_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5261,27 +4686,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 230, 255
-      , 191, 157, 255, 111
-      , 127, 254, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 171, 250
+      , 107, 233, 155, 230
+      , 155, 234, 155, 255
+      , 155, 255, 155, 255
+      , 171, 255, 255, 255
+      
       };
    } font_MWOSD_114;
-  constexpr uint8_t font_MWOSD_114_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_114_type::m_data [ 24];
 
  struct font_MWOSD_115_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5290,27 +4708,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 234
-      , 255, 127, 149, 255
-      , 255, 159, 255, 255
-      , 159, 255, 255, 223
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 175, 250
+      , 111, 249, 155, 250
+      , 107, 250, 171, 249
+      , 155, 249, 107, 250
+      , 171, 254, 255, 255
+      
       };
    } font_MWOSD_115;
-  constexpr uint8_t font_MWOSD_115_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_115_type::m_data [ 24];
 
  struct font_MWOSD_116_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5319,27 +4730,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 254, 255, 255, 249
-      , 255, 255, 231, 255
-      , 255, 223, 255, 255
-      , 231, 255, 255, 249
-      , 255, 255, 254, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 175, 254, 111, 254
+      , 107, 250, 91, 249
+      , 107, 250, 107, 250
+      , 111, 250, 111, 249
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_116;
-  constexpr uint8_t font_MWOSD_116_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_116_type::m_data [ 24];
 
  struct font_MWOSD_117_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5348,27 +4752,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 223
-      , 255, 255, 159, 255
-      , 255, 159, 255, 127
-      , 149, 255, 255, 234
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 234, 155, 230
+      , 155, 230, 155, 230
+      , 155, 230, 107, 229
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_117;
-  constexpr uint8_t font_MWOSD_117_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_117_type::m_data [ 24];
 
  struct font_MWOSD_118_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5377,27 +4774,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 111, 127, 254
-      , 191, 157, 255, 255
-      , 230, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 234, 155, 230
+      , 155, 230, 155, 230
+      , 107, 233, 111, 249
+      , 175, 250, 255, 255
+      
       };
    } font_MWOSD_118;
-  constexpr uint8_t font_MWOSD_118_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_118_type::m_data [ 24];
 
  struct font_MWOSD_119_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5406,27 +4796,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 253
-      , 255, 191, 253, 255
-      , 191, 253, 255, 191
-      , 85, 255, 255, 234
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 170, 234, 102, 230
+      , 102, 230, 102, 230
+      , 102, 230, 154, 233
+      , 171, 250, 255, 255
+      
       };
    } font_MWOSD_119;
-  constexpr uint8_t font_MWOSD_119_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_119_type::m_data [ 24];
 
  struct font_MWOSD_120_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5435,27 +4818,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 239, 255, 255, 219
-      , 255, 255, 246, 255
-      , 255, 253, 255, 255
-      , 246, 255, 255, 219
-      , 255, 255, 239, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 234, 155, 230
+      , 155, 230, 107, 233
+      , 155, 230, 155, 230
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_120;
-  constexpr uint8_t font_MWOSD_120_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_120_type::m_data [ 24];
 
  struct font_MWOSD_121_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5464,27 +4840,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 234
-      , 255, 191, 85, 255
-      , 191, 253, 255, 191
-      , 253, 255, 255, 253
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 234, 155, 230
+      , 155, 230, 155, 230
+      , 107, 229, 175, 230
+      , 111, 233, 175, 250
+      
       };
    } font_MWOSD_121;
-  constexpr uint8_t font_MWOSD_121_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_121_type::m_data [ 24];
 
  struct font_MWOSD_122_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5493,27 +4862,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
+    static constexpr uint8_t m_data[24] = {
       255, 255, 255, 255
       , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 255, 255
+      , 171, 234, 91, 229
+      , 171, 233, 107, 250
+      , 155, 234, 91, 229
+      , 171, 234, 255, 255
+      
       };
    } font_MWOSD_122;
-  constexpr uint8_t font_MWOSD_122_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_122_type::m_data [ 24];
 
  struct font_MWOSD_123_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5522,27 +4884,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 255
-      , 250, 255, 191, 229
-      , 255, 111, 249, 255
-      , 91, 254, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 91, 254, 255, 111
-      , 249, 255, 191, 229
-      , 255, 255, 250, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      191, 234, 175, 229
+      , 111, 234, 111, 254
+      , 107, 254, 155, 254
+      , 155, 254, 107, 254
+      , 111, 254, 111, 234
+      , 175, 229, 191, 234
+      
       };
    } font_MWOSD_123;
-  constexpr uint8_t font_MWOSD_123_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_123_type::m_data [ 24];
 
  struct font_MWOSD_124_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5551,27 +4906,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 235
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 150, 255
-      , 255, 150, 255, 255
-      , 150, 255, 255, 150
-      , 255, 255, 235, 255
-      , 255, 255, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      175, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 111, 254
+      , 111, 254, 175, 254
+      
       };
    } font_MWOSD_124;
-  constexpr uint8_t font_MWOSD_124_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_124_type::m_data [ 24];
 
  struct font_MWOSD_125_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5580,27 +4928,20 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 191, 254
-      , 255, 111, 249, 255
-      , 191, 229, 255, 255
-      , 150, 255, 255, 91
-      , 254, 255, 91, 254
-      , 255, 91, 254, 255
-      , 91, 254, 255, 91
-      , 254, 255, 91, 254
-      , 255, 91, 254, 255
-      , 150, 255, 191, 229
-      , 255, 111, 249, 255
-      , 191, 254, 255, 255
-      , 255, 255
+    static constexpr uint8_t m_data[24] = {
+      171, 254, 91, 250
+      , 171, 249, 191, 249
+      , 191, 233, 191, 230
+      , 191, 230, 191, 233
+      , 191, 249, 171, 249
+      , 91, 250, 171, 254
+      
       };
    } font_MWOSD_125;
-  constexpr uint8_t font_MWOSD_125_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_125_type::m_data [ 24];
 
  struct font_MWOSD_126_type : quan::uav::osd::basic_bitmap{
     uint8_t const * get_data()const
@@ -5609,31 +4950,23 @@ namespace {
     }
     quan::uav::osd::size_type get_size()const
     {
-       return {12,18};
+       return {8,12};
     }
  private:
-    static constexpr uint8_t m_data[54] = {
-      255, 255, 255, 255
-      , 255, 255, 255, 235
-      , 255, 255, 215, 255
+    static constexpr uint8_t m_data[24] = {
+      255, 255, 171, 171
+      , 154, 154, 102, 153
+      , 166, 166, 234, 234
       , 255, 255, 255, 255
-      , 235, 255, 255, 150
-      , 255, 191, 105, 254
-      , 109, 190, 121, 109
-      , 190, 121, 191, 105
-      , 254, 255, 150, 255
-      , 255, 235, 255, 255
-      , 255, 255, 255, 215
-      , 255, 255, 235, 255
       , 255, 255, 255, 255
-      , 255, 255
+      , 255, 255, 255, 255
+      
       };
    } font_MWOSD_126;
-  constexpr uint8_t font_MWOSD_126_type::m_data [ 54];
+  constexpr uint8_t font_MWOSD_126_type::m_data [ 24];
 
  constexpr quan::uav::osd::bitmap_ptr font_MWOSD_char_array[95] = {
-
-       &font_MWOSD_32
+      &font_MWOSD_32
       ,&font_MWOSD_33
       ,&font_MWOSD_34
       ,&font_MWOSD_35
@@ -5731,8 +5064,8 @@ namespace {
 
  struct font_MWOSD_type : quan::uav::osd::basic_font{
     int32_t  get_begin() const {return 32;}
-    int32_t  get_char_height() const { return 18;}
-    int32_t  get_char_width() const { return 12;}
+    int32_t  get_char_height() const { return 12;}
+    int32_t  get_char_width() const { return 8;}
     int32_t  get_num_elements() const {return 95;}
     quan::uav::osd::basic_bitmap const * get_char_at(int32_t i)const
     {
@@ -5744,11 +5077,523 @@ namespace {
        }
     }
  } font_MWOSD;
+ struct font_TINY_NUM_32_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_32;
+  constexpr uint8_t font_TINY_NUM_32_type::m_data [ 9];
+
+ struct font_TINY_NUM_33_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_33;
+  constexpr uint8_t font_TINY_NUM_33_type::m_data [ 9];
+
+ struct font_TINY_NUM_34_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_34;
+  constexpr uint8_t font_TINY_NUM_34_type::m_data [ 9];
+
+ struct font_TINY_NUM_35_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_35;
+  constexpr uint8_t font_TINY_NUM_35_type::m_data [ 9];
+
+ struct font_TINY_NUM_36_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_36;
+  constexpr uint8_t font_TINY_NUM_36_type::m_data [ 9];
+
+ struct font_TINY_NUM_37_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_37;
+  constexpr uint8_t font_TINY_NUM_37_type::m_data [ 9];
+
+ struct font_TINY_NUM_38_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_38;
+  constexpr uint8_t font_TINY_NUM_38_type::m_data [ 9];
+
+ struct font_TINY_NUM_39_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_39;
+  constexpr uint8_t font_TINY_NUM_39_type::m_data [ 9];
+
+ struct font_TINY_NUM_40_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_40;
+  constexpr uint8_t font_TINY_NUM_40_type::m_data [ 9];
+
+ struct font_TINY_NUM_41_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_41;
+  constexpr uint8_t font_TINY_NUM_41_type::m_data [ 9];
+
+ struct font_TINY_NUM_42_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_42;
+  constexpr uint8_t font_TINY_NUM_42_type::m_data [ 9];
+
+ struct font_TINY_NUM_43_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 169
+      , 149, 154, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_43;
+  constexpr uint8_t font_TINY_NUM_43_type::m_data [ 9];
+
+ struct font_TINY_NUM_44_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_44;
+  constexpr uint8_t font_TINY_NUM_44_type::m_data [ 9];
+
+ struct font_TINY_NUM_45_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 149, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_45;
+  constexpr uint8_t font_TINY_NUM_45_type::m_data [ 9];
+
+ struct font_TINY_NUM_46_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 106, 170
+      , 234
+      };
+   } font_TINY_NUM_46;
+  constexpr uint8_t font_TINY_NUM_46_type::m_data [ 9];
+
+ struct font_TINY_NUM_47_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 170, 170, 170
+      , 170, 170, 170, 170
+      , 234
+      };
+   } font_TINY_NUM_47;
+  constexpr uint8_t font_TINY_NUM_47_type::m_data [ 9];
+
+ struct font_TINY_NUM_48_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 105, 166
+      , 153, 102, 90, 169
+      , 234
+      };
+   } font_TINY_NUM_48;
+  constexpr uint8_t font_TINY_NUM_48_type::m_data [ 9];
+
+ struct font_TINY_NUM_49_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 91, 174, 249
+      , 230, 154, 91, 169
+      , 234
+      };
+   } font_TINY_NUM_49;
+  constexpr uint8_t font_TINY_NUM_49_type::m_data [ 9];
+
+ struct font_TINY_NUM_50_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 169, 166
+      , 149, 166, 90, 169
+      , 234
+      };
+   } font_TINY_NUM_50;
+  constexpr uint8_t font_TINY_NUM_50_type::m_data [ 9];
+
+ struct font_TINY_NUM_51_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 169, 166
+      , 149, 106, 90, 169
+      , 234
+      };
+   } font_TINY_NUM_51;
+  constexpr uint8_t font_TINY_NUM_51_type::m_data [ 9];
+
+ struct font_TINY_NUM_52_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 154, 105, 166
+      , 149, 106, 170, 169
+      , 234
+      };
+   } font_TINY_NUM_52;
+  constexpr uint8_t font_TINY_NUM_52_type::m_data [ 9];
+
+ struct font_TINY_NUM_53_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 105, 170
+      , 149, 106, 90, 169
+      , 234
+      };
+   } font_TINY_NUM_53;
+  constexpr uint8_t font_TINY_NUM_53_type::m_data [ 9];
+
+ struct font_TINY_NUM_54_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 105, 170
+      , 149, 102, 90, 169
+      , 234
+      };
+   } font_TINY_NUM_54;
+  constexpr uint8_t font_TINY_NUM_54_type::m_data [ 9];
+
+ struct font_TINY_NUM_55_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 169, 166
+      , 150, 154, 106, 170
+      , 234
+      };
+   } font_TINY_NUM_55;
+  constexpr uint8_t font_TINY_NUM_55_type::m_data [ 9];
+
+ struct font_TINY_NUM_56_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 105, 166
+      , 149, 102, 90, 169
+      , 234
+      };
+   } font_TINY_NUM_56;
+  constexpr uint8_t font_TINY_NUM_56_type::m_data [ 9];
+
+ struct font_TINY_NUM_57_type : quan::uav::osd::basic_bitmap{
+    uint8_t const * get_data()const
+    {
+       return m_data;
+    }
+    quan::uav::osd::size_type get_size()const
+    {
+       return {5,7};
+    }
+ private:
+    static constexpr uint8_t m_data[9] = {
+      170, 90, 105, 166
+      , 149, 106, 170, 169
+      , 234
+      };
+   } font_TINY_NUM_57;
+  constexpr uint8_t font_TINY_NUM_57_type::m_data [ 9];
+
+ constexpr quan::uav::osd::bitmap_ptr font_TINY_NUM_char_array[26] = {
+      &font_TINY_NUM_32
+      ,&font_TINY_NUM_33
+      ,&font_TINY_NUM_34
+      ,&font_TINY_NUM_35
+      ,&font_TINY_NUM_36
+      ,&font_TINY_NUM_37
+      ,&font_TINY_NUM_38
+      ,&font_TINY_NUM_39
+      ,&font_TINY_NUM_40
+      ,&font_TINY_NUM_41
+      ,&font_TINY_NUM_42
+      ,&font_TINY_NUM_43
+      ,&font_TINY_NUM_44
+      ,&font_TINY_NUM_45
+      ,&font_TINY_NUM_46
+      ,&font_TINY_NUM_47
+      ,&font_TINY_NUM_48
+      ,&font_TINY_NUM_49
+      ,&font_TINY_NUM_50
+      ,&font_TINY_NUM_51
+      ,&font_TINY_NUM_52
+      ,&font_TINY_NUM_53
+      ,&font_TINY_NUM_54
+      ,&font_TINY_NUM_55
+      ,&font_TINY_NUM_56
+      ,&font_TINY_NUM_57 };
+
+ struct font_TINY_NUM_type : quan::uav::osd::basic_font{
+    int32_t  get_begin() const {return 32;}
+    int32_t  get_char_height() const { return 7;}
+    int32_t  get_char_width() const { return 5;}
+    int32_t  get_num_elements() const {return 26;}
+    quan::uav::osd::basic_bitmap const * get_char_at(int32_t i)const
+    {
+       int32_t const array_pos = i - get_begin();
+       if ((array_pos >= 0) && (array_pos < 26)){
+          return font_TINY_NUM_char_array[array_pos];
+       }else{
+          return nullptr;
+       }
+    }
+ } font_TINY_NUM;
 
  constexpr quan::uav::osd::font_ptr font_array[] =
    {
     &font_OSD_Charset
     ,&font_MWOSD
+    ,&font_TINY_NUM
    };
 } // namespace
 
