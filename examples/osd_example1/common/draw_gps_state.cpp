@@ -22,7 +22,7 @@ namespace {
 
 void draw_gps_state()
 {
-   font_ptr font = get_font(FontID::OSD_Charset);
+   font_ptr font = get_font(FontID::MWOSD);
    if (font){
       size_type font_size = get_size(font);
       pxp_type pos{-160,70};
