@@ -239,15 +239,15 @@ struct video_buffers {
                || (static_cast<uint32_t> (px.x) > (m_display_size.x-1))
             )
          {
-            return ((osd_state::get() == osd_state::external_video)? 3 : 2); //transparent: black
+            return ((osd_state::get() == osd_state::external_video)? 3 : 1); //transparent: black
          }
          uint32_t const buffer_bit_pos
          = static_cast<uint32_t> (px.y) * (m_display_size.x + 8)
            + static_cast<uint32_t> (px.x) + 1U;
-         uint8_t colour = ((manager.m_write_buffer->bb_black[buffer_bit_pos] !=0 )?2:0);
+         uint8_t colour = ((manager.m_write_buffer->bb_black[buffer_bit_pos] !=0 )?1:0);
          // this will fail then unless
          if (osd_state::get() == osd_state::external_video){
-            colour |= ((manager.m_write_buffer->bb_white[buffer_bit_pos]!=0)?1:0);
+            colour |= ((manager.m_write_buffer->bb_white[buffer_bit_pos]!=0)?2:0);
          }
          return colour;
       }
