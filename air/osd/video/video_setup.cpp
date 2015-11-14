@@ -124,6 +124,19 @@ namespace {
       setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
    }
 
+   void setup_usart3_txo_sign_pin()
+   {
+      quan::stm32::module_enable<frsky_txo_sign_pin::port_type>();
+      quan::stm32::apply<
+         frsky_txo_sign_pin
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::slow
+         , quan::stm32::gpio::ostate::low
+      >();
+   }
+
 }//namespace
 
 void video_cfg::setup()
@@ -209,7 +222,8 @@ void osd_setup()
   // once
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
   detail::setup_leds();
+  setup_usart3_txo_sign_pin();
   setup_unused_pins();
-
+ 
   osd_state::set(osd_state::external_video);
 }
