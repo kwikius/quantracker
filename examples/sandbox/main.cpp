@@ -14,9 +14,15 @@ int main()
 void quan::uav::osd::on_draw()
 {
 
-   draw_circle(10,{50,50},color_type::black);
+   pxp_type pos{50,50};
+   draw_circle(10,pos,color_type::black);
 
-   flood_fill({50,50},color_type::black,400 );
+   flood_fill(pos,color_type::black,400 );
 
+   pos = pxp_type{-50,50};
+   draw_circle(10,pos,color_type::white);
+   draw_box(pos + pxp_type{-5,-5},pos + pxp_type{5,5},color_type::white, false);
+
+   flood_fill(pos + pxp_type{-7,0},color_type::white,400 );
   
 }
