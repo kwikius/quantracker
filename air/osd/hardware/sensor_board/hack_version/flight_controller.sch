@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 24 Oct 2015 18:57:25 BST
+EESchema Schematic File Version 2  date Tue 17 Nov 2015 11:47:50 GMT
 LIBS:spst
 LIBS:power
 LIBS:device
@@ -21,7 +21,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "24 oct 2015"
+Date "17 nov 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -29,6 +29,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 6100 5300 0    60   ~ 0
+(USART3)
+Text Notes 6000 6150 0    60   ~ 0
+(USART1)
 Connection ~ 3150 1450
 Wire Wire Line
 	3350 1450 2900 1450
