@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 17 Nov 2015 11:47:50 GMT
+EESchema Schematic File Version 2  date Thu 10 Dec 2015 12:45:17 GMT
 LIBS:spst
 LIBS:power
 LIBS:device
@@ -21,7 +21,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "17 nov 2015"
+Date "10 dec 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -29,6 +29,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 8500 3450 0    60   ~ 0
+(SBUS_OUT)
 Text Notes 6100 5300 0    60   ~ 0
 (USART3)
 Text Notes 6000 6150 0    60   ~ 0
