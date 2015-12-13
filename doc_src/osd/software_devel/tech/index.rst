@@ -9,6 +9,7 @@ QuantrackerAir OSD Software Technical index
 * `Bitmap source format`_
 * `Flash Variables`_
 * `Telemetry`_
+* `Telemetry_protocols`_
 * `Quan`_
 * `osd_maker`_
 
@@ -24,4 +25,5 @@ QuantrackerAir OSD Software Technical index
 .. _`osd_maker`: ../../osd_maker/index.html
 .. _`Flash Variables`: ../flash_variables.html
 .. _`Source code organisation`: ../source_code_organisation.html
+.. _`Telemetry_protocols` : ../../../../../antenna_tracker/telemetry/protocol.html
 
