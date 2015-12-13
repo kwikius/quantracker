@@ -12,7 +12,7 @@ namespace {
 
 void setup_telemetry_parser()
 {
-   packet_parser = new quan::uav::cobs::packet_parser{25};
+   packet_parser = new quan::uav::cobs::packet_parser{19}; // set to the size of the largest encoded packet
 }
 
 void on_telemetry_received()

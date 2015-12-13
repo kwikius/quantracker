@@ -18,7 +18,7 @@ void on_telemetry_transmitted()
 {
    // N.B 117 is max number of bytes that can be transmitted in one half frame (todo check for NTSC)
    // this could be sent up to 5 x in a frame here
-   uint8_t encoded [22];
+   uint8_t encoded [19];
    quan::tracker::zapp4::encode_position(position,encoded);
-   write_telemetry_data((const char*)encoded,22);
+   write_telemetry_data((const char*)encoded,19);
 }
