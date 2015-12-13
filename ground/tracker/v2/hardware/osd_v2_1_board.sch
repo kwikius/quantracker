@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sun 05 Jul 2015 19:04:22 BST
+EESchema Schematic File Version 2  date Thu 10 Dec 2015 12:44:52 GMT
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -41,7 +41,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 5
 Title ""
-Date "5 jul 2015"
+Date "10 dec 2015"
 Rev ""
 Comp ""
 Comment1 ""
@@ -49,6 +49,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 1200 3550 0    60   ~ 0
+or QDRT
+Text HLabel 4450 3050 0    60   Input ~ 0
+EXTI1
+Text HLabel 4450 2950 0    60   Output ~ 0
+FRAM_NCS
 $Comp
 L CONN_3 K2
 U 1 1 55520FE6
@@ -235,11 +241,11 @@ Text HLabel 7000 4050 2    60   Output ~ 0
 LED3
 Text HLabel 7000 4250 2    60   Output ~ 0
 LED2
-Text HLabel 7000 3850 2    60   Input ~ 0
-MAG_RDY
+Text HLabel 7000 3850 2    60   Output ~ 0
+SPI_NCS
 Text HLabel 7000 3650 2    60   Output ~ 0
 LCD_TXO
-Text HLabel 4450 2950 0    60   Input ~ 0
+Text HLabel 4500 3850 0    60   Input ~ 0
 BATT_LEVEL_IN
 Text HLabel 7000 3750 2    60   Output ~ 0
 RC_PWM_OUT
@@ -267,9 +273,7 @@ Text HLabel 4450 3550 0    60   Input ~ 0
 USART4_RXI
 Text HLabel 4450 3650 0    60   Input ~ 0
 USART4_TXO
-Text HLabel 4450 3150 0    60   Output ~ 0
-LED1
-Text HLabel 4450 3050 0    60   Output ~ 0
+Text HLabel 4500 3950 0    60   Output ~ 0
 PAN_MOTOR_DIR
 $Comp
 L OSD_V2_1 M1
