@@ -23,11 +23,13 @@
 */
 
 #include "resources.hpp"
+#include "fsk.hpp"
 
 void osd_setup();
 void setup_telemetry_parser();
 void setup_telemetry_values();
 
+#if 0
 namespace {
 
    constexpr uint32_t gpioa_unused[] ={
@@ -103,12 +105,14 @@ namespace {
    }
 
 }
+#endif
  
 extern "C" void setup()
 {
   osd_setup();
-  setup_unused_pins();
-  setup_analog_inputs() ;
+ // setup_unused_pins();
+ // setup_analog_inputs() ;
+  fsk::setup();
   setup_telemetry_values();
   setup_telemetry_parser();
 }
