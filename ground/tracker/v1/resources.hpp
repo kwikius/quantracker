@@ -48,11 +48,12 @@ typedef quan::stm32::tim4 fsk_filter_timer;
 typedef quan::mcu::pin<quan::stm32::gpioa,0>    user_switch_pin;  
 
 typedef quan::mcu::pin<quan::stm32::gpioa,1>    elev_servo_pwm_out_pin;                // SF: TIM2_CH2:AF1
-/// remap to 
-typedef quan::mcu::pin<quan::stm32::gpioa,2>    rc_tx_out_pin;                         // SF: TIM2_CH3:AF1
 
-typedef quan::mcu::pin<quan::stm32::gpioa,3>  analog_video_in; // ADC123_IN3
+//###############use for serial port from air_osd_rx
+typedef quan::mcu::pin<quan::stm32::gpioa,2>   air_osd_tx_out_pin;      // USART2_TX 
 
+typedef quan::mcu::pin<quan::stm32::gpioa,3>   air_osd_rx_in_pin;        // USART2_RX
+//#############################################################
 // keep internal DAC's
 //on pa4 / pa5 free
 
@@ -176,7 +177,7 @@ typedef quan::stm32::i2c_port<quan::stm32::i2c1,i2c1_scl,i2c1_sda> i2c_mag_port;
 
 //might be better for telem as is fast!
 typedef quan::stm32::usart1 gps_usart;   //tx & rx dependent on GPS freq
-typedef quan::stm32::usart2 frsky_usart;  // tx & rx 9600( only needs to be rx though!)
+typedef quan::stm32::usart2 air_osd_serial_port;  // tx & rx 9600( only needs to be rx though!)
 typedef quan::stm32::usart3 sliprings_usart;  // tx & rx via sliprings 9600
 // cant use usart1 or usart6 as cant support (low) 1200 baud
 typedef quan::stm32::uart4  av_telem_uart; // 1200 baud rx only
@@ -186,9 +187,9 @@ typedef quan::stm32::uart5  free_usart_rx; // rx only
 struct interrupt_priority{
    static constexpr uint32_t systick_timer = 15;
    static constexpr uint32_t exti_mag_rdy = 14;
-   static constexpr uint32_t frsky_serial_port= 13;
+   static constexpr uint32_t airosd_serial_port= 13;
+   static constexpr uint32_t sliprings_serial_port = 13;
    static constexpr uint32_t av_fsk_serial_port = 12;
-   static constexpr uint32_t sliprings_serial_port = 11;
    static constexpr uint32_t i2c_mag_evt  = 10;
    static constexpr uint32_t loop_timer = 9;
    static constexpr uint32_t fsk_adc = 8;

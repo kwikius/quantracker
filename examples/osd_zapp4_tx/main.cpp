@@ -23,7 +23,6 @@ int main()
   setup();
 
   create_tasks();
-   
   start_scheduler();
 
 }

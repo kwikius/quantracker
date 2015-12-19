@@ -110,9 +110,23 @@ namespace {
 extern "C" void setup()
 {
   osd_setup();
+
+   quan::stm32::module_enable<heartbeat_led_pin::port_type>();
+
+   quan::stm32::apply<
+      heartbeat_led_pin
+      , quan::stm32::gpio::mode::output
+      , quan::stm32::gpio::otype::push_pull
+      , quan::stm32::gpio::pupd::none
+      , quan::stm32::gpio::ospeed::slow
+      , quan::stm32::gpio::ostate::low
+   >();
  // setup_unused_pins();
  // setup_analog_inputs() ;
-  fsk::setup();
+ // fsk::setup();
   setup_telemetry_values();
   setup_telemetry_parser();
+
+//   mavlink_tx_rx_task::setup<115200>(interrupt_priority::telemetry_input_port);
+//   mavlink_tx_rx_task::enable();
 }

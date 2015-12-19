@@ -42,17 +42,17 @@ extern "C" void UART4_IRQHandler()
    quan::stm32::usart::rx_irq_handler<av_fsk::serial_port>();
 }
 
-#if 0
+#if 1
 extern "C" void USART2_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART2_IRQHandler()
 {
    static_assert(
    std::is_same<
-      frsky::serial_port::usart_type,quan::stm32::usart2
+      airosd::serial_port::usart_type,quan::stm32::usart2
    >::value
    ,"invalid usart for serial_port irq");
 
-   quan::stm32::usart::irq_handler<frsky::serial_port>();
+   quan::stm32::usart::irq_handler<airosd::serial_port>();
 }
 #endif
 

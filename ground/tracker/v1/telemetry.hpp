@@ -46,6 +46,7 @@ struct telemetry{
         static void parse_frsky_bytestuff();
         static void parse_av_cobs();
         static void parse_command_line();
+        static void parse_airosd();
         static protocol_t m_protocol;
    
 };

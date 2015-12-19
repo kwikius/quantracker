@@ -260,7 +260,7 @@ struct task_priority{
 // these prob dont belong here should prob be in user namespace
  // somehow to get priority
    static constexpr uint32_t fsk = ( tskIDLE_PRIORITY + 1UL );
-   static constexpr uint32_t mavlink = ( tskIDLE_PRIORITY + 4UL );
+   static constexpr uint32_t mavlink = ( tskIDLE_PRIORITY + 3UL );
    static constexpr uint32_t frsky = ( tskIDLE_PRIORITY + 3UL );
 
    static constexpr uint32_t heartbeat = ( tskIDLE_PRIORITY + 1UL );

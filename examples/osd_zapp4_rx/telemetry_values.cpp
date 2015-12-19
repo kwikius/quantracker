@@ -26,6 +26,7 @@ void setup_telemetry_values()
 {
    if(m_position_mutex == NULL){
       m_position_mutex = xSemaphoreCreateMutex();
+      position.alt = quan::length_<int32_t>::mm{-1000000};  // set an improbable start alt
    }
 }
 

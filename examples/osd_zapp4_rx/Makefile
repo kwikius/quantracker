@@ -28,8 +28,8 @@ include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 # just for fonts
 RESOURCE_PATH = ../../examples/osd_example1/
 
-local_objects = main.o application.o setup.o on_draw.o rx_telemetry.o telemetry_values.o \
-fsk_task.o fsk_output.o 
+local_objects = main.o application.o setup.o on_draw.o rx_telemetry.o telemetry_values.o  \
+serial_port.o output.o
 
 OBJDIR = ./obj/
 

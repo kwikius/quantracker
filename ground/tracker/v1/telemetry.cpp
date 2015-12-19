@@ -110,8 +110,9 @@ void telemetry::parse_input()
    if(get_protocol() == protocol_t::command_line){
       parse_commandline();
    }else{
-      parse_av_cobs();
+      //parse_av_cobs();
       telemetry::parse_frsky_bytestuff();
+      parse_airosd();
    }
  //  parse_input_from_FrSky_with_cobs_protocol();
 }

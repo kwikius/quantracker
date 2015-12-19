@@ -25,6 +25,7 @@
 
 void osd_setup();
 
+#if 0
 namespace {
 
    constexpr uint32_t gpioa_unused[] ={
@@ -100,10 +101,22 @@ namespace {
    }
 
 }
+#endif
  
 extern "C" void setup()
 {
   osd_setup();
-  setup_unused_pins();
-  setup_analog_inputs() ;
+
+//  setup_unused_pins();
+//  setup_analog_inputs() ;
+    quan::stm32::module_enable<heartbeat_led_pin::port_type>();
+
+   quan::stm32::apply<
+      heartbeat_led_pin
+      , quan::stm32::gpio::mode::output
+      , quan::stm32::gpio::otype::push_pull
+      , quan::stm32::gpio::pupd::none
+      , quan::stm32::gpio::ospeed::slow
+      , quan::stm32::gpio::ostate::low
+   >();
 }

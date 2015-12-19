@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
 Quantracker Air OSD Sandbox application
-=======
-Minimal Quantracker Air OSD Hello World application
->>>>>>> devel
 */
 
 #include <quantracker/osd/osd.hpp>

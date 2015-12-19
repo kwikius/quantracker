@@ -37,13 +37,13 @@ struct sliprings{
    > serial_port;
 };
 
-struct frsky{
-   typedef frsky_txo_pin txo_pin;
-   typedef frsky_rxi_pin rxi_pin;
+struct airosd{
+   typedef air_osd_tx_out_pin txo_pin;
+   typedef air_osd_rx_in_pin rxi_pin;
    static constexpr uint32_t in_buf_size = 100;
-   static constexpr uint32_t out_buf_size = 0;
+   static constexpr uint32_t out_buf_size = 100;
    typedef quan::stm32::serial_port<
-   frsky_usart,out_buf_size,in_buf_size,txo_pin,rxi_pin
+   air_osd_serial_port,out_buf_size,in_buf_size,txo_pin,rxi_pin
    > serial_port;
 };
 

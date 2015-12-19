@@ -28,15 +28,17 @@ namespace {
       quan::length_<int32_t>::mm
    > pos_type;
 
+   template <typename Port>
    bool do_frame( pos_type & new_pos)
    {
-      if (! av_fsk::serial_port::in_avail()) {
+      if (! Port::serial_port::in_avail()) {
          return false;
       }
+      error_led.switch_on();
       static uint8_t ar[16];
       static uint8_t idx = 0;
       
-      uint8_t ch = av_fsk::serial_port::get();
+      uint8_t ch = Port::serial_port::get();
       if (idx != 0) { // in frame
          if (ch != 0U) {
             ar[idx] = ch;
@@ -45,9 +47,9 @@ namespace {
                // if conv failed do error
                bool no_error = quan::tracker::zapp3_decode (ar,new_pos);
                if ( no_error){
-                  error_led.switch_off();
+                //  error_led.switch_off();
                }else{
-                  error_led.switch_on();
+                 // error_led.switch_on();
                }
                return no_error;
             } else {
@@ -55,7 +57,7 @@ namespace {
             }
          } else { // A zero in the encoded data means corruption
             idx = 0U;
-            error_led.switch_on();
+           // error_led.switch_on();
             return false;
          }
       } else { // looking for start of frame
@@ -73,8 +75,21 @@ void telemetry::parse_av_cobs()
 {
   // read av sp
    pos_type new_pos;
-   if (do_frame(new_pos) ){
+   if (do_frame<av_fsk>(new_pos) ){
        telemetry::m_aircraft_position = new_pos;
        telemetry::state_changed = true;
    }
 }
+
+
+void telemetry::parse_airosd()
+{
+   pos_type new_pos;
+   if (do_frame<airosd>(new_pos) ){
+       telemetry::m_aircraft_position = new_pos;
+       telemetry::state_changed = true;
+   }
+
+}
+
+

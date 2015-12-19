@@ -164,13 +164,17 @@ extern "C" void setup()
   // frsky::serial_port::set_irq_priority(interrupt_priority::frsky_serial_port);
    sliprings::serial_port::set_irq_priority(interrupt_priority::sliprings_serial_port);
    av_fsk::serial_port::set_irq_priority(interrupt_priority::av_fsk_serial_port);
+   airosd::serial_port::set_irq_priority(interrupt_priority::airosd_serial_port);
 
   // frsky::serial_port::init();
   // sliprings::serial_port::init();
    av_fsk::serial_port::init();
+   airosd::serial_port::init();
      // turn off tx output ( was af)
 
    av_fsk::serial_port::set_baudrate<1200,false>();
+
+   airosd::serial_port::set_baudrate<115200,false>();
    setup_fsk_demod();
 
    azimuth::encoder::setup();
