@@ -1,4 +1,4 @@
-update=Mon 21 Sep 2015 13:42:50 BST
+update=Fri 08 Jan 2016 14:14:58 GMT
 version=1
 last_client=eeschema
 [cvpcb]
@@ -126,3 +126,5 @@ LibName12=/home/andy/cpp/projects/quantracker/kicad/lib/conn_4
 LibName13=/home/andy/cpp/projects/quantracker/kicad/lib/74ls125
 LibName14=/home/andy/cpp/projects/quantracker/kicad/lib/sn74lvc1g3157
 LibName15=/home/andy/cpp/projects/quantracker/kicad/lib/74lvc1g86
+LibName16=/home/andy/cpp/projects/quantracker/kicad/lib/ms5611
+LibName17=/home/andy/cpp/projects/quantracker/kicad/lib/fm25v01
