@@ -10,20 +10,19 @@ void parse_data(char ch);
 
 namespace {
   quan::uav::cobs::packet_parser* packet_parser = nullptr;
-//  uint32_t good_packets_received = 0;
-//  uint32_t packets_received = 0;
+  uint32_t m_num_errors = 0;
   
 }
 
-//uint32_t get_good_packets_received()
-//{
-//  return good_packets_received;
-//}
-//
-//uint32_t get_packets_received()
-//{
-//  return packets_received;
-//}
+uint32_t get_num_telem_errors()
+{
+   return m_num_errors;
+}
+
+void clear_telem_errors()
+{
+   m_num_errors = 0;
+}
 
 void setup_telemetry_parser()
 {
@@ -58,10 +57,8 @@ namespace {
 void parse_data(char ch)
 {
    uint16_t const packet_length = packet_parser->parse(ch);
+   m_num_errors += packet_parser->clear_errors();
    if ( packet_length > 0 ){
-
-      // got a packet
-      //++ packets_received;
       uint8_t const * decoded_packet_buffer = packet_parser->get_decoded_packet();
       // check its length matches the command
       uint16_t command_id = decoded_packet_buffer[0];
@@ -75,16 +72,21 @@ void parse_data(char ch)
                      if(pos_var){
                         *pos_var = pos;
                         mutex_release_position();
-                           if (++count == 50){
-                              count = 0;
-                              quan::stm32::complement<heartbeat_led_pin>();
-                           }
+                        if (++count == 50){
+                           count = 0;
+                           quan::stm32::complement<heartbeat_led_pin>();
+                        }
                      }
+                  }else{
+                     ++m_num_errors;
                   }
+               }else{
+                  ++m_num_errors;
                }
             }
             break;
          default:{
+            ++ m_num_errors;
             break;
          }
       }

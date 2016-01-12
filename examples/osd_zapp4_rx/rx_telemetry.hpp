@@ -16,4 +16,7 @@
 quan::uav::osd::norm_position_type * mutex_acquire_position(TickType_t ms);
 void   mutex_release_position();
 
+uint32_t get_num_telem_errors();
+void clear_telem_errors();
+
 #endif // QUANTRACKER_AIR_OSD_TELEMETRY_HPP_INCLUDED
