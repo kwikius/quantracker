@@ -37,9 +37,9 @@ namespace detail{
    detect sync with noise
 */
 #if defined (QUAN_OSD_TELEM_RECEIVER)
-   bool swap_to_internal_video_on_signal_lost =  false:
+   bool swap_to_internal_video_on_signal_lost =  false;
 #else
-   bool swap_to_internal_video_on_signal_lost =  false:
+   bool swap_to_internal_video_on_signal_lost =  true;
 #endif
 }
 namespace {
@@ -66,13 +66,14 @@ namespace {
          }
 
          if ( osd_state::get() == osd_state::external_video ){  
-
             constexpr quan::time::ms wait_time{1000};
-            if (swap_to_internal_video_on_signal_lost && !detail::swap_osd_buffers(wait_time)){
+            if (  !detail::swap_osd_buffers(wait_time)){
+               
+               if (detail::swap_to_internal_video_on_signal_lost == true) {
                   osd_state::set(osd_state::internal_video);
+               }
             }
          }
-
       }
    }
 
@@ -82,7 +83,7 @@ namespace {
 
 void create_draw_task()
 {
-    detail::create_osd_swap_semaphores();
+   detail::create_osd_swap_semaphores();
 
    xTaskCreate(
       draw_task,"draw_task", 
@@ -91,5 +92,4 @@ void create_draw_task()
       task_priority::draw,
       &task_handle
    );
-   // wait for 
 }
