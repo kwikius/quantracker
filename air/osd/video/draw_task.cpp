@@ -26,7 +26,21 @@ namespace detail{
    bool swap_osd_buffers(quan::time::ms const & wait_time);
    void create_osd_swap_semaphores();
 
-   
+
+/*
+   Will make this settable at some point
+   For transmitte it is OK to go to internal video on no input
+   but for receiver on tracker
+   it isnt ideal to go to black screen on video signal lost
+   since it may still actually be visible
+   Could prob work on the sync_sep algorithm to better 
+   detect sync with noise
+*/
+#if defined (QUAN_OSD_TELEM_RECEIVER)
+   bool swap_to_internal_video_on_signal_lost =  false:
+#else
+   bool swap_to_internal_video_on_signal_lost =  false:
+#endif
 }
 namespace {
 
@@ -54,10 +68,8 @@ namespace {
          if ( osd_state::get() == osd_state::external_video ){  
 
             constexpr quan::time::ms wait_time{1000};
-            if (!detail::swap_osd_buffers(wait_time)){
-               osd_state::set(osd_state::internal_video);
-            }else{
-               // quan::stm32::complement<heartbeat_led_pin>();
+            if (swap_to_internal_video_on_signal_lost && !detail::swap_osd_buffers(wait_time)){
+                  osd_state::set(osd_state::internal_video);
             }
          }
 
