@@ -1,0 +1,36 @@
+language: cpp
+sudo: false
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - build-essential
+    - g++-4.8
+    - gcc-4.8
+    - lib32bz2-1.0
+    - lib32ncurses5
+    - lib32z1
+
+install:
+# install the quantracker dependencies
+   - echo retrieving and building the installer
+   - mkdir air_installer_tmp && cd air_installer_tmp
+   - wget https://github.com/kwikius/air_installer/archive/install_test.zip
+   - unzip install_test.zip
+   - cd air_installer-install_test
+   - make clean && make CXX="g++-4.8"
+   - mkdir /home/travis/ap_lib
+   - mkdir /home/travis/ap_bin
+   - echo executing the installer
+   - make execute
+   - cd ../
+   - echo cleaning up the installer
+   - rm -rf air_installer_tmp
+   - cd ../
+
+script: > 
+      mv /home/travis/ap_lib/quantracker/Dependencies.mk ./Dependencies.mk
+      && make osd_libs
+    
