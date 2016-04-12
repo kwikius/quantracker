@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Feb 2016 18:58:17 GMT
+EESchema Schematic File Version 2  date Tue 12 Apr 2016 10:15:25 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -46,7 +46,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 8 8
 Title ""
-Date "18 feb 2016"
+Date "12 apr 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -368,11 +368,11 @@ F 1 "R" V 1200 6650 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L TS5A317 U?
+L TS5A3157 U?
 U 1 1 56799120
 P 6750 2250
 F 0 "U?" H 6650 2150 60  0000 C CNN
-F 1 "TS5A317" H 6950 1700 60  0000 C CNN
+F 1 "TS5A3157" H 6400 1650 60  0000 C CNN
 	1    6750 2250
 	-1   0    0    -1  
 $EndComp
