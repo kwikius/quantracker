@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 18 Feb 2016 18:58:17 GMT
+EESchema Schematic File Version 2  date Tue 12 Apr 2016 11:38:18 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -11,6 +11,7 @@ LIBS:diodesch_ipc7531_2005
 LIBS:transistors
 LIBS:conn
 LIBS:linear
+LIBS:lm358
 LIBS:regul
 LIBS:74xx
 LIBS:cmos4000
@@ -39,14 +40,19 @@ LIBS:valves
 LIBS:max4390
 LIBS:spdt
 LIBS:ts5a3157
-LIBS:osd-cache
+LIBS:fms6141
+LIBS:mcp6562
+LIBS:stm32f405rgt6
+LIBS:si501
+LIBS:74lvc1g86
+LIBS:si8642
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 8
 Title ""
-Date "18 feb 2016"
+Date "12 apr 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -525,10 +531,10 @@ S 7050 3300 1650 1200
 U 544A4CB8
 F0 "video_circuit" 60
 F1 "video_circuit.sch" 60
-F9 "CSYNC" O L 7050 3700 60 
-F10 "VIDEO_SAMPLE" O L 7050 4300 60 
-F13 "VIDEO_+5V" B R 8700 3750 60 
-F14 "VIDEO_GND" B R 8700 3850 60 
-F15 "VIDEO_+3.3V" I L 7050 3400 60 
+F2 "CSYNC" O L 7050 3700 60 
+F3 "VIDEO_SAMPLE" O L 7050 4300 60 
+F4 "VIDEO_+5V" B R 8700 3750 60 
+F5 "VIDEO_GND" B R 8700 3850 60 
+F6 "VIDEO_+3.3V" I L 7050 3400 60 
 $EndSheet
 $EndSCHEMATC
