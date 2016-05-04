@@ -19,8 +19,6 @@
 #include "events.hpp"
 #include <quan/stm32/systick.hpp>
 
-volatile int64_t quan::stm32::detail::systick_tick::current = 0;
-
 void setup_systick()
 {
      // configure systeick for 1 ms;
@@ -31,10 +29,29 @@ void setup_systick()
   NVIC_SetPriority(SysTick_IRQn,15);
 }
 
+#if 1
+quan::stm32::detail::systick_tick::current_t 
+   quan::stm32::detail::systick_tick::current = {0,0};
+
+extern "C" void Systick_Handler() __attribute__ ((interrupt ("IRQ")));
+extern "C" void SysTick_Handler()
+{
+   if ( quan::stm32::detail::systick_tick::current.ar[0] == 0xffffffff){
+       quan::stm32::detail::systick_tick::current.ar[0] = 0;
+       ++ quan::stm32::detail::systick_tick::current.ar[1];
+   }else{
+       ++ quan::stm32::detail::systick_tick::current.ar[0];
+   }
+}
+
+#else
+volatile int64_t quan::stm32::detail::systick_tick::current = 0;
+
 extern "C" void Systick_Handler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void SysTick_Handler()
 {
    ++quan::stm32::detail::systick_tick::current;
    ms1_event.set();
 }
+#endif
 
