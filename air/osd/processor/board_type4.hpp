@@ -40,7 +40,9 @@
 
 //timers used
 typedef quan::stm32::tim2                       video_columns_gate_timer;
+// tim3 is also used as the internal video mode timer
 typedef quan::stm32::tim3                       video_rows_line_counter;
+// 
 typedef quan::stm32::tim9                       spi_clock_timer;
 //Think this could be changed if necessary
 // maybe change this to 32 bit timer and leave running for microsecs
