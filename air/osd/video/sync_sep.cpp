@@ -364,12 +364,6 @@ namespace detail{
          quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
          quan::stm32::gpio::pupd::pull_up
       >();
-
-      quan::stm32::apply<
-         video_in_hsync_second_edge_pin,
-         quan::stm32::gpio::mode::input, // PB15 TIM12_CH2
-         quan::stm32::gpio::pupd::pull_up
-      >();
    }
 
    void sync_sep_setup()
@@ -384,10 +378,13 @@ namespace detail{
          quan::stm32::gpio::pupd::pull_up
       >();
 
+      // PB15 is now not used, since PB14 can do both edges.
+      // Note that it is connected on the board so unless the trace is cut
+      // acnt be used for other things on Quantracker Air V2.2
       quan::stm32::apply<
          video_in_hsync_second_edge_pin,
-         quan::stm32::gpio::mode::af9, // PB15 TIM12_CH2
-         quan::stm32::gpio::pupd::pull_up
+         quan::stm32::gpio::mode::input, // PB15 TIM12_CH2 not used as both edges can be mapped on PB14
+         quan::stm32::gpio::pupd::none
       >();
 
       quan::stm32::module_enable<sync_sep_timer>();
@@ -398,8 +395,10 @@ namespace detail{
       // cc1 capture on first edge of hsync
       // cc2 capture on second edge of hsync
       quan::stm32::tim::ccmr1_t ccmr1 = 0;
+      // N.b If necessary PB15 rather than PB14
+      // could be used by mapping these to TI2
       ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
-      ccmr1.cc2s = 0b01; // CC2 is input mapped on TI2
+      ccmr1.cc2s = 0b10;// // CC2 is input mapped on TI1
       sync_sep_timer::get()->ccmr1.set(ccmr1.value);
       quan::stm32::tim::ccer_t ccer = 0;
       ccer.cc1p = true; // CC1 is falling edge capture

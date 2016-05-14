@@ -10,7 +10,8 @@
 #include "osd_state.hpp"
 
 // assume that OSD is suspended
-// external pullups may need to be removed
+// external pullups (R31 and R32 for quantracker Air V2.2)
+// need to be removed
 // since SPI pins are inputs before transmission
 // so will have to control init state via internal pullups
 // nwhite == adg addr0
