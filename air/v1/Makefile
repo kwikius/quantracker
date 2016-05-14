@@ -13,6 +13,7 @@ CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc
 LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
+SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
 INCLUDES = /opt/stm32f0/STM32F0xx_StdPeriph_Lib_V1.1.0/Libraries/CMSIS/Include \
 /opt/stm32f0/STM32F0xx_StdPeriph_Lib_V1.1.0/Libraries/CMSIS/Device/ST/STM32F0xx/Include \
@@ -73,6 +74,7 @@ test: main.elf
 	@ echo "...copying"
 	$(CP) $(CPFLAGS) main.elf main.bin
 	$(OD) $(ODFLAGS) main.elf > main.lst
+	$(SIZ) -A main.elf
 
 main.elf: startup.o $(objects) 
 	@ echo "..linking"

@@ -1,0 +1,705 @@
+EESchema Schematic File Version 2  date Tue 12 Apr 2016 11:38:18 BST
+LIBS:conn_20
+LIBS:conn_6
+LIBS:conn_5
+LIBS:conn_3
+LIBS:conn_2
+LIBS:led_ipc-7351_2005
+LIBS:power
+LIBS:device
+LIBS:diodesch_ipc7531_2005
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:lm358
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:max4390
+LIBS:spdt
+LIBS:ts5a3157
+LIBS:fms6141
+LIBS:mcp6562
+LIBS:stm32f405rgt6
+LIBS:si501
+LIBS:74lvc1g86
+LIBS:si8642
+EELAYER 25  0
+EELAYER END
+$Descr A4 11700 8267
+encoding utf-8
+Sheet 3 8
+Title "noname.sch"
+Date "12 apr 2016"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Wire Wire Line
+	2100 3450 2250 3450
+Wire Wire Line
+	2250 3450 2300 3450
+Connection ~ 2300 3450
+$Comp
+L LED_IPC-7351_2005 D3
+U 1 1 558BAE9C
+P 7200 3650
+F 0 "D3" H 7200 3500 50  0000 C CNN
+F 1 "Blue_Led" H 7200 3800 50  0000 C CNN
+F 2 "0603" H 7200 3650 60  0001 C CNN
+F 3 "D" H 7200 3650 60  0001 C CNN
+F 4 "M" H 7200 3650 60  0001 C CNN "MFG Name"
+F 5 "P" H 7200 3650 60  0001 C CNN "MFG Part Num"
+F 6 "Led/Blue/0603" H 7200 3650 60  0001 C CNN "Description"
+	1    7200 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2300 3450 2950 3450
+Wire Wire Line
+	1700 3800 1700 3700
+Wire Wire Line
+	1700 3700 1700 3700
+Wire Wire Line
+	2250 3200 2300 3200
+Wire Wire Line
+	2300 3200 2300 3450
+Wire Wire Line
+	1700 4600 1700 4600
+Wire Wire Line
+	900  4600 1700 4600
+Wire Wire Line
+	1700 4600 2650 4600
+Wire Wire Line
+	2650 4600 3300 4600
+Wire Wire Line
+	3300 4600 4100 4600
+Wire Wire Line
+	4100 4600 5050 4600
+Wire Wire Line
+	5050 4600 5350 4600
+Wire Wire Line
+	5350 4600 6150 4600
+Wire Wire Line
+	6150 4600 6750 4600
+Wire Wire Line
+	6750 4600 7200 4600
+Wire Wire Line
+	7200 4600 7550 4600
+Wire Wire Line
+	7550 4600 7950 4600
+Wire Wire Line
+	7950 4600 8850 4600
+Wire Wire Line
+	8850 4600 9550 4600
+Wire Wire Line
+	9550 4600 9950 4600
+Connection ~ 9950 3300
+Wire Wire Line
+	9950 3300 9550 3300
+Wire Wire Line
+	9550 3300 9550 3800
+Wire Wire Line
+	9550 3800 9550 4000
+Connection ~ 9950 3400
+Wire Wire Line
+	9950 3400 10600 3400
+Wire Wire Line
+	10700 3000 9950 3000
+Wire Wire Line
+	9950 3000 9950 3200
+Wire Wire Line
+	9950 3200 9950 3300
+Wire Wire Line
+	9950 3300 9950 3400
+Wire Wire Line
+	9950 3400 9950 3600
+Wire Wire Line
+	9950 3600 9950 4000
+Wire Wire Line
+	2650 3900 2650 3700
+Wire Wire Line
+	2650 3700 3300 3700
+Wire Wire Line
+	8250 3800 8150 3800
+Wire Wire Line
+	8150 3800 8050 3800
+Connection ~ 9550 4600
+Wire Wire Line
+	9950 4600 9950 4400
+Connection ~ 9550 3800
+Connection ~ 8150 3800
+Wire Wire Line
+	8150 3800 8150 4050
+Wire Wire Line
+	8150 4050 8250 4050
+Connection ~ 7550 3300
+Wire Wire Line
+	7550 3300 8700 3300
+Connection ~ 7550 3250
+Wire Wire Line
+	7550 3250 8350 3250
+Connection ~ 7200 4600
+Wire Wire Line
+	7200 4600 7200 4450
+Connection ~ 7950 4600
+Wire Wire Line
+	7950 4600 7950 4350
+Wire Wire Line
+	7200 3800 7200 3950
+Connection ~ 7550 4600
+Connection ~ 6150 3250
+Wire Wire Line
+	6150 3250 6450 3250
+Wire Wire Line
+	6450 3250 6450 3350
+Connection ~ 7600 3200
+Wire Wire Line
+	7600 3050 7600 3200
+Connection ~ 3000 3450
+Wire Wire Line
+	3000 3450 3000 3250
+Connection ~ 7550 3200
+Wire Wire Line
+	7550 3200 7550 3250
+Wire Wire Line
+	7550 3250 7550 3300
+Wire Wire Line
+	7550 3300 7550 3400
+Wire Wire Line
+	7550 3400 7550 3450
+Wire Wire Line
+	7550 3450 7550 3500
+Wire Wire Line
+	7550 3500 7550 3550
+Wire Wire Line
+	7550 3550 7550 4050
+Wire Wire Line
+	3400 3450 3300 3450
+Wire Wire Line
+	3300 3450 3000 3450
+Wire Wire Line
+	3000 3450 2950 3450
+Connection ~ 3300 3450
+Wire Wire Line
+	3300 3900 3300 3700
+Wire Wire Line
+	3300 3700 3300 3600
+Wire Wire Line
+	3300 3600 3300 3450
+Wire Wire Line
+	7750 3200 7600 3200
+Wire Wire Line
+	7600 3200 7550 3200
+Wire Wire Line
+	7550 3200 6850 3200
+Wire Wire Line
+	6050 3200 6150 3200
+Wire Wire Line
+	6150 3200 6750 3200
+Wire Wire Line
+	6750 3200 6850 3200
+Wire Wire Line
+	5150 3700 5150 3800
+Wire Wire Line
+	5150 3800 4950 3800
+Wire Wire Line
+	4950 3800 4950 3550
+Wire Wire Line
+	4950 3550 4800 3550
+Wire Wire Line
+	5450 3200 5350 3200
+Wire Wire Line
+	5350 3200 5150 3200
+Wire Wire Line
+	5150 3200 4850 3200
+Wire Wire Line
+	4850 3200 4850 3400
+Wire Wire Line
+	4850 3400 4800 3400
+Connection ~ 5050 4600
+Wire Wire Line
+	4800 3700 4850 3700
+Wire Wire Line
+	4850 3700 4850 3900
+Connection ~ 6150 3900
+Wire Wire Line
+	4850 3900 6150 3900
+Connection ~ 5350 3200
+Wire Wire Line
+	5350 3200 5350 4100
+Connection ~ 6150 4600
+Wire Wire Line
+	6150 4600 6150 4500
+Wire Wire Line
+	6150 4000 6150 3900
+Wire Wire Line
+	6150 3900 6150 3850
+Wire Wire Line
+	6150 3850 6150 3800
+Wire Wire Line
+	6150 3300 6150 3250
+Wire Wire Line
+	6150 3250 6150 3200
+Connection ~ 6150 3200
+Wire Wire Line
+	3300 4600 3300 4300
+Connection ~ 5350 4600
+Wire Wire Line
+	5350 4600 5350 4400
+Wire Wire Line
+	4100 4600 4100 4150
+Connection ~ 4100 4600
+Wire Wire Line
+	5150 3300 5150 3200
+Connection ~ 5150 3200
+Wire Wire Line
+	5050 4600 5050 6450
+Wire Wire Line
+	3400 3600 3300 3600
+Connection ~ 3300 3600
+Connection ~ 3300 4600
+Wire Wire Line
+	7550 4600 7550 4450
+Wire Wire Line
+	6450 3750 6450 3850
+Wire Wire Line
+	6450 3850 6150 3850
+Connection ~ 6150 3850
+Connection ~ 9700 6450
+Connection ~ 9550 6450
+Connection ~ 9850 6450
+Connection ~ 9400 6450
+Connection ~ 9250 6450
+Wire Wire Line
+	5050 6450 8050 6450
+Wire Wire Line
+	8050 6450 9250 6450
+Wire Wire Line
+	9250 6450 9400 6450
+Wire Wire Line
+	9400 6450 9550 6450
+Wire Wire Line
+	9550 6450 9700 6450
+Wire Wire Line
+	9700 6450 9850 6450
+Wire Wire Line
+	9850 6450 10250 6450
+Wire Wire Line
+	8850 4600 8850 4400
+Wire Wire Line
+	7550 3550 7950 3550
+Wire Wire Line
+	7950 3550 7950 3950
+Connection ~ 7550 3550
+Wire Wire Line
+	7550 3500 8050 3500
+Connection ~ 7550 3500
+Wire Wire Line
+	8050 3500 8050 3800
+Wire Wire Line
+	7550 3450 9500 3450
+Connection ~ 7550 3450
+Wire Wire Line
+	9450 3800 9550 3800
+Wire Wire Line
+	9550 4400 9550 4600
+Connection ~ 8850 4600
+Wire Wire Line
+	7200 3500 7200 3400
+Wire Wire Line
+	7200 3400 7550 3400
+Connection ~ 7550 3400
+Connection ~ 3300 3700
+Wire Wire Line
+	2650 4600 2650 4300
+Connection ~ 2650 4600
+Wire Wire Line
+	8350 3250 8350 1950
+Wire Wire Line
+	9400 6450 9400 5350
+Wire Wire Line
+	9700 6450 9700 5350
+Wire Wire Line
+	9250 6450 9250 5350
+Wire Wire Line
+	9550 6450 9550 5350
+Wire Wire Line
+	9850 5350 9850 6450
+Wire Wire Line
+	9500 3450 9500 2000
+Wire Wire Line
+	8700 3300 8700 1850
+Connection ~ 9950 3200
+Connection ~ 9950 3600
+Wire Wire Line
+	9950 3200 10650 3200
+Connection ~ 8050 6450
+Wire Wire Line
+	8050 6450 8050 5550
+Wire Wire Line
+	1600 3450 1700 3450
+Wire Wire Line
+	1000 3450 800  3450
+Wire Wire Line
+	1700 4600 1700 4200
+Connection ~ 1700 4600
+Connection ~ 1700 4600
+Wire Wire Line
+	10850 3600 9950 3600
+Wire Wire Line
+	1700 3450 1700 3700
+Wire Wire Line
+	1700 3700 1700 3450
+Wire Wire Line
+	1700 3450 1800 3450
+$Comp
+L DIODESCH_IPC7531_2005 D6
+U 1 1 558B9B72
+P 1950 3450
+F 0 "D6" H 1950 3550 40  0000 C CNN
+F 1 "MBR0530T1G" H 1950 3350 40  0000 C CNN
+F 2 "SOD-123" H 1950 3450 60  0001 C CNN
+F 3 "D" H 1950 3450 60  0001 C CNN
+F 4 "On Semiconductor" H 1950 3450 60  0001 C CNN "MFG Name"
+F 5 "MBR0530T10G" H 1950 3450 60  0001 C CNN "MFG Part Num"
+F 6 "Diode Schottky/30V/500mA/SOD-123" H 1950 3450 60  0001 C CNN "Description"
+	1    1950 3450
+	-1   0    0    1   
+$EndComp
+$Comp
+L INDUCTOR L5
+U 1 1 5582041F
+P 1300 3450
+F 0 "L5" V 1250 3450 40  0000 C CNN
+F 1 "BLM18EG601SN1" V 1400 3450 40  0000 C CNN
+F 2 "0603" H 1300 3450 60  0001 C CNN
+F 3 "search.murata.co.jp/Cearamy/image/img/A03X/QNFA9107.pdf" H 1300 3450 60  0001 C CNN
+F 4 "Murata" H 1300 3450 60  0001 C CNN "MFG Name"
+F 5 "BLM18EG601SN1" H 1300 3450 60  0001 C CNN "MFG Part Num"
+F 6 "Inductor/Bead/0603" H 1300 3450 60  0001 C CNN "Description"
+	1    1300 3450
+	0    1    1    0   
+$EndComp
+Text HLabel 9700 5350 1    45   Output ~ 0
+VIDEO_OUT_GND
+Text HLabel 9850 5350 1    45   Output ~ 0
+MCU_GND
+Text HLabel 9550 5350 1    45   Output ~ 0
+VIDEO_IN_GND
+Text Label 7200 3900 0    45   ~ 0
+BLUE_LED_RES
+Text Label 4950 3800 0    45   ~ 0
+SWITCHER_CB
+$Comp
+L C C42
+U 1 1 54F874D2
+P 1700 4000
+F 0 "C42" H 1750 4100 50  0000 L CNN
+F 1 "0.1uF" H 1750 3900 50  0000 L CNN
+F 2 "0603" H 1700 4000 60  0001 C CNN
+F 3 "D" H 7750 6325 60  0001 C CNN
+F 4 "M" H 7750 6325 60  0001 C CNN "MFG Name"
+F 5 "P" H 7750 6325 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 7750 6325 60  0001 C CNN "Description"
+	1    1700 4000
+	1    0    0    -1  
+$EndComp
+Text HLabel 2250 3200 0    45   Input ~ 0
+VIN+RECT
+Text HLabel 900  4600 0    45   Input ~ 0
+VIN-
+Text HLabel 800  3450 0    45   Input ~ 0
+VIN+
+Text Label 4850 3200 0    45   ~ 0
+SWITCHER_OUT
+Text Label 5300 6450 0    45   ~ 0
+HUB_GND
+Text Label 3050 3450 0    45   ~ 0
+SWITCHER_VIN
+Text Label 5500 3900 0    45   ~ 0
+SWITCHER_FB
+Text Label 6250 3200 0    45   ~ 0
+SWITCHER_+5V
+Text Label 9550 3300 0    45   ~ 0
+HUB_+3.3V
+$Comp
+L PWR_FLAG #FLG01
+U 1 1 54F72D02
+P 7600 3050
+F 0 "#FLG01" H 7600 3320 30  0001 C CNN
+F 1 "PWR_FLAG" H 7600 3280 30  0000 C CNN
+	1    7600 3050
+	1    0    0    -1  
+$EndComp
+Text HLabel 8050 5550 1    45   Input ~ 0
+XP_GND
+Text Label 10250 6450 0    45   ~ 0
+HUB_GND
+$Comp
+L C C40
+U 1 1 54846E5A
+P 2650 4100
+F 0 "C40" H 2700 4200 50  0000 L CNN
+F 1 "0.1uF" H 2700 4000 50  0000 L CNN
+F 2 "0603" H 2650 4100 60  0001 C CNN
+F 3 "D" H 2650 4100 60  0001 C CNN
+F 4 "M" H 2650 4100 60  0001 C CNN "MFG Name"
+F 5 "P" H 2650 4100 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 2650 4100 60  0001 C CNN "Description"
+	1    2650 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C20
+U 1 1 54749249
+P 9950 4200
+F 0 "C20" H 10000 4300 50  0000 L CNN
+F 1 "0.1uF" H 10000 4100 50  0000 L CNN
+F 2 "0603" H 9950 4200 60  0001 C CNN
+F 3 "D" H 9950 4200 60  0001 C CNN
+F 4 "M" H 9950 4200 60  0001 C CNN "MFG Name"
+F 5 "P" H 9950 4200 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/10V/+-20%/X7R/0603" H 9950 4200 60  0001 C CNN "Description"
+	1    9950 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C19
+U 1 1 547491F8
+P 9550 4200
+F 0 "C19" H 9600 4300 50  0000 L CNN
+F 1 "10uF" H 9600 4100 50  0000 L CNN
+F 2 "0805" H 9550 4200 60  0001 C CNN
+F 3 "D" H 9550 4200 60  0001 C CNN
+F 4 "M" H 9550 4200 60  0001 C CNN "MFG Name"
+F 5 "P" H 9550 4200 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/10uF/10V/-20%+80%/Y5V/0805" H 9550 4200 60  0001 C CNN "Description"
+	1    9550 4200
+	1    0    0    -1  
+$EndComp
+Text HLabel 10850 3600 2    45   Output ~ 0
+XP_3.3V
+Text HLabel 10600 3400 2    45   Output ~ 0
+MAVLINK_+3.3V
+Text HLabel 10650 3200 2    45   Output ~ 0
+VIDEO_+3.3V
+Text HLabel 10700 3000 2    45   Output ~ 0
+MCU_+3.3V
+$Comp
+L LD39015MXXR U5
+U 1 1 5474880F
+P 8850 3900
+F 0 "U5" H 9225 3500 60  0000 C CNN
+F 1 "LD39015MXXR" H 8875 3875 60  0000 C CNN
+F 2 "SOT23-5" H 8850 3900 60  0001 C CNN
+F 3 "www.farnell.com/datasheets/1822669.pdf" H 8850 3900 60  0001 C CNN
+F 4 "ST Microelectronics" H 8850 3900 60  0001 C CNN "MFG Name"
+F 5 "LD39015M33R" H 8850 3900 60  0001 C CNN "MFG Part Num"
+F 6 "VoltageReg/3.3V/SOT23-5" H 8850 3900 60  0001 C CNN "Description"
+	1    8850 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C18
+U 1 1 5474880E
+P 7950 4150
+F 0 "C18" H 8000 4250 50  0000 L CNN
+F 1 "0.1uF" H 8000 4050 50  0000 L CNN
+F 2 "0603" H 7950 4150 60  0001 C CNN
+F 3 "D" H 7950 4150 60  0001 C CNN
+F 4 "M" H 7950 4150 60  0001 C CNN "MFG Name"
+F 5 "P" H 7950 4150 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.1uF/50V/+-20%/X7R/0603" H 7950 4150 60  0001 C CNN "Description"
+	1    7950 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R10
+U 1 1 547467E3
+P 7200 4200
+F 0 "R10" V 7280 4200 50  0000 C CNN
+F 1 "470R" V 7200 4200 50  0000 C CNN
+F 2 "0603" H 7200 4200 60  0001 C CNN
+F 3 "D" H 7200 4200 60  0001 C CNN
+F 4 "M" H 7200 4200 60  0001 C CNN "MFG Name"
+F 5 "P" H 7200 4200 60  0001 C CNN "MFG Part Num"
+F 6 "Resistor/470R/+-10%/0603" H 7200 4200 60  0001 C CNN "Description"
+	1    7200 4200
+	1    0    0    -1  
+$EndComp
+Text HLabel 9250 5350 1    45   Output ~ 0
+MAVLINK_GND
+Text Label 7750 3200 0    45   ~ 0
+HUB_+5V
+Text HLabel 9400 5350 1    45   Output ~ 0
+VIDEO_GND
+Text HLabel 8350 1950 1    45   Output ~ 0
+VIDEO_+5V
+Text HLabel 8700 1850 1    45   Output ~ 0
+XP_+5V
+Text HLabel 9500 2000 1    45   Output ~ 0
+VIDEO_OUT_+5V
+$Comp
+L BD9G101G U4
+U 1 1 5472F34B
+P 4100 3650
+F 0 "U4" H 4100 3800 60  0000 C CNN
+F 1 "BD9G101G" H 4100 3950 60  0000 C CNN
+F 2 "SOT23-6" H 4100 3650 60  0001 C CNN
+F 3 "rohmfs.rohm.com/en/products/databook/datasheet/ic/power/switchinh_regulator/bd9g101g-e.pdf" H 4100 3650 60  0001 C CNN
+F 4 "Rohm Semiconductor" H 4100 3650 60  0001 C CNN "MFG Name"
+F 5 "BD9101G" H 4100 3650 60  0001 C CNN "MFG Part Num"
+F 6 "Switching_Regulator_IC" H 4100 3650 60  0001 C CNN "Description"
+	1    4100 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C15
+U 1 1 5472ED3C
+P 6450 3550
+F 0 "C15" H 6500 3650 50  0000 L CNN
+F 1 "0.15uF" H 6500 3450 50  0000 L CNN
+F 2 "0603" H 6450 3550 60  0001 C CNN
+F 3 "D" H 6450 3550 60  0001 C CNN
+F 4 "M" H 6450 3550 60  0001 C CNN "MFG Name"
+F 5 "P" H 6450 3550 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/0.15uF/35V/+-10%/X7R/0603" H 6450 3550 60  0001 C CNN "Description"
+	1    6450 3550
+	1    0    0    -1  
+$EndComp
+Text Notes 7150 2750 0    45   ~ 0
+200 mA  @ 5V
+$Comp
+L PWR_FLAG #FLG02
+U 1 1 547116AD
+P 3000 3250
+F 0 "#FLG02" H 3000 3520 30  0001 C CNN
+F 1 "PWR_FLAG" H 3000 3480 30  0000 C CNN
+	1    3000 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C17
+U 1 1 54711603
+P 7550 4250
+F 0 "C17" H 7600 4350 50  0000 L CNN
+F 1 "10uF" H 7600 4150 50  0000 L CNN
+F 2 "1206" H 7550 4250 60  0001 C CNN
+F 3 "D" H 7550 4250 60  0001 C CNN
+F 4 "M" H 7550 4250 60  0001 C CNN "MFG Name"
+F 5 "P" H 7550 4250 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/10uF/50V/+-10%/X5R/1206" H 7550 4250 60  0001 C CNN "Description"
+	1    7550 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L INDUCTOR L3
+U 1 1 5433B3CB
+P 5750 3200
+F 0 "L3" V 5700 3200 40  0000 C CNN
+F 1 "LPS4018-473MR" V 5900 3200 40  0000 C CNN
+F 2 "LPS4018" H 5750 3200 60  0001 C CNN
+F 3 "www.coilcraft.com/pdfs/lps4018.pdf" H 5750 3200 60  0001 C CNN
+F 4 "Coilcraft" H 5750 3200 60  0001 C CNN "MFG Name"
+F 5 "LPS4018-473MR" H 5750 3200 60  0001 C CNN "MFG Part Num"
+F 6 "Inductor/47uH" H 5750 3200 60  0001 C CNN "Description"
+	1    5750 3200
+	0    1    1    0   
+$EndComp
+$Comp
+L DIODESCH_IPC7531_2005 D2
+U 1 1 5433B3CA
+P 5350 4250
+F 0 "D2" H 5350 4350 40  0000 C CNN
+F 1 "MBR0530T1G" H 5350 4150 40  0000 C CNN
+F 2 "SOD-123" H 5350 4250 60  0001 C CNN
+F 3 "D" H 5350 4250 60  0001 C CNN
+F 4 "On Semiconductor" H 5350 4250 60  0001 C CNN "MFG Name"
+F 5 "MBR0530T1G" H 5350 4250 60  0001 C CNN "MFG Part Num"
+F 6 "Diode/Schottky/30V/500mA/SOD-123" H 5350 4250 60  0001 C CNN "Description"
+	1    5350 4250
+	0    1    1    0   
+$EndComp
+$Comp
+L R R8
+U 1 1 5433B3C9
+P 6150 3550
+F 0 "R8" V 6230 3550 50  0000 C CNN
+F 1 "4.1K" V 6150 3550 50  0000 C CNN
+F 2 "0603" H 6150 3550 60  0001 C CNN
+F 3 "D" H 6150 3550 60  0001 C CNN
+F 4 "M" H 6150 3550 60  0001 C CNN "MFG Name"
+F 5 "P" H 6150 3550 60  0001 C CNN "MFG Part Num"
+F 6 "Resistor/4.1K/+-1%/0603" H 6150 3550 60  0001 C CNN "Description"
+	1    6150 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R9
+U 1 1 5433B3C8
+P 6150 4250
+F 0 "R9" V 6230 4250 50  0000 C CNN
+F 1 "680R" V 6150 4250 50  0000 C CNN
+F 2 "0603" H 6150 4250 60  0001 C CNN
+F 3 "D" H 6150 4250 60  0001 C CNN
+F 4 "M" H 6150 4250 60  0001 C CNN "MFG Name"
+F 5 "P" H 6150 4250 60  0001 C CNN "MFG Part Num"
+F 6 "Resistor/680R/+-1%/0603" H 6150 4250 60  0001 C CNN "Description"
+	1    6150 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C14
+U 1 1 5433B3C6
+P 5150 3500
+F 0 "C14" H 5200 3600 50  0000 L CNN
+F 1 "15nF" H 5200 3400 50  0000 L CNN
+F 2 "0603" H 5150 3500 60  0001 C CNN
+F 3 "D" H 5150 3500 60  0001 C CNN
+F 4 "M" H 5150 3500 60  0001 C CNN "MFG Name"
+F 5 "P" H 5150 3500 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/15nF/50V/+-10%/X7R/0603" H 5150 3500 60  0001 C CNN "Description"
+	1    5150 3500
+	-1   0    0    1   
+$EndComp
+$Comp
+L C C13
+U 1 1 5433B3C5
+P 3300 4100
+F 0 "C13" H 3350 4200 50  0000 L CNN
+F 1 "4.7uF" H 3350 4000 50  0000 L CNN
+F 2 "1206" H 3300 4100 60  0001 C CNN
+F 3 "D" H 3300 4100 60  0001 C CNN
+F 4 "M" H 3300 4100 60  0001 C CNN "MFG Name"
+F 5 "P" H 3300 4100 60  0001 C CNN "MFG Part Num"
+F 6 "Capacitor/4.7uF/50V/+-20%/X5R/1206" H 3300 4100 60  0001 C CNN "Description"
+	1    3300 4100
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
