@@ -31,9 +31,7 @@
 
 // row line_counter on TIM3 (16 bit)
 // if ! defined QUAN_OSD_SOFTWARE_SYNCSEP
-// vsync on TIM3_CH1 -> TI used as trigger ITR
-
-// hsync on TIM3_ETR -> ETR first edge used to count rows
+// hsync on TIM3_CH1 -> TI used as trigger ITR
 // "External clock mode 2 + trigger mode"
 
 // setup first with first telem row to give compare interrupt
@@ -156,10 +154,9 @@ namespace {
       line_counter::get()->cr2 .set (cr2.value);
    }
 
-#if 1
    {
       quan::stm32::tim::smcr_t smcr = line_counter::get()->smcr.get();
-    // for input on TIM3_CH1 as opposed TIM3_ETR
+      // for input on TIM3_CH1 as opposed TIM3_ETR
       smcr.etp = false; // (actuall dont care)
       smcr.ece = false; // Dont want external trigger
       smcr.etps = 0b00;
@@ -167,78 +164,24 @@ namespace {
       smcr.ts  = 0b101;  // trigger source is TI1FP1 (TIM3_CH1)
       smcr.sms = 0b111;  // External clock mode
       line_counter::get()->smcr.set (smcr.value);
-    }  
-    {
+   }  
+   {
       quan::stm32::tim::ccmr1_t ccmr1 = line_counter::get()->ccmr1.get();
-        ccmr1.cc1s = 0b01; // ch1 input trigger
-        ccmr1.ic1f = 0b00; // no filter on input trigger
-        ccmr1.cc2s = 0b00; // ch2 output for irq to start telem rows
-        ccmr1.oc2m = 0b000; // Frozen only want irq on match
-        ccmr1.oc2pe = false; // want to be able to update on the fly
+      ccmr1.cc1s = 0b01; // ch1 input trigger
+      ccmr1.ic1f = 0b00; // no filter on input trigger
+      ccmr1.cc2s = 0b00; // ch2 output for irq to start telem rows
+      ccmr1.oc2m = 0b000; // Frozen only want irq on match
+      ccmr1.oc2pe = false; // want to be able to update on the fly
       line_counter::get()->ccmr1.set (ccmr1.value);
-    }
+   }
 
-    {
-       quan::stm32::tim::ccer_t ccer = line_counter::get()->ccer.get();
-         ccer.cc1np = false; // input trigger falling edge
-         ccer.cc1p  = true; // input trigger falling edge
-         ccer.cc2e = true;  // enable cc2 output for telem begin
-       line_counter::get()->ccer.set (ccer.value);
-    }
-
-#else
-// could be the way to disable LineCounter clock
-//      smcr.ece = true;  // external clock on TIM3_ETR
-//// The source for the clock to count lines
-//#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
-//      smcr.etp = true;  // external clock TIM3_ETR falling edge ( first edge)
-//#else
-//    #if QUAN_OSD_BOARD_TYPE == 2
-//      smcr.etp = false;  // external clock TIM3_ETR rising edge ( first edge)
-//    #else
-//      #error no board type defined
-//    #endif
-//#endif
-//      smcr.etps = 0b00; // no prescaler on trigger
-//      smcr.etf = 0b000; // no external trigger filter
-//#if !defined QUAN_OSD_SOFTWARE_SYNCSEP
-//     // with no software sync sep then
-//      // line_counter enabled by VSYNC
-//      smcr.sms = 0b110; // slave mode trigger
-//      smcr.ts  = 0b101; // trigger source input is TI1 (TIM3_CH1)
-//#endif
-//      line_counter::get()->smcr.set (smcr.value);
-//   }
-//   {
-//      quan::stm32::tim::ccmr1_t ccmr1 = line_counter::get()->ccmr1.get();
-//// want this as input either on internal or external sync sep
-//// but if software sync sep this channel is available I think
-//      ccmr1.cc1s = 0b01; // ch1 vsync input trigger
-//      ccmr1.ic1f = 0b00; // no filter on input trigger
-//
-//      ccmr1.cc2s = 0b00; // ch2 output for irq to start telem rows
-//      ccmr1.oc2m = 0b000; // Frozen only want irq on match
-//      ccmr1.oc2pe = false; // want to be able to update on the fly
-//      line_counter::get()->ccmr1.set (ccmr1.value);
-//   }
-//
-//   {
-//      quan::stm32::tim::ccer_t ccer = line_counter::get()->ccer.get();
-//#if !defined QUAN_OSD_SOFTWARE_SYNCSEP
-//// external vsync pin
-//      ccer.cc1np = false; // input trigger falling edge
-//      ccer.cc1p  = true; // input trigger falling edge
-//#else
-//  /*
-//      with no software sync sep then
-//      no external trigger used  for enabling line_counter
-//      rather is done by software sync sep routines
-//  */
-//#endif
-//      ccer.cc2e = true;  // enable cc2 output for telem begin
-//      line_counter::get()->ccer.set (ccer.value);
-//   }
-#endif
+   {
+      quan::stm32::tim::ccer_t ccer = line_counter::get()->ccer.get();
+      ccer.cc1np = false; // input trigger falling edge
+      ccer.cc1p  = true; // input trigger falling edge
+      ccer.cc2e = true;  // enable cc2 output for telem begin
+      line_counter::get()->ccer.set (ccer.value);
+   }
    {
       quan::stm32::tim::ccmr2_t ccmr2 = line_counter::get()->ccmr2.get();
       ccmr2.cc3s = 0b00; // ch3 output for telem end
