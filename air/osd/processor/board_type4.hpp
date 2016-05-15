@@ -163,7 +163,9 @@ PD0 GP no useful AF no ADC
 #if defined QUAN_DISCOVERY
 typedef quan::mcu::pin<quan::stm32::gpiod,1>     av_dac_nsync; // software no af
 #endif
-typedef quan::mcu::pin<quan::stm32::gpiod,2>     video_in_tim3_hsync_pin; // TIM3_ETR
+// mod to use TIM3_CH1
+//typedef quan::mcu::pin<quan::stm32::gpiod,2>     video_in_tim3_hsync_pin; // TIM3_ETR
+typedef quan::mcu::pin<quan::stm32::gpiob,4>     video_in_tim3_hsync_pin; // TIM3_ETR
 #if defined QUAN_DISCOVERY
 typedef quan::mcu::pin<quan::stm32::gpiod,3>     av_dac_data; // software no af
 #endif

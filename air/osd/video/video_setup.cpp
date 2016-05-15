@@ -32,7 +32,7 @@ namespace {
    void hsync_setup()
    {
      quan::stm32::module_enable<video_in_tim2_hsync_pin::port_type>();
-     quan::stm32::module_enable<video_in_tim3_hsync_pin::port_type>();
+     quan::stm32::module_enable<video_in_tim3_hsync_pin::port_type>(); // MOVED to PB4(TIM3_CH1) from PD3(TIM3_ETR)
      if( osd_state::get() == osd_state::external_video){
         // hsync input pins connected externally
         // TIx input for resetting hsync capture timer
@@ -43,7 +43,7 @@ namespace {
            quan::stm32::gpio::mode::af1
         >();
         // gate trigger same on all boards
-        // TIM3_ETR
+        // Modified to TIM3_CH1
         quan::stm32::apply<
            video_in_tim3_hsync_pin,
            quan::stm32::gpio::mode::af2
