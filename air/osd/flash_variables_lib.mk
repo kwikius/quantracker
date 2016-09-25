@@ -21,8 +21,6 @@
 
 QUANTRACKER_ROOT_DIR = ../../
 
-TELEMETRY_DIRECTION = QUAN_OSD_TELEM_NONE
-
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
 OUTPUT_ARCHIVE_FILE := ../../lib/osd/flash_variables.a
