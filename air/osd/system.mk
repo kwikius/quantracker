@@ -19,17 +19,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
-# to build with telem receive
-# invoke with make TELEMETRY_DIRECTION=QUAN_OSD_TELEM_RECEIVER -f osd_lib.mk
-# to build with telem transmit
-# invoke with make TELEMETRY_DIRECTION=QUAN_OSD_TELEM_TRANSMITTER -f osd_lib.mk
-#
-
 QUANTRACKER_ROOT_DIR := ../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
-
-#STM32_SRC_DIR := $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_system.a
 
@@ -44,8 +36,7 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
 unobj_rtos_objects := tasks.o queue.o list.o timers.o
 rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
 
-unobj_quan_objects = malloc_free.o
-#quan_objects = $(patsubst %, $(OBJDIR)%,$(unobj_quan_objects))
+unobj_quan_objects := malloc_free.o
 
 unobj_system_objects := $(unobj_rtos_objects)  $(unobj_quan_objects) \
 startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o system.o
@@ -71,9 +62,6 @@ $(OBJDIR)spbrk.o : spbrk.cpp
 $(OBJDIR)startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) $< -o $@ 
 
-#$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
-#	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
-
 $(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
@@ -91,6 +79,3 @@ $(OBJDIR)malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free
 
 clean:
 	-rm -rf $(OSD_ARCHIVE_FILE) $(OBJDIR)*.o 
-
-#deps conditional
-#endif
