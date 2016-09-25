@@ -34,7 +34,8 @@ $(osd_software_devel_html) $(osd_maker_html) $(osd_software_devel_tech_html) \
 $(quan_html)
 
 all : $(objects)
-	cp -r -u /home/andy/cpp/projects/quantracker/doc/* /home/andy/website/fpv/quantracker/doc/
+
+#	cp -r -u /home/andy/cpp/projects/quantracker/doc/* /home/andy/website/fpv/quantracker/doc/
 
 $(quan_html) :  ../doc/osd/software_devel/tech/quan/%.html : osd/software_devel/tech/quan/%.rst
 	rst2html $< $@
