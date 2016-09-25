@@ -6,6 +6,7 @@ endif
 
 HAVE_DEPENDENCIES_FILE := $(shell if test -f $(QUANTRACKER_ROOT_DIR)Dependencies.mk; then echo "True"; fi)
 
+
 ifeq ($(HAVE_DEPENDENCIES_FILE), )
   quantracker-make-help:
 	@echo ' '
@@ -47,9 +48,9 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-#ifeq ($(MAVLINK_INCLUDE_PATH), )
-#$(error "MAVLINK_INCLUDE_PATH must be defined to the path to the MAVlink library - see README.")
-#endif
+ifeq ($(TELEMETRY_DIRECTION), )
+$(error "TELEMETRY_DIRECTION must be one of QUAN_OSD_TELEM_RECEIVER QUAN_OSD_TELEM_TRANSMITTER QUAN_OSD_TELEM_NONE  - see README.")
+endif
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
