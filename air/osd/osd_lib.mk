@@ -71,10 +71,10 @@ video_objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_o
 objects = $(video_objects) $(stm32_objects)
 # ------------------------------------------------
 
+.PHONY: all clean
+
 all : $(OSD_ARCHIVE_FILE)
    
-.PHONY: all clean
- 
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
