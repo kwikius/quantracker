@@ -365,8 +365,9 @@ and vice versa</p>
 <h2>Stm32flash</h2>
 <blockquote>
 <p>Whichever operating system you use, you need stm32flash. For windows,
-download and unzip <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/bin/stm32flash_win.zip?raw=true">stm32flash_win.zip</a> .
-For Linux, Download <a class="reference external" href="http://stm32flash.googlecode.com">Stm32flash</a> and  make [sudo] make install</p>
+download and unzip <a class="reference external" href="https://github.com/kwikius/quantracker/blob/master/bin/stm32flash_win.zip?raw=true">stm32flash_win.zip</a> .</p>
+<p>For Linux, Download <a class="reference external" href="http://stm32flash.googlecode.com">Stm32flash</a> and  make [sudo] make install. You may also need to add yourself to the 'dialout'
+group to allow you access to the usb serial port: <tt class="docutils literal">sudo usermod <span class="pre">-a</span> <span class="pre">-G</span> dialout $USER</tt> ( You will need to reboot for the change to take effect)</p>
 <p>For a quick and dirty upload with stm3flash, get <a class="reference external" href="osd/firmwares.html">your desired firmware</a> and
 move the stm32flash executable into the same directory as the firmware.</p>
 <p>Test the execution by starting a command prompt,
