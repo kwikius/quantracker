@@ -19,78 +19,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
-HAVE_DEPENDENCIES_FILE := $(shell if test -f "../../Dependencies.mk"; then echo "True"; fi)
+QUANTRACKER_ROOT_DIR := ../../
 
-ifeq ($(HAVE_DEPENDENCIES_FILE), )
-  quantracker-make-help:
-	@echo ' '
-	@echo '   ########## HELP - OSD firmware build needs more info ############'
-	@echo '   #                                                               #'
-	@echo '   #            Hi. Welcome to quantracker / air / OSD.            #'
-	@echo '   #                                                               #'
-	@echo '   #            To build the OSD firmware, you need to             #'
-	@echo '   #            create a Dependencies.mk file.                     #'
-	@echo '   #                                                               #'
-	@echo '   #            Please read "Sample-Dependencies.mk" .             #'
-	@echo '   #            in the main quantracker directory                  #'
-	@echo '   #            for further Details.                               #'
-	@echo '   #                                                               #'
-	@echo '   #################################################################'
-	@echo ' '	
-else
-
-APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-
-DEFINES = 
-
-# You will need a custom Dependencies.mk
-include ../../Dependencies.mk
-
-###############################################################
-ifeq ($(TOOLCHAIN_PREFIX), )
-$(error "TOOLCHAIN_PREFIX must be defined to the path to the gcc-arm compiler - see README.")
-endif
-
-ifeq ($(TOOLCHAIN_GCC_VERSION), )
-$(error "TOOLCHAIN_GCC_VERSION must be defined to the gcc-arm compiler version - see README.")
-endif
-
-ifeq ($(QUAN_INCLUDE_PATH), )
-$(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
-endif
-
-
-ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
-$(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
-endif
-
-ifeq ($(FREE_RTOS_DIR), )
-$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
-endif
-
-ifeq ($(OPTIMISATION_LEVEL), )
-OPTIMISATION_LEVEL := O3
-endif
-
-CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
-AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
+include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
 STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
-
-STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
-$(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
-$(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
-
-RTOS_INCLUDES := \
-$(FREE_RTOS_DIR)Source/include/ \
-$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
-$(APP_SRC_PATH)
-
-INCLUDES := $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(RTOS_INCLUDES)
-
-INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
-
-TARGET_PROCESSOR := STM32F4RGT6
 
 GRAPHICS_API_PATH := $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 
@@ -98,27 +31,12 @@ OUTPUT_ARCHIVE_FILE := ../../lib/osd/quantracker_air_graphics_api.a
 
 OBJDIR := obj/graphics_api/
 
-ifeq ( $(CFLAG_EXTRAS), )
-CFLAG_EXTRAS = -fno-math-errno
-endif
-
-DEFINES += QUAN_STM32F4 QUAN_FREERTOS  STM32F40_41xxx
-# Define if using software sync sep rather than LM1881
-DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP
-
-DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
-
-CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
--$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
- $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
-
-PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
--mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
-
 un_obj_objects = draw_arc.o draw_bitmap.o draw_circle.o draw_line.o draw_text.o flood_fill.o \
 draw_box.o draw_horizontal_line.o
 
 objects  := $(patsubst %, $(OBJDIR)%,$(un_obj_objects))
+
+.PHONY: all clean
 
 all: $(OUTPUT_ARCHIVE_FILE)
 
@@ -130,5 +48,3 @@ $(objects) : $(OBJDIR)%.o : $(GRAPHICS_API_PATH)%.cpp
 
 clean:
 	-rm -rf $(OBJDIR)*.o $(OUTPUT_ARCHIVE_FILE)
-
-endif
