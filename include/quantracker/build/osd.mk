@@ -109,13 +109,13 @@ CFLAGS  = -Wall -Wdouble-promotion -std=gnu++11 -fno-rtti -fno-exceptions -c -g 
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections\
 -Wno-unused-local-typedefs
 
-# NOTE: TODO should be LDFLAGS
 LDFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
  $(PROCESSOR_FLAGS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
+# The actual libraries are defined in the 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 #deps conditional
