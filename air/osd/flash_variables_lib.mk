@@ -39,7 +39,8 @@ ifeq ($(HAVE_DEPENDENCIES_FILE), )
 	@echo ' '	
 else
 
-APP_SRC_PATH := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
+ifeq (1,)
 
 DEFINES = 
 
@@ -67,8 +68,6 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-STM32_SRC_DIR := $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
-
 STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
@@ -83,9 +82,7 @@ ifeq ( $(CFLAG_EXTRAS), )
 CFLAG_EXTRAS = -fno-math-errno
 endif
 
-OUTPUT_ARCHIVE_FILE := ../../lib/osd/flash_variables.a
 
-OBJDIR := obj/flash_variables/
 
 #required for Ubuntu 12.x placid as system headers have been put in strange places
 # these have beeen defined to thos in my bash .profile
@@ -99,7 +96,7 @@ LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
 SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
-AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
+
   
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
@@ -118,18 +115,28 @@ INCLUDE_ARGS := $(patsubst %,-I%,$(INCLUDES))
 
 DEFINES += HSE_VALUE=8000000  
 
-STM32F4_SPECIFIC_FLASH_SRC := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
-
-GENERIC_FLASH_SRC_PATH := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
-
 DEFINE_ARGS := $(patsubst %,-D%,$(DEFINES))
 
 CFLAGS  = -Wall -Wdouble-promotion -std=c++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
-CPFLAGS = -Obinary
-ODFLAGS = -d 
+endif
+
+QUANTRACKER_ROOT_DIR = ../../
+
+TELEMETRY_DIRECTION = QUAN_OSD_TELEM_NONE
+
+include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
+
+OUTPUT_ARCHIVE_FILE := ../../lib/osd/flash_variables.a
+
+OBJDIR := obj/flash_variables/
+AR = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
+
+STM32F4_SPECIFIC_FLASH_SRC := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp
+
+GENERIC_FLASH_SRC_PATH := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/flash/
 
 all: $(OUTPUT_ARCHIVE_FILE)
 
