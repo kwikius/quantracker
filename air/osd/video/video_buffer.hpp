@@ -210,6 +210,7 @@ struct video_buffers {
       
       static void xy_to_buf (quan::two_d::vect<int32_t> const & px,uint8_t val)
       {
+         // make this separate since check is done more than once in some cases
          if ( (px.x < 0)
                || (px.y < 0)
                || (static_cast<uint32_t> (px.y) > (m_display_size.y-1) )
