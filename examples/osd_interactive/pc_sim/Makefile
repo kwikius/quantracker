@@ -59,7 +59,7 @@ objects = $(common_objects) sim_graphics_api.o
 
 CFLAGS = -Wall -std=c++11 -fPIC -Os -fvisibility=hidden
 
-LFLAGS = -shared -Wall -std=c++11 
+LDFLAGS = -shared -Wall -std=c++11 
 
 DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 
@@ -70,7 +70,7 @@ all : $(DLL_NAME)
 .RECIPEPREFIX = ~
 
 $(DLL_NAME) : $(objects) osd_graphics_api.a
-~ $(LD) $(LFLAGS) -o $(DLL_NAME) $(objects) osd_graphics_api.a 
+~ $(LD) $(LDFLAGS) -o $(DLL_NAME) $(objects) osd_graphics_api.a 
 
 $(common_objects) : %.o : ../common/%.cpp
 ~ $(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINE_ARGS) $< -o $@

@@ -162,7 +162,7 @@ CFLAGS  = -Wall -Wdouble-promotion -Wno-unused-local-typedefs -std=c++11 -fno-rt
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
-LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
+LDFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
  $(PROCESSOR_FLAGS) $(INIT_LIBS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections 
 
 CPFLAGS = -Obinary
@@ -183,7 +183,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects) $(static_libraries) 
+	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(objects) $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@

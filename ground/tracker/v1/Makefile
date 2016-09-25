@@ -94,7 +94,7 @@ CFLAGS = -std=c++11 -fno-rtti -fno-exceptions -c -Os -g $(INCLUDES) $(PROCESSOR_
 
 INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
 
-LFLAGS = -T$(STM32F4_LINKER_SCRIPT) -Os $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) $(INIT_LIBS) -nodefaultlibs -nostartfiles \
+LDFLAGS = -T$(STM32F4_LINKER_SCRIPT) -Os $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) $(INIT_LIBS) -nodefaultlibs -nostartfiles \
 --specs=nano.specs -Wl,--gc-sections
 
 CPFLAGS = -Obinary
@@ -133,7 +133,7 @@ test: main.elf
 
 main.elf : $(all_objects) 
 	@ echo "..linking"
-	$(LD)   $(LFLAGS)  -o main.elf $(all_objects) 
+	$(LD)   $(LDFLAGS)  -o main.elf $(all_objects) 
 
 $(quan_generic_flash_objects) : quan_generic_%.o : $(GENERIC_FLASH_SRC_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@

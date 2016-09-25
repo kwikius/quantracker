@@ -23,6 +23,8 @@ LINKER_SCRIPT = stm32f4.ld
 
 QUANTRACKER_ROOT_DIR = ../../
 
+TELEMETRY_DIRECTION = QUAN_OSD_TELEM_RECEIVER
+
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
 # just for fonts
@@ -58,7 +60,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
+	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
 -Wl,--undefined=_sbrk $(static_libraries)
 
 $(obj_local_objects): $(OBJDIR)%.o : %.cpp

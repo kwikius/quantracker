@@ -62,7 +62,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries)
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(objects) $(INIT_LIBS) \
+	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(objects) $(INIT_LIBS) \
    -Wl,--undefined=_sbrk $(static_libraries)
 
 $(obj_local_objects): $(OBJDIR)%.o : %.cpp

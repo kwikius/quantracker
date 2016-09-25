@@ -159,7 +159,7 @@ CFLAGS  = -Wall -Wdouble-promotion -std=gnu++11 -fno-rtti -fno-exceptions -c -g 
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections
 
-LFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
+LDFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
  $(PROCESSOR_FLAGS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary
@@ -180,7 +180,7 @@ test: main.elf
 
 main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf  $(INIT_LIBS) $(objects) -Wl,--undefined=_sbrk $(static_libraries)
+	$(LD) $(LDFLAGS) -o main.elf  $(INIT_LIBS) $(objects) -Wl,--undefined=_sbrk $(static_libraries)
 
 $(video_objects): $(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@

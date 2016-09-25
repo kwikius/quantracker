@@ -28,6 +28,8 @@ include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 # just for fonts
 RESOURCE_PATH = ../../examples/osd_example1/
 
+TELEMETRY_DIRECTION = QUAN_OSD_TELEM_TRANSMITTER
+
 local_objects = main.o setup.o on_draw.o tx_telemetry.o application.o
 
 OBJDIR = ./obj/
@@ -58,7 +60,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
+	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
 -Wl,--undefined=_sbrk $(static_libraries)
 
 $(obj_local_objects): $(OBJDIR)%.o : %.cpp
