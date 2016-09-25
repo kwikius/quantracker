@@ -39,36 +39,62 @@ ifeq ($(QUAN_INCLUDE_PATH), )
 $(error "QUAN_INCLUDE_PATH must be defined to the path to the quan library - see README.")
 endif
 
-ifeq ($(FREE_RTOS_DIR), )
-$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
-endif
 
 ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
-# OSD specific
-ifeq ($(TELEMETRY_DIRECTION), )
-$(error "TELEMETRY_DIRECTION must be one of QUAN_OSD_TELEM_RECEIVER QUAN_OSD_TELEM_TRANSMITTER QUAN_OSD_TELEM_NONE  - see README.")
-endif
+# board config
+#ifeq ($(TELEMETRY_DIRECTION), )
+#$(error "TELEMETRY_DIRECTION must be one of QUAN_OSD_TELEM_RECEIVER QUAN_OSD_TELEM_TRANSMITTER QUAN_OSD_TELEM_NONE  - see README.")
+#endif
 
-#------------------------------------------------------------------------------------------
+# -------------------board --------------------------------
+
+DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4
+
+#-------------------board config -------------------------
+
+DEFINES +=  $(TELEMETRY_DIRECTION) 
+
+#-------------------------- processor -----------------
+
+TARGET_PROCESSOR = STM32F4RGT6
+
+DEFINES += QUAN_STM32F4 STM32F405xx STM32F40_41xxx
+
+PROCESSOR_FLAGS += -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
+-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
 STM32_INCLUDES = $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
+
+# -------rtos -----------------------------------------
+
+ifeq ($(FREE_RTOS_DIR), )
+$(error "FREE_RTOS_DIR must be defined to the path to the FreeRTOS library - see README.")
+endif
+
+DEFINES += QUAN_FREERTOS 
 
 RTOS_INCLUDES = \
 $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(shell pwd)
 
-TARGET_PROCESSOR = STM32F4
+#----------------includes ------------------------------
 
-INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
-INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o 
+INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(QUANTRACKER_ROOT_DIR)include \
+$(RTOS_INCLUDES)
 
-STATIC_LIBRARY_PATH = $(QUANTRACKER_ROOT_DIR)lib/osd/
+DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
+INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
+
+#---------------C++ compiler ------------------------
+
+CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
+CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc
 
 ifeq ($(OPTIMISATION_LEVEL), )
 OPTIMISATION_LEVEL = O3
@@ -84,33 +110,22 @@ CPLUS_INCLUDE_PATH=
 C_INCLUDE_PATH=
 LIBRARY_PATH=
 
-CC      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
-CC1     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-gcc
-LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
-CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
-OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
-SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
-  
-# specific flags for stm32f4
-DEFINES = QUAN_STM32F4 STM32F405xx QUAN_FREERTOS $(TELEMETRY_DIRECTION) STM32F40_41xxx \
-QUAN_OSD_SOFTWARE_SYNCSEP HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4
-
-PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
--mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
-
-INCLUDES = $(STM32_INCLUDES) $(QUAN_INCLUDE_PATH) $(QUANTRACKER_ROOT_DIR)include \
-$(RTOS_INCLUDES)
-
-INCLUDE_ARGS = $(patsubst %,-I%,$(INCLUDES))
-
-DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
-
 CFLAGS  = -Wall -Wdouble-promotion -std=gnu++11 -fno-rtti -fno-exceptions -c -g \
 -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) $(PROCESSOR_FLAGS) \
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections\
 -Wno-unused-local-typedefs
 
-LDFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
+#--------linking ----------------------------
+
+INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
+INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o 
+
+STATIC_LIBRARY_PATH = $(QUANTRACKER_ROOT_DIR)lib/osd/
+LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
+CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
+OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
+SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
+LDFLAGS = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
  $(PROCESSOR_FLAGS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary
@@ -118,6 +133,5 @@ ODFLAGS = -d
 
 # The actual libraries are defined in the 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
-
-#deps conditional
+#If have dependencies file
 endif
