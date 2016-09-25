@@ -32,18 +32,18 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd_tx.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_osd_tx.a
 HAS_TELEMETRY := True
 TELEMETRY_PREFIX := lib_tx_
 DEFINES += QUAN_OSD_TELEM_TRANSMITTER
 else
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd_rx.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_osd_rx.a
 HAS_TELEMETRY := True
 TELEMETRY_PREFIX := lib_rx_
 DEFINES += QUAN_OSD_TELEM_RECEIVER 
 else
-OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_osd.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_osd.a
 HAS_TELEMETRY := False
 TELEMETRY_PREFIX := lib_
 endif

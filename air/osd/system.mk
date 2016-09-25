@@ -23,7 +23,7 @@ QUANTRACKER_ROOT_DIR := ../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
-OSD_ARCHIVE_FILE := ../../lib/osd/quantracker_air_system.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_system.a
 
 OBJDIR := obj/system/
 
