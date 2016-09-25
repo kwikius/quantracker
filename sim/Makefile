@@ -53,7 +53,7 @@ objects = $(local_objects) $(quan_gx_wxwidgets_objects) serial_port.o static_rgb
 # could add -Os etc here
 CFLAGS = -Wall -std=c++11 -Os
 
-LFLAGS =
+LDFLAGS =
 
 .PHONY : clean all
 
@@ -72,7 +72,7 @@ static_rgb_colours.o : $(QUAN_INCLUDE_PATH)quan_matters/src/gx/static_rgb_colour
 	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@ `wx-config --cppflags`
 
 $(APPLICATION_NAME) : $(objects)
-	$(LD) $(CFLAGS) $(LFLAGS) -o $(APPLICATION_NAME) $(objects)  `wx-config --libs`
+	$(LD) $(CFLAGS) $(LDFLAGS) -o $(APPLICATION_NAME) $(objects)  `wx-config --libs`
 
 clean:
 	-rm -rf *.o *.exe

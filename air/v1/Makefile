@@ -47,10 +47,10 @@ CFLAG_EXTRAS = -fno-math-errno -Os
 CFLAGS  = -std=c++11 -fno-rtti -fno-exceptions -c -g $(DEFINE_ARGS) $(INCLUDE_ARGS) \
   $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
 
-LFLAGS  = -T$(LINKER_SCRIPT)  -nostartfiles -nodefaultlibs $(PROCESSOR_FLAGS) $(INIT_LIBS) \
+LDFLAGS  = -T$(LINKER_SCRIPT)  -nostartfiles -nodefaultlibs $(PROCESSOR_FLAGS) $(INIT_LIBS) \
    --specs=nano.specs $(CFLAG_EXTRAS)
 
-#LFLAGS  =  -v
+#LDFLAGS  =  -v
 CPFLAGS = -Obinary
 #ODFLAGS = -D
 ODFLAGS = -d
@@ -78,7 +78,7 @@ test: main.elf
 
 main.elf: startup.o $(objects) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -o main.elf $(objects) startup.o
+	$(LD) $(LDFLAGS) -o main.elf $(objects) startup.o
 
 $(objects): %.o : %.cpp  sin_array.txt fsk_params.hpp
 	$(CC) $(CFLAGS) $< -o $@

@@ -73,11 +73,6 @@ STM32_INCLUDES := $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Include \
 $(STM32_STD_PERIPH_LIB_DIR)CMSIS/Device/ST/STM32F4xx/Include \
 $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/inc
 
-#RTOS_INCLUDES := \
-#$(FREE_RTOS_DIR)Source/include/ \
-#$(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
-#$(APP_SRC_PATH)
-
 TARGET_PROCESSOR := STM32F4
  
 ifeq ($(OPTIMISATION_LEVEL), )
@@ -109,31 +104,18 @@ AR      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
 ifeq ($(TARGET_PROCESSOR), STM32F4)
 # specific flags for stm32f4
 DEFINES += QUAN_STM32F4 STM32F405xx QUAN_FREERTOS STM32F40_41xxx
-
-# DEFINES += QUAN_FLASH_DEBUG
-#STARTUP := startup.s
-# custom linker script 
-#LINKER_SCRIPT := stm32f4.ld
-
-#SYSTEM_INIT := system_init.cpp
 PROCESSOR_FLAGS = -march=armv7e-m -mtune=cortex-m4 -mhard-float -mthumb \
 -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
-
 INCLUDES = $(STM32_INCLUDES)
-
-#INIT_LIB_PREFIX := $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
 else
 $(error no target processor defined)
 endif
 #endif
 
-#INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o
-
 INCLUDES += $(QUAN_INCLUDE_PATH) 
 
 INCLUDE_ARGS := $(patsubst %,-I%,$(INCLUDES))
 
-# QUAN_DISPLAY_INTERLACED 
 DEFINES += HSE_VALUE=8000000  
 
 STM32F4_SPECIFIC_FLASH_SRC := $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/f4/specific_flash.cpp

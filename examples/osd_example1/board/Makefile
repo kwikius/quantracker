@@ -21,8 +21,6 @@
 
 #--------------------------------------------
 
-TARGET_PROCESSOR = STM32F4
-
 LINKER_SCRIPT = stm32f4.ld
 
 QUANTRACKER_ROOT_DIR = ../../../
@@ -71,7 +69,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
+	$(LD) $(LDFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
    -Wl,--undefined=_sbrk $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp
