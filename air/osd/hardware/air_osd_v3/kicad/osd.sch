@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 12 Apr 2016 11:38:18 BST
+EESchema Schematic File Version 2  date Wed 18 May 2016 11:24:51 BST
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -46,13 +46,16 @@ LIBS:stm32f405rgt6
 LIBS:si501
 LIBS:74lvc1g86
 LIBS:si8642
+LIBS:fiducial
+LIBS:bd9g101g
+LIBS:ld39015mxxr
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 8
 Title ""
-Date "12 apr 2016"
+Date "18 may 2016"
 Rev ""
 Comp ""
 Comment1 ""

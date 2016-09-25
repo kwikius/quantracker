@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 26 Jun 2015 07:08:11 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -15,7 +16,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -37,9 +37,9 @@ LIBS:valves
 LIBS:diodesch_ipc7531_2005
 LIBS:led_ipc-7351_2005
 LIBS:osd-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 5 8
 Title ""
@@ -164,7 +164,7 @@ Wire Wire Line
 	4200 2150 4200 2550
 Connection ~ 4200 2550
 $Comp
-L R R30
+L R-RESCUE-osd R30
 U 1 1 5580AC4E
 P 4600 2150
 F 0 "R30" V 4680 2150 50  0000 C CNN
@@ -178,7 +178,7 @@ F 6 "Resistor(Link)/0R/0603" H 4600 2150 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R25
+L R-RESCUE-osd R25
 U 1 1 5580AC49
 P 4600 1900
 F 0 "R25" V 4680 1900 50  0000 C CNN
@@ -208,6 +208,7 @@ P 7300 2500
 F 0 "P11" V 7300 2650 40  0000 L CNN
 F 1 "SIL1" H 7300 2555 30  0001 C CNN
 F 2 "SIL1" H 7300 2500 60  0001 C CNN
+F 3 "" H 7300 2500 60  0001 C CNN
 F 4 "0.1 in pitch header/1 contact" H 7300 2500 60  0001 C CNN "Description"
 	1    7300 2500
 	0    1    1    0   
@@ -222,6 +223,8 @@ U 1 1 5474845E
 P 5550 2550
 F 0 "#FLG03" H 5550 2820 30  0001 C CNN
 F 1 "PWR_FLAG" H 5550 2780 30  0000 C CNN
+F 2 "" H 5550 2550 60  0001 C CNN
+F 3 "" H 5550 2550 60  0001 C CNN
 	1    5550 2550
 	1    0    0    -1  
 $EndComp
@@ -231,6 +234,8 @@ U 1 1 54748449
 P 6200 2350
 F 0 "#FLG04" H 6200 2620 30  0001 C CNN
 F 1 "PWR_FLAG" H 6200 2580 30  0000 C CNN
+F 2 "" H 6200 2350 60  0001 C CNN
+F 3 "" H 6200 2350 60  0001 C CNN
 	1    6200 2350
 	1    0    0    -1  
 $EndComp
@@ -255,6 +260,7 @@ P 3100 3500
 F 0 "P3" V 3050 3500 60  0000 C CNN
 F 1 "SIL20" V 3150 3500 60  0000 C CNN
 F 2 "SIL20" H 3100 3500 60  0001 C CNN
+F 3 "" H 3100 3500 60  0001 C CNN
 F 4 "0.1 in pitch header/20 contacts" H 3100 3500 60  0001 C CNN "Description"
 	1    3100 3500
 	-1   0    0    -1  
@@ -266,6 +272,7 @@ P 6950 3450
 F 0 "P2" V 6900 3450 60  0000 C CNN
 F 1 "SIL20" V 7000 3450 60  0000 C CNN
 F 2 "SIL20" H 6950 3450 60  0001 C CNN
+F 3 "" H 6950 3450 60  0001 C CNN
 F 4 "0.1 in pitch header/20 contacts" H 6950 3450 60  0001 C CNN "Description"
 	1    6950 3450
 	1    0    0    -1  

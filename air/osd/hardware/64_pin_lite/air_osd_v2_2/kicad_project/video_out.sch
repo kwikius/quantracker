@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 26 Jun 2015 07:08:11 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -15,7 +16,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -37,9 +37,9 @@ LIBS:valves
 LIBS:diodesch_ipc7531_2005
 LIBS:led_ipc-7351_2005
 LIBS:osd-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 7 8
 Title ""
@@ -152,7 +152,7 @@ Wire Wire Line
 	7050 2750 7050 2650
 Connection ~ 7050 2650
 $Comp
-L C C45
+L C-RESCUE-osd C45
 U 1 1 5580B0E2
 P 7050 2950
 F 0 "C45" H 7100 3050 50  0000 L CNN
@@ -174,7 +174,7 @@ BUF_DAC_OUT2
 Text Label 4800 2900 0    45   ~ 0
 BUF_DAC_OUT1
 $Comp
-L C C25
+L C-RESCUE-osd C25
 U 1 1 5474951D
 P 5400 3600
 F 0 "C25" H 5450 3700 50  0000 L CNN
@@ -188,7 +188,7 @@ F 6 "Capacitor/33uF/10V/+-20%/X5R/0603" H 5400 3600 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L C C24
+L C-RESCUE-osd C24
 U 1 1 54749516
 P 5350 2350
 F 0 "C24" H 5400 2450 50  0000 L CNN
@@ -202,7 +202,7 @@ F 6 "Capacitor/33uF/10V/+-20%/X5R/0805" H 5350 2350 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L C C23
+L C-RESCUE-osd C23
 U 1 1 5470A75F
 P 4150 5400
 F 0 "C23" H 4200 5500 50  0000 L CNN
@@ -220,7 +220,7 @@ VIDEO_OUT_GND
 Text HLabel 3050 4900 0    45   Input ~ 0
 VIDEO_OUT_+5V
 $Comp
-L LM358 U7
+L LM358-RESCUE-osd U7
 U 3 1 5470A57E
 P 3250 5400
 F 0 "U7" H 3200 5600 60  0000 L CNN
@@ -246,6 +246,7 @@ P 9500 2550
 F 0 "P5" V 9450 2550 50  0000 C CNN
 F 1 "SIL5" V 9550 2550 50  0000 C CNN
 F 2 "SIL5" H 9500 2550 60  0001 C CNN
+F 3 "" H 9500 2550 60  0001 C CNN
 F 4 "0.1 in pitch header/5 contacts" H 9500 2550 60  0001 C CNN "Description"
 	1    9500 2550
 	1    0    0    1   
@@ -253,7 +254,7 @@ $EndComp
 Text HLabel 8900 2550 0    45   Input ~ 0
 VIDEO_OUT
 $Comp
-L LM358 U?
+L LM358-RESCUE-osd U?
 U 1 1 54675F35
 P 4200 3600
 AR Path="/54675A51/54675AC5" Ref="U?"  Part="1" 
@@ -271,7 +272,7 @@ $EndComp
 Text HLabel 3300 3500 0    60   Input ~ 0
 RAW_DAC_OUT2
 $Comp
-L LM358 U7
+L LM358-RESCUE-osd U7
 U 2 1 54675AC5
 P 4200 2400
 F 0 "U7" H 4200 2600 60  0000 L CNN

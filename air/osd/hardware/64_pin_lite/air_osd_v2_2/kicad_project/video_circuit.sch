@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 26 Jun 2015 07:08:11 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -15,7 +16,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -37,9 +37,9 @@ LIBS:valves
 LIBS:diodesch_ipc7531_2005
 LIBS:led_ipc-7351_2005
 LIBS:osd-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 8 8
 Title ""
@@ -293,7 +293,7 @@ Wire Wire Line
 Wire Wire Line
 	4050 3250 1600 3250
 Wire Wire Line
-	4050 3250 4050 3500
+	4050 3500 4050 3250
 Wire Wire Line
 	1600 3250 1600 3950
 Wire Wire Line
@@ -359,7 +359,7 @@ Wire Wire Line
 Wire Wire Line
 	7600 5450 7600 5550
 $Comp
-L C C44
+L C-RESCUE-osd C44
 U 1 1 550014A9
 P 7600 5750
 F 0 "C44" H 7650 5850 50  0000 L CNN
@@ -513,7 +513,7 @@ VIDEO_IN
 Text HLabel 6700 6400 2    60   Output ~ 0
 CSYNC
 $Comp
-L C C29
+L C-RESCUE-osd C29
 U 1 1 546DB5EF
 P 6950 5750
 F 0 "C29" H 7000 5850 50  0000 L CNN
@@ -527,7 +527,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 6950 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C35
+L C-RESCUE-osd C35
 U 1 1 546DB5BD
 P 9600 5750
 F 0 "C35" H 9650 5850 50  0000 L CNN
@@ -541,7 +541,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 9600 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C36
+L C-RESCUE-osd C36
 U 1 1 546DB542
 P 9900 5750
 F 0 "C36" H 9950 5850 50  0000 L CNN
@@ -555,7 +555,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 9900 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C32
+L C-RESCUE-osd C32
 U 1 1 546DB404
 P 8700 5750
 F 0 "C32" H 8750 5850 50  0000 L CNN
@@ -569,7 +569,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 8700 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C30
+L C-RESCUE-osd C30
 U 1 1 546DB398
 P 7250 5750
 F 0 "C30" H 7300 5850 50  0000 L CNN
@@ -583,7 +583,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7250 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C34
+L C-RESCUE-osd C34
 U 1 1 546DB394
 P 9300 5750
 F 0 "C34" H 9350 5850 50  0000 L CNN
@@ -597,7 +597,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 9300 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C28
+L C-RESCUE-osd C28
 U 1 1 546DB366
 P 6650 5750
 F 0 "C28" H 6700 5850 50  0000 L CNN
@@ -611,7 +611,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 6650 5750 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C31
+L C-RESCUE-osd C31
 U 1 1 546DB339
 P 8400 5750
 F 0 "C31" H 8450 5850 50  0000 L CNN
@@ -625,7 +625,7 @@ F 6 "Capacitor/4.70.uF/10V/+-10%/X5R/0603" H 8400 5750 60  0001 C CNN "Descripti
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C33
+L C-RESCUE-osd C33
 U 1 1 546DB332
 P 9000 5750
 F 0 "C33" H 9050 5850 50  0000 L CNN
@@ -663,7 +663,7 @@ VIDEO_GND
 Text HLabel 2400 950  0    45   Input ~ 0
 VIDEO_+5V
 $Comp
-L R R17
+L R-RESCUE-osd R17
 U 1 1 546B544B
 P 4500 4500
 F 0 "R17" V 4580 4500 50  0000 C CNN
@@ -677,7 +677,7 @@ F 6 "Resistor/100R/+-10%/0603" H 4500 4500 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R12
+L R-RESCUE-osd R12
 U 1 1 546B5003
 P 3200 3650
 F 0 "R12" V 3280 3650 50  0000 C CNN
@@ -691,7 +691,7 @@ F 6 "Resistor/33K/+-1%/0603" H 3200 3650 60  0001 C CNN "Description"
 	-1   0    0    1   
 $EndComp
 $Comp
-L R R16
+L R-RESCUE-osd R16
 U 1 1 546B4FEB
 P 4450 3500
 F 0 "R16" V 4530 3500 50  0000 C CNN
@@ -723,7 +723,7 @@ F 6 "Comparator/Single/Hi_Z" H 2400 4100 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R19
+L R-RESCUE-osd R19
 U 1 1 544D2243
 P 6050 6400
 F 0 "R19" V 6130 6400 50  0000 C CNN
@@ -737,7 +737,7 @@ F 6 "Resistor/100R/+-10%/0603" H 6050 6400 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R23
+L R-RESCUE-osd R23
 U 1 1 544CEF88
 P 10300 1600
 F 0 "R23" V 10380 1600 50  0000 C CNN
@@ -753,7 +753,7 @@ $EndComp
 Text HLabel 8000 4900 2    60   Output ~ 0
 VIDEO_SAMPLE
 $Comp
-L R R21
+L R-RESCUE-osd R21
 U 1 1 544A415B
 P 8800 1850
 F 0 "R21" V 8880 1850 50  0000 C CNN
@@ -767,7 +767,7 @@ F 6 "Resistor/40.2R/1%/0603" H 8800 1850 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R22
+L R-RESCUE-osd R22
 U 1 1 544A412C
 P 9450 2400
 F 0 "R22" V 9530 2400 50  0000 C CNN
@@ -781,7 +781,7 @@ F 6 "Resistor/20R/+-1%/0603" H 9450 2400 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R20
+L R-RESCUE-osd R20
 U 1 1 544A4107
 P 8450 1500
 F 0 "R20" V 8530 1500 50  0000 C CNN
@@ -809,7 +809,7 @@ F 6 "Video Amp/SyncClamp/4th Order Filter/G=2" H 2450 1600 60  0001 C CNN "Descr
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R18
+L R-RESCUE-osd R18
 U 1 1 5448D75F
 P 5000 5550
 F 0 "R18" V 5080 5550 50  0000 C CNN
@@ -825,7 +825,7 @@ $EndComp
 Text Label 6250 1200 0    60   ~ 0
 GREY_D
 $Comp
-L R R15
+L R-RESCUE-osd R15
 U 1 1 5448BA29
 P 4200 6950
 F 0 "R15" V 4280 6950 50  0000 C CNN
@@ -839,7 +839,7 @@ F 6 "Resistor/1K/+-1%/0603" H 4200 6950 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R14
+L R-RESCUE-osd R14
 U 1 1 5448BA26
 P 4200 5800
 F 0 "R14" V 4280 5800 50  0000 C CNN
@@ -853,7 +853,7 @@ F 6 "Resistor/1K/+-1%/0603" H 4200 5800 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C27
+L C-RESCUE-osd C27
 U 1 1 5448B99E
 P 3650 6500
 F 0 "C27" H 3700 6350 50  0000 L CNN
@@ -867,7 +867,7 @@ F 6 "Capacitor/240pF/10V/+-5%/NPO/0603" H 3650 6500 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R13
+L R-RESCUE-osd R13
 U 1 1 5448B6A1
 P 3300 6200
 F 0 "R13" V 3380 6200 50  0000 C CNN
@@ -937,7 +937,7 @@ F 6 "VideoAmp" H 9450 1600 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C26
+L C-RESCUE-osd C26
 U 1 1 541E8561
 P 1700 1600
 F 0 "C26" H 1750 1700 50  0000 L CNN
@@ -951,7 +951,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 1700 1600 60  0001 C CNN "Description
 	0    1    1    0   
 $EndComp
 $Comp
-L R R11
+L R-RESCUE-osd R11
 U 1 1 541E78CF
 P 1350 2150
 F 0 "R11" V 1430 2150 50  0000 C CNN

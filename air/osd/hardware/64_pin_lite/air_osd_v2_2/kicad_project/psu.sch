@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 26 Jun 2015 07:08:11 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -15,7 +16,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -37,9 +37,9 @@ LIBS:valves
 LIBS:diodesch_ipc7531_2005
 LIBS:led_ipc-7351_2005
 LIBS:osd-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 3 8
 Title "noname.sch"
@@ -334,7 +334,7 @@ BLUE_LED_RES
 Text Label 4950 3800 0    45   ~ 0
 SWITCHER_CB
 $Comp
-L C C42
+L C-RESCUE-osd C42
 U 1 1 54F874D2
 P 1850 4000
 F 0 "C42" H 1900 4100 50  0000 L CNN
@@ -371,6 +371,8 @@ U 1 1 54F72D02
 P 7600 3050
 F 0 "#FLG01" H 7600 3320 30  0001 C CNN
 F 1 "PWR_FLAG" H 7600 3280 30  0000 C CNN
+F 2 "" H 7600 3050 60  0001 C CNN
+F 3 "" H 7600 3050 60  0001 C CNN
 	1    7600 3050
 	1    0    0    -1  
 $EndComp
@@ -379,7 +381,7 @@ XP_GND
 Text Label 10250 6450 0    45   ~ 0
 HUB_GND
 $Comp
-L C C40
+L C-RESCUE-osd C40
 U 1 1 54846E5A
 P 2650 4100
 F 0 "C40" H 2700 4200 50  0000 L CNN
@@ -393,7 +395,7 @@ F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 2650 4100 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C41
+L C-RESCUE-osd C41
 U 1 1 54846DC1
 P 3000 4100
 F 0 "C41" H 3050 4200 50  0000 L CNN
@@ -407,7 +409,7 @@ F 6 "Capacitor/4.7uF/50V/+-20%/X5R/1206" H 3000 4100 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C20
+L C-RESCUE-osd C20
 U 1 1 54749249
 P 9950 4200
 F 0 "C20" H 10000 4300 50  0000 L CNN
@@ -421,7 +423,7 @@ F 6 "Capacitor/0.1uF/10V/+-20%/X7R/0603" H 9950 4200 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C19
+L C-RESCUE-osd C19
 U 1 1 547491F8
 P 9550 4200
 F 0 "C19" H 9600 4300 50  0000 L CNN
@@ -443,7 +445,7 @@ VIDEO_+3.3V
 Text HLabel 10700 3000 2    45   Output ~ 0
 MCU_+3.3V
 $Comp
-L LD39015MXXR U5
+L LD39015MxxR U5
 U 1 1 5474880F
 P 8850 3900
 F 0 "U5" H 9225 3500 60  0000 C CNN
@@ -457,7 +459,7 @@ F 6 "VoltageReg/3.3V/SOT23-5" H 8850 3900 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C18
+L C-RESCUE-osd C18
 U 1 1 5474880E
 P 7950 4150
 F 0 "C18" H 8000 4250 50  0000 L CNN
@@ -471,7 +473,7 @@ F 6 "Capacitor/0.1uF/50V/+-20%/X7R/0603" H 7950 4150 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R10
+L R-RESCUE-osd R10
 U 1 1 547467E3
 P 7200 4200
 F 0 "R10" V 7280 4200 50  0000 C CNN
@@ -511,7 +513,7 @@ F 6 "Switching_Regulator_IC" H 4100 3650 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C15
+L C-RESCUE-osd C15
 U 1 1 5472ED3C
 P 6450 3550
 F 0 "C15" H 6500 3650 50  0000 L CNN
@@ -525,7 +527,7 @@ F 6 "Capacitor/0.15uF/35V/+-10%/X7R/0603" H 6450 3550 60  0001 C CNN "Descriptio
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C16
+L C-RESCUE-osd C16
 U 1 1 5472708F
 P 6750 3950
 F 0 "C16" H 6800 4050 50  0000 L CNN
@@ -546,6 +548,8 @@ U 1 1 547116AD
 P 3000 3250
 F 0 "#FLG02" H 3000 3520 30  0001 C CNN
 F 1 "PWR_FLAG" H 3000 3480 30  0000 C CNN
+F 2 "" H 3000 3250 60  0001 C CNN
+F 3 "" H 3000 3250 60  0001 C CNN
 	1    3000 3250
 	1    0    0    -1  
 $EndComp
@@ -564,7 +568,7 @@ F 6 "Inductor/22nH/+-10%/0.4R/0603" H 7150 3200 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L C C17
+L C-RESCUE-osd C17
 U 1 1 54711603
 P 7550 4250
 F 0 "C17" H 7600 4350 50  0000 L CNN
@@ -578,7 +582,7 @@ F 6 "Capacitor/10uF/50V/+-10%/X5R/1206" H 7550 4250 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C12
+L C-RESCUE-osd C12
 U 1 1 54711574
 P 2250 3850
 F 0 "C12" H 2300 3950 50  0000 L CNN
@@ -634,7 +638,7 @@ F 6 "Diode/Schottky/30V/500mA/SOD-123" H 5350 4250 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R8
+L R-RESCUE-osd R8
 U 1 1 5433B3C9
 P 6150 3550
 F 0 "R8" V 6230 3550 50  0000 C CNN
@@ -648,7 +652,7 @@ F 6 "Resistor/4.1K/+-1%/0603" H 6150 3550 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R9
+L R-RESCUE-osd R9
 U 1 1 5433B3C8
 P 6150 4250
 F 0 "R9" V 6230 4250 50  0000 C CNN
@@ -662,7 +666,7 @@ F 6 "Resistor/680R/+-1%/0603" H 6150 4250 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C14
+L C-RESCUE-osd C14
 U 1 1 5433B3C6
 P 5150 3500
 F 0 "C14" H 5200 3600 50  0000 L CNN
@@ -676,7 +680,7 @@ F 6 "Capacitor/15nF/50V/+-10%/X7R/0603" H 5150 3500 60  0001 C CNN "Description"
 	-1   0    0    1   
 $EndComp
 $Comp
-L C C13
+L C-RESCUE-osd C13
 U 1 1 5433B3C5
 P 3300 4100
 F 0 "C13" H 3350 4200 50  0000 L CNN
