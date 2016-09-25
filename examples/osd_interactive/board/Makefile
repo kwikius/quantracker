@@ -86,7 +86,7 @@ $(FREE_RTOS_DIR)Source/include/ \
 $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F \
 $(abspath ../../../air/osd)
 
-TARGET_PROCESSOR = STM32F4
+TARGET_PROCESSOR = STM32F4RGT6
 
 # static libaries 
 STATIC_LIBRARY_PATH = ../../../lib/osd/
@@ -134,7 +134,7 @@ CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
 SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
   
-ifeq ($(TARGET_PROCESSOR), STM32F4)
+ifeq ($(TARGET_PROCESSOR), STM32F4RGT6)
 # specific flags for stm32f4
 DEFINES += QUAN_STM32F4 QUAN_FREERTOS QUAN_OSD_TELEM_TRANSMITTER STM32F40_41xxx \
 HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4 QUAN_OSD_SOFTWARE_SYNCSEP
