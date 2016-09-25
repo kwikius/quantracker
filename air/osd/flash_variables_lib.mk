@@ -23,7 +23,7 @@ QUANTRACKER_ROOT_DIR = ../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
-OUTPUT_ARCHIVE_FILE := ../../lib/osd/flash_variables.a
+OUTPUT_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/flash_variables.a
 
 OBJDIR := obj/flash_variables/
 AR = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-ar
