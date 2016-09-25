@@ -24,7 +24,7 @@
 # for use as a template edit this 
 QUANTRACKER_ROOT_DIR = ../../
 
-TARGET_PROCESSOR = STM32F4
+TARGET_PROCESSOR = STM32F4RGT6
 
 LINKER_SCRIPT = $(QUANTRACKER_ROOT_DIR)air/osd/stm32f4.ld
 
