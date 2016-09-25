@@ -79,7 +79,7 @@ $(obj_common_objects) : $(OBJDIR)%.o : ../common/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
 
 $(static_libraries) :
-	$(MAKE) -C ../../../air/osd -f all_osd_libs.mk
+	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f all_osd_libs.mk
 
 #-----------------------------------------
 

@@ -28,7 +28,7 @@ TELEMETRY_DIRECTION = QUAN_OSD_TELEM_RECEIVER
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
 # just for fonts
-RESOURCE_PATH = ../../examples/osd_example1/
+RESOURCE_PATH = $(QUANTRACKER_ROOT_DIR)examples/osd_example1/
 
 local_objects = main.o application.o setup.o on_draw.o rx_telemetry.o
 
@@ -58,7 +58,7 @@ test: $(BINDIR)main.elf
 	$(OD) $(ODFLAGS) $(BINDIR)main.elf > $(BINDIR)main.lst
 	$(SIZ) -A $(BINDIR)main.elf
 
-$(BINDIR)main.elf: $(objects) 
+$(BINDIR)main.elf: $(objects) $(static_libraries)
 	@ echo "..linking"
 	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
 -Wl,--undefined=_sbrk $(static_libraries)
@@ -68,6 +68,9 @@ $(obj_local_objects): $(OBJDIR)%.o : %.cpp
 
 $(obj_resource_objects) : $(OBJDIR)%.o : $(RESOURCE_PATH)board/%.cpp
 	$(CC) $(CFLAGS) -DQUAN_OSD_TARGET_BOARD $< -o $@
+
+$(static_libraries) :
+	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f all_osd_libs.mk
 #-----------------------------------------
 upload_sp : test
 	$(STM32FLASH) -b 115200 -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
