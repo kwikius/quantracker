@@ -47,6 +47,7 @@ ifeq ($(STM32_STD_PERIPH_LIB_DIR), )
 $(error "STM32_STD_PERIPH_LIB_DIR must be defined to the path to the STM32 Std peripherals library - see README.")
 endif
 
+# OSD specific
 ifeq ($(TELEMETRY_DIRECTION), )
 $(error "TELEMETRY_DIRECTION must be one of QUAN_OSD_TELEM_RECEIVER QUAN_OSD_TELEM_TRANSMITTER QUAN_OSD_TELEM_NONE  - see README.")
 endif
@@ -109,13 +110,13 @@ CFLAGS  = -Wall -Wdouble-promotion -std=gnu++11 -fno-rtti -fno-exceptions -c -g 
  $(CFLAG_EXTRAS) -fno-math-errno -Wl,-u,vsprintf -lm -fdata-sections -ffunction-sections\
 -Wno-unused-local-typedefs
 
-# NOTE: TODO should be LDFLAGS
 LDFLAGS  = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
  $(PROCESSOR_FLAGS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary
 ODFLAGS = -d 
 
+# The actual libraries are defined in the 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
 #deps conditional
