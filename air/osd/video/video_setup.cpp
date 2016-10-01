@@ -85,7 +85,7 @@ namespace {
          ,quan::stm32::gpio::pupd::none
       >();
    }
-
+#if !defined QUAN_AERFLITE_BOARD
    constexpr uint32_t gpioa_unused[] ={
       0,1,4,5,8,9,10,11,12,13,14 
    };
@@ -124,7 +124,6 @@ namespace {
       setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
    }
 
-#if !defined QUAN_AERFLITE_BOARD
    void setup_usart3_txo_sign_pin()
    {
       quan::stm32::module_enable<frsky_txo_sign_pin::port_type>();
@@ -228,8 +227,7 @@ void osd_setup()
   detail::setup_leds();
 #if !defined QUAN_AERFLITE_BOARD
   setup_usart3_txo_sign_pin();
-#endif
   setup_unused_pins();
- 
+#endif
   osd_state::set(osd_state::external_video);
 }
