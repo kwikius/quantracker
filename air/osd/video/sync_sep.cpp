@@ -121,9 +121,6 @@ namespace {
       return false;
    }
 
-   // returns true if not out of range
-   // requires a valid last_sync_first_edge
-   int32_t pulse_error_count = 0;
    bool calc_sync_pulse_type()
    {
       uint16_t const capture = sync_sep_timer::get()->ccr2;
@@ -359,33 +356,55 @@ namespace detail{
       NVIC_DisableIRQ(TIM8_BRK_TIM12_IRQn);
       private_video_mode = quan::uav::osd::video_mode::unknown;
       // public_video_mode ?
+#if !defined QUAN_AERFLITE_BOARD
       quan::stm32::apply<
          video_in_hsync_first_edge_pin,
          quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
          quan::stm32::gpio::pupd::pull_up
       >();
+#else
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::pupd::pull_up
+      >();
+#endif
    }
 
    void sync_sep_setup()
    {
       
+#if !defined QUAN_AERFLITE_BOARD
       quan::stm32::module_enable<video_in_hsync_first_edge_pin::port_type>();
+#endif
       quan::stm32::module_enable<video_in_hsync_second_edge_pin::port_type>();
-
+#if !defined QUAN_AERFLITE_BOARD
       quan::stm32::apply<
          video_in_hsync_first_edge_pin,
          quan::stm32::gpio::mode::af9,  // PB14 TIM12_CH1    // af for first edge
          quan::stm32::gpio::pupd::pull_up
       >();
-
+#endif
       // PB15 is now not used, since PB14 can do both edges.
       // Note that it is connected on the board so unless the trace is cut
       // acnt be used for other things on Quantracker Air V2.2
+
+#if !defined QUAN_AERFLITE_BOARD
       quan::stm32::apply<
          video_in_hsync_second_edge_pin,
          quan::stm32::gpio::mode::input, // PB15 TIM12_CH2 not used as both edges can be mapped on PB14
          quan::stm32::gpio::pupd::none
       >();
+#else
+       // Aerflite uses a positive pulse connected to PB15 TIM12_CH2 on both edges
+       // set up PB15 TIM12_CH2
+      quan::stm32::apply<
+         video_in_hsync_second_edge_pin,
+         quan::stm32::gpio::mode::af9,  // PB15 TIM12_CH2    // af for first edge
+         quan::stm32::gpio::pupd::pull_down
+      >();
+
+#endif
 
       quan::stm32::module_enable<sync_sep_timer>();
       quan::stm32::module_reset<sync_sep_timer>();
@@ -395,19 +414,31 @@ namespace detail{
       // cc1 capture on first edge of hsync
       // cc2 capture on second edge of hsync
       quan::stm32::tim::ccmr1_t ccmr1 = 0;
-      // N.b If necessary PB15 rather than PB14
-      // could be used by mapping these to TI2
+#if !defined QUAN_AERFLITE_BOARD
       ccmr1.cc1s = 0b01;// CC1 is input mapped on TI1
-      ccmr1.cc2s = 0b10;// // CC2 is input mapped on TI1
+      ccmr1.cc2s = 0b10;// CC2 is input mapped on TI1
+#else
+      ccmr1.cc1s = 0b10;// CC1 is input mapped on TI2
+      ccmr1.cc2s = 0b01;// CC2 is input mapped on TI2
+#endif
       sync_sep_timer::get()->ccmr1.set(ccmr1.value);
+
       quan::stm32::tim::ccer_t ccer = 0;
+#if !defined QUAN_AERFLITE_BOARD
       ccer.cc1p = true; // CC1 is falling edge capture
       ccer.cc1np = false;
       ccer.cc2p = false;
       ccer.cc2np = false; // CC2 is rising edge capture
+#else
+      ccer.cc1p = false; // CC1 is rising edge capture
+      ccer.cc1np = false;
+      ccer.cc2p = true;
+      ccer.cc2np = false; // CC2 is falling edge capture
+#endif
       ccer.cc1e = true;
       ccer.cc2e = true;
       sync_sep_timer::get()->ccer.set(ccer.value);
+
       switch (osd_state::get()){
          case osd_state::external_video:
             NVIC_SetPriority(TIM8_BRK_TIM12_IRQn,interrupt_priority::video);
