@@ -365,7 +365,7 @@ namespace detail{
 #else
       quan::stm32::apply<
          video_in_hsync_second_edge_pin,
-         quan::stm32::gpio::mode::input,  // PB14 TIM12_CH1    // af for first edge
+         quan::stm32::gpio::mode::input,  // PB15 TIM12_CH2    // af for 2nd edge
          quan::stm32::gpio::pupd::pull_up
       >();
 #endif
@@ -385,9 +385,9 @@ namespace detail{
          quan::stm32::gpio::pupd::pull_up
       >();
 #endif
-      // PB15 is now not used, since PB14 can do both edges.
-      // Note that it is connected on the board so unless the trace is cut
-      // acnt be used for other things on Quantracker Air V2.2
+      // PB15/PB14 is now not used, since PB14/PB15 can do both edges.
+      // Note that it is connected on the old board so unless the trace is cut
+      // cant be used for other things on Quantracker Air V2.2
 
 #if !defined QUAN_AERFLITE_BOARD
       quan::stm32::apply<
