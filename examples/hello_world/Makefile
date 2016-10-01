@@ -87,4 +87,4 @@ upload_sp : test
 #----------------------------------------
 
 clean:
-	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst
+	-rm -rf $(OBJDIR)*.o $(BINDIR)*.elf $(BINDIR)*.bin $(BINDIR)*.lst $(BINDIR)*.map
