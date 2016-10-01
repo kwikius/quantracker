@@ -15,6 +15,8 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#if !defined QUAN_AERFLITE_BOARD
+
 #include <stm32f4xx.h>
 #include <quan/bit.hpp>
 #include <quan/time.hpp>
@@ -240,4 +242,4 @@ namespace detail{
  #endif 
  
  
- 
+ #endif // #if !defined QUAN_AERFLITE_BOARD
