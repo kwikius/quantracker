@@ -64,8 +64,17 @@ $(BINDIR)main.elf: $(objects) $(static_libraries)
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(static_libraries) :
-	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f all_osd_libs.mk
+local_static_library_path = ../../lib/osd/
+#$(static_libraries) :
+#	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f all_osd_libs.mk
+$(local_static_library_path)quantracker_air_graphics_api.a :
+	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f graphics_api_lib.mk
+
+$(local_static_library_path)quantracker_air_system.a :
+	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f system.mk
+
+$(local_static_library_path)quantracker_air_osd.a :
+	$(MAKE) -C $(QUANTRACKER_ROOT_DIR)air/osd -f osd_lib.mk
 
 #-----------------------------------------
 
