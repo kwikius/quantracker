@@ -83,7 +83,7 @@ upload : test
 
 # try add -b115200 to increase upload rate
 upload_sp : test
-	$(STM32FLASH) -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
+	$(STM32FLASH) -b 115200 -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
 #----------------------------------------
 
 clean:
