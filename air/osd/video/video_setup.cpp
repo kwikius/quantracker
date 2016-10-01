@@ -124,6 +124,7 @@ namespace {
       setup_unused_pins<quan::stm32::gpioc>(gpioc_unused);
    }
 
+#if !defined QUAN_AERFLITE_BOARD
    void setup_usart3_txo_sign_pin()
    {
       quan::stm32::module_enable<frsky_txo_sign_pin::port_type>();
@@ -136,6 +137,7 @@ namespace {
          , quan::stm32::gpio::ostate::low
       >();
    }
+#endif
 
 }//namespace
 
@@ -180,7 +182,9 @@ namespace detail{
    void video_setup()
    {
       video_analog_input_setup();
+#if !defined QUAN_AERFLITE_BOARD
       detail::video_palette_dac_setup();
+#endif
       detail::spi_setup();
       detail::pixel_dma_setup();
       hsync_setup();
@@ -222,7 +226,9 @@ void osd_setup()
   // once
   NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
   detail::setup_leds();
+#if !defined QUAN_AERFLITE_BOARD
   setup_usart3_txo_sign_pin();
+#endif
   setup_unused_pins();
  
   osd_state::set(osd_state::external_video);
