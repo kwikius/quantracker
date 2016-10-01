@@ -2,12 +2,14 @@
 Minimal Quantracker Air OSD Hello World application
 */
 
+#include <quan/stm32/gpio.hpp>
 #include <quantracker/osd/osd.hpp>
-
+#include <quantracker/air/osd/resources.hpp>
 int main()
 {
    osd_setup();           
-   create_draw_task();    
+   create_draw_task();   
+   quan::stm32::set<heartbeat_led_pin>(); 
    vTaskStartScheduler(); 
 }
 
