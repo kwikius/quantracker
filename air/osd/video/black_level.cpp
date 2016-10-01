@@ -15,6 +15,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#if !defined QUAN_AERFLITE_BOARD
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/rcc.hpp>
 #include <stm32f4xx.h>
@@ -82,7 +83,4 @@ void update_black_level(uint16_t sync_tip, uint16_t black_level)
    //12 bit pwm  arr// get lowest freq 
 #endif
 }
-
-
-
-
+#endif
