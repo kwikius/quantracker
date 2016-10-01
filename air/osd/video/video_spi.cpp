@@ -99,7 +99,7 @@ namespace detail{
             ,quan::stm32::gpio::ostate::high
          >();
       }else{
-
+#if !defined QUAN_AERFLITE_BOARD
          quan::stm32::module_enable<av_telem_tx::port_type>();
          quan::stm32::apply<
             av_telem_tx
@@ -115,8 +115,8 @@ namespace detail{
             ,quan::stm32::gpio::mode::input
             ,quan::stm32::gpio::pupd::pull_down
          >();
+#endif
       }
-         
    }
 
    void spi_takedown()
@@ -144,12 +144,12 @@ namespace detail{
          ,quan::stm32::gpio::mode::input
          ,quan::stm32::gpio::pupd::pull_up // init clock low
       >();
-
+#if !defined QUAN_AERFLITE_BOARD
       quan::stm32::apply<
          av_telem_tx
          ,quan::stm32::gpio::mode::input
          ,quan::stm32::gpio::pupd::pull_up // init clock low
       >();
-
+#endif
    }
 } // detail
