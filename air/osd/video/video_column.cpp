@@ -528,6 +528,7 @@ void video_cfg::columns::osd::begin()
     //  DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
 
       spi_ll_setup();
+// start off with transparent which is ?? on aerflite
 
       video_mux_out_black_spi::get()->dr = black[0] | 1U;
       video_mux_out_white_spi::get()->dr = white[0] | 1U;
