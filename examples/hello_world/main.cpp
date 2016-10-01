@@ -18,9 +18,9 @@ int main()
 // your custom drawing function
 void quan::uav::osd::on_draw()
 {
-   //draw_text("Hello World",{-60,0});
-    draw_line ( {-100,-100}, {100,100}, colour_type::black );
-    draw_line ( {-105,-100}, {95,100}, colour_type::white );
-    draw_line ( {-110,-100}, {90,100}, colour_type::grey );
-    draw_line ( {-115,-100}, {85,100}, colour_type::transparent );
+   //draw_text("Hello World",{-60,0}); // nothing
+  //  draw_line ( {-100,-100}, {100,100}, colour_type::black );
+    draw_line ( {-120,-100}, {80,100}, colour_type::white ); // white
+    draw_line ( {-100,-100}, {100,100}, colour_type::black ); // black
+  //  draw_line ( {-115,-100}, {85,100}, colour_type::transparent );
 }
