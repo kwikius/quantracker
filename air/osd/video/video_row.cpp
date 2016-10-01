@@ -155,15 +155,18 @@ namespace {
          cr2.ti1s = false;
          line_counter::get()->cr2 .set (cr2.value);
       }
+
+
       {
          quan::stm32::tim::smcr_t smcr = line_counter::get()->smcr.get();
+#if !defined QUAN_AERFLITE_BOARD
    // could be the way to disable LineCounter clock
          smcr.ece = true;  // external clock on TIM3_ETR
    // The source for the clock to count lines
-   #if ((QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || ((QUAN_OSD_BOARD_TYPE == 4) && (!defined QUAN_AERFLITE_BOARD)))
+   #if ((QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4) )
          smcr.etp = true;  // external clock TIM3_ETR falling edge ( first edge)
    #else
-       #if ((QUAN_OSD_BOARD_TYPE == 2) || (defined QUAN_AERFLITE_BOARD))
+       #if (QUAN_OSD_BOARD_TYPE == 2)
          smcr.etp = false;  // external clock TIM3_ETR rising edge ( first edge)
        #else
          #error no board type defined
@@ -177,6 +180,16 @@ namespace {
          smcr.sms = 0b110; // slave mode trigger
          smcr.ts  = 0b101; // trigger source input is TI1 (TIM3_CH1)
    #endif
+#else
+// aerflite
+         smcr.etp = false; // (actuall dont care)
+         smcr.ece = false; // Dont want external trigger
+         smcr.etps = 0b00;
+         smcr.etf  = 0b0000;
+         smcr.ts  = 0b101;  // trigger source is TI1FP1 (TIM3_CH1)
+         smcr.sms = 0b111;  // External clock mode
+
+#endif
          line_counter::get()->smcr.set (smcr.value);
       }
       {
@@ -199,11 +212,17 @@ namespace {
          ccer.cc1np = false; // input trigger falling edge
          ccer.cc1p  = true; // input trigger falling edge
    #else
+      #if !defined QUAN_AERFLITE_BOARD
      /*
          with software sync sep then
          no external trigger used  for enabling line_counter
          rather is done by software sync sep routines
      */
+     #else
+     // aerflite TIM3_CH1 csync input positive pulse
+         ccer.cc1np = false; // input trigger rising edge
+         ccer.cc1p  = false; // input trigger rising edge
+     #endif
    #endif
          ccer.cc2e = true;  // enable cc2 output for telem begin
          line_counter::get()->ccer.set (ccer.value);
