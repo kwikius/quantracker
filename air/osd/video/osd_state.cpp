@@ -4,7 +4,9 @@
 #include "../resources.hpp"
 
 namespace detail{
+#if !defined QUAN_AERFLITE_BOARD
     bool dac_busy();
+#endif
     void video_setup();
     //void internal_video_mode_setup();
     void video_take_down();
@@ -64,7 +66,9 @@ void osd_state::suspend()
    m_have_external_video = false;
    m_current_state = suspended;
    taskEXIT_CRITICAL();
+#if !defined QUAN_AERFLITE_BOARD
    while( detail::dac_busy() ){;}
+#endif
 
 }
 
@@ -96,6 +100,7 @@ void osd_state::switch_to_internal_video_mode()
     detail::video_setup();
 
 }
+
 void osd_state::switch_to_external_video_mode()
 {
    if ( m_current_state != suspended){
