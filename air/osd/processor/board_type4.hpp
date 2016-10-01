@@ -2,7 +2,7 @@
 #define QUANTRACKER_AIR_OSD_PROCESSORS_BOARD_TYPE4_HPP_INCLUDED
 
 /*
- Copyright (c) 2013 -2015 Andy Little 
+ Copyright (c) 2013 -2016 Andy Little 
 
  With Grateful Acknowledgements to the prior work of:
    Sami Korhonen(Openpilot.org)
@@ -48,12 +48,16 @@ typedef quan::stm32::tim9                       spi_clock_timer;
 // maybe change this to 32 bit timer and leave running for microsecs
 typedef quan::stm32::tim12                      sync_sep_timer;
 
+#if !defined(QUAN_AERFLITE_BOARD)
 // only used when writing video dac
 typedef quan::stm32::tim10                      video_level_dac_irq_timer;
+#endif
 
 // not really part of system
 typedef quan::stm32::tim6                       fsk_dac_timer;
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::stm32::tim7                       dac2_timer;
+#endif
 
 /*Timers potentially avail for expansion some multiplexed with other functions ( with i/o)
  N.B. Timer1 CH2 could go out on PA9 (currently Mavlink TX via digitally isolated port
@@ -84,75 +88,169 @@ TIM11_CH1
  total 43 + power + gnd
  abs min 42 -> 48/4 -> 4 * 13 ( 2 rows of 13 * 2) 52
 */
-typedef quan::stm32::usart1                    mavlink_usart;
+#if !defined(QUAN_AERFLITE_BOARD)
+typedef quan::stm32::usart1                     mavlink_usart;
+#endif
 // usart2 avail for expansion on 100 pin part
 // usart4 avail for expansion on all parts
-typedef quan::stm32::usart3                    frsky_usart; // maybe inverted but not on f4
-// uart5 txo avail on all parts
-typedef quan::stm32::usart6                    av_telem_usart;
-// spi
-// SPI1 avail for expansion
-typedef quan::stm32::spi2                      video_mux_out_black_spi;
-typedef quan::stm32::spi3                      video_mux_out_white_spi;
+//#if !defined(QUAN_AERFLITE_BOARD)
+typedef quan::stm32::usart3                     frsky_usart; // maybe inverted but not on f4
+typedef quan::stm32::usart6                     av_telem_usart;
+//#endif
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::stm32::spi1                       imu_spi;
+#else
+// SPI1 is available for expansion
+#endif
+
+typedef quan::stm32::spi2                       video_mux_out_black_spi;
+typedef quan::stm32::spi3                       video_mux_out_white_spi;
 // I2C1 I2C2 and I2C3 avail for expansion
 //----PORTA---------------------------------------
-//typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_tx ;// USART4_TX
-//typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rx; // USART4_RX
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioa,0>    usart4_txo_pin ;// USART4_TX
+typedef quan::mcu::pin<quan::stm32::gpioa,1>    usart4_rxi_pin; // USART4_RX
+#endif
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::mcu::pin<quan::stm32::gpioa,2>    video_spi_clock;// TIM9_CH1
 typedef quan::mcu::pin<quan::stm32::gpioa,3>    telem_cmp_enable_pin; // TIM2_CH4
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,2>    usart2_txo_rxi_pin;// USART2_TX
+typedef quan::mcu::pin<quan::stm32::gpioa,3>    video_spi_clock;// TIM9_CH2
+#endif
+
 typedef quan::mcu::pin<quan::stm32::gpioa,4>    fsk_dac_out_pin; // NOT MOVABLE
+
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::mcu::pin<quan::stm32::gpioa,5>    dac2_out_pin; // NOT MOVABLE
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,5>    video_in_tim2_hsync_pin; // CSYNC TIM2_CH1
+#endif
+
 #if !(defined QUAN_DISCOVERY)
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::mcu::pin<quan::stm32::gpioa,6>    av_dac_nsync; // software no af
 typedef quan::mcu::pin<quan::stm32::gpioa,7>    av_dac_data; // softawre no af
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,6>    video_in_tim3_hsync_pin ;  // TIM3_CH1 csync and internal out 
+typedef quan::mcu::pin<quan::stm32::gpioa,7>    ppmsum_in_pin; // TIM14_CH1
 #endif
-//typedef quan::mcu::pin<quan::stm32::gpioa,8>    i2c3_scl ;
-typedef quan::mcu::pin<quan::stm32::gpioa,9>     mavlink_txo_pin; // USART1_TX
-typedef quan::mcu::pin<quan::stm32::gpioa,10>    mavlink_rxi_pin; // USART1_RX
-//typedef quan::mcu::pin<quan::stm32::gpioa,11>    can1_tx;
-//typedef quan::mcu::pin<quan::stm32::gpioa,12>    can1_rx;
-typedef quan::mcu::pin<quan::stm32::gpioa,13>    swdio;
-typedef quan::mcu::pin<quan::stm32::gpioa,14>    swdclk;
-typedef quan::mcu::pin<quan::stm32::gpioa,15>    video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
+#endif
+
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioa,8>    i2c3_scl ;
+#endif
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioa,9>    usart1_txo_pin; // USART1_TX
+typedef quan::mcu::pin<quan::stm32::gpioa,10>   usart1_rxi_pin; // USART1_RX
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,9>    mavlink_txo_pin; // USART1_TX
+typedef quan::mcu::pin<quan::stm32::gpioa,10>   mavlink_rxi_pin; // USART1_RX
+#endif
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioa,11>   can1_rx;
+typedef quan::mcu::pin<quan::stm32::gpioa,12>   can1_tx;
+#endif
+
+typedef quan::mcu::pin<quan::stm32::gpioa,13>   swdio;
+typedef quan::mcu::pin<quan::stm32::gpioa,14>   swdclk;
+#if defined(QUAN_AERFLITE_BOARD)
+// The JTAG debug pins are also LED outputs, but connected to mosfet gates so
+// can be overridden by JTAG functionality
+typedef quan::mcu::pin<quan::stm32::gpioa,13>   notify_led1;
+typedef quan::mcu::pin<quan::stm32::gpioa,14>   notify_led2;
+#endif
+
+#if !defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioa,15>   video_in_tim2_hsync_pin ; // TIM2_CH1 ( also TIM2_ETR)
+#else
+typedef quan::mcu::pin<quan::stm32::gpioa,15>   imu_nss_pin; // SPI1_NSS hardware nss pin
+#endif
 //----PORTB---------------------------------------------
-typedef quan::mcu::pin<quan::stm32::gpiob,0>      video_adc_pin ; // ADC12_IN8
-typedef quan::mcu::pin<quan::stm32::gpiob,1>      vin_voltage_pin ;//adc1 ADC12_IN9 
-typedef quan::mcu::pin<quan::stm32::gpiob,2>      boot1_pin;
-//typedef quan::mcu::pin<quan::stm32::gpiob,3>    spi1_sck; // NOT MOVABLE
-//typedef quan::mcu::pin<quan::stm32::gpiob,4>    spi1_miso; // or SPI3_MISO
-//typedef quan::mcu::pin<quan::stm32::gpiob,5>    spi1_mosi;
-//typedef quan::mcu::pin<quan::stm32::gpiob,6>    i2c1_scl; 
-//typedef quan::mcu::pin<quan::stm32::gpiob,7>    i2c1_sda; 
-//typedef quan::mcu::pin<quan::stm32::gpiob,8>    tim10_ch1; 
-//typedef quan::mcu::pin<quan::stm32::gpiob,9>    tim11_ch1; 
-typedef quan::mcu::pin<quan::stm32::gpiob,10>   frsky_txo_pin; 
-typedef quan::mcu::pin<quan::stm32::gpiob,11>   frsky_rxi_pin; 
+#if !defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpiob,0>    video_adc_pin ; // ADC12_IN8
+typedef quan::mcu::pin<quan::stm32::gpiob,1>    vin_voltage_pin ;//adc1 ADC12_IN9 
+typedef quan::mcu::pin<quan::stm32::gpiob,2>    boot1_pin;
+#else
+typedef quan::mcu::pin<quan::stm32::gpiob,0>    rcout5_pin; // TIM1_CH2N
+typedef quan::mcu::pin<quan::stm32::gpiob,1>    rcout6_pin;  // TIM1_CH3N
+typedef quan::mcu::pin<quan::stm32::gpiob,2>    video_isync_pin;// BOOT0 high for internal video
+#endif
+
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpiob,3>    spi1_sck; // imu
+typedef quan::mcu::pin<quan::stm32::gpiob,4>    spi1_miso; // imu
+typedef quan::mcu::pin<quan::stm32::gpiob,5>    spi1_mosi; // imu
+
+typedef quan::mcu::pin<quan::stm32::gpiob,6>    rcout1_pin; 
+typedef quan::mcu::pin<quan::stm32::gpiob,7>    rcout2_pin; 
+typedef quan::mcu::pin<quan::stm32::gpiob,8>    rcout3_pin; 
+typedef quan::mcu::pin<quan::stm32::gpiob,9>    rcout4_pin; 
+#endif
+
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpiob,10>   usart3_txo_pin; // USART3_TX
+typedef quan::mcu::pin<quan::stm32::gpiob,11>   usart3_rxi_pin; // USART3_RX
+#else
+typedef quan::mcu::pin<quan::stm32::gpiob,10>   frsky_txo_pin; // USART3_TX
+typedef quan::mcu::pin<quan::stm32::gpiob,11>   frsky_rxi_pin; // USART3_RX
+#endif
 #if !(defined QUAN_DISCOVERY)
 typedef quan::mcu::pin<quan::stm32::gpiob,12>   heartbeat_led_pin;
 #endif
-typedef quan::mcu::pin<quan::stm32::gpiob,13>   video_mux_out_black_sck; // SPI2_SCK AF5
+
+typedef quan::mcu::pin<quan::stm32::gpiob,13>   video_mux_out_black_sck; // SPI2_SCK AF5 input from pixelclk
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::mcu::pin<quan::stm32::gpiob,14>   video_in_hsync_first_edge_pin; // TIM12_CH1
+#else
+typedef quan::mcu::pin<quan::stm32::gpiob,14>   video_mux_out_black_miso; // actually MASK 
+#endif
 typedef quan::mcu::pin<quan::stm32::gpiob,15>   video_in_hsync_second_edge_pin; // TIM12_CH2
 //-----PORTC---------------------------------------
-//typedef quan::mcu::pin<quan::stm32::gpioc,0> adc2; //ADC123_IN10
-//typedef quan::mcu::pin<quan::stm32::gpioc,1> adc3; //ADC123_IN11
-typedef quan::mcu::pin<quan::stm32::gpioc,2> video_mux_out_black_miso; // SPI2_MISO AF5
-//typedef quan::mcu::pin<quan::stm32::gpioc,3> adc4; //ADC123_IN13
-//typedef quan::mcu::pin<quan::stm32::gpioc,4> adc5; //ADC123_IN14
-//typedef quan::mcu::pin<quan::stm32::gpioc,5> adc6; //ADC123_IN15
-typedef quan::mcu::pin<quan::stm32::gpioc,6> av_telem_tx; // USART6_TX
-typedef quan::mcu::pin<quan::stm32::gpioc,7> av_telem_rx; // USART6_RX
-#if !(defined QUAN_DISCOVERY)
-typedef quan::mcu::pin<quan::stm32::gpioc,8> av_dac_clk; // software no af
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioc,0>    video_adc_pin; //ADC123_IN10
+typedef quan::mcu::pin<quan::stm32::gpioc,1>    analog_in; //ADC123_IN11 undedicated anlog input
 #endif
-//typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda ;
-typedef quan::mcu::pin<quan::stm32::gpioc,10> video_mux_out_white_sck; // SPI3_SCK 
-typedef quan::mcu::pin<quan::stm32::gpioc,11> video_mux_out_white_miso; // SPI3_MISO
-//typedef quan::mcu::pin<quan::stm32::gpioc,12> mcu_pc12_pin ; // UART5_TXO
+#if !defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioc,2>    video_mux_out_black_miso; // SPI2_MISO AF5
+#else
+typedef quan::mcu::pin<quan::stm32::gpioc,2>    analog_rssi_in; 
+typedef quan::mcu::pin<quan::stm32::gpioc,3>    analog_batt_current_in; //ADC123_IN13
+typedef quan::mcu::pin<quan::stm32::gpioc,4>    analog_batt_voltage_in; //ADC123_IN14
+typedef quan::mcu::pin<quan::stm32::gpioc,5>    analog_airspeed_in; //ADC123_IN15
+#endif
+
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioc,6>    usart6_txo_pin; // USART6_TX
+typedef quan::mcu::pin<quan::stm32::gpioc,7>    usart6_rxi_pin; // USART6_RX
+#else
+typedef quan::mcu::pin<quan::stm32::gpioc,6>    av_telem_tx; // USART6_TX
+typedef quan::mcu::pin<quan::stm32::gpioc,7>    av_telem_rx; // USART6_RX
+#endif
+#if !(defined QUAN_DISCOVERY)
+#if !defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioc,8>    av_dac_clk; // software no af
+#else
+typedef quan::mcu::pin<quan::stm32::gpioc,8>    sdio_d0_pin; //SDIO_D0
+#endif
+#endif
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioc,9>    i2c3_sda ;
+#endif
+typedef quan::mcu::pin<quan::stm32::gpioc,10>   video_mux_out_white_sck; // SPI3_SCK input
+typedef quan::mcu::pin<quan::stm32::gpioc,11>   video_mux_out_white_miso; // SPI3_MISO
+#if defined(QUAN_AERFLITE_BOARD)
+typedef quan::mcu::pin<quan::stm32::gpioc,12>   sdio_sck_pin ; //SDIO_CK
+#endif
+#if !defined(QUAN_AERFLITE_BOARD)
 //############Limited output current ###########################
-typedef quan::mcu::pin<quan::stm32::gpioc,13> frsky_txo_sign_pin;
-//typedef quan::mcu::pin<quan::stm32::gpioc,14> osc32_in;;
-//typedef quan::mcu::pin<quan::stm32::gpioc,15> osc32_out;
+typedef quan::mcu::pin<quan::stm32::gpioc,13>   frsky_txo_sign_pin;
+#else
+typedef quan::mcu::pin<quan::stm32::gpioc,13>   mpu_drdy_pin;
+typedef quan::mcu::pin<quan::stm32::gpioc,14>   usart2_direction_pin;
+typedef quan::mcu::pin<quan::stm32::gpioc,15>   sd_card_detect_pin;
+#endif
+
 //############Limited output current ############################
 // NA on 64 pin part except PD2 PH0 PH1
 //---------PORTD---------------------------------------------------------------------
@@ -163,7 +261,11 @@ PD0 GP no useful AF no ADC
 #if defined QUAN_DISCOVERY
 typedef quan::mcu::pin<quan::stm32::gpiod,1>     av_dac_nsync; // software no af
 #endif
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::mcu::pin<quan::stm32::gpiod,2>     video_in_tim3_hsync_pin; // TIM3_ETR
+#else
+typedef quan::mcu::pin<quan::stm32::gpiod,2>     sdio_cmd_pin;
+#endif
 #if defined QUAN_DISCOVERY
 typedef quan::mcu::pin<quan::stm32::gpiod,3>     av_dac_data; // software no af
 #endif
@@ -230,6 +332,8 @@ PE15 NO ADC (NC)
 PH0 OSC_IN
 PH1 OSC_OUT
 */
+
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::stm32::freertos::usart_tx_rx_task<
    mavlink_usart,
    100,100, 
@@ -249,7 +353,7 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
    frsky_txo_pin,frsky_rxi_pin,
    char
 > frsky_tx_rx_task;
-
+#endif
 // 0- 15 lower numerical is higher logical priority
  // NB anything above certain level is not masked
   // what is that level?
