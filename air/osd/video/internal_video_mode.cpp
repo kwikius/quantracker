@@ -39,7 +39,7 @@
 // only effect is that set transparent will set white
 
 
-void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code);
+//void Dac_write( uint8_t dacnum, quan::voltage::V const & vout, uint8_t code);
 
 namespace {
    typedef video_rows_line_counter sync_timer;
