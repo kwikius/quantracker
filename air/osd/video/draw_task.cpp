@@ -29,14 +29,15 @@ namespace detail{
 
 /*
    Will make this settable at some point
-   For transmitte it is OK to go to internal video on no input
+   For transmitter it is OK to go to internal video on no input
    but for receiver on tracker
    it isnt ideal to go to black screen on video signal lost
    since it may still actually be visible
    Could prob work on the sync_sep algorithm to better 
    detect sync with noise
 */
-#if defined (QUAN_OSD_TELEM_RECEIVER)
+// Also dont swap to internal video mode for aerflite as it hasnt been implemented yet
+#if defined (QUAN_OSD_TELEM_RECEIVER) || defined (QUAN_AERFLITE_BOARD)
    bool swap_to_internal_video_on_signal_lost =  false;
 #else
    bool swap_to_internal_video_on_signal_lost =  true;
