@@ -47,7 +47,16 @@ namespace detail{
    #if (QUAN_OSD_BOARD_TYPE == 4) && !(defined QUAN_DISCOVERY)
       do_led_pin_setup<heartbeat_led_pin>();
        #if defined QUAN_AERFLITE_BOARD
+          // make these not JTAG
+        quan::stm32::apply<
+            notify_led1
+            ,quan::stm32::gpio::mode::af1
+        >();
          do_led_pin_setup<notify_led1>();
+         quan::stm32::apply<
+            notify_led2
+            ,quan::stm32::gpio::mode::af1
+        >();
          do_led_pin_setup<notify_led2>();
        #endif
    #else
