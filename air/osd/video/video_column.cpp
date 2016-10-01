@@ -681,10 +681,10 @@ void video_cfg::columns::setup()
 
       if  ( osd_state::get() == osd_state::external_video){
          ccmr1.cc1s   = 0b01;   // IC1 is input mapped on TI1 (hsync)
-         ccmr1.oc2m  = 0b000;
-         ccmr1.cc2s  = 0b00;
-         ccmr1.oc2pe = false;
-         ccmr1.oc2fe = false;
+         ccmr1.oc2m  = 0b000;   // frozen no output
+         ccmr1.cc2s  = 0b00;    // CC2 channel is an output ??
+         ccmr1.oc2pe = false;   // cc2 out preload disabled
+         ccmr1.oc2fe = false;   // CC2 fast enable dont care
       }else{
           // dont think we need to config ccmr1 cc1
          // this isnt connected to a pin in internal video mode
@@ -697,7 +697,7 @@ void video_cfg::columns::setup()
 
    {
       quan::stm32::tim::ccmr2_t ccmr2 = gate_timer::get()->ccmr2.get();
-      ccmr2.cc4s  = 0b00;   // OC4 is output mapped to TRGO ( enable px clk)
+      ccmr2.cc4s  = 0b00;   // OC4 is output ( mapped to TRGO ( enable px clk) )
       ccmr2.oc4fe = false;
       ccmr2.oc4pe = false;
       ccmr2.oc4m  = 0b111;  // pwm mode 2
@@ -711,20 +711,27 @@ void video_cfg::columns::setup()
 //##################### EXTERNAL VIDEO ##############################
 // second edge of hsync TIM2_CH1 
       // dont care if internal video mode
+#if !defined QUAN_AERFLITE_BOARD
       ccer.cc1np = false;  // Ti1FP1 rising edge trigger ( hsync)
       ccer.cc1p  = false;  // Ti1FP1 rising edge trigger
+#else
+// aerflite uses a positive sync pulse
+      ccer.cc1np = false;  // Ti1FP1 falling edge trigger ( hsync)
+      ccer.cc1p  = true;   // Ti1FP1 falling edge trigger
+#endif
       ccer.cc4p  = true;  // active low ???
       ccer.cc4e  = true;
-      gate_timer::get()->ccer.set (ccer.value);
+
+      gate_timer::get()->ccer.set(ccer.value);
    }
    gate_timer::get()->psc = 0;
    {
       quan::stm32::tim::dier_t dier = gate_timer::get()->dier.get();
       dier.tie = true;
       dier.uie = true;
-      gate_timer::get()->dier.set (dier.value);
+      gate_timer::get()->dier.set(dier.value);
    }
-   gate_timer::get()->sr.set (0);
+   gate_timer::get()->sr.set(0);
    NVIC_SetPriority(TIM2_IRQn,interrupt_priority::video);
    NVIC_EnableIRQ (TIM2_IRQn);
    // dont set CEN as it will be enabled by hsync on input trigger
