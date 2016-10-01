@@ -21,54 +21,40 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#if (QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY)
-#include <quan/meta/type_sequence.hpp>
-#include <quan/meta/for_each.hpp>
-#endif
-
 #include "../resources.hpp"
 
 namespace {
       
-   struct do_led_pin_setup
+   template <typename Pin>
+   void do_led_pin_setup()
    {
-      template <typename Pin>
-      void operator()()const
-      {
-         quan::stm32::module_enable< typename Pin::port_type>();
+      quan::stm32::module_enable<typename Pin::port_type>();
 
-         quan::stm32::apply<
-            Pin
-            , quan::stm32::gpio::mode::output
-            , quan::stm32::gpio::otype::push_pull
-            , quan::stm32::gpio::pupd::none
-            , quan::stm32::gpio::ospeed::slow
-            , quan::stm32::gpio::ostate::low
-         >();
-      }
-   };
+      quan::stm32::apply<
+         Pin
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::slow
+         , quan::stm32::gpio::ostate::low
+      >();
+   }
 }
-#if (QUAN_OSD_BOARD_TYPE != 4) || (defined QUAN_DISCOVERY)
-namespace  quan{ namespace impl{
-   template<> struct is_model_of_impl<
-      quan::meta::PolymorphicFunctor<1,0>,do_led_pin_setup 
-   > : quan::meta::true_{};
-}}
-#endif
 
 namespace detail{
    void setup_leds()
    {
    #if (QUAN_OSD_BOARD_TYPE == 4) && !(defined QUAN_DISCOVERY)
-         do_led_pin_setup{}.operator()<heartbeat_led_pin>();
+      do_led_pin_setup<heartbeat_led_pin>();
+       #if defined QUAN_AERFLITE_BOARD
+         do_led_pin_setup<notify_led1>();
+         do_led_pin_setup<notify_led2>();
+       #endif
    #else
-      typedef quan::meta::type_sequence<
-         heartbeat_led_pin
-         ,blue_led_pin     
-         ,green_led_pin  
-         ,orange_led_pin 
-      > led_pins;
-      quan::meta::for_each<led_pins,do_led_pin_setup>{}();
-    #endif
+     do_led_pin_setup<heartbeat_led_pin>();
+     do_led_pin_setup<blue_led_pin>();     
+     do_led_pin_setup<green_led_pin>();  
+     do_led_pin_setup<orange_led_pin>();
+   #endif
    }
 }
