@@ -139,104 +139,104 @@ namespace {
 
    void video_cfg_rows_external_setup()
    {
-    typedef video_cfg::rows::line_counter line_counter ;
-//   m_cur_mode = mode::idle;
-//   m_cur_row_odd = true;
-   quan::stm32::module_enable<line_counter>();
-   quan::stm32::module_reset<line_counter>();
+      typedef video_cfg::rows::line_counter line_counter ;
+   //   m_cur_mode = mode::idle;
+   //   m_cur_row_odd = true;
+      quan::stm32::module_enable<line_counter>();
+      quan::stm32::module_reset<line_counter>();
 
-   {
-      quan::stm32::tim::cr1_t cr1 = line_counter::get()->cr1.get();
-      cr1.opm = true; // one pulse mode
-      line_counter::get()->cr1 .set (cr1.value);
-   }
-   {
-      quan::stm32::tim::cr2_t cr2 = line_counter::get()->cr2.get();
-      cr2.ti1s = false;
-      line_counter::get()->cr2 .set (cr2.value);
-   }
-   {
-      quan::stm32::tim::smcr_t smcr = line_counter::get()->smcr.get();
-// could be the way to disable LineCounter clock
-      smcr.ece = true;  // external clock on TIM3_ETR
-// The source for the clock to count lines
-#if (QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || (QUAN_OSD_BOARD_TYPE == 4)
-      smcr.etp = true;  // external clock TIM3_ETR falling edge ( first edge)
-#else
-    #if QUAN_OSD_BOARD_TYPE == 2
-      smcr.etp = false;  // external clock TIM3_ETR rising edge ( first edge)
-    #else
-      #error no board type defined
-    #endif
-#endif
-      smcr.etps = 0b00; // no prescaler on trigger
-      smcr.etf = 0b000; // no external trigger filter
-#if !defined QUAN_OSD_SOFTWARE_SYNCSEP
-     // with no software sync sep then
-      // line_counter enabled by VSYNC
-      smcr.sms = 0b110; // slave mode trigger
-      smcr.ts  = 0b101; // trigger source input is TI1 (TIM3_CH1)
-#endif
-      line_counter::get()->smcr.set (smcr.value);
-   }
-   {
-      quan::stm32::tim::ccmr1_t ccmr1 = line_counter::get()->ccmr1.get();
-// want this as input either on internal or external sync sep
-// but if software sync sep this channel is available I think
-      ccmr1.cc1s = 0b01; // ch1 vsync input trigger
-      ccmr1.ic1f = 0b00; // no filter on input trigger
+      {
+         quan::stm32::tim::cr1_t cr1 = line_counter::get()->cr1.get();
+         cr1.opm = true; // one pulse mode
+         line_counter::get()->cr1 .set (cr1.value);
+      }
+      {
+         quan::stm32::tim::cr2_t cr2 = line_counter::get()->cr2.get();
+         cr2.ti1s = false;
+         line_counter::get()->cr2 .set (cr2.value);
+      }
+      {
+         quan::stm32::tim::smcr_t smcr = line_counter::get()->smcr.get();
+   // could be the way to disable LineCounter clock
+         smcr.ece = true;  // external clock on TIM3_ETR
+   // The source for the clock to count lines
+   #if ((QUAN_OSD_BOARD_TYPE == 1) || (QUAN_OSD_BOARD_TYPE == 3) || ((QUAN_OSD_BOARD_TYPE == 4) && (!defined QUAN_AERFLITE_BOARD)))
+         smcr.etp = true;  // external clock TIM3_ETR falling edge ( first edge)
+   #else
+       #if ((QUAN_OSD_BOARD_TYPE == 2) || (defined QUAN_AERFLITE_BOARD))
+         smcr.etp = false;  // external clock TIM3_ETR rising edge ( first edge)
+       #else
+         #error no board type defined
+       #endif
+   #endif
+         smcr.etps = 0b00; // no prescaler on trigger
+         smcr.etf = 0b000; // no external trigger filter
+   #if !defined QUAN_OSD_SOFTWARE_SYNCSEP
+        // with no software sync sep then
+         // line_counter enabled by VSYNC
+         smcr.sms = 0b110; // slave mode trigger
+         smcr.ts  = 0b101; // trigger source input is TI1 (TIM3_CH1)
+   #endif
+         line_counter::get()->smcr.set (smcr.value);
+      }
+      {
+         quan::stm32::tim::ccmr1_t ccmr1 = line_counter::get()->ccmr1.get();
+   // want this as input either on internal or external sync sep
+   // but if software sync sep this channel is available I think
+         ccmr1.cc1s = 0b01; // ch1 vsync input trigger
+         ccmr1.ic1f = 0b00; // no filter on input trigger
 
-      ccmr1.cc2s = 0b00; // ch2 output for irq to start telem rows
-      ccmr1.oc2m = 0b000; // Frozen only want irq on match
-      ccmr1.oc2pe = false; // want to be able to update on the fly
-      line_counter::get()->ccmr1.set (ccmr1.value);
-   }
+         ccmr1.cc2s = 0b00; // ch2 output for irq to start telem rows
+         ccmr1.oc2m = 0b000; // Frozen only want irq on match
+         ccmr1.oc2pe = false; // want to be able to update on the fly
+         line_counter::get()->ccmr1.set (ccmr1.value);
+      }
 
-   {
-      quan::stm32::tim::ccer_t ccer = line_counter::get()->ccer.get();
-#if !defined QUAN_OSD_SOFTWARE_SYNCSEP
-// external vsync pin
-      ccer.cc1np = false; // input trigger falling edge
-      ccer.cc1p  = true; // input trigger falling edge
-#else
-  /*
-      with no software sync sep then
-      no external trigger used  for enabling line_counter
-      rather is done by software sync sep routines
-  */
-#endif
-      ccer.cc2e = true;  // enable cc2 output for telem begin
-      line_counter::get()->ccer.set (ccer.value);
-   }
-   {
-      quan::stm32::tim::ccmr2_t ccmr2 = line_counter::get()->ccmr2.get();
-      ccmr2.cc3s = 0b00; // ch3 output for telem end
-      ccmr2.oc3m = 0b000; // Frozen only want irq on match
-      ccmr2.oc3pe = false; // want to be able to update on the fly
-      ccmr2.cc4s = 0b00; // ch4 output for first visible osd row
-      ccmr2.oc4m = 0b000; // Frozen only want irq on match
-      ccmr2.oc4pe = false; // want to be able to update on the fly
-      line_counter::get()->ccmr2.set (ccmr2.value);
-   }
-   typedef video_cfg::rows::telem telem;
-   line_counter::get()->ccr2 = telem::m_begin -1 ;
-   line_counter::get()->ccr3 = telem::m_end - 1;
-   // interlace means jump 2 rows per clk
-   typedef video_cfg::rows::osd osd;
-   line_counter::get()->ccr4 = osd::m_begin/2-1 ;
-   line_counter::get()->arr = osd::get_end()/2 - 2;
-   {
-      quan::stm32::tim::dier_t dier = line_counter::get()->dier.get();
-      dier.cc2ie = true;
-      dier.cc3ie = true;
-      dier.cc4ie = true;
-      dier.uie = true;
-      line_counter::get()->dier.set (dier.value);
-   }
-   
-   line_counter::get()->cnt = 0 ;
-   NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
-   NVIC_EnableIRQ (TIM3_IRQn);
+      {
+         quan::stm32::tim::ccer_t ccer = line_counter::get()->ccer.get();
+   #if !defined QUAN_OSD_SOFTWARE_SYNCSEP
+   // external vsync pin
+         ccer.cc1np = false; // input trigger falling edge
+         ccer.cc1p  = true; // input trigger falling edge
+   #else
+     /*
+         with software sync sep then
+         no external trigger used  for enabling line_counter
+         rather is done by software sync sep routines
+     */
+   #endif
+         ccer.cc2e = true;  // enable cc2 output for telem begin
+         line_counter::get()->ccer.set (ccer.value);
+      }
+      {
+         quan::stm32::tim::ccmr2_t ccmr2 = line_counter::get()->ccmr2.get();
+         ccmr2.cc3s = 0b00; // ch3 output for telem end
+         ccmr2.oc3m = 0b000; // Frozen only want irq on match
+         ccmr2.oc3pe = false; // want to be able to update on the fly
+         ccmr2.cc4s = 0b00; // ch4 output for first visible osd row
+         ccmr2.oc4m = 0b000; // Frozen only want irq on match
+         ccmr2.oc4pe = false; // want to be able to update on the fly
+         line_counter::get()->ccmr2.set (ccmr2.value);
+      }
+      typedef video_cfg::rows::telem telem;
+      line_counter::get()->ccr2 = telem::m_begin -1 ;
+      line_counter::get()->ccr3 = telem::m_end - 1;
+      // interlace means jump 2 rows per clk
+      typedef video_cfg::rows::osd osd;
+      line_counter::get()->ccr4 = osd::m_begin/2-1 ;
+      line_counter::get()->arr = osd::get_end()/2 - 2;
+      {
+         quan::stm32::tim::dier_t dier = line_counter::get()->dier.get();
+         dier.cc2ie = true;
+         dier.cc3ie = true;
+         dier.cc4ie = true;
+         dier.uie = true;
+         line_counter::get()->dier.set (dier.value);
+      }
+      
+      line_counter::get()->cnt = 0 ;
+      NVIC_SetPriority(TIM3_IRQn,interrupt_priority::video);
+      NVIC_EnableIRQ (TIM3_IRQn);
 
    }
 }// namespace
