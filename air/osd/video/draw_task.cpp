@@ -44,7 +44,7 @@ namespace detail{
 #endif
 }
 namespace {
-
+  int count = 0;
    void draw_task(void * params)
    {
        vTaskDelay(100); // want to know if have video
@@ -52,6 +52,10 @@ namespace {
        for (;;){
 
          if ( osd_state::get() != osd_state::suspended){
+            if ( ++count == 25){
+                count = 0;
+                quan::stm32::complement<heartbeat_led_pin>();
+            }
             quan::uav::osd::on_draw();
          }
         
@@ -69,7 +73,11 @@ namespace {
          if ( osd_state::get() == osd_state::external_video ){  
 
             constexpr quan::time::ms wait_time{1000};
-            if (detail::swap_to_internal_video_on_signal_lost && !detail::swap_osd_buffers(wait_time)){
+            bool swapped = detail::swap_osd_buffers(wait_time);
+            if ( !swapped){
+               quan::stm32::clear<notify_led1>(); 
+            }
+            if (detail::swap_to_internal_video_on_signal_lost && !swapped){
                   osd_state::set(osd_state::internal_video);
             }
          }
