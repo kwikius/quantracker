@@ -59,7 +59,8 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
 
  void video_cfg::spi_clock::setup()
    {
- // if boardtype == 4 spi_clock output == TIM9_CH1
+ // if boardtype == 4  && ! QUAN_AERFLITE_BOARD spi_clock output == TIM9_CH1
+ // if boardtype == 4  &&  QUAN_AERFLITE_BOARD  spi clock output == TIM9_CH2, PA3
  // else
       //spi_clock output == TIM1_CH1
  
@@ -67,7 +68,7 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
       quan::stm32::apply<
          video_spi_clock
 #if (QUAN_OSD_BOARD_TYPE == 4)
-         ,quan::stm32::gpio::mode::af3  //PA2 TIM9_CH1
+         ,quan::stm32::gpio::mode::af3  //PA2 TIM9_CH1  or PA3 TIM9_CH2
 #else
          ,quan::stm32::gpio::mode::af1  // PA8 TIM1_CH1
 #endif
@@ -104,6 +105,7 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
          timer::get()->cr2.set(cr2.value);
       }
 #endif
+// see ref_man fig 153 for TIM9 circuit diagram
       {
          quan::stm32::tim::smcr_t smcr = timer::get()->smcr.get();
            //To TRY--> smcr.msm = true;
@@ -120,18 +122,32 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
             // smcr.sms = 0b000; // (test clock waveform)
          timer::get()->smcr.set(smcr.value);
       }
+
       {
          quan::stm32::tim::ccmr1_t ccmr1 = timer::get()->ccmr1.get();
+#if !defined QUAN_AERFLITE_BOARD
            ccmr1.cc1s = 0b00;   // channel 1 output
            ccmr1.oc1m = 0b111;  // PWM mode 2
            ccmr1.oc1pe = false;
            ccmr1.oc1fe = false;
+#else
+           ccmr1.cc2s = 0b00;   // channel 2 output
+           ccmr1.oc2m = 0b111;  // PWM mode 2
+           ccmr1.oc2pe = false;
+           ccmr1.oc2fe = false;
+#endif
          timer::get()->ccmr1.set(ccmr1.value);
       }
+
       {
          quan::stm32::tim::ccer_t ccer = timer::get()->ccer.get();
+#if !defined QUAN_AERFLITE_BOARD
             ccer.cc1e = true; // enable output
             ccer.cc1p = false; // clock active high
+#else
+            ccer.cc2e = true; // enable output
+            ccer.cc2p = false; // clock active high
+#endif
          timer::get()->ccer.set(ccer.value);
       }
       #if (QUAN_OSD_BOARD_TYPE != 4) 
@@ -139,7 +155,11 @@ uint16_t video_cfg::spi_clock::m_timer_half_clks_per_bit = 42; //  2 MHz bit clk
       #endif
        // set pwm period and 50% duty cycle
        timer::get()->arr = get_timer_clks_per_px()-1;
+#if !defined QUAN_AERFLITE_BOARD
        timer::get()->ccr1 = (get_timer_clks_per_px()/2 )-1;
+#else
+       timer::get()->ccr2 = (get_timer_clks_per_px()/2 )-1;
+#endif
  
        timer::get()->cnt = 0;
        timer::get()->sr = 0;
