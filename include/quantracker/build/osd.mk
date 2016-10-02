@@ -51,7 +51,10 @@ endif
 
 # -------------------board --------------------------------
 
+ifeq ($(AERFLITE),True)
+$(info ################### For AERFLITE BOARD ####################)
 DEFINES += QUAN_AERFLITE_BOARD
+endif
 
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4
 
