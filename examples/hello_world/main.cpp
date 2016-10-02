@@ -10,8 +10,10 @@ int main()
    osd_setup();           
    create_draw_task();   
    quan::stm32::set<heartbeat_led_pin>(); 
+#if defined QUAN_AERFLITE_BOARD
     quan::stm32::set<notify_led1>(); 
     quan::stm32::set<notify_led2>(); 
+#endif
    vTaskStartScheduler(); 
 }
 
