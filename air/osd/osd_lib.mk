@@ -32,18 +32,18 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_TRANSMITTER)
-OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_osd_tx.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/$(TARGET_LIB_NAME_PREFIX)_osd_tx.a
 HAS_TELEMETRY := True
 TELEMETRY_PREFIX := lib_tx_
 DEFINES += QUAN_OSD_TELEM_TRANSMITTER
 else
 ifeq ($(TELEMETRY_DIRECTION),QUAN_OSD_TELEM_RECEIVER)
-OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_osd_rx.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/$(TARGET_LIB_NAME_PREFIX)_osd_rx.a
 HAS_TELEMETRY := True
 TELEMETRY_PREFIX := lib_rx_
 DEFINES += QUAN_OSD_TELEM_RECEIVER 
 else
-OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_osd.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/$(TARGET_LIB_NAME_PREFIX)_osd.a
 HAS_TELEMETRY := False
 TELEMETRY_PREFIX := lib_
 endif
@@ -64,9 +64,9 @@ unprefixed_video_objects += telemetry_task.o
 endif
 
 unobj_stm32_objects := misc.o
-stm32_objects := $(patsubst %, $(OBJDIR)%,$(unobj_stm32_objects))
+stm32_objects := $(patsubst %, $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%,$(unobj_stm32_objects))
 
-video_objects = $(patsubst %, $(OBJDIR)$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
+video_objects = $(patsubst %, $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_$(TELEMETRY_PREFIX)%,$(unprefixed_video_objects))
 
 objects = $(video_objects) $(stm32_objects)
 # ------------------------------------------------
@@ -78,11 +78,11 @@ all : $(OSD_ARCHIVE_FILE)
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(video_objects): $(OBJDIR)$(TELEMETRY_PREFIX)%.o : video/%.cpp
+$(video_objects): $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_$(TELEMETRY_PREFIX)%.o : video/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
-$(stm32_objects) : $(OBJDIR)%.o : $(STM32_SRC_DIR)%.c
+$(stm32_objects) : $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%.o : $(STM32_SRC_DIR)%.c
 	$(CC1) $(C_FLAGS_1) -D'assert_param(args)= ' $(patsubst %,-I%,$(STM32_INCLUDES)) $< -o $@
 
 clean:
-	-rm -rf $(OSD_ARCHIVE_FILE) $(OBJDIR)*.o 
+	-rm -rf $(OSD_ARCHIVE_FILE) $(objects) 

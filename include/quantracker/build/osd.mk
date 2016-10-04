@@ -53,7 +53,11 @@ endif
 
 ifeq ($(AERFLITE),True)
 $(info ################### For AERFLITE BOARD ####################)
+TARGET_LIB_NAME_PREFIX = aerflite
 DEFINES += QUAN_AERFLITE_BOARD
+else
+$(info ################### For QUANTRACKER_OSD BOARD ####################)
+TARGET_LIB_NAME_PREFIX = quantracker_air
 endif
 
 DEFINES += QUAN_OSD_SOFTWARE_SYNCSEP HSE_VALUE=8000000 QUAN_OSD_BOARD_TYPE=4

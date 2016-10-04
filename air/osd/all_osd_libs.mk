@@ -1,16 +1,27 @@
 #builds all the osd libs
 
 STATIC_LIBRARY_PATH = ../../../lib/osd/
+ifeq ($(AERFLITE),True)
+TARGET_LIB_NAME_PREFIX = aerflite
+else
+TARGET_LIB_NAME_PREFIX = quantracker_air
+endif
 
 flash_lib = $(STATIC_LIBRARY_PATH)flash_variables.a
-osd_telem_none_lib  = $(STATIC_LIBRARY_PATH)quantracker_air_osd.a
-osd_telem_tx_lib = $(STATIC_LIBRARY_PATH)quantracker_air_osd_tx.a
-osd_telem_rx_lib = $(STATIC_LIBRARY_PATH)quantracker_air_osd_rx.a
-graphics_lib = (STATIC_LIBRARY_PATH)quantracker_air_graphics_api.a
-system_lib = (STATIC_LIBRARY_PATH)quantracker_air_system.a
+osd_telem_none_lib  = $(STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_osd.a
+osd_telem_tx_lib = $(STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_osd_tx.a
+osd_telem_rx_lib = $(STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_osd_rx.a
+graphics_lib = (STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_graphics_api.a
+system_lib = (STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_system.a
 
-all_libs = $(flash_lib) $(graphics_lib) $(osd_telem_none_lib) \
-$(osd_telem_tx_lib) $(osd_telem_rx_lib) $(system_lib)
+
+all_libs = $(flash_lib) $(graphics_lib) $(osd_telem_none_lib) $(system_lib)
+
+# currently the tlem is not working for
+# aerflite. Eventually it will have tx
+ifneq ($(AERFLITE),True)
+all_libs += $(osd_telem_tx_lib) $(osd_telem_rx_lib) 
+endif
 
 all: $(all_libs)
 

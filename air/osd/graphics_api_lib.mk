@@ -23,18 +23,18 @@ QUANTRACKER_ROOT_DIR := ../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
-STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
+#STM32_SRC_DIR = $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 
 GRAPHICS_API_PATH := $(QUAN_INCLUDE_PATH)/quan_matters/src/uav/osd/
 
-OUTPUT_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_graphics_api.a
+OUTPUT_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/$(TARGET_LIB_NAME_PREFIX)_graphics_api.a
 
 OBJDIR := obj/graphics_api/
 
 un_obj_objects = draw_arc.o draw_bitmap.o draw_circle.o draw_line.o draw_text.o flood_fill.o \
 draw_box.o draw_horizontal_line.o
 
-objects  := $(patsubst %, $(OBJDIR)%,$(un_obj_objects))
+objects  := $(patsubst %, $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%,$(un_obj_objects))
 
 .PHONY: all clean
 
@@ -43,8 +43,8 @@ all: $(OUTPUT_ARCHIVE_FILE)
 $(OUTPUT_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(objects) : $(OBJDIR)%.o : $(GRAPHICS_API_PATH)%.cpp
+$(objects) : $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%.o : $(GRAPHICS_API_PATH)%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	-rm -rf $(OBJDIR)*.o $(OUTPUT_ARCHIVE_FILE)
+	-rm -rf $(OUTPUT_ARCHIVE_FILE) $(objects)

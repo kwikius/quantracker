@@ -23,7 +23,7 @@ QUANTRACKER_ROOT_DIR := ../../
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
-OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/quantracker_air_system.a
+OSD_ARCHIVE_FILE := $(QUANTRACKER_ROOT_DIR)lib/osd/$(TARGET_LIB_NAME_PREFIX)_system.a
 
 OBJDIR := obj/system/
 
@@ -34,14 +34,14 @@ C_FLAGS_1  = -Wall -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
  $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS) -fdata-sections -ffunction-sections
 
 unobj_rtos_objects := tasks.o queue.o list.o timers.o
-rtos_objects := $(patsubst %, $(OBJDIR)%,$(unobj_rtos_objects))
+ rtos_objects := $(patsubst %, $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%,$(unobj_rtos_objects))
 
 unobj_quan_objects := malloc_free.o
 
 unobj_system_objects := $(unobj_rtos_objects)  $(unobj_quan_objects) \
-startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o system.o
+ startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o system.o
 
-objects := $(patsubst %, $(OBJDIR)%,$(unobj_system_objects))
+objects := $(patsubst %, $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%,$(unobj_system_objects))
 
 .PHONY: all clean
 
@@ -50,32 +50,32 @@ all : $(OSD_ARCHIVE_FILE)
 $(OSD_ARCHIVE_FILE) : $(objects)
 	$(AR) rcs $@ $(objects)
 
-$(OBJDIR)system_init.o : $(SYSTEM_INIT)
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_system_init.o : $(SYSTEM_INIT)
 	$(CC) $(CFLAGS) $< -o $@
 
-$(OBJDIR)system.o : system.cpp
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_system.o : system.cpp
 	$(CC) $(CFLAGS) $< -o $@  
 
-$(OBJDIR)spbrk.o : spbrk.cpp
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_spbrk.o : spbrk.cpp
 	$(CC) $(CFLAGS) $< -o $@  
 
-$(OBJDIR)startup.o: $(STARTUP)
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_startup.o: $(STARTUP)
 	$(CC) $(CFLAGS) $< -o $@ 
 
-$(rtos_objects) : $(OBJDIR)%.o : $(FREE_RTOS_DIR)Source/%.c
+$(rtos_objects) : $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%.o : $(FREE_RTOS_DIR)Source/%.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-$(OBJDIR)port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_port.o : $(FREE_RTOS_DIR)Source/portable/GCC/ARM_CM4F/port.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-$(OBJDIR)heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_heap_3.o : $(FREE_RTOS_DIR)Source/portable/MemMang/heap_3.c
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
-$(OBJDIR)rtos_hooks.o : rtos_hooks.cpp 
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_rtos_hooks.o : rtos_hooks.cpp 
 	$(CC) $(CFLAGS) $< -o $@
 
-$(OBJDIR)malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free.cpp
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	-rm -rf $(OSD_ARCHIVE_FILE) $(OBJDIR)*.o 
+	-rm -rf $(OSD_ARCHIVE_FILE) $(objects) 
