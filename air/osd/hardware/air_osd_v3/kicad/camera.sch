@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Wed 18 May 2016 11:24:51 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -18,7 +19,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -49,9 +49,10 @@ LIBS:si8642
 LIBS:fiducial
 LIBS:bd9g101g
 LIBS:ld39015mxxr
-EELAYER 25  0
+LIBS:osd-cache
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 4 8
 Title ""
@@ -112,7 +113,7 @@ Wire Wire Line
 	4050 3700 4050 3450
 Connection ~ 4050 3450
 $Comp
-L C C39
+L C-RESCUE-osd C39
 U 1 1 5580ACEA
 P 4050 3900
 F 0 "C39" H 4100 4000 50  0000 L CNN
@@ -138,6 +139,7 @@ P 7300 3450
 F 0 "K1" V 7250 3450 50  0000 C CNN
 F 1 "SIL3" V 7350 3450 40  0000 C CNN
 F 2 "SIL3" H 7300 3450 60  0001 C CNN
+F 3 "" H 7300 3450 60  0001 C CNN
 F 4 "0.1 in pitch header connector/3 contacts" H 7300 3450 60  0001 C CNN "Description"
 	1    7300 3450
 	1    0    0    1   

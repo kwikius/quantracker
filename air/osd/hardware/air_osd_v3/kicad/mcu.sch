@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Wed 18 May 2016 11:24:51 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -18,7 +19,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -49,9 +49,10 @@ LIBS:si8642
 LIBS:fiducial
 LIBS:bd9g101g
 LIBS:ld39015mxxr
-EELAYER 25  0
+LIBS:osd-cache
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 2 8
 Title ""
@@ -403,7 +404,7 @@ $EndComp
 Text Label 9100 4000 0    45   ~ 0
 MCU_+3.3V
 $Comp
-L R R32
+L R-RESCUE-osd R32
 U 1 1 55814873
 P 9350 4650
 F 0 "R32" V 9430 4650 50  0000 C CNN
@@ -417,7 +418,7 @@ F 6 "Resistor/47K/10%/0603" H 9350 4650 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R31
+L R-RESCUE-osd R31
 U 1 1 55814870
 P 9050 4650
 F 0 "R31" V 9130 4650 50  0000 C CNN
@@ -523,7 +524,7 @@ MCU_+3.3V
 Text Label 10450 2400 0    45   ~ 0
 MCU_+3.3V
 $Comp
-L R R3
+L R-RESCUE-osd R3
 U 1 1 54734401
 P 7925 1900
 F 0 "R3" V 8005 1900 50  0000 C CNN
@@ -541,7 +542,7 @@ MCU_GND
 Text Notes 7550 1100 0    45   ~ 0
 Prog  Jumper
 $Comp
-L R R7
+L R-RESCUE-osd R7
 U 1 1 54734400
 P 10450 2800
 F 0 "R7" V 10530 2800 50  0000 C CNN
@@ -557,7 +558,7 @@ $EndComp
 Text HLabel 10300 3675 0    45   BiDi ~ 0
 MCU_GND
 $Comp
-L C C10
+L C-RESCUE-osd C10
 U 1 1 547343FF
 P 10450 3400
 F 0 "C10" H 10500 3500 50  0000 L CNN
@@ -577,6 +578,7 @@ P 8375 1075
 F 0 "P1" V 8325 1075 40  0000 C CNN
 F 1 "SIL2" V 8425 1075 40  0000 C CNN
 F 2 "SIL2" H 8375 1075 60  0001 C CNN
+F 3 "" H 8375 1075 60  0001 C CNN
 F 4 "0.1 in pitch header/2 contacts" H 8375 1075 60  0001 C CNN "Description"
 	1    8375 1075
 	1    0    0    -1  
@@ -596,7 +598,7 @@ MCU_PC12
 Text HLabel 1350 3250 0    45   BiDi ~ 0
 MCU_GND
 $Comp
-L C C1
+L C-RESCUE-osd C1
 U 1 1 5470A326
 P 1450 2975
 F 0 "C1" H 1500 3075 50  0000 L CNN
@@ -610,7 +612,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603 " H 1450 2975 60  0001 C CNN "Descriptio
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C11
+L CP1-RESCUE-osd C11
 U 1 1 5470A08D
 P 8975 6325
 F 0 "C11" H 9025 6425 50  0000 L CNN
@@ -646,7 +648,7 @@ F 6 "Single_XOR_Gate/SOT23-5" H 9900 1075 60  0001 C CNN "Description"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R1
+L R-RESCUE-osd R1
 U 1 1 546F4821
 P 5100 6175
 F 0 "R1" V 5175 6350 50  0000 C CNN
@@ -664,7 +666,7 @@ HEARTBEAT_LED
 Text Label 6450 775  2    45   ~ 0
 HEARTBEAT_LED
 $Comp
-L R R2
+L R-RESCUE-osd R2
 U 1 1 546E5ED3
 P 6650 1100
 F 0 "R2" V 6730 1100 50  0000 C CNN
@@ -716,7 +718,7 @@ MCU_VDDA
 Text Label 2650 4475 2    45   ~ 0
 MCU_VDDA
 $Comp
-L C C2
+L C-RESCUE-osd C2
 U 1 1 546CA664
 P 2425 6500
 F 0 "C2" H 2475 6600 50  0000 L CNN
@@ -876,7 +878,7 @@ AV_TELEM_TXO
 Text Label 6475 4325 0    45   ~ 0
 AV_TELEM_TXO
 $Comp
-L R R4
+L R-RESCUE-osd R4
 U 1 1 546B3A56
 P 9800 5225
 F 0 "R4" V 9900 5275 50  0000 C CNN
@@ -904,7 +906,7 @@ FRSKY_TXO_SIGN
 Text Label 9450 975  2    45   ~ 0
 RAW_FRSKY_TXO
 $Comp
-L R R5
+L R-RESCUE-osd R5
 U 1 1 546A8268
 P 9825 5000
 F 0 "R5" V 9905 5000 50  0000 C CNN
@@ -948,7 +950,7 @@ SPI_MISO_BLACK
 Text HLabel 8250 3575 2    45   Output ~ 0
 MAVLINK_TXO
 $Comp
-L R R6
+L R-RESCUE-osd R6
 U 1 1 54676508
 P 9825 5550
 F 0 "R6" V 9905 5550 50  0000 C CNN
@@ -970,7 +972,7 @@ FRSKY_TXO
 Text HLabel 7825 4025 2    45   Output ~ 0
 AV_DAC_CLK
 $Comp
-L CP1 C3
+L CP1-RESCUE-osd C3
 U 1 1 543A7664
 P 5550 7200
 F 0 "C3" H 5600 7300 50  0000 L CNN
@@ -984,7 +986,7 @@ F 6 "Capacitor/2.2uF/10V/-20%+80%/Y5V/0603" H 5550 7200 60  0001 C CNN "Descript
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C6
+L CP1-RESCUE-osd C6
 U 1 1 543A7660
 P 8950 3100
 F 0 "C6" H 9000 3200 50  0000 L CNN
@@ -998,7 +1000,7 @@ F 6 "Capacitor/2.2uF/10V/-20%+80%/Y5V/0603" H 8950 3100 60  0001 C CNN "Descript
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C9
+L CP1-RESCUE-osd C9
 U 1 1 543A7353
 P 8650 6325
 F 0 "C9" H 8700 6425 50  0000 L CNN
@@ -1012,7 +1014,7 @@ F 6 "Capacitor/4.7uF/10V/+-10%/X5R/0603" H 8650 6325 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C8
+L C-RESCUE-osd C8
 U 1 1 543A72F3
 P 8250 6325
 F 0 "C8" H 8300 6425 50  0000 L CNN
@@ -1026,7 +1028,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7900 6325 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C7
+L C-RESCUE-osd C7
 U 1 1 543A72EF
 P 7900 6325
 F 0 "C7" H 7950 6425 50  0000 L CNN
@@ -1040,7 +1042,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7900 6325 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C5
+L C-RESCUE-osd C5
 U 1 1 543A72EC
 P 7550 6325
 F 0 "C5" H 7600 6425 50  0000 L CNN
@@ -1054,7 +1056,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7550 6325 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C4
+L C-RESCUE-osd C4
 U 1 1 543A72BA
 P 7200 6325
 F 0 "C4" H 7250 6425 50  0000 L CNN

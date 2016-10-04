@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Wed 18 May 2016 11:24:51 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -18,7 +19,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -49,9 +49,10 @@ LIBS:si8642
 LIBS:fiducial
 LIBS:bd9g101g
 LIBS:ld39015mxxr
-EELAYER 25  0
+LIBS:osd-cache
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 8
 Title ""

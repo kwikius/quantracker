@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Wed 18 May 2016 11:24:51 BST
+EESchema Schematic File Version 2
+LIBS:osd-rescue
 LIBS:conn_20
 LIBS:conn_6
 LIBS:conn_5
@@ -18,7 +19,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -49,9 +49,10 @@ LIBS:si8642
 LIBS:fiducial
 LIBS:bd9g101g
 LIBS:ld39015mxxr
-EELAYER 25  0
+LIBS:osd-cache
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 6 8
 Title ""
@@ -207,7 +208,7 @@ FC_GND
 Text Label 9350 1350 0    45   ~ 0
 FC_+5V
 $Comp
-L R R24
+L R-RESCUE-osd R24
 U 1 1 54FC3E86
 P 9100 2200
 F 0 "R24" V 9180 2200 50  0000 C CNN
@@ -221,7 +222,7 @@ F 6 "Resistor/470R/+-10%/0603" H 9100 2200 60  0001 C CNN "Description"
 	-1   0    0    1   
 $EndComp
 $Comp
-L C C43
+L C-RESCUE-osd C43
 U 1 1 54FC3D3F
 P 7250 1650
 F 0 "C43" H 7300 1750 50  0000 L CNN
@@ -235,7 +236,7 @@ F 6 "Capacitor/0.1uF/10V/+-10%/X7R/0603" H 7250 1650 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C37
+L C-RESCUE-osd C37
 U 1 1 547D825F
 P 6650 4600
 F 0 "C37" H 6700 4700 50  0000 L CNN
@@ -249,7 +250,7 @@ F 6 "Capacitor/470pF/16V/+-10%/X7R/0603" H 6650 4600 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C38
+L C-RESCUE-osd C38
 U 1 1 547D8257
 P 7400 4600
 F 0 "C38" H 7450 4700 50  0000 L CNN
@@ -263,7 +264,7 @@ F 6 "Capacitor/470pF/16V/+-10%/X7R/0603" H 7400 4600 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R29
+L R-RESCUE-osd R29
 U 1 1 547D81DE
 P 7750 3500
 F 0 "R29" V 7830 3500 50  0000 C CNN
@@ -277,7 +278,7 @@ F 6 "Resistor/100R/+-10%/0603" H 7750 3500 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R28
+L R-RESCUE-osd R28
 U 1 1 547D81C5
 P 7000 4250
 F 0 "R28" V 7080 4250 50  0000 C CNN
@@ -291,7 +292,7 @@ F 6 "Resistor/100R/+-10%/0603" H 7000 4250 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R27
+L R-RESCUE-osd R27
 U 1 1 547D816E
 P 6750 3400
 F 0 "R27" V 6830 3400 50  0000 C CNN
@@ -305,7 +306,7 @@ F 6 "Resistor/100R/+-10%/0603" H 6750 3400 60  0001 C CNN "Description"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R26
+L R-RESCUE-osd R26
 U 1 1 547D813B
 P 6750 3150
 F 0 "R26" V 6830 3150 50  0000 C CNN
@@ -331,12 +332,13 @@ FC_GND
 Text Label 7750 1350 0    45   ~ 0
 FC_+5V
 $Comp
-L C C22
+L C-RESCUE-osd C22
 U 1 1 54734555
 P 7700 1650
 F 0 "C22" H 7750 1750 50  0000 L CNN
 F 1 "0.1uF" H 7750 1550 50  0000 L CNN
 F 2 "0603" H 7700 1650 60  0001 C CNN
+F 3 "" H 7700 1650 60  0001 C CNN
 F 4 "M" H 7700 1650 60  0001 C CNN "MFG Name"
 F 5 "P" H 7700 1650 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 7700 1650 60  0001 C CNN "Description"
@@ -344,12 +346,13 @@ F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 7700 1650 60  0001 C CNN "Description
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C21
+L C-RESCUE-osd C21
 U 1 1 54734552
 P 2800 2550
 F 0 "C21" H 2850 2650 50  0000 L CNN
 F 1 "0.1uF" H 2850 2450 50  0000 L CNN
 F 2 "0603" H 2800 2550 60  0001 C CNN
+F 3 "" H 2800 2550 60  0001 C CNN
 F 4 "M" H 2800 2550 60  0001 C CNN "MFG Name"
 F 5 "P" H 2800 2550 60  0001 C CNN "MFG Part Num"
 F 6 "Capacitor/0.1uF/50V/+-10%/X7R/0603" H 2800 2550 60  0001 C CNN "Description"
@@ -374,6 +377,8 @@ U 1 1 547339AD
 P 8350 4750
 F 0 "#FLG05" H 8350 5020 30  0001 C CNN
 F 1 "PWR_FLAG" H 8350 4980 30  0000 C CNN
+F 2 "" H 8350 4750 60  0001 C CNN
+F 3 "" H 8350 4750 60  0001 C CNN
 	1    8350 4750
 	1    0    0    -1  
 $EndComp
@@ -383,6 +388,8 @@ U 1 1 547339A4
 P 6700 2300
 F 0 "#FLG06" H 6700 2570 30  0001 C CNN
 F 1 "PWR_FLAG" H 6700 2530 30  0000 C CNN
+F 2 "" H 6700 2300 60  0001 C CNN
+F 3 "" H 6700 2300 60  0001 C CNN
 	1    6700 2300
 	1    0    0    -1  
 $EndComp
@@ -421,6 +428,7 @@ P 9500 3550
 F 0 "P4" V 9450 3550 60  0000 C CNN
 F 1 "SIL6" V 9550 3550 60  0000 C CNN
 F 2 "SIL6" H 9500 3550 60  0001 C CNN
+F 3 "" H 9500 3550 60  0001 C CNN
 F 4 "0.1 in pitch header/6 contacts" H 9500 3550 60  0001 C CNN "Description"
 	1    9500 3550
 	1    0    0    1   
