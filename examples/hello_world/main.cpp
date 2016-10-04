@@ -5,6 +5,8 @@ Minimal Quantracker Air OSD Hello World application
 #include <quan/stm32/gpio.hpp>
 #include <quantracker/osd/osd.hpp>
 #include "../../air/osd/resources.hpp"
+#include "bitmaps.hpp"
+
 int main()
 {
    osd_setup();           
@@ -20,9 +22,8 @@ int main()
 // your custom drawing function
 void quan::uav::osd::on_draw()
 {
-   //draw_text("Hello World",{-60,0}); // nothing
-  //  draw_line ( {-100,-100}, {100,100}, colour_type::black );
+    draw_text("Hello World",{-60,30}); 
     draw_line ( {-120,-100}, {80,100}, colour_type::white ); // white
     draw_line ( {-100,-100}, {100,100}, colour_type::black ); // black
-  //  draw_line ( {-115,-100}, {85,100}, colour_type::transparent );
+    draw_bitmap(get_bitmap(BitmapID::home_arrow),{50,-50});
 }
