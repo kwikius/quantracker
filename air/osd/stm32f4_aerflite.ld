@@ -17,20 +17,21 @@
 */
 
 /* Heap size will be set to this if allocing memory*/
-_HeapSize = 0x12000;
+_HeapSize = 0xC000;
 
 /* linker checks that stack is bigger than this.
  n.b under FreeRtos, not clear how much is needed
 since task stacks are allocated on the heap
 */
-_MinStackSize = 0x8000; 
+_MinStackSize = 0xA000; 
 
 MEMORY
 {
    start_vector (rx) : org = 0x08000000, len = 16K
    rom (rx)          : org = 0x08004000, len = 1008K
    ram (xrw)         : org = 0x10000000, len = 64K
-   heap_ram (rw)     : org = 0x20000000, len = 72K
+   heap_ram (rw)     : org = 0x20000000, len = 48K
+   dma_ram(rw)       : org = 0x2000C000, len = 24K
    video_ram (rw)    : org = 0x20012000, len = 52K 
    telem_ram(rw)     : org = 0x2001F000, len = 4k
 }
@@ -132,6 +133,12 @@ SECTIONS
       . = ALIGN(4);
       _HEAP_MAX = .;
    }>heap_ram
+
+   .dma_memory (NOLOAD) :
+   {
+     KEEP (*(.dma_memory*))
+     . = ALIGN(4);
+   }> dma_ram
 
    .display_buffer (NOLOAD) :
    { 
