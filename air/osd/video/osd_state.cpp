@@ -56,11 +56,11 @@ void osd_state::suspend()
    }
    #endif
       // clear dma flags
-   DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
-   DMA1->HIFCR &= ~( (0b111101 << 6) | (0b111101 << 0));
+   DMA1->HIFCR = ( (0b111101 << 6) | (0b111101 << 0));
+
 #if defined QUAN_OSD_TELEM_RECEIVER
-   DMA2->LIFCR |= (0b111101 << 6) ; // clear flags for Dma2 Stream 1
-   DMA2->LIFCR &= ~(0b111101 << 6) ; // flags for Dma2 Stream 1
+   DMA2->LIFCR = (0b111101 << 6) ; // clear flags for Dma2 Stream 1
+  // DMA2->LIFCR &= ~(0b111101 << 6) ; // flags for Dma2 Stream 1
 #endif
 
    m_have_external_video = false;

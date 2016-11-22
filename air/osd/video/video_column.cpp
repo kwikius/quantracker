@@ -440,7 +440,7 @@ void video_cfg::columns::telem::begin()
          // in internal mode need to send out of black stream
          DMA1_Stream5->M0AR = (uint32_t) (white+1);
          DMA1_Stream5->NDTR = dma_length  ;
-         DMA1->HIFCR |= (0b111101 << 6) ;
+         DMA1->HIFCR = (0b111101 << 6) ;
        //  DMA1->HIFCR &= ~ (0b111101 << 6) ;
          // spi3 module enable and reset
          quan::stm32::rcc::get()->apb1enr |= (0b1 << 15);
@@ -456,7 +456,7 @@ void video_cfg::columns::telem::begin()
           // use spi2 module for telemetry transmission
           DMA1_Stream4->M0AR = (uint32_t) (white+1);
           DMA1_Stream4->NDTR = dma_length  ;
-          DMA1->HIFCR |= (0b111101 << 0) ;
+          DMA1->HIFCR = (0b111101 << 0) ;
         //  DMA1->HIFCR &= ~ (0b111101 << 0) ;
 /////////////////////////////////////////////////////////
           quan::stm32::rcc::get()->apb1enr |= (0b1 << 14);
@@ -524,7 +524,7 @@ void video_cfg::columns::osd::begin()
       DMA1_Stream4->NDTR = dma_length  ;
       DMA1_Stream5->NDTR = dma_length  ;
 
-      DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
+      DMA1->HIFCR = ( (0b111101 << 6) | (0b111101 << 0));
     //  DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
 
       spi_ll_setup();
@@ -555,7 +555,7 @@ void video_cfg::columns::osd::begin()
       DMA1_Stream4->NDTR = dma_length  ;
      // DMA1_Stream5->NDTR = dma_length  ;
 
-      DMA1->HIFCR |= ( (0b111101 << 6) | (0b111101 << 0));
+      DMA1->HIFCR = ( (0b111101 << 6) | (0b111101 << 0));
     //  DMA1->HIFCR &= ~ ( (0b111101 << 6) | (0b111101 << 0));
 
       spi_ll_setup();
