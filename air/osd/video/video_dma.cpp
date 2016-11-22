@@ -43,7 +43,8 @@ namespace {
             (channel << 25)
             // memory Burst mode 32 bits
           //  cr &= ~(0b11 << 23) ;// (MBURST);
-           // cr |= (0b01 << 23) ;// (MBURST);
+           // cr |= (0b01 << 23) ;// (MBURST); 01 = incr4 , 10 = incr8 11 = incr16
+            | (0b11 << 23) 
             // peripheral burst mode single
            // cr &= ~(0b11 << 21); // (PBURST);
             // dont change buffers
