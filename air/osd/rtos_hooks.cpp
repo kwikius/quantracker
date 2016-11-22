@@ -26,6 +26,13 @@
 #include "resources.hpp"
 #include <quan/stm32/gpio.hpp>
 
+/*
+   for AerfLite 3 leds
+   notify_led1
+   notify_led2
+   
+*/
+
 /*-----------------------------------------------------------*/
 
 extern "C" void vApplicationIdleHook(  )
@@ -61,6 +68,9 @@ extern "C" void vApplicationMallocFailedHook( )
    #if (( QUAN_OSD_BOARD_TYPE !=4) || (defined QUAN_DISCOVERY))
    quan::stm32::set<blue_led_pin>();
    #else
+     #if defined(QUAN_AERFLITE_BOARD)
+     quan::stm32::set<notify_led1>();
+     #endif
      quan::stm32::set<heartbeat_led_pin>(); 
    #endif
 	for( ;; );
@@ -75,6 +85,9 @@ extern "C" void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTask
 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
 	function is called if a stack overflow is detected. */
 	taskDISABLE_INTERRUPTS();
+    #if defined(QUAN_AERFLITE_BOARD)
+     quan::stm32::set<notify_led2>();
+     #endif
    quan::stm32::set<heartbeat_led_pin>();
 	for( ;; );
 }
