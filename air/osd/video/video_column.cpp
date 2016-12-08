@@ -437,27 +437,54 @@ void video_cfg::columns::telem::begin()
       uint8_t* const white = video_buffers::telem::tx::get_white_read_pos();
       if (osd_state::get() == osd_state::external_video){
     
-         // in internal mode need to send out of black stream
          DMA1_Stream5->M0AR = (uint32_t) (white+1);
-         DMA1_Stream5->NDTR = dma_length  ;
+         DMA1_Stream5->NDTR = dma_length   ;
+ 
+#if defined QUAN_AERFLITE_BOARD
+         DMA1_Stream4->M0AR = (uint32_t) (white+1);
+         DMA1_Stream4->NDTR = dma_length  ;
+// clear both stream flags
+         DMA1->HIFCR = (0b111101 << 6) | (0b111101 << 0);
+#else
+// only clear 1 stream flags
          DMA1->HIFCR = (0b111101 << 6) ;
-       //  DMA1->HIFCR &= ~ (0b111101 << 6) ;
+#endif
+
+#if defined QUAN_AERFLITE_BOARD
+        // reset both video spi's
+         quan::stm32::rcc::get()->apb1enr |= (0b11 << 14);
+         quan::stm32::rcc::get()->apb1rstr |= (0b11 << 14);
+         quan::stm32::rcc::get()->apb1rstr &= ~ (0b11 << 14);
+#else
          // spi3 module enable and reset
          quan::stm32::rcc::get()->apb1enr |= (0b1 << 15);
          quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
          quan::stm32::rcc::get()->apb1rstr &= ~ (0b1 << 15);
+#endif
+
          spi_setup1<video_mux_out_white_spi>();
          video_mux_out_white_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
          video_mux_out_white_spi::get()->dr = white[0] | 0b00001111;
          video_mux_out_white_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+
+#if defined QUAN_AERFLITE_BOARD
+         spi_setup1<video_mux_out_black_spi>();
+         video_mux_out_black_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
+         video_mux_out_black_spi::get()->dr = white[0] | 0b00001111;
+         video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
+#endif
+#if defined QUAN_AERFLITE_BOARD
+         DMA1_Stream4->CR |= (1 << 0); // (EN)
+#endif
          DMA1_Stream5->CR |= (1 << 0); // (EN)
       }else{
+
+//#################### TODO #################################
           // only black channel TODO use usart for tx
           // use spi2 module for telemetry transmission
           DMA1_Stream4->M0AR = (uint32_t) (white+1);
           DMA1_Stream4->NDTR = dma_length  ;
           DMA1->HIFCR = (0b111101 << 0) ;
-        //  DMA1->HIFCR &= ~ (0b111101 << 0) ;
 /////////////////////////////////////////////////////////
           quan::stm32::rcc::get()->apb1enr |= (0b1 << 14);
         //try change to   quan::stm32::rcc::get()->apb1enr.bb_setbit<14>();
@@ -480,16 +507,23 @@ void video_cfg::columns::telem::begin()
 void video_cfg::columns::telem::end()
 {
 #if defined QUAN_OSD_TELEM_TRANSMITTER
-
       gate_timer::get()->dier.bb_setbit<6>(); // TIE
       video_buffers::telem::tx::manager.read_advance (video_buffers::telem::tx::get_full_bytes_per_line());
       gate_timer::get()->cnt = 0;
       video_cfg::spi_clock::timer::get()->cnt = 0;
       if (osd_state::get() == osd_state::external_video){
+#if defined QUAN_AERFLITE_BOARD
+     // reset both  video spi's
+         quan::stm32::rcc::get()->apb1enr &= ~(0b11 << 14);
+         quan::stm32::rcc::get()->apb1rstr |= (0b11 << 14);
+         DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
+         DMA1_Stream4->CR &= ~ (1 << 0); // (EN)
+#else
          // reset spi3
          quan::stm32::rcc::get()->apb1enr &= ~ (0b1 << 15);
          quan::stm32::rcc::get()->apb1rstr |= (0b1 << 15);
          DMA1_Stream5->CR &= ~ (1 << 0); // (EN)
+#endif
       }else{
 #pragma message "need to redo this for internal video modes"
       }

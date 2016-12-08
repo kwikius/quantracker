@@ -135,6 +135,7 @@ void setup_telemetry_transmitter_task()
 //todo redo transmitter using usart
 // Shutdown TLV3501 output
 #if (QUAN_OSD_BOARD_TYPE == 4) 
+   #if ! defined QUAN_AERFLITE_BOARD
    quan::stm32::module_enable<telem_cmp_enable_pin::port_type>();
    quan::stm32::apply<
       telem_cmp_enable_pin   
@@ -147,6 +148,7 @@ void setup_telemetry_transmitter_task()
       ,quan::stm32::gpio::mode::input //cmp output hiz pulled up
       ,quan::stm32::gpio::pupd::pull_up
    >();
+  #endif
 #endif
 }
 

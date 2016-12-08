@@ -15,12 +15,12 @@ graphics_lib = (STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_graphics_api.a
 system_lib = (STATIC_LIBRARY_PATH)$(TARGET_LIB_NAME_PREFIX)_system.a
 
 
-all_libs = $(flash_lib) $(graphics_lib) $(osd_telem_none_lib) $(system_lib)
+all_libs = $(flash_lib) $(graphics_lib) $(osd_telem_none_lib) $(system_lib) $(osd_telem_tx_lib)
 
 # currently the tlem is not working for
 # aerflite. Eventually it will have tx
 ifneq ($(AERFLITE),True)
-all_libs += $(osd_telem_tx_lib) $(osd_telem_rx_lib) 
+all_libs +=  $(osd_telem_rx_lib) 
 endif
 
 all: $(all_libs)
