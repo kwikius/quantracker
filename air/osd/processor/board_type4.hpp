@@ -93,10 +93,10 @@ typedef quan::stm32::usart1                     mavlink_usart;
 #endif
 // usart2 avail for expansion on 100 pin part
 // usart4 avail for expansion on all parts
-//#if !defined(QUAN_AERFLITE_BOARD)
+#if !defined(QUAN_AERFLITE_BOARD)
 typedef quan::stm32::usart3                     frsky_usart; // maybe inverted but not on f4
 typedef quan::stm32::usart6                     av_telem_usart;
-//#endif
+#endif
 #if defined(QUAN_AERFLITE_BOARD)
 typedef quan::stm32::spi1                       imu_spi;
 #else
