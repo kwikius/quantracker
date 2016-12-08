@@ -9,7 +9,7 @@
 
 namespace {
 
-   uint32_t count = 0;
+#if 0
    void do_output()
    {  
       if ( mavlink_tx_rx_task::out_space_avail() >= 16){
@@ -27,6 +27,28 @@ namespace {
 //         }
       }
    }
+#else
+   // do output human readable
+    void do_output()
+   {  
+      if ( mavlink_tx_rx_task::out_space_avail() >= 50){
+         quan::uav::osd::norm_position_type * pos_var = mutex_acquire_position(5);
+         if ( pos_var != nullptr){
+            quan::uav::osd::norm_position_type pos = *pos_var;
+            mutex_release_position();
+             
+            char buf[50];
+            snprintf(buf,50,"lat: % 10.5f, lon: % 10.5f, alt: % 8.2f m\n"
+               ,pos.lat.numeric_value()/1.e7
+               ,pos.lon.numeric_value()/1.e7
+               ,pos.lat.numeric_value()/1.e3
+            );
+            mavlink_tx_rx_task::write((const uint8_t*)buf,strlen(buf));
+         }
+      }
+   }
+#endif
+
 
    void output_task(void* params)
    {
