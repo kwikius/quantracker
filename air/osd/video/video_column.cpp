@@ -431,6 +431,7 @@ void video_cfg::columns::telem::disable()
 // at start of each telem row
 void video_cfg::columns::telem::begin()
 {
+
 #if defined QUAN_OSD_TELEM_TRANSMITTER
       uint16_t const dma_length = video_buffers::telem::tx::get_full_bytes_per_line()-1;
 // same for all boards
@@ -472,8 +473,6 @@ void video_cfg::columns::telem::begin()
          video_mux_out_black_spi::get()->cr1.bb_clearbit<8>(); // SSI low for NSS low
          video_mux_out_black_spi::get()->dr = white[0] | 0b00001111;
          video_mux_out_black_spi::get()->cr1.bb_setbit<6>(); //(SPE)
-#endif
-#if defined QUAN_AERFLITE_BOARD
          DMA1_Stream4->CR |= (1 << 0); // (EN)
 #endif
          DMA1_Stream5->CR |= (1 << 0); // (EN)
@@ -666,8 +665,9 @@ void video_cfg::columns::uif_irq()
 void video_cfg::columns::takedown()
 {
      NVIC_DisableIRQ (TIM2_IRQn);
-
+#if !defined QUAN_AERFLITE_BOARD
      NVIC_DisableIRQ(quan::stm32::usart::detail::get_irq_number<av_telem_usart>::value);
+#endif
 }
 
 void video_cfg::columns::setup()
