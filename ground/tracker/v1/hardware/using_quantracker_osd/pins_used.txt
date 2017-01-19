@@ -1,0 +1,11 @@
+Servo PWM        TIM11_CH1 on PB9
+Pan_MOTOR_PWM    TIM10_CH1 on PB8
+PAN_MOTOR_DIR    PC4
+
+Quadrature decoder TIM5_CH[1,2](32 bit) on PA0, PA1 
+
+I2C           I2C3 on PA8,PC9 and I2C1 on PA8, PC9
+SPI
+
+Push button   PA14
+

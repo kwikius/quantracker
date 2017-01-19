@@ -1,0 +1,418 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:quantracker_air_osd_v2_1
+LIBS:conn_1
+LIBS:conn_2
+LIBS:conn_3
+LIBS:conn_4
+LIBS:conn_5
+LIBS:conn_6
+LIBS:conn_7
+LIBS:conn_8
+LIBS:cap3t
+LIBS:si8621
+LIBS:si8622
+LIBS:74aup2g240
+LIBS:si8620
+LIBS:si8610
+LIBS:smpsu_module
+LIBS:tlcfilt
+LIBS:rc3t
+LIBS:mic5205
+LIBS:tracker-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L SMPSU_module U1
+U 1 1 587F53FA
+P 5625 4950
+F 0 "U1" H 5625 4950 60  0000 C CNN
+F 1 "SMPSU_module" H 5625 4950 60  0000 C CNN
+F 2 "" H 5625 4950 60  0001 C CNN
+F 3 "" H 5625 4950 60  0001 C CNN
+	1    5625 4950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2575 5425 9575 5425
+Wire Wire Line
+	8600 4800 8500 4800
+Wire Wire Line
+	7125 4800 8000 4800
+Wire Wire Line
+	6625 4800 6175 4800
+$Comp
+L CAP3T C13
+U 1 1 587F5406
+P 4600 4800
+F 0 "C13" H 4750 4550 60  0000 C CNN
+F 1 "NFM41PC155B1E3" H 4800 5050 60  0000 C CNN
+F 2 "" H 4600 4800 60  0001 C CNN
+F 3 "" H 4600 4800 60  0001 C CNN
+	1    4600 4800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L CAP3T C19
+U 1 1 587F540D
+P 8250 4800
+F 0 "C19" H 8400 4550 60  0000 C CNN
+F 1 "NFM31PC276B0J3" H 8450 5050 60  0000 C CNN
+F 2 "" H 8250 4800 60  0001 C CNN
+F 3 "" H 8250 4800 60  0001 C CNN
+	1    8250 4800
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8250 5000 8250 5425
+Connection ~ 8250 5425
+Wire Wire Line
+	4950 5100 5075 5100
+Wire Wire Line
+	5075 4800 4850 4800
+Wire Wire Line
+	2300 4800 3000 4800
+Wire Wire Line
+	3300 4800 4350 4800
+$Comp
+L D_Schottky D1
+U 1 1 587F541E
+P 3150 4800
+F 0 "D1" H 3150 4900 50  0000 C CNN
+F 1 "D_Schottky" H 3150 4700 50  0000 C CNN
+F 2 "" H 3150 4800 50  0000 C CNN
+F 3 "" H 3150 4800 50  0000 C CNN
+	1    3150 4800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L SI8610 U2
+U 1 1 587F57C0
+P 6750 3075
+F 0 "U2" H 7300 2375 60  0000 C CNN
+F 1 "SI8610" H 6750 2425 60  0000 C CNN
+F 2 "" H 6750 3075 60  0001 C CNN
+F 3 "" H 6750 3075 60  0001 C CNN
+	1    6750 3075
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_3 K3
+U 1 1 587F57C7
+P 10500 3025
+F 0 "K3" V 10450 3025 50  0000 C CNN
+F 1 "CONN_3" V 10550 3025 40  0000 C CNN
+F 2 "" H 10500 3025 60  0001 C CNN
+F 3 "" H 10500 3025 60  0001 C CNN
+	1    10500 3025
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	10150 3025 8600 3025
+Wire Wire Line
+	10150 2925 8200 2925
+Wire Wire Line
+	8750 3125 10150 3125
+Wire Wire Line
+	7100 3975 7100 3825
+Wire Wire Line
+	6400 3925 6400 3825
+Wire Wire Line
+	4650 3925 6400 3925
+Wire Wire Line
+	6400 2275 6400 2375
+Wire Wire Line
+	4750 2275 6400 2275
+Wire Wire Line
+	7100 1075 7100 2375
+Wire Wire Line
+	8775 1075 9575 1075
+Wire Wire Line
+	7775 1075 7100 1075
+Wire Wire Line
+	7100 3975 8750 3975
+Connection ~ 8750 3975
+Wire Wire Line
+	7600 2925 7900 2925
+Wire Wire Line
+	8750 3125 8750 5425
+Wire Wire Line
+	4600 5000 4600 5425
+Connection ~ 4600 5425
+Text HLabel 4650 3925 0    60   Input ~ 0
+GND
+Text HLabel 4750 2275 0    60   Input ~ 0
+3.3V
+Text HLabel 2300 4800 0    60   Input ~ 0
+VIN
+Text HLabel 2575 5425 0    60   Input ~ 0
+TILT_GND
+Wire Wire Line
+	4950 5425 4950 5100
+$Comp
+L C C14
+U 1 1 587F6489
+P 5250 3275
+F 0 "C14" H 5275 3375 50  0000 L CNN
+F 1 "C" H 5275 3175 50  0000 L CNN
+F 2 "" H 5288 3125 50  0000 C CNN
+F 3 "" H 5250 3275 50  0000 C CNN
+	1    5250 3275
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 3125 5250 2275
+Connection ~ 5250 2275
+Wire Wire Line
+	5250 3425 5250 3925
+Connection ~ 5250 3925
+$Comp
+L CP1 C16
+U 1 1 587F671D
+P 7625 5125
+F 0 "C16" H 7650 5225 50  0000 L CNN
+F 1 "CP1" H 7650 5025 50  0000 L CNN
+F 2 "" H 7625 5125 50  0000 C CNN
+F 3 "" H 7625 5125 50  0000 C CNN
+	1    7625 5125
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6175 5100 6375 5100
+Wire Wire Line
+	6375 5100 6375 5425
+Connection ~ 6375 5425
+Wire Wire Line
+	7625 4975 7625 4800
+Connection ~ 7625 4800
+Wire Wire Line
+	7625 5275 7625 5425
+Connection ~ 7625 5425
+$Comp
+L CAP3T C15
+U 1 1 587F6F9B
+P 6875 4800
+F 0 "C15" H 7025 4550 60  0000 C CNN
+F 1 "NFM31PC276B0J3" H 7075 5050 60  0000 C CNN
+F 2 "" H 6875 4800 60  0001 C CNN
+F 3 "" H 6875 4800 60  0001 C CNN
+	1    6875 4800
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6875 5000 6875 5425
+Connection ~ 6875 5425
+$Comp
+L C C20
+U 1 1 587F7305
+P 9575 4800
+F 0 "C20" H 9600 4900 50  0000 L CNN
+F 1 "C" H 9600 4700 50  0000 L CNN
+F 2 "" H 9613 4650 50  0000 C CNN
+F 3 "" H 9575 4800 50  0000 C CNN
+	1    9575 4800
+	-1   0    0    -1  
+$EndComp
+Connection ~ 8750 5425
+Wire Wire Line
+	8600 3025 8600 4800
+Wire Wire Line
+	7450 4800 7450 4225
+Wire Wire Line
+	7450 4225 9575 4225
+Wire Wire Line
+	9575 1075 9575 4650
+Connection ~ 7450 4800
+Wire Wire Line
+	9575 5425 9575 4950
+Connection ~ 9575 4225
+Text HLabel 4825 2925 0    60   Input ~ 0
+TILT_PWM
+Wire Wire Line
+	4825 2925 5900 2925
+$Comp
+L CP1 C12
+U 1 1 587FA8DB
+P 4025 5100
+F 0 "C12" H 4050 5200 50  0000 L CNN
+F 1 "CP1" H 4050 5000 50  0000 L CNN
+F 2 "" H 4025 5100 50  0000 C CNN
+F 3 "" H 4025 5100 50  0000 C CNN
+	1    4025 5100
+	1    0    0    -1  
+$EndComp
+Connection ~ 4950 5425
+Wire Wire Line
+	4025 4950 4025 4800
+Connection ~ 4025 4800
+Wire Wire Line
+	4025 5250 4025 5425
+Connection ~ 4025 5425
+$Comp
+L C C11
+U 1 1 58802A97
+P 2700 5100
+F 0 "C11" H 2725 5200 50  0000 L CNN
+F 1 "C" H 2725 5000 50  0000 L CNN
+F 2 "" H 2738 4950 50  0000 C CNN
+F 3 "" H 2700 5100 50  0000 C CNN
+	1    2700 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2700 4950 2700 4800
+Connection ~ 2700 4800
+Wire Wire Line
+	2700 5250 2700 5425
+Connection ~ 2700 5425
+$Comp
+L CP1 C18
+U 1 1 587FC59F
+P 7875 5125
+F 0 "C18" H 7900 5225 50  0000 L CNN
+F 1 "CP1" H 7900 5025 50  0000 L CNN
+F 2 "" H 7875 5125 50  0000 C CNN
+F 3 "" H 7875 5125 50  0000 C CNN
+	1    7875 5125
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7875 4975 7875 4800
+Connection ~ 7875 4800
+Wire Wire Line
+	7875 5275 7875 5425
+Connection ~ 7875 5425
+$Comp
+L MIC5205 U3
+U 1 1 58809F01
+P 8275 1175
+F 0 "U3" H 8025 675 60  0000 C CNN
+F 1 "MIC5205" H 8275 1125 60  0000 C CNN
+F 2 "" H 8225 1175 60  0001 C CNN
+F 3 "" H 8225 1175 60  0001 C CNN
+	1    8275 1175
+	-1   0    0    -1  
+$EndComp
+Text HLabel 7650 1900 0    60   Input ~ 0
+TILT_GND
+Wire Wire Line
+	7650 1900 8275 1900
+Wire Wire Line
+	8275 1900 8275 1725
+Wire Wire Line
+	8775 1325 8900 1325
+Wire Wire Line
+	8900 1325 8900 1075
+Connection ~ 8900 1075
+$Comp
+L C C17
+U 1 1 5880CEC7
+P 7700 1550
+F 0 "C17" H 7725 1650 50  0000 L CNN
+F 1 "C" H 7725 1450 50  0000 L CNN
+F 2 "" H 7738 1400 50  0000 C CNN
+F 3 "" H 7700 1550 50  0000 C CNN
+	1    7700 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7775 1325 7700 1325
+Wire Wire Line
+	7700 1325 7700 1400
+Wire Wire Line
+	7700 1700 7700 1900
+Connection ~ 7700 1900
+$Comp
+L R R4
+U 1 1 5880DDCF
+P 8050 2925
+F 0 "R4" V 8130 2925 50  0000 C CNN
+F 1 "R" V 8050 2925 50  0000 C CNN
+F 2 "" V 7980 2925 50  0000 C CNN
+F 3 "" H 8050 2925 50  0000 C CNN
+	1    8050 2925
+	0    1    1    0   
+$EndComp
+$Comp
+L PWR_FLAG #FLG06
+U 1 1 5881F289
+P 7175 975
+F 0 "#FLG06" H 7175 1070 50  0001 C CNN
+F 1 "PWR_FLAG" H 7175 1155 50  0000 C CNN
+F 2 "" H 7175 975 50  0000 C CNN
+F 3 "" H 7175 975 50  0000 C CNN
+	1    7175 975 
+	1    0    0    -1  
+$EndComp
+$Comp
+L PWR_FLAG #FLG07
+U 1 1 5881F33B
+P 9100 4150
+F 0 "#FLG07" H 9100 4245 50  0001 C CNN
+F 1 "PWR_FLAG" H 9100 4330 50  0000 C CNN
+F 2 "" H 9100 4150 50  0000 C CNN
+F 3 "" H 9100 4150 50  0000 C CNN
+	1    9100 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9100 4150 9100 4225
+Connection ~ 9100 4225
+Wire Wire Line
+	7175 975  7175 1075
+Connection ~ 7175 1075
+$Comp
+L PWR_FLAG #FLG08
+U 1 1 5881F699
+P 4975 4600
+F 0 "#FLG08" H 4975 4695 50  0001 C CNN
+F 1 "PWR_FLAG" H 4975 4780 50  0000 C CNN
+F 2 "" H 4975 4600 50  0000 C CNN
+F 3 "" H 4975 4600 50  0000 C CNN
+	1    4975 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4975 4600 4975 4800
+Connection ~ 4975 4800
+$EndSCHEMATC
