@@ -127,7 +127,7 @@ int32_t raw_compass::update()
       quan::three_d::vect<int16_t> result;
       int res = ::ll_update_mag(result,raw_compass::get_strap());
       if ( res == 1){
-         taskENTER_CRITICAL();
+         vTaskSuspendAll();
          if ( raw_compass::acquire_mutex(1) == pdTRUE){
 
             raw_compass::m_raw_value 
@@ -135,7 +135,7 @@ int32_t raw_compass::update()
                   + result * raw_compass::m_filter_value;
             raw_compass::release_mutex();
          }
-         taskEXIT_CRITICAL();
+         xTaskResumeAll();
          // Disable updating here because its the end of a cycle so nice and neat
          if ( m_request_disable_updating){
             m_request_disable_updating = false;
@@ -207,7 +207,7 @@ extern "C" void I2C3_ER_IRQHandler()
    static_assert(std::is_same<i2c_mag_port::i2c_type, quan::stm32::i2c3>::value,"incorrect port irq");
    uint32_t const sr1 = i2c_mag_port::i2c_type::get()->sr1.get();
    i2c_mag_port::i2c_type::get()->sr1.set(sr1 & 0xFF); 
-   
+
    if ( sr1 & (1 << 8) ){
       i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler_BERR;
    }else{
@@ -238,6 +238,7 @@ extern "C" void I2C3_ER_IRQHandler()
       }
    }
   // prob now want to disable irqs and solve!
+
 }
 
 

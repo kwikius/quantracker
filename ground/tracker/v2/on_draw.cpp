@@ -37,11 +37,11 @@ void quan::uav::osd::on_draw()
       static_cast<int>(s_part),static_cast<int>(ms_part)
    );
    quan::uav::osd::draw_text(buf,{-150,-55},font);
-   taskENTER_CRITICAL();
+   vTaskSuspendAll();
    if ( raw_compass::acquire_mutex(1) == pdTRUE){
       quan::three_d::vect<float> compass_vect = raw_compass::get_raw();
       raw_compass::release_mutex();
-      taskEXIT_CRITICAL();
+      xTaskResumeAll();
       char constexpr dim[] = {'x','y','z'};
       for ( uint32_t i = 0; i < 3; ++i){
          sprintf(buf,"%c = %.3f",dim[i],static_cast<double>(compass_vect[i]));
@@ -49,6 +49,6 @@ void quan::uav::osd::on_draw()
          quan::uav::osd::draw_text(buf,pos,font);
       }
    }else{
-      taskEXIT_CRITICAL();
+      xTaskResumeAll();
    }
  }

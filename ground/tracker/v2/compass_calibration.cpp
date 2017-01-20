@@ -22,11 +22,11 @@ void compass_calibration()
    bool start = true;
    sp_task::write("{\n");
    while ( quan::stm32::millis() < end_time){
-      taskENTER_CRITICAL();
+      vTaskSuspendAll();
       if ( raw_compass::acquire_mutex(1) == pdTRUE){
          quan::three_d::vect<float> compass_vect = raw_compass::get_raw();
          raw_compass::release_mutex();
-         taskEXIT_CRITICAL();
+         xTaskResumeAll();
          if (start == true){
             start = false;
          }else{
@@ -41,7 +41,7 @@ void compass_calibration()
 
       //vTaskSuspend(5);
      }else{
-        taskEXIT_CRITICAL();
+        xTaskResumeAll();
      }
    }
    sp_task::write("};\n"); // end of points
