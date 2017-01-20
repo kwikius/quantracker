@@ -1,0 +1,44 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# C-RESCUE-tracker_using_quantracker_osd
+#
+DEF C-RESCUE-tracker_using_quantracker_osd C 0 10 N Y 1 F N
+F0 "C" 50 100 50 H V L CNN
+F1 "C-RESCUE-tracker_using_quantracker_osd" 50 -100 50 H V L CNN
+F2 "" 0 0 60 H I C CNN
+F3 "" 0 0 60 H I C CNN
+$FPLIST
+ SM*
+ C?
+ C1-1
+$ENDFPLIST
+DRAW
+P 2 0 1 10 -100 -30 100 -30 N
+P 2 0 1 10 -100 30 100 30 N
+X ~ 1 0 200 170 D 40 40 1 1 P
+X ~ 2 0 -200 170 U 40 40 1 1 P
+ENDDRAW
+ENDDEF
+#
+# R-RESCUE-tracker_using_quantracker_osd
+#
+DEF R-RESCUE-tracker_using_quantracker_osd R 0 0 N Y 1 F N
+F0 "R" 80 0 50 V V C CNN
+F1 "R-RESCUE-tracker_using_quantracker_osd" 0 0 50 V V C CNN
+F2 "" 0 0 60 H I C CNN
+F3 "" 0 0 60 H I C CNN
+$FPLIST
+ R?
+ SM0603
+ SM0805
+ R?-*
+$ENDFPLIST
+DRAW
+S -40 150 40 -150 0 1 12 N
+X ~ 1 0 250 100 D 60 60 1 1 P
+X ~ 2 0 -250 100 U 60 60 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library

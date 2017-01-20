@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Thu 10 Dec 2015 12:44:52 GMT
+EESchema Schematic File Version 2
+LIBS:tracker_using_quantracker_osd-rescue
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -12,7 +13,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -35,9 +35,9 @@ LIBS:tcm3105
 LIBS:quantracker_air_osd_v2_1
 LIBS:mc34931
 LIBS:tracker_using_quantracker_osd-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 5 5
 Title ""
@@ -61,6 +61,8 @@ U 1 1 55520FE6
 P 2500 6200
 F 0 "K2" V 2450 6200 50  0000 C CNN
 F 1 "CONN_3" V 2550 6200 40  0000 C CNN
+F 2 "" H 2500 6200 60  0001 C CNN
+F 3 "" H 2500 6200 60  0001 C CNN
 	1    2500 6200
 	-1   0    0    -1  
 $EndComp
@@ -142,8 +144,6 @@ Text HLabel 6950 3050 2    60   Input ~ 0
 LCD_SCL
 Text HLabel 6950 2950 2    60   Input ~ 0
 LCD_SDA
-Text Notes 7450 4100 0    60   ~ 0
-PUSH_BUTTON
 Text Notes 7950 3000 0    60   ~ 0
 I2C1_SDA/TIM4_CH2\n
 Text Notes 7950 3100 0    60   ~ 0
@@ -151,11 +151,13 @@ I2C1_SCL/TIM4_CH1 /CAN2_TX \n
 Text HLabel 8600 1250 2    60   Output ~ 0
 PAN_SERVO_PWM
 $Comp
-L R R18
+L R-RESCUE-tracker_using_quantracker_osd R18
 U 1 1 55521193
 P 8150 1250
 F 0 "R18" V 8230 1250 50  0000 C CNN
 F 1 "R" V 8150 1250 50  0000 C CNN
+F 2 "" H 8150 1250 60  0001 C CNN
+F 3 "" H 8150 1250 60  0001 C CNN
 	1    8150 1250
 	0    1    1    0   
 $EndComp
@@ -168,11 +170,13 @@ TILT_SERVO_PWM_RAW
 Text Label 6850 2650 0    60   ~ 0
 TILT_SERVO_PWM_RAW
 $Comp
-L R R17
+L R-RESCUE-tracker_using_quantracker_osd R17
 U 1 1 555210EC
 P 8100 1000
 F 0 "R17" V 8180 1000 50  0000 C CNN
 F 1 "R" V 8100 1000 50  0000 C CNN
+F 2 "" H 8100 1000 60  0001 C CNN
+F 3 "" H 8100 1000 60  0001 C CNN
 	1    8100 1000
 	0    1    1    0   
 $EndComp
@@ -188,6 +192,8 @@ U 1 1 55520E37
 P 1850 2550
 F 0 "P5" V 1800 2550 50  0000 C CNN
 F 1 "CONN_4" V 1900 2550 50  0000 C CNN
+F 2 "" H 1850 2550 60  0001 C CNN
+F 3 "" H 1850 2550 60  0001 C CNN
 	1    1850 2550
 	-1   0    0    1   
 $EndComp
@@ -276,12 +282,18 @@ USART4_TXO
 Text HLabel 4500 3950 0    60   Output ~ 0
 PAN_MOTOR_DIR
 $Comp
-L OSD_V2_1 M1
+L OSD_v2_1 M1
 U 1 1 5551CEC6
 P 5700 3350
 F 0 "M1" H 5750 3100 60  0000 C CNN
-F 1 "OSD_V2_1" H 5700 3350 60  0000 C CNN
+F 1 "OSD_V2_2" H 5700 3350 60  0000 C CNN
+F 2 "" H 5700 3350 60  0001 C CNN
+F 3 "" H 5700 3350 60  0001 C CNN
 	1    5700 3350
 	1    0    0    -1  
 $EndComp
+Text Notes 7575 3000 0    60   ~ 0
+QDRT
+Text HLabel 4450 3150 0    60   Input ~ 0
+PUSH_BUTTON
 $EndSCHEMATC

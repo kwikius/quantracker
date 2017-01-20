@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Thu 10 Dec 2015 12:44:52 GMT
+EESchema Schematic File Version 2
+LIBS:tracker_using_quantracker_osd-rescue
 LIBS:quantracker
 LIBS:stm32
 LIBS:power
@@ -12,7 +13,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -35,9 +35,9 @@ LIBS:tcm3105
 LIBS:quantracker_air_osd_v2_1
 LIBS:mc34931
 LIBS:tracker_using_quantracker_osd-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 5
 Title ""
