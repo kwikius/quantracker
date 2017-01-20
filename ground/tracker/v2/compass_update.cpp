@@ -49,14 +49,30 @@ namespace {
             return "unexpetced not last byte in rxne";
          case i2c_mag_port::errno_t::unexpected_flags_in_irq:
             return "unexpected flags in irq";
-         case i2c_mag_port::errno_t::i2c_err_handler:
-            return "i2c errhandler";
          case i2c_mag_port::errno_t::unknown_exti_irq:
             return "unknown ext irq";
          case i2c_mag_port::errno_t::address_timed_out:
             return "timed out waiting after sending address";
+         case i2c_mag_port::errno_t::i2c_err_handler_BERR:
+            return "i2c bus error : Misplaced Start or Stop";
+         case i2c_mag_port::errno_t::i2c_err_handler_ARLO:
+            return "i2c arbitration lost";
+         case i2c_mag_port::errno_t::i2c_err_handler_AF:
+            return "acknowledge failure";
+         case i2c_mag_port::errno_t::i2c_err_handler_OVR:
+            return "i2c overrun";
+         case i2c_mag_port::errno_t::i2c_err_handler_PECERR:
+            return "i2c pec error";
+         case i2c_mag_port::errno_t::i2c_err_handler_TIMEOUT: 
+            return "i2c SM timeout";
+         case i2c_mag_port::errno_t::i2c_err_handler_SMB_ALERT:
+            return "SMB alert";
+         case i2c_mag_port::errno_t::unknown_i2c_err_handler:
+            return "unknown i2c error";
          default:
             return "unlisted i2c error";
+
+
       }
    }
 
@@ -77,11 +93,14 @@ namespace{
    static const uint8_t modereg =  0x02;
    static const uint8_t msb_x = 0x03;
    static uint8_t single_measurement_string[] ={ modereg,1};
-
+#if 0
+   //unused ATM
 // could set gain to 8 samples?
    static uint8_t positive_pulse_string[] = {configA,0b00000001};
    static uint8_t negative_pulse_string[] = {configA,0b00000010};
    static uint8_t no_pulse_string[] =       {configA,0b00000000};
+#endif
+
    static uint8_t msb_x_ar[] = {msb_x};
    uint8_t local_values[6];
 
@@ -150,6 +169,8 @@ namespace{
    };
    update_state_t update_state = update_state_t::transfer_done;
 #endif
+#if 0
+  // unused ATM suppress compiler warning
    bool request_positive_strap()
    {
       if( !i2c_mag_port::transfer_request(mag_write,positive_pulse_string,2)){
@@ -179,7 +200,7 @@ namespace{
       }
       return true;
    }
-
+#endif
 }
 
 // needs a redo for rtos

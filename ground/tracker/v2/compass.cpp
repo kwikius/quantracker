@@ -207,7 +207,37 @@ extern "C" void I2C3_ER_IRQHandler()
    static_assert(std::is_same<i2c_mag_port::i2c_type, quan::stm32::i2c3>::value,"incorrect port irq");
    uint32_t const sr1 = i2c_mag_port::i2c_type::get()->sr1.get();
    i2c_mag_port::i2c_type::get()->sr1.set(sr1 & 0xFF); 
-   i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler;
+   
+   if ( sr1 & (1 << 8) ){
+      i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler_BERR;
+   }else{
+      if (sr1 & (1 << 9) ){
+         i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler_ARLO;
+      }else{
+         if (sr1 & (1 << 10) ){
+            i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler_AF;
+         }else{
+            if (sr1 & (1 << 11) ){
+               i2c_mag_port::i2c_errno = i2c_mag_port::errno_t::i2c_err_handler_OVR;
+            }else{
+               if (sr1 & (1 << 12) ){
+                  i2c_mag_port::i2c_errno =  i2c_mag_port::errno_t::i2c_err_handler_PECERR; 
+               }else{
+                  if (sr1 & (1 << 14) ){
+                     i2c_mag_port::i2c_errno =  i2c_mag_port::errno_t::i2c_err_handler_TIMEOUT; 
+                  }else{
+                     if (sr1 & (1 << 15) ){
+                        i2c_mag_port::i2c_errno =  i2c_mag_port::errno_t::i2c_err_handler_SMB_ALERT;
+                     }else{
+                        i2c_mag_port::i2c_errno =  i2c_mag_port::errno_t::unknown_i2c_err_handler; 
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+  // prob now want to disable irqs and solve!
 }
 
 
