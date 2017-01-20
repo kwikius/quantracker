@@ -19,14 +19,14 @@ namespace quan{ namespace uav { namespace osd{
    {
       draw_text("Receiver",{-150,65});
 
-      taskENTER_CRITICAL();
+      vTaskSuspendAll();
       const char* telemetry_text = mutex_acquire_telemetry_string();
       if ( telemetry_text != nullptr){
    
          strncpy(telem_buffer,telemetry_text,49);
          telem_buffer[49] = '\0';
          mutex_release_telemetry_string();
-         taskEXIT_CRITICAL();
+         xTaskResumeAll();
         
          draw_text(telem_buffer,{-170,-10});
 
@@ -36,7 +36,7 @@ namespace quan{ namespace uav { namespace osd{
          buf[29] = '\0';
          draw_text(buf,{-170,-30});
       }else{
-         taskEXIT_CRITICAL();
+         xTaskResumeAll();
       }
       
    }

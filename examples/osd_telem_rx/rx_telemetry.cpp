@@ -43,7 +43,7 @@ void on_telemetry_received()
    if ( m_mutex == NULL){
       m_mutex = xSemaphoreCreateMutex();
    }
-   taskENTER_CRITICAL();
+   vTaskSuspendAll();
    if (mutex_acquire_telemetry_string() != nullptr){
       read_telemetry_data(m_telemetry_string,200);
       m_telemetry_string[199]= '\0';
@@ -55,5 +55,5 @@ void on_telemetry_received()
          quan::stm32::complement<heartbeat_led_pin>();
       }
    }
-   taskEXIT_CRITICAL();
+   xTaskResumeAll();
 }
