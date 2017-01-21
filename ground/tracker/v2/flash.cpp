@@ -48,6 +48,12 @@ namespace {
    // The order isnt important except for neatness !
    struct flash_variable_type {
       typedef quan::three_d::vect<int32_t>   compass_offset;
+      typedef float                          pan_motor_omega_per_mV;
+      typedef float                          pan_motor_kP;
+      typedef float                          pan_motor_kD;
+      typedef float                          pan_motor_minDC;
+      typedef float                          pan_motor_kSpike;
+     
    } ;
    //#################### Per object range checking ########################
     
@@ -79,7 +85,11 @@ namespace {
        }
 
        EE_SYMTAB_ENTRY(compass_offset,nop_check,"compass_offset",false)
-
+       ,EE_SYMTAB_ENTRY(pan_motor_omega_per_mV,nop_check,"pan_motor_omega_per_mV",false)
+       ,EE_SYMTAB_ENTRY(pan_motor_kP,nop_check,"pan_motor_kP",false)
+       ,EE_SYMTAB_ENTRY(pan_motor_kD,nop_check,"pan_motor_kD",false)
+       ,EE_SYMTAB_ENTRY(pan_motor_minDC,nop_check,"pan_motor_minDC",false)
+       ,EE_SYMTAB_ENTRY(pan_motor_minDC,nop_check,"pan_motor_kSpike",false)
       #undef EE_SYMTAB_ENTRY
    };
 
