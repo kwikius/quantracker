@@ -32,6 +32,23 @@
     no compare before overflow. Uif should provide a warning if tripped
 */
 
+/*
+   Should be possible to do better
+   At start of cycle
+      1)setup for a current ADC conversion triggered by timer set to the on duty cycle and enable EOC irq.
+
+      2) in the EOC irq, turn off the motor and calc the time to start emf sampling
+      setup for emf ADC conversions in a dma sequence.
+      setup the trigger time to the first conversion but setup timer dma to fire once to
+      modify the period (TIMx_ARR) once first conv is underway to the period for repeated emf ADC conversion
+      and setup the ADC DMA to the number of conversions
+
+      3) In emf conversions DMA complete irq, calc pwm etc and restart the cycle
+
+     ADC can be triggered by various timer channels  of TIM1, TIM2,TIM3, TIM4, TIM5, TIM8
+      see ref_man section 10.6 table 35  
+*/
+
 namespace {
 
    // Potentially useful output units
@@ -267,7 +284,10 @@ namespace {
       // causes ADC interrupt on complete
       ADC1->CR2 |= (1 << 30);  // (SWSTART)
    }
-
+/*
+   should use DMA here
+   set up dma timer 
+*/
    void section_start_backemf_sampling()
    {
       
