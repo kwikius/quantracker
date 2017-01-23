@@ -55,7 +55,7 @@ STM32_SRC_DIR := $(STM32_STD_PERIPH_LIB_DIR)STM32F4xx_StdPeriph_Driver/src/
 # -------video objects --------------------------
 unprefixed_video_objects = video_buffer.o video_column.o video_row.o \
 video_pixel.o video_spi.o video_dma.o video_setup.o graphics_api.o \
-draw_task.o sync_sep.o black_level.o dac.o led.o osd_state.o \
+draw_task.o sync_sep.o black_level.o dac_bit_bang.o led.o osd_state.o \
 internal_video_mode.o
 
 # add the telemetry tasks to the lib if required
