@@ -582,7 +582,6 @@ NoConn ~ 4700 3525
 NoConn ~ 4700 3725
 NoConn ~ 4700 3825
 NoConn ~ 4700 4225
-NoConn ~ 4700 4625
 NoConn ~ 5950 2325
 NoConn ~ 5850 2325
 $Comp
@@ -696,12 +695,10 @@ F 3 "" H 6175 6400 60  0001 C CNN
 	1    6175 6400
 	1    0    0    -1  
 $EndComp
-Text Label 4500 4425 2    39   ~ 0
+Text Label 4500 4625 2    39   ~ 0
 I2C3_SCL
 Text Label 4500 4525 2    39   ~ 0
 I2C3_SDA
-Wire Wire Line
-	4700 4425 4500 4425
 Wire Wire Line
 	4700 4525 4500 4525
 $Comp
@@ -719,4 +716,9 @@ Text Notes 4400 6900 0    60   ~ 0
 GPS
 Text Notes 5475 6250 0    60   ~ 0
 I2C
+Text Notes 6025 3050 0    39   ~ 0
+TIM11_CH1
+Wire Wire Line
+	4700 4625 4500 4625
+NoConn ~ 4700 4425
 $EndSCHEMATC
