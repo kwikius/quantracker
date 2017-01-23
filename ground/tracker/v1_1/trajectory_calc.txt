@@ -1,0 +1,25 @@
+
+At time t+dt be pointing bearing p_target(t + dt) degrees and rotating at v_target(t + dt) rad_s
+
+if dt <=0 error
+
+let v_actual(t) be current rotational velocity
+let p_actual(t) be current position
+
+We calculate an intermediate v_desired(t + dt/2) 
+
+where dP = p_target(t+dt) - p_actual(t)
+
+Vdesired(t + dt/2) = 2 * dP / dt  - (v_actual(t) + v_target(t+1)) / 2
+
+This is computed by looking at the area under the graph of V / dt between the points V_actual(t), v_desired(t+dt/2) , v_target(t + dt)
+which represents the distance to be covered 
+
+
+
+
+
+
+
+
+
