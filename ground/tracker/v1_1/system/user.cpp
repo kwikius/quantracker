@@ -2,7 +2,7 @@
 #include <quan/user.hpp>
 
 namespace {
-    typedef sliprings_tx_rx_task sp;
+    typedef gcs_serial sp;
 }
 
 void quan::user_message (const char* text)

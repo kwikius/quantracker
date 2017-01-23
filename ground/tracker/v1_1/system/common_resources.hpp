@@ -4,7 +4,6 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-
 struct local_interrupt_priority {
      static constexpr uint32_t sliprings_serial_port= 15;
      static constexpr uint32_t exti_mag_rdy= 15;

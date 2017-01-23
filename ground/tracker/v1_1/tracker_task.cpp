@@ -1,5 +1,5 @@
 
-#include "resources.hpp"
+#include "system/resources.hpp"
 #include <quan/stm32/flash.hpp>
 #include <quan/error.hpp>
 #include <quan/user.hpp>
@@ -9,7 +9,7 @@ void parse_commandline();
 namespace {
 
      
-      typedef sliprings_tx_rx_task sp_task;
+      typedef gcs_serial sp_task;
 
       void do_cmdline()
       {    
@@ -34,7 +34,7 @@ namespace {
                }
                case 'F':
                case 'f':{
-                  sp_task::write("Quantracker Air OSD 2.1\n");
+                  sp_task::write("Quantracker Ground OSD 2.1\n");
                   sp_task::write("~~~~Flash menu mode~~~~\n");
       
                   quan::stm32::flash::flash_menu();
@@ -53,6 +53,8 @@ namespace {
          sp_task::enable();
          bool cmdline_mode = true;
          sp_task::write("Quantracker Ground V1.1\n");
+
+         // wait for a while?
          // look for 3 x ret
          for (int count = 0;count < 3; ++count){
            if ( sp_task::get() != '\r'){

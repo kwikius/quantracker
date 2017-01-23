@@ -22,7 +22,7 @@
 OBJDIR = obj/
 BINDIR = bin/
 
-LINKER_SCRIPT = stm32f4.ld
+LINKER_SCRIPT = system/stm32f4.ld
 
 QUANTRACKER_ROOT_DIR = ../../../../quantracker/
 
@@ -36,19 +36,24 @@ static_library_files = \
 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
-local_objects = main.o spbrk.o setup.o  gcs_serial.o \
-tracker_task.o pan_servo.o text_commands.o on_draw.o \
-flash.o user.o on_telemetry_received.o
+local_objects = main.o pan_servo.o command_line.o tracker_task.o 
 
-obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
+obj_local_objects = $(patsubst %,$(OBJDIR)%, $(local_objects))
 
+system_objects = flash.o gcs_serial.o rtos_hooks.o setup.o spbrk.o user.o
+obj_system_objects = $(patsubst %,$(OBJDIR)%, $(system_objects))
+
+osd_objects = on_draw.o on_telemetry_received.o
+obj_osd_objects = $(patsubst %,$(OBJDIR)%, $(osd_objects))
+
+# font path
 USER_SOURCE_PATH = $(QUANTRACKER_ROOT_DIR)/examples/osd_example1/
 
 user_resources = fonts.o
 
-obj_user_resources = $(patsubst %,$(OBJDIR)%,$(user_resources))
+obj_user_resources = $(patsubst %,$(OBJDIR)%, $(user_resources))
 
-objects = $(obj_local_objects) $(obj_user_resources) 
+objects = $(obj_local_objects) $(obj_system_objects) $(obj_osd_objects) $(obj_user_resources)
 
 all : test
 
@@ -64,6 +69,12 @@ $(BINDIR)main.elf: $(objects) $(static_libraries)
    -Wl,--undefined=_sbrk $(static_libraries)
 
 $(obj_local_objects): $(OBJDIR)%.o : %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(obj_system_objects): $(OBJDIR)%.o : system/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(obj_osd_objects): $(OBJDIR)%.o : osd/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(obj_user_resources) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)board/%.cpp

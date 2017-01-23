@@ -27,7 +27,6 @@ push buttons etc
 typedef quan::stm32::tim2                       video_columns_gate_timer;
 typedef quan::stm32::tim3                       video_rows_line_counter;
 typedef quan::stm32::tim9                       spi_clock_timer;
-typedef quan::stm32::tim10                      video_level_dac_irq_timer;
 typedef quan::stm32::tim12                      sync_sep_timer;
 */
 typedef quan::mcu::pin<quan::stm32::gpiob,8>   pan_motor_pwm_pin;
@@ -48,6 +47,7 @@ typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
    tim6  best for DAC
    tim7  best for DAC
    tim8  
+   tim10  frsky pwm
    tim11   tilt servo pwm
    tim13  // timer available but no output pins available onquantracker_osd
    tim14  // timer available but no output pins available onquantracker_osd
@@ -75,18 +75,18 @@ Use TIM4 for pan motor timings also can trigger ADC
        tx                        Mavlink port USART1 TX
        rx                        Mavlink Port USART1 Rx
 */
-typedef quan::stm32::usart1                    gcs_serial;
+typedef quan::stm32::usart1                    gcs_serial_usart;
 // fixed  on Arduino Serial connector
 typedef quan::mcu::pin<quan::stm32::gpioa,9>   gcs_serial_txo_pin;
 typedef quan::mcu::pin<quan::stm32::gpioa,10>  gcs_serial_rxi_pin;
 
 // gcs_serial
 typedef quan::stm32::freertos::usart_tx_rx_task<
-gcs_serial,
+gcs_serial_usart,
 200,200,
 gcs_serial_txo_pin,gcs_serial_rxi_pin,
 char
-> sliprings_tx_rx_task;
+> gcs_serial;
 
 /*
 --- frsky/mavlink telem

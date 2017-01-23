@@ -14,8 +14,8 @@
 #include <quan/meta/integer_max.hpp>
 #include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/stm32/push_pop_fp.hpp>
-#include "resources/tracker_resources.hpp"
-#include "resources/osd_resources.hpp"
+#include "system/tracker_resources.hpp"
+#include "system/osd_resources.hpp"
 #include "tracker_commands.hpp"
 /*
    pan servo
@@ -571,11 +571,11 @@ extern "C" void ADC_IRQHandler()
 namespace {
  int count = 0;
 }
-extern "C" void TIM8_UP_TIM13_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
+extern "C" void TIM1_UP_TIM10_IRQHandler() __attribute__ ( (interrupt ("IRQ")));
 
-extern "C" void TIM8_UP_TIM13_IRQHandler()
+extern "C" void TIM1_UP_TIM10_IRQHandler()
 {
-    static_assert(std::is_same<pan_motor_timer,quan::stm32::tim8>::value == true,
+    static_assert(std::is_same<pan_motor_timer,quan::stm32::tim1>::value == true,
       "invalid timer in timer irq");
     if ( pan_motor_timer::get()->sr.bb_getbit<0>()){ // (UIF)
       pan_motor_timer::get()->sr.bb_clearbit<0>(); // (UIF)

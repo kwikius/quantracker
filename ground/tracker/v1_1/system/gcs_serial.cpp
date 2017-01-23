@@ -8,7 +8,7 @@ extern "C" void USART1_IRQHandler()
 {
    static_assert(
    std::is_same<
-     gcs_serial,quan::stm32::usart1
+     gcs_serial_usart,quan::stm32::usart1
    >::value ,"invalid usart for serial_port irq");
-   sliprings_tx_rx_task::irq_handler();
+   gcs_serial::irq_handler();
 }

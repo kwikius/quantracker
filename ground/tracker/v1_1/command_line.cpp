@@ -25,12 +25,8 @@
 #include <quan/conversion/float_convert.hpp>
 #include <quan/constrain.hpp>
 #include <quan/uav/position.hpp>
-#include "resources/tracker_resources.hpp"
+#include "system/tracker_resources.hpp"
 #include "tracker_commands.hpp"
-//#include "serial_ports.hpp"
-//#include "azimuth.hpp"
-//#include "telemetry.hpp"
-//#include "compass.hpp"
 
 /*
    "E"  --> enable azimuth motor
@@ -74,7 +70,7 @@ namespace {
 
   // typedef telemetry::gps_position uav_pos_type;
 
-   typedef sliprings_tx_rx_task debug_serial_port;
+   typedef gcs_serial debug_serial_port;
 
    typedef quan::uav::position<quan::angle::deg,quan::length::mm> uav_pos_type;
 

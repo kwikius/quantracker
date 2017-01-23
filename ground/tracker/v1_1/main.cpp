@@ -20,17 +20,18 @@
 
 #include <FreeRTOS.h>
 #include <task.h>
-#include "resources/osd_resources.hpp"
+#include "system/osd_resources.hpp"
 
 extern "C" void setup();
 
-void mode_check(){}
+
 bool initialise_flash();
 
 void signal_exit_failure();
 void create_draw_task();
-void create_tracker_task();
 void create_telemetry_receiver_task();
+
+void create_tracker_task();
 
 int main()
 {
@@ -41,6 +42,7 @@ int main()
 
   create_telemetry_receiver_task();
   create_draw_task();
+
   create_tracker_task();
 
   vTaskStartScheduler();
