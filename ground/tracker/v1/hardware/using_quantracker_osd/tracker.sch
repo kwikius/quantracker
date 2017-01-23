@@ -458,7 +458,7 @@ VIN
 Text Label 1300 3875 2    60   ~ 0
 +3.3V
 Text Label 6800 3125 0    39   ~ 0
-PAN_PWM
+FrSky_PWM
 Wire Wire Line
 	6800 3125 6650 3125
 Text Label 8575 3900 2    39   ~ 0
@@ -577,7 +577,6 @@ NoConn ~ 6650 4225
 NoConn ~ 6650 4425
 NoConn ~ 6650 4625
 NoConn ~ 6650 4725
-NoConn ~ 4700 3325
 NoConn ~ 4700 3525
 NoConn ~ 4700 3725
 NoConn ~ 4700 3825
@@ -721,4 +720,16 @@ TIM11_CH1
 Wire Wire Line
 	4700 4625 4500 4625
 NoConn ~ 4700 4425
+Text Notes 6025 3150 0    39   ~ 0
+TIM10_CH1
+Text Notes 6050 3450 0    39   ~ 0
+TIM4_CH1
+Text Notes 6075 3350 0    39   ~ 0
+TIM4_CH2
+Text Notes 5050 3350 0    39   ~ 0
+TIM1_CH3N
+Text Label 4550 3325 2    39   ~ 0
+PAN_PWM
+Wire Wire Line
+	4700 3325 4550 3325
 $EndSCHEMATC
