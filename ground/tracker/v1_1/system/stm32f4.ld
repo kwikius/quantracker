@@ -139,23 +139,25 @@ SECTIONS
       __bss_end__ = _ebss;
    }>ram
 
-   /* allocate all static task memory here */
-   .task_stacks :
-   {
-      . = ALIGN(4);
-      . = . + _TaskStacksSize;
-      . = ALIGN(4);
-   }>ram
-
-   /* check there is room for main stack */
+    /* check there is room for main stack */
    .main_stack  :
    {
       . = ALIGN(4);
       . = . + _MainThreadStackSize;
       . = ALIGN(4);
       /* used to set the initial stack pointer at startup*/
-      _estack = ORIGIN(ram) + LENGTH(ram); 
       . = _estack;
+   }>ram
+
+   /* allocate all static task memory here */
+   .task_stacks :
+   {
+      KEEP (*(.task_stacks*))
+      . = ALIGN(4);
+      . = . + _TaskStacksSize;
+      . = ALIGN(4);
+      . = ORIGIN(ram) + LENGTH(ram); 
+      . = _end_task_stacks;
    }>ram
 
    .check_heap (NOLOAD) :

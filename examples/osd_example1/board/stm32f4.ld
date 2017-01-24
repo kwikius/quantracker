@@ -23,7 +23,7 @@ _HeapSize = 0x12000;
 _MainThreadStackSize = 0x1000; 
 
 /* total size allocated to rtos task stacks in stack ram */
-_TaskStacksSize = 0xA000;
+_TaskStackSize = 0xA000;
 
 MEMORY
 {
@@ -123,21 +123,21 @@ SECTIONS
       __bss_end__ = _ebss;
    }>ram
 
-    /* allocate all static task memory here */
-   .task_stacks :
-   {
-      . = ALIGN(4);
-      . = . + _TaskStacksSize;
-      . = ALIGN(4);
-   }>ram
-
    .main_stack  :
    {
       . = ALIGN(4);
       . = . + _MainThreadStackSize;
       . = ALIGN(4);
-      _estack = ORIGIN(ram) + LENGTH(ram); 
-      . = _estack;
+      _estack = .;
+   }>ram
+
+   /* allocate all static task memory here */
+   .task_stacks :
+   {
+      KEEP (*(.task_stacks*))
+      . = ALIGN(4);
+      . = . + _TaskStackSize;
+      . = ORIGIN(ram) + LENGTH(ram); 
    }>ram
 
    .check_heap (NOLOAD) :

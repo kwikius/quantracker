@@ -132,6 +132,7 @@ SECTIONS
     /* allocate all static task memory here */
    .task_stacks :
    {
+       KEEP (*(.task_stacks*))
       . = ALIGN(4);
       . = . + _TaskStacksSize;
       . = ALIGN(4);

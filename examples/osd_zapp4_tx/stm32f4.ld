@@ -21,7 +21,7 @@ _HeapSize = 0x12000;
 
 /* 
 */
-_MainThreadMinStackSize = 0x8000; 
+_MainThreadMinStackSize = 0x1000; 
 
 /*
 total size allocated to rtos task stacks in stack ram
@@ -133,6 +133,7 @@ SECTIONS
    /* allocate all static task memory here */
    .task_stacks :
    {
+      KEEP (*(.task_stacks*))
       . = ALIGN(4);
       . = . + _TaskStacksSize;
       . = ALIGN(4);

@@ -135,6 +135,7 @@ SECTIONS
    /* allocate all static task memory here */
    .task_stacks :
    {
+      KEEP (*(.task_stacks*))
       . = ALIGN(4);
       . = . + _TaskStacksSize;
       . = ALIGN(4);
@@ -151,7 +152,7 @@ SECTIONS
 
    .check_heap (NOLOAD) :
    { 
-       KEEP (*(.check_heap*))
+      KEEP (*(.check_heap*))
       . = ALIGN(4);
       _HEAP_START  = .;
       . = . + _HeapSize;
@@ -161,15 +162,15 @@ SECTIONS
 
    .display_buffer (NOLOAD) :
    { 
-     KEEP (*(.display_buffer*))
-    . = ALIGN(4);
+      KEEP (*(.display_buffer*))
+      . = ALIGN(4);
      /* video_buffer.o (.display_buffer) */
    }> video_ram 
 
    .telem_buffer (NOLOAD) :
    { 
-     KEEP (*(.telem_buffer*))
-    . = ALIGN(4);
+      KEEP (*(.telem_buffer*))
+      . = ALIGN(4);
     /* video_buffer.o (.telem_buffer) */
    }> telem_ram 
    

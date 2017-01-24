@@ -137,10 +137,10 @@ SECTIONS
       _estack = .;  
    }>ram
 
-
    /* allocate all static task memory here */
    .task_stacks :
    {
+      KEEP (*(.task_stacks*))
       . = ALIGN(4);
       . = . + _TaskStacksSize;
       . = ORIGIN(ram) + LENGTH(ram);

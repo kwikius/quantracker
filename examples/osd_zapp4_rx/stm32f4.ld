@@ -135,6 +135,7 @@ SECTIONS
    /* allocate all static task memory here */
    .task_stacks :
    {
+      KEEP (*(.task_stacks*))
       . = ALIGN(4);
       . = . + _TaskStacksSize;
       . = ALIGN(4);
@@ -145,8 +146,8 @@ SECTIONS
       . = ALIGN(4);
       . = . + _MainThreadMinStackSize;
       . = ALIGN(4);
-
       _estack = ORIGIN(ram) + LENGTH(ram); 
+      . = _estack;
    }>ram
 
    .check_heap (NOLOAD) :
