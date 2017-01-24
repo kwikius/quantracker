@@ -34,6 +34,6 @@ namespace tracker_detail{
 extern "C" void setup()
 {
   osd_setup();
-  gcs_serial::setup<9600>(local_interrupt_priority::sliprings_serial_port);
-  tracker_detail::pan_motor_setup();
+  gcs_serial::setup<9600>(local_interrupt_priority::gcs_serial_port);
+ 
 }

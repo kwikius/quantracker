@@ -26,7 +26,7 @@
 #include <quan/constrain.hpp>
 #include <quan/uav/position.hpp>
 #include "system/tracker_resources.hpp"
-#include "tracker_commands.hpp"
+//#include "tracker_commands.hpp"
 
 /*
    "E"  --> enable azimuth motor
@@ -166,13 +166,19 @@ namespace {
          }
          break;
          case 'E' :{
+/*
                tracker::pan::enable(true);
                debug_serial_port::write("Azimuth Enabled\n");
+*/
+            debug_serial_port::write("Function N/A TODO\n");
          }
          break;
          case 'D' :{
+/*
                tracker::pan::enable(false);
                debug_serial_port::write("Azimuth Disabled\n");
+*/
+               debug_serial_port::write("Function N/A TODO\n");
          }
          break;
          case 'P' :
@@ -209,6 +215,9 @@ namespace {
          break;
          //############################################
          case 'V':
+#if 1
+         debug_serial_port::write("Function N/A TODO\n");
+#else
             if ( len > 2){
                quan::detail::converter<float,char*> conv;
                float const v = conv(buf + 1);
@@ -220,8 +229,12 @@ namespace {
             }else {
                debug_serial_port::write("expctd kP or kD + float\n");
             } 
+#endif
          break;
          case 'k': 
+            #if 1
+               debug_serial_port::write("Function N/A TODO\n");
+            #else
             if ( len > 3){
                  quan::detail::converter<float,char*> conv;
                  float const v = conv(buf + 2);
@@ -256,6 +269,7 @@ namespace {
                }else{ 
                  debug_serial_port::write("expctd kP kD kD + float\n");
                } 
+           #endif
          break;
          case 'G' :
              if ( len > 1){
@@ -365,37 +379,49 @@ namespace {
                      break;
                
                      case 'V':{
+/*
                           tracker::rad_per_s v = tracker::pan::get_angular_velocity();
                           // n.b implicit conversion from radians value_type
                           double vn = static_cast<double>(v.numeric_value());
                           char buf1[100];
                           sprintf(buf1,"actual angular velocity = %.3f rad.s-1\n",vn);
                           debug_serial_port::write(buf1);
+*/
+                          debug_serial_port::write("Function N/A TODO\n");
                       }
                       break;
                       case 't': {
+/*
                           tracker::rad_per_s v = tracker::pan::get_target_angular_velocity();
                           // n.b implicit conversion from radians value_type
                           double vn = static_cast<double>(v.numeric_value());
                           char buf1[100];
                           sprintf(buf1,"target angular velocity = %.3f rad.s-1\n",vn);
                           debug_serial_port::write(buf1);
+*/
+                          debug_serial_port::write("Function N/A TODO\n");
                       }
                       break;
                       case  'Z':{
+/*
                            quan::voltage::mV v = tracker::pan::get_back_emf_0v_rail();
                            double vn = static_cast<double>(v.numeric_value());
                            char buf1[100];
                            sprintf(buf1,"pan emf 0v rail = %.3f mV\n",vn);
                            debug_serial_port::write(buf1);
+*/
+                           debug_serial_port::write("Function N/A TODO\n");
                       }
                       break;
                       case  'z':{
+/*
                            quan::voltage::mV v = tracker::pan::get_current_0v_rail();
                            double vn = static_cast<double>(v.numeric_value());
                            char buf1[100];
                            sprintf(buf1,"pan current 0v rail = %.3f mV\n",vn);
                            debug_serial_port::write(buf1);
+*/
+                           debug_serial_port::write("Function N/A TODO\n");
                       }
                       break;
                      default:

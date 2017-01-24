@@ -36,7 +36,7 @@ static_library_files = \
 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
-local_objects = main.o pan_servo.o command_line.o tracker_task.o 
+local_objects = main.o command_line.o tracker_task.o 
 
 obj_local_objects = $(patsubst %,$(OBJDIR)%, $(local_objects))
 

@@ -41,10 +41,12 @@ extern "C" void vApplicationIdleHook(  )
 	memory allocated by the kernel to any task that has since been deleted. */
   // quan::stm32::set<heartbeat_led_pin>();
 }
+
 extern "C" void vApplicationTickHook( void )
 {
  // quan::stm32::set<heartbeat_led_pin>();
 }
+
 /*-----------------------------------------------------------*/
 extern "C" void vApplicationMallocFailedHook( )
 {
