@@ -17,9 +17,9 @@ install:
 # install the quantracker dependencies
    - echo retrieving and building the installer
    - mkdir air_installer_tmp && cd air_installer_tmp
-   - wget https://github.com/kwikius/air_installer/archive/install_test.zip
-   - unzip install_test.zip
-   - cd air_installer-install_test
+   - wget https://github.com/kwikius/air_installer/archive/master.zip
+   - unzip master.zip
+   - cd air_installer-master
    - make clean && make CXX="g++-4.8"
    - mkdir /home/travis/ap_lib
    - mkdir /home/travis/ap_bin
