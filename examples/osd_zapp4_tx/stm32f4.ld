@@ -19,11 +19,14 @@
 /* Heap size will be set to this if allocing memory*/
 _HeapSize = 0x12000;
 
-/* linker checks that stack is bigger than this.
- n.b under FreeRtos, not clear how much is needed
-since task stacks are allocated on the heap
+/* 
 */
-_MinStackSize = 0x8000; 
+_MainThreadMinStackSize = 0x8000; 
+
+/*
+total size allocated to rtos task stacks in stack ram
+*/
+_TaskStacksSize = 0xA000;
 
 MEMORY
 {
@@ -127,10 +130,18 @@ SECTIONS
       __bss_end__ = _ebss;
    }>ram
 
-   .check_stack  :
+   /* allocate all static task memory here */
+   .task_stacks :
    {
       . = ALIGN(4);
-      . = . + _MinStackSize;
+      . = . + _TaskStacksSize;
+      . = ALIGN(4);
+   }>ram
+
+   .main_stack  :
+   {
+      . = ALIGN(4);
+      . = . + _MainThreadMinStackSize;
       . = ALIGN(4);
 
       _estack = ORIGIN(ram) + LENGTH(ram); 

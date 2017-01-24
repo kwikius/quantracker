@@ -15,15 +15,27 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-
-/* Heap size will be set to this if allocing memory*/
+/*
+ This linker script includes 
+    a 32k rom section set aside for flash memory
+    a telemetry  buffer
+  statically task stacks should all be allocated in the task_stacks section
+  which is in stack ram
+*/
+/*
+ Size of the heap allocation in heap_ram
+*/
 _HeapSize = 0x12000;
 
-/* linker checks that stack is bigger than this.
- n.b under FreeRtos, not clear how much is needed
-since task stacks are allocated on the heap
+/*
+ size of the main stack in stack ram
 */
-_MinStackSize = 0x8000; 
+_MainThreadStackSize = 0x1000; 
+
+/*
+total size allocated to rtos task stacks in stack ram
+*/
+_TaskStacksSize = 0xA000;
 
 MEMORY
 {
@@ -127,12 +139,21 @@ SECTIONS
       __bss_end__ = _ebss;
    }>ram
 
-   .check_stack  :
+   /* allocate all static task memory here */
+   .task_stacks :
    {
       . = ALIGN(4);
-      . = . + _MinStackSize;
+      . = . + _TaskStacksSize;
       . = ALIGN(4);
+   }>ram
 
+   /* check there is room for main stack */
+   .stack  :
+   {
+      . = ALIGN(4);
+      . = . + _MainThreadStackSize;
+      . = ALIGN(4);
+      /* used to set the initial stack pointer at startup*/
       _estack = ORIGIN(ram) + LENGTH(ram); 
    }>ram
 
@@ -140,9 +161,11 @@ SECTIONS
    { 
        KEEP (*(.check_heap*))
       . = ALIGN(4);
+      /* used by malloc */
       _HEAP_START  = .;
       . = . + _HeapSize;
       . = ALIGN(4);
+       /* used by malloc */
       _HEAP_MAX = .;
    }>heap_ram
 

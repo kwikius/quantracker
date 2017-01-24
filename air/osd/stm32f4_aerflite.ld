@@ -23,7 +23,7 @@ _HeapSize = 0x10000;
  n.b under FreeRtos, not clear how much is needed
 since task stacks are allocated on the heap
 */
-_MinStackSize = 0xC000; 
+_MainThreadStackSize = 0xC000; 
 
 MEMORY
 {
@@ -118,10 +118,18 @@ SECTIONS
    .check_stack  :
    {
       . = ALIGN(4);
-      . = . + _MinStackSize;
+      . = . + _MainThreadStackSize;
       . = ALIGN(4);
+      _estack = . 
+   }>ram
 
-      _estack = ORIGIN(ram) + LENGTH(ram); 
+      /* allocate all static task memory here */
+   .task_stacks :
+   {
+      . = ALIGN(4);
+      . = . + _TaskStacksSize;
+      . = ALIGN(4);
+      . = ORIGIN(ram) + LENGTH(ram);
    }>ram
 
    .check_heap (NOLOAD) :
