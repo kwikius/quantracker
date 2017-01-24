@@ -39,7 +39,7 @@ unobj_rtos_objects := tasks.o queue.o list.o timers.o
 unobj_quan_objects := malloc_free.o
 
 unobj_system_objects := $(unobj_rtos_objects)  $(unobj_quan_objects) \
- startup.o system_init.o port.o heap_3.o rtos_hooks.o spbrk.o system.o
+ startup.o system_init.o port.o heap_3.o rtos_hooks.o rtos_functions.o spbrk.o system.o
 
 objects := $(patsubst %, $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%,$(unobj_system_objects))
 
@@ -72,6 +72,9 @@ $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_heap_3.o : $(FREE_RTOS_DIR)Source/portable/Me
 	$(CC1) $(C_FLAGS_1) $(patsubst %,-I%,$(RTOS_INCLUDES)) $< -o $@
 
 $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_rtos_hooks.o : rtos_hooks.cpp 
+	$(CC) $(CFLAGS) $< -o $@
+
+$(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_rtos_functions.o : rtos_functions.cpp 
 	$(CC) $(CFLAGS) $< -o $@
 
 $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_malloc_free.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/malloc_free.cpp
