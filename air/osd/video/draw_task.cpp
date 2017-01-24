@@ -80,7 +80,7 @@ namespace {
    char dummy_param = 0;
    TaskHandle_t task_handle = NULL;
 }
-
+// TODO add a size argument representing the required size of the task stack
 void create_draw_task()
 {
     detail::create_osd_swap_semaphores();
