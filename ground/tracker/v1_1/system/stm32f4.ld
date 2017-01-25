@@ -146,7 +146,7 @@ SECTIONS
       . = . + _MainThreadStackSize;
       . = ALIGN(4);
       /* used to set the initial stack pointer at startup*/
-      . = _estack;
+      _estack = .;
    }>ram
 
    /* allocate all static task memory here */
@@ -157,7 +157,7 @@ SECTIONS
       . = . + _TaskStacksSize;
       . = ALIGN(4);
       . = ORIGIN(ram) + LENGTH(ram); 
-      . = _end_task_stacks;
+      _end_task_stacks = .;
    }>ram
 
    .check_heap (NOLOAD) :
