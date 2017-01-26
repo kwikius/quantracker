@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 08 Jan 2016 14:31:29 GMT
+EESchema Schematic File Version 2
+LIBS:flight_controller-rescue
 LIBS:spst
 LIBS:power
 LIBS:device
@@ -17,9 +18,9 @@ LIBS:74lvc1g86
 LIBS:ms5611
 LIBS:fm25v01
 LIBS:flight_controller-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 5
 Title ""

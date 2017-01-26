@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 08 Jan 2016 14:31:29 GMT
+EESchema Schematic File Version 2
+LIBS:flight_controller-rescue
 LIBS:spst
 LIBS:power
 LIBS:device
@@ -17,9 +18,9 @@ LIBS:74lvc1g86
 LIBS:ms5611
 LIBS:fm25v01
 LIBS:flight_controller-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 2 5
 Title ""
@@ -66,31 +67,37 @@ Wire Wire Line
 	6000 3850 6000 3750
 Connection ~ 6000 3750
 $Comp
-L GND #PWR?
+L GND-RESCUE-flight_controller #PWR?
 U 1 1 568FC7C9
 P 6000 4400
 F 0 "#PWR?" H 6000 4400 30  0001 C CNN
 F 1 "GND" H 6000 4330 30  0001 C CNN
+F 2 "" H 6000 4400 60  0001 C CNN
+F 3 "" H 6000 4400 60  0001 C CNN
 	1    6000 4400
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C?
+L C-RESCUE-flight_controller C?
 U 1 1 568FC7C1
 P 6000 4050
 F 0 "C?" H 6050 4150 50  0000 L CNN
 F 1 "C" H 6050 3950 50  0000 L CNN
+F 2 "" H 6000 4050 60  0001 C CNN
+F 3 "" H 6000 4050 60  0001 C CNN
 	1    6000 4050
 	1    0    0    -1  
 $EndComp
 Text HLabel 3450 3950 0    60   Input ~ 0
 +3.3V
 $Comp
-L GND #PWR?
+L GND-RESCUE-flight_controller #PWR?
 U 1 1 568FC6D3
 P 3550 4200
 F 0 "#PWR?" H 3550 4200 30  0001 C CNN
 F 1 "GND" H 3550 4130 30  0001 C CNN
+F 2 "" H 3550 4200 60  0001 C CNN
+F 3 "" H 3550 4200 60  0001 C CNN
 	1    3550 4200
 	1    0    0    -1  
 $EndComp
@@ -110,6 +117,8 @@ U 1 1 568FC49C
 P 4500 3900
 F 0 "U?" H 4500 3700 60  0000 C CNN
 F 1 "FM25V01" H 4500 4000 60  0000 C CNN
+F 2 "" H 4500 3900 60  0001 C CNN
+F 3 "" H 4500 3900 60  0001 C CNN
 	1    4500 3900
 	1    0    0    -1  
 $EndComp

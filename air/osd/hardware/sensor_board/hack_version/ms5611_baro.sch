@@ -1,4 +1,5 @@
-EESchema Schematic File Version 2  date Fri 08 Jan 2016 14:31:29 GMT
+EESchema Schematic File Version 2
+LIBS:flight_controller-rescue
 LIBS:spst
 LIBS:power
 LIBS:device
@@ -17,9 +18,9 @@ LIBS:74lvc1g86
 LIBS:ms5611
 LIBS:fm25v01
 LIBS:flight_controller-cache
-EELAYER 25  0
+EELAYER 25 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 2 5
 Title ""
@@ -78,20 +79,24 @@ BARO_SDI
 Text HLabel 6500 3200 2    60   Input ~ 0
 BARO_SCK_IN
 $Comp
-L GND #PWR?
+L GND-RESCUE-flight_controller #PWR?
 U 1 1 568FC096
 P 4150 3850
 F 0 "#PWR?" H 4150 3850 30  0001 C CNN
 F 1 "GND" H 4150 3780 30  0001 C CNN
+F 2 "" H 4150 3850 60  0001 C CNN
+F 3 "" H 4150 3850 60  0001 C CNN
 	1    4150 3850
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C?
+L C-RESCUE-flight_controller C?
 U 1 1 568FC025
 P 4150 3500
 F 0 "C?" H 4200 3600 50  0000 L CNN
 F 1 "C" H 4200 3400 50  0000 L CNN
+F 2 "" H 4150 3500 60  0001 C CNN
+F 3 "" H 4150 3500 60  0001 C CNN
 	1    4150 3500
 	1    0    0    -1  
 $EndComp
@@ -101,6 +106,8 @@ U 1 1 568FC014
 P 3650 3200
 F 0 "L?" V 3600 3200 40  0000 C CNN
 F 1 "INDUCTOR" V 3750 3200 40  0000 C CNN
+F 2 "" H 3650 3200 60  0001 C CNN
+F 3 "" H 3650 3200 60  0001 C CNN
 	1    3650 3200
 	0    1    1    0   
 $EndComp
@@ -112,6 +119,8 @@ U 1 1 568FBFCB
 P 5450 3350
 F 0 "U?" H 5450 3100 60  0000 C CNN
 F 1 "MS5611" H 5450 3600 60  0000 C CNN
+F 2 "" H 5450 3350 60  0001 C CNN
+F 3 "" H 5450 3350 60  0001 C CNN
 	1    5450 3350
 	1    0    0    -1  
 $EndComp
