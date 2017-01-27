@@ -507,4 +507,27 @@ $EndComp
 Wire Wire Line
 	5025 2000 5025 2125
 Connection ~ 5025 2125
+$Comp
+L CONN_3 P?
+U 1 1 588A3767
+P 3350 1275
+F 0 "P?" V 3300 1275 40  0000 C CNN
+F 1 "CONN_3" V 3400 1275 40  0000 C CNN
+F 2 "" H 3350 1275 60  0001 C CNN
+F 3 "" H 3350 1275 60  0001 C CNN
+	1    3350 1275
+	1    0    0    -1  
+$EndComp
+Text HLabel 2700 1175 0    40   Output ~ 0
+MOTOR_EMFA
+Text HLabel 2725 1375 0    40   Output ~ 0
+MOTOR_EMFB
+Wire Wire Line
+	3000 1175 2700 1175
+Wire Wire Line
+	3000 1375 2725 1375
+Text HLabel 2675 1275 0    40   Output ~ 0
+MOTOR_I
+Wire Wire Line
+	3000 1275 2675 1275
 $EndSCHEMATC
