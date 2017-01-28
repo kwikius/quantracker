@@ -1,4 +1,4 @@
-update=Thu 19 Jan 2017 11:05:46 GMT
+update=Thu 26 Jan 2017 10:15:42 GMT
 version=1
 last_client=kicad
 [pcbnew]
@@ -77,3 +77,13 @@ LibName45=/home/andy/cpp/projects/aerflite_preview/kicad/lib/smpsu_module
 LibName46=/home/andy/cpp/projects/aerflite_preview/kicad/lib/tlcfilt
 LibName47=/home/andy/cpp/projects/aerflite_preview/kicad/lib/rc3t
 LibName48=/home/andy/cpp/projects/aerflite_preview/kicad/lib/mic5205
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=40
