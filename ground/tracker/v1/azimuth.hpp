@@ -33,7 +33,7 @@ struct azimuth {
       typedef azimuth_encoder_b_pin          b_pin;
       typedef azimuth_qdrt_counter           counter;
      
-      static constexpr uint32_t counts_rev(){ return 9600;}
+      static constexpr uint32_t counts_per_revolution(){ return 9600;}
       static void setup();
       static void zero();
       static bool align_with_compass();

@@ -76,7 +76,7 @@ void azimuth::encoder::setup()
 
    // ref man 14.3.12 
    // set  reload value and clear the count
-   counter::get()->arr = counts_rev() - 1;
+   counter::get()->arr = counts_per_revolution() - 1;
    counter::get()->cnt = 0U;
 
    // setup quadrature encoder mode, counting on both inputs 
