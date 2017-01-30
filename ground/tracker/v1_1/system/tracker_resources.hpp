@@ -53,7 +53,15 @@ typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
    tim14  // timer available but no output pins available onquantracker_osd
 */
 typedef quan::stm32::tim1   pan_motor_timer;
-typedef quan::stm32::tim4   quadrature_timer; // for pan servo
+
+/*
+  tim4 16 bit timer
+*/
+typedef quan::stm32::tim4   azimuth_quadrature_counter; // for pan servo
+
+typedef quan::mcu::pin<quan::stm32::gpiob,6> azimuth_encoder_ch1_pin;
+typedef quan::mcu::pin<quan::stm32::gpiob,7> azimuth_encoder_ch2_pin;
+
 typedef quan::stm32::tim5   adc_trigger_timer; 
 
 typedef quan::stm32::tim11  tilt_servo_pwm_timer ; // for tilt servo

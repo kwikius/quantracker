@@ -54,7 +54,8 @@ namespace {
       typedef float                          pan_motor_kD;
       typedef float                          pan_motor_minDC;
       typedef float                          pan_motor_kSpike;
-     
+      typedef uint32_t                       pan_motor_encoder_counts_rev; 
+
    } ;
    //#################### Per object range checking ########################
     

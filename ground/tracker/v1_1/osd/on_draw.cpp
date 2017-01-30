@@ -4,5 +4,5 @@
 
 void quan::uav::osd::on_draw()
 {
-   draw_text("Hello World",{-60,30}); 
+   draw_text("Hello World again",{-60,30}); 
 }

@@ -1,24 +1,22 @@
 
 #include "system/resources.hpp"
-#include <quan/stm32/flash.hpp>
-#include <quan/error.hpp>
-#include <quan/user.hpp>
+#include "azimuth.hpp"
 #include "FreeRTOS.h"
 #include <task.h>
-
-void parse_commandline();
+#include <cstdio>
 
 namespace {
 
-      typedef gcs_serial sp_task;
-
-    
       void tracker_task(void * params)
       {
+         azimuth::encoder::setup();
+
          for (;;){
-            asm volatile ("nop":::);
+            vTaskDelay(300);
+            quan::stm32::complement<heartbeat_led_pin>();
+            gcs_serial::print<100>("encoder count = %lu\n",azimuth::encoder::get_count());
          }
-       }
+      }
 
       char dummy_param  =0;
       TaskHandle_t task_handle = NULL;

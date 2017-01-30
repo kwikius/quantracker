@@ -46,6 +46,10 @@ obj_system_objects = $(patsubst %,$(OBJDIR)%, $(system_objects))
 osd_objects = on_draw.o on_telemetry_received.o
 obj_osd_objects = $(patsubst %,$(OBJDIR)%, $(osd_objects))
 
+azimuth_objects = encoder.o
+obj_azimuth_objects =  $(patsubst %,$(OBJDIR)%, $(azimuth_objects))
+
+
 # font path
 USER_SOURCE_PATH = $(QUANTRACKER_ROOT_DIR)/examples/osd_example1/
 
@@ -53,7 +57,8 @@ user_resources = fonts.o
 
 obj_user_resources = $(patsubst %,$(OBJDIR)%, $(user_resources))
 
-objects = $(obj_local_objects) $(obj_system_objects) $(obj_osd_objects) $(obj_user_resources)
+objects = $(obj_local_objects) $(obj_system_objects) $(obj_osd_objects) $(obj_user_resources) \
+$(obj_azimuth_objects)
 
 all : test
 
@@ -75,6 +80,9 @@ $(obj_system_objects): $(OBJDIR)%.o : system/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(obj_osd_objects): $(OBJDIR)%.o : osd/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+$(obj_azimuth_objects): $(OBJDIR)%.o : azimuth/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(obj_user_resources) : $(OBJDIR)%.o : $(USER_SOURCE_PATH)board/%.cpp

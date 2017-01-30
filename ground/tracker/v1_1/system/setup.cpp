@@ -28,12 +28,28 @@
 
 void osd_setup();
 
-namespace tracker_detail{
-   void pan_motor_setup();
+namespace {
+
+void enable_heartbeat_led()
+{
+   quan::stm32::module_enable< heartbeat_led_pin::port_type>();
+      quan::stm32::apply<
+         heartbeat_led_pin
+         , quan::stm32::gpio::mode::output
+         , quan::stm32::gpio::otype::push_pull
+         , quan::stm32::gpio::pupd::none
+         , quan::stm32::gpio::ospeed::slow
+         , quan::stm32::gpio::ostate::high
+      >();
 }
+}
+
+
 extern "C" void setup()
 {
   osd_setup();
+  enable_heartbeat_led();
   gcs_serial::setup<9600>(local_interrupt_priority::gcs_serial_port);
+  gcs_serial::enable();
  
 }
