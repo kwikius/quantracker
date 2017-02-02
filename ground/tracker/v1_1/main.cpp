@@ -59,7 +59,7 @@ void signal_exit_failure()
          , quan::stm32::gpio::otype::push_pull
          , quan::stm32::gpio::pupd::none
          , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::high
+         , quan::stm32::gpio::ostate::low
       >();
    for(;;){asm volatile ("nop":::);}
 }

@@ -26,8 +26,9 @@
 #include <quan/constrain.hpp>
 #include <quan/uav/position.hpp>
 #include "system/tracker_resources.hpp"
-//#include "tracker_commands.hpp"
-
+#include "azimuth/servo.hpp"
+#include "azimuth/motor.hpp"
+#include "azimuth/encoder.hpp"
 /*
    "E"  --> enable azimuth motor
    "D" --> disable azimuth motor
@@ -210,7 +211,7 @@ namespace {
                #endif
             }
             else{
-               debug_serial_port::write("expected uint");
+               debug_serial_port::write("expected uint\n");
             } 
          break;
          //############################################

@@ -16,32 +16,38 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include "../azimuth.hpp"
+#include "encoder.hpp"
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/tim.hpp>
 
 using namespace quan::stm32;
 
-uint32_t azimuth::encoder::m_steps_per_revolution = 9600;
+uint32_t azimuth_encoder::m_steps_per_revolution = 9600;
+bool     azimuth_encoder::m_is_indexed = false;
 
 /*
+  for example
   if have a mag and its calibrated
   read the mag, convert the bearing to an encoder value
   and set the count to that otherwise assume
   operator has pointed the mag North and set the encoder count to 0
-
+  etc
 */
-void azimuth::encoder::zero()
+bool azimuth_encoder::set_index( uint32_t index)
 {
-   counter::get()->cnt = 0U;
-  // motor::set_target_position(0);
+   if ( index < m_steps_per_revolution){ 
+      counter::get()->cnt = index;
+      m_is_indexed = true;
+      return true;
+   }else{
+      return false;
+   }
 }
-
 
 /*
 set up azimuth timer as quadrature counter
 */
-void azimuth::encoder::setup()
+void azimuth_encoder::setup()
 {
    module_enable<ch2_pin::port_type>();
    module_enable<ch1_pin::port_type>();

@@ -25,6 +25,7 @@
 #include <quan/stm32/gpio.hpp>
 
 #include "resources.hpp"
+#include "../azimuth/servo.hpp"
 
 void osd_setup();
 
@@ -39,7 +40,7 @@ void enable_heartbeat_led()
          , quan::stm32::gpio::otype::push_pull
          , quan::stm32::gpio::pupd::none
          , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::high
+         , quan::stm32::gpio::ostate::low
       >();
 }
 }
@@ -51,5 +52,7 @@ extern "C" void setup()
   enable_heartbeat_led();
   gcs_serial::setup<9600>(local_interrupt_priority::gcs_serial_port);
   gcs_serial::enable();
+
+  azimuth_servo::setup();
  
 }

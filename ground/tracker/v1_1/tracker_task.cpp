@@ -1,21 +1,25 @@
 
-#include "system/resources.hpp"
-#include "azimuth.hpp"
 #include "FreeRTOS.h"
 #include <task.h>
-#include <cstdio>
+
+#include "system/resources.hpp"
+#include "azimuth/encoder.hpp"
+#include "azimuth/servo.hpp"
+
+void parse_commandline();
 
 namespace {
 
       void tracker_task(void * params)
       {
-         azimuth::encoder::setup();
-
-         for (;;){
-            vTaskDelay(300);
-            quan::stm32::complement<heartbeat_led_pin>();
-            gcs_serial::print<100>("encoder count = %lu\n",azimuth::encoder::get_count());
-         }
+         azimuth_encoder::set_index(0U);
+         azimuth_servo::set_pwm(0.25);
+         azimuth_servo::enable();
+         
+         for(;;){ 
+            vTaskDelay(500);
+            gcs_serial::write("ping\n");
+          }
       }
 
       char dummy_param  =0;

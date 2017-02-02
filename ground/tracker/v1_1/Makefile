@@ -46,7 +46,7 @@ obj_system_objects = $(patsubst %,$(OBJDIR)%, $(system_objects))
 osd_objects = on_draw.o on_telemetry_received.o
 obj_osd_objects = $(patsubst %,$(OBJDIR)%, $(osd_objects))
 
-azimuth_objects = encoder.o
+azimuth_objects = encoder.o motor.o servo.o
 obj_azimuth_objects =  $(patsubst %,$(OBJDIR)%, $(azimuth_objects))
 
 

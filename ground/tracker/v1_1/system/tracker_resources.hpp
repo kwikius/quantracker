@@ -29,8 +29,12 @@ typedef quan::stm32::tim3                       video_rows_line_counter;
 typedef quan::stm32::tim9                       spi_clock_timer;
 typedef quan::stm32::tim12                      sync_sep_timer;
 */
-typedef quan::mcu::pin<quan::stm32::gpiob,8>   pan_motor_pwm_pin;
-typedef quan::mcu::pin<quan::stm32::gpioc,14>  pan_motor_dir_pin;
+
+typedef quan::stm32::tim1   pan_motor_timer;
+
+typedef quan::mcu::pin<quan::stm32::gpiob,1>   pan_motor_pwm_out_pin; // TIM1_CH3N
+typedef quan::mcu::pin<quan::stm32::gpioc,4>   pan_motor_direction_out_pin;
+typedef quan::mcu::pin<quan::stm32::gpioc,5>   pan_motor_not_direction_out_pin;
 
 typedef quan::mcu::pin<quan::stm32::gpioc,0>   pan_motor_emf_adc_pin;
 typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
@@ -52,7 +56,7 @@ typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
    tim13  // timer available but no output pins available onquantracker_osd
    tim14  // timer available but no output pins available onquantracker_osd
 */
-typedef quan::stm32::tim1   pan_motor_timer;
+
 
 /*
   tim4 16 bit timer
