@@ -10,37 +10,33 @@ void parse_commandline();
 
 namespace {
 
-      void tracker_task(void * params)
-      {
-         azimuth_encoder::set_index(0U);
-         azimuth_servo::set_pwm(0.25);
-         azimuth_servo::enable();
-         
-         for(;;){ 
-            vTaskDelay(500);
-            gcs_serial::write("ping\n");
-          }
+   void tracker_task(void * params)
+   {
+      azimuth_encoder::set_index(0U);
+      azimuth_servo::set_pwm(0.25);
+      azimuth_servo::enable();
+
+      for(;;){ 
+         parse_commandline();
       }
+   }
 
-      char dummy_param  =0;
-      TaskHandle_t task_handle = NULL;
-
-     constexpr uint32_t task_stack_size = 3000U;
-
-     StackType_t __attribute__ ((used,section (".task_stacks"))) task_stack[task_stack_size];
-     StaticTask_t __attribute__ ((used,section (".task_stacks"))) task_buffer;
+   char dummy_param = 0;
+   TaskHandle_t task_handle = NULL;
+   constexpr uint32_t task_stack_size = 3000U;
+   StackType_t __attribute__ ((used,section (".task_stacks"))) task_stack[task_stack_size];
+   StaticTask_t __attribute__ ((used,section (".task_stacks"))) task_buffer;
 }
 
 void create_tracker_task()
 {
    task_handle = ::xTaskCreateStatic(
-     tracker_task,
-     "tracker_task",
-     task_stack_size,
-     &dummy_param,
-     local_task_priority::tracker_task,
-     task_stack,
-     &task_buffer);
-
+      tracker_task,
+      "tracker_task",
+      task_stack_size,
+      &dummy_param,
+      local_task_priority::tracker_task,
+      task_stack,
+      &task_buffer
+   );
 }
-
