@@ -135,6 +135,7 @@ void azimuth_motor::set_pwm_irq()
 
 void azimuth_motor::set_pwm(uint32_t value, bool sign)
 {
+   gcs_serial::print<100>("motor pwm = %lu, sign = %lu\n",value ,static_cast<uint32_t>(sign));
    next_pwm[m_next_pwm_idx ^ 1U] = {value,sign};
    m_next_pwm_idx ^= 1U;
 }
@@ -152,7 +153,7 @@ void azimuth_motor::disable()
    static constexpr uint8_t cc3ne = 10U;
    typedef azimuth_servo::timer timer;
 
-   timer::get()->ccer.bb_clearbit<cc3ne>(); // cleasr cc3NE to disable PWM out
+   timer::get()->ccer.bb_clearbit<cc3ne>(); // clear cc3NE to disable PWM out
 }
 
 /*
