@@ -30,17 +30,23 @@
 #include "azimuth/motor.hpp"
 #include "azimuth/encoder.hpp"
 /*
-   "E"  --> enable azimuth motor
+   "E"  --> enable azimuth servo in position mode  ( backward compat)
+   "Ep" --> enable azimuth servo in position mode
+   "Ea" --> enable azimuth servo in proportional mode ( This is a velocity mode that just applies pwm . 
+            Initial pwm is 0 for backward compatibility)
+   "A%f" --> In proportional mode set pwm between -1 to 1.
+   "Ev" --> enable azimuth servo in velocity mode
+   "Ei" --> enable azimuth servo in position and velocity mode
    "D" --> disable azimuth motor
    "$%f,%f,%f;"   --> set home position lat,lon,altitude
    "~%f,%f,%f;"    --> aircraft position  lat,lon,altitude
-   "P%i" --> set azimuth position %i
+   "P%i" --> set azimuth position %i in position mode
    "Z" --> set zero (North)
    "kP%f" --> set proportional term %f
    "kD%f" --> set differential term %f
    "kC%f"  --> min duty cycle  term %f
-   "H%i" ---> set elev servo pos;
-   "V%f"  --> set target pan angular velocity
+   "H%i" ---> set elev servo pos in pwm usec between 1000 and 2000 usec
+   "V%f"  --> set target pan angular velocity in radians per sec
 
    "GT"  --> get target position
    "GA"  --> get actual position
@@ -69,12 +75,12 @@
 */
 namespace {
 
-  // typedef telemetry::gps_position uav_pos_type;
 
-   typedef gcs_serial debug_serial_port;
+  // typedef telemetry::gps_position uav_pos_type;
 
    typedef quan::uav::position<quan::angle::deg,quan::length::mm> uav_pos_type;
 
+   // format  float, float, float;
    bool parse_position(const char* cbuf, size_t len, uav_pos_type& pos)
    {
       if ( len > 99){return false;}
@@ -119,7 +125,7 @@ namespace {
 
          case '$' :
                if (! parse_home_position(buf+1,len-1) ){
-                  debug_serial_port::write("set home position failed\n");
+                  gcs_serial::write("set home position failed\n");
                }
                else{
                  char buf1[100];
@@ -132,14 +138,14 @@ namespace {
                         0.0,0.0,0.0 // TODO
                    #endif
                   );
-                 debug_serial_port::write(buf1);
+                 gcs_serial::write(buf1);
                }
                break;
 
          case '~' : {
                uav_pos_type aircraft_position;
                if(!parse_position(buf+1,len-1,aircraft_position)){
-                  debug_serial_port::write("set aircraft position failed\n");
+                  gcs_serial::write("set aircraft position failed\n");
                }else{
                  char buf1[100];
                  sprintf(buf1,"aircraft pos set lat = %.6f deg, lon = %.6f deg, alt = %.1f mm\n",
@@ -155,31 +161,64 @@ namespace {
                  telemetry::m_aircraft_position = aircraft_position;
                  telemetry::recalc();
                  #endif
-                 debug_serial_port::write(buf1);
+                 gcs_serial::write(buf1);
                }
                break;
          }
+         case 'A' :{  // set servo pwm raw in proportional pwm mode
+            if ( len > 1){
+               quan::detail::converter<float,char*> conv;
+               float const pwm = conv(buf + 1);
+               if ( conv.get_errno()==0){
+                  if (azimuth_servo::set_pwm(pwm)){
+                     gcs_serial::print<100>("set azimuth pwm to %f\n", static_cast<double>(pwm));
+                  }else{
+                     gcs_serial::write("set azimuth pwm failed\n");
+                  }
+               }else{
+                  gcs_serial::write("expected A + float\n");
+               }
+            }
+            else{
+               gcs_serial::write("expected uint\n");
+            } 
+            break;
+         }
          case 'Z' :{
-               #if 0
-               azimuth::encoder::zero();
-               #endif
-               debug_serial_port::write("zeroed\n");
+               azimuth_encoder::set_index(0U);
+               gcs_serial::write("zeroed\n");
          }
          break;
          case 'E' :{
-/*
-               tracker::pan::enable(true);
-               debug_serial_port::write("Azimuth Enabled\n");
-*/
-            debug_serial_port::write("Function N/A TODO\n");
+            if ( len > 1){
+               switch (buf[1]){  // p, a,v,e
+                  case 'a':
+                     azimuth_servo::set_mode(azimuth_servo::mode_t::pwm);
+                     gcs_serial::write("setting azimuth mode to \"pwm\"\n");
+                     if ( azimuth_servo::enable()== true){
+                        gcs_serial::write("Azimuth Enabled\n");
+                     }else{
+                        gcs_serial::write("enable azimuth failed\n");
+                     }
+                     break;
+                  case 'p':
+                  case 'v':
+                  case 'e':
+                     gcs_serial::write("enabling azimuth in other than pwm TODO\n");
+                     break;
+                  default: 
+                     gcs_serial::write("unknown azimuth mode\n");
+                     break;
+               }
+            }else{  // Represents position mode for backward compatibility
+                gcs_serial::write("azimuth position mode TODO\n");
+                break;
+            }
          }
          break;
          case 'D' :{
-/*
-               tracker::pan::enable(false);
-               debug_serial_port::write("Azimuth Disabled\n");
-*/
-               debug_serial_port::write("Function N/A TODO\n");
+               azimuth_servo::disable();
+               gcs_serial::write("Azimuth Disabled\n");
          }
          break;
          case 'P' :
@@ -189,13 +228,13 @@ namespace {
                azimuth::motor::set_target_position(pos);
                char buf1[50];
                sprintf(buf1,"T <~ %ld : OK!\n",azimuth::motor::get_target_position());
-               debug_serial_port::write(buf1);
+               gcs_serial::write(buf1);
                #else
-               debug_serial_port::write("TODO\n");
+               gcs_serial::write("TODO\n");
                #endif
             }
             else{
-               debug_serial_port::write("expected uint");
+               gcs_serial::write("expected uint\n");
             } 
          break;
          case 'H' :
@@ -205,19 +244,19 @@ namespace {
                main_loop::set_elevation_servo(quan::time_<uint32_t>::us{pos});
                char buf1[50];
                sprintf(buf1,"H <~ %ld : OK!\n",main_loop::get_elevation_servo().numeric_value());
-               debug_serial_port::write(buf1);
+               gcs_serial::write(buf1);
                #else
-                 debug_serial_port::write("TODO\n");
+                 gcs_serial::write("TODO\n");
                #endif
             }
             else{
-               debug_serial_port::write("expected uint\n");
+               gcs_serial::write("expected uint\n");
             } 
          break;
          //############################################
          case 'V':
 #if 1
-         debug_serial_port::write("Function N/A TODO\n");
+         gcs_serial::write("Function N/A TODO\n");
 #else
             if ( len > 2){
                quan::detail::converter<float,char*> conv;
@@ -225,16 +264,16 @@ namespace {
                if ( conv.get_errno()==0){
                   tracker::pan::set_angular_velocity(tracker::rad_per_s{tracker::rad{v}});
                }else{
-                   debug_serial_port::write("float conv error\n");
+                   gcs_serial::write("float conv error\n");
                }
             }else {
-               debug_serial_port::write("expctd kP or kD + float\n");
+               gcs_serial::write("expctd kP or kD + float\n");
             } 
 #endif
          break;
          case 'k': 
             #if 1
-               debug_serial_port::write("Function N/A TODO\n");
+               gcs_serial::write("Function N/A TODO\n");
             #else
             if ( len > 3){
                  quan::detail::converter<float,char*> conv;
@@ -245,30 +284,30 @@ namespace {
                         case 'P' : {
                            tracker::pan::set_kP(v);
                            sprintf(buf1,"kP <~ %f : OK!\n",static_cast<double>(v));
-                           debug_serial_port::write(buf1);
+                           gcs_serial::write(buf1);
                         }
                         break;
                         case 'D':{
                            tracker::pan::set_kD(v);
                            sprintf(buf1,"kD  <~ %f : OK!\n",static_cast<double>(v));
-                           debug_serial_port::write(buf1);
+                           gcs_serial::write(buf1);
                         }
                         break;
                         case 'C':{
                            tracker::pan::set_kC(v);
                            sprintf(buf1,"kC  <~ %f : OK!\n",static_cast<double>(v));
-                           debug_serial_port::write(buf1);
+                           gcs_serial::write(buf1);
                         }
                         break;
                         default:
-                           debug_serial_port::write("unknown k command\n");
+                           gcs_serial::write("unknown k command\n");
                         break;
                      }
                  }else{ //
-                     debug_serial_port::write("float conv error\n");
+                     gcs_serial::write("float conv error\n");
                  }
                }else{ 
-                 debug_serial_port::write("expctd kP kD kD + float\n");
+                 gcs_serial::write("expctd kP kD kD + float\n");
                } 
            #endif
          break;
@@ -279,9 +318,9 @@ namespace {
                         #if 0
                         char buf1[50];
                         sprintf(buf1,"Pt = %ld\n",azimuth::motor::get_target_position());
-                        debug_serial_port::write(buf1);
+                        gcs_serial::write(buf1);
                          #else
-                            debug_serial_port::write("TODO\n");
+                            gcs_serial::write("TODO\n");
                          #endif
                      }
                      break;
@@ -289,9 +328,9 @@ namespace {
                         #if 0
                         char buf1[50];
                         sprintf(buf1,"Pa = %ld\n",azimuth::motor::get_actual_position());
-                        debug_serial_port::write(buf1);
+                        gcs_serial::write(buf1);
                          #else
-                           debug_serial_port::write("TODO\n");
+                           gcs_serial::write("TODO\n");
                          #endif
                      }
                      break;
@@ -299,9 +338,9 @@ namespace {
                         #if 0
                         char buf1[50];
                         sprintf(buf1,"kP = %f\n",static_cast<double>(azimuth::motor::get_kP()));
-                        debug_serial_port::write(buf1);
+                        gcs_serial::write(buf1);
                           #else
-                                 debug_serial_port::write("TODO\n");
+                                 gcs_serial::write("TODO\n");
                               #endif
                      }
                      break;
@@ -309,9 +348,9 @@ namespace {
                         #if 0
                         char buf1[50];
                         sprintf(buf1,"kD = %f\n",static_cast<double>(azimuth::motor::get_kD()));
-                        debug_serial_port::write(buf1);
+                        gcs_serial::write(buf1);
                             #else
-                                 debug_serial_port::write("TODO\n");
+                                 gcs_serial::write("TODO\n");
                               #endif
                      }
                      break;
@@ -324,9 +363,9 @@ namespace {
                               static_cast<double>(mag_vect.y),
                                  static_cast<double>(mag_vect.z)
                          );
-                         debug_serial_port::write(buf1);
+                         gcs_serial::write(buf1);
                          #else
-                                 debug_serial_port::write("TODO\n");
+                                 gcs_serial::write("TODO\n");
                               #endif
                      }
                      break;
@@ -339,9 +378,9 @@ namespace {
                               static_cast<double>(mag_vect.y),
                                  static_cast<double>(mag_vect.z)
                          );
-                         debug_serial_port::write(buf1);
+                         gcs_serial::write(buf1);
                          #else
-                                 debug_serial_port::write("TODO\n");
+                                 gcs_serial::write("TODO\n");
                               #endif
                      }
                      break;
@@ -354,9 +393,9 @@ namespace {
                               static_cast<double>(mag_vect.y),
                                  static_cast<double>(mag_vect.z)
                          );
-                         debug_serial_port::write(buf1);
+                         gcs_serial::write(buf1);
                          #else
-                                 debug_serial_port::write("TODO\n");
+                                 gcs_serial::write("TODO\n");
                               #endif
                      }
                      break;
@@ -369,12 +408,12 @@ namespace {
                               quan::angle::deg back = azimuth::motor::encoder_to_bearing(enc);
                               sprintf(buf1,"mag bearing = %.3f deg, encoder value = %ld, back = %.3f\n",
                                           bearing.numeric_value(), enc, back.numeric_value());
-                              debug_serial_port::write(buf1);
+                              gcs_serial::write(buf1);
                            }else{
-                              debug_serial_port::write("get_bearing failed\n");
+                              gcs_serial::write("get_bearing failed\n");
                            }
                             #else
-                                 debug_serial_port::write("TODO\n");
+                                 gcs_serial::write("TODO\n");
                               #endif
                      }
                      break;
@@ -386,9 +425,9 @@ namespace {
                           double vn = static_cast<double>(v.numeric_value());
                           char buf1[100];
                           sprintf(buf1,"actual angular velocity = %.3f rad.s-1\n",vn);
-                          debug_serial_port::write(buf1);
+                          gcs_serial::write(buf1);
 */
-                          debug_serial_port::write("Function N/A TODO\n");
+                          gcs_serial::write("Function N/A TODO\n");
                       }
                       break;
                       case 't': {
@@ -398,9 +437,9 @@ namespace {
                           double vn = static_cast<double>(v.numeric_value());
                           char buf1[100];
                           sprintf(buf1,"target angular velocity = %.3f rad.s-1\n",vn);
-                          debug_serial_port::write(buf1);
+                          gcs_serial::write(buf1);
 */
-                          debug_serial_port::write("Function N/A TODO\n");
+                          gcs_serial::write("Function N/A TODO\n");
                       }
                       break;
                       case  'Z':{
@@ -409,9 +448,9 @@ namespace {
                            double vn = static_cast<double>(v.numeric_value());
                            char buf1[100];
                            sprintf(buf1,"pan emf 0v rail = %.3f mV\n",vn);
-                           debug_serial_port::write(buf1);
+                           gcs_serial::write(buf1);
 */
-                           debug_serial_port::write("Function N/A TODO\n");
+                           gcs_serial::write("Function N/A TODO\n");
                       }
                       break;
                       case  'z':{
@@ -420,18 +459,18 @@ namespace {
                            double vn = static_cast<double>(v.numeric_value());
                            char buf1[100];
                            sprintf(buf1,"pan current 0v rail = %.3f mV\n",vn);
-                           debug_serial_port::write(buf1);
+                           gcs_serial::write(buf1);
 */
-                           debug_serial_port::write("Function N/A TODO\n");
+                           gcs_serial::write("Function N/A TODO\n");
                       }
                       break;
                      default:
-                        debug_serial_port::write("unknown get param\n");
+                        gcs_serial::write("unknown get param\n");
                      break;
                }
              }
              else{
-               debug_serial_port::write("expctd get param\n");
+               gcs_serial::write("expctd get param\n");
              }
          break;
          case 'M':{
@@ -440,15 +479,15 @@ namespace {
                switch(buf[1]){
                   case '0':
                      raw_compass::set_strap(0);
-                     debug_serial_port::write("set mag norm\n");
+                     gcs_serial::write("set mag norm\n");
                   break;
                   case '+':
                      raw_compass::set_strap(1);
-                     debug_serial_port::write("set mag +strp\n");
+                     gcs_serial::write("set mag +strp\n");
                   break;
                   case '-':
                      raw_compass::set_strap(-1);
-                     debug_serial_port::write("set mag -strp\n");
+                     gcs_serial::write("set mag -strp\n");
                   break;
                   case '!':
                   break;
@@ -464,29 +503,29 @@ namespace {
                            raw_compass::set_filter(v);
                            char buf1[60];
                            sprintf(buf1,"raw mag filt set to %f\n",static_cast<double>(v));
-                           debug_serial_port::write(buf1);
+                           gcs_serial::write(buf1);
                         }else{
-                           debug_serial_port::write("mag filt float range\n");
+                           gcs_serial::write("mag filt float range\n");
                         }
                      }else{
-                        debug_serial_port::write("mag filt float invalid\n");
+                        gcs_serial::write("mag filt float invalid\n");
                      }
                   }
                   break;
                   default:
-                     debug_serial_port::write("expctd M0, M+, M- mfxxx\n");
+                     gcs_serial::write("expctd M0, M+, M- mfxxx\n");
                   break;
                }
             }else {
-               debug_serial_port::write("expctd M0, M+, M- mfxxx\n");
+               gcs_serial::write("expctd M0, M+, M- mfxxx\n");
             }
              #else
-                                 debug_serial_port::write("TODO\n");
-                              #endif
+             gcs_serial::write("TODO\n");
+             #endif
          }
          break;   
          default:
-            debug_serial_port::write("cmd not found\n");
+            gcs_serial::write("cmd not found\n");
          break;
 
        }
@@ -498,23 +537,23 @@ void parse_commandline()
    constexpr uint32_t bufsize = 255;
    static char buffer[bufsize];
    static uint32_t index =0;
-  // if(debug_serial_port::in_avail()){
+  // if(gcs_serial::in_avail()){
       if(index == bufsize){
-        // while(debug_serial_port::in_avail()){
+        // while(gcs_serial::in_avail()){
            for(;;){
-            char ch = debug_serial_port::get();
+            char ch = gcs_serial::get();
             if(ch =='\n'){
                break;
             }
            }
          index = 0;
-         debug_serial_port::write("command too long\n");
+         gcs_serial::write("command too long\n");
       }else{
-         char ch = debug_serial_port::get();
-         debug_serial_port::put(ch);
+         char ch = gcs_serial::get();
+         gcs_serial::put(ch);
           
          if(ch == '\r'){
-            debug_serial_port::write("#\n");
+            gcs_serial::write("#\n");
             buffer[index] = '\0';
             index = 0;
             parse_text_command(buffer);
