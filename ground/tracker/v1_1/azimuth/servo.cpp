@@ -31,14 +31,16 @@ uint8_t azimuth_servo::m_current_target_idx = 0U;
 
 bool azimuth_servo::m_enabled = false;
 
+azimuth_servo::mode_t azimuth_servo::m_mode = azimuth_servo::mode_t::pwm;
+
 bool azimuth_servo::enable()
 {
-   if (azimuth_encoder::is_indexed()){
-      azimuth_motor::enable();
-      return true;
-   }else{
+   if ( ((m_mode == mode_t::position) || ( m_mode == mode_t::position_and_velocity)) && !azimuth_encoder::is_indexed() ){
       gcs_serial::write("cannot enable servo until encoder indexed\n");
       return false;
+   }else{
+      azimuth_motor::enable();
+      return true;
    }
 }
 
@@ -47,20 +49,23 @@ void azimuth_servo::disable()
    azimuth_motor::disable();
 }
 
-void azimuth_servo::set_pwm(float value_in)
+/*
+   In proportional mode, set pwm directly
+*/
+bool azimuth_servo::set_pwm(float value_in)
 {
-   
-   bool const sign = value_in >= 0.f;
-   float const value = quan::min(std::abs(value_in),0.99f);
-   uint32_t const pwm_value = static_cast<uint32_t>(value * get_calc_compare_irq_value());
-  /* debug gcs_serial::print<120>("in value = %f, value = %f,pwm = %lu, sign = %lu\n",
-      static_cast<double>(value_in),
-      static_cast<double>(value),
-      pwm_value, 
-      static_cast<uint32_t>(sign)
-   );
- */
-   azimuth_motor::set_pwm(pwm_value,sign);
+   if ( m_mode == mode_t::pwm){
+      bool const sign = value_in >= 0.f;
+      float const value = quan::min(std::abs(value_in),0.99f);
+      gcs_serial::print<100>("servo pwm = %f, sign = %lu\n",value ,static_cast<uint32_t>(sign));
+      uint32_t const pwm_value = static_cast<uint32_t>(value * get_calc_compare_irq_value());
+
+      azimuth_motor::set_pwm(pwm_value,sign);
+      return true;
+   }else{
+      gcs_serial::write("must be in proportional mode to set pwm\n");
+      return false;
+   }
 }
 
 void azimuth_servo::ll_update_irq()

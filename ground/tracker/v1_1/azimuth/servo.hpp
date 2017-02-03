@@ -28,6 +28,13 @@ extern "C" void setup();
 
 struct azimuth_servo {
 
+   enum class mode_t : uint8_t {
+      pwm
+      ,position
+      ,velocity
+      ,position_and_velocity
+   };
+
    typedef pan_motor_timer                  timer;
    // motor pwm period
    static constexpr quan::time::us  m_pwm_period{20000U};
@@ -48,10 +55,11 @@ struct azimuth_servo {
    }
    static quan::angle::rad    get_current_angle();
    static rad_per_s           get_current_velocity();
-   static quan::angle::rad   get_target_angle_from_irq()
+   static quan::angle::rad    get_target_angle_from_irq()
    { 
       return target_arr[m_current_target_idx].angle;
    }
+
    static rad_per_s   get_target_velocity_from_irq()
    { 
       return target_arr[m_current_target_idx].velocity;
@@ -59,15 +67,19 @@ struct azimuth_servo {
 
    static bool is_enabled() { return m_enabled;}
 
-   static void set_pwm(float value);
+   static bool set_pwm(float value);
+
+   static void set_mode(mode_t mode) { m_mode = mode;}
+   static mode_t get_mode() { return m_mode;}
 
    private:
 
    static constexpr uint32_t get_calc_compare_irq_value()
    {
-     return static_cast<uint32_t>( ((m_pwm_period - m_max_calculation_time) / m_timer_resolution) - 0.9f );
+      return static_cast<uint32_t>( ((m_pwm_period - m_max_calculation_time) / m_timer_resolution) - 0.9f );
    }
 
+   static mode_t m_mode;
 
    static void setup();
    static void setup_timer();
