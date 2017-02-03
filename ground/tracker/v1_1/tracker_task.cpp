@@ -12,9 +12,7 @@ namespace {
 
    void tracker_task(void * params)
    {
-      azimuth_encoder::set_index(0U);
-      azimuth_servo::set_pwm(0.25);
-      azimuth_servo::enable();
+      gcs_serial::write("starting tracker task\n");
 
       for(;;){ 
          parse_commandline();
