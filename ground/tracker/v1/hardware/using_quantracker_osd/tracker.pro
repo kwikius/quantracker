@@ -1,4 +1,4 @@
-update=Thu 26 Jan 2017 10:15:42 GMT
+update=Tue 31 Jan 2017 14:50:50 GMT
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,6 +25,16 @@ version=1
 NetIExt=net
 [general]
 version=1
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=40
 [eeschema]
 version=1
 LibDir=
@@ -68,22 +78,6 @@ LibName36=/home/andy/cpp/projects/aerflite_preview/kicad/lib/conn_6
 LibName37=/home/andy/cpp/projects/aerflite_preview/kicad/lib/conn_7
 LibName38=/home/andy/cpp/projects/aerflite_preview/kicad/lib/conn_8
 LibName39=/home/andy/cpp/projects/aerflite_preview/kicad/lib/cap3t
-LibName40=/home/andy/cpp/projects/aerflite_preview/kicad/lib/si8621
-LibName41=/home/andy/cpp/projects/aerflite_preview/kicad/lib/si8622
-LibName42=/home/andy/cpp/projects/aerflite_preview/kicad/lib/74aup2g240
-LibName43=/home/andy/cpp/projects/aerflite_preview/kicad/lib/si8620
-LibName44=/home/andy/cpp/projects/aerflite_preview/kicad/lib/si8610
-LibName45=/home/andy/cpp/projects/aerflite_preview/kicad/lib/smpsu_module
-LibName46=/home/andy/cpp/projects/aerflite_preview/kicad/lib/tlcfilt
-LibName47=/home/andy/cpp/projects/aerflite_preview/kicad/lib/rc3t
-LibName48=/home/andy/cpp/projects/aerflite_preview/kicad/lib/mic5205
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=40
+LibName40=/home/andy/cpp/projects/aerflite_preview/kicad/lib/74aup2g240
+LibName41=/home/andy/cpp/projects/aerflite_preview/kicad/lib/tlcfilt
+LibName42=/home/andy/cpp/projects/aerflite_preview/kicad/lib/rc3t
