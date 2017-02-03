@@ -92,7 +92,7 @@ $(static_libraries) :
 	$(MAKE) -C ../../../air/osd -f all_osd_libs.mk
 
 #-----------------------------------------
-upload : test
+st_flash_upload : test
 	st-flash write $(BINDIR)main.bin 0x8000000
 
 upload_sp : test
