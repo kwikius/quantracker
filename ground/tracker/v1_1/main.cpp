@@ -23,14 +23,10 @@
 #include "system/osd_resources.hpp"
 
 extern "C" void setup();
-
-
 bool initialise_flash();
-
 void signal_exit_failure();
 void create_draw_task();
 void create_telemetry_receiver_task();
-
 void create_tracker_task();
 
 int main()
