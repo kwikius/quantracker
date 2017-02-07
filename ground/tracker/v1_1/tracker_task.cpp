@@ -12,7 +12,8 @@ namespace {
 
    void tracker_task(void * params)
    {
-      gcs_serial::write("starting tracker task\n");
+      auto now = quan::stm32::millis();
+      gcs_serial::print<100>("starting tracker task at %lu\n", static_cast<uint32_t>(now.numeric_value()));
 
       for(;;){ 
          parse_commandline();

@@ -31,11 +31,7 @@
       where not_direction is alway == ! direction whe the PWM is on
 */
 
-float azimuth_motor::m_kP = 0.0045;
-float azimuth_motor::m_kD = 0.01; // 0.001
-
-uint8_t azimuth_motor::m_next_pwm_idx = 0U;
-azimuth_motor::next_pwm_t azimuth_motor::next_pwm[] = {
+quan::irq_atomic_buffer<azimuth_motor::next_pwm_t> azimuth_motor::next_pwm{
    {0U,false},{0U,false}
 };
 
@@ -126,18 +122,18 @@ void azimuth_motor::set_pwm_irq()
          irq_count =0;
          quan::stm32::complement<heartbeat_led_pin>();
      }
-     bool const sign = next_pwm[m_next_pwm_idx].sign;
+     bool const sign = next_pwm.in_irq_get().sign;
      quan::stm32::put<direction_pin>(sign);
      quan::stm32::put<not_direction_pin>(!sign);
      typedef azimuth_servo::timer timer;
-     timer::get()->ccr3 = next_pwm[m_next_pwm_idx].value;
+     timer::get()->ccr3 = next_pwm.in_irq_get().value;
 }
 
 void azimuth_motor::set_pwm(uint32_t value, bool sign)
 {
-   gcs_serial::print<100>("motor pwm = %lu, sign = %lu\n",value ,static_cast<uint32_t>(sign));
-   next_pwm[m_next_pwm_idx ^ 1U] = {value,sign};
-   m_next_pwm_idx ^= 1U;
+  // gcs_serial::print<100>("motor pwm = %lu, sign = %lu\n",value ,static_cast<uint32_t>(sign));
+   next_pwm.ex_irq_set({value,sign});
+
 }
 
 void azimuth_motor::enable()
@@ -156,25 +152,3 @@ void azimuth_motor::disable()
    timer::get()->ccer.bb_clearbit<cc3ne>(); // clear cc3NE to disable PWM out
 }
 
-/*
-   get current position and speed and recalc pwm to get to new position and speed
-*/
-void azimuth_motor::set_kP(float val)
-{
-    m_kP = val;
-}
-
-void azimuth_motor::set_kD(float val)
-{
-    m_kD = val;
-}
-
-float azimuth_motor::get_kP()
-{
-    return m_kP;
-}
-
-float  azimuth_motor::get_kD()
-{
-    return m_kD;
-}

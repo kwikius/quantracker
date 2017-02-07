@@ -2,6 +2,7 @@
 #define QUANTRACKER_GROUND_V1_1_AZIMUTH_MOTOR_CPP_INCLUDED
 
 #include "../system/tracker_resources.hpp"
+#include <quan/irq_atomic_buffer.hpp>
 
 struct azimuth_motor{
 
@@ -9,10 +10,9 @@ struct azimuth_motor{
    static void disable();
   // static bool is_enabled();             
 
-   static void   set_kP(float val);
-   static void   set_kD(float val);
-   static float  get_kP();
-   static float  get_kD();
+   // kP is constant proportional bearing error
+   
+
  
    typedef pan_motor_direction_out_pin      direction_pin;
    typedef pan_motor_not_direction_out_pin  not_direction_pin;
@@ -26,16 +26,14 @@ private:
    static void setup();
    static void setup_ports();
    static void setup_pwm();
-   static float  m_kP;
-   static float  m_kD;
+
   
    struct next_pwm_t{
       uint32_t value;
       bool sign;
    };
 
-   static next_pwm_t next_pwm[2];
-   static uint8_t m_next_pwm_idx;
+   static quan::irq_atomic_buffer<next_pwm_t> next_pwm;
 
 };
 

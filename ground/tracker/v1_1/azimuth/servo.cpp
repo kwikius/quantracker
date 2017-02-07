@@ -12,6 +12,11 @@
 #include "../azimuth/motor.hpp"
 #include "../azimuth/encoder.hpp"
 
+namespace {
+   QUAN_ANGLE_LITERAL(rad)
+   QUAN_QUANTITY_LITERAL(time,ms)
+}
+
 constexpr quan::time::us  azimuth_servo::m_pwm_period;
 // set the prescaler resolution
 constexpr quan::time::ns  azimuth_servo::m_timer_resolution;
@@ -20,22 +25,25 @@ constexpr quan::time::ns  azimuth_servo::m_timer_resolution;
 // need to test that
 constexpr quan::time::us azimuth_servo::m_max_calculation_time;
 
-// to make update atomic
-azimuth_servo::targets_t azimuth_servo::target_arr[2] = 
-{
-  {quan::angle::rad{0},azimuth_servo::rad_per_s{quan::angle::rad{0}}}
-  ,{quan::angle::rad{0},azimuth_servo::rad_per_s{quan::angle::rad{0}}}
+quan::irq_atomic_buffer<azimuth_servo::target_t> 
+azimuth_servo::m_target_buffer{
+    {0_rad,azimuth_servo::rad_per_s{0_rad}},
+    {0_rad,azimuth_servo::rad_per_s{0_rad}} 
 };
 
-uint8_t azimuth_servo::m_current_target_idx = 0U;
-
+azimuth_servo::last_t azimuth_servo::m_last {0_rad,azimuth_servo::rad_per_s{0_rad},0_ms};
 bool azimuth_servo::m_enabled = false;
+bool azimuth_servo::m_is_reversed = false;
+
+float azimuth_servo::m_kP = 2.0;
+float azimuth_servo::m_kD = 0.5; // 0.001
 
 azimuth_servo::mode_t azimuth_servo::m_mode = azimuth_servo::mode_t::pwm;
 
 bool azimuth_servo::enable()
 {
-   if ( ((m_mode == mode_t::position) || ( m_mode == mode_t::position_and_velocity)) && !azimuth_encoder::is_indexed() ){
+   if ( ((m_mode == mode_t::position) || ( m_mode == mode_t::position_and_velocity)) 
+           && !azimuth_encoder::is_indexed() ){
       gcs_serial::write("cannot enable servo until encoder indexed\n");
       return false;
    }else{
@@ -49,48 +57,109 @@ void azimuth_servo::disable()
    azimuth_motor::disable();
 }
 
-/*
-   In proportional mode, set pwm directly
-*/
-bool azimuth_servo::set_pwm(float value_in)
+quan::angle::rad 
+azimuth_servo::get_current_bearing()
 {
-   if ( m_mode == mode_t::pwm){
-      bool const sign = value_in >= 0.f;
-      float const value = quan::min(std::abs(value_in),0.99f);
-      gcs_serial::print<100>("servo pwm = %f, sign = %lu\n",value ,static_cast<uint32_t>(sign));
-      uint32_t const pwm_value = static_cast<uint32_t>(value * get_calc_compare_irq_value());
+//   if ( ! azimuth_encoder::is_indexed()){
+//      gcs_serial::write("WARNING: encoder index has not been set\n");
+//   }
+   return azimuth_encoder::encoder_to_bearing(azimuth_encoder::get_index());
+}
 
-      azimuth_motor::set_pwm(pwm_value,sign);
-      return true;
-   }else{
-      gcs_serial::write("must be in proportional mode to set pwm\n");
-      return false;
+namespace {
+   // get angle difference between old and new allowing for overflow etc
+   // a positive difference means new angle is greater than old angle
+   quan::angle::rad get_angle_diff( quan::angle::rad const & old_bearing, quan::angle::rad const & new_bearing)
+   {
+      quan::angle::rad const diff = unsigned_modulo(new_bearing) - unsigned_modulo(old_bearing);
+      if ( diff < -quan::angle::pi){
+         return diff + 2 * quan::angle::pi;
+      }else{
+         if (diff > quan::angle::pi){
+            return diff - 2 * quan::angle::pi;
+         }else {
+            return diff;
+         }
+      }
    }
 }
 
-void azimuth_servo::ll_update_irq()
+/*
+ angular_velocity clockwise is positive e.g a north to north east move is a positive move
+*/
+azimuth_servo::rad_per_s 
+azimuth_servo::get_current_angular_velocity()
 {
-   quan::stm32::push_FPregs();
+   auto const dt = quan::stm32::millis() - m_last.at_time;
+   if ( dt < 1_ms){
+      return m_last.angular_velocity;
+   }else{
+      return  get_angle_diff(m_last.bearing,get_current_bearing()) / dt;
+   }
+}
 
-   azimuth_motor::set_pwm_irq();
+// in irq
+azimuth_servo::rad_per_s 
+azimuth_servo::get_update_angular_velocity_from_irq()
+{
+   auto const now = quan::stm32::millis_from_isr();
+   auto const dt = now - m_last.at_time;
+   if ( dt < 1_ms){
+      return m_last.angular_velocity;
+   }else{
+      auto bearing = get_current_bearing();
+      azimuth_servo::rad_per_s const result = get_angle_diff(m_last.bearing,get_current_bearing()) / dt;
+      m_last.bearing = bearing;
+      m_last.at_time = now;
+     m_last.angular_velocity = result;
+     return result;
+   }
+}
 
-   quan::stm32::pop_FPregs();
+/*
+   In proportional mode, set pwm directly
+   A positive pwm should move the azimuth clockwise e.g a north to north east move is a positive move
+*/
+#if defined abs 
+#error is a macro
+#endif
+bool azimuth_servo::set_pwm(float value_in)
+{
+   bool const sign = value_in >= 0.f;
+   float const value = quan::min(std::abs(value_in),0.99f);
+  // gcs_serial::print<100>("servo pwm = %f, sign = %lu\n",static_cast<double>(value) ,static_cast<uint32_t>(sign));
+   uint32_t const pwm_value = static_cast<uint32_t>(value * get_calc_compare_irq_value());
+
+   azimuth_motor::set_pwm(pwm_value,sign);
+   return true;
+}
+
+void azimuth_servo::position_irq()
+{
+    auto const position_error = signed_modulo(get_target_bearing() - get_current_bearing());
+    auto const angular_velocity = get_update_angular_velocity_from_irq();
+
+    set_pwm( get_kP() * position_error.numeric_value() - get_kD() * angular_velocity.numeric_value() );
+    azimuth_motor::set_pwm_irq();
 }
 
 void azimuth_servo::update_irq()
 {
-/*
-   if ( ! azimuth_encoder::is_indexed()){
-      azimuth_motor::disable();
-      return ;
-   }
-   if ( ! is_enabled() ){
-       azimuth_motor::disable();
-       return;
-   }
-*/
-   ll_update_irq();
+   quan::stm32::push_FPregs();
 
+   switch( get_mode()){
+      case mode_t::pwm:
+         azimuth_motor::set_pwm_irq();
+         break;
+      case mode_t::position:
+         position_irq();
+         break;
+      case mode_t::velocity:
+      case mode_t::position_and_velocity:
+      default:
+         break;
+   }
+   quan::stm32::pop_FPregs();
 }
 
 void azimuth_servo::setup()
