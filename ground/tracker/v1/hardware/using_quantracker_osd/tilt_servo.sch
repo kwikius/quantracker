@@ -38,7 +38,6 @@ LIBS:conn_6
 LIBS:conn_7
 LIBS:conn_8
 LIBS:cap3t
-LIBS:si8621
 LIBS:74aup2g240
 LIBS:tlcfilt
 LIBS:rc3t
