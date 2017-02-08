@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2013 -2015 Andy Little 
+ Copyright (c) 2013 -2017 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -23,28 +23,26 @@
 #include <quan/stm32/get_module_bus_frequency.hpp>
 #include <quan/stm32/usart/irq_handler.hpp>
 #include <quan/stm32/gpio.hpp>
-
-#include "resources.hpp"
 #include "../azimuth/servo.hpp"
+#include "resources.hpp"
 
 void osd_setup();
 
 namespace {
 
-void enable_heartbeat_led()
-{
-   quan::stm32::module_enable< heartbeat_led_pin::port_type>();
-      quan::stm32::apply<
-         heartbeat_led_pin
-         , quan::stm32::gpio::mode::output
-         , quan::stm32::gpio::otype::push_pull
-         , quan::stm32::gpio::pupd::none
-         , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::low
-      >();
+   void enable_heartbeat_led()
+   {
+      quan::stm32::module_enable< heartbeat_led_pin::port_type>();
+         quan::stm32::apply<
+            heartbeat_led_pin
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::low
+         >();
+   }
 }
-}
-
 
 extern "C" void setup()
 {
@@ -54,5 +52,4 @@ extern "C" void setup()
   gcs_serial::enable();
 
   azimuth_servo::setup();
- 
 }

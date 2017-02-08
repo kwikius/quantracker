@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012-2015 Andy Little.
+ Copyright (c) 2012-2017 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

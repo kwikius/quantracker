@@ -1,6 +1,23 @@
 #ifndef QUANTRACKER_GROUND_TRACKER_V2_TRACKER_RESOURCES_HPP_INCLUDED
 #define QUANTRACKER_GROUND_TRACKER_V2_TRACKER_RESOURCES_HPP_INCLUDED
 
+/*
+ Copyright (c) 2017 Andy Little 
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
+
 #include <quan/voltage.hpp>
 #include <quan/stm32/gpio.hpp>
 #include <quan/stm32/spi.hpp>
@@ -38,7 +55,6 @@ typedef quan::mcu::pin<quan::stm32::gpioc,5>   pan_motor_not_direction_out_pin;
 
 typedef quan::mcu::pin<quan::stm32::gpioc,0>   pan_motor_emf_adc_pin;
 typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
-
 typedef quan::mcu::pin<quan::stm32::gpioa,11>  elevation_servo_pwm_out_pin;
 
 /*
@@ -94,10 +110,10 @@ typedef quan::mcu::pin<quan::stm32::gpioa,10>  gcs_serial_rxi_pin;
 
 // gcs_serial
 typedef quan::stm32::freertos::usart_tx_rx_task<
-gcs_serial_usart,
-200,200,
-gcs_serial_txo_pin,gcs_serial_rxi_pin,
-char
+   gcs_serial_usart,
+   200,200,
+   gcs_serial_txo_pin,gcs_serial_rxi_pin,
+   char
 > gcs_serial;
 
 /*
@@ -113,8 +129,9 @@ typedef quan::mcu::pin<quan::stm32::gpioa,8> i2c3_scl;
 typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda;
 //typedef quan::stm32::i2c3  i2c_mag_port;
 typedef quan::stm32::freertos::freertos_i2c_task<
-quan::stm32::i2c3,i2c3_scl,i2c3_sda
+   quan::stm32::i2c3,i2c3_scl,i2c3_sda
 > i2c_mag_port;
+
 typedef quan::mcu::pin<quan::stm32::gpioa,12> mag_rdy_exti_pin;
 
 /*

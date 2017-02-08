@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2013 -2015 Andy Little 
+ Copyright (c) 2013 -2017 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 */
 
 #include <stm32f4xx.h>
-
 #include <FreeRTOS.h>
 #include <task.h>
 #include "system/osd_resources.hpp"
@@ -31,31 +30,30 @@ void create_tracker_task();
 
 int main()
 {
-  if (! initialise_flash()){
+   if (! initialise_flash()){
       signal_exit_failure();
-  }
-  setup();
+   }
 
-  create_telemetry_receiver_task();
-  create_draw_task();
+   setup();
+   create_telemetry_receiver_task();
+   create_draw_task();
+   create_tracker_task();
 
-  create_tracker_task();
+   vTaskStartScheduler();
 
-  vTaskStartScheduler();
-
-  while (1) {;}
+   while (1) {;}
 }
 
 void signal_exit_failure()
 {
    quan::stm32::module_enable< heartbeat_led_pin::port_type>();
-      quan::stm32::apply<
-         heartbeat_led_pin
-         , quan::stm32::gpio::mode::output
-         , quan::stm32::gpio::otype::push_pull
-         , quan::stm32::gpio::pupd::none
-         , quan::stm32::gpio::ospeed::slow
-         , quan::stm32::gpio::ostate::low
-      >();
+   quan::stm32::apply<
+      heartbeat_led_pin
+      , quan::stm32::gpio::mode::output
+      , quan::stm32::gpio::otype::push_pull
+      , quan::stm32::gpio::pupd::none
+      , quan::stm32::gpio::ospeed::slow
+      , quan::stm32::gpio::ostate::low
+   >();
    for(;;){asm volatile ("nop":::);}
 }

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013 -2015 Andy Little 
+ Copyright (c) 2013 -2017 Andy Little 
 
  With Grateful Acknowledgements to the prior work of:
    Sami Korhonen(Openpilot.org)
@@ -79,5 +79,4 @@ extern "C" void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTask
   // quan::stm32::set<heartbeat_led_pin>();
 	for( ;; );
 }
-
 

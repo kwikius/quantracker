@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2013 Andy Little 
+ Copyright (c) 2013-2017 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 #include "azimuth/motor.hpp"
 #include "azimuth/encoder.hpp"
 #include "elevation/servo.hpp"
+
 /*
    "A%f" --> In pwm mode set pwm between -1 to 1
    "D"   --> disable azimuth servo and elevation servo
@@ -48,6 +49,7 @@
    "P%i"--> set position in degrees 0 to 360
    "Z"  --> zero encoder
 */
+
 namespace {
 
    // buf is a zero terminated string
@@ -55,7 +57,7 @@ namespace {
    {
        size_t const len = strlen(buf);
        if ( len == 0) {
-         return;
+          return;
        }
        switch (buf[0]){
          case 'A' :{  // set servo pwm raw in proportional pwm mode
@@ -77,7 +79,6 @@ namespace {
             } 
             break;
          }
-
          case 'T':
             if ( len > 1){
                quan::angle::deg pos_deg {atoi(buf+1)};
@@ -88,168 +89,163 @@ namespace {
             } 
             break;
          case 'Z' :{ // zero encoder
-              azimuth_encoder::set_index(0U);
-              gcs_serial::write("zeroed\n");
-
-              break;
+            azimuth_encoder::set_index(0U);
+            gcs_serial::write("zeroed\n");
+            break;
          }
-         
          case 'E' :{
-            if ( len > 1){
-               switch (buf[1]){  // p, a,v,e
-                  case 'a':
-                     azimuth_servo::set_mode(azimuth_servo::mode_t::pwm);
-                     gcs_serial::write("setting azimuth mode to \"pwm\"\n");
-                     if ( azimuth_servo::enable()== true){
-                        gcs_serial::write("Azimuth Enabled\n");
-                     }else{
-                        gcs_serial::write("enable azimuth failed\n");
-                     }
-                     break;
-                  case 'p':
-                     azimuth_servo::set_mode(azimuth_servo::mode_t::position);
-                     gcs_serial::write("setting azimuth mode to \"position\"\n");
-                     if ( azimuth_servo::enable()== true){
-                        gcs_serial::write("Azimuth Enabled\n");
-                     }else{
-                        gcs_serial::write("enable azimuth failed\n");
-                     }
-                     break;
-                  case 't':
-                     elevation_servo::enable();
-                     gcs_serial::write("Tilt Enabled\n");
-                     break;
-                  case 'v':
-                  case 'e':
-                     gcs_serial::write("enabling azimuth in other than pwm TODO\n");
-                     break;
-                  default: 
-                     gcs_serial::write("unknown azimuth mode\n");
-                     break;
+               if ( len > 1){
+                  switch (buf[1]){  // p, a,v,e
+                     case 'a':
+                        azimuth_servo::set_mode(azimuth_servo::mode_t::pwm);
+                        gcs_serial::write("setting azimuth mode to \"pwm\"\n");
+                        if ( azimuth_servo::enable()== true){
+                           gcs_serial::write("Azimuth Enabled\n");
+                        }else{
+                           gcs_serial::write("enable azimuth failed\n");
+                        }
+                        break;
+                     case 'p':
+                        azimuth_servo::set_mode(azimuth_servo::mode_t::position);
+                        gcs_serial::write("setting azimuth mode to \"position\"\n");
+                        if ( azimuth_servo::enable()== true){
+                           gcs_serial::write("Azimuth Enabled\n");
+                        }else{
+                           gcs_serial::write("enable azimuth failed\n");
+                        }
+                        break;
+                     case 't':
+                        elevation_servo::enable();
+                        gcs_serial::write("Tilt Enabled\n");
+                        break;
+                     case 'v':
+                     case 'e':
+                        gcs_serial::write("enabling azimuth in other than pwm TODO\n");
+                        break;
+                     default: 
+                        gcs_serial::write("unknown azimuth mode\n");
+                        break;
+                  }
+               }else{  // Represents position mode for backward compatibility
+                  gcs_serial::write("expected Enable suffix\n");
+                  break;
                }
-            }else{  // Represents position mode for backward compatibility
-               gcs_serial::write("expected Enable suffix\n");
-               break;
             }
-         }
-         break;
+            break;
          case 'D' :{
                azimuth_servo::disable();
                elevation_servo::disable();
                gcs_serial::write("Azimuth/Tilt Disabled\n");
-         }
-         break;
+            }
+            break;
          case 'P' :
             if ( len > 1){
                quan::angle::deg pos_deg = unsigned_modulo(quan::angle::deg{atoi(buf+1)});
                azimuth_servo::set_target(pos_deg,azimuth_servo::rad_per_s{quan::angle::rad{0}});
                gcs_serial::print<100>("Set position to %f\n",static_cast<double>(pos_deg.numeric_value()));
-            }
-            else{
+            }else{
                gcs_serial::write("expected uint\n");
             } 
-         break;
+            break;
          case 'k': 
             if ( len > 3){
-                 quan::detail::converter<float,char*> conv;
-                 float const v = conv(buf + 2);
-                 if (conv.get_errno() ==0){
-                     switch (buf[1]){
-                        case 'P' : 
-                           azimuth_servo::set_kP(v);
-                           gcs_serial::print<100>("kP <~ %f : OK!\n",static_cast<double>(v));
-                           break;
-                        case 'D':
-                           azimuth_servo::set_kD(v);
-                           gcs_serial::print<100>("kD <~ %f : OK!\n",static_cast<double>(v));
-                           break;
-                        case 'I':
-                           azimuth_servo::set_kI(v);
-                           gcs_serial::print<100>("kI <~ %f : OK!\n",static_cast<double>(v));
-                           break;
-                        case 'i':
-                           if ( std::abs(v) >= 0.1f){
-                              azimuth_servo::set_ki(v);
-                              gcs_serial::print<100>("ki <~ %f : OK!\n",static_cast<double>(v));
-                           }else{
-                              gcs_serial::write("Ki cannot be less than 0.1\n");
-                           }
-                           break;
-                        default:
-                           gcs_serial::write("unknown k command\n");
-                        break;
+               quan::detail::converter<float,char*> conv;
+               float const v = conv(buf + 2);
+               if (conv.get_errno() ==0){
+                  switch (buf[1]){
+                  case 'P' : 
+                     azimuth_servo::set_kP(v);
+                     gcs_serial::print<100>("kP <~ %f : OK!\n",static_cast<double>(v));
+                     break;
+                  case 'D':
+                     azimuth_servo::set_kD(v);
+                     gcs_serial::print<100>("kD <~ %f : OK!\n",static_cast<double>(v));
+                     break;
+                  case 'I':
+                     azimuth_servo::set_kI(v);
+                     gcs_serial::print<100>("kI <~ %f : OK!\n",static_cast<double>(v));
+                     break;
+                  case 'i':
+                     if ( std::abs(v) >= 0.1f){
+                        azimuth_servo::set_ki(v);
+                        gcs_serial::print<100>("ki <~ %f : OK!\n",static_cast<double>(v));
+                     }else{
+                        gcs_serial::write("Ki cannot be less than 0.1\n");
                      }
-                 }else{ //
-                     gcs_serial::write("float conv error\n");
-                 }
-               }else{ 
-                 gcs_serial::write("expected k[PD] + float\n");
+                     break;
+                  default:
+                     gcs_serial::write("unknown k command\n");
+                     break;
+                  }
+               }else{ //
+                  gcs_serial::write("float conv error\n");
                }
-
-         break;
+            }else{ 
+               gcs_serial::write("expected k[PD] + float\n");
+            }
+            break;
          case 'G' :
              if ( len > 1){
                switch (buf[1]){
                   case 'T':{
-                     quan::angle::deg const bearing = azimuth_servo::get_target_bearing();
-                     gcs_serial::print<100>("target bearing = %f deg\n",static_cast<double>(bearing.numeric_value()));
-                  }
-                  break;
+                        quan::angle::deg const bearing = azimuth_servo::get_target_bearing();
+                        gcs_serial::print<100>("target bearing = %f deg\n",static_cast<double>(bearing.numeric_value()));
+                     }
+                     break;
                   case 'A':{
-                     quan::angle::deg const bearing = azimuth_servo::get_current_bearing();
-                     gcs_serial::print<100>("current bearing = %f deg\n",static_cast<double>(bearing.numeric_value()));
-                  }
-                  break;
+                        quan::angle::deg const bearing = azimuth_servo::get_current_bearing();
+                        gcs_serial::print<100>("current bearing = %f deg\n",static_cast<double>(bearing.numeric_value()));
+                     }
+                     break;
                   case 'p':
                      gcs_serial::print<100>("kP = %f\n",static_cast<double>(azimuth_servo::get_kP()));
-                  break;
+                     break;
                   case 'd': 
                      gcs_serial::print<100>("kD = %f\n",static_cast<double>(azimuth_servo::get_kD()));
-                  break;
+                     break;
                   default:
                      gcs_serial::write("unknown get param\n");
-                  break;
-                }
-             }
-             else{
+                     break;
+               }
+            }else{
                gcs_serial::write("expected get param\n");
-             }
-         break; 
+            }
+            break; 
          default:
             gcs_serial::write("cmd not found\n");
-         break;
-       }
+            break;
+      }
    }
+}
+
+namespace {
+   constexpr uint32_t bufsize = 255U;
+   char buffer[bufsize];
+   uint32_t buf_idx = 0U;
 }
 
 void parse_commandline()
 {
-   constexpr uint32_t bufsize = 255;
-   static char buffer[bufsize];
-   static uint32_t index =0;
-  // if(gcs_serial::in_avail()){
-      if(index == bufsize){
-        // while(gcs_serial::in_avail()){
-           for(;;){
-            char ch = gcs_serial::get();
-            if(ch =='\n'){
-               break;
-            }
-           }
-         index = 0;
-         gcs_serial::write("command too long\n");
-      }else{
+   if(buf_idx == bufsize){
+      for(;;){
          char ch = gcs_serial::get();
-         gcs_serial::put(ch);
-          
-         if(ch == '\r'){
-            gcs_serial::write("#\n");
-            buffer[index] = '\0';
-            index = 0;
-            parse_text_command(buffer);
-         }else{
-            buffer[index++] = ch;
+         if(ch =='\n'){
+            break;
          }
       }
-  // }
+      buf_idx = 0;
+      gcs_serial::write("command too long\n");
+   }else{
+      char ch = gcs_serial::get();
+      gcs_serial::put(ch);
+      if(ch == '\r'){
+         gcs_serial::write("#\n");
+         buffer[buf_idx] = '\0';
+         buf_idx = 0;
+         parse_text_command(buffer);
+      }else{
+         buffer[buf_idx++] = ch;
+      }
+   }
 }
+

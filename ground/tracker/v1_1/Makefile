@@ -1,4 +1,4 @@
-# Copyright (c) 2013 -2015 Andy Little 
+# Copyright (c) 2013 -2017 Andy Little 
 #
 # With Grateful Acknowledgements to the prior work of:
 #   Sami Korhonen(Openpilot.org)
