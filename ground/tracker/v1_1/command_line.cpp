@@ -40,6 +40,8 @@
    "Gd" get kD
    "kP%f" set kP to f
    "kD%f" set kD to f
+   "kI%f" set KI to f
+   "ki%f  set ki to f
    "P%i"--> set position in degrees 0 to 360
    "Z"  --> zero encoder
 */
@@ -140,6 +142,18 @@ namespace {
                         case 'D':
                            azimuth_servo::set_kD(v);
                            gcs_serial::print<100>("kD <~ %f : OK!\n",static_cast<double>(v));
+                           break;
+                        case 'I':
+                           azimuth_servo::set_kI(v);
+                           gcs_serial::print<100>("kI <~ %f : OK!\n",static_cast<double>(v));
+                           break;
+                        case 'i':
+                           if ( std::abs(v) >= 0.1f){
+                              azimuth_servo::set_ki(v);
+                              gcs_serial::print<100>("ki <~ %f : OK!\n",static_cast<double>(v));
+                           }else{
+                              gcs_serial::write("Ki cannot be less than 0.1\n");
+                           }
                            break;
                         default:
                            gcs_serial::write("unknown k command\n");

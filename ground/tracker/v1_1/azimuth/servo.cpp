@@ -14,6 +14,7 @@
 
 namespace {
    QUAN_ANGLE_LITERAL(rad)
+   QUAN_ANGLE_LITERAL(deg)
    QUAN_QUANTITY_LITERAL(time,ms)
 }
 
@@ -35,8 +36,10 @@ azimuth_servo::last_t azimuth_servo::m_last {0_rad,azimuth_servo::rad_per_s{0_ra
 bool azimuth_servo::m_enabled = false;
 bool azimuth_servo::m_is_reversed = false;
 
-float azimuth_servo::m_kP = 2.0;
-float azimuth_servo::m_kD = 0.5; // 0.001
+float azimuth_servo::m_kP = 2.5;
+float azimuth_servo::m_kD = 0.22; 
+float azimuth_servo::m_kI = 0.3f;
+float azimuth_servo::m_ki = 1.f;
 
 azimuth_servo::mode_t azimuth_servo::m_mode = azimuth_servo::mode_t::pwm;
 
@@ -123,15 +126,26 @@ azimuth_servo::get_update_angular_velocity_from_irq()
 #if defined abs 
 #error is a macro
 #endif
+namespace {
+   float constexpr min_pwm = 0.1f;
+};
 bool azimuth_servo::set_pwm(float value_in)
 {
-   bool const sign = value_in >= 0.f;
-   float const value = quan::min(std::abs(value_in),0.99f);
-  // gcs_serial::print<100>("servo pwm = %f, sign = %lu\n",static_cast<double>(value) ,static_cast<uint32_t>(sign));
-   uint32_t const pwm_value = static_cast<uint32_t>(value * get_calc_compare_irq_value());
-
-   azimuth_motor::set_pwm(pwm_value,sign);
+   float const abs_value = std::abs(value_in);
+   if (abs_value > min_pwm){
+      bool const sign = value_in >= 0.f;
+      float const value = quan::min(abs_value,0.99f);
+      uint32_t const pwm_value = static_cast<uint32_t>(value * get_calc_compare_irq_value());
+      azimuth_motor::set_pwm(pwm_value,sign);
+   }else{
+      azimuth_motor::set_pwm(0.f,true);
+   }
    return true;
+}
+
+namespace{
+   float kI = 0.f;
+
 }
 
 void azimuth_servo::position_irq()
@@ -139,7 +153,16 @@ void azimuth_servo::position_irq()
     auto const position_error = signed_modulo(get_target_bearing() - get_current_bearing());
     auto const angular_velocity = get_update_angular_velocity_from_irq();
 
-    set_pwm( get_kP() * position_error.numeric_value() - get_kD() * angular_velocity.numeric_value() );
+    auto sign = [](float x) { return x >= 0.f ? 1: -1;};
+    
+    if ( abs(position_error) < 5_deg) {
+      kI += get_kI() * position_error.numeric_value() / 
+         (std::abs(quan::pow<2>(angular_velocity.numeric_value().numeric_value()) ) + get_ki()) * sign(angular_velocity.numeric_value().numeric_value());
+    }else{
+      kI = 0.f;
+    }
+
+    set_pwm( get_kP() * position_error.numeric_value() - get_kD() * angular_velocity.numeric_value() + kI );
     azimuth_motor::set_pwm_irq();
 }
 

@@ -89,7 +89,15 @@ struct azimuth_servo {
 
    static void set_kD(float val) { m_kD = val;}
 
+   static void set_kI(float val) { m_kI = val;}
+
+   static void set_ki(float val) { m_ki = val;}
+
    static float get_kP() { return m_kP;}
+
+   static float get_kI() { return m_kI;}
+
+   static float get_ki() { return m_ki;}
 
    static float get_kD() { return m_kD;}
 
@@ -147,6 +155,8 @@ struct azimuth_servo {
 
    static float  m_kP;
    static float  m_kD;
+   static float  m_kI;
+   static float  m_ki;
    
 };
 
