@@ -74,8 +74,6 @@ struct azimuth_servo {
       return m_target_buffer.in_irq_get().angular_velocity;
    }
 
-   static bool is_enabled() { return m_enabled;}
-
    static bool set_pwm(float value);
 
    static void set_mode(mode_t mode) { m_mode = mode;}
@@ -148,10 +146,6 @@ struct azimuth_servo {
    static last_t  m_last;
 
    static quan::irq_atomic_buffer<target_t> m_target_buffer;
-
-   static bool m_enabled;
-   
-   static bool m_is_reversed;
 
    static float  m_kP;
    static float  m_kD;

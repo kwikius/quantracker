@@ -91,7 +91,7 @@ void azimuth_motor::setup_pwm()
       quan::stm32::tim::ccer_t ccer = timer::get()->ccer.get();
       ccer.cc3np = false; // TIM1_CH3N is positive pulse
       ccer.cc3e = false; // dont enable TIM1_CH3
-      //#####################################################
+      //#####################TODO SHOULD be false at startup################################
       ccer.cc3ne = true; // dont enable TIM1_CH3N output yet
       //#####################################################
       timer::get()->ccer.set(ccer.value);

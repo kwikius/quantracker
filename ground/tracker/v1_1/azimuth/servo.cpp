@@ -12,6 +12,8 @@
 #include "../azimuth/motor.hpp"
 #include "../azimuth/encoder.hpp"
 
+#include "../elevation/servo.hpp"
+
 namespace {
    QUAN_ANGLE_LITERAL(rad)
    QUAN_ANGLE_LITERAL(deg)
@@ -33,13 +35,11 @@ azimuth_servo::m_target_buffer{
 };
 
 azimuth_servo::last_t azimuth_servo::m_last {0_rad,azimuth_servo::rad_per_s{0_rad},0_ms};
-bool azimuth_servo::m_enabled = false;
-bool azimuth_servo::m_is_reversed = false;
 
 float azimuth_servo::m_kP = 2.5;
 float azimuth_servo::m_kD = 0.22; 
 float azimuth_servo::m_kI = 0.3f;
-float azimuth_servo::m_ki = 1.f;
+float azimuth_servo::m_ki = 1.f; // n.b must be greater than 0 to avoid divide by zero
 
 azimuth_servo::mode_t azimuth_servo::m_mode = azimuth_servo::mode_t::pwm;
 
@@ -47,12 +47,10 @@ bool azimuth_servo::enable()
 {
    if ( ((m_mode == mode_t::position) || ( m_mode == mode_t::position_and_velocity)) 
            && !azimuth_encoder::is_indexed() ){
-      gcs_serial::write("cannot enable servo until encoder indexed\n");
-      return false;
-   }else{
-      azimuth_motor::enable();
-      return true;
+      gcs_serial::write("Warning, Servo not indexed\n");
    }
+   azimuth_motor::enable();
+   return true;
 }
 
 void azimuth_servo::disable()
@@ -105,18 +103,12 @@ azimuth_servo::get_current_angular_velocity()
 azimuth_servo::rad_per_s 
 azimuth_servo::get_update_angular_velocity_from_irq()
 {
-   auto const now = quan::stm32::millis_from_isr();
-   auto const dt = now - m_last.at_time;
-   if ( dt < 1_ms){
-      return m_last.angular_velocity;
-   }else{
-      auto bearing = get_current_bearing();
-      azimuth_servo::rad_per_s const result = get_angle_diff(m_last.bearing,get_current_bearing()) / dt;
-      m_last.bearing = bearing;
-      m_last.at_time = now;
-     m_last.angular_velocity = result;
-     return result;
-   }
+   auto bearing = get_current_bearing();
+   azimuth_servo::rad_per_s const result = get_angle_diff(m_last.bearing,bearing) / m_pwm_period;
+   m_last.bearing = bearing;
+   m_last.at_time = quan::stm32::millis_from_isr(); // for alt fun above
+   m_last.angular_velocity = result;
+   return result;
 }
 
 /*
@@ -191,6 +183,7 @@ void azimuth_servo::setup()
    setup_update_interrupt();
    azimuth_encoder::setup();
    azimuth_motor::setup();
+   elevation_servo::setup();
 
    timer::get()->cr1.setbit<0>(); //(CEN)
 }

@@ -29,11 +29,14 @@
 #include "azimuth/servo.hpp"
 #include "azimuth/motor.hpp"
 #include "azimuth/encoder.hpp"
+#include "elevation/servo.hpp"
 /*
    "A%f" --> In pwm mode set pwm between -1 to 1
-   "D"  --> disable azimuth servo
+   "D"   --> disable azimuth servo and elevation servo
    "Ea"  --> enable azimuth servo in pwm mode
    "Ep"  --> enable azimuth servo in position mode
+   "Et"  -->enable tilt servo
+   "T%i" --> set tilt to elev in degrees from horizontal
    "GA" get actual bearing in degrees
    "GT" get target bearing in degrees
    "Gp" get kP
@@ -74,11 +77,23 @@ namespace {
             } 
             break;
          }
+
+         case 'T':
+            if ( len > 1){
+               quan::angle::deg pos_deg {atoi(buf+1)};
+               elevation_servo::set_elevation(pos_deg);
+               gcs_serial::print<100>("set elevation to %f\n",static_cast<double>(pos_deg.numeric_value()));
+            }else{
+               gcs_serial::write("expected uint\n");
+            } 
+            break;
          case 'Z' :{ // zero encoder
-               azimuth_encoder::set_index(0U);
-               gcs_serial::write("zeroed\n");
+              azimuth_encoder::set_index(0U);
+              gcs_serial::write("zeroed\n");
+
+              break;
          }
-         break;
+         
          case 'E' :{
             if ( len > 1){
                switch (buf[1]){  // p, a,v,e
@@ -100,6 +115,10 @@ namespace {
                         gcs_serial::write("enable azimuth failed\n");
                      }
                      break;
+                  case 't':
+                     elevation_servo::enable();
+                     gcs_serial::write("Tilt Enabled\n");
+                     break;
                   case 'v':
                   case 'e':
                      gcs_serial::write("enabling azimuth in other than pwm TODO\n");
@@ -116,7 +135,8 @@ namespace {
          break;
          case 'D' :{
                azimuth_servo::disable();
-               gcs_serial::write("Azimuth Disabled\n");
+               elevation_servo::disable();
+               gcs_serial::write("Azimuth/Tilt Disabled\n");
          }
          break;
          case 'P' :

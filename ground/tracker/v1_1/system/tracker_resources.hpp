@@ -39,6 +39,8 @@ typedef quan::mcu::pin<quan::stm32::gpioc,5>   pan_motor_not_direction_out_pin;
 typedef quan::mcu::pin<quan::stm32::gpioc,0>   pan_motor_emf_adc_pin;
 typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
 
+typedef quan::mcu::pin<quan::stm32::gpioa,11>  elevation_servo_pwm_out_pin;
+
 /*
    ADC needs tim1/ tim2/tim3/tim4/tim5 or tim8
    available timers
@@ -67,8 +69,6 @@ typedef quan::mcu::pin<quan::stm32::gpiob,6> azimuth_encoder_ch1_pin;
 typedef quan::mcu::pin<quan::stm32::gpiob,7> azimuth_encoder_ch2_pin;
 
 typedef quan::stm32::tim5   adc_trigger_timer; 
-
-typedef quan::stm32::tim11  tilt_servo_pwm_timer ; // for tilt servo
 
 /*
 ( for qdrt either lose a sp or a i2c )
