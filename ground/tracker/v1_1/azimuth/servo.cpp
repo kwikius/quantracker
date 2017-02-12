@@ -1,17 +1,32 @@
+/*
+ Copyright (c) 2017 Andy Little 
 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 
+#include <quan/min.hpp>
+#include <quan/time.hpp>
+#include <quan/frequency.hpp>
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/get_raw_timer_frequency.hpp>
 #include <quan/stm32/tim/temp_reg.hpp>
 #include <quan/stm32/push_pop_fp.hpp>
-
-#include <quan/min.hpp>
+#include <quan/stm32/millis.hpp>
 #include "system/resources.hpp"
-
 #include "../azimuth/servo.hpp"
 #include "../azimuth/motor.hpp"
 #include "../azimuth/encoder.hpp"
-
 #include "../elevation/servo.hpp"
 
 namespace {
@@ -37,11 +52,11 @@ azimuth_servo::m_target_buffer{
 azimuth_servo::last_t azimuth_servo::m_last {0_rad,azimuth_servo::rad_per_s{0_rad},0_ms};
 
 float azimuth_servo::m_kP = 2.5;
-float azimuth_servo::m_kD = 0.22; 
+float azimuth_servo::m_kD = 0.3; 
 float azimuth_servo::m_kI = 0.3f;
 float azimuth_servo::m_ki = 1.f; // n.b must be greater than 0 to avoid divide by zero
 
-azimuth_servo::mode_t azimuth_servo::m_mode = azimuth_servo::mode_t::pwm;
+azimuth_servo::mode_t azimuth_servo::m_mode = azimuth_servo::mode_t::position;
 
 bool azimuth_servo::enable()
 {
@@ -61,9 +76,6 @@ void azimuth_servo::disable()
 quan::angle::rad 
 azimuth_servo::get_current_bearing()
 {
-//   if ( ! azimuth_encoder::is_indexed()){
-//      gcs_serial::write("WARNING: encoder index has not been set\n");
-//   }
    return azimuth_encoder::encoder_to_bearing(azimuth_encoder::get_index());
 }
 
@@ -121,6 +133,7 @@ azimuth_servo::get_update_angular_velocity_from_irq()
 namespace {
    float constexpr min_pwm = 0.1f;
 };
+
 bool azimuth_servo::set_pwm(float value_in)
 {
    float const abs_value = std::abs(value_in);
@@ -137,23 +150,22 @@ bool azimuth_servo::set_pwm(float value_in)
 
 namespace{
    float kI = 0.f;
-
 }
 
 void azimuth_servo::position_irq()
 {
-    auto const position_error = signed_modulo(get_target_bearing() - get_current_bearing());
-    auto const angular_velocity = get_update_angular_velocity_from_irq();
-
-    auto sign = [](float x) { return x >= 0.f ? 1: -1;};
-    
-    if ( abs(position_error) < 5_deg) {
-      kI += get_kI() * position_error.numeric_value() / 
-         (std::abs(quan::pow<2>(angular_velocity.numeric_value().numeric_value()) ) + get_ki()) * sign(angular_velocity.numeric_value().numeric_value());
-    }else{
-      kI = 0.f;
+    auto position_error = signed_modulo(get_target_bearing() - get_current_bearing());
+    if ( abs(position_error) <= azimuth_encoder::angle_of_one_step()){
+      position_error = 0_rad;
     }
-
+    auto const angular_velocity = get_update_angular_velocity_from_irq();
+ 
+    if ( abs(position_error) < 5_deg) {
+       kI += get_kI() * position_error.numeric_value() / 
+         (std::abs(quan::pow<2>(angular_velocity.numeric_value().numeric_value()) ) + get_ki()) ;
+    }else{
+       kI = 0.f;
+    }
     set_pwm( get_kP() * position_error.numeric_value() - get_kD() * angular_velocity.numeric_value() + kI );
     azimuth_motor::set_pwm_irq();
 }
@@ -252,8 +264,6 @@ void azimuth_servo::setup_update_interrupt()
 }
 
 extern "C"  void TIM1_CC_IRQHandler() __attribute__ ((interrupt ("IRQ")));
-
-  
 extern "C"  void TIM1_CC_IRQHandler()
 {
    auto const sr = azimuth_servo::timer::get()->sr.get();

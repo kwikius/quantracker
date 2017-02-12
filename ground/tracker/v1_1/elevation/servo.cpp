@@ -1,5 +1,4 @@
 
-
 /*
  Copyright (c) 2017 Andy Little 
 
@@ -61,7 +60,6 @@ void elevation_servo::setup()
    typedef azimuth_servo::timer timer;
 
    timer::get()->ccr4 = 0;
-
    {
       tim::ccmr2_t ccmr2 = timer::get()->ccmr2.get();
          ccmr2.cc4s = 0b00;   // channel 4 output

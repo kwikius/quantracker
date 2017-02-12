@@ -1,5 +1,4 @@
 
-
 /*
  Copyright (c) 2017 Andy Little 
 
@@ -19,7 +18,13 @@
 
 #include <quan/uav/osd/api.hpp>
 
+/*
+   every sec or so look at telem errors and notify rate of errors
+
+   maybe draw a bar of errors or good v bad packets good in white / bad in black?
+*/
+
 void quan::uav::osd::on_draw()
 {
-   draw_text("Hello World again",{-60,30}); 
+  // draw_text("Hello World again",{-60,30}); 
 }

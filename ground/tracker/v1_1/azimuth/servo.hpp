@@ -2,7 +2,7 @@
 #define QUANTRACKER_GROUND_TRACKER_V1_1_AZIMUTH_SERVO_HPP_INCLUDED
 
 /*
- Copyright (c) 2013 Andy Little 
+ Copyright (c) 2017 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,10 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-
 #include <quan/angle.hpp>
+#include <quan/time.hpp>
 #include <quan/reciprocal_time.hpp>
 #include <quan/irq_atomic_buffer.hpp>
-
 #include "system/tracker_resources.hpp"
 #include "../azimuth/encoder.hpp"
 
@@ -52,11 +51,10 @@ struct azimuth_servo {
    //  before the start of the next PWM cycle
    // need to test that
    static constexpr quan::time::us m_max_calculation_time{100U};
-
    typedef quan::reciprocal_time_<quan::angle::rad>::per_s rad_per_s;
    static bool enable();
    static void disable();
-   static void set_target(quan::angle::rad const &angle, rad_per_s const & velocity )
+   static void set_target(quan::angle::rad const &angle, rad_per_s const & velocity = rad_per_s{quan::angle::rad{0}} )
    {
       m_target_buffer.ex_irq_set({angle,velocity});
    }
@@ -75,10 +73,8 @@ struct azimuth_servo {
    }
 
    static bool set_pwm(float value);
-
    static void set_mode(mode_t mode) { m_mode = mode;}
    static mode_t get_mode() { return m_mode;}
-
 
 /*
    get current position and speed and recalc pwm to get to new position and speed
@@ -99,8 +95,7 @@ struct azimuth_servo {
 
    static float get_kD() { return m_kD;}
 
-   private:
-
+ private:
    /*
       the number of timer steps from update to start of calc interrupt
    */
@@ -110,16 +105,12 @@ struct azimuth_servo {
    }
   
    static mode_t m_mode;
-
    static void setup();
    static void setup_timer();
    static void setup_update_interrupt();
-
    static void update_irq();
    static void position_irq();
-
    static void ll_update_irq();
-
    friend  void ::TIM1_CC_IRQHandler() ;
    friend  void ::setup();
 

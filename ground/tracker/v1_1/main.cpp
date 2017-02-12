@@ -27,6 +27,7 @@ void signal_exit_failure();
 void create_draw_task();
 void create_telemetry_receiver_task();
 void create_tracker_task();
+void create_button_press_task();
 
 int main()
 {
@@ -38,6 +39,7 @@ int main()
    create_telemetry_receiver_task();
    create_draw_task();
    create_tracker_task();
+   create_button_press_task();
 
    vTaskStartScheduler();
 

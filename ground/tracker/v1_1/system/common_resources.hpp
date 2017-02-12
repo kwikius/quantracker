@@ -31,6 +31,7 @@ struct local_interrupt_priority {
 
 struct local_task_priority{
    static constexpr uint32_t tracker_task = tskIDLE_PRIORITY + 3UL;
+   static constexpr uint32_t button_press_task = tskIDLE_PRIORITY + 3UL;
 };
 
 #endif // QUANTRACKER_GROUND_TRACKER_V2_COMMON_RESOURCES_HPP_INCLUDED

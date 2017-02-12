@@ -92,7 +92,7 @@ void azimuth_motor::setup_pwm()
       ccer.cc3np = false; // TIM1_CH3N is positive pulse
       ccer.cc3e = false; // dont enable TIM1_CH3
       //#####################TODO SHOULD be false at startup################################
-      ccer.cc3ne = true; // dont enable TIM1_CH3N output yet
+      ccer.cc3ne = false; // dont enable TIM1_CH3N output yet
       //#####################################################
       timer::get()->ccer.set(ccer.value);
    }
@@ -111,29 +111,18 @@ void azimuth_motor::setup_pwm()
 
 }
 
-namespace {
-
-  int irq_count = 0;
-}
-
 void azimuth_motor::set_pwm_irq()
 {
-     if (++irq_count == 50){
-         irq_count =0;
-         quan::stm32::complement<heartbeat_led_pin>();
-     }
-     bool const sign = next_pwm.in_irq_get().sign;
-     quan::stm32::put<direction_pin>(sign);
-     quan::stm32::put<not_direction_pin>(!sign);
-     typedef azimuth_servo::timer timer;
-     timer::get()->ccr3 = next_pwm.in_irq_get().value;
+   bool const sign = next_pwm.in_irq_get().sign;
+   quan::stm32::put<direction_pin>(sign);
+   quan::stm32::put<not_direction_pin>(!sign);
+   typedef azimuth_servo::timer timer;
+   timer::get()->ccr3 = next_pwm.in_irq_get().value;
 }
 
 void azimuth_motor::set_pwm(uint32_t value, bool sign)
 {
-  // gcs_serial::print<100>("motor pwm = %lu, sign = %lu\n",value ,static_cast<uint32_t>(sign));
    next_pwm.ex_irq_set({value,sign});
-
 }
 
 void azimuth_motor::enable()

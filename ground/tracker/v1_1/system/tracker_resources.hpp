@@ -24,7 +24,7 @@
 #include <quan/stm32/tim.hpp>
 #include <quan/stm32/usart.hpp>
 //#include <quan/stm32/i2c_port.hpp>
-#include <quan/stm32/freertos/freertos_i2c_task.hpp>
+//#include <quan/stm32/freertos/freertos_i2c_task.hpp>
 #include <quan/stm32/freertos/freertos_usart_task.hpp>
 #include "common_resources.hpp"
 
@@ -56,6 +56,11 @@ typedef quan::mcu::pin<quan::stm32::gpioc,5>   pan_motor_not_direction_out_pin;
 typedef quan::mcu::pin<quan::stm32::gpioc,0>   pan_motor_emf_adc_pin;
 typedef quan::mcu::pin<quan::stm32::gpioc,1>   pan_motor_current_adc_pin;
 typedef quan::mcu::pin<quan::stm32::gpioa,11>  elevation_servo_pwm_out_pin;
+
+typedef quan::mcu::pin<quan::stm32::gpioc,14>  user_button_pin;
+
+typedef quan::mcu::pin<quan::stm32::gpioa,13>  blue_led_pin;
+typedef quan::mcu::pin<quan::stm32::gpioa,14>  green_led_pin;
 
 /*
    ADC needs tim1/ tim2/tim3/tim4/tim5 or tim8
@@ -125,14 +130,14 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
        sda                       PC9 I2C3-SDA
        rdy                       PA12  mag_rdy_exti_pin
 */
-typedef quan::mcu::pin<quan::stm32::gpioa,8> i2c3_scl;
-typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda;
-//typedef quan::stm32::i2c3  i2c_mag_port;
-typedef quan::stm32::freertos::freertos_i2c_task<
-   quan::stm32::i2c3,i2c3_scl,i2c3_sda
-> i2c_mag_port;
-
-typedef quan::mcu::pin<quan::stm32::gpioa,12> mag_rdy_exti_pin;
+//typedef quan::mcu::pin<quan::stm32::gpioa,8> i2c3_scl;
+//typedef quan::mcu::pin<quan::stm32::gpioc,9> i2c3_sda;
+////typedef quan::stm32::i2c3  i2c_mag_port;
+//typedef quan::stm32::freertos::freertos_i2c_task<
+//   quan::stm32::i2c3,i2c3_scl,i2c3_sda
+//> i2c_mag_port;
+//
+//typedef quan::mcu::pin<quan::stm32::gpioa,12> mag_rdy_exti_pin;
 
 /*
 --- MPU6000 spi

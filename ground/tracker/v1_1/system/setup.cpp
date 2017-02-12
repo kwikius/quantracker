@@ -27,14 +27,36 @@
 #include "resources.hpp"
 
 void osd_setup();
+void setup_telemetry_parser();
 
 namespace {
 
-   void enable_heartbeat_led()
+   void setup_leds()
    {
       quan::stm32::module_enable< heartbeat_led_pin::port_type>();
+      quan::stm32::module_enable< blue_led_pin::port_type>();
+      quan::stm32::module_enable< green_led_pin::port_type>();
+
          quan::stm32::apply<
             heartbeat_led_pin
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::low
+         >();
+
+         quan::stm32::apply<
+            blue_led_pin
+            , quan::stm32::gpio::mode::output
+            , quan::stm32::gpio::otype::push_pull
+            , quan::stm32::gpio::pupd::none
+            , quan::stm32::gpio::ospeed::slow
+            , quan::stm32::gpio::ostate::low
+         >();
+
+         quan::stm32::apply<
+            green_led_pin
             , quan::stm32::gpio::mode::output
             , quan::stm32::gpio::otype::push_pull
             , quan::stm32::gpio::pupd::none
@@ -47,9 +69,10 @@ namespace {
 extern "C" void setup()
 {
   osd_setup();
-  enable_heartbeat_led();
+  setup_leds();
   gcs_serial::setup<9600>(local_interrupt_priority::gcs_serial_port);
   gcs_serial::enable();
 
+  setup_telemetry_parser();
   azimuth_servo::setup();
 }

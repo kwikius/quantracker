@@ -1,7 +1,4 @@
 
-#include <type_traits>
-#include "resources.hpp"
-
 /*
  Copyright (c) 2017 Andy Little 
 
@@ -18,6 +15,9 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
+
+#include <type_traits>
+#include "resources.hpp"
 
 extern "C" void USART1_IRQHandler() __attribute__ ((interrupt ("IRQ")));
 extern "C" void USART1_IRQHandler()
