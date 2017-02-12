@@ -32,9 +32,9 @@ namespace {
 
 void elevation_servo::set_elevation(quan::angle::rad const & angle_in)
 {
-   auto const angle = quan::max(quan::min(angle_in, 90_deg),0_deg);
-   auto constexpr pulse_0  = 1000_us;
-   auto constexpr pulse_90 = 2000_us;
+   auto const angle = quan::max(quan::min(signed_modulo(angle_in), 90_deg),-20_deg);
+   auto constexpr pulse_0  = 1088_us;
+   auto constexpr pulse_90 = 1911_us;
    auto const pulse_time = pulse_0 + (pulse_90 - pulse_0) * angle / 90_deg;
    
    typedef azimuth_servo::timer timer;
