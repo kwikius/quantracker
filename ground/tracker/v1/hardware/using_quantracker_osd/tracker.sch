@@ -740,7 +740,7 @@ F 3 "" H 10325 3625 60  0001 C CNN
 	1    10325 3625
 	1    0    0    1   
 $EndComp
-Text Notes 8375 4025 0    60   ~ 0
+Text Notes 10000 3975 0    60   ~ 0
 Panmotor encoder
 Wire Wire Line
 	8775 4150 9850 4150
