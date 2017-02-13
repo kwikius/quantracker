@@ -19,6 +19,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
+# use make QUANTRACKER_CMDLINE=True for command line mode
+
 OBJDIR = obj/
 BINDIR = bin/
 
@@ -27,6 +29,10 @@ LINKER_SCRIPT = system/stm32f4.ld
 QUANTRACKER_ROOT_DIR = ../../../../quantracker/
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
+
+ifeq ($(QUANTRACKER_CMDLINE),True)
+CFLAGS += -DQUANTRACKER_GROUND_COMMANDLINE_MODE
+endif
 
 static_library_files = \
    quantracker_air_graphics_api.a \

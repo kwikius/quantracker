@@ -26,8 +26,6 @@
 
 #include "osd/on_telemetry_received.hpp"
 
-#define QUANTRACKER_GROUND_COMMANDLINE_MODE
-
 #if defined QUANTRACKER_GROUND_COMMANDLINE_MODE
 void parse_commandline();
 #else
@@ -38,9 +36,6 @@ bool button_pressed(); // atomic
 void clear_button_pressed(); // atomic
 
 namespace {
-
-   bool button_down() {return quan::stm32::get<user_button_pin>() == false;}
-
    quan::uav::osd::norm_position_type next_pos;
    constexpr TickType_t vrx_telem_wait_time_ms = 50U;
 
