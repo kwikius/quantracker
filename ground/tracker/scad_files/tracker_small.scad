@@ -22,7 +22,7 @@ ballrace_inner_dia = 35;
 ballrace_outer_dia = 44;
 ballrace_thickness = 5;
 gear_thickness = 6;
-
+// 35x44x5
 // next up 40x52x7 available on ebay
 
 flange_thickness = 3;
@@ -30,7 +30,7 @@ ballrace_clearance = 0.1;
 
 show_ballrace = true;
 show_inner_bearing_holder = true;
-show_inner_bearing_bracket = true;
+show_inner_bearing_bracket = false;
 show_inner_bearing_holder_p2 = true;
 show_outer_bearing_holder = true;
 show_circlip = true;
@@ -38,12 +38,22 @@ show_outer_bearing_holder_p2 = true;
 show_motor = true;
 show_main_gear = true;
 show_pinion = true;
-show_pinion_as_cylinder = true;
+show_pinion_as_cylinder = false;
 show_pinion_as_gear = true;
 show_section = true;
-show_motor_mount = true;
+show_motor_mount = false;
+show_slipring = true;
 
 do_print_transform = false;// false;
+
+module slipring1(){
+     translate([0,0,0]){
+    rotate([180,0,0]){
+       
+            slipring();
+        }
+    }
+}
 
 module main_gear(){
    shroud_height = 2;
@@ -83,7 +93,7 @@ module pinion(){
             }
             if (show_pinion_as_gear){
                translate([0,0,0]){
-                  gear(number_of_teeth=9,circular_pitch=300,clearance = 0.0, rim_thickness = gear_thickness);
+                  gear(number_of_teeth=7,circular_pitch=300,clearance = 0.0, rim_thickness = gear_thickness);
                }
             }
          }
@@ -99,7 +109,7 @@ module pinion(){
 
 module motor(){
    translate([0,0,25]){
-      rotate([180,0,0]){
+      rotate([180,0,90]){
          union(){
             intersection(){
                cylinder (h=17,d=12 ,center = true);
@@ -268,8 +278,8 @@ module outer_bearing_holder()
 	thickness = 2;
 	vertical_clearance = 0.1;
    horizontal_clearance = 0.1;
-   height_above_bearing_top = 5.1;
-   depth_below_bearing_bottom = 10;
+   height_above_bearing_top = 4;
+   depth_below_bearing_bottom = 3;
    bearer_thickness =  (ballrace_outer_dia - ballrace_inner_dia)/6;
    circlip_thickness = 2;
  
@@ -348,12 +358,16 @@ module main_object()
 					circlip();
 			   }
          }
+         
+         if(show_slipring){
+            slipring1(); 
+         }
 
          if ( show_main_gear){
             main_gear();
          }
 
-         translate([12.8,0,0]){
+         translate([14.5,0,0]){
             if (show_motor){
                motor();
             } 
