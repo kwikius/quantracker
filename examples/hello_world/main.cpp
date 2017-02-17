@@ -19,6 +19,10 @@ int main()
    vTaskStartScheduler(); 
 }
 
+namespace {
+ uint32_t draw_count = 0;
+}
+
 // your custom drawing function
 void quan::uav::osd::on_draw()
 {
@@ -26,4 +30,9 @@ void quan::uav::osd::on_draw()
     draw_line ( {-120,-100}, {80,100}, colour_type::white ); // white
     draw_line ( {-100,-100}, {100,100}, colour_type::black ); // black
     draw_bitmap(get_bitmap(BitmapID::home_arrow),{50,-50});
+
+    if ( ++draw_count == 50){
+       draw_count = 0;
+       quan::stm32::complement<heartbeat_led_pin>();
+    }
 }
