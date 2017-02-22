@@ -20,7 +20,7 @@
 _HeapSize = 0x12000;
 
 /* minimum size of main stack */
-_MainThreadStackSize = 0x8000; 
+_MainThreadStackSize = 0x2000; 
 
 /*
 total size allocated to rtos task stacks in stack ram
