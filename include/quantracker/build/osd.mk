@@ -1,5 +1,4 @@
 
-
 ifeq ($(QUANTRACKER_ROOT_DIR), )
 $(error "QUANTRACKER_ROOT_DIR must be defined to the path to the quantracker root directory.")
 endif
@@ -29,10 +28,6 @@ include $(QUANTRACKER_ROOT_DIR)Dependencies.mk
 ###############################################################
 ifeq ($(TOOLCHAIN_PREFIX), )
 $(error "TOOLCHAIN_PREFIX must be defined to the path to the gcc-arm compiler - see README.")
-endif
-
-ifeq ($(TOOLCHAIN_GCC_VERSION), )
-$(error "TOOLCHAIN_GCC_VERSION must be defined to the gcc-arm compiler version - see README.")
 endif
 
 ifeq ($(QUAN_INCLUDE_PATH), )
