@@ -9,7 +9,7 @@ extern "C" void __cxa_pure_virtual()
      while (1);
 }
 
-void *__dso_handle;
+//void *__dso_handle;
 
 extern "C" void   vPortFree( void *pv );
 extern "C" void * pvPortMalloc(size_t n);
