@@ -35,9 +35,9 @@ OBJDIR = obj/
 BINDIR = bin/
 
 static_library_files = \
-   quantracker_air_system.a \
-   quantracker_air_osd.a \
-   quantracker_air_graphics_api.a \
+     $(TARGET_LIB_NAME_PREFIX)_system.a \
+     $(TARGET_LIB_NAME_PREFIX)_osd.a \
+     $(TARGET_LIB_NAME_PREFIX)_graphics_api.a \
    flash_variables.a
 
 # in the board directory
@@ -69,7 +69,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LDFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
+	$(LD) $(LDFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf  $(objects) \
    -Wl,--undefined=_sbrk $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp

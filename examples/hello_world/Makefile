@@ -68,7 +68,7 @@ test: $(ELF_FILE)
 
 $(ELF_FILE): $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LDFLAGS) -Wl,-Map=$(MAP_FILE) -o $(ELF_FILE) $(INIT_LIBS) $(objects) \
+	$(LD) $(LDFLAGS) -Wl,-Map=$(MAP_FILE) -o $(ELF_FILE) $(objects) \
    -Wl,--undefined=_sbrk $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)$(TARGET_LIB_NAME_PREFIX)_%.o : %.cpp

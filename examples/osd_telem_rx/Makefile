@@ -19,11 +19,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
-LINKER_SCRIPT = stm32f4.ld
-
 QUANTRACKER_ROOT_DIR = ../../
 
 TELEMETRY_DIRECTION = QUAN_OSD_TELEM_RECEIVER
+
+LINKER_SCRIPT = stm32f4.ld
 
 include $(QUANTRACKER_ROOT_DIR)include/quantracker/build/osd.mk
 
@@ -33,7 +33,6 @@ RESOURCE_PATH = $(QUANTRACKER_ROOT_DIR)examples/osd_example1/
 local_objects = main.o application.o setup.o on_draw.o rx_telemetry.o
 
 OBJDIR = ./obj/
-
 BINDIR = ./bin/
 
 obj_local_objects = $(patsubst %,$(OBJDIR)%,$(local_objects))
@@ -43,10 +42,10 @@ resource_objects = fonts.o
 obj_resource_objects = $(patsubst %,$(OBJDIR)%,$(resource_objects))
 
 static_library_files = \
-   quantracker_air_graphics_api.a \
-   flash_variables.a \
-   quantracker_air_osd_rx.a \
-   quantracker_air_system.a
+   $(TARGET_LIB_NAME_PREFIX)_graphics_api.a\
+   $(TARGET_LIB_NAME_PREFIX)_system.a \
+   $(TARGET_LIB_NAME_PREFIX)_osd_rx.a \
+   flash_variables.a
 
 objects =  $(obj_local_objects) $(obj_resource_objects) 
 

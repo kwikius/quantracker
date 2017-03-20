@@ -121,15 +121,15 @@ CFLAGS  = -Wall -Wdouble-promotion -std=gnu++11 -fno-rtti -fno-exceptions -c -g 
 
 #--------linking ----------------------------
 
-INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
-INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o 
+#INIT_LIB_PREFIX = $(TOOLCHAIN_PREFIX)/lib/gcc/arm-none-eabi/$(TOOLCHAIN_GCC_VERSION)/armv7e-m/fpu/
+#INIT_LIBS = $(INIT_LIB_PREFIX)crti.o $(INIT_LIB_PREFIX)crtn.o 
 
 STATIC_LIBRARY_PATH = $(QUANTRACKER_ROOT_DIR)lib/osd/
 LD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-g++
 CP      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objcopy
 OD      = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-objdump
 SIZ     = $(TOOLCHAIN_PREFIX)bin/arm-none-eabi-size
-LDFLAGS = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
+LDFLAGS = -T$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL)  -nodefaultlibs \
  $(PROCESSOR_FLAGS) --specs=nano.specs $(CFLAG_EXTRAS) -Wl,--gc-sections
 
 CPFLAGS = -Obinary

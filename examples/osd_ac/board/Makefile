@@ -69,7 +69,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) $(static_libraries) 
 	@ echo "..linking"
-	$(LD) $(LDFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
+	$(LD) $(LDFLAGS) -Wl,-Map=$(BINDIR)output.map -o $(BINDIR)main.elf $(objects) \
    -Wl,--undefined=_sbrk $(static_libraries) 
 
 $(obj_board_objects): $(OBJDIR)%.o : %.cpp

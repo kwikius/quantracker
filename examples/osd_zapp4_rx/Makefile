@@ -44,10 +44,10 @@ resource_objects = fonts.o
 obj_resource_objects = $(patsubst %,$(OBJDIR)%,$(resource_objects))
 
 static_library_files = \
-   quantracker_air_graphics_api.a \
-   flash_variables.a \
-   quantracker_air_osd_rx.a \
-   quantracker_air_system.a
+   $(TARGET_LIB_NAME_PREFIX)_graphics_api.a\
+   $(TARGET_LIB_NAME_PREFIX)_system.a \
+   $(TARGET_LIB_NAME_PREFIX)_osd_rx.a \
+   flash_variables.a
 
 objects =  $(obj_local_objects) $(obj_resource_objects) 
 
@@ -61,8 +61,7 @@ test: $(BINDIR)main.elf
 
 $(BINDIR)main.elf: $(objects) 
 	@ echo "..linking"
-	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(INIT_LIBS) $(objects) \
--Wl,--undefined=_sbrk $(static_libraries)
+	$(LD) $(LDFLAGS) -o $(BINDIR)main.elf $(objects) -Wl,--undefined=_sbrk $(static_libraries)
 
 $(obj_local_objects): $(OBJDIR)%.o : %.cpp
 	$(CC) $(CFLAGS) $< -o $@

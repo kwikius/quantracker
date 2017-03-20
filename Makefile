@@ -62,6 +62,25 @@ clean_hello_world:
 
 upload_hello_world:
 	$(MAKE) -C examples/hello_world upload_sp
+#---------------
+osd_zapp4_rx: 
+	$(MAKE) -C examples/osd_zapp4_rx
+
+clean_osd_zapp4_rx:
+	$(MAKE) -C examples/osd_zapp4_rx clean
+
+upload_osd_zapp4_rx:
+	$(MAKE) -C examples/osd_zapp4_rx upload_sp
+
+#---------------
+osd_zapp4_tx: 
+	$(MAKE) -C examples/osd_zapp4_tx
+
+clean_osd_zapp4_tx:
+	$(MAKE) -C examples/osd_zapp4_tx clean
+
+upload_osd_zapp4_tx:
+	$(MAKE) -C examples/osd_zapp4_tx upload_sp
 
 else
 quantracker-make-help:
