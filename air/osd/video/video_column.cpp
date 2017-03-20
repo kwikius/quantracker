@@ -327,7 +327,8 @@ namespace {
    uint32_t rx_data_idx;
    uint32_t rx_data_max  =0;
 #endif
- 
+
+ volatile uint8_t sink =0;
 }//namespace
 
 #if defined QUAN_OSD_TELEM_RECEIVER
@@ -340,7 +341,7 @@ extern "C" void USART6_IRQHandler()
        rx_data_ptr[rx_data_idx] = av_telem_usart::get()->dr;
        ++ rx_data_idx;
       }else{
-        volatile uint16_t sink = av_telem_usart::get()->dr;
+        sink = av_telem_usart::get()->dr;
       }
    }
    av_telem_usart::get()->sr = 0;
@@ -351,7 +352,6 @@ extern "C" void USART6_IRQHandler()
 // at start of first telem row
 void video_cfg::columns::telem::enable()
 {
-
    auto const clks_bit = spi_clock::get_telem_clks_per_bit() /2;
 
 #if defined QUAN_OSD_TELEM_TRANSMITTER
