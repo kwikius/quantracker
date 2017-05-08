@@ -54,6 +54,7 @@ namespace {
             quan::stm32::set<blue_led_pin>();
          }
       #endif
+       // TODO add receive from rf modem
       }
    }
 
