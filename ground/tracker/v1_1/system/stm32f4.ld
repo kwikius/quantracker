@@ -35,7 +35,7 @@ _MainThreadStackSize = 0x1000;
 /*
 total size allocated to rtos task stacks in stack ram
 */
-_TaskStacksSize = 0xA000;
+_TaskStacksSize = 0x7000;
 
 MEMORY
 {

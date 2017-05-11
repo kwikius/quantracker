@@ -28,6 +28,7 @@
 
 void osd_setup();
 void setup_telemetry_parser();
+void setup_modem_parser();
 
 namespace {
 
@@ -72,7 +73,12 @@ extern "C" void setup()
   setup_leds();
   gcs_serial::setup<9600>(local_interrupt_priority::gcs_serial_port);
   gcs_serial::enable();
+  
+  modem_serial::setup<115200>(local_interrupt_priority::modem_serial_port);
+  modem_serial::enable();
 
   setup_telemetry_parser();
+  setup_modem_parser();
+
   azimuth_servo::setup();
 }

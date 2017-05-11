@@ -29,6 +29,7 @@ void create_draw_task();
 void create_telemetry_receiver_task();
 void create_tracker_task();
 void create_button_press_task();
+void create_modem_task();
 
 int main()
 {
@@ -38,6 +39,7 @@ int main()
 
    setup();
    create_telemetry_receiver_task();
+   create_modem_task();
    create_draw_task();
    create_tracker_task();
    create_button_press_task();

@@ -42,11 +42,11 @@ static_library_files = \
 
 static_libraries = $(patsubst %,$(STATIC_LIBRARY_PATH)%,$(static_library_files))
 
-local_objects = main.o command_line.o tracker_task.o button_pressed_task.o tracking_update.o
+local_objects = main.o command_line.o tracker_task.o modem_task.o button_pressed_task.o tracking_update.o
 
 obj_local_objects = $(patsubst %,$(OBJDIR)%, $(local_objects))
 
-system_objects = flash.o gcs_serial.o rtos_hooks.o setup.o spbrk.o user.o
+system_objects = flash.o gcs_serial.o modem_serial.o rtos_hooks.o setup.o spbrk.o user.o
 obj_system_objects = $(patsubst %,$(OBJDIR)%, $(system_objects))
 
 osd_objects = on_draw.o on_telemetry_received.o

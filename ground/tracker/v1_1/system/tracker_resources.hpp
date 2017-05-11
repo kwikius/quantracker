@@ -121,6 +121,21 @@ typedef quan::stm32::freertos::usart_tx_rx_task<
    char
 > gcs_serial;
 
+//----------------------------------------------------------------
+
+typedef quan::stm32::uart4                   modem_usart;
+
+typedef quan::mcu::pin<quan::stm32::gpioa,0>  modem_txo_pin;
+typedef quan::mcu::pin<quan::stm32::gpioa,1>  modem_rxi_pin;
+
+// modem
+typedef quan::stm32::freertos::usart_tx_rx_task<
+   modem_usart,
+   200,200,
+   modem_txo_pin,modem_rxi_pin,
+   char
+> modem_serial;
+
 /*
 --- frsky/mavlink telem
        tx                        USART4-TXO PA0

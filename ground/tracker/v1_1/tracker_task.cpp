@@ -18,6 +18,7 @@
 
 #include "FreeRTOS.h"
 #include <task.h>
+#include <queue.h>
 #include <quan/stm32/millis.hpp>
 #include <quan/uav/osd/api.hpp>
 #include "system/resources.hpp"
@@ -31,6 +32,8 @@ void parse_commandline();
 #else
 void tracking_update(quan::uav::osd::norm_position_type const & pos);
 #endif
+
+QueueHandle_t get_modem_telem_queue_handle();
 
 bool button_pressed(); // atomic
 void clear_button_pressed(); // atomic
@@ -53,8 +56,12 @@ namespace {
          }else{
             quan::stm32::set<blue_led_pin>();
          }
+
+         if ( xQueueReceive(get_modem_telem_queue_handle(),&next_pos,0) == pdTRUE){
+            tracking_update(next_pos);
+            quan::stm32::clear<blue_led_pin>();
+         }
       #endif
-       // TODO add receive from rf modem
       }
    }
 
