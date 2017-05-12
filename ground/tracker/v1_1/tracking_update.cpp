@@ -102,9 +102,6 @@ void tracking_update(quan::uav::osd::norm_position_type const & pos)
       case tracker_t::initialising:
          if (button_pressed()){
             gcs_serial::write("preparing to track\n");
-            quan::stm32::clear<blue_led_pin>();
-            quan::stm32::clear<green_led_pin>();
-            quan::stm32::clear<heartbeat_led_pin>();
             azimuth_encoder::set_index(0U);
             button_pressed_time = quan::stm32::millis();
             tracker_state = tracker_t::preparing_to_track;
@@ -118,6 +115,7 @@ void tracking_update(quan::uav::osd::norm_position_type const & pos)
             elevation_servo::enable();
             clear_button_pressed();
             tracker_state = tracker_t::tracking;
+            quan::stm32::set<heartbeat_led_pin>();
             gcs_serial::write("tracking\n");
          } 
       break;

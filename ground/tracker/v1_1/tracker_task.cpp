@@ -39,35 +39,56 @@ bool button_pressed(); // atomic
 void clear_button_pressed(); // atomic
 
 namespace {
+   QUAN_QUANTITY_LITERAL(time,ms)
+   
    quan::uav::osd::norm_position_type next_pos;
-   constexpr TickType_t vrx_telem_wait_time_ms = 50U;
+   auto constexpr max_data_delay = 250_ms;
+   bool data_good = true;
+   quan::time_<int64_t>::ms last_data_time {0LL};
 
    void tracker_task(void * params)
    {
-      auto const now = quan::stm32::millis();
-      gcs_serial::print<100>("starting tracker task at %lu\n", static_cast<uint32_t>(now.numeric_value()));
+      gcs_serial::print<100>("starting tracker task at %lu\n", static_cast<uint32_t>(quan::stm32::millis().numeric_value()));
+
+      quan::stm32::set<blue_led_pin>();
+      quan::stm32::clear<green_led_pin>();
+      quan::stm32::clear<heartbeat_led_pin>();
+
       for(;;){ 
       #if defined QUANTRACKER_GROUND_COMMANDLINE_MODE
          parse_commandline();
       #else
-         if ( xQueueReceive(get_vrx_telem_queue_handle(),&next_pos,vrx_telem_wait_time_ms) == pdTRUE){
-            tracking_update(next_pos);
-            quan::stm32::clear<blue_led_pin>();
-         }else{
-            quan::stm32::set<blue_led_pin>();
-         }
+         auto const now = quan::stm32::millis();
+         
+         bool const new_data  =   (
+            ( xQueueReceive(get_vrx_telem_queue_handle(),&next_pos,0) == pdTRUE) || 
+            ( xQueueReceive(get_modem_telem_queue_handle(),&next_pos,0) == pdTRUE) 
+         );
 
-         if ( xQueueReceive(get_modem_telem_queue_handle(),&next_pos,0) == pdTRUE){
+         if (new_data) {
+            data_good = true;
             tracking_update(next_pos);
             quan::stm32::clear<blue_led_pin>();
+            quan::stm32::set<green_led_pin>();
+            last_data_time = now;
+            
+         }else {
+            
+            if ( data_good && (( now - last_data_time) >= max_data_delay)){
+               // really want to beep here
+               data_good = false;
+               quan::stm32::set<blue_led_pin>();
+               quan::stm32::clear<green_led_pin>();
+            }
          }
+         vTaskDelay(5);
       #endif
       }
    }
 
    char dummy_param = 0;
    TaskHandle_t task_handle = NULL;
-   constexpr uint32_t task_stack_size = 3000U;
+   constexpr uint32_t task_stack_size = 2000U;
    StackType_t __attribute__ ((used,section (".task_stacks"))) task_stack[task_stack_size];
    StaticTask_t __attribute__ ((used,section (".task_stacks"))) task_buffer;
 }

@@ -1,0 +1,12 @@
+433 MHz legal requirements
+
+434.04 – 434.79 MHz 10 mW 
+
+Set min freq to 434050 
+Set mavlink off
+set air baud to 4000
+
+set netid to 405
+turn off ECC and OP Resend
+
+

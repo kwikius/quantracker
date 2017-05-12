@@ -31,8 +31,8 @@ struct local_interrupt_priority {
 };
 
 struct local_task_priority{
-   static constexpr uint32_t tracker_task = tskIDLE_PRIORITY + 3UL;
-   static constexpr uint32_t button_press_task = tskIDLE_PRIORITY + 3UL;
+   static constexpr uint32_t tracker_task = tskIDLE_PRIORITY + 1UL;
+   static constexpr uint32_t button_press_task = tskIDLE_PRIORITY + 2UL;
    static constexpr uint32_t modem_task = tskIDLE_PRIORITY + 3UL;
 };
 
