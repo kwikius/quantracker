@@ -73,7 +73,7 @@ extern "C" void setup()
   setup_leds();
   gcs_serial::setup<9600>(local_interrupt_priority::gcs_serial_port);
   gcs_serial::enable();
-  
+
   setup_telemetry_parser();
 
   azimuth_servo::setup();

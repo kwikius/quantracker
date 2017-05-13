@@ -22,6 +22,7 @@
 #include "azimuth/servo.hpp"
 #include "elevation/servo.hpp"
 #include "system/resources.hpp"
+#include <quan/min.hpp>
 
 bool button_pressed(); // atomic
 void clear_button_pressed(); // atomic
@@ -45,20 +46,41 @@ namespace {
 
    tracker_t tracker_state = tracker_t::initialising;
 
-   auto button_pressed_time = 0.0_ms;
-
-   constexpr auto filter_k = 0.9f;
+   quan::time_<int64_t>::ms button_pressed_time = 0.0_ms;
 
    template <typename T>
-   void filter (T & value, T const & new_value){
-      value = value * filter_k + new_value * ( 1.0f - filter_k);
+   void filter (T & value, T const & new_value, float filter_k){
+      value = new_value * filter_k + value * (1.f - filter_k);
+   }
+
+   quan::time_<int64_t>::ms last_filter_update = 0_ms;
+
+   /*
+      set weight of filter according to how long since last update.
+      longer time than more weight
+      If a long time than set weight to 1
+   */
+
+   float get_update_filter_k()
+   {
+       constexpr auto k = 0.05f / 20_ms; // gives full weight at 0.4 s
+       auto const now = quan::stm32::millis();
+       quan::time_<int64_t>::ms dt = now - last_filter_update;
+       last_filter_update = now;
+       if ( dt > quan::time_<int64_t>::ms{1000}){
+          return 1.f;
+       }else{
+          return quan::min(k * dt,1.f);
+       }
    }
 
    void update_aircraft_position(local_pos_type const & new_position)
    {
-      filter(m_aircraft_position.lat,new_position.lat);
-      filter(m_aircraft_position.lon,new_position.lon);
-      filter(m_aircraft_position.alt,new_position.alt);
+      float const filter_k = get_update_filter_k();
+      
+      filter(m_aircraft_position.lat,new_position.lat,filter_k);
+      filter(m_aircraft_position.lon,new_position.lon,filter_k);
+      filter(m_aircraft_position.alt,new_position.alt,filter_k);
    }
 
    constexpr quan::length::m radius_of_world = 6371000_m;
@@ -115,7 +137,6 @@ void tracking_update(quan::uav::osd::norm_position_type const & pos)
             elevation_servo::enable();
             clear_button_pressed();
             tracker_state = tracker_t::tracking;
-            quan::stm32::set<heartbeat_led_pin>();
             gcs_serial::write("tracking\n");
          } 
       break;

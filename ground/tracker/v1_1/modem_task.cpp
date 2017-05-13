@@ -7,47 +7,44 @@
 #include <quan/uav/osd/api.hpp>
 #include <quan/tracker/zapp4/position.hpp>
 #include <quan/uav/cobs/packet_parser.hpp>
+#include "osd/on_telemetry_received.hpp"
 
 namespace {
 
   QUAN_QUANTITY_LITERAL(time,ms)
 
   quan::uav::cobs::packet_parser* packet_parser = nullptr;
-  QueueHandle_t modem_telem_queue_handle = nullptr;
 
   void parse_data(char ch);
 
 }
-
-QueueHandle_t get_modem_telem_queue_handle() { return modem_telem_queue_handle;}
-
 
 namespace {
 
    void setup_modem_parser()
    {
       packet_parser = new quan::uav::cobs::packet_parser{19}; // set to the size of the largest encoded packet
-      modem_telem_queue_handle = xQueueCreate(1,sizeof(quan::uav::osd::norm_position_type));
    }
 
    void modem_task(void * params)
    {
-
-      // allow the modem time to startup
-      auto now = quan::stm32::millis();
-      while ( (quan::stm32::millis() - now ) < 200_ms){asm volatile ("nop":::);}
-
       // init the serial port
+      setup_modem_parser();
       modem_serial::setup<115200>(local_interrupt_priority::modem_serial_port);
       modem_serial::enable();
-      setup_modem_parser();
 
-      ///----------------------
+      TickType_t xLastWakeTime = xTaskGetTickCount();
+
+      // buffer data for 1/100 th sec or so
+      TickType_t constexpr period = 11;
 
       for(;;){ 
-         // get the next char ( blocking)
-         char const ch = modem_serial::get();
-         parse_data(ch);
+         vTaskDelayUntil(&xLastWakeTime, period);
+         size_t const n = modem_serial::in_avail();
+         for(size_t i = 0; i < n; ++i){
+            char const ch = modem_serial::get();
+            parse_data(ch);
+         }
       }
    }
 
@@ -85,13 +82,17 @@ namespace {
                if (packet_length == quan::tracker::zapp4::get_decoded_packet_size(command_id)){
                   quan::uav::osd::norm_position_type pos;
                   bool const result = quan::tracker::zapp4::get_position(packet_parser->get_decoded_packet(),pos);
-                  if (result && (modem_telem_queue_handle != nullptr)){
-                     xQueueOverwrite(modem_telem_queue_handle,&pos);
+                  if (result) {
+                     auto q_handle = get_telem_queue_handle();
+                     if ( q_handle != nullptr){
+                        xQueueSendToBack(q_handle,&pos,0);
+                     }
                   }
                }
-            }
                break;
+            } 
             default:{
+               gcs_serial::write("unknown rf_modem data \n");
                break;
             }
          }

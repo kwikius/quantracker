@@ -20,6 +20,6 @@
 
 #include "FreeRTOS.h"
 
-QueueHandle_t get_vrx_telem_queue_handle();
+QueueHandle_t get_telem_queue_handle();
 
 #endif // QUANTRACKER_GROUND_TRACKER_V1_1_ON_TELEMETRY_RECEIVED_HPP_INCLUDED

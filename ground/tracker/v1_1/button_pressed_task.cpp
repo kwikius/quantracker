@@ -53,9 +53,12 @@ namespace{
    {
       m_setup_button();
  
+      TickType_t lastWakeTime = xTaskGetTickCount();
+      TickType_t constexpr not_pressed_delay = 10U;
+      TickType_t constexpr pressed_delay = 100U;
       for (;;){
          if ( ! m_button_pressed){
-            vTaskDelay(5U);
+            vTaskDelayUntil(&lastWakeTime,not_pressed_delay);
             switch( m_button ){
                case m_button_state::up:
                   if ( m_button_is_down() ){
@@ -64,7 +67,7 @@ namespace{
                         m_button_count = 0U;
                      }
                   }else{
-                     m_button_count = 0;
+                     m_button_count = 0U;
                   }
                break;
                case m_button_state::down:
@@ -81,7 +84,7 @@ namespace{
                break;
             }
          }else{
-            vTaskDelay(100);
+            vTaskDelayUntil(&lastWakeTime,pressed_delay);
          }
       }
    }

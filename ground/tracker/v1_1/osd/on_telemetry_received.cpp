@@ -32,15 +32,14 @@
 
 namespace {
   quan::uav::cobs::packet_parser* packet_parser = nullptr;
-  QueueHandle_t vrx_telem_queue_handle = nullptr;
+  QueueHandle_t telem_queue_handle = nullptr;
   void parse_data(char ch);
 }
 
-QueueHandle_t get_vrx_telem_queue_handle()
+QueueHandle_t get_telem_queue_handle()
 {
-   return vrx_telem_queue_handle;
+   return telem_queue_handle;
 }
-
 
 /*
   call in setup
@@ -48,7 +47,7 @@ QueueHandle_t get_vrx_telem_queue_handle()
 void setup_telemetry_parser()
 {
    packet_parser = new quan::uav::cobs::packet_parser{19}; // set to the size of the largest encoded packet
-   vrx_telem_queue_handle = xQueueCreate(1,sizeof(quan::uav::osd::norm_position_type));
+   telem_queue_handle = xQueueCreate(3,sizeof(quan::uav::osd::norm_position_type));
 }
 
 // callback
@@ -64,10 +63,6 @@ void on_telemetry_received()
 
 namespace {
 
-/*
-    set green led on good and red led on bad data
-*/
-
    void parse_data(char ch)
    {
       uint16_t const packet_length = packet_parser->parse(ch);
@@ -80,12 +75,13 @@ namespace {
                if (packet_length == quan::tracker::zapp4::get_decoded_packet_size(command_id)){
                   quan::uav::osd::norm_position_type pos;
                   bool const result = quan::tracker::zapp4::get_position(packet_parser->get_decoded_packet(),pos);
-                  if (result && (get_vrx_telem_queue_handle() != nullptr)){
-                     xQueueOverwrite(get_vrx_telem_queue_handle(),&pos);
+                  auto const q_handle = get_telem_queue_handle();
+                  if (result && (q_handle != nullptr)){
+                     xQueueSendToBack(q_handle,&pos,0);
                   }
                }
-            }
                break;
+            }
             default:{
                break;
             }

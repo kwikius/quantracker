@@ -39,12 +39,10 @@ bool button_pressed(); // atomic
 void clear_button_pressed(); // atomic
 
 namespace {
-   QUAN_QUANTITY_LITERAL(time,ms)
+  
    
    quan::uav::osd::norm_position_type next_pos;
-   auto constexpr max_data_delay = 250_ms;
-   bool data_good = true;
-   quan::time_<int64_t>::ms last_data_time {0LL};
+   auto constexpr max_data_delay = 500U;
 
    void tracker_task(void * params)
    {
@@ -52,36 +50,19 @@ namespace {
 
       quan::stm32::set<blue_led_pin>();
       quan::stm32::clear<green_led_pin>();
-      quan::stm32::clear<heartbeat_led_pin>();
-
+  
       for(;;){ 
       #if defined QUANTRACKER_GROUND_COMMANDLINE_MODE
          parse_commandline();
       #else
-         auto const now = quan::stm32::millis();
-         
-         bool const new_data  =   (
-            ( xQueueReceive(get_vrx_telem_queue_handle(),&next_pos,0) == pdTRUE) || 
-            ( xQueueReceive(get_modem_telem_queue_handle(),&next_pos,0) == pdTRUE) 
-         );
-
-         if (new_data) {
-            data_good = true;
+         if (xQueueReceive(get_telem_queue_handle(),&next_pos,max_data_delay) == pdTRUE) {
             tracking_update(next_pos);
             quan::stm32::clear<blue_led_pin>();
             quan::stm32::set<green_led_pin>();
-            last_data_time = now;
-            
          }else {
-            
-            if ( data_good && (( now - last_data_time) >= max_data_delay)){
-               // really want to beep here
-               data_good = false;
-               quan::stm32::set<blue_led_pin>();
-               quan::stm32::clear<green_led_pin>();
-            }
+            quan::stm32::set<blue_led_pin>();
+            quan::stm32::clear<green_led_pin>();
          }
-         vTaskDelay(5);
       #endif
       }
    }
