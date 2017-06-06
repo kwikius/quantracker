@@ -68,9 +68,14 @@ namespace {
          if ( osd_state::get() == osd_state::external_video ){  
 
             constexpr quan::time::ms wait_time{1000};
+            bool const result = detail::swap_osd_buffers(wait_time);
             // if no video and want to got to internal video mode
-            if (!detail::swap_osd_buffers(wait_time) && detail::swap_to_internal_video_on_signal_lost){
+            if (! result){
+               if( detail::swap_to_internal_video_on_signal_lost){
                   osd_state::set(osd_state::internal_video);
+               }else {
+                 vTaskDelay(100);
+               }
             }
          }
 
