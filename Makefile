@@ -2,6 +2,7 @@
 # if no arguments given then do info
 ifneq ($(MAKECMDGOALS),)
 
+#AERFLITE=True for aerflite
 .PHONY: ground_tracker_v1 ground_tracker_v2 osd_libs clean_osd_libs \
 osd_example1 clean_osd_example1 upload_osd_example1 osd_ac \
 clean_osd_ac upload_osd_ac
