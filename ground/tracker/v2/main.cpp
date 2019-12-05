@@ -29,8 +29,8 @@ bool initialise_flash();
 void signal_exit_failure();
 void create_draw_task();
 void create_tracker_mode_task();
-void create_telemetry_receiver_task();
-void create_compass_task();
+//void create_telemetry_receiver_task();
+//void create_compass_task();
 
 int main()
 {
@@ -39,9 +39,9 @@ int main()
   }
   setup();
 
-  create_compass_task();
-  create_telemetry_receiver_task();
-  create_draw_task();
+  //create_compass_task();
+ // create_telemetry_receiver_task();
+ // create_draw_task();
   create_tracker_mode_task();
   vTaskStartScheduler();
 

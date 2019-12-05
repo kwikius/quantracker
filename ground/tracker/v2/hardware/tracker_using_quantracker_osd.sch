@@ -39,7 +39,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 6
 Title ""
 Date "10 dec 2015"
 Rev ""
@@ -146,5 +146,11 @@ F27 "USART4_TXO" I R 6800 2600 60
 F28 "LED1" O R 6800 2850 60 
 F29 "PAN_MOTOR_DIR" O R 6800 4850 60 
 F30 "MCU_GND" I R 6800 6100 60 
+$EndSheet
+$Sheet
+S 1750 1575 1150 925 
+U 5B893130
+F0 "gps" 60
+F1 "gps.sch" 60
 $EndSheet
 $EndSCHEMATC

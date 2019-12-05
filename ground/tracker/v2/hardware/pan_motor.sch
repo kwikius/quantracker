@@ -39,7 +39,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 5
+Sheet 4 6
 Title ""
 Date "10 dec 2015"
 Rev ""
@@ -64,9 +64,9 @@ Connection ~ 8400 5600
 Wire Wire Line
 	10000 4700 9800 4700
 Wire Wire Line
-	9800 5600 9800 4700
+	9800 4700 9800 5600
 Wire Wire Line
-	6400 5600 9800 5600
+	9800 5600 6400 5600
 Connection ~ 9450 4600
 Wire Wire Line
 	8950 4600 10000 4600

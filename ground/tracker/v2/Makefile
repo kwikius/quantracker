@@ -78,7 +78,7 @@ $(static_libraries) :
 upload : test
 	st-flash write $(BINDIR)main.bin 0x8000000
 
-upload_sp : test
+sp_upload : test
 	$(STM32FLASH) -b 115200 -f -v -w $(BINDIR)main.bin /dev/ttyUSB0
 
 clean:

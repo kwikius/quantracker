@@ -145,6 +145,8 @@ namespace {
       quan::stm32::module_enable<quan::stm32::syscfg>(); 
       quan::stm32::set_exti_syscfg<mag_rdy_exti_pin>();
       quan::stm32::set_exti_falling_edge<mag_rdy_exti_pin>();
+      // TODO Looks wrong
+      // Should be EXTI_IRQ here ?
       NVIC_SetPriority(I2C1_EV_IRQn,interrupt_priority::exti_mag_rdy);
       quan::stm32::nvic_enable_exti_irq<mag_rdy_exti_pin>();
       quan::stm32::module_enable<mag_rdy_exti_pin::port_type>();

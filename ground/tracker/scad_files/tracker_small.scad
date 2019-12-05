@@ -41,7 +41,7 @@ show_pinion = true;
 show_pinion_as_cylinder = false;
 show_pinion_as_gear = true;
 show_section = true;
-show_motor_mount = false;
+show_motor_mount = true;
 show_slipring = true;
 
 do_print_transform = false;// false;

@@ -56,19 +56,19 @@ namespace {
          bool cmdline_mode = true;
          sp_task::write("Quantracker Ground V2\n");
          // look for 3 x ret
-         for (int count = 0;count < 3; ++count){
-           if ( sp_task::get() != '\r'){
-               cmdline_mode = false;
-               break;
-           }
-         }
-         if ( cmdline_mode){
+//         for (int count = 0;count < 3; ++count){
+//           if ( sp_task::get() != '\r'){
+//               cmdline_mode = false;
+//               break;
+//           }
+//         }
+//         if ( cmdline_mode){
             do_cmdline();
-         }else{
-            // start tracking
-            sp_task::write("start tracking\n");
-    
-         }
+//         }else{
+//            // start tracking
+//            sp_task::write("start tracking\n");
+//    
+//         }
          // delete the task
          for (;;){
            //  quan::stm32::set<heartbeat_led_pin>();

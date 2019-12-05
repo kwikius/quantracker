@@ -1,0 +1,87 @@
+orig osd board
+PC11 is SPI3_MISO (nwhite mask) . white spi is not active in internal. white also connected to PC6 TIM3_CH1
+PC2 is SPI2_MISO (nblack level)
+see /quantracker/air/osd/video/internal_video_mode.cpp
+
+in internal mode
+
+tim3 (called video_rows_line_counter) is used to create sync. 
+To do that the 4 osd colours are remapped.
+
+1 colour is sync tip, one black, one white
+
+The sync tip is invoked from the timer.
+PC6 ( av_telem_tx is used connected to same video mux input as white pix in ext mode ( white px is input in internal mode)
+PC6 is written as a timer output for tim3 to create the csync TIM3_CH1.
+
+The black spi is used to create black and white levels on the video line
+
+values used are
+nwhite nblack
+
+//external mode
+//   nblack nwhite adg704_addr  colour_out
+//    0       0    0             grey
+//    0       1    1             black
+//    1       0    2             white  
+//    1       1    3             video
+// in internal mode
+// nwhite is always 0
+//   nblack nwhite adg704_addr  int colour_out  (ext colour_out
+//    0       0     0           black           grey
+//    0       1     0           black           black
+//    1       0     2           white           white
+//    1       1     2           white           transparent
+
+
+.......
+
+In aerflite 
+
+PA6 is used as line counter input (for tim3 video_rows_line_counter TIM3_CH1 video_in_tim3_hsync_pin) 
+in ext mode and csync out in internal mode. In internal mode SPI2 black spi not used for telem or osd
+data output
+
+ext mode
+mask  level   colour
+    0    0     white
+    0    1     black
+    1    0     transparent
+    1    1     transparent
+
+int mode
+  mask  level   colour
+    0    0     white
+    0    1     black
+    1    0     csync
+    1    1     csync
+
+tim3 is still used
+To select internal video mode, 
+Make SPI2_MISO (mask) input 
+pull PB2/BOOT1 high which pulls the video input to the mux to ground 
+( may need to change the 68 ohm resistor to a link).
+This also opens the analog switch to allow PA6 to be an output to use as csynch (TIM3_CH1)To turn on csync write a 1 on mask else keep at 0
+
+SPI3_MISO (level) is used for black and white data levels. 1 is black and 0 is white. Only white is useful here so prewrite all buffer to 1
+then write white. Can writing be same as external mode? Can telem be same?
+Level of SPI3_MISO when not running? ( should be black level == 1, try using internal pullup)
+
+TIM3 is set as a counter
+state is kept of current line number or what part in vsync
+starts as just before the vsync sequence
+TODO check correct pulse output for aerflite. Should be a positive sync pulse
+Each interrupt is at start of pulse
+The end of the sync pulse sends a trigger output to start the gate timer for processing each osd line
+
+During Internal video mode, the sync_sep irq is running lloking for external video
+
+
+
+
+
+
+
+
+
+
